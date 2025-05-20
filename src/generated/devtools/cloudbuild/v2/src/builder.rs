@@ -17,7 +17,7 @@
 pub mod repository_manager {
     use crate::Result;
 
-    /// A builder for [RepositoryManager][super::super::client::RepositoryManager].
+    /// A builder for [RepositoryManager][crate::client::RepositoryManager].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod repository_manager {
         }
     }
 
-    /// Common implementation for [super::super::client::RepositoryManager] request builders.
+    /// Common implementation for [crate::client::RepositoryManager] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::RepositoryManager>,
@@ -68,7 +68,7 @@ pub mod repository_manager {
         }
     }
 
-    /// The request builder for [RepositoryManager::create_connection][super::super::client::RepositoryManager::create_connection] calls.
+    /// The request builder for [RepositoryManager::create_connection][crate::client::RepositoryManager::create_connection] calls.
     ///
     /// # Example
     /// ```no_run
@@ -116,7 +116,7 @@ pub mod repository_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_connection][super::super::client::RepositoryManager::create_connection].
+        /// on [create_connection][crate::client::RepositoryManager::create_connection].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_connection(self.0.request, self.0.options)
@@ -203,7 +203,7 @@ pub mod repository_manager {
         }
     }
 
-    /// The request builder for [RepositoryManager::get_connection][super::super::client::RepositoryManager::get_connection] calls.
+    /// The request builder for [RepositoryManager::get_connection][crate::client::RepositoryManager::get_connection] calls.
     ///
     /// # Example
     /// ```no_run
@@ -266,7 +266,7 @@ pub mod repository_manager {
         }
     }
 
-    /// The request builder for [RepositoryManager::list_connections][super::super::client::RepositoryManager::list_connections] calls.
+    /// The request builder for [RepositoryManager::list_connections][crate::client::RepositoryManager::list_connections] calls.
     ///
     /// # Example
     /// ```no_run
@@ -369,7 +369,7 @@ pub mod repository_manager {
         }
     }
 
-    /// The request builder for [RepositoryManager::update_connection][super::super::client::RepositoryManager::update_connection] calls.
+    /// The request builder for [RepositoryManager::update_connection][crate::client::RepositoryManager::update_connection] calls.
     ///
     /// # Example
     /// ```no_run
@@ -417,7 +417,7 @@ pub mod repository_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_connection][super::super::client::RepositoryManager::update_connection].
+        /// on [update_connection][crate::client::RepositoryManager::update_connection].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_connection(self.0.request, self.0.options)
@@ -518,7 +518,7 @@ pub mod repository_manager {
         }
     }
 
-    /// The request builder for [RepositoryManager::delete_connection][super::super::client::RepositoryManager::delete_connection] calls.
+    /// The request builder for [RepositoryManager::delete_connection][crate::client::RepositoryManager::delete_connection] calls.
     ///
     /// # Example
     /// ```no_run
@@ -566,7 +566,7 @@ pub mod repository_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_connection][super::super::client::RepositoryManager::delete_connection].
+        /// on [delete_connection][crate::client::RepositoryManager::delete_connection].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_connection(self.0.request, self.0.options)
@@ -637,7 +637,7 @@ pub mod repository_manager {
         }
     }
 
-    /// The request builder for [RepositoryManager::create_repository][super::super::client::RepositoryManager::create_repository] calls.
+    /// The request builder for [RepositoryManager::create_repository][crate::client::RepositoryManager::create_repository] calls.
     ///
     /// # Example
     /// ```no_run
@@ -685,7 +685,7 @@ pub mod repository_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_repository][super::super::client::RepositoryManager::create_repository].
+        /// on [create_repository][crate::client::RepositoryManager::create_repository].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_repository(self.0.request, self.0.options)
@@ -772,7 +772,7 @@ pub mod repository_manager {
         }
     }
 
-    /// The request builder for [RepositoryManager::batch_create_repositories][super::super::client::RepositoryManager::batch_create_repositories] calls.
+    /// The request builder for [RepositoryManager::batch_create_repositories][crate::client::RepositoryManager::batch_create_repositories] calls.
     ///
     /// # Example
     /// ```no_run
@@ -822,7 +822,7 @@ pub mod repository_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [batch_create_repositories][super::super::client::RepositoryManager::batch_create_repositories].
+        /// on [batch_create_repositories][crate::client::RepositoryManager::batch_create_repositories].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .batch_create_repositories(self.0.request, self.0.options)
@@ -897,7 +897,7 @@ pub mod repository_manager {
         }
     }
 
-    /// The request builder for [RepositoryManager::get_repository][super::super::client::RepositoryManager::get_repository] calls.
+    /// The request builder for [RepositoryManager::get_repository][crate::client::RepositoryManager::get_repository] calls.
     ///
     /// # Example
     /// ```no_run
@@ -960,7 +960,7 @@ pub mod repository_manager {
         }
     }
 
-    /// The request builder for [RepositoryManager::list_repositories][super::super::client::RepositoryManager::list_repositories] calls.
+    /// The request builder for [RepositoryManager::list_repositories][crate::client::RepositoryManager::list_repositories] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1072,7 +1072,7 @@ pub mod repository_manager {
         }
     }
 
-    /// The request builder for [RepositoryManager::delete_repository][super::super::client::RepositoryManager::delete_repository] calls.
+    /// The request builder for [RepositoryManager::delete_repository][crate::client::RepositoryManager::delete_repository] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1120,7 +1120,7 @@ pub mod repository_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_repository][super::super::client::RepositoryManager::delete_repository].
+        /// on [delete_repository][crate::client::RepositoryManager::delete_repository].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_repository(self.0.request, self.0.options)
@@ -1191,7 +1191,7 @@ pub mod repository_manager {
         }
     }
 
-    /// The request builder for [RepositoryManager::fetch_read_write_token][super::super::client::RepositoryManager::fetch_read_write_token] calls.
+    /// The request builder for [RepositoryManager::fetch_read_write_token][crate::client::RepositoryManager::fetch_read_write_token] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1257,7 +1257,7 @@ pub mod repository_manager {
         }
     }
 
-    /// The request builder for [RepositoryManager::fetch_read_token][super::super::client::RepositoryManager::fetch_read_token] calls.
+    /// The request builder for [RepositoryManager::fetch_read_token][crate::client::RepositoryManager::fetch_read_token] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1320,7 +1320,7 @@ pub mod repository_manager {
         }
     }
 
-    /// The request builder for [RepositoryManager::fetch_linkable_repositories][super::super::client::RepositoryManager::fetch_linkable_repositories] calls.
+    /// The request builder for [RepositoryManager::fetch_linkable_repositories][crate::client::RepositoryManager::fetch_linkable_repositories] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1432,7 +1432,7 @@ pub mod repository_manager {
         }
     }
 
-    /// The request builder for [RepositoryManager::fetch_git_refs][super::super::client::RepositoryManager::fetch_git_refs] calls.
+    /// The request builder for [RepositoryManager::fetch_git_refs][crate::client::RepositoryManager::fetch_git_refs] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1504,7 +1504,7 @@ pub mod repository_manager {
         }
     }
 
-    /// The request builder for [RepositoryManager::set_iam_policy][super::super::client::RepositoryManager::set_iam_policy] calls.
+    /// The request builder for [RepositoryManager::set_iam_policy][crate::client::RepositoryManager::set_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1607,7 +1607,7 @@ pub mod repository_manager {
         }
     }
 
-    /// The request builder for [RepositoryManager::get_iam_policy][super::super::client::RepositoryManager::get_iam_policy] calls.
+    /// The request builder for [RepositoryManager::get_iam_policy][crate::client::RepositoryManager::get_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1688,7 +1688,7 @@ pub mod repository_manager {
         }
     }
 
-    /// The request builder for [RepositoryManager::test_iam_permissions][super::super::client::RepositoryManager::test_iam_permissions] calls.
+    /// The request builder for [RepositoryManager::test_iam_permissions][crate::client::RepositoryManager::test_iam_permissions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1767,7 +1767,7 @@ pub mod repository_manager {
         }
     }
 
-    /// The request builder for [RepositoryManager::get_operation][super::super::client::RepositoryManager::get_operation] calls.
+    /// The request builder for [RepositoryManager::get_operation][crate::client::RepositoryManager::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1831,7 +1831,7 @@ pub mod repository_manager {
         }
     }
 
-    /// The request builder for [RepositoryManager::cancel_operation][super::super::client::RepositoryManager::cancel_operation] calls.
+    /// The request builder for [RepositoryManager::cancel_operation][crate::client::RepositoryManager::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run

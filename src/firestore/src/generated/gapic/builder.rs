@@ -17,7 +17,7 @@
 pub mod firestore {
     use crate::Result;
 
-    /// A builder for [Firestore][super::super::client::Firestore].
+    /// A builder for [Firestore][crate::client::Firestore].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod firestore {
         }
     }
 
-    /// Common implementation for [super::super::client::Firestore] request builders.
+    /// Common implementation for [crate::client::Firestore] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::Firestore>,
@@ -68,7 +68,7 @@ pub mod firestore {
         }
     }
 
-    /// The request builder for [Firestore::get_document][super::super::client::Firestore::get_document] calls.
+    /// The request builder for [Firestore::get_document][crate::client::Firestore::get_document] calls.
     ///
     /// # Example
     /// ```no_run
@@ -186,7 +186,7 @@ pub mod firestore {
         }
     }
 
-    /// The request builder for [Firestore::list_documents][super::super::client::Firestore::list_documents] calls.
+    /// The request builder for [Firestore::list_documents][crate::client::Firestore::list_documents] calls.
     ///
     /// # Example
     /// ```no_run
@@ -362,7 +362,7 @@ pub mod firestore {
         }
     }
 
-    /// The request builder for [Firestore::update_document][super::super::client::Firestore::update_document] calls.
+    /// The request builder for [Firestore::update_document][crate::client::Firestore::update_document] calls.
     ///
     /// # Example
     /// ```no_run
@@ -493,7 +493,7 @@ pub mod firestore {
         }
     }
 
-    /// The request builder for [Firestore::delete_document][super::super::client::Firestore::delete_document] calls.
+    /// The request builder for [Firestore::delete_document][crate::client::Firestore::delete_document] calls.
     ///
     /// # Example
     /// ```no_run
@@ -574,7 +574,7 @@ pub mod firestore {
         }
     }
 
-    /// The request builder for [Firestore::begin_transaction][super::super::client::Firestore::begin_transaction] calls.
+    /// The request builder for [Firestore::begin_transaction][crate::client::Firestore::begin_transaction] calls.
     ///
     /// # Example
     /// ```no_run
@@ -658,7 +658,7 @@ pub mod firestore {
         }
     }
 
-    /// The request builder for [Firestore::commit][super::super::client::Firestore::commit] calls.
+    /// The request builder for [Firestore::commit][crate::client::Firestore::commit] calls.
     ///
     /// # Example
     /// ```no_run
@@ -738,7 +738,7 @@ pub mod firestore {
         }
     }
 
-    /// The request builder for [Firestore::rollback][super::super::client::Firestore::rollback] calls.
+    /// The request builder for [Firestore::rollback][crate::client::Firestore::rollback] calls.
     ///
     /// # Example
     /// ```no_run
@@ -809,7 +809,7 @@ pub mod firestore {
         }
     }
 
-    /// The request builder for [Firestore::partition_query][super::super::client::Firestore::partition_query] calls.
+    /// The request builder for [Firestore::partition_query][crate::client::Firestore::partition_query] calls.
     ///
     /// # Example
     /// ```no_run
@@ -972,7 +972,7 @@ pub mod firestore {
         }
     }
 
-    /// The request builder for [Firestore::list_collection_ids][super::super::client::Firestore::list_collection_ids] calls.
+    /// The request builder for [Firestore::list_collection_ids][crate::client::Firestore::list_collection_ids] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1077,7 +1077,7 @@ pub mod firestore {
         }
     }
 
-    /// The request builder for [Firestore::batch_write][super::super::client::Firestore::batch_write] calls.
+    /// The request builder for [Firestore::batch_write][crate::client::Firestore::batch_write] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1162,7 +1162,7 @@ pub mod firestore {
         }
     }
 
-    /// The request builder for [Firestore::create_document][super::super::client::Firestore::create_document] calls.
+    /// The request builder for [Firestore::create_document][crate::client::Firestore::create_document] calls.
     ///
     /// # Example
     /// ```no_run

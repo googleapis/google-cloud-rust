@@ -17,7 +17,7 @@
 pub mod api_hub {
     use crate::Result;
 
-    /// A builder for [ApiHub][super::super::client::ApiHub].
+    /// A builder for [ApiHub][crate::client::ApiHub].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod api_hub {
         }
     }
 
-    /// Common implementation for [super::super::client::ApiHub] request builders.
+    /// Common implementation for [crate::client::ApiHub] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiHub>,
@@ -66,7 +66,7 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::create_api][super::super::client::ApiHub::create_api] calls.
+    /// The request builder for [ApiHub::create_api][crate::client::ApiHub::create_api] calls.
     ///
     /// # Example
     /// ```no_run
@@ -155,7 +155,7 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::get_api][super::super::client::ApiHub::get_api] calls.
+    /// The request builder for [ApiHub::get_api][crate::client::ApiHub::get_api] calls.
     ///
     /// # Example
     /// ```no_run
@@ -216,7 +216,7 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::list_apis][super::super::client::ApiHub::list_apis] calls.
+    /// The request builder for [ApiHub::list_apis][crate::client::ApiHub::list_apis] calls.
     ///
     /// # Example
     /// ```no_run
@@ -323,7 +323,7 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::update_api][super::super::client::ApiHub::update_api] calls.
+    /// The request builder for [ApiHub::update_api][crate::client::ApiHub::update_api] calls.
     ///
     /// # Example
     /// ```no_run
@@ -420,7 +420,7 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::delete_api][super::super::client::ApiHub::delete_api] calls.
+    /// The request builder for [ApiHub::delete_api][crate::client::ApiHub::delete_api] calls.
     ///
     /// # Example
     /// ```no_run
@@ -487,7 +487,7 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::create_version][super::super::client::ApiHub::create_version] calls.
+    /// The request builder for [ApiHub::create_version][crate::client::ApiHub::create_version] calls.
     ///
     /// # Example
     /// ```no_run
@@ -576,7 +576,7 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::get_version][super::super::client::ApiHub::get_version] calls.
+    /// The request builder for [ApiHub::get_version][crate::client::ApiHub::get_version] calls.
     ///
     /// # Example
     /// ```no_run
@@ -637,7 +637,7 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::list_versions][super::super::client::ApiHub::list_versions] calls.
+    /// The request builder for [ApiHub::list_versions][crate::client::ApiHub::list_versions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -744,7 +744,7 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::update_version][super::super::client::ApiHub::update_version] calls.
+    /// The request builder for [ApiHub::update_version][crate::client::ApiHub::update_version] calls.
     ///
     /// # Example
     /// ```no_run
@@ -841,7 +841,7 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::delete_version][super::super::client::ApiHub::delete_version] calls.
+    /// The request builder for [ApiHub::delete_version][crate::client::ApiHub::delete_version] calls.
     ///
     /// # Example
     /// ```no_run
@@ -908,7 +908,7 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::create_spec][super::super::client::ApiHub::create_spec] calls.
+    /// The request builder for [ApiHub::create_spec][crate::client::ApiHub::create_spec] calls.
     ///
     /// # Example
     /// ```no_run
@@ -997,7 +997,7 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::get_spec][super::super::client::ApiHub::get_spec] calls.
+    /// The request builder for [ApiHub::get_spec][crate::client::ApiHub::get_spec] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1058,7 +1058,7 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::get_spec_contents][super::super::client::ApiHub::get_spec_contents] calls.
+    /// The request builder for [ApiHub::get_spec_contents][crate::client::ApiHub::get_spec_contents] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1119,7 +1119,7 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::list_specs][super::super::client::ApiHub::list_specs] calls.
+    /// The request builder for [ApiHub::list_specs][crate::client::ApiHub::list_specs] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1226,7 +1226,7 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::update_spec][super::super::client::ApiHub::update_spec] calls.
+    /// The request builder for [ApiHub::update_spec][crate::client::ApiHub::update_spec] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1323,7 +1323,7 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::delete_spec][super::super::client::ApiHub::delete_spec] calls.
+    /// The request builder for [ApiHub::delete_spec][crate::client::ApiHub::delete_spec] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1384,7 +1384,7 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::get_api_operation][super::super::client::ApiHub::get_api_operation] calls.
+    /// The request builder for [ApiHub::get_api_operation][crate::client::ApiHub::get_api_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1445,7 +1445,7 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::list_api_operations][super::super::client::ApiHub::list_api_operations] calls.
+    /// The request builder for [ApiHub::list_api_operations][crate::client::ApiHub::list_api_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1555,7 +1555,7 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::get_definition][super::super::client::ApiHub::get_definition] calls.
+    /// The request builder for [ApiHub::get_definition][crate::client::ApiHub::get_definition] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1616,7 +1616,7 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::create_deployment][super::super::client::ApiHub::create_deployment] calls.
+    /// The request builder for [ApiHub::create_deployment][crate::client::ApiHub::create_deployment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1708,7 +1708,7 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::get_deployment][super::super::client::ApiHub::get_deployment] calls.
+    /// The request builder for [ApiHub::get_deployment][crate::client::ApiHub::get_deployment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1769,7 +1769,7 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::list_deployments][super::super::client::ApiHub::list_deployments] calls.
+    /// The request builder for [ApiHub::list_deployments][crate::client::ApiHub::list_deployments] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1876,7 +1876,7 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::update_deployment][super::super::client::ApiHub::update_deployment] calls.
+    /// The request builder for [ApiHub::update_deployment][crate::client::ApiHub::update_deployment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1976,7 +1976,7 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::delete_deployment][super::super::client::ApiHub::delete_deployment] calls.
+    /// The request builder for [ApiHub::delete_deployment][crate::client::ApiHub::delete_deployment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2040,7 +2040,7 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::create_attribute][super::super::client::ApiHub::create_attribute] calls.
+    /// The request builder for [ApiHub::create_attribute][crate::client::ApiHub::create_attribute] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2129,7 +2129,7 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::get_attribute][super::super::client::ApiHub::get_attribute] calls.
+    /// The request builder for [ApiHub::get_attribute][crate::client::ApiHub::get_attribute] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2190,7 +2190,7 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::update_attribute][super::super::client::ApiHub::update_attribute] calls.
+    /// The request builder for [ApiHub::update_attribute][crate::client::ApiHub::update_attribute] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2287,7 +2287,7 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::delete_attribute][super::super::client::ApiHub::delete_attribute] calls.
+    /// The request builder for [ApiHub::delete_attribute][crate::client::ApiHub::delete_attribute] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2348,7 +2348,7 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::list_attributes][super::super::client::ApiHub::list_attributes] calls.
+    /// The request builder for [ApiHub::list_attributes][crate::client::ApiHub::list_attributes] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2455,7 +2455,7 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::search_resources][super::super::client::ApiHub::search_resources] calls.
+    /// The request builder for [ApiHub::search_resources][crate::client::ApiHub::search_resources] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2570,7 +2570,7 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::create_external_api][super::super::client::ApiHub::create_external_api] calls.
+    /// The request builder for [ApiHub::create_external_api][crate::client::ApiHub::create_external_api] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2662,7 +2662,7 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::get_external_api][super::super::client::ApiHub::get_external_api] calls.
+    /// The request builder for [ApiHub::get_external_api][crate::client::ApiHub::get_external_api] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2723,7 +2723,7 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::update_external_api][super::super::client::ApiHub::update_external_api] calls.
+    /// The request builder for [ApiHub::update_external_api][crate::client::ApiHub::update_external_api] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2823,7 +2823,7 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::delete_external_api][super::super::client::ApiHub::delete_external_api] calls.
+    /// The request builder for [ApiHub::delete_external_api][crate::client::ApiHub::delete_external_api] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2887,7 +2887,7 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::list_external_apis][super::super::client::ApiHub::list_external_apis] calls.
+    /// The request builder for [ApiHub::list_external_apis][crate::client::ApiHub::list_external_apis] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2991,7 +2991,7 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::list_locations][super::super::client::ApiHub::list_locations] calls.
+    /// The request builder for [ApiHub::list_locations][crate::client::ApiHub::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3099,7 +3099,7 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::get_location][super::super::client::ApiHub::get_location] calls.
+    /// The request builder for [ApiHub::get_location][crate::client::ApiHub::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3158,7 +3158,7 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::list_operations][super::super::client::ApiHub::list_operations] calls.
+    /// The request builder for [ApiHub::list_operations][crate::client::ApiHub::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3268,7 +3268,7 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::get_operation][super::super::client::ApiHub::get_operation] calls.
+    /// The request builder for [ApiHub::get_operation][crate::client::ApiHub::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3330,7 +3330,7 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::delete_operation][super::super::client::ApiHub::delete_operation] calls.
+    /// The request builder for [ApiHub::delete_operation][crate::client::ApiHub::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3392,7 +3392,7 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::cancel_operation][super::super::client::ApiHub::cancel_operation] calls.
+    /// The request builder for [ApiHub::cancel_operation][crate::client::ApiHub::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3458,7 +3458,7 @@ pub mod api_hub {
 pub mod api_hub_dependencies {
     use crate::Result;
 
-    /// A builder for [ApiHubDependencies][super::super::client::ApiHubDependencies].
+    /// A builder for [ApiHubDependencies][crate::client::ApiHubDependencies].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -3486,7 +3486,7 @@ pub mod api_hub_dependencies {
         }
     }
 
-    /// Common implementation for [super::super::client::ApiHubDependencies] request builders.
+    /// Common implementation for [crate::client::ApiHubDependencies] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiHubDependencies>,
@@ -3509,7 +3509,7 @@ pub mod api_hub_dependencies {
         }
     }
 
-    /// The request builder for [ApiHubDependencies::create_dependency][super::super::client::ApiHubDependencies::create_dependency] calls.
+    /// The request builder for [ApiHubDependencies::create_dependency][crate::client::ApiHubDependencies::create_dependency] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3603,7 +3603,7 @@ pub mod api_hub_dependencies {
         }
     }
 
-    /// The request builder for [ApiHubDependencies::get_dependency][super::super::client::ApiHubDependencies::get_dependency] calls.
+    /// The request builder for [ApiHubDependencies::get_dependency][crate::client::ApiHubDependencies::get_dependency] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3666,7 +3666,7 @@ pub mod api_hub_dependencies {
         }
     }
 
-    /// The request builder for [ApiHubDependencies::update_dependency][super::super::client::ApiHubDependencies::update_dependency] calls.
+    /// The request builder for [ApiHubDependencies::update_dependency][crate::client::ApiHubDependencies::update_dependency] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3768,7 +3768,7 @@ pub mod api_hub_dependencies {
         }
     }
 
-    /// The request builder for [ApiHubDependencies::delete_dependency][super::super::client::ApiHubDependencies::delete_dependency] calls.
+    /// The request builder for [ApiHubDependencies::delete_dependency][crate::client::ApiHubDependencies::delete_dependency] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3834,7 +3834,7 @@ pub mod api_hub_dependencies {
         }
     }
 
-    /// The request builder for [ApiHubDependencies::list_dependencies][super::super::client::ApiHubDependencies::list_dependencies] calls.
+    /// The request builder for [ApiHubDependencies::list_dependencies][crate::client::ApiHubDependencies::list_dependencies] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3946,7 +3946,7 @@ pub mod api_hub_dependencies {
         }
     }
 
-    /// The request builder for [ApiHubDependencies::list_locations][super::super::client::ApiHubDependencies::list_locations] calls.
+    /// The request builder for [ApiHubDependencies::list_locations][crate::client::ApiHubDependencies::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4056,7 +4056,7 @@ pub mod api_hub_dependencies {
         }
     }
 
-    /// The request builder for [ApiHubDependencies::get_location][super::super::client::ApiHubDependencies::get_location] calls.
+    /// The request builder for [ApiHubDependencies::get_location][crate::client::ApiHubDependencies::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4117,7 +4117,7 @@ pub mod api_hub_dependencies {
         }
     }
 
-    /// The request builder for [ApiHubDependencies::list_operations][super::super::client::ApiHubDependencies::list_operations] calls.
+    /// The request builder for [ApiHubDependencies::list_operations][crate::client::ApiHubDependencies::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4229,7 +4229,7 @@ pub mod api_hub_dependencies {
         }
     }
 
-    /// The request builder for [ApiHubDependencies::get_operation][super::super::client::ApiHubDependencies::get_operation] calls.
+    /// The request builder for [ApiHubDependencies::get_operation][crate::client::ApiHubDependencies::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4293,7 +4293,7 @@ pub mod api_hub_dependencies {
         }
     }
 
-    /// The request builder for [ApiHubDependencies::delete_operation][super::super::client::ApiHubDependencies::delete_operation] calls.
+    /// The request builder for [ApiHubDependencies::delete_operation][crate::client::ApiHubDependencies::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4357,7 +4357,7 @@ pub mod api_hub_dependencies {
         }
     }
 
-    /// The request builder for [ApiHubDependencies::cancel_operation][super::super::client::ApiHubDependencies::cancel_operation] calls.
+    /// The request builder for [ApiHubDependencies::cancel_operation][crate::client::ApiHubDependencies::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4425,7 +4425,7 @@ pub mod api_hub_dependencies {
 pub mod host_project_registration_service {
     use crate::Result;
 
-    /// A builder for [HostProjectRegistrationService][super::super::client::HostProjectRegistrationService].
+    /// A builder for [HostProjectRegistrationService][crate::client::HostProjectRegistrationService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -4453,7 +4453,7 @@ pub mod host_project_registration_service {
         }
     }
 
-    /// Common implementation for [super::super::client::HostProjectRegistrationService] request builders.
+    /// Common implementation for [crate::client::HostProjectRegistrationService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::HostProjectRegistrationService>,
@@ -4476,7 +4476,7 @@ pub mod host_project_registration_service {
         }
     }
 
-    /// The request builder for [HostProjectRegistrationService::create_host_project_registration][super::super::client::HostProjectRegistrationService::create_host_project_registration] calls.
+    /// The request builder for [HostProjectRegistrationService::create_host_project_registration][crate::client::HostProjectRegistrationService::create_host_project_registration] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4580,7 +4580,7 @@ pub mod host_project_registration_service {
         }
     }
 
-    /// The request builder for [HostProjectRegistrationService::get_host_project_registration][super::super::client::HostProjectRegistrationService::get_host_project_registration] calls.
+    /// The request builder for [HostProjectRegistrationService::get_host_project_registration][crate::client::HostProjectRegistrationService::get_host_project_registration] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4648,7 +4648,7 @@ pub mod host_project_registration_service {
         }
     }
 
-    /// The request builder for [HostProjectRegistrationService::list_host_project_registrations][super::super::client::HostProjectRegistrationService::list_host_project_registrations] calls.
+    /// The request builder for [HostProjectRegistrationService::list_host_project_registrations][crate::client::HostProjectRegistrationService::list_host_project_registrations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4772,7 +4772,7 @@ pub mod host_project_registration_service {
         }
     }
 
-    /// The request builder for [HostProjectRegistrationService::list_locations][super::super::client::HostProjectRegistrationService::list_locations] calls.
+    /// The request builder for [HostProjectRegistrationService::list_locations][crate::client::HostProjectRegistrationService::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4882,7 +4882,7 @@ pub mod host_project_registration_service {
         }
     }
 
-    /// The request builder for [HostProjectRegistrationService::get_location][super::super::client::HostProjectRegistrationService::get_location] calls.
+    /// The request builder for [HostProjectRegistrationService::get_location][crate::client::HostProjectRegistrationService::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4943,7 +4943,7 @@ pub mod host_project_registration_service {
         }
     }
 
-    /// The request builder for [HostProjectRegistrationService::list_operations][super::super::client::HostProjectRegistrationService::list_operations] calls.
+    /// The request builder for [HostProjectRegistrationService::list_operations][crate::client::HostProjectRegistrationService::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5055,7 +5055,7 @@ pub mod host_project_registration_service {
         }
     }
 
-    /// The request builder for [HostProjectRegistrationService::get_operation][super::super::client::HostProjectRegistrationService::get_operation] calls.
+    /// The request builder for [HostProjectRegistrationService::get_operation][crate::client::HostProjectRegistrationService::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5119,7 +5119,7 @@ pub mod host_project_registration_service {
         }
     }
 
-    /// The request builder for [HostProjectRegistrationService::delete_operation][super::super::client::HostProjectRegistrationService::delete_operation] calls.
+    /// The request builder for [HostProjectRegistrationService::delete_operation][crate::client::HostProjectRegistrationService::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5183,7 +5183,7 @@ pub mod host_project_registration_service {
         }
     }
 
-    /// The request builder for [HostProjectRegistrationService::cancel_operation][super::super::client::HostProjectRegistrationService::cancel_operation] calls.
+    /// The request builder for [HostProjectRegistrationService::cancel_operation][crate::client::HostProjectRegistrationService::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5251,7 +5251,7 @@ pub mod host_project_registration_service {
 pub mod linting_service {
     use crate::Result;
 
-    /// A builder for [LintingService][super::super::client::LintingService].
+    /// A builder for [LintingService][crate::client::LintingService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -5279,7 +5279,7 @@ pub mod linting_service {
         }
     }
 
-    /// Common implementation for [super::super::client::LintingService] request builders.
+    /// Common implementation for [crate::client::LintingService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::LintingService>,
@@ -5302,7 +5302,7 @@ pub mod linting_service {
         }
     }
 
-    /// The request builder for [LintingService::get_style_guide][super::super::client::LintingService::get_style_guide] calls.
+    /// The request builder for [LintingService::get_style_guide][crate::client::LintingService::get_style_guide] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5365,7 +5365,7 @@ pub mod linting_service {
         }
     }
 
-    /// The request builder for [LintingService::update_style_guide][super::super::client::LintingService::update_style_guide] calls.
+    /// The request builder for [LintingService::update_style_guide][crate::client::LintingService::update_style_guide] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5463,7 +5463,7 @@ pub mod linting_service {
         }
     }
 
-    /// The request builder for [LintingService::get_style_guide_contents][super::super::client::LintingService::get_style_guide_contents] calls.
+    /// The request builder for [LintingService::get_style_guide_contents][crate::client::LintingService::get_style_guide_contents] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5529,7 +5529,7 @@ pub mod linting_service {
         }
     }
 
-    /// The request builder for [LintingService::lint_spec][super::super::client::LintingService::lint_spec] calls.
+    /// The request builder for [LintingService::lint_spec][crate::client::LintingService::lint_spec] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5592,7 +5592,7 @@ pub mod linting_service {
         }
     }
 
-    /// The request builder for [LintingService::list_locations][super::super::client::LintingService::list_locations] calls.
+    /// The request builder for [LintingService::list_locations][crate::client::LintingService::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5702,7 +5702,7 @@ pub mod linting_service {
         }
     }
 
-    /// The request builder for [LintingService::get_location][super::super::client::LintingService::get_location] calls.
+    /// The request builder for [LintingService::get_location][crate::client::LintingService::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5763,7 +5763,7 @@ pub mod linting_service {
         }
     }
 
-    /// The request builder for [LintingService::list_operations][super::super::client::LintingService::list_operations] calls.
+    /// The request builder for [LintingService::list_operations][crate::client::LintingService::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5875,7 +5875,7 @@ pub mod linting_service {
         }
     }
 
-    /// The request builder for [LintingService::get_operation][super::super::client::LintingService::get_operation] calls.
+    /// The request builder for [LintingService::get_operation][crate::client::LintingService::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5939,7 +5939,7 @@ pub mod linting_service {
         }
     }
 
-    /// The request builder for [LintingService::delete_operation][super::super::client::LintingService::delete_operation] calls.
+    /// The request builder for [LintingService::delete_operation][crate::client::LintingService::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6003,7 +6003,7 @@ pub mod linting_service {
         }
     }
 
-    /// The request builder for [LintingService::cancel_operation][super::super::client::LintingService::cancel_operation] calls.
+    /// The request builder for [LintingService::cancel_operation][crate::client::LintingService::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6071,7 +6071,7 @@ pub mod linting_service {
 pub mod api_hub_plugin {
     use crate::Result;
 
-    /// A builder for [ApiHubPlugin][super::super::client::ApiHubPlugin].
+    /// A builder for [ApiHubPlugin][crate::client::ApiHubPlugin].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -6099,7 +6099,7 @@ pub mod api_hub_plugin {
         }
     }
 
-    /// Common implementation for [super::super::client::ApiHubPlugin] request builders.
+    /// Common implementation for [crate::client::ApiHubPlugin] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiHubPlugin>,
@@ -6122,7 +6122,7 @@ pub mod api_hub_plugin {
         }
     }
 
-    /// The request builder for [ApiHubPlugin::get_plugin][super::super::client::ApiHubPlugin::get_plugin] calls.
+    /// The request builder for [ApiHubPlugin::get_plugin][crate::client::ApiHubPlugin::get_plugin] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6185,7 +6185,7 @@ pub mod api_hub_plugin {
         }
     }
 
-    /// The request builder for [ApiHubPlugin::enable_plugin][super::super::client::ApiHubPlugin::enable_plugin] calls.
+    /// The request builder for [ApiHubPlugin::enable_plugin][crate::client::ApiHubPlugin::enable_plugin] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6248,7 +6248,7 @@ pub mod api_hub_plugin {
         }
     }
 
-    /// The request builder for [ApiHubPlugin::disable_plugin][super::super::client::ApiHubPlugin::disable_plugin] calls.
+    /// The request builder for [ApiHubPlugin::disable_plugin][crate::client::ApiHubPlugin::disable_plugin] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6311,7 +6311,7 @@ pub mod api_hub_plugin {
         }
     }
 
-    /// The request builder for [ApiHubPlugin::list_locations][super::super::client::ApiHubPlugin::list_locations] calls.
+    /// The request builder for [ApiHubPlugin::list_locations][crate::client::ApiHubPlugin::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6421,7 +6421,7 @@ pub mod api_hub_plugin {
         }
     }
 
-    /// The request builder for [ApiHubPlugin::get_location][super::super::client::ApiHubPlugin::get_location] calls.
+    /// The request builder for [ApiHubPlugin::get_location][crate::client::ApiHubPlugin::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6482,7 +6482,7 @@ pub mod api_hub_plugin {
         }
     }
 
-    /// The request builder for [ApiHubPlugin::list_operations][super::super::client::ApiHubPlugin::list_operations] calls.
+    /// The request builder for [ApiHubPlugin::list_operations][crate::client::ApiHubPlugin::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6594,7 +6594,7 @@ pub mod api_hub_plugin {
         }
     }
 
-    /// The request builder for [ApiHubPlugin::get_operation][super::super::client::ApiHubPlugin::get_operation] calls.
+    /// The request builder for [ApiHubPlugin::get_operation][crate::client::ApiHubPlugin::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6658,7 +6658,7 @@ pub mod api_hub_plugin {
         }
     }
 
-    /// The request builder for [ApiHubPlugin::delete_operation][super::super::client::ApiHubPlugin::delete_operation] calls.
+    /// The request builder for [ApiHubPlugin::delete_operation][crate::client::ApiHubPlugin::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6722,7 +6722,7 @@ pub mod api_hub_plugin {
         }
     }
 
-    /// The request builder for [ApiHubPlugin::cancel_operation][super::super::client::ApiHubPlugin::cancel_operation] calls.
+    /// The request builder for [ApiHubPlugin::cancel_operation][crate::client::ApiHubPlugin::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6790,7 +6790,7 @@ pub mod api_hub_plugin {
 pub mod provisioning {
     use crate::Result;
 
-    /// A builder for [Provisioning][super::super::client::Provisioning].
+    /// A builder for [Provisioning][crate::client::Provisioning].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -6818,7 +6818,7 @@ pub mod provisioning {
         }
     }
 
-    /// Common implementation for [super::super::client::Provisioning] request builders.
+    /// Common implementation for [crate::client::Provisioning] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::Provisioning>,
@@ -6841,7 +6841,7 @@ pub mod provisioning {
         }
     }
 
-    /// The request builder for [Provisioning::create_api_hub_instance][super::super::client::Provisioning::create_api_hub_instance] calls.
+    /// The request builder for [Provisioning::create_api_hub_instance][crate::client::Provisioning::create_api_hub_instance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6889,7 +6889,7 @@ pub mod provisioning {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_api_hub_instance][super::super::client::Provisioning::create_api_hub_instance].
+        /// on [create_api_hub_instance][crate::client::Provisioning::create_api_hub_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_api_hub_instance(self.0.request, self.0.options)
@@ -6977,7 +6977,7 @@ pub mod provisioning {
         }
     }
 
-    /// The request builder for [Provisioning::get_api_hub_instance][super::super::client::Provisioning::get_api_hub_instance] calls.
+    /// The request builder for [Provisioning::get_api_hub_instance][crate::client::Provisioning::get_api_hub_instance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -7043,7 +7043,7 @@ pub mod provisioning {
         }
     }
 
-    /// The request builder for [Provisioning::lookup_api_hub_instance][super::super::client::Provisioning::lookup_api_hub_instance] calls.
+    /// The request builder for [Provisioning::lookup_api_hub_instance][crate::client::Provisioning::lookup_api_hub_instance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -7109,7 +7109,7 @@ pub mod provisioning {
         }
     }
 
-    /// The request builder for [Provisioning::list_locations][super::super::client::Provisioning::list_locations] calls.
+    /// The request builder for [Provisioning::list_locations][crate::client::Provisioning::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -7219,7 +7219,7 @@ pub mod provisioning {
         }
     }
 
-    /// The request builder for [Provisioning::get_location][super::super::client::Provisioning::get_location] calls.
+    /// The request builder for [Provisioning::get_location][crate::client::Provisioning::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -7280,7 +7280,7 @@ pub mod provisioning {
         }
     }
 
-    /// The request builder for [Provisioning::list_operations][super::super::client::Provisioning::list_operations] calls.
+    /// The request builder for [Provisioning::list_operations][crate::client::Provisioning::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -7392,7 +7392,7 @@ pub mod provisioning {
         }
     }
 
-    /// The request builder for [Provisioning::get_operation][super::super::client::Provisioning::get_operation] calls.
+    /// The request builder for [Provisioning::get_operation][crate::client::Provisioning::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -7456,7 +7456,7 @@ pub mod provisioning {
         }
     }
 
-    /// The request builder for [Provisioning::delete_operation][super::super::client::Provisioning::delete_operation] calls.
+    /// The request builder for [Provisioning::delete_operation][crate::client::Provisioning::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -7520,7 +7520,7 @@ pub mod provisioning {
         }
     }
 
-    /// The request builder for [Provisioning::cancel_operation][super::super::client::Provisioning::cancel_operation] calls.
+    /// The request builder for [Provisioning::cancel_operation][crate::client::Provisioning::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -7588,7 +7588,7 @@ pub mod provisioning {
 pub mod runtime_project_attachment_service {
     use crate::Result;
 
-    /// A builder for [RuntimeProjectAttachmentService][super::super::client::RuntimeProjectAttachmentService].
+    /// A builder for [RuntimeProjectAttachmentService][crate::client::RuntimeProjectAttachmentService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -7616,7 +7616,7 @@ pub mod runtime_project_attachment_service {
         }
     }
 
-    /// Common implementation for [super::super::client::RuntimeProjectAttachmentService] request builders.
+    /// Common implementation for [crate::client::RuntimeProjectAttachmentService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::RuntimeProjectAttachmentService>,
@@ -7639,7 +7639,7 @@ pub mod runtime_project_attachment_service {
         }
     }
 
-    /// The request builder for [RuntimeProjectAttachmentService::create_runtime_project_attachment][super::super::client::RuntimeProjectAttachmentService::create_runtime_project_attachment] calls.
+    /// The request builder for [RuntimeProjectAttachmentService::create_runtime_project_attachment][crate::client::RuntimeProjectAttachmentService::create_runtime_project_attachment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -7743,7 +7743,7 @@ pub mod runtime_project_attachment_service {
         }
     }
 
-    /// The request builder for [RuntimeProjectAttachmentService::get_runtime_project_attachment][super::super::client::RuntimeProjectAttachmentService::get_runtime_project_attachment] calls.
+    /// The request builder for [RuntimeProjectAttachmentService::get_runtime_project_attachment][crate::client::RuntimeProjectAttachmentService::get_runtime_project_attachment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -7811,7 +7811,7 @@ pub mod runtime_project_attachment_service {
         }
     }
 
-    /// The request builder for [RuntimeProjectAttachmentService::list_runtime_project_attachments][super::super::client::RuntimeProjectAttachmentService::list_runtime_project_attachments] calls.
+    /// The request builder for [RuntimeProjectAttachmentService::list_runtime_project_attachments][crate::client::RuntimeProjectAttachmentService::list_runtime_project_attachments] calls.
     ///
     /// # Example
     /// ```no_run
@@ -7935,7 +7935,7 @@ pub mod runtime_project_attachment_service {
         }
     }
 
-    /// The request builder for [RuntimeProjectAttachmentService::delete_runtime_project_attachment][super::super::client::RuntimeProjectAttachmentService::delete_runtime_project_attachment] calls.
+    /// The request builder for [RuntimeProjectAttachmentService::delete_runtime_project_attachment][crate::client::RuntimeProjectAttachmentService::delete_runtime_project_attachment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -8003,7 +8003,7 @@ pub mod runtime_project_attachment_service {
         }
     }
 
-    /// The request builder for [RuntimeProjectAttachmentService::lookup_runtime_project_attachment][super::super::client::RuntimeProjectAttachmentService::lookup_runtime_project_attachment] calls.
+    /// The request builder for [RuntimeProjectAttachmentService::lookup_runtime_project_attachment][crate::client::RuntimeProjectAttachmentService::lookup_runtime_project_attachment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -8071,7 +8071,7 @@ pub mod runtime_project_attachment_service {
         }
     }
 
-    /// The request builder for [RuntimeProjectAttachmentService::list_locations][super::super::client::RuntimeProjectAttachmentService::list_locations] calls.
+    /// The request builder for [RuntimeProjectAttachmentService::list_locations][crate::client::RuntimeProjectAttachmentService::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -8181,7 +8181,7 @@ pub mod runtime_project_attachment_service {
         }
     }
 
-    /// The request builder for [RuntimeProjectAttachmentService::get_location][super::super::client::RuntimeProjectAttachmentService::get_location] calls.
+    /// The request builder for [RuntimeProjectAttachmentService::get_location][crate::client::RuntimeProjectAttachmentService::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -8242,7 +8242,7 @@ pub mod runtime_project_attachment_service {
         }
     }
 
-    /// The request builder for [RuntimeProjectAttachmentService::list_operations][super::super::client::RuntimeProjectAttachmentService::list_operations] calls.
+    /// The request builder for [RuntimeProjectAttachmentService::list_operations][crate::client::RuntimeProjectAttachmentService::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -8354,7 +8354,7 @@ pub mod runtime_project_attachment_service {
         }
     }
 
-    /// The request builder for [RuntimeProjectAttachmentService::get_operation][super::super::client::RuntimeProjectAttachmentService::get_operation] calls.
+    /// The request builder for [RuntimeProjectAttachmentService::get_operation][crate::client::RuntimeProjectAttachmentService::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -8418,7 +8418,7 @@ pub mod runtime_project_attachment_service {
         }
     }
 
-    /// The request builder for [RuntimeProjectAttachmentService::delete_operation][super::super::client::RuntimeProjectAttachmentService::delete_operation] calls.
+    /// The request builder for [RuntimeProjectAttachmentService::delete_operation][crate::client::RuntimeProjectAttachmentService::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -8482,7 +8482,7 @@ pub mod runtime_project_attachment_service {
         }
     }
 
-    /// The request builder for [RuntimeProjectAttachmentService::cancel_operation][super::super::client::RuntimeProjectAttachmentService::cancel_operation] calls.
+    /// The request builder for [RuntimeProjectAttachmentService::cancel_operation][crate::client::RuntimeProjectAttachmentService::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run

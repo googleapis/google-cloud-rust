@@ -17,7 +17,7 @@
 pub mod license_management_service {
     use crate::Result;
 
-    /// A builder for [LicenseManagementService][super::super::client::LicenseManagementService].
+    /// A builder for [LicenseManagementService][crate::client::LicenseManagementService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod license_management_service {
         }
     }
 
-    /// Common implementation for [super::super::client::LicenseManagementService] request builders.
+    /// Common implementation for [crate::client::LicenseManagementService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManagementService>,
@@ -68,7 +68,7 @@ pub mod license_management_service {
         }
     }
 
-    /// The request builder for [LicenseManagementService::get_license_pool][super::super::client::LicenseManagementService::get_license_pool] calls.
+    /// The request builder for [LicenseManagementService::get_license_pool][crate::client::LicenseManagementService::get_license_pool] calls.
     ///
     /// # Example
     /// ```no_run
@@ -131,7 +131,7 @@ pub mod license_management_service {
         }
     }
 
-    /// The request builder for [LicenseManagementService::update_license_pool][super::super::client::LicenseManagementService::update_license_pool] calls.
+    /// The request builder for [LicenseManagementService::update_license_pool][crate::client::LicenseManagementService::update_license_pool] calls.
     ///
     /// # Example
     /// ```no_run
@@ -233,7 +233,7 @@ pub mod license_management_service {
         }
     }
 
-    /// The request builder for [LicenseManagementService::assign][super::super::client::LicenseManagementService::assign] calls.
+    /// The request builder for [LicenseManagementService::assign][crate::client::LicenseManagementService::assign] calls.
     ///
     /// # Example
     /// ```no_run
@@ -309,7 +309,7 @@ pub mod license_management_service {
         }
     }
 
-    /// The request builder for [LicenseManagementService::unassign][super::super::client::LicenseManagementService::unassign] calls.
+    /// The request builder for [LicenseManagementService::unassign][crate::client::LicenseManagementService::unassign] calls.
     ///
     /// # Example
     /// ```no_run
@@ -385,7 +385,7 @@ pub mod license_management_service {
         }
     }
 
-    /// The request builder for [LicenseManagementService::enumerate_licensed_users][super::super::client::LicenseManagementService::enumerate_licensed_users] calls.
+    /// The request builder for [LicenseManagementService::enumerate_licensed_users][crate::client::LicenseManagementService::enumerate_licensed_users] calls.
     ///
     /// # Example
     /// ```no_run
@@ -495,7 +495,7 @@ pub mod license_management_service {
         }
     }
 
-    /// The request builder for [LicenseManagementService::get_operation][super::super::client::LicenseManagementService::get_operation] calls.
+    /// The request builder for [LicenseManagementService::get_operation][crate::client::LicenseManagementService::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -563,7 +563,7 @@ pub mod license_management_service {
 pub mod consumer_procurement_service {
     use crate::Result;
 
-    /// A builder for [ConsumerProcurementService][super::super::client::ConsumerProcurementService].
+    /// A builder for [ConsumerProcurementService][crate::client::ConsumerProcurementService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -591,7 +591,7 @@ pub mod consumer_procurement_service {
         }
     }
 
-    /// Common implementation for [super::super::client::ConsumerProcurementService] request builders.
+    /// Common implementation for [crate::client::ConsumerProcurementService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::ConsumerProcurementService>,
@@ -614,7 +614,7 @@ pub mod consumer_procurement_service {
         }
     }
 
-    /// The request builder for [ConsumerProcurementService::place_order][super::super::client::ConsumerProcurementService::place_order] calls.
+    /// The request builder for [ConsumerProcurementService::place_order][crate::client::ConsumerProcurementService::place_order] calls.
     ///
     /// # Example
     /// ```no_run
@@ -659,7 +659,7 @@ pub mod consumer_procurement_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [place_order][super::super::client::ConsumerProcurementService::place_order].
+        /// on [place_order][crate::client::ConsumerProcurementService::place_order].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .place_order(self.0.request, self.0.options)
@@ -741,7 +741,7 @@ pub mod consumer_procurement_service {
         }
     }
 
-    /// The request builder for [ConsumerProcurementService::get_order][super::super::client::ConsumerProcurementService::get_order] calls.
+    /// The request builder for [ConsumerProcurementService::get_order][crate::client::ConsumerProcurementService::get_order] calls.
     ///
     /// # Example
     /// ```no_run
@@ -804,7 +804,7 @@ pub mod consumer_procurement_service {
         }
     }
 
-    /// The request builder for [ConsumerProcurementService::list_orders][super::super::client::ConsumerProcurementService::list_orders] calls.
+    /// The request builder for [ConsumerProcurementService::list_orders][crate::client::ConsumerProcurementService::list_orders] calls.
     ///
     /// # Example
     /// ```no_run
@@ -913,7 +913,7 @@ pub mod consumer_procurement_service {
         }
     }
 
-    /// The request builder for [ConsumerProcurementService::modify_order][super::super::client::ConsumerProcurementService::modify_order] calls.
+    /// The request builder for [ConsumerProcurementService::modify_order][crate::client::ConsumerProcurementService::modify_order] calls.
     ///
     /// # Example
     /// ```no_run
@@ -958,7 +958,7 @@ pub mod consumer_procurement_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [modify_order][super::super::client::ConsumerProcurementService::modify_order].
+        /// on [modify_order][crate::client::ConsumerProcurementService::modify_order].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .modify_order(self.0.request, self.0.options)
@@ -1038,7 +1038,7 @@ pub mod consumer_procurement_service {
         }
     }
 
-    /// The request builder for [ConsumerProcurementService::cancel_order][super::super::client::ConsumerProcurementService::cancel_order] calls.
+    /// The request builder for [ConsumerProcurementService::cancel_order][crate::client::ConsumerProcurementService::cancel_order] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1083,7 +1083,7 @@ pub mod consumer_procurement_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [cancel_order][super::super::client::ConsumerProcurementService::cancel_order].
+        /// on [cancel_order][crate::client::ConsumerProcurementService::cancel_order].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .cancel_order(self.0.request, self.0.options)
@@ -1157,7 +1157,7 @@ pub mod consumer_procurement_service {
         }
     }
 
-    /// The request builder for [ConsumerProcurementService::get_operation][super::super::client::ConsumerProcurementService::get_operation] calls.
+    /// The request builder for [ConsumerProcurementService::get_operation][crate::client::ConsumerProcurementService::get_operation] calls.
     ///
     /// # Example
     /// ```no_run

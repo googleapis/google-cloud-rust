@@ -17,7 +17,7 @@
 pub mod cloud_shell_service {
     use crate::Result;
 
-    /// A builder for [CloudShellService][super::super::client::CloudShellService].
+    /// A builder for [CloudShellService][crate::client::CloudShellService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod cloud_shell_service {
         }
     }
 
-    /// Common implementation for [super::super::client::CloudShellService] request builders.
+    /// Common implementation for [crate::client::CloudShellService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudShellService>,
@@ -68,7 +68,7 @@ pub mod cloud_shell_service {
         }
     }
 
-    /// The request builder for [CloudShellService::get_environment][super::super::client::CloudShellService::get_environment] calls.
+    /// The request builder for [CloudShellService::get_environment][crate::client::CloudShellService::get_environment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -131,7 +131,7 @@ pub mod cloud_shell_service {
         }
     }
 
-    /// The request builder for [CloudShellService::start_environment][super::super::client::CloudShellService::start_environment] calls.
+    /// The request builder for [CloudShellService::start_environment][crate::client::CloudShellService::start_environment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -179,7 +179,7 @@ pub mod cloud_shell_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [start_environment][super::super::client::CloudShellService::start_environment].
+        /// on [start_environment][crate::client::CloudShellService::start_environment].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .start_environment(self.0.request, self.0.options)
@@ -256,7 +256,7 @@ pub mod cloud_shell_service {
         }
     }
 
-    /// The request builder for [CloudShellService::authorize_environment][super::super::client::CloudShellService::authorize_environment] calls.
+    /// The request builder for [CloudShellService::authorize_environment][crate::client::CloudShellService::authorize_environment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -304,7 +304,7 @@ pub mod cloud_shell_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [authorize_environment][super::super::client::CloudShellService::authorize_environment].
+        /// on [authorize_environment][crate::client::CloudShellService::authorize_environment].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .authorize_environment(self.0.request, self.0.options)
@@ -394,7 +394,7 @@ pub mod cloud_shell_service {
         }
     }
 
-    /// The request builder for [CloudShellService::add_public_key][super::super::client::CloudShellService::add_public_key] calls.
+    /// The request builder for [CloudShellService::add_public_key][crate::client::CloudShellService::add_public_key] calls.
     ///
     /// # Example
     /// ```no_run
@@ -439,7 +439,7 @@ pub mod cloud_shell_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [add_public_key][super::super::client::CloudShellService::add_public_key].
+        /// on [add_public_key][crate::client::CloudShellService::add_public_key].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .add_public_key(self.0.request, self.0.options)
@@ -503,7 +503,7 @@ pub mod cloud_shell_service {
         }
     }
 
-    /// The request builder for [CloudShellService::remove_public_key][super::super::client::CloudShellService::remove_public_key] calls.
+    /// The request builder for [CloudShellService::remove_public_key][crate::client::CloudShellService::remove_public_key] calls.
     ///
     /// # Example
     /// ```no_run
@@ -548,7 +548,7 @@ pub mod cloud_shell_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [remove_public_key][super::super::client::CloudShellService::remove_public_key].
+        /// on [remove_public_key][crate::client::CloudShellService::remove_public_key].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .remove_public_key(self.0.request, self.0.options)
@@ -612,7 +612,7 @@ pub mod cloud_shell_service {
         }
     }
 
-    /// The request builder for [CloudShellService::get_operation][super::super::client::CloudShellService::get_operation] calls.
+    /// The request builder for [CloudShellService::get_operation][crate::client::CloudShellService::get_operation] calls.
     ///
     /// # Example
     /// ```no_run

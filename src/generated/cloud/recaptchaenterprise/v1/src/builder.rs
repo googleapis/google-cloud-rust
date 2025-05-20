@@ -17,7 +17,7 @@
 pub mod recaptcha_enterprise_service {
     use crate::Result;
 
-    /// A builder for [RecaptchaEnterpriseService][super::super::client::RecaptchaEnterpriseService].
+    /// A builder for [RecaptchaEnterpriseService][crate::client::RecaptchaEnterpriseService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    /// Common implementation for [super::super::client::RecaptchaEnterpriseService] request builders.
+    /// Common implementation for [crate::client::RecaptchaEnterpriseService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
@@ -68,7 +68,7 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    /// The request builder for [RecaptchaEnterpriseService::create_assessment][super::super::client::RecaptchaEnterpriseService::create_assessment] calls.
+    /// The request builder for [RecaptchaEnterpriseService::create_assessment][crate::client::RecaptchaEnterpriseService::create_assessment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -156,7 +156,7 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    /// The request builder for [RecaptchaEnterpriseService::annotate_assessment][super::super::client::RecaptchaEnterpriseService::annotate_assessment] calls.
+    /// The request builder for [RecaptchaEnterpriseService::annotate_assessment][crate::client::RecaptchaEnterpriseService::annotate_assessment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -272,7 +272,7 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    /// The request builder for [RecaptchaEnterpriseService::create_key][super::super::client::RecaptchaEnterpriseService::create_key] calls.
+    /// The request builder for [RecaptchaEnterpriseService::create_key][crate::client::RecaptchaEnterpriseService::create_key] calls.
     ///
     /// # Example
     /// ```no_run
@@ -357,7 +357,7 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    /// The request builder for [RecaptchaEnterpriseService::list_keys][super::super::client::RecaptchaEnterpriseService::list_keys] calls.
+    /// The request builder for [RecaptchaEnterpriseService::list_keys][crate::client::RecaptchaEnterpriseService::list_keys] calls.
     ///
     /// # Example
     /// ```no_run
@@ -460,7 +460,7 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    /// The request builder for [RecaptchaEnterpriseService::retrieve_legacy_secret_key][super::super::client::RecaptchaEnterpriseService::retrieve_legacy_secret_key] calls.
+    /// The request builder for [RecaptchaEnterpriseService::retrieve_legacy_secret_key][crate::client::RecaptchaEnterpriseService::retrieve_legacy_secret_key] calls.
     ///
     /// # Example
     /// ```no_run
@@ -528,7 +528,7 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    /// The request builder for [RecaptchaEnterpriseService::get_key][super::super::client::RecaptchaEnterpriseService::get_key] calls.
+    /// The request builder for [RecaptchaEnterpriseService::get_key][crate::client::RecaptchaEnterpriseService::get_key] calls.
     ///
     /// # Example
     /// ```no_run
@@ -591,7 +591,7 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    /// The request builder for [RecaptchaEnterpriseService::update_key][super::super::client::RecaptchaEnterpriseService::update_key] calls.
+    /// The request builder for [RecaptchaEnterpriseService::update_key][crate::client::RecaptchaEnterpriseService::update_key] calls.
     ///
     /// # Example
     /// ```no_run
@@ -686,7 +686,7 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    /// The request builder for [RecaptchaEnterpriseService::delete_key][super::super::client::RecaptchaEnterpriseService::delete_key] calls.
+    /// The request builder for [RecaptchaEnterpriseService::delete_key][crate::client::RecaptchaEnterpriseService::delete_key] calls.
     ///
     /// # Example
     /// ```no_run
@@ -749,7 +749,7 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    /// The request builder for [RecaptchaEnterpriseService::migrate_key][super::super::client::RecaptchaEnterpriseService::migrate_key] calls.
+    /// The request builder for [RecaptchaEnterpriseService::migrate_key][crate::client::RecaptchaEnterpriseService::migrate_key] calls.
     ///
     /// # Example
     /// ```no_run
@@ -818,7 +818,7 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    /// The request builder for [RecaptchaEnterpriseService::add_ip_override][super::super::client::RecaptchaEnterpriseService::add_ip_override] calls.
+    /// The request builder for [RecaptchaEnterpriseService::add_ip_override][crate::client::RecaptchaEnterpriseService::add_ip_override] calls.
     ///
     /// # Example
     /// ```no_run
@@ -903,7 +903,7 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    /// The request builder for [RecaptchaEnterpriseService::remove_ip_override][super::super::client::RecaptchaEnterpriseService::remove_ip_override] calls.
+    /// The request builder for [RecaptchaEnterpriseService::remove_ip_override][crate::client::RecaptchaEnterpriseService::remove_ip_override] calls.
     ///
     /// # Example
     /// ```no_run
@@ -991,7 +991,7 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    /// The request builder for [RecaptchaEnterpriseService::list_ip_overrides][super::super::client::RecaptchaEnterpriseService::list_ip_overrides] calls.
+    /// The request builder for [RecaptchaEnterpriseService::list_ip_overrides][crate::client::RecaptchaEnterpriseService::list_ip_overrides] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1094,7 +1094,7 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    /// The request builder for [RecaptchaEnterpriseService::get_metrics][super::super::client::RecaptchaEnterpriseService::get_metrics] calls.
+    /// The request builder for [RecaptchaEnterpriseService::get_metrics][crate::client::RecaptchaEnterpriseService::get_metrics] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1157,7 +1157,7 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    /// The request builder for [RecaptchaEnterpriseService::create_firewall_policy][super::super::client::RecaptchaEnterpriseService::create_firewall_policy] calls.
+    /// The request builder for [RecaptchaEnterpriseService::create_firewall_policy][crate::client::RecaptchaEnterpriseService::create_firewall_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1245,7 +1245,7 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    /// The request builder for [RecaptchaEnterpriseService::list_firewall_policies][super::super::client::RecaptchaEnterpriseService::list_firewall_policies] calls.
+    /// The request builder for [RecaptchaEnterpriseService::list_firewall_policies][crate::client::RecaptchaEnterpriseService::list_firewall_policies] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1353,7 +1353,7 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    /// The request builder for [RecaptchaEnterpriseService::get_firewall_policy][super::super::client::RecaptchaEnterpriseService::get_firewall_policy] calls.
+    /// The request builder for [RecaptchaEnterpriseService::get_firewall_policy][crate::client::RecaptchaEnterpriseService::get_firewall_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1419,7 +1419,7 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    /// The request builder for [RecaptchaEnterpriseService::update_firewall_policy][super::super::client::RecaptchaEnterpriseService::update_firewall_policy] calls.
+    /// The request builder for [RecaptchaEnterpriseService::update_firewall_policy][crate::client::RecaptchaEnterpriseService::update_firewall_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1517,7 +1517,7 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    /// The request builder for [RecaptchaEnterpriseService::delete_firewall_policy][super::super::client::RecaptchaEnterpriseService::delete_firewall_policy] calls.
+    /// The request builder for [RecaptchaEnterpriseService::delete_firewall_policy][crate::client::RecaptchaEnterpriseService::delete_firewall_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1583,7 +1583,7 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    /// The request builder for [RecaptchaEnterpriseService::reorder_firewall_policies][super::super::client::RecaptchaEnterpriseService::reorder_firewall_policies] calls.
+    /// The request builder for [RecaptchaEnterpriseService::reorder_firewall_policies][crate::client::RecaptchaEnterpriseService::reorder_firewall_policies] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1664,7 +1664,7 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    /// The request builder for [RecaptchaEnterpriseService::list_related_account_groups][super::super::client::RecaptchaEnterpriseService::list_related_account_groups] calls.
+    /// The request builder for [RecaptchaEnterpriseService::list_related_account_groups][crate::client::RecaptchaEnterpriseService::list_related_account_groups] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1776,7 +1776,7 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    /// The request builder for [RecaptchaEnterpriseService::list_related_account_group_memberships][super::super::client::RecaptchaEnterpriseService::list_related_account_group_memberships] calls.
+    /// The request builder for [RecaptchaEnterpriseService::list_related_account_group_memberships][crate::client::RecaptchaEnterpriseService::list_related_account_group_memberships] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1890,7 +1890,7 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    /// The request builder for [RecaptchaEnterpriseService::search_related_account_group_memberships][super::super::client::RecaptchaEnterpriseService::search_related_account_group_memberships] calls.
+    /// The request builder for [RecaptchaEnterpriseService::search_related_account_group_memberships][crate::client::RecaptchaEnterpriseService::search_related_account_group_memberships] calls.
     ///
     /// # Example
     /// ```no_run

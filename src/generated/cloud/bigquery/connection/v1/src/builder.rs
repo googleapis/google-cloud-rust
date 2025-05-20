@@ -17,7 +17,7 @@
 pub mod connection_service {
     use crate::Result;
 
-    /// A builder for [ConnectionService][super::super::client::ConnectionService].
+    /// A builder for [ConnectionService][crate::client::ConnectionService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod connection_service {
         }
     }
 
-    /// Common implementation for [super::super::client::ConnectionService] request builders.
+    /// Common implementation for [crate::client::ConnectionService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::ConnectionService>,
@@ -68,7 +68,7 @@ pub mod connection_service {
         }
     }
 
-    /// The request builder for [ConnectionService::create_connection][super::super::client::ConnectionService::create_connection] calls.
+    /// The request builder for [ConnectionService::create_connection][crate::client::ConnectionService::create_connection] calls.
     ///
     /// # Example
     /// ```no_run
@@ -162,7 +162,7 @@ pub mod connection_service {
         }
     }
 
-    /// The request builder for [ConnectionService::get_connection][super::super::client::ConnectionService::get_connection] calls.
+    /// The request builder for [ConnectionService::get_connection][crate::client::ConnectionService::get_connection] calls.
     ///
     /// # Example
     /// ```no_run
@@ -225,7 +225,7 @@ pub mod connection_service {
         }
     }
 
-    /// The request builder for [ConnectionService::list_connections][super::super::client::ConnectionService::list_connections] calls.
+    /// The request builder for [ConnectionService::list_connections][crate::client::ConnectionService::list_connections] calls.
     ///
     /// # Example
     /// ```no_run
@@ -330,7 +330,7 @@ pub mod connection_service {
         }
     }
 
-    /// The request builder for [ConnectionService::update_connection][super::super::client::ConnectionService::update_connection] calls.
+    /// The request builder for [ConnectionService::update_connection][crate::client::ConnectionService::update_connection] calls.
     ///
     /// # Example
     /// ```no_run
@@ -440,7 +440,7 @@ pub mod connection_service {
         }
     }
 
-    /// The request builder for [ConnectionService::delete_connection][super::super::client::ConnectionService::delete_connection] calls.
+    /// The request builder for [ConnectionService::delete_connection][crate::client::ConnectionService::delete_connection] calls.
     ///
     /// # Example
     /// ```no_run
@@ -506,7 +506,7 @@ pub mod connection_service {
         }
     }
 
-    /// The request builder for [ConnectionService::get_iam_policy][super::super::client::ConnectionService::get_iam_policy] calls.
+    /// The request builder for [ConnectionService::get_iam_policy][crate::client::ConnectionService::get_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -587,7 +587,7 @@ pub mod connection_service {
         }
     }
 
-    /// The request builder for [ConnectionService::set_iam_policy][super::super::client::ConnectionService::set_iam_policy] calls.
+    /// The request builder for [ConnectionService::set_iam_policy][crate::client::ConnectionService::set_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -690,7 +690,7 @@ pub mod connection_service {
         }
     }
 
-    /// The request builder for [ConnectionService::test_iam_permissions][super::super::client::ConnectionService::test_iam_permissions] calls.
+    /// The request builder for [ConnectionService::test_iam_permissions][crate::client::ConnectionService::test_iam_permissions] calls.
     ///
     /// # Example
     /// ```no_run

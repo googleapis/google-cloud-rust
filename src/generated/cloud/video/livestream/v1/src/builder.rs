@@ -17,7 +17,7 @@
 pub mod livestream_service {
     use crate::Result;
 
-    /// A builder for [LivestreamService][super::super::client::LivestreamService].
+    /// A builder for [LivestreamService][crate::client::LivestreamService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod livestream_service {
         }
     }
 
-    /// Common implementation for [super::super::client::LivestreamService] request builders.
+    /// Common implementation for [crate::client::LivestreamService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
@@ -68,7 +68,7 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for [LivestreamService::create_channel][super::super::client::LivestreamService::create_channel] calls.
+    /// The request builder for [LivestreamService::create_channel][crate::client::LivestreamService::create_channel] calls.
     ///
     /// # Example
     /// ```no_run
@@ -113,7 +113,7 @@ pub mod livestream_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_channel][super::super::client::LivestreamService::create_channel].
+        /// on [create_channel][crate::client::LivestreamService::create_channel].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_channel(self.0.request, self.0.options)
@@ -206,7 +206,7 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for [LivestreamService::list_channels][super::super::client::LivestreamService::list_channels] calls.
+    /// The request builder for [LivestreamService::list_channels][crate::client::LivestreamService::list_channels] calls.
     ///
     /// # Example
     /// ```no_run
@@ -321,7 +321,7 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for [LivestreamService::get_channel][super::super::client::LivestreamService::get_channel] calls.
+    /// The request builder for [LivestreamService::get_channel][crate::client::LivestreamService::get_channel] calls.
     ///
     /// # Example
     /// ```no_run
@@ -384,7 +384,7 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for [LivestreamService::delete_channel][super::super::client::LivestreamService::delete_channel] calls.
+    /// The request builder for [LivestreamService::delete_channel][crate::client::LivestreamService::delete_channel] calls.
     ///
     /// # Example
     /// ```no_run
@@ -429,7 +429,7 @@ pub mod livestream_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_channel][super::super::client::LivestreamService::delete_channel].
+        /// on [delete_channel][crate::client::LivestreamService::delete_channel].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_channel(self.0.request, self.0.options)
@@ -500,7 +500,7 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for [LivestreamService::update_channel][super::super::client::LivestreamService::update_channel] calls.
+    /// The request builder for [LivestreamService::update_channel][crate::client::LivestreamService::update_channel] calls.
     ///
     /// # Example
     /// ```no_run
@@ -545,7 +545,7 @@ pub mod livestream_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_channel][super::super::client::LivestreamService::update_channel].
+        /// on [update_channel][crate::client::LivestreamService::update_channel].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_channel(self.0.request, self.0.options)
@@ -640,7 +640,7 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for [LivestreamService::start_channel][super::super::client::LivestreamService::start_channel] calls.
+    /// The request builder for [LivestreamService::start_channel][crate::client::LivestreamService::start_channel] calls.
     ///
     /// # Example
     /// ```no_run
@@ -685,7 +685,7 @@ pub mod livestream_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [start_channel][super::super::client::LivestreamService::start_channel].
+        /// on [start_channel][crate::client::LivestreamService::start_channel].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .start_channel(self.0.request, self.0.options)
@@ -751,7 +751,7 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for [LivestreamService::stop_channel][super::super::client::LivestreamService::stop_channel] calls.
+    /// The request builder for [LivestreamService::stop_channel][crate::client::LivestreamService::stop_channel] calls.
     ///
     /// # Example
     /// ```no_run
@@ -796,7 +796,7 @@ pub mod livestream_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [stop_channel][super::super::client::LivestreamService::stop_channel].
+        /// on [stop_channel][crate::client::LivestreamService::stop_channel].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .stop_channel(self.0.request, self.0.options)
@@ -862,7 +862,7 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for [LivestreamService::create_input][super::super::client::LivestreamService::create_input] calls.
+    /// The request builder for [LivestreamService::create_input][crate::client::LivestreamService::create_input] calls.
     ///
     /// # Example
     /// ```no_run
@@ -907,7 +907,7 @@ pub mod livestream_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_input][super::super::client::LivestreamService::create_input].
+        /// on [create_input][crate::client::LivestreamService::create_input].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_input(self.0.request, self.0.options)
@@ -1000,7 +1000,7 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for [LivestreamService::list_inputs][super::super::client::LivestreamService::list_inputs] calls.
+    /// The request builder for [LivestreamService::list_inputs][crate::client::LivestreamService::list_inputs] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1115,7 +1115,7 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for [LivestreamService::get_input][super::super::client::LivestreamService::get_input] calls.
+    /// The request builder for [LivestreamService::get_input][crate::client::LivestreamService::get_input] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1178,7 +1178,7 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for [LivestreamService::delete_input][super::super::client::LivestreamService::delete_input] calls.
+    /// The request builder for [LivestreamService::delete_input][crate::client::LivestreamService::delete_input] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1223,7 +1223,7 @@ pub mod livestream_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_input][super::super::client::LivestreamService::delete_input].
+        /// on [delete_input][crate::client::LivestreamService::delete_input].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_input(self.0.request, self.0.options)
@@ -1288,7 +1288,7 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for [LivestreamService::update_input][super::super::client::LivestreamService::update_input] calls.
+    /// The request builder for [LivestreamService::update_input][crate::client::LivestreamService::update_input] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1333,7 +1333,7 @@ pub mod livestream_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_input][super::super::client::LivestreamService::update_input].
+        /// on [update_input][crate::client::LivestreamService::update_input].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_input(self.0.request, self.0.options)
@@ -1428,7 +1428,7 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for [LivestreamService::create_event][super::super::client::LivestreamService::create_event] calls.
+    /// The request builder for [LivestreamService::create_event][crate::client::LivestreamService::create_event] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1527,7 +1527,7 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for [LivestreamService::list_events][super::super::client::LivestreamService::list_events] calls.
+    /// The request builder for [LivestreamService::list_events][crate::client::LivestreamService::list_events] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1642,7 +1642,7 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for [LivestreamService::get_event][super::super::client::LivestreamService::get_event] calls.
+    /// The request builder for [LivestreamService::get_event][crate::client::LivestreamService::get_event] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1705,7 +1705,7 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for [LivestreamService::delete_event][super::super::client::LivestreamService::delete_event] calls.
+    /// The request builder for [LivestreamService::delete_event][crate::client::LivestreamService::delete_event] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1774,7 +1774,7 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for [LivestreamService::list_clips][super::super::client::LivestreamService::list_clips] calls.
+    /// The request builder for [LivestreamService::list_clips][crate::client::LivestreamService::list_clips] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1889,7 +1889,7 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for [LivestreamService::get_clip][super::super::client::LivestreamService::get_clip] calls.
+    /// The request builder for [LivestreamService::get_clip][crate::client::LivestreamService::get_clip] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1952,7 +1952,7 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for [LivestreamService::create_clip][super::super::client::LivestreamService::create_clip] calls.
+    /// The request builder for [LivestreamService::create_clip][crate::client::LivestreamService::create_clip] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1997,7 +1997,7 @@ pub mod livestream_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_clip][super::super::client::LivestreamService::create_clip].
+        /// on [create_clip][crate::client::LivestreamService::create_clip].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_clip(self.0.request, self.0.options)
@@ -2090,7 +2090,7 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for [LivestreamService::delete_clip][super::super::client::LivestreamService::delete_clip] calls.
+    /// The request builder for [LivestreamService::delete_clip][crate::client::LivestreamService::delete_clip] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2135,7 +2135,7 @@ pub mod livestream_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_clip][super::super::client::LivestreamService::delete_clip].
+        /// on [delete_clip][crate::client::LivestreamService::delete_clip].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_clip(self.0.request, self.0.options)
@@ -2200,7 +2200,7 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for [LivestreamService::create_asset][super::super::client::LivestreamService::create_asset] calls.
+    /// The request builder for [LivestreamService::create_asset][crate::client::LivestreamService::create_asset] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2245,7 +2245,7 @@ pub mod livestream_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_asset][super::super::client::LivestreamService::create_asset].
+        /// on [create_asset][crate::client::LivestreamService::create_asset].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_asset(self.0.request, self.0.options)
@@ -2338,7 +2338,7 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for [LivestreamService::delete_asset][super::super::client::LivestreamService::delete_asset] calls.
+    /// The request builder for [LivestreamService::delete_asset][crate::client::LivestreamService::delete_asset] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2383,7 +2383,7 @@ pub mod livestream_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_asset][super::super::client::LivestreamService::delete_asset].
+        /// on [delete_asset][crate::client::LivestreamService::delete_asset].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_asset(self.0.request, self.0.options)
@@ -2448,7 +2448,7 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for [LivestreamService::get_asset][super::super::client::LivestreamService::get_asset] calls.
+    /// The request builder for [LivestreamService::get_asset][crate::client::LivestreamService::get_asset] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2511,7 +2511,7 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for [LivestreamService::list_assets][super::super::client::LivestreamService::list_assets] calls.
+    /// The request builder for [LivestreamService::list_assets][crate::client::LivestreamService::list_assets] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2626,7 +2626,7 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for [LivestreamService::get_pool][super::super::client::LivestreamService::get_pool] calls.
+    /// The request builder for [LivestreamService::get_pool][crate::client::LivestreamService::get_pool] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2689,7 +2689,7 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for [LivestreamService::update_pool][super::super::client::LivestreamService::update_pool] calls.
+    /// The request builder for [LivestreamService::update_pool][crate::client::LivestreamService::update_pool] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2734,7 +2734,7 @@ pub mod livestream_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_pool][super::super::client::LivestreamService::update_pool].
+        /// on [update_pool][crate::client::LivestreamService::update_pool].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_pool(self.0.request, self.0.options)
@@ -2829,7 +2829,7 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for [LivestreamService::list_locations][super::super::client::LivestreamService::list_locations] calls.
+    /// The request builder for [LivestreamService::list_locations][crate::client::LivestreamService::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2939,7 +2939,7 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for [LivestreamService::get_location][super::super::client::LivestreamService::get_location] calls.
+    /// The request builder for [LivestreamService::get_location][crate::client::LivestreamService::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3000,7 +3000,7 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for [LivestreamService::list_operations][super::super::client::LivestreamService::list_operations] calls.
+    /// The request builder for [LivestreamService::list_operations][crate::client::LivestreamService::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3112,7 +3112,7 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for [LivestreamService::get_operation][super::super::client::LivestreamService::get_operation] calls.
+    /// The request builder for [LivestreamService::get_operation][crate::client::LivestreamService::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3176,7 +3176,7 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for [LivestreamService::delete_operation][super::super::client::LivestreamService::delete_operation] calls.
+    /// The request builder for [LivestreamService::delete_operation][crate::client::LivestreamService::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3240,7 +3240,7 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for [LivestreamService::cancel_operation][super::super::client::LivestreamService::cancel_operation] calls.
+    /// The request builder for [LivestreamService::cancel_operation][crate::client::LivestreamService::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run

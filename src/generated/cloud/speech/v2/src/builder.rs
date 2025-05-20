@@ -17,7 +17,7 @@
 pub mod speech {
     use crate::Result;
 
-    /// A builder for [Speech][super::super::client::Speech].
+    /// A builder for [Speech][crate::client::Speech].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod speech {
         }
     }
 
-    /// Common implementation for [super::super::client::Speech] request builders.
+    /// Common implementation for [crate::client::Speech] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>,
@@ -66,7 +66,7 @@ pub mod speech {
         }
     }
 
-    /// The request builder for [Speech::create_recognizer][super::super::client::Speech::create_recognizer] calls.
+    /// The request builder for [Speech::create_recognizer][crate::client::Speech::create_recognizer] calls.
     ///
     /// # Example
     /// ```no_run
@@ -112,7 +112,7 @@ pub mod speech {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_recognizer][super::super::client::Speech::create_recognizer].
+        /// on [create_recognizer][crate::client::Speech::create_recognizer].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_recognizer(self.0.request, self.0.options)
@@ -203,7 +203,7 @@ pub mod speech {
         }
     }
 
-    /// The request builder for [Speech::list_recognizers][super::super::client::Speech::list_recognizers] calls.
+    /// The request builder for [Speech::list_recognizers][crate::client::Speech::list_recognizers] calls.
     ///
     /// # Example
     /// ```no_run
@@ -310,7 +310,7 @@ pub mod speech {
         }
     }
 
-    /// The request builder for [Speech::get_recognizer][super::super::client::Speech::get_recognizer] calls.
+    /// The request builder for [Speech::get_recognizer][crate::client::Speech::get_recognizer] calls.
     ///
     /// # Example
     /// ```no_run
@@ -371,7 +371,7 @@ pub mod speech {
         }
     }
 
-    /// The request builder for [Speech::update_recognizer][super::super::client::Speech::update_recognizer] calls.
+    /// The request builder for [Speech::update_recognizer][crate::client::Speech::update_recognizer] calls.
     ///
     /// # Example
     /// ```no_run
@@ -417,7 +417,7 @@ pub mod speech {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_recognizer][super::super::client::Speech::update_recognizer].
+        /// on [update_recognizer][crate::client::Speech::update_recognizer].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_recognizer(self.0.request, self.0.options)
@@ -512,7 +512,7 @@ pub mod speech {
         }
     }
 
-    /// The request builder for [Speech::delete_recognizer][super::super::client::Speech::delete_recognizer] calls.
+    /// The request builder for [Speech::delete_recognizer][crate::client::Speech::delete_recognizer] calls.
     ///
     /// # Example
     /// ```no_run
@@ -558,7 +558,7 @@ pub mod speech {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_recognizer][super::super::client::Speech::delete_recognizer].
+        /// on [delete_recognizer][crate::client::Speech::delete_recognizer].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_recognizer(self.0.request, self.0.options)
@@ -633,7 +633,7 @@ pub mod speech {
         }
     }
 
-    /// The request builder for [Speech::undelete_recognizer][super::super::client::Speech::undelete_recognizer] calls.
+    /// The request builder for [Speech::undelete_recognizer][crate::client::Speech::undelete_recognizer] calls.
     ///
     /// # Example
     /// ```no_run
@@ -679,7 +679,7 @@ pub mod speech {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [undelete_recognizer][super::super::client::Speech::undelete_recognizer].
+        /// on [undelete_recognizer][crate::client::Speech::undelete_recognizer].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .undelete_recognizer(self.0.request, self.0.options)
@@ -748,7 +748,7 @@ pub mod speech {
         }
     }
 
-    /// The request builder for [Speech::recognize][super::super::client::Speech::recognize] calls.
+    /// The request builder for [Speech::recognize][crate::client::Speech::recognize] calls.
     ///
     /// # Example
     /// ```no_run
@@ -877,7 +877,7 @@ pub mod speech {
         }
     }
 
-    /// The request builder for [Speech::batch_recognize][super::super::client::Speech::batch_recognize] calls.
+    /// The request builder for [Speech::batch_recognize][crate::client::Speech::batch_recognize] calls.
     ///
     /// # Example
     /// ```no_run
@@ -920,7 +920,7 @@ pub mod speech {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [batch_recognize][super::super::client::Speech::batch_recognize].
+        /// on [batch_recognize][crate::client::Speech::batch_recognize].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .batch_recognize(self.0.request, self.0.options)
@@ -1059,7 +1059,7 @@ pub mod speech {
         }
     }
 
-    /// The request builder for [Speech::get_config][super::super::client::Speech::get_config] calls.
+    /// The request builder for [Speech::get_config][crate::client::Speech::get_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1120,7 +1120,7 @@ pub mod speech {
         }
     }
 
-    /// The request builder for [Speech::update_config][super::super::client::Speech::update_config] calls.
+    /// The request builder for [Speech::update_config][crate::client::Speech::update_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1213,7 +1213,7 @@ pub mod speech {
         }
     }
 
-    /// The request builder for [Speech::create_custom_class][super::super::client::Speech::create_custom_class] calls.
+    /// The request builder for [Speech::create_custom_class][crate::client::Speech::create_custom_class] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1259,7 +1259,7 @@ pub mod speech {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_custom_class][super::super::client::Speech::create_custom_class].
+        /// on [create_custom_class][crate::client::Speech::create_custom_class].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_custom_class(self.0.request, self.0.options)
@@ -1352,7 +1352,7 @@ pub mod speech {
         }
     }
 
-    /// The request builder for [Speech::list_custom_classes][super::super::client::Speech::list_custom_classes] calls.
+    /// The request builder for [Speech::list_custom_classes][crate::client::Speech::list_custom_classes] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1462,7 +1462,7 @@ pub mod speech {
         }
     }
 
-    /// The request builder for [Speech::get_custom_class][super::super::client::Speech::get_custom_class] calls.
+    /// The request builder for [Speech::get_custom_class][crate::client::Speech::get_custom_class] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1523,7 +1523,7 @@ pub mod speech {
         }
     }
 
-    /// The request builder for [Speech::update_custom_class][super::super::client::Speech::update_custom_class] calls.
+    /// The request builder for [Speech::update_custom_class][crate::client::Speech::update_custom_class] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1569,7 +1569,7 @@ pub mod speech {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_custom_class][super::super::client::Speech::update_custom_class].
+        /// on [update_custom_class][crate::client::Speech::update_custom_class].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_custom_class(self.0.request, self.0.options)
@@ -1666,7 +1666,7 @@ pub mod speech {
         }
     }
 
-    /// The request builder for [Speech::delete_custom_class][super::super::client::Speech::delete_custom_class] calls.
+    /// The request builder for [Speech::delete_custom_class][crate::client::Speech::delete_custom_class] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1712,7 +1712,7 @@ pub mod speech {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_custom_class][super::super::client::Speech::delete_custom_class].
+        /// on [delete_custom_class][crate::client::Speech::delete_custom_class].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_custom_class(self.0.request, self.0.options)
@@ -1789,7 +1789,7 @@ pub mod speech {
         }
     }
 
-    /// The request builder for [Speech::undelete_custom_class][super::super::client::Speech::undelete_custom_class] calls.
+    /// The request builder for [Speech::undelete_custom_class][crate::client::Speech::undelete_custom_class] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1835,7 +1835,7 @@ pub mod speech {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [undelete_custom_class][super::super::client::Speech::undelete_custom_class].
+        /// on [undelete_custom_class][crate::client::Speech::undelete_custom_class].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .undelete_custom_class(self.0.request, self.0.options)
@@ -1906,7 +1906,7 @@ pub mod speech {
         }
     }
 
-    /// The request builder for [Speech::create_phrase_set][super::super::client::Speech::create_phrase_set] calls.
+    /// The request builder for [Speech::create_phrase_set][crate::client::Speech::create_phrase_set] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1949,7 +1949,7 @@ pub mod speech {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_phrase_set][super::super::client::Speech::create_phrase_set].
+        /// on [create_phrase_set][crate::client::Speech::create_phrase_set].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_phrase_set(self.0.request, self.0.options)
@@ -2040,7 +2040,7 @@ pub mod speech {
         }
     }
 
-    /// The request builder for [Speech::list_phrase_sets][super::super::client::Speech::list_phrase_sets] calls.
+    /// The request builder for [Speech::list_phrase_sets][crate::client::Speech::list_phrase_sets] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2147,7 +2147,7 @@ pub mod speech {
         }
     }
 
-    /// The request builder for [Speech::get_phrase_set][super::super::client::Speech::get_phrase_set] calls.
+    /// The request builder for [Speech::get_phrase_set][crate::client::Speech::get_phrase_set] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2208,7 +2208,7 @@ pub mod speech {
         }
     }
 
-    /// The request builder for [Speech::update_phrase_set][super::super::client::Speech::update_phrase_set] calls.
+    /// The request builder for [Speech::update_phrase_set][crate::client::Speech::update_phrase_set] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2251,7 +2251,7 @@ pub mod speech {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_phrase_set][super::super::client::Speech::update_phrase_set].
+        /// on [update_phrase_set][crate::client::Speech::update_phrase_set].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_phrase_set(self.0.request, self.0.options)
@@ -2346,7 +2346,7 @@ pub mod speech {
         }
     }
 
-    /// The request builder for [Speech::delete_phrase_set][super::super::client::Speech::delete_phrase_set] calls.
+    /// The request builder for [Speech::delete_phrase_set][crate::client::Speech::delete_phrase_set] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2389,7 +2389,7 @@ pub mod speech {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_phrase_set][super::super::client::Speech::delete_phrase_set].
+        /// on [delete_phrase_set][crate::client::Speech::delete_phrase_set].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_phrase_set(self.0.request, self.0.options)
@@ -2464,7 +2464,7 @@ pub mod speech {
         }
     }
 
-    /// The request builder for [Speech::undelete_phrase_set][super::super::client::Speech::undelete_phrase_set] calls.
+    /// The request builder for [Speech::undelete_phrase_set][crate::client::Speech::undelete_phrase_set] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2510,7 +2510,7 @@ pub mod speech {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [undelete_phrase_set][super::super::client::Speech::undelete_phrase_set].
+        /// on [undelete_phrase_set][crate::client::Speech::undelete_phrase_set].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .undelete_phrase_set(self.0.request, self.0.options)
@@ -2579,7 +2579,7 @@ pub mod speech {
         }
     }
 
-    /// The request builder for [Speech::list_locations][super::super::client::Speech::list_locations] calls.
+    /// The request builder for [Speech::list_locations][crate::client::Speech::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2687,7 +2687,7 @@ pub mod speech {
         }
     }
 
-    /// The request builder for [Speech::get_location][super::super::client::Speech::get_location] calls.
+    /// The request builder for [Speech::get_location][crate::client::Speech::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2746,7 +2746,7 @@ pub mod speech {
         }
     }
 
-    /// The request builder for [Speech::list_operations][super::super::client::Speech::list_operations] calls.
+    /// The request builder for [Speech::list_operations][crate::client::Speech::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2856,7 +2856,7 @@ pub mod speech {
         }
     }
 
-    /// The request builder for [Speech::get_operation][super::super::client::Speech::get_operation] calls.
+    /// The request builder for [Speech::get_operation][crate::client::Speech::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2918,7 +2918,7 @@ pub mod speech {
         }
     }
 
-    /// The request builder for [Speech::delete_operation][super::super::client::Speech::delete_operation] calls.
+    /// The request builder for [Speech::delete_operation][crate::client::Speech::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2980,7 +2980,7 @@ pub mod speech {
         }
     }
 
-    /// The request builder for [Speech::cancel_operation][super::super::client::Speech::cancel_operation] calls.
+    /// The request builder for [Speech::cancel_operation][crate::client::Speech::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run

@@ -17,7 +17,7 @@
 pub mod database_admin {
     use crate::Result;
 
-    /// A builder for [DatabaseAdmin][super::super::client::DatabaseAdmin].
+    /// A builder for [DatabaseAdmin][crate::client::DatabaseAdmin].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod database_admin {
         }
     }
 
-    /// Common implementation for [super::super::client::DatabaseAdmin] request builders.
+    /// Common implementation for [crate::client::DatabaseAdmin] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::DatabaseAdmin>,
@@ -68,7 +68,7 @@ pub mod database_admin {
         }
     }
 
-    /// The request builder for [DatabaseAdmin::list_databases][super::super::client::DatabaseAdmin::list_databases] calls.
+    /// The request builder for [DatabaseAdmin::list_databases][crate::client::DatabaseAdmin::list_databases] calls.
     ///
     /// # Example
     /// ```no_run
@@ -171,7 +171,7 @@ pub mod database_admin {
         }
     }
 
-    /// The request builder for [DatabaseAdmin::create_database][super::super::client::DatabaseAdmin::create_database] calls.
+    /// The request builder for [DatabaseAdmin::create_database][crate::client::DatabaseAdmin::create_database] calls.
     ///
     /// # Example
     /// ```no_run
@@ -216,7 +216,7 @@ pub mod database_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_database][super::super::client::DatabaseAdmin::create_database].
+        /// on [create_database][crate::client::DatabaseAdmin::create_database].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_database(self.0.request, self.0.options)
@@ -328,7 +328,7 @@ pub mod database_admin {
         }
     }
 
-    /// The request builder for [DatabaseAdmin::get_database][super::super::client::DatabaseAdmin::get_database] calls.
+    /// The request builder for [DatabaseAdmin::get_database][crate::client::DatabaseAdmin::get_database] calls.
     ///
     /// # Example
     /// ```no_run
@@ -391,7 +391,7 @@ pub mod database_admin {
         }
     }
 
-    /// The request builder for [DatabaseAdmin::update_database][super::super::client::DatabaseAdmin::update_database] calls.
+    /// The request builder for [DatabaseAdmin::update_database][crate::client::DatabaseAdmin::update_database] calls.
     ///
     /// # Example
     /// ```no_run
@@ -436,7 +436,7 @@ pub mod database_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_database][super::super::client::DatabaseAdmin::update_database].
+        /// on [update_database][crate::client::DatabaseAdmin::update_database].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_database(self.0.request, self.0.options)
@@ -532,7 +532,7 @@ pub mod database_admin {
         }
     }
 
-    /// The request builder for [DatabaseAdmin::update_database_ddl][super::super::client::DatabaseAdmin::update_database_ddl] calls.
+    /// The request builder for [DatabaseAdmin::update_database_ddl][crate::client::DatabaseAdmin::update_database_ddl] calls.
     ///
     /// # Example
     /// ```no_run
@@ -580,7 +580,7 @@ pub mod database_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_database_ddl][super::super::client::DatabaseAdmin::update_database_ddl].
+        /// on [update_database_ddl][crate::client::DatabaseAdmin::update_database_ddl].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_database_ddl(self.0.request, self.0.options)
@@ -665,7 +665,7 @@ pub mod database_admin {
         }
     }
 
-    /// The request builder for [DatabaseAdmin::drop_database][super::super::client::DatabaseAdmin::drop_database] calls.
+    /// The request builder for [DatabaseAdmin::drop_database][crate::client::DatabaseAdmin::drop_database] calls.
     ///
     /// # Example
     /// ```no_run
@@ -728,7 +728,7 @@ pub mod database_admin {
         }
     }
 
-    /// The request builder for [DatabaseAdmin::get_database_ddl][super::super::client::DatabaseAdmin::get_database_ddl] calls.
+    /// The request builder for [DatabaseAdmin::get_database_ddl][crate::client::DatabaseAdmin::get_database_ddl] calls.
     ///
     /// # Example
     /// ```no_run
@@ -791,7 +791,7 @@ pub mod database_admin {
         }
     }
 
-    /// The request builder for [DatabaseAdmin::set_iam_policy][super::super::client::DatabaseAdmin::set_iam_policy] calls.
+    /// The request builder for [DatabaseAdmin::set_iam_policy][crate::client::DatabaseAdmin::set_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -894,7 +894,7 @@ pub mod database_admin {
         }
     }
 
-    /// The request builder for [DatabaseAdmin::get_iam_policy][super::super::client::DatabaseAdmin::get_iam_policy] calls.
+    /// The request builder for [DatabaseAdmin::get_iam_policy][crate::client::DatabaseAdmin::get_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -975,7 +975,7 @@ pub mod database_admin {
         }
     }
 
-    /// The request builder for [DatabaseAdmin::test_iam_permissions][super::super::client::DatabaseAdmin::test_iam_permissions] calls.
+    /// The request builder for [DatabaseAdmin::test_iam_permissions][crate::client::DatabaseAdmin::test_iam_permissions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1054,7 +1054,7 @@ pub mod database_admin {
         }
     }
 
-    /// The request builder for [DatabaseAdmin::create_backup][super::super::client::DatabaseAdmin::create_backup] calls.
+    /// The request builder for [DatabaseAdmin::create_backup][crate::client::DatabaseAdmin::create_backup] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1099,7 +1099,7 @@ pub mod database_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_backup][super::super::client::DatabaseAdmin::create_backup].
+        /// on [create_backup][crate::client::DatabaseAdmin::create_backup].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_backup(self.0.request, self.0.options)
@@ -1204,7 +1204,7 @@ pub mod database_admin {
         }
     }
 
-    /// The request builder for [DatabaseAdmin::copy_backup][super::super::client::DatabaseAdmin::copy_backup] calls.
+    /// The request builder for [DatabaseAdmin::copy_backup][crate::client::DatabaseAdmin::copy_backup] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1249,7 +1249,7 @@ pub mod database_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [copy_backup][super::super::client::DatabaseAdmin::copy_backup].
+        /// on [copy_backup][crate::client::DatabaseAdmin::copy_backup].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .copy_backup(self.0.request, self.0.options)
@@ -1362,7 +1362,7 @@ pub mod database_admin {
         }
     }
 
-    /// The request builder for [DatabaseAdmin::get_backup][super::super::client::DatabaseAdmin::get_backup] calls.
+    /// The request builder for [DatabaseAdmin::get_backup][crate::client::DatabaseAdmin::get_backup] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1425,7 +1425,7 @@ pub mod database_admin {
         }
     }
 
-    /// The request builder for [DatabaseAdmin::update_backup][super::super::client::DatabaseAdmin::update_backup] calls.
+    /// The request builder for [DatabaseAdmin::update_backup][crate::client::DatabaseAdmin::update_backup] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1524,7 +1524,7 @@ pub mod database_admin {
         }
     }
 
-    /// The request builder for [DatabaseAdmin::delete_backup][super::super::client::DatabaseAdmin::delete_backup] calls.
+    /// The request builder for [DatabaseAdmin::delete_backup][crate::client::DatabaseAdmin::delete_backup] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1587,7 +1587,7 @@ pub mod database_admin {
         }
     }
 
-    /// The request builder for [DatabaseAdmin::list_backups][super::super::client::DatabaseAdmin::list_backups] calls.
+    /// The request builder for [DatabaseAdmin::list_backups][crate::client::DatabaseAdmin::list_backups] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1696,7 +1696,7 @@ pub mod database_admin {
         }
     }
 
-    /// The request builder for [DatabaseAdmin::restore_database][super::super::client::DatabaseAdmin::restore_database] calls.
+    /// The request builder for [DatabaseAdmin::restore_database][crate::client::DatabaseAdmin::restore_database] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1741,7 +1741,7 @@ pub mod database_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [restore_database][super::super::client::DatabaseAdmin::restore_database].
+        /// on [restore_database][crate::client::DatabaseAdmin::restore_database].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .restore_database(self.0.request, self.0.options)
@@ -1849,7 +1849,7 @@ pub mod database_admin {
         }
     }
 
-    /// The request builder for [DatabaseAdmin::list_database_operations][super::super::client::DatabaseAdmin::list_database_operations] calls.
+    /// The request builder for [DatabaseAdmin::list_database_operations][crate::client::DatabaseAdmin::list_database_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1965,7 +1965,7 @@ pub mod database_admin {
         }
     }
 
-    /// The request builder for [DatabaseAdmin::list_backup_operations][super::super::client::DatabaseAdmin::list_backup_operations] calls.
+    /// The request builder for [DatabaseAdmin::list_backup_operations][crate::client::DatabaseAdmin::list_backup_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2079,7 +2079,7 @@ pub mod database_admin {
         }
     }
 
-    /// The request builder for [DatabaseAdmin::list_database_roles][super::super::client::DatabaseAdmin::list_database_roles] calls.
+    /// The request builder for [DatabaseAdmin::list_database_roles][crate::client::DatabaseAdmin::list_database_roles] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2185,7 +2185,7 @@ pub mod database_admin {
         }
     }
 
-    /// The request builder for [DatabaseAdmin::add_split_points][super::super::client::DatabaseAdmin::add_split_points] calls.
+    /// The request builder for [DatabaseAdmin::add_split_points][crate::client::DatabaseAdmin::add_split_points] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2267,7 +2267,7 @@ pub mod database_admin {
         }
     }
 
-    /// The request builder for [DatabaseAdmin::create_backup_schedule][super::super::client::DatabaseAdmin::create_backup_schedule] calls.
+    /// The request builder for [DatabaseAdmin::create_backup_schedule][crate::client::DatabaseAdmin::create_backup_schedule] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2363,7 +2363,7 @@ pub mod database_admin {
         }
     }
 
-    /// The request builder for [DatabaseAdmin::get_backup_schedule][super::super::client::DatabaseAdmin::get_backup_schedule] calls.
+    /// The request builder for [DatabaseAdmin::get_backup_schedule][crate::client::DatabaseAdmin::get_backup_schedule] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2429,7 +2429,7 @@ pub mod database_admin {
         }
     }
 
-    /// The request builder for [DatabaseAdmin::update_backup_schedule][super::super::client::DatabaseAdmin::update_backup_schedule] calls.
+    /// The request builder for [DatabaseAdmin::update_backup_schedule][crate::client::DatabaseAdmin::update_backup_schedule] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2531,7 +2531,7 @@ pub mod database_admin {
         }
     }
 
-    /// The request builder for [DatabaseAdmin::delete_backup_schedule][super::super::client::DatabaseAdmin::delete_backup_schedule] calls.
+    /// The request builder for [DatabaseAdmin::delete_backup_schedule][crate::client::DatabaseAdmin::delete_backup_schedule] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2597,7 +2597,7 @@ pub mod database_admin {
         }
     }
 
-    /// The request builder for [DatabaseAdmin::list_backup_schedules][super::super::client::DatabaseAdmin::list_backup_schedules] calls.
+    /// The request builder for [DatabaseAdmin::list_backup_schedules][crate::client::DatabaseAdmin::list_backup_schedules] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2705,7 +2705,7 @@ pub mod database_admin {
         }
     }
 
-    /// The request builder for [DatabaseAdmin::list_operations][super::super::client::DatabaseAdmin::list_operations] calls.
+    /// The request builder for [DatabaseAdmin::list_operations][crate::client::DatabaseAdmin::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2817,7 +2817,7 @@ pub mod database_admin {
         }
     }
 
-    /// The request builder for [DatabaseAdmin::get_operation][super::super::client::DatabaseAdmin::get_operation] calls.
+    /// The request builder for [DatabaseAdmin::get_operation][crate::client::DatabaseAdmin::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2881,7 +2881,7 @@ pub mod database_admin {
         }
     }
 
-    /// The request builder for [DatabaseAdmin::delete_operation][super::super::client::DatabaseAdmin::delete_operation] calls.
+    /// The request builder for [DatabaseAdmin::delete_operation][crate::client::DatabaseAdmin::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2945,7 +2945,7 @@ pub mod database_admin {
         }
     }
 
-    /// The request builder for [DatabaseAdmin::cancel_operation][super::super::client::DatabaseAdmin::cancel_operation] calls.
+    /// The request builder for [DatabaseAdmin::cancel_operation][crate::client::DatabaseAdmin::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run

@@ -138,12 +138,8 @@ impl ClientAuthentication {
             if let Ok(value) = header {
                 headers.insert("Authorization", value);
             }
-            return Ok(());
         }
-        Err(crate::errors::CredentialsError::from_str(
-            false,
-            "missing client_id and/or client_secret",
-        ))
+        Ok(())
     }
 }
 
@@ -326,34 +322,6 @@ mod test {
         let expected_err = crate::errors::CredentialsError::from_str(
             false,
             "error exchanging token, failed with status 400 Bad Request",
-        );
-        assert_eq!(err.to_string(), expected_err.to_string());
-
-        Ok(())
-    }
-
-    #[tokio::test]
-    async fn exchange_token_missing_auth_err() -> TestResult {
-        let authentication = ClientAuthentication {
-            client_id: None,
-            client_secret: None,
-        };
-
-        let url = "/not-reached".to_string();
-        let headers = http::HeaderMap::new();
-        let token_req = ExchangeTokenRequest {
-            url,
-            headers,
-            authentication,
-            subject_token: "an_example_token".to_string(),
-            subject_token_type: JWT_TOKEN_TYPE.to_string(),
-            ..ExchangeTokenRequest::default()
-        };
-        let err = assert_err!(STSHandler::exchange_token(token_req).await);
-
-        let expected_err = crate::errors::CredentialsError::from_str(
-            false,
-            "missing client_id and/or client_secret",
         );
         assert_eq!(err.to_string(), expected_err.to_string());
 

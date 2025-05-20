@@ -17,7 +17,7 @@
 pub mod cloud_memcache {
     use crate::Result;
 
-    /// A builder for [CloudMemcache][super::super::client::CloudMemcache].
+    /// A builder for [CloudMemcache][crate::client::CloudMemcache].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod cloud_memcache {
         }
     }
 
-    /// Common implementation for [super::super::client::CloudMemcache] request builders.
+    /// Common implementation for [crate::client::CloudMemcache] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudMemcache>,
@@ -68,7 +68,7 @@ pub mod cloud_memcache {
         }
     }
 
-    /// The request builder for [CloudMemcache::list_instances][super::super::client::CloudMemcache::list_instances] calls.
+    /// The request builder for [CloudMemcache::list_instances][crate::client::CloudMemcache::list_instances] calls.
     ///
     /// # Example
     /// ```no_run
@@ -183,7 +183,7 @@ pub mod cloud_memcache {
         }
     }
 
-    /// The request builder for [CloudMemcache::get_instance][super::super::client::CloudMemcache::get_instance] calls.
+    /// The request builder for [CloudMemcache::get_instance][crate::client::CloudMemcache::get_instance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -246,7 +246,7 @@ pub mod cloud_memcache {
         }
     }
 
-    /// The request builder for [CloudMemcache::create_instance][super::super::client::CloudMemcache::create_instance] calls.
+    /// The request builder for [CloudMemcache::create_instance][crate::client::CloudMemcache::create_instance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -291,7 +291,7 @@ pub mod cloud_memcache {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_instance][super::super::client::CloudMemcache::create_instance].
+        /// on [create_instance][crate::client::CloudMemcache::create_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_instance(self.0.request, self.0.options)
@@ -378,7 +378,7 @@ pub mod cloud_memcache {
         }
     }
 
-    /// The request builder for [CloudMemcache::update_instance][super::super::client::CloudMemcache::update_instance] calls.
+    /// The request builder for [CloudMemcache::update_instance][crate::client::CloudMemcache::update_instance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -423,7 +423,7 @@ pub mod cloud_memcache {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_instance][super::super::client::CloudMemcache::update_instance].
+        /// on [update_instance][crate::client::CloudMemcache::update_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_instance(self.0.request, self.0.options)
@@ -516,7 +516,7 @@ pub mod cloud_memcache {
         }
     }
 
-    /// The request builder for [CloudMemcache::update_parameters][super::super::client::CloudMemcache::update_parameters] calls.
+    /// The request builder for [CloudMemcache::update_parameters][crate::client::CloudMemcache::update_parameters] calls.
     ///
     /// # Example
     /// ```no_run
@@ -564,7 +564,7 @@ pub mod cloud_memcache {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_parameters][super::super::client::CloudMemcache::update_parameters].
+        /// on [update_parameters][crate::client::CloudMemcache::update_parameters].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_parameters(self.0.request, self.0.options)
@@ -661,7 +661,7 @@ pub mod cloud_memcache {
         }
     }
 
-    /// The request builder for [CloudMemcache::delete_instance][super::super::client::CloudMemcache::delete_instance] calls.
+    /// The request builder for [CloudMemcache::delete_instance][crate::client::CloudMemcache::delete_instance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -706,7 +706,7 @@ pub mod cloud_memcache {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_instance][super::super::client::CloudMemcache::delete_instance].
+        /// on [delete_instance][crate::client::CloudMemcache::delete_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_instance(self.0.request, self.0.options)
@@ -765,7 +765,7 @@ pub mod cloud_memcache {
         }
     }
 
-    /// The request builder for [CloudMemcache::apply_parameters][super::super::client::CloudMemcache::apply_parameters] calls.
+    /// The request builder for [CloudMemcache::apply_parameters][crate::client::CloudMemcache::apply_parameters] calls.
     ///
     /// # Example
     /// ```no_run
@@ -810,7 +810,7 @@ pub mod cloud_memcache {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [apply_parameters][super::super::client::CloudMemcache::apply_parameters].
+        /// on [apply_parameters][crate::client::CloudMemcache::apply_parameters].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .apply_parameters(self.0.request, self.0.options)
@@ -884,7 +884,7 @@ pub mod cloud_memcache {
         }
     }
 
-    /// The request builder for [CloudMemcache::reschedule_maintenance][super::super::client::CloudMemcache::reschedule_maintenance] calls.
+    /// The request builder for [CloudMemcache::reschedule_maintenance][crate::client::CloudMemcache::reschedule_maintenance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -932,7 +932,7 @@ pub mod cloud_memcache {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [reschedule_maintenance][super::super::client::CloudMemcache::reschedule_maintenance].
+        /// on [reschedule_maintenance][crate::client::CloudMemcache::reschedule_maintenance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .reschedule_maintenance(self.0.request, self.0.options)
@@ -1020,7 +1020,7 @@ pub mod cloud_memcache {
         }
     }
 
-    /// The request builder for [CloudMemcache::list_locations][super::super::client::CloudMemcache::list_locations] calls.
+    /// The request builder for [CloudMemcache::list_locations][crate::client::CloudMemcache::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1130,7 +1130,7 @@ pub mod cloud_memcache {
         }
     }
 
-    /// The request builder for [CloudMemcache::get_location][super::super::client::CloudMemcache::get_location] calls.
+    /// The request builder for [CloudMemcache::get_location][crate::client::CloudMemcache::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1191,7 +1191,7 @@ pub mod cloud_memcache {
         }
     }
 
-    /// The request builder for [CloudMemcache::list_operations][super::super::client::CloudMemcache::list_operations] calls.
+    /// The request builder for [CloudMemcache::list_operations][crate::client::CloudMemcache::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1303,7 +1303,7 @@ pub mod cloud_memcache {
         }
     }
 
-    /// The request builder for [CloudMemcache::get_operation][super::super::client::CloudMemcache::get_operation] calls.
+    /// The request builder for [CloudMemcache::get_operation][crate::client::CloudMemcache::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1367,7 +1367,7 @@ pub mod cloud_memcache {
         }
     }
 
-    /// The request builder for [CloudMemcache::delete_operation][super::super::client::CloudMemcache::delete_operation] calls.
+    /// The request builder for [CloudMemcache::delete_operation][crate::client::CloudMemcache::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1431,7 +1431,7 @@ pub mod cloud_memcache {
         }
     }
 
-    /// The request builder for [CloudMemcache::cancel_operation][super::super::client::CloudMemcache::cancel_operation] calls.
+    /// The request builder for [CloudMemcache::cancel_operation][crate::client::CloudMemcache::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run

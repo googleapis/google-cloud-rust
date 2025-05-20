@@ -13,7 +13,7 @@
 // limitations under the License.
 
 use crate::error::rpc::Status;
-use std::collections::HashMap;
+use http::HeaderMap;
 
 /// An error returned by a Google Cloud service.
 ///
@@ -29,7 +29,7 @@ use std::collections::HashMap;
 pub struct ServiceError {
     status: Status,
     http_status_code: Option<u16>,
-    headers: Option<HashMap<String, String>>,
+    headers: Option<HeaderMap>,
 }
 
 impl ServiceError {
@@ -38,12 +38,42 @@ impl ServiceError {
         &self.status
     }
 
+    /// The status code, if any, associated with this error.
+    ///
+    /// Errors received via HTTP have a HTTP status code associated with them.
+    /// Not all service errors are received via HTTP. Errors received via gRPC
+    /// do not have a corresponding HTTP status code. Errors received as part
+    /// of the *payload* of a successful response also have no associated status
+    /// code.
+    ///
+    /// The latter is common in APIs that perform multiple updates, each one
+    /// failing independepently
     pub fn http_status_code(&self) -> &Option<u16> {
         &self.http_status_code
     }
 
-    pub fn headers(&self) -> &Option<HashMap<String, String>> {
+    pub fn headers(&self) -> &Option<HeaderMap> {
         &self.headers
+    }
+}
+
+/// A builder for [ServiceError].
+pub struct ServiceErrorBuilder {
+    inner: ServiceError,
+}
+
+impl ServiceErrorBuilder {
+    /// Creates a new builder to construct complex [ServiceError] instances.
+    pub fn new<T>(v: T) -> Self
+    where
+        T: Into<ServiceError>,
+    {
+        Self { inner: v.into() }
+    }
+
+    /// Consumes the builder and returns the resulting error.
+    pub fn build(self) -> ServiceError {
+        self.inner
     }
 
     /// Sets the HTTP status code for this service error.
@@ -52,7 +82,7 @@ impl ServiceError {
     /// received as part of a response message (e.g. a long-running operation)
     /// do not have them.
     pub fn with_http_status_code<T: Into<u16>>(mut self, v: T) -> Self {
-        self.http_status_code = Some(v.into());
+        self.inner.http_status_code = Some(v.into());
         self
     }
 
@@ -64,13 +94,11 @@ impl ServiceError {
     /// Not all `ServiceError` instances contain headers. Errors received as
     /// part of a response message (e.g. a long-running operation) do not have
     /// them.
-    pub fn with_headers<K, V, T>(mut self, v: T) -> Self
+    pub fn with_headers<T>(mut self, v: T) -> Self
     where
-        K: Into<String>,
-        V: Into<String>,
-        T: IntoIterator<Item = (K, V)>,
+        T: Into<HeaderMap>,
     {
-        self.headers = Some(v.into_iter().map(|(k, v)| (k.into(), v.into())).collect());
+        self.inner.headers = Some(v.into());
         self
     }
 }
@@ -100,10 +128,10 @@ impl std::fmt::Display for ServiceError {
         if let Some(h) = &self.headers {
             write!(f, ", headers=[")?;
             for (k, v) in h.iter().take(1) {
-                write!(f, "{k}: {v}")?;
+                write!(f, "{k}: {}", v.to_str().unwrap_or("[error]"))?;
             }
             for (k, v) in h.iter().skip(1) {
-                write!(f, "{k}: {v}")?;
+                write!(f, "{k}: {}", v.to_str().unwrap_or("[error]"))?;
             }
             write!(f, "]")?;
         }
@@ -117,6 +145,7 @@ impl std::error::Error for ServiceError {}
 mod test {
     use super::*;
     use crate::error::rpc::Code;
+    use http::{HeaderName, HeaderValue};
 
     fn source() -> rpc::model::Status {
         rpc::model::Status::default()
@@ -126,7 +155,7 @@ mod test {
 
     #[test]
     fn from_rpc_status() {
-        let error = ServiceError::from(source());
+        let error = ServiceErrorBuilder::new(source()).build();
         assert_eq!(error.status(), &Status::from(source()));
         assert_eq!(error.http_status_code(), &None);
         assert_eq!(error.headers(), &None);
@@ -138,7 +167,7 @@ mod test {
 
     #[test]
     fn from_gax_status() {
-        let error = ServiceError::from(Status::from(source()));
+        let error = ServiceErrorBuilder::new(Status::from(source())).build();
         assert_eq!(error.status(), &Status::from(source()));
         assert_eq!(error.http_status_code(), &None);
         assert_eq!(error.headers(), &None);
@@ -150,7 +179,9 @@ mod test {
 
     #[test]
     fn with_http_status_code() {
-        let error = ServiceError::from(source()).with_http_status_code(404_u16);
+        let error = ServiceErrorBuilder::new(source())
+            .with_http_status_code(404_u16)
+            .build();
         assert_eq!(error.status(), &Status::from(source()));
         assert_eq!(error.http_status_code(), &Some(404));
         assert_eq!(error.headers(), &None);
@@ -162,11 +193,13 @@ mod test {
 
     #[test]
     fn with_empty() {
-        let empty: [(&str, &str); 0] = [];
-        let error = ServiceError::from(source()).with_headers(empty);
+        let empty = HeaderMap::new();
+        let error = ServiceErrorBuilder::new(source())
+            .with_headers(empty)
+            .build();
         assert_eq!(error.status(), &Status::from(source()));
         assert_eq!(error.http_status_code(), &None);
-        let want = HashMap::new();
+        let want = HeaderMap::new();
         assert_eq!(error.headers(), &Some(want));
 
         let got = format!("{error}");
@@ -177,13 +210,16 @@ mod test {
 
     #[test]
     fn with_one_header() {
-        let error =
-            ServiceError::from(source()).with_headers([("content-type", "application/json")]);
+        let mut headers = HeaderMap::new();
+        headers.insert("content-type", HeaderValue::from_static("application/json"));
+        let error = ServiceErrorBuilder::new(source())
+            .with_headers(headers)
+            .build();
         assert_eq!(error.status(), &Status::from(source()));
         assert_eq!(error.http_status_code(), &None);
         let want = {
-            let mut map = HashMap::new();
-            map.insert("content-type".to_string(), "application/json".to_string());
+            let mut map = HeaderMap::new();
+            map.insert("content-type", HeaderValue::from_static("application/json"));
             map
         };
         assert_eq!(error.headers(), &Some(want));
@@ -197,18 +233,30 @@ mod test {
 
     #[test]
     fn with_headers() {
-        let error = ServiceError::from(source()).with_headers([
-            ("content-type", "application/json"),
-            ("h0", "v0"),
-            ("h1", "v1"),
+        let headers = HeaderMap::from_iter([
+            (
+                HeaderName::from_static("content-type"),
+                HeaderValue::from_static("application/json"),
+            ),
+            (
+                HeaderName::from_static("h0"),
+                HeaderValue::from_static("v0"),
+            ),
+            (
+                HeaderName::from_static("h1"),
+                HeaderValue::from_static("v1"),
+            ),
         ]);
+        let error = ServiceErrorBuilder::new(source())
+            .with_headers(headers)
+            .build();
         assert_eq!(error.status(), &Status::from(source()));
         assert_eq!(error.http_status_code(), &None);
         let want = {
-            let mut map = HashMap::new();
-            map.insert("content-type".to_string(), "application/json".to_string());
-            map.insert("h0".to_string(), "v0".to_string());
-            map.insert("h1".to_string(), "v1".to_string());
+            let mut map = HeaderMap::new();
+            map.insert("content-type", HeaderValue::from_static("application/json"));
+            map.insert("h0", HeaderValue::from_static("v0"));
+            map.insert("h1", HeaderValue::from_static("v1"));
             map
         };
         assert_eq!(error.headers(), &Some(want));

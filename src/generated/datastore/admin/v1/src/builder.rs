@@ -17,7 +17,7 @@
 pub mod datastore_admin {
     use crate::Result;
 
-    /// A builder for [DatastoreAdmin][super::super::client::DatastoreAdmin].
+    /// A builder for [DatastoreAdmin][crate::client::DatastoreAdmin].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod datastore_admin {
         }
     }
 
-    /// Common implementation for [super::super::client::DatastoreAdmin] request builders.
+    /// Common implementation for [crate::client::DatastoreAdmin] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::DatastoreAdmin>,
@@ -68,7 +68,7 @@ pub mod datastore_admin {
         }
     }
 
-    /// The request builder for [DatastoreAdmin::export_entities][super::super::client::DatastoreAdmin::export_entities] calls.
+    /// The request builder for [DatastoreAdmin::export_entities][crate::client::DatastoreAdmin::export_entities] calls.
     ///
     /// # Example
     /// ```no_run
@@ -113,7 +113,7 @@ pub mod datastore_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [export_entities][super::super::client::DatastoreAdmin::export_entities].
+        /// on [export_entities][crate::client::DatastoreAdmin::export_entities].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .export_entities(self.0.request, self.0.options)
@@ -210,7 +210,7 @@ pub mod datastore_admin {
         }
     }
 
-    /// The request builder for [DatastoreAdmin::import_entities][super::super::client::DatastoreAdmin::import_entities] calls.
+    /// The request builder for [DatastoreAdmin::import_entities][crate::client::DatastoreAdmin::import_entities] calls.
     ///
     /// # Example
     /// ```no_run
@@ -255,7 +255,7 @@ pub mod datastore_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [import_entities][super::super::client::DatastoreAdmin::import_entities].
+        /// on [import_entities][crate::client::DatastoreAdmin::import_entities].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .import_entities(self.0.request, self.0.options)
@@ -352,7 +352,7 @@ pub mod datastore_admin {
         }
     }
 
-    /// The request builder for [DatastoreAdmin::create_index][super::super::client::DatastoreAdmin::create_index] calls.
+    /// The request builder for [DatastoreAdmin::create_index][crate::client::DatastoreAdmin::create_index] calls.
     ///
     /// # Example
     /// ```no_run
@@ -397,7 +397,7 @@ pub mod datastore_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_index][super::super::client::DatastoreAdmin::create_index].
+        /// on [create_index][crate::client::DatastoreAdmin::create_index].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_index(self.0.request, self.0.options)
@@ -470,7 +470,7 @@ pub mod datastore_admin {
         }
     }
 
-    /// The request builder for [DatastoreAdmin::delete_index][super::super::client::DatastoreAdmin::delete_index] calls.
+    /// The request builder for [DatastoreAdmin::delete_index][crate::client::DatastoreAdmin::delete_index] calls.
     ///
     /// # Example
     /// ```no_run
@@ -515,7 +515,7 @@ pub mod datastore_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_index][super::super::client::DatastoreAdmin::delete_index].
+        /// on [delete_index][crate::client::DatastoreAdmin::delete_index].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_index(self.0.request, self.0.options)
@@ -576,7 +576,7 @@ pub mod datastore_admin {
         }
     }
 
-    /// The request builder for [DatastoreAdmin::get_index][super::super::client::DatastoreAdmin::get_index] calls.
+    /// The request builder for [DatastoreAdmin::get_index][crate::client::DatastoreAdmin::get_index] calls.
     ///
     /// # Example
     /// ```no_run
@@ -643,7 +643,7 @@ pub mod datastore_admin {
         }
     }
 
-    /// The request builder for [DatastoreAdmin::list_indexes][super::super::client::DatastoreAdmin::list_indexes] calls.
+    /// The request builder for [DatastoreAdmin::list_indexes][crate::client::DatastoreAdmin::list_indexes] calls.
     ///
     /// # Example
     /// ```no_run
@@ -750,7 +750,7 @@ pub mod datastore_admin {
         }
     }
 
-    /// The request builder for [DatastoreAdmin::list_operations][super::super::client::DatastoreAdmin::list_operations] calls.
+    /// The request builder for [DatastoreAdmin::list_operations][crate::client::DatastoreAdmin::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -862,7 +862,7 @@ pub mod datastore_admin {
         }
     }
 
-    /// The request builder for [DatastoreAdmin::get_operation][super::super::client::DatastoreAdmin::get_operation] calls.
+    /// The request builder for [DatastoreAdmin::get_operation][crate::client::DatastoreAdmin::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -926,7 +926,7 @@ pub mod datastore_admin {
         }
     }
 
-    /// The request builder for [DatastoreAdmin::delete_operation][super::super::client::DatastoreAdmin::delete_operation] calls.
+    /// The request builder for [DatastoreAdmin::delete_operation][crate::client::DatastoreAdmin::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -990,7 +990,7 @@ pub mod datastore_admin {
         }
     }
 
-    /// The request builder for [DatastoreAdmin::cancel_operation][super::super::client::DatastoreAdmin::cancel_operation] calls.
+    /// The request builder for [DatastoreAdmin::cancel_operation][crate::client::DatastoreAdmin::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run

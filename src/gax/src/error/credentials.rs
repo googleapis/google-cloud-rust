@@ -166,7 +166,7 @@ impl Display for CredentialsError {
 #[cfg(test)]
 mod test {
     use super::*;
-    use std::collections::HashMap;
+    use http::HeaderMap;
     use test_case::test_case;
 
     #[test_case(true)]
@@ -174,7 +174,7 @@ mod test {
     fn new(retryable: bool) {
         let source = crate::error::HttpError::new(
             404,
-            HashMap::new(),
+            HeaderMap::new(),
             Some(bytes::Bytes::from_static("test-only".as_bytes())),
         );
         let got = CredentialsError::new(retryable, source);

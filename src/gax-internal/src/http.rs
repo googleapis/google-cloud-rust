@@ -12,12 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use auth::credentials::CacheableResource;
 use auth::credentials::{Builder as AccessTokenCredentialBuilder, Credentials};
 use gax::Result;
 use gax::backoff_policy::BackoffPolicy;
-use gax::error::Error;
-use gax::error::HttpError;
-use gax::error::ServiceError;
+use gax::error::{Error, HttpError, ServiceErrorBuilder};
 use gax::exponential_backoff::ExponentialBackoff;
 use gax::polling_backoff_policy::PollingBackoffPolicy;
 use gax::polling_error_policy::Aip194Strict;
@@ -128,11 +127,20 @@ impl ReqwestClient {
         builder = gax::retry_loop_internal::effective_timeout(options, remaining_time)
             .into_iter()
             .fold(builder, |b, t| b.timeout(t));
-        let auth_headers = self
+        let cached_auth_headers = self
             .cred
             .headers(Extensions::new())
             .await
             .map_err(Error::authentication)?;
+
+        let auth_headers = match cached_auth_headers {
+            CacheableResource::New { data, .. } => Ok(data),
+            CacheableResource::NotModified => {
+                unreachable!("headers are not cached");
+            }
+        };
+
+        let auth_headers = auth_headers?;
         for (key, value) in auth_headers.iter() {
             builder = builder.header(key, value);
         }
@@ -201,20 +209,24 @@ impl ReqwestClient {
 #[derive(serde::Serialize)]
 pub struct NoBody;
 
-const SENSITIVE_HEADER: &str = "[sensitive]";
-
 pub async fn to_http_error<O>(response: reqwest::Response) -> Result<O> {
     let status_code = response.status().as_u16();
-    let headers = self::convert_headers(response.headers());
-    let body = response.bytes().await.map_err(Error::io)?;
-    let error = if let Ok(status) = gax::error::rpc::Status::try_from(&body) {
-        Error::rpc(
-            ServiceError::from(status)
-                .with_headers(headers)
-                .with_http_status_code(status_code),
-        )
-    } else {
-        Error::rpc(HttpError::new(status_code, headers, Some(body)))
+    let response = http::Response::from(response);
+    let (parts, body) = response.into_parts();
+
+    let body = http_body_util::BodyExt::collect(body)
+        .await
+        .map_err(Error::io)?
+        .to_bytes();
+
+    let error = match gax::error::rpc::Status::try_from(&body) {
+        Ok(status) => Error::rpc(
+            ServiceErrorBuilder::new(status)
+                .with_headers(parts.headers)
+                .with_http_status_code(status_code)
+                .build(),
+        ),
+        Err(_) => Error::rpc(HttpError::new(status_code, parts.headers, Some(body))),
     };
     Err(error)
 }
@@ -242,81 +254,12 @@ async fn to_http_response<O: serde::de::DeserializeOwned + Default>(
     ))
 }
 
-fn convert_headers(
-    header_map: &reqwest::header::HeaderMap,
-) -> std::collections::HashMap<String, String> {
-    let mut headers = std::collections::HashMap::new();
-    for (key, value) in header_map {
-        if value.is_sensitive() {
-            headers.insert(key.to_string(), SENSITIVE_HEADER.to_string());
-        } else if let Ok(value) = value.to_str() {
-            headers.insert(key.to_string(), value.to_string());
-        }
-    }
-    headers
-}
-
 #[cfg(test)]
 mod test {
     use super::*;
-    use std::collections::HashMap;
+    use http::{HeaderMap, HeaderValue};
     use test_case::test_case;
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
-
-    #[test]
-    fn headers_empty() -> TestResult {
-        let http_resp = http::Response::builder()
-            .status(reqwest::StatusCode::OK)
-            .body("")?;
-        let response: reqwest::Response = http_resp.into();
-        let got = super::convert_headers(response.headers());
-        assert!(got.is_empty(), "{got:?}");
-        Ok(())
-    }
-
-    #[test]
-    fn headers_basic() -> TestResult {
-        let http_resp = http::Response::builder()
-            .header("content-type", "application/json")
-            .header("x-test-k1", "v1")
-            .status(reqwest::StatusCode::OK)
-            .body("")?;
-        let response: reqwest::Response = http_resp.into();
-        let got = super::convert_headers(response.headers());
-        let want = HashMap::from(
-            [("content-type", "application/json"), ("x-test-k1", "v1")]
-                .map(|(k, v)| (k.to_string(), v.to_string())),
-        );
-        assert_eq!(got, want);
-        Ok(())
-    }
-
-    #[test]
-    fn headers_sensitive() -> TestResult {
-        let sensitive = {
-            let mut h = reqwest::header::HeaderValue::from_static("abc123");
-            h.set_sensitive(true);
-            h
-        };
-        let http_resp = http::Response::builder()
-            .header("content-type", "application/json")
-            .header("x-test-k1", "v1")
-            .header("x-sensitive", sensitive)
-            .status(reqwest::StatusCode::OK)
-            .body("")?;
-        let response: reqwest::Response = http_resp.into();
-        let got = super::convert_headers(response.headers());
-        let want = HashMap::from(
-            [
-                ("content-type", "application/json"),
-                ("x-test-k1", "v1"),
-                ("x-sensitive", SENSITIVE_HEADER),
-            ]
-            .map(|(k, v)| (k.to_string(), v.to_string())),
-        );
-        assert_eq!(got, want);
-        Ok(())
-    }
 
     #[tokio::test]
     async fn client_http_error_bytes() -> TestResult {
@@ -331,9 +274,8 @@ mod test {
         let err = response.err().unwrap();
         let err = err.as_inner::<HttpError>().unwrap();
         assert_eq!(err.status_code(), 400);
-        let want = HashMap::from(
-            [("content-type", "application/json")].map(|(k, v)| (k.to_string(), v.to_string())),
-        );
+        let mut want = HeaderMap::new();
+        want.insert("content-type", HeaderValue::from_static("application/json"));
         assert_eq!(err.headers(), &want);
         assert_eq!(
             err.payload(),
@@ -376,9 +318,8 @@ mod test {
             )]);
         assert_eq!(err.status(), &want_status);
         assert_eq!(err.http_status_code(), &Some(404_u16));
-        let want = HashMap::from(
-            [("content-type", "application/json")].map(|(k, v)| (k.to_string(), v.to_string())),
-        );
+        let mut want = HeaderMap::new();
+        want.insert("content-type", HeaderValue::from_static("application/json"));
         assert_eq!(err.headers(), &Some(want));
         Ok(())
     }

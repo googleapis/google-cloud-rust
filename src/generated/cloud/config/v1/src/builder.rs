@@ -17,7 +17,7 @@
 pub mod config {
     use crate::Result;
 
-    /// A builder for [Config][super::super::client::Config].
+    /// A builder for [Config][crate::client::Config].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod config {
         }
     }
 
-    /// Common implementation for [super::super::client::Config] request builders.
+    /// Common implementation for [crate::client::Config] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::Config>,
@@ -66,7 +66,7 @@ pub mod config {
         }
     }
 
-    /// The request builder for [Config::list_deployments][super::super::client::Config::list_deployments] calls.
+    /// The request builder for [Config::list_deployments][crate::client::Config::list_deployments] calls.
     ///
     /// # Example
     /// ```no_run
@@ -179,7 +179,7 @@ pub mod config {
         }
     }
 
-    /// The request builder for [Config::get_deployment][super::super::client::Config::get_deployment] calls.
+    /// The request builder for [Config::get_deployment][crate::client::Config::get_deployment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -240,7 +240,7 @@ pub mod config {
         }
     }
 
-    /// The request builder for [Config::create_deployment][super::super::client::Config::create_deployment] calls.
+    /// The request builder for [Config::create_deployment][crate::client::Config::create_deployment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -286,7 +286,7 @@ pub mod config {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_deployment][super::super::client::Config::create_deployment].
+        /// on [create_deployment][crate::client::Config::create_deployment].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_deployment(self.0.request, self.0.options)
@@ -379,7 +379,7 @@ pub mod config {
         }
     }
 
-    /// The request builder for [Config::update_deployment][super::super::client::Config::update_deployment] calls.
+    /// The request builder for [Config::update_deployment][crate::client::Config::update_deployment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -425,7 +425,7 @@ pub mod config {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_deployment][super::super::client::Config::update_deployment].
+        /// on [update_deployment][crate::client::Config::update_deployment].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_deployment(self.0.request, self.0.options)
@@ -520,7 +520,7 @@ pub mod config {
         }
     }
 
-    /// The request builder for [Config::delete_deployment][super::super::client::Config::delete_deployment] calls.
+    /// The request builder for [Config::delete_deployment][crate::client::Config::delete_deployment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -566,7 +566,7 @@ pub mod config {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_deployment][super::super::client::Config::delete_deployment].
+        /// on [delete_deployment][crate::client::Config::delete_deployment].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_deployment(self.0.request, self.0.options)
@@ -644,7 +644,7 @@ pub mod config {
         }
     }
 
-    /// The request builder for [Config::list_revisions][super::super::client::Config::list_revisions] calls.
+    /// The request builder for [Config::list_revisions][crate::client::Config::list_revisions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -757,7 +757,7 @@ pub mod config {
         }
     }
 
-    /// The request builder for [Config::get_revision][super::super::client::Config::get_revision] calls.
+    /// The request builder for [Config::get_revision][crate::client::Config::get_revision] calls.
     ///
     /// # Example
     /// ```no_run
@@ -818,7 +818,7 @@ pub mod config {
         }
     }
 
-    /// The request builder for [Config::get_resource][super::super::client::Config::get_resource] calls.
+    /// The request builder for [Config::get_resource][crate::client::Config::get_resource] calls.
     ///
     /// # Example
     /// ```no_run
@@ -879,7 +879,7 @@ pub mod config {
         }
     }
 
-    /// The request builder for [Config::list_resources][super::super::client::Config::list_resources] calls.
+    /// The request builder for [Config::list_resources][crate::client::Config::list_resources] calls.
     ///
     /// # Example
     /// ```no_run
@@ -992,7 +992,7 @@ pub mod config {
         }
     }
 
-    /// The request builder for [Config::export_deployment_statefile][super::super::client::Config::export_deployment_statefile] calls.
+    /// The request builder for [Config::export_deployment_statefile][crate::client::Config::export_deployment_statefile] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1064,7 +1064,7 @@ pub mod config {
         }
     }
 
-    /// The request builder for [Config::export_revision_statefile][super::super::client::Config::export_revision_statefile] calls.
+    /// The request builder for [Config::export_revision_statefile][crate::client::Config::export_revision_statefile] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1130,7 +1130,7 @@ pub mod config {
         }
     }
 
-    /// The request builder for [Config::import_statefile][super::super::client::Config::import_statefile] calls.
+    /// The request builder for [Config::import_statefile][crate::client::Config::import_statefile] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1205,7 +1205,7 @@ pub mod config {
         }
     }
 
-    /// The request builder for [Config::delete_statefile][super::super::client::Config::delete_statefile] calls.
+    /// The request builder for [Config::delete_statefile][crate::client::Config::delete_statefile] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1274,7 +1274,7 @@ pub mod config {
         }
     }
 
-    /// The request builder for [Config::lock_deployment][super::super::client::Config::lock_deployment] calls.
+    /// The request builder for [Config::lock_deployment][crate::client::Config::lock_deployment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1317,7 +1317,7 @@ pub mod config {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [lock_deployment][super::super::client::Config::lock_deployment].
+        /// on [lock_deployment][crate::client::Config::lock_deployment].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .lock_deployment(self.0.request, self.0.options)
@@ -1374,7 +1374,7 @@ pub mod config {
         }
     }
 
-    /// The request builder for [Config::unlock_deployment][super::super::client::Config::unlock_deployment] calls.
+    /// The request builder for [Config::unlock_deployment][crate::client::Config::unlock_deployment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1420,7 +1420,7 @@ pub mod config {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [unlock_deployment][super::super::client::Config::unlock_deployment].
+        /// on [unlock_deployment][crate::client::Config::unlock_deployment].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .unlock_deployment(self.0.request, self.0.options)
@@ -1485,7 +1485,7 @@ pub mod config {
         }
     }
 
-    /// The request builder for [Config::export_lock_info][super::super::client::Config::export_lock_info] calls.
+    /// The request builder for [Config::export_lock_info][crate::client::Config::export_lock_info] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1546,7 +1546,7 @@ pub mod config {
         }
     }
 
-    /// The request builder for [Config::create_preview][super::super::client::Config::create_preview] calls.
+    /// The request builder for [Config::create_preview][crate::client::Config::create_preview] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1589,7 +1589,7 @@ pub mod config {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_preview][super::super::client::Config::create_preview].
+        /// on [create_preview][crate::client::Config::create_preview].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_preview(self.0.request, self.0.options)
@@ -1680,7 +1680,7 @@ pub mod config {
         }
     }
 
-    /// The request builder for [Config::get_preview][super::super::client::Config::get_preview] calls.
+    /// The request builder for [Config::get_preview][crate::client::Config::get_preview] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1741,7 +1741,7 @@ pub mod config {
         }
     }
 
-    /// The request builder for [Config::list_previews][super::super::client::Config::list_previews] calls.
+    /// The request builder for [Config::list_previews][crate::client::Config::list_previews] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1854,7 +1854,7 @@ pub mod config {
         }
     }
 
-    /// The request builder for [Config::delete_preview][super::super::client::Config::delete_preview] calls.
+    /// The request builder for [Config::delete_preview][crate::client::Config::delete_preview] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1897,7 +1897,7 @@ pub mod config {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_preview][super::super::client::Config::delete_preview].
+        /// on [delete_preview][crate::client::Config::delete_preview].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_preview(self.0.request, self.0.options)
@@ -1960,7 +1960,7 @@ pub mod config {
         }
     }
 
-    /// The request builder for [Config::export_preview_result][super::super::client::Config::export_preview_result] calls.
+    /// The request builder for [Config::export_preview_result][crate::client::Config::export_preview_result] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2024,7 +2024,7 @@ pub mod config {
         }
     }
 
-    /// The request builder for [Config::list_terraform_versions][super::super::client::Config::list_terraform_versions] calls.
+    /// The request builder for [Config::list_terraform_versions][crate::client::Config::list_terraform_versions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2142,7 +2142,7 @@ pub mod config {
         }
     }
 
-    /// The request builder for [Config::get_terraform_version][super::super::client::Config::get_terraform_version] calls.
+    /// The request builder for [Config::get_terraform_version][crate::client::Config::get_terraform_version] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2206,7 +2206,7 @@ pub mod config {
         }
     }
 
-    /// The request builder for [Config::list_locations][super::super::client::Config::list_locations] calls.
+    /// The request builder for [Config::list_locations][crate::client::Config::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2314,7 +2314,7 @@ pub mod config {
         }
     }
 
-    /// The request builder for [Config::get_location][super::super::client::Config::get_location] calls.
+    /// The request builder for [Config::get_location][crate::client::Config::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2373,7 +2373,7 @@ pub mod config {
         }
     }
 
-    /// The request builder for [Config::set_iam_policy][super::super::client::Config::set_iam_policy] calls.
+    /// The request builder for [Config::set_iam_policy][crate::client::Config::set_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2474,7 +2474,7 @@ pub mod config {
         }
     }
 
-    /// The request builder for [Config::get_iam_policy][super::super::client::Config::get_iam_policy] calls.
+    /// The request builder for [Config::get_iam_policy][crate::client::Config::get_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2553,7 +2553,7 @@ pub mod config {
         }
     }
 
-    /// The request builder for [Config::test_iam_permissions][super::super::client::Config::test_iam_permissions] calls.
+    /// The request builder for [Config::test_iam_permissions][crate::client::Config::test_iam_permissions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2630,7 +2630,7 @@ pub mod config {
         }
     }
 
-    /// The request builder for [Config::list_operations][super::super::client::Config::list_operations] calls.
+    /// The request builder for [Config::list_operations][crate::client::Config::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2740,7 +2740,7 @@ pub mod config {
         }
     }
 
-    /// The request builder for [Config::get_operation][super::super::client::Config::get_operation] calls.
+    /// The request builder for [Config::get_operation][crate::client::Config::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2802,7 +2802,7 @@ pub mod config {
         }
     }
 
-    /// The request builder for [Config::delete_operation][super::super::client::Config::delete_operation] calls.
+    /// The request builder for [Config::delete_operation][crate::client::Config::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2864,7 +2864,7 @@ pub mod config {
         }
     }
 
-    /// The request builder for [Config::cancel_operation][super::super::client::Config::cancel_operation] calls.
+    /// The request builder for [Config::cancel_operation][crate::client::Config::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run

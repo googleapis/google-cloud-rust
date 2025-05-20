@@ -17,7 +17,7 @@
 pub mod os_login_service {
     use crate::Result;
 
-    /// A builder for [OsLoginService][super::super::client::OsLoginService].
+    /// A builder for [OsLoginService][crate::client::OsLoginService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod os_login_service {
         }
     }
 
-    /// Common implementation for [super::super::client::OsLoginService] request builders.
+    /// Common implementation for [crate::client::OsLoginService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::OsLoginService>,
@@ -68,7 +68,7 @@ pub mod os_login_service {
         }
     }
 
-    /// The request builder for [OsLoginService::create_ssh_public_key][super::super::client::OsLoginService::create_ssh_public_key] calls.
+    /// The request builder for [OsLoginService::create_ssh_public_key][crate::client::OsLoginService::create_ssh_public_key] calls.
     ///
     /// # Example
     /// ```no_run
@@ -156,7 +156,7 @@ pub mod os_login_service {
         }
     }
 
-    /// The request builder for [OsLoginService::delete_posix_account][super::super::client::OsLoginService::delete_posix_account] calls.
+    /// The request builder for [OsLoginService::delete_posix_account][crate::client::OsLoginService::delete_posix_account] calls.
     ///
     /// # Example
     /// ```no_run
@@ -222,7 +222,7 @@ pub mod os_login_service {
         }
     }
 
-    /// The request builder for [OsLoginService::delete_ssh_public_key][super::super::client::OsLoginService::delete_ssh_public_key] calls.
+    /// The request builder for [OsLoginService::delete_ssh_public_key][crate::client::OsLoginService::delete_ssh_public_key] calls.
     ///
     /// # Example
     /// ```no_run
@@ -288,7 +288,7 @@ pub mod os_login_service {
         }
     }
 
-    /// The request builder for [OsLoginService::get_login_profile][super::super::client::OsLoginService::get_login_profile] calls.
+    /// The request builder for [OsLoginService::get_login_profile][crate::client::OsLoginService::get_login_profile] calls.
     ///
     /// # Example
     /// ```no_run
@@ -363,7 +363,7 @@ pub mod os_login_service {
         }
     }
 
-    /// The request builder for [OsLoginService::get_ssh_public_key][super::super::client::OsLoginService::get_ssh_public_key] calls.
+    /// The request builder for [OsLoginService::get_ssh_public_key][crate::client::OsLoginService::get_ssh_public_key] calls.
     ///
     /// # Example
     /// ```no_run
@@ -426,7 +426,7 @@ pub mod os_login_service {
         }
     }
 
-    /// The request builder for [OsLoginService::import_ssh_public_key][super::super::client::OsLoginService::import_ssh_public_key] calls.
+    /// The request builder for [OsLoginService::import_ssh_public_key][crate::client::OsLoginService::import_ssh_public_key] calls.
     ///
     /// # Example
     /// ```no_run
@@ -527,7 +527,7 @@ pub mod os_login_service {
         }
     }
 
-    /// The request builder for [OsLoginService::update_ssh_public_key][super::super::client::OsLoginService::update_ssh_public_key] calls.
+    /// The request builder for [OsLoginService::update_ssh_public_key][crate::client::OsLoginService::update_ssh_public_key] calls.
     ///
     /// # Example
     /// ```no_run

@@ -17,7 +17,7 @@
 pub mod locations {
     use crate::Result;
 
-    /// A builder for [Locations][super::super::client::Locations].
+    /// A builder for [Locations][crate::client::Locations].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod locations {
         }
     }
 
-    /// Common implementation for [super::super::client::Locations] request builders.
+    /// Common implementation for [crate::client::Locations] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::Locations>,
@@ -68,7 +68,7 @@ pub mod locations {
         }
     }
 
-    /// The request builder for [Locations::list_locations][super::super::client::Locations::list_locations] calls.
+    /// The request builder for [Locations::list_locations][crate::client::Locations::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -175,7 +175,7 @@ pub mod locations {
         }
     }
 
-    /// The request builder for [Locations::get_location][super::super::client::Locations::get_location] calls.
+    /// The request builder for [Locations::get_location][crate::client::Locations::get_location] calls.
     ///
     /// # Example
     /// ```no_run

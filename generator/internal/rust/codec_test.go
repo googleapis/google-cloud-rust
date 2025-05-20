@@ -219,6 +219,33 @@ func rustPackageNameImpl(t *testing.T, want string, opts map[string]string, api 
 	}
 }
 
+func TestServiceName(t *testing.T) {
+	c, err := newCodec(true, map[string]string{
+		"service-name-overrides": "BadName=GoodName,Old=New",
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	serviceNameImpl(t, c, "BadName", "GoodName")
+	serviceNameImpl(t, c, "Old", "New")
+	serviceNameImpl(t, c, "Unchanged", "Unchanged")
+
+	c2, err := newCodec(true, map[string]string{})
+	if err != nil {
+		t.Fatal(err)
+	}
+	serviceNameImpl(t, c2, "Unchanged", "Unchanged")
+}
+
+func serviceNameImpl(t *testing.T, c *codec, serviceName string, want string) {
+	t.Helper()
+	s := &api.Service{Name: serviceName}
+	got := ServiceName(s, c.serviceNameOverrides)
+	if want != got {
+		t.Errorf("mismatch in service name, want=%s, got=%s", want, got)
+	}
+}
+
 func checkRustPackages(t *testing.T, got *codec, want *codec) {
 	t.Helper()
 	less := func(a, b *packagez) bool { return a.name < b.name }

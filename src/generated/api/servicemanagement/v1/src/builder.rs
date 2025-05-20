@@ -17,7 +17,7 @@
 pub mod service_manager {
     use crate::Result;
 
-    /// A builder for [ServiceManager][super::super::client::ServiceManager].
+    /// A builder for [ServiceManager][crate::client::ServiceManager].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod service_manager {
         }
     }
 
-    /// Common implementation for [super::super::client::ServiceManager] request builders.
+    /// Common implementation for [crate::client::ServiceManager] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceManager>,
@@ -68,7 +68,7 @@ pub mod service_manager {
         }
     }
 
-    /// The request builder for [ServiceManager::list_services][super::super::client::ServiceManager::list_services] calls.
+    /// The request builder for [ServiceManager::list_services][crate::client::ServiceManager::list_services] calls.
     ///
     /// # Example
     /// ```no_run
@@ -176,7 +176,7 @@ pub mod service_manager {
         }
     }
 
-    /// The request builder for [ServiceManager::get_service][super::super::client::ServiceManager::get_service] calls.
+    /// The request builder for [ServiceManager::get_service][crate::client::ServiceManager::get_service] calls.
     ///
     /// # Example
     /// ```no_run
@@ -239,7 +239,7 @@ pub mod service_manager {
         }
     }
 
-    /// The request builder for [ServiceManager::create_service][super::super::client::ServiceManager::create_service] calls.
+    /// The request builder for [ServiceManager::create_service][crate::client::ServiceManager::create_service] calls.
     ///
     /// # Example
     /// ```no_run
@@ -284,7 +284,7 @@ pub mod service_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_service][super::super::client::ServiceManager::create_service].
+        /// on [create_service][crate::client::ServiceManager::create_service].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_service(self.0.request, self.0.options)
@@ -358,7 +358,7 @@ pub mod service_manager {
         }
     }
 
-    /// The request builder for [ServiceManager::delete_service][super::super::client::ServiceManager::delete_service] calls.
+    /// The request builder for [ServiceManager::delete_service][crate::client::ServiceManager::delete_service] calls.
     ///
     /// # Example
     /// ```no_run
@@ -403,7 +403,7 @@ pub mod service_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_service][super::super::client::ServiceManager::delete_service].
+        /// on [delete_service][crate::client::ServiceManager::delete_service].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_service(self.0.request, self.0.options)
@@ -462,7 +462,7 @@ pub mod service_manager {
         }
     }
 
-    /// The request builder for [ServiceManager::undelete_service][super::super::client::ServiceManager::undelete_service] calls.
+    /// The request builder for [ServiceManager::undelete_service][crate::client::ServiceManager::undelete_service] calls.
     ///
     /// # Example
     /// ```no_run
@@ -507,7 +507,7 @@ pub mod service_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [undelete_service][super::super::client::ServiceManager::undelete_service].
+        /// on [undelete_service][crate::client::ServiceManager::undelete_service].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .undelete_service(self.0.request, self.0.options)
@@ -567,7 +567,7 @@ pub mod service_manager {
         }
     }
 
-    /// The request builder for [ServiceManager::list_service_configs][super::super::client::ServiceManager::list_service_configs] calls.
+    /// The request builder for [ServiceManager::list_service_configs][crate::client::ServiceManager::list_service_configs] calls.
     ///
     /// # Example
     /// ```no_run
@@ -675,7 +675,7 @@ pub mod service_manager {
         }
     }
 
-    /// The request builder for [ServiceManager::get_service_config][super::super::client::ServiceManager::get_service_config] calls.
+    /// The request builder for [ServiceManager::get_service_config][crate::client::ServiceManager::get_service_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -758,7 +758,7 @@ pub mod service_manager {
         }
     }
 
-    /// The request builder for [ServiceManager::create_service_config][super::super::client::ServiceManager::create_service_config] calls.
+    /// The request builder for [ServiceManager::create_service_config][crate::client::ServiceManager::create_service_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -846,7 +846,7 @@ pub mod service_manager {
         }
     }
 
-    /// The request builder for [ServiceManager::submit_config_source][super::super::client::ServiceManager::submit_config_source] calls.
+    /// The request builder for [ServiceManager::submit_config_source][crate::client::ServiceManager::submit_config_source] calls.
     ///
     /// # Example
     /// ```no_run
@@ -894,7 +894,7 @@ pub mod service_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [submit_config_source][super::super::client::ServiceManager::submit_config_source].
+        /// on [submit_config_source][crate::client::ServiceManager::submit_config_source].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .submit_config_source(self.0.request, self.0.options)
@@ -982,7 +982,7 @@ pub mod service_manager {
         }
     }
 
-    /// The request builder for [ServiceManager::list_service_rollouts][super::super::client::ServiceManager::list_service_rollouts] calls.
+    /// The request builder for [ServiceManager::list_service_rollouts][crate::client::ServiceManager::list_service_rollouts] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1098,7 +1098,7 @@ pub mod service_manager {
         }
     }
 
-    /// The request builder for [ServiceManager::get_service_rollout][super::super::client::ServiceManager::get_service_rollout] calls.
+    /// The request builder for [ServiceManager::get_service_rollout][crate::client::ServiceManager::get_service_rollout] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1172,7 +1172,7 @@ pub mod service_manager {
         }
     }
 
-    /// The request builder for [ServiceManager::create_service_rollout][super::super::client::ServiceManager::create_service_rollout] calls.
+    /// The request builder for [ServiceManager::create_service_rollout][crate::client::ServiceManager::create_service_rollout] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1220,7 +1220,7 @@ pub mod service_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_service_rollout][super::super::client::ServiceManager::create_service_rollout].
+        /// on [create_service_rollout][crate::client::ServiceManager::create_service_rollout].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_service_rollout(self.0.request, self.0.options)
@@ -1299,7 +1299,7 @@ pub mod service_manager {
         }
     }
 
-    /// The request builder for [ServiceManager::generate_config_report][super::super::client::ServiceManager::generate_config_report] calls.
+    /// The request builder for [ServiceManager::generate_config_report][crate::client::ServiceManager::generate_config_report] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1397,7 +1397,7 @@ pub mod service_manager {
         }
     }
 
-    /// The request builder for [ServiceManager::set_iam_policy][super::super::client::ServiceManager::set_iam_policy] calls.
+    /// The request builder for [ServiceManager::set_iam_policy][crate::client::ServiceManager::set_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1500,7 +1500,7 @@ pub mod service_manager {
         }
     }
 
-    /// The request builder for [ServiceManager::get_iam_policy][super::super::client::ServiceManager::get_iam_policy] calls.
+    /// The request builder for [ServiceManager::get_iam_policy][crate::client::ServiceManager::get_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1581,7 +1581,7 @@ pub mod service_manager {
         }
     }
 
-    /// The request builder for [ServiceManager::test_iam_permissions][super::super::client::ServiceManager::test_iam_permissions] calls.
+    /// The request builder for [ServiceManager::test_iam_permissions][crate::client::ServiceManager::test_iam_permissions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1660,7 +1660,7 @@ pub mod service_manager {
         }
     }
 
-    /// The request builder for [ServiceManager::list_operations][super::super::client::ServiceManager::list_operations] calls.
+    /// The request builder for [ServiceManager::list_operations][crate::client::ServiceManager::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1772,7 +1772,7 @@ pub mod service_manager {
         }
     }
 
-    /// The request builder for [ServiceManager::get_operation][super::super::client::ServiceManager::get_operation] calls.
+    /// The request builder for [ServiceManager::get_operation][crate::client::ServiceManager::get_operation] calls.
     ///
     /// # Example
     /// ```no_run

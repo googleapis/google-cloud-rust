@@ -17,7 +17,7 @@
 pub mod policy_bindings {
     use crate::Result;
 
-    /// A builder for [PolicyBindings][super::super::client::PolicyBindings].
+    /// A builder for [PolicyBindings][crate::client::PolicyBindings].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod policy_bindings {
         }
     }
 
-    /// Common implementation for [super::super::client::PolicyBindings] request builders.
+    /// Common implementation for [crate::client::PolicyBindings] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyBindings>,
@@ -68,7 +68,7 @@ pub mod policy_bindings {
         }
     }
 
-    /// The request builder for [PolicyBindings::create_policy_binding][super::super::client::PolicyBindings::create_policy_binding] calls.
+    /// The request builder for [PolicyBindings::create_policy_binding][crate::client::PolicyBindings::create_policy_binding] calls.
     ///
     /// # Example
     /// ```no_run
@@ -116,7 +116,7 @@ pub mod policy_bindings {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_policy_binding][super::super::client::PolicyBindings::create_policy_binding].
+        /// on [create_policy_binding][crate::client::PolicyBindings::create_policy_binding].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_policy_binding(self.0.request, self.0.options)
@@ -212,7 +212,7 @@ pub mod policy_bindings {
         }
     }
 
-    /// The request builder for [PolicyBindings::get_policy_binding][super::super::client::PolicyBindings::get_policy_binding] calls.
+    /// The request builder for [PolicyBindings::get_policy_binding][crate::client::PolicyBindings::get_policy_binding] calls.
     ///
     /// # Example
     /// ```no_run
@@ -278,7 +278,7 @@ pub mod policy_bindings {
         }
     }
 
-    /// The request builder for [PolicyBindings::update_policy_binding][super::super::client::PolicyBindings::update_policy_binding] calls.
+    /// The request builder for [PolicyBindings::update_policy_binding][crate::client::PolicyBindings::update_policy_binding] calls.
     ///
     /// # Example
     /// ```no_run
@@ -326,7 +326,7 @@ pub mod policy_bindings {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_policy_binding][super::super::client::PolicyBindings::update_policy_binding].
+        /// on [update_policy_binding][crate::client::PolicyBindings::update_policy_binding].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_policy_binding(self.0.request, self.0.options)
@@ -424,7 +424,7 @@ pub mod policy_bindings {
         }
     }
 
-    /// The request builder for [PolicyBindings::delete_policy_binding][super::super::client::PolicyBindings::delete_policy_binding] calls.
+    /// The request builder for [PolicyBindings::delete_policy_binding][crate::client::PolicyBindings::delete_policy_binding] calls.
     ///
     /// # Example
     /// ```no_run
@@ -472,7 +472,7 @@ pub mod policy_bindings {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_policy_binding][super::super::client::PolicyBindings::delete_policy_binding].
+        /// on [delete_policy_binding][crate::client::PolicyBindings::delete_policy_binding].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_policy_binding(self.0.request, self.0.options)
@@ -543,7 +543,7 @@ pub mod policy_bindings {
         }
     }
 
-    /// The request builder for [PolicyBindings::list_policy_bindings][super::super::client::PolicyBindings::list_policy_bindings] calls.
+    /// The request builder for [PolicyBindings::list_policy_bindings][crate::client::PolicyBindings::list_policy_bindings] calls.
     ///
     /// # Example
     /// ```no_run
@@ -657,7 +657,7 @@ pub mod policy_bindings {
         }
     }
 
-    /// The request builder for [PolicyBindings::search_target_policy_bindings][super::super::client::PolicyBindings::search_target_policy_bindings] calls.
+    /// The request builder for [PolicyBindings::search_target_policy_bindings][crate::client::PolicyBindings::search_target_policy_bindings] calls.
     ///
     /// # Example
     /// ```no_run
@@ -777,7 +777,7 @@ pub mod policy_bindings {
         }
     }
 
-    /// The request builder for [PolicyBindings::get_operation][super::super::client::PolicyBindings::get_operation] calls.
+    /// The request builder for [PolicyBindings::get_operation][crate::client::PolicyBindings::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -845,7 +845,7 @@ pub mod policy_bindings {
 pub mod principal_access_boundary_policies {
     use crate::Result;
 
-    /// A builder for [PrincipalAccessBoundaryPolicies][super::super::client::PrincipalAccessBoundaryPolicies].
+    /// A builder for [PrincipalAccessBoundaryPolicies][crate::client::PrincipalAccessBoundaryPolicies].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -873,7 +873,7 @@ pub mod principal_access_boundary_policies {
         }
     }
 
-    /// Common implementation for [super::super::client::PrincipalAccessBoundaryPolicies] request builders.
+    /// Common implementation for [crate::client::PrincipalAccessBoundaryPolicies] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::PrincipalAccessBoundaryPolicies>,
@@ -896,7 +896,7 @@ pub mod principal_access_boundary_policies {
         }
     }
 
-    /// The request builder for [PrincipalAccessBoundaryPolicies::create_principal_access_boundary_policy][super::super::client::PrincipalAccessBoundaryPolicies::create_principal_access_boundary_policy] calls.
+    /// The request builder for [PrincipalAccessBoundaryPolicies::create_principal_access_boundary_policy][crate::client::PrincipalAccessBoundaryPolicies::create_principal_access_boundary_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -946,7 +946,7 @@ pub mod principal_access_boundary_policies {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_principal_access_boundary_policy][super::super::client::PrincipalAccessBoundaryPolicies::create_principal_access_boundary_policy].
+        /// on [create_principal_access_boundary_policy][crate::client::PrincipalAccessBoundaryPolicies::create_principal_access_boundary_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_principal_access_boundary_policy(self.0.request, self.0.options)
@@ -1048,7 +1048,7 @@ pub mod principal_access_boundary_policies {
         }
     }
 
-    /// The request builder for [PrincipalAccessBoundaryPolicies::get_principal_access_boundary_policy][super::super::client::PrincipalAccessBoundaryPolicies::get_principal_access_boundary_policy] calls.
+    /// The request builder for [PrincipalAccessBoundaryPolicies::get_principal_access_boundary_policy][crate::client::PrincipalAccessBoundaryPolicies::get_principal_access_boundary_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1116,7 +1116,7 @@ pub mod principal_access_boundary_policies {
         }
     }
 
-    /// The request builder for [PrincipalAccessBoundaryPolicies::update_principal_access_boundary_policy][super::super::client::PrincipalAccessBoundaryPolicies::update_principal_access_boundary_policy] calls.
+    /// The request builder for [PrincipalAccessBoundaryPolicies::update_principal_access_boundary_policy][crate::client::PrincipalAccessBoundaryPolicies::update_principal_access_boundary_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1166,7 +1166,7 @@ pub mod principal_access_boundary_policies {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_principal_access_boundary_policy][super::super::client::PrincipalAccessBoundaryPolicies::update_principal_access_boundary_policy].
+        /// on [update_principal_access_boundary_policy][crate::client::PrincipalAccessBoundaryPolicies::update_principal_access_boundary_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_principal_access_boundary_policy(self.0.request, self.0.options)
@@ -1267,7 +1267,7 @@ pub mod principal_access_boundary_policies {
         }
     }
 
-    /// The request builder for [PrincipalAccessBoundaryPolicies::delete_principal_access_boundary_policy][super::super::client::PrincipalAccessBoundaryPolicies::delete_principal_access_boundary_policy] calls.
+    /// The request builder for [PrincipalAccessBoundaryPolicies::delete_principal_access_boundary_policy][crate::client::PrincipalAccessBoundaryPolicies::delete_principal_access_boundary_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1317,7 +1317,7 @@ pub mod principal_access_boundary_policies {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_principal_access_boundary_policy][super::super::client::PrincipalAccessBoundaryPolicies::delete_principal_access_boundary_policy].
+        /// on [delete_principal_access_boundary_policy][crate::client::PrincipalAccessBoundaryPolicies::delete_principal_access_boundary_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_principal_access_boundary_policy(self.0.request, self.0.options)
@@ -1394,7 +1394,7 @@ pub mod principal_access_boundary_policies {
         }
     }
 
-    /// The request builder for [PrincipalAccessBoundaryPolicies::list_principal_access_boundary_policies][super::super::client::PrincipalAccessBoundaryPolicies::list_principal_access_boundary_policies] calls.
+    /// The request builder for [PrincipalAccessBoundaryPolicies::list_principal_access_boundary_policies][crate::client::PrincipalAccessBoundaryPolicies::list_principal_access_boundary_policies] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1508,7 +1508,7 @@ pub mod principal_access_boundary_policies {
         }
     }
 
-    /// The request builder for [PrincipalAccessBoundaryPolicies::search_principal_access_boundary_policy_bindings][super::super::client::PrincipalAccessBoundaryPolicies::search_principal_access_boundary_policy_bindings] calls.
+    /// The request builder for [PrincipalAccessBoundaryPolicies::search_principal_access_boundary_policy_bindings][crate::client::PrincipalAccessBoundaryPolicies::search_principal_access_boundary_policy_bindings] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1624,7 +1624,7 @@ pub mod principal_access_boundary_policies {
         }
     }
 
-    /// The request builder for [PrincipalAccessBoundaryPolicies::get_operation][super::super::client::PrincipalAccessBoundaryPolicies::get_operation] calls.
+    /// The request builder for [PrincipalAccessBoundaryPolicies::get_operation][crate::client::PrincipalAccessBoundaryPolicies::get_operation] calls.
     ///
     /// # Example
     /// ```no_run

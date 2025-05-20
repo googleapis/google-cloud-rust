@@ -17,7 +17,7 @@
 pub mod license_manager {
     use crate::Result;
 
-    /// A builder for [LicenseManager][super::super::client::LicenseManager].
+    /// A builder for [LicenseManager][crate::client::LicenseManager].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod license_manager {
         }
     }
 
-    /// Common implementation for [super::super::client::LicenseManager] request builders.
+    /// Common implementation for [crate::client::LicenseManager] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManager>,
@@ -68,7 +68,7 @@ pub mod license_manager {
         }
     }
 
-    /// The request builder for [LicenseManager::list_configurations][super::super::client::LicenseManager::list_configurations] calls.
+    /// The request builder for [LicenseManager::list_configurations][crate::client::LicenseManager::list_configurations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -188,7 +188,7 @@ pub mod license_manager {
         }
     }
 
-    /// The request builder for [LicenseManager::get_configuration][super::super::client::LicenseManager::get_configuration] calls.
+    /// The request builder for [LicenseManager::get_configuration][crate::client::LicenseManager::get_configuration] calls.
     ///
     /// # Example
     /// ```no_run
@@ -254,7 +254,7 @@ pub mod license_manager {
         }
     }
 
-    /// The request builder for [LicenseManager::create_configuration][super::super::client::LicenseManager::create_configuration] calls.
+    /// The request builder for [LicenseManager::create_configuration][crate::client::LicenseManager::create_configuration] calls.
     ///
     /// # Example
     /// ```no_run
@@ -302,7 +302,7 @@ pub mod license_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_configuration][super::super::client::LicenseManager::create_configuration].
+        /// on [create_configuration][crate::client::LicenseManager::create_configuration].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_configuration(self.0.request, self.0.options)
@@ -398,7 +398,7 @@ pub mod license_manager {
         }
     }
 
-    /// The request builder for [LicenseManager::update_configuration][super::super::client::LicenseManager::update_configuration] calls.
+    /// The request builder for [LicenseManager::update_configuration][crate::client::LicenseManager::update_configuration] calls.
     ///
     /// # Example
     /// ```no_run
@@ -446,7 +446,7 @@ pub mod license_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_configuration][super::super::client::LicenseManager::update_configuration].
+        /// on [update_configuration][crate::client::LicenseManager::update_configuration].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_configuration(self.0.request, self.0.options)
@@ -544,7 +544,7 @@ pub mod license_manager {
         }
     }
 
-    /// The request builder for [LicenseManager::delete_configuration][super::super::client::LicenseManager::delete_configuration] calls.
+    /// The request builder for [LicenseManager::delete_configuration][crate::client::LicenseManager::delete_configuration] calls.
     ///
     /// # Example
     /// ```no_run
@@ -592,7 +592,7 @@ pub mod license_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_configuration][super::super::client::LicenseManager::delete_configuration].
+        /// on [delete_configuration][crate::client::LicenseManager::delete_configuration].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_configuration(self.0.request, self.0.options)
@@ -657,7 +657,7 @@ pub mod license_manager {
         }
     }
 
-    /// The request builder for [LicenseManager::list_instances][super::super::client::LicenseManager::list_instances] calls.
+    /// The request builder for [LicenseManager::list_instances][crate::client::LicenseManager::list_instances] calls.
     ///
     /// # Example
     /// ```no_run
@@ -772,7 +772,7 @@ pub mod license_manager {
         }
     }
 
-    /// The request builder for [LicenseManager::get_instance][super::super::client::LicenseManager::get_instance] calls.
+    /// The request builder for [LicenseManager::get_instance][crate::client::LicenseManager::get_instance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -835,7 +835,7 @@ pub mod license_manager {
         }
     }
 
-    /// The request builder for [LicenseManager::deactivate_configuration][super::super::client::LicenseManager::deactivate_configuration] calls.
+    /// The request builder for [LicenseManager::deactivate_configuration][crate::client::LicenseManager::deactivate_configuration] calls.
     ///
     /// # Example
     /// ```no_run
@@ -885,7 +885,7 @@ pub mod license_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [deactivate_configuration][super::super::client::LicenseManager::deactivate_configuration].
+        /// on [deactivate_configuration][crate::client::LicenseManager::deactivate_configuration].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .deactivate_configuration(self.0.request, self.0.options)
@@ -951,7 +951,7 @@ pub mod license_manager {
         }
     }
 
-    /// The request builder for [LicenseManager::reactivate_configuration][super::super::client::LicenseManager::reactivate_configuration] calls.
+    /// The request builder for [LicenseManager::reactivate_configuration][crate::client::LicenseManager::reactivate_configuration] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1001,7 +1001,7 @@ pub mod license_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [reactivate_configuration][super::super::client::LicenseManager::reactivate_configuration].
+        /// on [reactivate_configuration][crate::client::LicenseManager::reactivate_configuration].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .reactivate_configuration(self.0.request, self.0.options)
@@ -1067,7 +1067,7 @@ pub mod license_manager {
         }
     }
 
-    /// The request builder for [LicenseManager::query_configuration_license_usage][super::super::client::LicenseManager::query_configuration_license_usage] calls.
+    /// The request builder for [LicenseManager::query_configuration_license_usage][crate::client::LicenseManager::query_configuration_license_usage] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1179,7 +1179,7 @@ pub mod license_manager {
         }
     }
 
-    /// The request builder for [LicenseManager::aggregate_usage][super::super::client::LicenseManager::aggregate_usage] calls.
+    /// The request builder for [LicenseManager::aggregate_usage][crate::client::LicenseManager::aggregate_usage] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1338,7 +1338,7 @@ pub mod license_manager {
         }
     }
 
-    /// The request builder for [LicenseManager::list_products][super::super::client::LicenseManager::list_products] calls.
+    /// The request builder for [LicenseManager::list_products][crate::client::LicenseManager::list_products] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1453,7 +1453,7 @@ pub mod license_manager {
         }
     }
 
-    /// The request builder for [LicenseManager::get_product][super::super::client::LicenseManager::get_product] calls.
+    /// The request builder for [LicenseManager::get_product][crate::client::LicenseManager::get_product] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1516,7 +1516,7 @@ pub mod license_manager {
         }
     }
 
-    /// The request builder for [LicenseManager::list_locations][super::super::client::LicenseManager::list_locations] calls.
+    /// The request builder for [LicenseManager::list_locations][crate::client::LicenseManager::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1626,7 +1626,7 @@ pub mod license_manager {
         }
     }
 
-    /// The request builder for [LicenseManager::get_location][super::super::client::LicenseManager::get_location] calls.
+    /// The request builder for [LicenseManager::get_location][crate::client::LicenseManager::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1687,7 +1687,7 @@ pub mod license_manager {
         }
     }
 
-    /// The request builder for [LicenseManager::list_operations][super::super::client::LicenseManager::list_operations] calls.
+    /// The request builder for [LicenseManager::list_operations][crate::client::LicenseManager::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1799,7 +1799,7 @@ pub mod license_manager {
         }
     }
 
-    /// The request builder for [LicenseManager::get_operation][super::super::client::LicenseManager::get_operation] calls.
+    /// The request builder for [LicenseManager::get_operation][crate::client::LicenseManager::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1863,7 +1863,7 @@ pub mod license_manager {
         }
     }
 
-    /// The request builder for [LicenseManager::delete_operation][super::super::client::LicenseManager::delete_operation] calls.
+    /// The request builder for [LicenseManager::delete_operation][crate::client::LicenseManager::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1927,7 +1927,7 @@ pub mod license_manager {
         }
     }
 
-    /// The request builder for [LicenseManager::cancel_operation][super::super::client::LicenseManager::cancel_operation] calls.
+    /// The request builder for [LicenseManager::cancel_operation][crate::client::LicenseManager::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run

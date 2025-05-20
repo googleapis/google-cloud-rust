@@ -17,7 +17,7 @@
 pub mod lineage {
     use crate::Result;
 
-    /// A builder for [Lineage][super::super::client::Lineage].
+    /// A builder for [Lineage][crate::client::Lineage].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod lineage {
         }
     }
 
-    /// Common implementation for [super::super::client::Lineage] request builders.
+    /// Common implementation for [crate::client::Lineage] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>,
@@ -66,7 +66,7 @@ pub mod lineage {
         }
     }
 
-    /// The request builder for [Lineage::process_open_lineage_run_event][super::super::client::Lineage::process_open_lineage_run_event] calls.
+    /// The request builder for [Lineage::process_open_lineage_run_event][crate::client::Lineage::process_open_lineage_run_event] calls.
     ///
     /// # Example
     /// ```no_run
@@ -160,7 +160,7 @@ pub mod lineage {
         }
     }
 
-    /// The request builder for [Lineage::create_process][super::super::client::Lineage::create_process] calls.
+    /// The request builder for [Lineage::create_process][crate::client::Lineage::create_process] calls.
     ///
     /// # Example
     /// ```no_run
@@ -249,7 +249,7 @@ pub mod lineage {
         }
     }
 
-    /// The request builder for [Lineage::update_process][super::super::client::Lineage::update_process] calls.
+    /// The request builder for [Lineage::update_process][crate::client::Lineage::update_process] calls.
     ///
     /// # Example
     /// ```no_run
@@ -348,7 +348,7 @@ pub mod lineage {
         }
     }
 
-    /// The request builder for [Lineage::get_process][super::super::client::Lineage::get_process] calls.
+    /// The request builder for [Lineage::get_process][crate::client::Lineage::get_process] calls.
     ///
     /// # Example
     /// ```no_run
@@ -409,7 +409,7 @@ pub mod lineage {
         }
     }
 
-    /// The request builder for [Lineage::list_processes][super::super::client::Lineage::list_processes] calls.
+    /// The request builder for [Lineage::list_processes][crate::client::Lineage::list_processes] calls.
     ///
     /// # Example
     /// ```no_run
@@ -510,7 +510,7 @@ pub mod lineage {
         }
     }
 
-    /// The request builder for [Lineage::delete_process][super::super::client::Lineage::delete_process] calls.
+    /// The request builder for [Lineage::delete_process][crate::client::Lineage::delete_process] calls.
     ///
     /// # Example
     /// ```no_run
@@ -553,7 +553,7 @@ pub mod lineage {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_process][super::super::client::Lineage::delete_process].
+        /// on [delete_process][crate::client::Lineage::delete_process].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_process(self.0.request, self.0.options)
@@ -618,7 +618,7 @@ pub mod lineage {
         }
     }
 
-    /// The request builder for [Lineage::create_run][super::super::client::Lineage::create_run] calls.
+    /// The request builder for [Lineage::create_run][crate::client::Lineage::create_run] calls.
     ///
     /// # Example
     /// ```no_run
@@ -707,7 +707,7 @@ pub mod lineage {
         }
     }
 
-    /// The request builder for [Lineage::update_run][super::super::client::Lineage::update_run] calls.
+    /// The request builder for [Lineage::update_run][crate::client::Lineage::update_run] calls.
     ///
     /// # Example
     /// ```no_run
@@ -806,7 +806,7 @@ pub mod lineage {
         }
     }
 
-    /// The request builder for [Lineage::get_run][super::super::client::Lineage::get_run] calls.
+    /// The request builder for [Lineage::get_run][crate::client::Lineage::get_run] calls.
     ///
     /// # Example
     /// ```no_run
@@ -867,7 +867,7 @@ pub mod lineage {
         }
     }
 
-    /// The request builder for [Lineage::list_runs][super::super::client::Lineage::list_runs] calls.
+    /// The request builder for [Lineage::list_runs][crate::client::Lineage::list_runs] calls.
     ///
     /// # Example
     /// ```no_run
@@ -968,7 +968,7 @@ pub mod lineage {
         }
     }
 
-    /// The request builder for [Lineage::delete_run][super::super::client::Lineage::delete_run] calls.
+    /// The request builder for [Lineage::delete_run][crate::client::Lineage::delete_run] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1011,7 +1011,7 @@ pub mod lineage {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_run][super::super::client::Lineage::delete_run].
+        /// on [delete_run][crate::client::Lineage::delete_run].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_run(self.0.request, self.0.options)
@@ -1076,7 +1076,7 @@ pub mod lineage {
         }
     }
 
-    /// The request builder for [Lineage::create_lineage_event][super::super::client::Lineage::create_lineage_event] calls.
+    /// The request builder for [Lineage::create_lineage_event][crate::client::Lineage::create_lineage_event] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1168,7 +1168,7 @@ pub mod lineage {
         }
     }
 
-    /// The request builder for [Lineage::get_lineage_event][super::super::client::Lineage::get_lineage_event] calls.
+    /// The request builder for [Lineage::get_lineage_event][crate::client::Lineage::get_lineage_event] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1229,7 +1229,7 @@ pub mod lineage {
         }
     }
 
-    /// The request builder for [Lineage::list_lineage_events][super::super::client::Lineage::list_lineage_events] calls.
+    /// The request builder for [Lineage::list_lineage_events][crate::client::Lineage::list_lineage_events] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1333,7 +1333,7 @@ pub mod lineage {
         }
     }
 
-    /// The request builder for [Lineage::delete_lineage_event][super::super::client::Lineage::delete_lineage_event] calls.
+    /// The request builder for [Lineage::delete_lineage_event][crate::client::Lineage::delete_lineage_event] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1403,7 +1403,7 @@ pub mod lineage {
         }
     }
 
-    /// The request builder for [Lineage::search_links][super::super::client::Lineage::search_links] calls.
+    /// The request builder for [Lineage::search_links][crate::client::Lineage::search_links] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1542,7 +1542,7 @@ pub mod lineage {
         }
     }
 
-    /// The request builder for [Lineage::batch_search_link_processes][super::super::client::Lineage::batch_search_link_processes] calls.
+    /// The request builder for [Lineage::batch_search_link_processes][crate::client::Lineage::batch_search_link_processes] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1665,7 +1665,7 @@ pub mod lineage {
         }
     }
 
-    /// The request builder for [Lineage::list_operations][super::super::client::Lineage::list_operations] calls.
+    /// The request builder for [Lineage::list_operations][crate::client::Lineage::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1775,7 +1775,7 @@ pub mod lineage {
         }
     }
 
-    /// The request builder for [Lineage::get_operation][super::super::client::Lineage::get_operation] calls.
+    /// The request builder for [Lineage::get_operation][crate::client::Lineage::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1837,7 +1837,7 @@ pub mod lineage {
         }
     }
 
-    /// The request builder for [Lineage::delete_operation][super::super::client::Lineage::delete_operation] calls.
+    /// The request builder for [Lineage::delete_operation][crate::client::Lineage::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1899,7 +1899,7 @@ pub mod lineage {
         }
     }
 
-    /// The request builder for [Lineage::cancel_operation][super::super::client::Lineage::cancel_operation] calls.
+    /// The request builder for [Lineage::cancel_operation][crate::client::Lineage::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run

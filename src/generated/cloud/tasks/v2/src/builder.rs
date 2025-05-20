@@ -17,7 +17,7 @@
 pub mod cloud_tasks {
     use crate::Result;
 
-    /// A builder for [CloudTasks][super::super::client::CloudTasks].
+    /// A builder for [CloudTasks][crate::client::CloudTasks].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod cloud_tasks {
         }
     }
 
-    /// Common implementation for [super::super::client::CloudTasks] request builders.
+    /// Common implementation for [crate::client::CloudTasks] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudTasks>,
@@ -68,7 +68,7 @@ pub mod cloud_tasks {
         }
     }
 
-    /// The request builder for [CloudTasks::list_queues][super::super::client::CloudTasks::list_queues] calls.
+    /// The request builder for [CloudTasks::list_queues][crate::client::CloudTasks::list_queues] calls.
     ///
     /// # Example
     /// ```no_run
@@ -177,7 +177,7 @@ pub mod cloud_tasks {
         }
     }
 
-    /// The request builder for [CloudTasks::get_queue][super::super::client::CloudTasks::get_queue] calls.
+    /// The request builder for [CloudTasks::get_queue][crate::client::CloudTasks::get_queue] calls.
     ///
     /// # Example
     /// ```no_run
@@ -240,7 +240,7 @@ pub mod cloud_tasks {
         }
     }
 
-    /// The request builder for [CloudTasks::create_queue][super::super::client::CloudTasks::create_queue] calls.
+    /// The request builder for [CloudTasks::create_queue][crate::client::CloudTasks::create_queue] calls.
     ///
     /// # Example
     /// ```no_run
@@ -325,7 +325,7 @@ pub mod cloud_tasks {
         }
     }
 
-    /// The request builder for [CloudTasks::update_queue][super::super::client::CloudTasks::update_queue] calls.
+    /// The request builder for [CloudTasks::update_queue][crate::client::CloudTasks::update_queue] calls.
     ///
     /// # Example
     /// ```no_run
@@ -420,7 +420,7 @@ pub mod cloud_tasks {
         }
     }
 
-    /// The request builder for [CloudTasks::delete_queue][super::super::client::CloudTasks::delete_queue] calls.
+    /// The request builder for [CloudTasks::delete_queue][crate::client::CloudTasks::delete_queue] calls.
     ///
     /// # Example
     /// ```no_run
@@ -483,7 +483,7 @@ pub mod cloud_tasks {
         }
     }
 
-    /// The request builder for [CloudTasks::purge_queue][super::super::client::CloudTasks::purge_queue] calls.
+    /// The request builder for [CloudTasks::purge_queue][crate::client::CloudTasks::purge_queue] calls.
     ///
     /// # Example
     /// ```no_run
@@ -546,7 +546,7 @@ pub mod cloud_tasks {
         }
     }
 
-    /// The request builder for [CloudTasks::pause_queue][super::super::client::CloudTasks::pause_queue] calls.
+    /// The request builder for [CloudTasks::pause_queue][crate::client::CloudTasks::pause_queue] calls.
     ///
     /// # Example
     /// ```no_run
@@ -609,7 +609,7 @@ pub mod cloud_tasks {
         }
     }
 
-    /// The request builder for [CloudTasks::resume_queue][super::super::client::CloudTasks::resume_queue] calls.
+    /// The request builder for [CloudTasks::resume_queue][crate::client::CloudTasks::resume_queue] calls.
     ///
     /// # Example
     /// ```no_run
@@ -672,7 +672,7 @@ pub mod cloud_tasks {
         }
     }
 
-    /// The request builder for [CloudTasks::get_iam_policy][super::super::client::CloudTasks::get_iam_policy] calls.
+    /// The request builder for [CloudTasks::get_iam_policy][crate::client::CloudTasks::get_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -753,7 +753,7 @@ pub mod cloud_tasks {
         }
     }
 
-    /// The request builder for [CloudTasks::set_iam_policy][super::super::client::CloudTasks::set_iam_policy] calls.
+    /// The request builder for [CloudTasks::set_iam_policy][crate::client::CloudTasks::set_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -856,7 +856,7 @@ pub mod cloud_tasks {
         }
     }
 
-    /// The request builder for [CloudTasks::test_iam_permissions][super::super::client::CloudTasks::test_iam_permissions] calls.
+    /// The request builder for [CloudTasks::test_iam_permissions][crate::client::CloudTasks::test_iam_permissions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -935,7 +935,7 @@ pub mod cloud_tasks {
         }
     }
 
-    /// The request builder for [CloudTasks::list_tasks][super::super::client::CloudTasks::list_tasks] calls.
+    /// The request builder for [CloudTasks::list_tasks][crate::client::CloudTasks::list_tasks] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1044,7 +1044,7 @@ pub mod cloud_tasks {
         }
     }
 
-    /// The request builder for [CloudTasks::get_task][super::super::client::CloudTasks::get_task] calls.
+    /// The request builder for [CloudTasks::get_task][crate::client::CloudTasks::get_task] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1113,7 +1113,7 @@ pub mod cloud_tasks {
         }
     }
 
-    /// The request builder for [CloudTasks::create_task][super::super::client::CloudTasks::create_task] calls.
+    /// The request builder for [CloudTasks::create_task][crate::client::CloudTasks::create_task] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1204,7 +1204,7 @@ pub mod cloud_tasks {
         }
     }
 
-    /// The request builder for [CloudTasks::delete_task][super::super::client::CloudTasks::delete_task] calls.
+    /// The request builder for [CloudTasks::delete_task][crate::client::CloudTasks::delete_task] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1267,7 +1267,7 @@ pub mod cloud_tasks {
         }
     }
 
-    /// The request builder for [CloudTasks::run_task][super::super::client::CloudTasks::run_task] calls.
+    /// The request builder for [CloudTasks::run_task][crate::client::CloudTasks::run_task] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1336,7 +1336,7 @@ pub mod cloud_tasks {
         }
     }
 
-    /// The request builder for [CloudTasks::list_locations][super::super::client::CloudTasks::list_locations] calls.
+    /// The request builder for [CloudTasks::list_locations][crate::client::CloudTasks::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1446,7 +1446,7 @@ pub mod cloud_tasks {
         }
     }
 
-    /// The request builder for [CloudTasks::get_location][super::super::client::CloudTasks::get_location] calls.
+    /// The request builder for [CloudTasks::get_location][crate::client::CloudTasks::get_location] calls.
     ///
     /// # Example
     /// ```no_run

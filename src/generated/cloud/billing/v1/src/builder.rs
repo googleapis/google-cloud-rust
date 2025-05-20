@@ -17,7 +17,7 @@
 pub mod cloud_billing {
     use crate::Result;
 
-    /// A builder for [CloudBilling][super::super::client::CloudBilling].
+    /// A builder for [CloudBilling][crate::client::CloudBilling].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod cloud_billing {
         }
     }
 
-    /// Common implementation for [super::super::client::CloudBilling] request builders.
+    /// Common implementation for [crate::client::CloudBilling] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBilling>,
@@ -68,7 +68,7 @@ pub mod cloud_billing {
         }
     }
 
-    /// The request builder for [CloudBilling::get_billing_account][super::super::client::CloudBilling::get_billing_account] calls.
+    /// The request builder for [CloudBilling::get_billing_account][crate::client::CloudBilling::get_billing_account] calls.
     ///
     /// # Example
     /// ```no_run
@@ -134,7 +134,7 @@ pub mod cloud_billing {
         }
     }
 
-    /// The request builder for [CloudBilling::list_billing_accounts][super::super::client::CloudBilling::list_billing_accounts] calls.
+    /// The request builder for [CloudBilling::list_billing_accounts][crate::client::CloudBilling::list_billing_accounts] calls.
     ///
     /// # Example
     /// ```no_run
@@ -246,7 +246,7 @@ pub mod cloud_billing {
         }
     }
 
-    /// The request builder for [CloudBilling::update_billing_account][super::super::client::CloudBilling::update_billing_account] calls.
+    /// The request builder for [CloudBilling::update_billing_account][crate::client::CloudBilling::update_billing_account] calls.
     ///
     /// # Example
     /// ```no_run
@@ -352,7 +352,7 @@ pub mod cloud_billing {
         }
     }
 
-    /// The request builder for [CloudBilling::create_billing_account][super::super::client::CloudBilling::create_billing_account] calls.
+    /// The request builder for [CloudBilling::create_billing_account][crate::client::CloudBilling::create_billing_account] calls.
     ///
     /// # Example
     /// ```no_run
@@ -438,7 +438,7 @@ pub mod cloud_billing {
         }
     }
 
-    /// The request builder for [CloudBilling::list_project_billing_info][super::super::client::CloudBilling::list_project_billing_info] calls.
+    /// The request builder for [CloudBilling::list_project_billing_info][crate::client::CloudBilling::list_project_billing_info] calls.
     ///
     /// # Example
     /// ```no_run
@@ -548,7 +548,7 @@ pub mod cloud_billing {
         }
     }
 
-    /// The request builder for [CloudBilling::get_project_billing_info][super::super::client::CloudBilling::get_project_billing_info] calls.
+    /// The request builder for [CloudBilling::get_project_billing_info][crate::client::CloudBilling::get_project_billing_info] calls.
     ///
     /// # Example
     /// ```no_run
@@ -614,7 +614,7 @@ pub mod cloud_billing {
         }
     }
 
-    /// The request builder for [CloudBilling::update_project_billing_info][super::super::client::CloudBilling::update_project_billing_info] calls.
+    /// The request builder for [CloudBilling::update_project_billing_info][crate::client::CloudBilling::update_project_billing_info] calls.
     ///
     /// # Example
     /// ```no_run
@@ -700,7 +700,7 @@ pub mod cloud_billing {
         }
     }
 
-    /// The request builder for [CloudBilling::get_iam_policy][super::super::client::CloudBilling::get_iam_policy] calls.
+    /// The request builder for [CloudBilling::get_iam_policy][crate::client::CloudBilling::get_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -781,7 +781,7 @@ pub mod cloud_billing {
         }
     }
 
-    /// The request builder for [CloudBilling::set_iam_policy][super::super::client::CloudBilling::set_iam_policy] calls.
+    /// The request builder for [CloudBilling::set_iam_policy][crate::client::CloudBilling::set_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -884,7 +884,7 @@ pub mod cloud_billing {
         }
     }
 
-    /// The request builder for [CloudBilling::test_iam_permissions][super::super::client::CloudBilling::test_iam_permissions] calls.
+    /// The request builder for [CloudBilling::test_iam_permissions][crate::client::CloudBilling::test_iam_permissions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -963,7 +963,7 @@ pub mod cloud_billing {
         }
     }
 
-    /// The request builder for [CloudBilling::move_billing_account][super::super::client::CloudBilling::move_billing_account] calls.
+    /// The request builder for [CloudBilling::move_billing_account][crate::client::CloudBilling::move_billing_account] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1041,7 +1041,7 @@ pub mod cloud_billing {
 pub mod cloud_catalog {
     use crate::Result;
 
-    /// A builder for [CloudCatalog][super::super::client::CloudCatalog].
+    /// A builder for [CloudCatalog][crate::client::CloudCatalog].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -1069,7 +1069,7 @@ pub mod cloud_catalog {
         }
     }
 
-    /// Common implementation for [super::super::client::CloudCatalog] request builders.
+    /// Common implementation for [crate::client::CloudCatalog] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudCatalog>,
@@ -1092,7 +1092,7 @@ pub mod cloud_catalog {
         }
     }
 
-    /// The request builder for [CloudCatalog::list_services][super::super::client::CloudCatalog::list_services] calls.
+    /// The request builder for [CloudCatalog::list_services][crate::client::CloudCatalog::list_services] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1187,7 +1187,7 @@ pub mod cloud_catalog {
         }
     }
 
-    /// The request builder for [CloudCatalog::list_skus][super::super::client::CloudCatalog::list_skus] calls.
+    /// The request builder for [CloudCatalog::list_skus][crate::client::CloudCatalog::list_skus] calls.
     ///
     /// # Example
     /// ```no_run

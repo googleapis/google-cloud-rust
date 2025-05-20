@@ -14,6 +14,7 @@
 
 pub use crate::Error;
 pub use crate::Result;
+use auth::credentials::CacheableResource;
 pub use control::model::Object;
 use http::Extensions;
 
@@ -149,11 +150,20 @@ impl Storage {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&self::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let auth_headers = self
+        let cached_auth_headers = self
             .cred
             .headers(Extensions::new())
             .await
             .map_err(Error::authentication)?;
+
+        let auth_headers = match cached_auth_headers {
+            CacheableResource::New { data, .. } => Ok(data),
+            CacheableResource::NotModified => {
+                unreachable!("headers are not cached");
+            }
+        };
+
+        let auth_headers = auth_headers?;
         let builder = auth_headers
             .iter()
             .fold(builder, |b, (k, v)| b.header(k, v));
@@ -211,11 +221,19 @@ impl Storage {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&self::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let auth_headers = self
+        let cached_auth_headers = self
             .cred
             .headers(Extensions::new())
             .await
             .map_err(Error::authentication)?;
+        let auth_headers = match cached_auth_headers {
+            CacheableResource::New { data, .. } => Ok(data),
+            CacheableResource::NotModified => {
+                unreachable!("headers are not cached");
+            }
+        };
+
+        let auth_headers = auth_headers?;
         let builder = auth_headers
             .iter()
             .fold(builder, |b, (k, v)| b.header(k, v));
@@ -297,6 +315,8 @@ pub(crate) mod info {
 }
 
 mod v1 {
+    use base64::Engine as _;
+
     #[serde_with::serde_as]
     #[derive(Debug, Default, serde::Deserialize, PartialEq, Clone)]
     #[serde(default, rename_all = "camelCase")]
@@ -336,16 +356,79 @@ mod v1 {
         owner: Option<Owner>,
         customer_encryption: Option<CustomerEncryption>,
         metadata: std::collections::HashMap<std::string::String, std::string::String>,
+        #[serde_as(as = "Option<Crc32c>")]
+        crc32c: Option<u32>,
+        #[serde_as(as = "serde_with::base64::Base64")]
+        md5_hash: bytes::Bytes,
         // The following are excluded from the protos, so we don't really need to parse them.
         media_link: String,
         self_link: String,
-        // TODO(#2039) - add all the other fields:
-        //     "md5Hash": string,
-        //     "crc32c": string,
-        //     "retention": {
-        //       "retainUntilTime": "datetime",
-        //       "mode": string
-        //     }
+        // ObjectRetention cannot be configured or reported through the gRPC API.
+        retention: Retention,
+    }
+
+    #[derive(Debug, Default, serde::Deserialize, PartialEq, Clone)]
+    #[serde(default, rename_all = "camelCase")]
+    struct Retention {
+        retain_until_time: wkt::Timestamp,
+        mode: String,
+    }
+
+    // CRC32c checksum is a unsigned 32-bit int encoded using base64 in big-endian byte order.
+    struct Crc32c;
+
+    impl<'de> serde_with::DeserializeAs<'de, u32> for Crc32c {
+        fn deserialize_as<D>(deserializer: D) -> Result<u32, D::Error>
+        where
+            D: serde::de::Deserializer<'de>,
+        {
+            struct Crc32cVisitor;
+
+            impl serde::de::Visitor<'_> for Crc32cVisitor {
+                type Value = u32;
+
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("a base64 encoded string")
+                }
+
+                fn visit_str<E>(self, value: &str) -> Result<Self::Value, E>
+                where
+                    E: serde::de::Error,
+                {
+                    let bytes = base64::prelude::BASE64_STANDARD
+                        .decode(value)
+                        .map_err(serde::de::Error::custom)?;
+
+                    let length = bytes.len();
+                    if bytes.len() != 4 {
+                        return Err(serde::de::Error::invalid_length(
+                            length,
+                            &"Expected a Byte Vector of length 4.",
+                        ));
+                    }
+                    Ok(((bytes[0] as u32) << 24)
+                        + ((bytes[1] as u32) << 16)
+                        + ((bytes[2] as u32) << 8)
+                        + (bytes[3] as u32))
+                }
+            }
+
+            deserializer.deserialize_str(Crc32cVisitor)
+        }
+    }
+
+    fn new_object_checksums(
+        crc32c: Option<u32>,
+        md5_hash: bytes::Bytes,
+    ) -> Option<control::model::ObjectChecksums> {
+        if crc32c.is_none() && md5_hash.is_empty() {
+            return None;
+        }
+        Some(
+            control::model::ObjectChecksums::new()
+                .set_or_clear_crc32c(crc32c)
+                .set_md5_hash(md5_hash),
+        )
     }
 
     #[serde_with::serde_as]
@@ -460,12 +543,14 @@ mod v1 {
                 .set_or_clear_owner(value.owner)
                 .set_metadata(value.metadata)
                 .set_or_clear_customer_encryption(value.customer_encryption)
+                .set_or_clear_checksums(new_object_checksums(value.crc32c, value.md5_hash))
         }
     }
 
     #[cfg(test)]
     mod tests {
         use super::*;
+        use serde_with::DeserializeAs;
         use test_case::test_case;
 
         #[test]
@@ -492,7 +577,22 @@ mod v1 {
                 // map fields:
                 "metadata": {"key1": "val1", "key2": "val2", "key3": "val3"},
                 // base64 fields:
-                "customerEncryption": {"encryptionAlgorithm": "algorithm", "keySha256": "dGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXp5IGRvZw"}
+                "customerEncryption": {"encryptionAlgorithm": "algorithm", "keySha256": "dGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXp5IGRvZw"},
+                // checksum fields:
+                // $ echo 'The quick brown fox jumps over the lazy dog' > quick.txt
+                //
+                // $ gcloud storage hash quick.txt
+                // ---
+                // crc32c_hash: /ieOcg==
+                // digest_format: base64
+                // md5_hash: N8S4ft/8XRmP9aGFzufuCQ==
+                // url: quick.txt
+                "md5Hash": "N8S4ft/8XRmP9aGFzufuCQ==",
+                // base64 encoded uint32 in BigEndian order field:
+                "crc32c": "/ieOcg==",
+                // unused fields:
+                "mediaLink": "my-link",
+                "retention": { "mode": "my-mode", "retainUntilTime": "2026-05-13T10:30:00Z"}
             });
             let object: Object = serde_json::from_value(json)
                 .expect("json value in object test should be deserializable");
@@ -534,6 +634,18 @@ mod v1 {
                     encryption_algorithm: "algorithm".to_string(),
                     key_sha256: bytes::Bytes::from("the quick brown fox jumps over the lazy dog"),
                 }),
+                md5_hash: vec![
+                    55, 196, 184, 126, 223, 252, 93, 25, 143, 245, 161, 133, 206, 231, 238, 9,
+                ]
+                .into(),
+                // base64 encoded uint32 in BigEndian order field:
+                crc32c: Some(4264005234),
+                // unused in control::model::Object:
+                media_link: "my-link".to_string(),
+                retention: Retention {
+                    retain_until_time: wkt::Timestamp::clamp(1778668200, 0),
+                    mode: "my-mode".to_string(),
+                },
                 ..Default::default()
             };
 
@@ -630,9 +742,12 @@ mod v1 {
                 encryption_algorithm: "my-encryption-alg".to_string(),
                 key_sha256: "hash-of-encryption-key".into(),
             }),
+            md5_hash: "md5Hash".into(),
+            crc32c: Some(4321),
             // unused in control::model
             media_link: "my-media-link".to_string(),
             self_link: "my-self-link".to_string(),
+            retention: Retention { retain_until_time: wkt::Timestamp::clamp(1747132200, 10), mode: "mode".to_string() }
         }; "all fields set")]
         // Tests for acl values.
         #[test_case(Object { acl: Vec::new(), ..Default::default()}; "empty acl")]
@@ -704,7 +819,16 @@ mod v1 {
                     assert_eq!(got.key_sha256_bytes, from.key_sha256);
                 }
             }
-            // TODO(#2039): assert_eq!(got.checksums, object.checksums);
+            match got.checksums {
+                Some(checksums) => {
+                    assert_eq!(object.md5_hash, checksums.md5_hash);
+                    assert_eq!(object.crc32c, checksums.crc32c)
+                }
+                None => {
+                    assert!(object.md5_hash.is_empty());
+                    assert!(object.crc32c.is_none());
+                }
+            }
         }
 
         fn object_acl_with_all_fields() -> ObjectAccessControl {
@@ -766,6 +890,36 @@ mod v1 {
                     assert_eq!(got.team, from.team);
                 }
             }
+        }
+
+        #[test_case(None, bytes::Bytes::new(), None; "unset")]
+        #[test_case(Some(5), bytes::Bytes::new(), Some(control::model::ObjectChecksums::new().set_crc32c(5_u32)); "crc32c set")]
+        #[test_case(None, "hello".into(), Some(control::model::ObjectChecksums::new().set_md5_hash("hello")); "md5_hash set")]
+        #[test_case(Some(5), "hello".into(), Some(control::model::ObjectChecksums::new().set_crc32c(5_u32).set_md5_hash("hello")); "both set")]
+        fn test_new_object_checksums(
+            crc32c: Option<u32>,
+            md5_hash: bytes::Bytes,
+            want: Option<control::model::ObjectChecksums>,
+        ) {
+            assert_eq!(new_object_checksums(crc32c, md5_hash), want)
+        }
+
+        #[test_case("AAAAAA==", 0_u32; "zero")]
+        #[test_case("SZYC0g==", 1234567890_u32; "number")]
+        #[test_case("/////w==", u32::MAX; "max u32")]
+        fn test_deserialize_crc32c(s: &str, want: u32) {
+            let got = Crc32c::deserialize_as(serde_json::json!(s))
+                .expect("deserialization should not error");
+            assert_eq!(got, want);
+        }
+
+        #[test_case(""; "empty")]
+        #[test_case("invalid"; "invalid")]
+        #[test_case("AAA="; "too small")]
+        #[test_case("AAAAAAAAAAA="; "too large")]
+        fn test_deserialize_crc32c_err(input: &str) {
+            Crc32c::deserialize_as(serde_json::json!(input))
+                .expect_err("expected error deserializing string");
         }
     }
 }

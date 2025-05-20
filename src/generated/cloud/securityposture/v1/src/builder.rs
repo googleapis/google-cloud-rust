@@ -17,7 +17,7 @@
 pub mod security_posture {
     use crate::Result;
 
-    /// A builder for [SecurityPosture][super::super::client::SecurityPosture].
+    /// A builder for [SecurityPosture][crate::client::SecurityPosture].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod security_posture {
         }
     }
 
-    /// Common implementation for [super::super::client::SecurityPosture] request builders.
+    /// Common implementation for [crate::client::SecurityPosture] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityPosture>,
@@ -68,7 +68,7 @@ pub mod security_posture {
         }
     }
 
-    /// The request builder for [SecurityPosture::list_postures][super::super::client::SecurityPosture::list_postures] calls.
+    /// The request builder for [SecurityPosture::list_postures][crate::client::SecurityPosture::list_postures] calls.
     ///
     /// # Example
     /// ```no_run
@@ -171,7 +171,7 @@ pub mod security_posture {
         }
     }
 
-    /// The request builder for [SecurityPosture::list_posture_revisions][super::super::client::SecurityPosture::list_posture_revisions] calls.
+    /// The request builder for [SecurityPosture::list_posture_revisions][crate::client::SecurityPosture::list_posture_revisions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -279,7 +279,7 @@ pub mod security_posture {
         }
     }
 
-    /// The request builder for [SecurityPosture::get_posture][super::super::client::SecurityPosture::get_posture] calls.
+    /// The request builder for [SecurityPosture::get_posture][crate::client::SecurityPosture::get_posture] calls.
     ///
     /// # Example
     /// ```no_run
@@ -348,7 +348,7 @@ pub mod security_posture {
         }
     }
 
-    /// The request builder for [SecurityPosture::create_posture][super::super::client::SecurityPosture::create_posture] calls.
+    /// The request builder for [SecurityPosture::create_posture][crate::client::SecurityPosture::create_posture] calls.
     ///
     /// # Example
     /// ```no_run
@@ -393,7 +393,7 @@ pub mod security_posture {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_posture][super::super::client::SecurityPosture::create_posture].
+        /// on [create_posture][crate::client::SecurityPosture::create_posture].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_posture(self.0.request, self.0.options)
@@ -480,7 +480,7 @@ pub mod security_posture {
         }
     }
 
-    /// The request builder for [SecurityPosture::update_posture][super::super::client::SecurityPosture::update_posture] calls.
+    /// The request builder for [SecurityPosture::update_posture][crate::client::SecurityPosture::update_posture] calls.
     ///
     /// # Example
     /// ```no_run
@@ -525,7 +525,7 @@ pub mod security_posture {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_posture][super::super::client::SecurityPosture::update_posture].
+        /// on [update_posture][crate::client::SecurityPosture::update_posture].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_posture(self.0.request, self.0.options)
@@ -626,7 +626,7 @@ pub mod security_posture {
         }
     }
 
-    /// The request builder for [SecurityPosture::delete_posture][super::super::client::SecurityPosture::delete_posture] calls.
+    /// The request builder for [SecurityPosture::delete_posture][crate::client::SecurityPosture::delete_posture] calls.
     ///
     /// # Example
     /// ```no_run
@@ -671,7 +671,7 @@ pub mod security_posture {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_posture][super::super::client::SecurityPosture::delete_posture].
+        /// on [delete_posture][crate::client::SecurityPosture::delete_posture].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_posture(self.0.request, self.0.options)
@@ -736,7 +736,7 @@ pub mod security_posture {
         }
     }
 
-    /// The request builder for [SecurityPosture::extract_posture][super::super::client::SecurityPosture::extract_posture] calls.
+    /// The request builder for [SecurityPosture::extract_posture][crate::client::SecurityPosture::extract_posture] calls.
     ///
     /// # Example
     /// ```no_run
@@ -781,7 +781,7 @@ pub mod security_posture {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [extract_posture][super::super::client::SecurityPosture::extract_posture].
+        /// on [extract_posture][crate::client::SecurityPosture::extract_posture].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .extract_posture(self.0.request, self.0.options)
@@ -854,7 +854,7 @@ pub mod security_posture {
         }
     }
 
-    /// The request builder for [SecurityPosture::list_posture_deployments][super::super::client::SecurityPosture::list_posture_deployments] calls.
+    /// The request builder for [SecurityPosture::list_posture_deployments][crate::client::SecurityPosture::list_posture_deployments] calls.
     ///
     /// # Example
     /// ```no_run
@@ -970,7 +970,7 @@ pub mod security_posture {
         }
     }
 
-    /// The request builder for [SecurityPosture::get_posture_deployment][super::super::client::SecurityPosture::get_posture_deployment] calls.
+    /// The request builder for [SecurityPosture::get_posture_deployment][crate::client::SecurityPosture::get_posture_deployment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1036,7 +1036,7 @@ pub mod security_posture {
         }
     }
 
-    /// The request builder for [SecurityPosture::create_posture_deployment][super::super::client::SecurityPosture::create_posture_deployment] calls.
+    /// The request builder for [SecurityPosture::create_posture_deployment][crate::client::SecurityPosture::create_posture_deployment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1086,7 +1086,7 @@ pub mod security_posture {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_posture_deployment][super::super::client::SecurityPosture::create_posture_deployment].
+        /// on [create_posture_deployment][crate::client::SecurityPosture::create_posture_deployment].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_posture_deployment(self.0.request, self.0.options)
@@ -1176,7 +1176,7 @@ pub mod security_posture {
         }
     }
 
-    /// The request builder for [SecurityPosture::update_posture_deployment][super::super::client::SecurityPosture::update_posture_deployment] calls.
+    /// The request builder for [SecurityPosture::update_posture_deployment][crate::client::SecurityPosture::update_posture_deployment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1226,7 +1226,7 @@ pub mod security_posture {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_posture_deployment][super::super::client::SecurityPosture::update_posture_deployment].
+        /// on [update_posture_deployment][crate::client::SecurityPosture::update_posture_deployment].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_posture_deployment(self.0.request, self.0.options)
@@ -1322,7 +1322,7 @@ pub mod security_posture {
         }
     }
 
-    /// The request builder for [SecurityPosture::delete_posture_deployment][super::super::client::SecurityPosture::delete_posture_deployment] calls.
+    /// The request builder for [SecurityPosture::delete_posture_deployment][crate::client::SecurityPosture::delete_posture_deployment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1372,7 +1372,7 @@ pub mod security_posture {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_posture_deployment][super::super::client::SecurityPosture::delete_posture_deployment].
+        /// on [delete_posture_deployment][crate::client::SecurityPosture::delete_posture_deployment].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_posture_deployment(self.0.request, self.0.options)
@@ -1437,7 +1437,7 @@ pub mod security_posture {
         }
     }
 
-    /// The request builder for [SecurityPosture::list_posture_templates][super::super::client::SecurityPosture::list_posture_templates] calls.
+    /// The request builder for [SecurityPosture::list_posture_templates][crate::client::SecurityPosture::list_posture_templates] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1551,7 +1551,7 @@ pub mod security_posture {
         }
     }
 
-    /// The request builder for [SecurityPosture::get_posture_template][super::super::client::SecurityPosture::get_posture_template] calls.
+    /// The request builder for [SecurityPosture::get_posture_template][crate::client::SecurityPosture::get_posture_template] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1623,7 +1623,7 @@ pub mod security_posture {
         }
     }
 
-    /// The request builder for [SecurityPosture::list_locations][super::super::client::SecurityPosture::list_locations] calls.
+    /// The request builder for [SecurityPosture::list_locations][crate::client::SecurityPosture::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1733,7 +1733,7 @@ pub mod security_posture {
         }
     }
 
-    /// The request builder for [SecurityPosture::get_location][super::super::client::SecurityPosture::get_location] calls.
+    /// The request builder for [SecurityPosture::get_location][crate::client::SecurityPosture::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1794,7 +1794,7 @@ pub mod security_posture {
         }
     }
 
-    /// The request builder for [SecurityPosture::list_operations][super::super::client::SecurityPosture::list_operations] calls.
+    /// The request builder for [SecurityPosture::list_operations][crate::client::SecurityPosture::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1906,7 +1906,7 @@ pub mod security_posture {
         }
     }
 
-    /// The request builder for [SecurityPosture::get_operation][super::super::client::SecurityPosture::get_operation] calls.
+    /// The request builder for [SecurityPosture::get_operation][crate::client::SecurityPosture::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1970,7 +1970,7 @@ pub mod security_posture {
         }
     }
 
-    /// The request builder for [SecurityPosture::delete_operation][super::super::client::SecurityPosture::delete_operation] calls.
+    /// The request builder for [SecurityPosture::delete_operation][crate::client::SecurityPosture::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2034,7 +2034,7 @@ pub mod security_posture {
         }
     }
 
-    /// The request builder for [SecurityPosture::cancel_operation][super::super::client::SecurityPosture::cancel_operation] calls.
+    /// The request builder for [SecurityPosture::cancel_operation][crate::client::SecurityPosture::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run

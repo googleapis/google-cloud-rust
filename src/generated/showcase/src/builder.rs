@@ -17,7 +17,7 @@
 pub mod compliance {
     use crate::Result;
 
-    /// A builder for [Compliance][super::super::client::Compliance].
+    /// A builder for [Compliance][crate::client::Compliance].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod compliance {
         }
     }
 
-    /// Common implementation for [super::super::client::Compliance] request builders.
+    /// Common implementation for [crate::client::Compliance] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::Compliance>,
@@ -68,7 +68,7 @@ pub mod compliance {
         }
     }
 
-    /// The request builder for [Compliance::repeat_data_body][super::super::client::Compliance::repeat_data_body] calls.
+    /// The request builder for [Compliance::repeat_data_body][crate::client::Compliance::repeat_data_body] calls.
     ///
     /// # Example
     /// ```no_run
@@ -243,7 +243,7 @@ pub mod compliance {
         }
     }
 
-    /// The request builder for [Compliance::repeat_data_body_info][super::super::client::Compliance::repeat_data_body_info] calls.
+    /// The request builder for [Compliance::repeat_data_body_info][crate::client::Compliance::repeat_data_body_info] calls.
     ///
     /// # Example
     /// ```no_run
@@ -418,7 +418,7 @@ pub mod compliance {
         }
     }
 
-    /// The request builder for [Compliance::repeat_data_query][super::super::client::Compliance::repeat_data_query] calls.
+    /// The request builder for [Compliance::repeat_data_query][crate::client::Compliance::repeat_data_query] calls.
     ///
     /// # Example
     /// ```no_run
@@ -593,7 +593,7 @@ pub mod compliance {
         }
     }
 
-    /// The request builder for [Compliance::repeat_data_simple_path][super::super::client::Compliance::repeat_data_simple_path] calls.
+    /// The request builder for [Compliance::repeat_data_simple_path][crate::client::Compliance::repeat_data_simple_path] calls.
     ///
     /// # Example
     /// ```no_run
@@ -768,7 +768,7 @@ pub mod compliance {
         }
     }
 
-    /// The request builder for [Compliance::repeat_data_path_resource][super::super::client::Compliance::repeat_data_path_resource] calls.
+    /// The request builder for [Compliance::repeat_data_path_resource][crate::client::Compliance::repeat_data_path_resource] calls.
     ///
     /// # Example
     /// ```no_run
@@ -943,7 +943,7 @@ pub mod compliance {
         }
     }
 
-    /// The request builder for [Compliance::repeat_data_path_trailing_resource][super::super::client::Compliance::repeat_data_path_trailing_resource] calls.
+    /// The request builder for [Compliance::repeat_data_path_trailing_resource][crate::client::Compliance::repeat_data_path_trailing_resource] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1118,7 +1118,7 @@ pub mod compliance {
         }
     }
 
-    /// The request builder for [Compliance::repeat_data_body_put][super::super::client::Compliance::repeat_data_body_put] calls.
+    /// The request builder for [Compliance::repeat_data_body_put][crate::client::Compliance::repeat_data_body_put] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1293,7 +1293,7 @@ pub mod compliance {
         }
     }
 
-    /// The request builder for [Compliance::repeat_data_body_patch][super::super::client::Compliance::repeat_data_body_patch] calls.
+    /// The request builder for [Compliance::repeat_data_body_patch][crate::client::Compliance::repeat_data_body_patch] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1468,7 +1468,7 @@ pub mod compliance {
         }
     }
 
-    /// The request builder for [Compliance::get_enum][super::super::client::Compliance::get_enum] calls.
+    /// The request builder for [Compliance::get_enum][crate::client::Compliance::get_enum] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1529,7 +1529,7 @@ pub mod compliance {
         }
     }
 
-    /// The request builder for [Compliance::verify_enum][super::super::client::Compliance::verify_enum] calls.
+    /// The request builder for [Compliance::verify_enum][crate::client::Compliance::verify_enum] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1608,7 +1608,7 @@ pub mod compliance {
         }
     }
 
-    /// The request builder for [Compliance::list_locations][super::super::client::Compliance::list_locations] calls.
+    /// The request builder for [Compliance::list_locations][crate::client::Compliance::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1718,7 +1718,7 @@ pub mod compliance {
         }
     }
 
-    /// The request builder for [Compliance::get_location][super::super::client::Compliance::get_location] calls.
+    /// The request builder for [Compliance::get_location][crate::client::Compliance::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1779,7 +1779,7 @@ pub mod compliance {
         }
     }
 
-    /// The request builder for [Compliance::set_iam_policy][super::super::client::Compliance::set_iam_policy] calls.
+    /// The request builder for [Compliance::set_iam_policy][crate::client::Compliance::set_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1882,7 +1882,7 @@ pub mod compliance {
         }
     }
 
-    /// The request builder for [Compliance::get_iam_policy][super::super::client::Compliance::get_iam_policy] calls.
+    /// The request builder for [Compliance::get_iam_policy][crate::client::Compliance::get_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1963,7 +1963,7 @@ pub mod compliance {
         }
     }
 
-    /// The request builder for [Compliance::test_iam_permissions][super::super::client::Compliance::test_iam_permissions] calls.
+    /// The request builder for [Compliance::test_iam_permissions][crate::client::Compliance::test_iam_permissions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2042,7 +2042,7 @@ pub mod compliance {
         }
     }
 
-    /// The request builder for [Compliance::list_operations][super::super::client::Compliance::list_operations] calls.
+    /// The request builder for [Compliance::list_operations][crate::client::Compliance::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2154,7 +2154,7 @@ pub mod compliance {
         }
     }
 
-    /// The request builder for [Compliance::get_operation][super::super::client::Compliance::get_operation] calls.
+    /// The request builder for [Compliance::get_operation][crate::client::Compliance::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2218,7 +2218,7 @@ pub mod compliance {
         }
     }
 
-    /// The request builder for [Compliance::delete_operation][super::super::client::Compliance::delete_operation] calls.
+    /// The request builder for [Compliance::delete_operation][crate::client::Compliance::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2282,7 +2282,7 @@ pub mod compliance {
         }
     }
 
-    /// The request builder for [Compliance::cancel_operation][super::super::client::Compliance::cancel_operation] calls.
+    /// The request builder for [Compliance::cancel_operation][crate::client::Compliance::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2350,7 +2350,7 @@ pub mod compliance {
 pub mod echo {
     use crate::Result;
 
-    /// A builder for [Echo][super::super::client::Echo].
+    /// A builder for [Echo][crate::client::Echo].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -2378,7 +2378,7 @@ pub mod echo {
         }
     }
 
-    /// Common implementation for [super::super::client::Echo] request builders.
+    /// Common implementation for [crate::client::Echo] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::Echo>,
@@ -2399,7 +2399,7 @@ pub mod echo {
         }
     }
 
-    /// The request builder for [Echo::echo][super::super::client::Echo::echo] calls.
+    /// The request builder for [Echo::echo][crate::client::Echo::echo] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2529,7 +2529,7 @@ pub mod echo {
         }
     }
 
-    /// The request builder for [Echo::echo_error_details][super::super::client::Echo::echo_error_details] calls.
+    /// The request builder for [Echo::echo_error_details][crate::client::Echo::echo_error_details] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2602,7 +2602,7 @@ pub mod echo {
         }
     }
 
-    /// The request builder for [Echo::fail_echo_with_details][super::super::client::Echo::fail_echo_with_details] calls.
+    /// The request builder for [Echo::fail_echo_with_details][crate::client::Echo::fail_echo_with_details] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2664,7 +2664,7 @@ pub mod echo {
         }
     }
 
-    /// The request builder for [Echo::paged_expand][super::super::client::Echo::paged_expand] calls.
+    /// The request builder for [Echo::paged_expand][crate::client::Echo::paged_expand] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2765,7 +2765,7 @@ pub mod echo {
         }
     }
 
-    /// The request builder for [Echo::paged_expand_legacy][super::super::client::Echo::paged_expand_legacy] calls.
+    /// The request builder for [Echo::paged_expand_legacy][crate::client::Echo::paged_expand_legacy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2869,7 +2869,7 @@ pub mod echo {
         }
     }
 
-    /// The request builder for [Echo::paged_expand_legacy_mapped][super::super::client::Echo::paged_expand_legacy_mapped] calls.
+    /// The request builder for [Echo::paged_expand_legacy_mapped][crate::client::Echo::paged_expand_legacy_mapped] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2942,7 +2942,7 @@ pub mod echo {
         }
     }
 
-    /// The request builder for [Echo::wait][super::super::client::Echo::wait] calls.
+    /// The request builder for [Echo::wait][crate::client::Echo::wait] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2985,7 +2985,7 @@ pub mod echo {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [wait][super::super::client::Echo::wait].
+        /// on [wait][crate::client::Echo::wait].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .wait(self.0.request, self.0.options)
@@ -3107,7 +3107,7 @@ pub mod echo {
         }
     }
 
-    /// The request builder for [Echo::block][super::super::client::Echo::block] calls.
+    /// The request builder for [Echo::block][crate::client::Echo::block] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3216,7 +3216,7 @@ pub mod echo {
         }
     }
 
-    /// The request builder for [Echo::list_locations][super::super::client::Echo::list_locations] calls.
+    /// The request builder for [Echo::list_locations][crate::client::Echo::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3324,7 +3324,7 @@ pub mod echo {
         }
     }
 
-    /// The request builder for [Echo::get_location][super::super::client::Echo::get_location] calls.
+    /// The request builder for [Echo::get_location][crate::client::Echo::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3383,7 +3383,7 @@ pub mod echo {
         }
     }
 
-    /// The request builder for [Echo::set_iam_policy][super::super::client::Echo::set_iam_policy] calls.
+    /// The request builder for [Echo::set_iam_policy][crate::client::Echo::set_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3484,7 +3484,7 @@ pub mod echo {
         }
     }
 
-    /// The request builder for [Echo::get_iam_policy][super::super::client::Echo::get_iam_policy] calls.
+    /// The request builder for [Echo::get_iam_policy][crate::client::Echo::get_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3563,7 +3563,7 @@ pub mod echo {
         }
     }
 
-    /// The request builder for [Echo::test_iam_permissions][super::super::client::Echo::test_iam_permissions] calls.
+    /// The request builder for [Echo::test_iam_permissions][crate::client::Echo::test_iam_permissions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3640,7 +3640,7 @@ pub mod echo {
         }
     }
 
-    /// The request builder for [Echo::list_operations][super::super::client::Echo::list_operations] calls.
+    /// The request builder for [Echo::list_operations][crate::client::Echo::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3750,7 +3750,7 @@ pub mod echo {
         }
     }
 
-    /// The request builder for [Echo::get_operation][super::super::client::Echo::get_operation] calls.
+    /// The request builder for [Echo::get_operation][crate::client::Echo::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3812,7 +3812,7 @@ pub mod echo {
         }
     }
 
-    /// The request builder for [Echo::delete_operation][super::super::client::Echo::delete_operation] calls.
+    /// The request builder for [Echo::delete_operation][crate::client::Echo::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3874,7 +3874,7 @@ pub mod echo {
         }
     }
 
-    /// The request builder for [Echo::cancel_operation][super::super::client::Echo::cancel_operation] calls.
+    /// The request builder for [Echo::cancel_operation][crate::client::Echo::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3940,7 +3940,7 @@ pub mod echo {
 pub mod identity {
     use crate::Result;
 
-    /// A builder for [Identity][super::super::client::Identity].
+    /// A builder for [Identity][crate::client::Identity].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -3968,7 +3968,7 @@ pub mod identity {
         }
     }
 
-    /// Common implementation for [super::super::client::Identity] request builders.
+    /// Common implementation for [crate::client::Identity] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::Identity>,
@@ -3989,7 +3989,7 @@ pub mod identity {
         }
     }
 
-    /// The request builder for [Identity::create_user][super::super::client::Identity::create_user] calls.
+    /// The request builder for [Identity::create_user][crate::client::Identity::create_user] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4060,7 +4060,7 @@ pub mod identity {
         }
     }
 
-    /// The request builder for [Identity::get_user][super::super::client::Identity::get_user] calls.
+    /// The request builder for [Identity::get_user][crate::client::Identity::get_user] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4121,7 +4121,7 @@ pub mod identity {
         }
     }
 
-    /// The request builder for [Identity::update_user][super::super::client::Identity::update_user] calls.
+    /// The request builder for [Identity::update_user][crate::client::Identity::update_user] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4210,7 +4210,7 @@ pub mod identity {
         }
     }
 
-    /// The request builder for [Identity::delete_user][super::super::client::Identity::delete_user] calls.
+    /// The request builder for [Identity::delete_user][crate::client::Identity::delete_user] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4271,7 +4271,7 @@ pub mod identity {
         }
     }
 
-    /// The request builder for [Identity::list_users][super::super::client::Identity::list_users] calls.
+    /// The request builder for [Identity::list_users][crate::client::Identity::list_users] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4364,7 +4364,7 @@ pub mod identity {
         }
     }
 
-    /// The request builder for [Identity::list_locations][super::super::client::Identity::list_locations] calls.
+    /// The request builder for [Identity::list_locations][crate::client::Identity::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4472,7 +4472,7 @@ pub mod identity {
         }
     }
 
-    /// The request builder for [Identity::get_location][super::super::client::Identity::get_location] calls.
+    /// The request builder for [Identity::get_location][crate::client::Identity::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4531,7 +4531,7 @@ pub mod identity {
         }
     }
 
-    /// The request builder for [Identity::set_iam_policy][super::super::client::Identity::set_iam_policy] calls.
+    /// The request builder for [Identity::set_iam_policy][crate::client::Identity::set_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4632,7 +4632,7 @@ pub mod identity {
         }
     }
 
-    /// The request builder for [Identity::get_iam_policy][super::super::client::Identity::get_iam_policy] calls.
+    /// The request builder for [Identity::get_iam_policy][crate::client::Identity::get_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4711,7 +4711,7 @@ pub mod identity {
         }
     }
 
-    /// The request builder for [Identity::test_iam_permissions][super::super::client::Identity::test_iam_permissions] calls.
+    /// The request builder for [Identity::test_iam_permissions][crate::client::Identity::test_iam_permissions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4788,7 +4788,7 @@ pub mod identity {
         }
     }
 
-    /// The request builder for [Identity::list_operations][super::super::client::Identity::list_operations] calls.
+    /// The request builder for [Identity::list_operations][crate::client::Identity::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4898,7 +4898,7 @@ pub mod identity {
         }
     }
 
-    /// The request builder for [Identity::get_operation][super::super::client::Identity::get_operation] calls.
+    /// The request builder for [Identity::get_operation][crate::client::Identity::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4960,7 +4960,7 @@ pub mod identity {
         }
     }
 
-    /// The request builder for [Identity::delete_operation][super::super::client::Identity::delete_operation] calls.
+    /// The request builder for [Identity::delete_operation][crate::client::Identity::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5022,7 +5022,7 @@ pub mod identity {
         }
     }
 
-    /// The request builder for [Identity::cancel_operation][super::super::client::Identity::cancel_operation] calls.
+    /// The request builder for [Identity::cancel_operation][crate::client::Identity::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5088,7 +5088,7 @@ pub mod identity {
 pub mod messaging {
     use crate::Result;
 
-    /// A builder for [Messaging][super::super::client::Messaging].
+    /// A builder for [Messaging][crate::client::Messaging].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -5116,7 +5116,7 @@ pub mod messaging {
         }
     }
 
-    /// Common implementation for [super::super::client::Messaging] request builders.
+    /// Common implementation for [crate::client::Messaging] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::Messaging>,
@@ -5139,7 +5139,7 @@ pub mod messaging {
         }
     }
 
-    /// The request builder for [Messaging::create_room][super::super::client::Messaging::create_room] calls.
+    /// The request builder for [Messaging::create_room][crate::client::Messaging::create_room] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5212,7 +5212,7 @@ pub mod messaging {
         }
     }
 
-    /// The request builder for [Messaging::get_room][super::super::client::Messaging::get_room] calls.
+    /// The request builder for [Messaging::get_room][crate::client::Messaging::get_room] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5275,7 +5275,7 @@ pub mod messaging {
         }
     }
 
-    /// The request builder for [Messaging::update_room][super::super::client::Messaging::update_room] calls.
+    /// The request builder for [Messaging::update_room][crate::client::Messaging::update_room] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5366,7 +5366,7 @@ pub mod messaging {
         }
     }
 
-    /// The request builder for [Messaging::delete_room][super::super::client::Messaging::delete_room] calls.
+    /// The request builder for [Messaging::delete_room][crate::client::Messaging::delete_room] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5429,7 +5429,7 @@ pub mod messaging {
         }
     }
 
-    /// The request builder for [Messaging::list_rooms][super::super::client::Messaging::list_rooms] calls.
+    /// The request builder for [Messaging::list_rooms][crate::client::Messaging::list_rooms] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5524,7 +5524,7 @@ pub mod messaging {
         }
     }
 
-    /// The request builder for [Messaging::create_blurb][super::super::client::Messaging::create_blurb] calls.
+    /// The request builder for [Messaging::create_blurb][crate::client::Messaging::create_blurb] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5605,7 +5605,7 @@ pub mod messaging {
         }
     }
 
-    /// The request builder for [Messaging::get_blurb][super::super::client::Messaging::get_blurb] calls.
+    /// The request builder for [Messaging::get_blurb][crate::client::Messaging::get_blurb] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5668,7 +5668,7 @@ pub mod messaging {
         }
     }
 
-    /// The request builder for [Messaging::update_blurb][super::super::client::Messaging::update_blurb] calls.
+    /// The request builder for [Messaging::update_blurb][crate::client::Messaging::update_blurb] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5759,7 +5759,7 @@ pub mod messaging {
         }
     }
 
-    /// The request builder for [Messaging::delete_blurb][super::super::client::Messaging::delete_blurb] calls.
+    /// The request builder for [Messaging::delete_blurb][crate::client::Messaging::delete_blurb] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5822,7 +5822,7 @@ pub mod messaging {
         }
     }
 
-    /// The request builder for [Messaging::list_blurbs][super::super::client::Messaging::list_blurbs] calls.
+    /// The request builder for [Messaging::list_blurbs][crate::client::Messaging::list_blurbs] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5925,7 +5925,7 @@ pub mod messaging {
         }
     }
 
-    /// The request builder for [Messaging::search_blurbs][super::super::client::Messaging::search_blurbs] calls.
+    /// The request builder for [Messaging::search_blurbs][crate::client::Messaging::search_blurbs] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5970,7 +5970,7 @@ pub mod messaging {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [search_blurbs][super::super::client::Messaging::search_blurbs].
+        /// on [search_blurbs][crate::client::Messaging::search_blurbs].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .search_blurbs(self.0.request, self.0.options)
@@ -6048,7 +6048,7 @@ pub mod messaging {
         }
     }
 
-    /// The request builder for [Messaging::list_locations][super::super::client::Messaging::list_locations] calls.
+    /// The request builder for [Messaging::list_locations][crate::client::Messaging::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6158,7 +6158,7 @@ pub mod messaging {
         }
     }
 
-    /// The request builder for [Messaging::get_location][super::super::client::Messaging::get_location] calls.
+    /// The request builder for [Messaging::get_location][crate::client::Messaging::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6219,7 +6219,7 @@ pub mod messaging {
         }
     }
 
-    /// The request builder for [Messaging::set_iam_policy][super::super::client::Messaging::set_iam_policy] calls.
+    /// The request builder for [Messaging::set_iam_policy][crate::client::Messaging::set_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6322,7 +6322,7 @@ pub mod messaging {
         }
     }
 
-    /// The request builder for [Messaging::get_iam_policy][super::super::client::Messaging::get_iam_policy] calls.
+    /// The request builder for [Messaging::get_iam_policy][crate::client::Messaging::get_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6403,7 +6403,7 @@ pub mod messaging {
         }
     }
 
-    /// The request builder for [Messaging::test_iam_permissions][super::super::client::Messaging::test_iam_permissions] calls.
+    /// The request builder for [Messaging::test_iam_permissions][crate::client::Messaging::test_iam_permissions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6482,7 +6482,7 @@ pub mod messaging {
         }
     }
 
-    /// The request builder for [Messaging::list_operations][super::super::client::Messaging::list_operations] calls.
+    /// The request builder for [Messaging::list_operations][crate::client::Messaging::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6594,7 +6594,7 @@ pub mod messaging {
         }
     }
 
-    /// The request builder for [Messaging::get_operation][super::super::client::Messaging::get_operation] calls.
+    /// The request builder for [Messaging::get_operation][crate::client::Messaging::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6658,7 +6658,7 @@ pub mod messaging {
         }
     }
 
-    /// The request builder for [Messaging::delete_operation][super::super::client::Messaging::delete_operation] calls.
+    /// The request builder for [Messaging::delete_operation][crate::client::Messaging::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6722,7 +6722,7 @@ pub mod messaging {
         }
     }
 
-    /// The request builder for [Messaging::cancel_operation][super::super::client::Messaging::cancel_operation] calls.
+    /// The request builder for [Messaging::cancel_operation][crate::client::Messaging::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6790,7 +6790,7 @@ pub mod messaging {
 pub mod sequence_service {
     use crate::Result;
 
-    /// A builder for [SequenceService][super::super::client::SequenceService].
+    /// A builder for [SequenceService][crate::client::SequenceService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -6818,7 +6818,7 @@ pub mod sequence_service {
         }
     }
 
-    /// Common implementation for [super::super::client::SequenceService] request builders.
+    /// Common implementation for [crate::client::SequenceService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::SequenceService>,
@@ -6841,7 +6841,7 @@ pub mod sequence_service {
         }
     }
 
-    /// The request builder for [SequenceService::create_sequence][super::super::client::SequenceService::create_sequence] calls.
+    /// The request builder for [SequenceService::create_sequence][crate::client::SequenceService::create_sequence] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6914,7 +6914,7 @@ pub mod sequence_service {
         }
     }
 
-    /// The request builder for [SequenceService::create_streaming_sequence][super::super::client::SequenceService::create_streaming_sequence] calls.
+    /// The request builder for [SequenceService::create_streaming_sequence][crate::client::SequenceService::create_streaming_sequence] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6992,7 +6992,7 @@ pub mod sequence_service {
         }
     }
 
-    /// The request builder for [SequenceService::get_sequence_report][super::super::client::SequenceService::get_sequence_report] calls.
+    /// The request builder for [SequenceService::get_sequence_report][crate::client::SequenceService::get_sequence_report] calls.
     ///
     /// # Example
     /// ```no_run
@@ -7058,7 +7058,7 @@ pub mod sequence_service {
         }
     }
 
-    /// The request builder for [SequenceService::get_streaming_sequence_report][super::super::client::SequenceService::get_streaming_sequence_report] calls.
+    /// The request builder for [SequenceService::get_streaming_sequence_report][crate::client::SequenceService::get_streaming_sequence_report] calls.
     ///
     /// # Example
     /// ```no_run
@@ -7126,7 +7126,7 @@ pub mod sequence_service {
         }
     }
 
-    /// The request builder for [SequenceService::attempt_sequence][super::super::client::SequenceService::attempt_sequence] calls.
+    /// The request builder for [SequenceService::attempt_sequence][crate::client::SequenceService::attempt_sequence] calls.
     ///
     /// # Example
     /// ```no_run
@@ -7189,7 +7189,7 @@ pub mod sequence_service {
         }
     }
 
-    /// The request builder for [SequenceService::list_locations][super::super::client::SequenceService::list_locations] calls.
+    /// The request builder for [SequenceService::list_locations][crate::client::SequenceService::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -7299,7 +7299,7 @@ pub mod sequence_service {
         }
     }
 
-    /// The request builder for [SequenceService::get_location][super::super::client::SequenceService::get_location] calls.
+    /// The request builder for [SequenceService::get_location][crate::client::SequenceService::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -7360,7 +7360,7 @@ pub mod sequence_service {
         }
     }
 
-    /// The request builder for [SequenceService::set_iam_policy][super::super::client::SequenceService::set_iam_policy] calls.
+    /// The request builder for [SequenceService::set_iam_policy][crate::client::SequenceService::set_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -7463,7 +7463,7 @@ pub mod sequence_service {
         }
     }
 
-    /// The request builder for [SequenceService::get_iam_policy][super::super::client::SequenceService::get_iam_policy] calls.
+    /// The request builder for [SequenceService::get_iam_policy][crate::client::SequenceService::get_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -7544,7 +7544,7 @@ pub mod sequence_service {
         }
     }
 
-    /// The request builder for [SequenceService::test_iam_permissions][super::super::client::SequenceService::test_iam_permissions] calls.
+    /// The request builder for [SequenceService::test_iam_permissions][crate::client::SequenceService::test_iam_permissions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -7623,7 +7623,7 @@ pub mod sequence_service {
         }
     }
 
-    /// The request builder for [SequenceService::list_operations][super::super::client::SequenceService::list_operations] calls.
+    /// The request builder for [SequenceService::list_operations][crate::client::SequenceService::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -7735,7 +7735,7 @@ pub mod sequence_service {
         }
     }
 
-    /// The request builder for [SequenceService::get_operation][super::super::client::SequenceService::get_operation] calls.
+    /// The request builder for [SequenceService::get_operation][crate::client::SequenceService::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -7799,7 +7799,7 @@ pub mod sequence_service {
         }
     }
 
-    /// The request builder for [SequenceService::delete_operation][super::super::client::SequenceService::delete_operation] calls.
+    /// The request builder for [SequenceService::delete_operation][crate::client::SequenceService::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -7863,7 +7863,7 @@ pub mod sequence_service {
         }
     }
 
-    /// The request builder for [SequenceService::cancel_operation][super::super::client::SequenceService::cancel_operation] calls.
+    /// The request builder for [SequenceService::cancel_operation][crate::client::SequenceService::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -7931,7 +7931,7 @@ pub mod sequence_service {
 pub mod testing {
     use crate::Result;
 
-    /// A builder for [Testing][super::super::client::Testing].
+    /// A builder for [Testing][crate::client::Testing].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -7959,7 +7959,7 @@ pub mod testing {
         }
     }
 
-    /// Common implementation for [super::super::client::Testing] request builders.
+    /// Common implementation for [crate::client::Testing] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::Testing>,
@@ -7980,7 +7980,7 @@ pub mod testing {
         }
     }
 
-    /// The request builder for [Testing::create_session][super::super::client::Testing::create_session] calls.
+    /// The request builder for [Testing::create_session][crate::client::Testing::create_session] calls.
     ///
     /// # Example
     /// ```no_run
@@ -8051,7 +8051,7 @@ pub mod testing {
         }
     }
 
-    /// The request builder for [Testing::get_session][super::super::client::Testing::get_session] calls.
+    /// The request builder for [Testing::get_session][crate::client::Testing::get_session] calls.
     ///
     /// # Example
     /// ```no_run
@@ -8110,7 +8110,7 @@ pub mod testing {
         }
     }
 
-    /// The request builder for [Testing::list_sessions][super::super::client::Testing::list_sessions] calls.
+    /// The request builder for [Testing::list_sessions][crate::client::Testing::list_sessions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -8203,7 +8203,7 @@ pub mod testing {
         }
     }
 
-    /// The request builder for [Testing::delete_session][super::super::client::Testing::delete_session] calls.
+    /// The request builder for [Testing::delete_session][crate::client::Testing::delete_session] calls.
     ///
     /// # Example
     /// ```no_run
@@ -8262,7 +8262,7 @@ pub mod testing {
         }
     }
 
-    /// The request builder for [Testing::report_session][super::super::client::Testing::report_session] calls.
+    /// The request builder for [Testing::report_session][crate::client::Testing::report_session] calls.
     ///
     /// # Example
     /// ```no_run
@@ -8321,7 +8321,7 @@ pub mod testing {
         }
     }
 
-    /// The request builder for [Testing::list_tests][super::super::client::Testing::list_tests] calls.
+    /// The request builder for [Testing::list_tests][crate::client::Testing::list_tests] calls.
     ///
     /// # Example
     /// ```no_run
@@ -8420,7 +8420,7 @@ pub mod testing {
         }
     }
 
-    /// The request builder for [Testing::delete_test][super::super::client::Testing::delete_test] calls.
+    /// The request builder for [Testing::delete_test][crate::client::Testing::delete_test] calls.
     ///
     /// # Example
     /// ```no_run
@@ -8479,7 +8479,7 @@ pub mod testing {
         }
     }
 
-    /// The request builder for [Testing::verify_test][super::super::client::Testing::verify_test] calls.
+    /// The request builder for [Testing::verify_test][crate::client::Testing::verify_test] calls.
     ///
     /// # Example
     /// ```no_run
@@ -8555,7 +8555,7 @@ pub mod testing {
         }
     }
 
-    /// The request builder for [Testing::list_locations][super::super::client::Testing::list_locations] calls.
+    /// The request builder for [Testing::list_locations][crate::client::Testing::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -8663,7 +8663,7 @@ pub mod testing {
         }
     }
 
-    /// The request builder for [Testing::get_location][super::super::client::Testing::get_location] calls.
+    /// The request builder for [Testing::get_location][crate::client::Testing::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -8722,7 +8722,7 @@ pub mod testing {
         }
     }
 
-    /// The request builder for [Testing::set_iam_policy][super::super::client::Testing::set_iam_policy] calls.
+    /// The request builder for [Testing::set_iam_policy][crate::client::Testing::set_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -8823,7 +8823,7 @@ pub mod testing {
         }
     }
 
-    /// The request builder for [Testing::get_iam_policy][super::super::client::Testing::get_iam_policy] calls.
+    /// The request builder for [Testing::get_iam_policy][crate::client::Testing::get_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -8902,7 +8902,7 @@ pub mod testing {
         }
     }
 
-    /// The request builder for [Testing::test_iam_permissions][super::super::client::Testing::test_iam_permissions] calls.
+    /// The request builder for [Testing::test_iam_permissions][crate::client::Testing::test_iam_permissions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -8979,7 +8979,7 @@ pub mod testing {
         }
     }
 
-    /// The request builder for [Testing::list_operations][super::super::client::Testing::list_operations] calls.
+    /// The request builder for [Testing::list_operations][crate::client::Testing::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -9089,7 +9089,7 @@ pub mod testing {
         }
     }
 
-    /// The request builder for [Testing::get_operation][super::super::client::Testing::get_operation] calls.
+    /// The request builder for [Testing::get_operation][crate::client::Testing::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -9151,7 +9151,7 @@ pub mod testing {
         }
     }
 
-    /// The request builder for [Testing::delete_operation][super::super::client::Testing::delete_operation] calls.
+    /// The request builder for [Testing::delete_operation][crate::client::Testing::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -9213,7 +9213,7 @@ pub mod testing {
         }
     }
 
-    /// The request builder for [Testing::cancel_operation][super::super::client::Testing::cancel_operation] calls.
+    /// The request builder for [Testing::cancel_operation][crate::client::Testing::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run

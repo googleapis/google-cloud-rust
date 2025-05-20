@@ -17,7 +17,7 @@
 pub mod document_processor_service {
     use crate::Result;
 
-    /// A builder for [DocumentProcessorService][super::super::client::DocumentProcessorService].
+    /// A builder for [DocumentProcessorService][crate::client::DocumentProcessorService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod document_processor_service {
         }
     }
 
-    /// Common implementation for [super::super::client::DocumentProcessorService] request builders.
+    /// Common implementation for [crate::client::DocumentProcessorService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
@@ -68,7 +68,7 @@ pub mod document_processor_service {
         }
     }
 
-    /// The request builder for [DocumentProcessorService::process_document][super::super::client::DocumentProcessorService::process_document] calls.
+    /// The request builder for [DocumentProcessorService::process_document][crate::client::DocumentProcessorService::process_document] calls.
     ///
     /// # Example
     /// ```no_run
@@ -247,7 +247,7 @@ pub mod document_processor_service {
         }
     }
 
-    /// The request builder for [DocumentProcessorService::batch_process_documents][super::super::client::DocumentProcessorService::batch_process_documents] calls.
+    /// The request builder for [DocumentProcessorService::batch_process_documents][crate::client::DocumentProcessorService::batch_process_documents] calls.
     ///
     /// # Example
     /// ```no_run
@@ -292,7 +292,7 @@ pub mod document_processor_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [batch_process_documents][super::super::client::DocumentProcessorService::batch_process_documents].
+        /// on [batch_process_documents][crate::client::DocumentProcessorService::batch_process_documents].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .batch_process_documents(self.0.request, self.0.options)
@@ -423,7 +423,7 @@ pub mod document_processor_service {
         }
     }
 
-    /// The request builder for [DocumentProcessorService::fetch_processor_types][super::super::client::DocumentProcessorService::fetch_processor_types] calls.
+    /// The request builder for [DocumentProcessorService::fetch_processor_types][crate::client::DocumentProcessorService::fetch_processor_types] calls.
     ///
     /// # Example
     /// ```no_run
@@ -489,7 +489,7 @@ pub mod document_processor_service {
         }
     }
 
-    /// The request builder for [DocumentProcessorService::list_processor_types][super::super::client::DocumentProcessorService::list_processor_types] calls.
+    /// The request builder for [DocumentProcessorService::list_processor_types][crate::client::DocumentProcessorService::list_processor_types] calls.
     ///
     /// # Example
     /// ```no_run
@@ -597,7 +597,7 @@ pub mod document_processor_service {
         }
     }
 
-    /// The request builder for [DocumentProcessorService::get_processor_type][super::super::client::DocumentProcessorService::get_processor_type] calls.
+    /// The request builder for [DocumentProcessorService::get_processor_type][crate::client::DocumentProcessorService::get_processor_type] calls.
     ///
     /// # Example
     /// ```no_run
@@ -663,7 +663,7 @@ pub mod document_processor_service {
         }
     }
 
-    /// The request builder for [DocumentProcessorService::list_processors][super::super::client::DocumentProcessorService::list_processors] calls.
+    /// The request builder for [DocumentProcessorService::list_processors][crate::client::DocumentProcessorService::list_processors] calls.
     ///
     /// # Example
     /// ```no_run
@@ -766,7 +766,7 @@ pub mod document_processor_service {
         }
     }
 
-    /// The request builder for [DocumentProcessorService::get_processor][super::super::client::DocumentProcessorService::get_processor] calls.
+    /// The request builder for [DocumentProcessorService::get_processor][crate::client::DocumentProcessorService::get_processor] calls.
     ///
     /// # Example
     /// ```no_run
@@ -829,7 +829,7 @@ pub mod document_processor_service {
         }
     }
 
-    /// The request builder for [DocumentProcessorService::train_processor_version][super::super::client::DocumentProcessorService::train_processor_version] calls.
+    /// The request builder for [DocumentProcessorService::train_processor_version][crate::client::DocumentProcessorService::train_processor_version] calls.
     ///
     /// # Example
     /// ```no_run
@@ -877,7 +877,7 @@ pub mod document_processor_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [train_processor_version][super::super::client::DocumentProcessorService::train_processor_version].
+        /// on [train_processor_version][crate::client::DocumentProcessorService::train_processor_version].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .train_processor_version(self.0.request, self.0.options)
@@ -1046,7 +1046,7 @@ pub mod document_processor_service {
         }
     }
 
-    /// The request builder for [DocumentProcessorService::get_processor_version][super::super::client::DocumentProcessorService::get_processor_version] calls.
+    /// The request builder for [DocumentProcessorService::get_processor_version][crate::client::DocumentProcessorService::get_processor_version] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1112,7 +1112,7 @@ pub mod document_processor_service {
         }
     }
 
-    /// The request builder for [DocumentProcessorService::list_processor_versions][super::super::client::DocumentProcessorService::list_processor_versions] calls.
+    /// The request builder for [DocumentProcessorService::list_processor_versions][crate::client::DocumentProcessorService::list_processor_versions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1220,7 +1220,7 @@ pub mod document_processor_service {
         }
     }
 
-    /// The request builder for [DocumentProcessorService::delete_processor_version][super::super::client::DocumentProcessorService::delete_processor_version] calls.
+    /// The request builder for [DocumentProcessorService::delete_processor_version][crate::client::DocumentProcessorService::delete_processor_version] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1268,7 +1268,7 @@ pub mod document_processor_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_processor_version][super::super::client::DocumentProcessorService::delete_processor_version].
+        /// on [delete_processor_version][crate::client::DocumentProcessorService::delete_processor_version].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_processor_version(self.0.request, self.0.options)
@@ -1328,7 +1328,7 @@ pub mod document_processor_service {
         }
     }
 
-    /// The request builder for [DocumentProcessorService::deploy_processor_version][super::super::client::DocumentProcessorService::deploy_processor_version] calls.
+    /// The request builder for [DocumentProcessorService::deploy_processor_version][crate::client::DocumentProcessorService::deploy_processor_version] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1376,7 +1376,7 @@ pub mod document_processor_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [deploy_processor_version][super::super::client::DocumentProcessorService::deploy_processor_version].
+        /// on [deploy_processor_version][crate::client::DocumentProcessorService::deploy_processor_version].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .deploy_processor_version(self.0.request, self.0.options)
@@ -1438,7 +1438,7 @@ pub mod document_processor_service {
         }
     }
 
-    /// The request builder for [DocumentProcessorService::undeploy_processor_version][super::super::client::DocumentProcessorService::undeploy_processor_version] calls.
+    /// The request builder for [DocumentProcessorService::undeploy_processor_version][crate::client::DocumentProcessorService::undeploy_processor_version] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1488,7 +1488,7 @@ pub mod document_processor_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [undeploy_processor_version][super::super::client::DocumentProcessorService::undeploy_processor_version].
+        /// on [undeploy_processor_version][crate::client::DocumentProcessorService::undeploy_processor_version].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .undeploy_processor_version(self.0.request, self.0.options)
@@ -1550,7 +1550,7 @@ pub mod document_processor_service {
         }
     }
 
-    /// The request builder for [DocumentProcessorService::create_processor][super::super::client::DocumentProcessorService::create_processor] calls.
+    /// The request builder for [DocumentProcessorService::create_processor][crate::client::DocumentProcessorService::create_processor] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1635,7 +1635,7 @@ pub mod document_processor_service {
         }
     }
 
-    /// The request builder for [DocumentProcessorService::delete_processor][super::super::client::DocumentProcessorService::delete_processor] calls.
+    /// The request builder for [DocumentProcessorService::delete_processor][crate::client::DocumentProcessorService::delete_processor] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1680,7 +1680,7 @@ pub mod document_processor_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_processor][super::super::client::DocumentProcessorService::delete_processor].
+        /// on [delete_processor][crate::client::DocumentProcessorService::delete_processor].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_processor(self.0.request, self.0.options)
@@ -1740,7 +1740,7 @@ pub mod document_processor_service {
         }
     }
 
-    /// The request builder for [DocumentProcessorService::enable_processor][super::super::client::DocumentProcessorService::enable_processor] calls.
+    /// The request builder for [DocumentProcessorService::enable_processor][crate::client::DocumentProcessorService::enable_processor] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1785,7 +1785,7 @@ pub mod document_processor_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [enable_processor][super::super::client::DocumentProcessorService::enable_processor].
+        /// on [enable_processor][crate::client::DocumentProcessorService::enable_processor].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .enable_processor(self.0.request, self.0.options)
@@ -1845,7 +1845,7 @@ pub mod document_processor_service {
         }
     }
 
-    /// The request builder for [DocumentProcessorService::disable_processor][super::super::client::DocumentProcessorService::disable_processor] calls.
+    /// The request builder for [DocumentProcessorService::disable_processor][crate::client::DocumentProcessorService::disable_processor] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1893,7 +1893,7 @@ pub mod document_processor_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [disable_processor][super::super::client::DocumentProcessorService::disable_processor].
+        /// on [disable_processor][crate::client::DocumentProcessorService::disable_processor].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .disable_processor(self.0.request, self.0.options)
@@ -1955,7 +1955,7 @@ pub mod document_processor_service {
         }
     }
 
-    /// The request builder for [DocumentProcessorService::set_default_processor_version][super::super::client::DocumentProcessorService::set_default_processor_version] calls.
+    /// The request builder for [DocumentProcessorService::set_default_processor_version][crate::client::DocumentProcessorService::set_default_processor_version] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2005,7 +2005,7 @@ pub mod document_processor_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [set_default_processor_version][super::super::client::DocumentProcessorService::set_default_processor_version].
+        /// on [set_default_processor_version][crate::client::DocumentProcessorService::set_default_processor_version].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .set_default_processor_version(self.0.request, self.0.options)
@@ -2075,7 +2075,7 @@ pub mod document_processor_service {
         }
     }
 
-    /// The request builder for [DocumentProcessorService::review_document][super::super::client::DocumentProcessorService::review_document] calls.
+    /// The request builder for [DocumentProcessorService::review_document][crate::client::DocumentProcessorService::review_document] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2120,7 +2120,7 @@ pub mod document_processor_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [review_document][super::super::client::DocumentProcessorService::review_document].
+        /// on [review_document][crate::client::DocumentProcessorService::review_document].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .review_document(self.0.request, self.0.options)
@@ -2242,7 +2242,7 @@ pub mod document_processor_service {
         }
     }
 
-    /// The request builder for [DocumentProcessorService::evaluate_processor_version][super::super::client::DocumentProcessorService::evaluate_processor_version] calls.
+    /// The request builder for [DocumentProcessorService::evaluate_processor_version][crate::client::DocumentProcessorService::evaluate_processor_version] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2292,7 +2292,7 @@ pub mod document_processor_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [evaluate_processor_version][super::super::client::DocumentProcessorService::evaluate_processor_version].
+        /// on [evaluate_processor_version][crate::client::DocumentProcessorService::evaluate_processor_version].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .evaluate_processor_version(self.0.request, self.0.options)
@@ -2372,7 +2372,7 @@ pub mod document_processor_service {
         }
     }
 
-    /// The request builder for [DocumentProcessorService::get_evaluation][super::super::client::DocumentProcessorService::get_evaluation] calls.
+    /// The request builder for [DocumentProcessorService::get_evaluation][crate::client::DocumentProcessorService::get_evaluation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2435,7 +2435,7 @@ pub mod document_processor_service {
         }
     }
 
-    /// The request builder for [DocumentProcessorService::list_evaluations][super::super::client::DocumentProcessorService::list_evaluations] calls.
+    /// The request builder for [DocumentProcessorService::list_evaluations][crate::client::DocumentProcessorService::list_evaluations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2538,7 +2538,7 @@ pub mod document_processor_service {
         }
     }
 
-    /// The request builder for [DocumentProcessorService::list_locations][super::super::client::DocumentProcessorService::list_locations] calls.
+    /// The request builder for [DocumentProcessorService::list_locations][crate::client::DocumentProcessorService::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2648,7 +2648,7 @@ pub mod document_processor_service {
         }
     }
 
-    /// The request builder for [DocumentProcessorService::get_location][super::super::client::DocumentProcessorService::get_location] calls.
+    /// The request builder for [DocumentProcessorService::get_location][crate::client::DocumentProcessorService::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2709,7 +2709,7 @@ pub mod document_processor_service {
         }
     }
 
-    /// The request builder for [DocumentProcessorService::list_operations][super::super::client::DocumentProcessorService::list_operations] calls.
+    /// The request builder for [DocumentProcessorService::list_operations][crate::client::DocumentProcessorService::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2821,7 +2821,7 @@ pub mod document_processor_service {
         }
     }
 
-    /// The request builder for [DocumentProcessorService::get_operation][super::super::client::DocumentProcessorService::get_operation] calls.
+    /// The request builder for [DocumentProcessorService::get_operation][crate::client::DocumentProcessorService::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2885,7 +2885,7 @@ pub mod document_processor_service {
         }
     }
 
-    /// The request builder for [DocumentProcessorService::cancel_operation][super::super::client::DocumentProcessorService::cancel_operation] calls.
+    /// The request builder for [DocumentProcessorService::cancel_operation][crate::client::DocumentProcessorService::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run

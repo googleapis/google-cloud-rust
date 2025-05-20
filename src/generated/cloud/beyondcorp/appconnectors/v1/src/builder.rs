@@ -17,7 +17,7 @@
 pub mod app_connectors_service {
     use crate::Result;
 
-    /// A builder for [AppConnectorsService][super::super::client::AppConnectorsService].
+    /// A builder for [AppConnectorsService][crate::client::AppConnectorsService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod app_connectors_service {
         }
     }
 
-    /// Common implementation for [super::super::client::AppConnectorsService] request builders.
+    /// Common implementation for [crate::client::AppConnectorsService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::AppConnectorsService>,
@@ -68,7 +68,7 @@ pub mod app_connectors_service {
         }
     }
 
-    /// The request builder for [AppConnectorsService::list_app_connectors][super::super::client::AppConnectorsService::list_app_connectors] calls.
+    /// The request builder for [AppConnectorsService::list_app_connectors][crate::client::AppConnectorsService::list_app_connectors] calls.
     ///
     /// # Example
     /// ```no_run
@@ -186,7 +186,7 @@ pub mod app_connectors_service {
         }
     }
 
-    /// The request builder for [AppConnectorsService::get_app_connector][super::super::client::AppConnectorsService::get_app_connector] calls.
+    /// The request builder for [AppConnectorsService::get_app_connector][crate::client::AppConnectorsService::get_app_connector] calls.
     ///
     /// # Example
     /// ```no_run
@@ -249,7 +249,7 @@ pub mod app_connectors_service {
         }
     }
 
-    /// The request builder for [AppConnectorsService::create_app_connector][super::super::client::AppConnectorsService::create_app_connector] calls.
+    /// The request builder for [AppConnectorsService::create_app_connector][crate::client::AppConnectorsService::create_app_connector] calls.
     ///
     /// # Example
     /// ```no_run
@@ -297,7 +297,7 @@ pub mod app_connectors_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_app_connector][super::super::client::AppConnectorsService::create_app_connector].
+        /// on [create_app_connector][crate::client::AppConnectorsService::create_app_connector].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_app_connector(self.0.request, self.0.options)
@@ -397,7 +397,7 @@ pub mod app_connectors_service {
         }
     }
 
-    /// The request builder for [AppConnectorsService::update_app_connector][super::super::client::AppConnectorsService::update_app_connector] calls.
+    /// The request builder for [AppConnectorsService::update_app_connector][crate::client::AppConnectorsService::update_app_connector] calls.
     ///
     /// # Example
     /// ```no_run
@@ -445,7 +445,7 @@ pub mod app_connectors_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_app_connector][super::super::client::AppConnectorsService::update_app_connector].
+        /// on [update_app_connector][crate::client::AppConnectorsService::update_app_connector].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_app_connector(self.0.request, self.0.options)
@@ -553,7 +553,7 @@ pub mod app_connectors_service {
         }
     }
 
-    /// The request builder for [AppConnectorsService::delete_app_connector][super::super::client::AppConnectorsService::delete_app_connector] calls.
+    /// The request builder for [AppConnectorsService::delete_app_connector][crate::client::AppConnectorsService::delete_app_connector] calls.
     ///
     /// # Example
     /// ```no_run
@@ -601,7 +601,7 @@ pub mod app_connectors_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_app_connector][super::super::client::AppConnectorsService::delete_app_connector].
+        /// on [delete_app_connector][crate::client::AppConnectorsService::delete_app_connector].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_app_connector(self.0.request, self.0.options)
@@ -673,7 +673,7 @@ pub mod app_connectors_service {
         }
     }
 
-    /// The request builder for [AppConnectorsService::report_status][super::super::client::AppConnectorsService::report_status] calls.
+    /// The request builder for [AppConnectorsService::report_status][crate::client::AppConnectorsService::report_status] calls.
     ///
     /// # Example
     /// ```no_run
@@ -718,7 +718,7 @@ pub mod app_connectors_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [report_status][super::super::client::AppConnectorsService::report_status].
+        /// on [report_status][crate::client::AppConnectorsService::report_status].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .report_status(self.0.request, self.0.options)
@@ -812,7 +812,7 @@ pub mod app_connectors_service {
         }
     }
 
-    /// The request builder for [AppConnectorsService::list_locations][super::super::client::AppConnectorsService::list_locations] calls.
+    /// The request builder for [AppConnectorsService::list_locations][crate::client::AppConnectorsService::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -922,7 +922,7 @@ pub mod app_connectors_service {
         }
     }
 
-    /// The request builder for [AppConnectorsService::get_location][super::super::client::AppConnectorsService::get_location] calls.
+    /// The request builder for [AppConnectorsService::get_location][crate::client::AppConnectorsService::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -983,7 +983,7 @@ pub mod app_connectors_service {
         }
     }
 
-    /// The request builder for [AppConnectorsService::set_iam_policy][super::super::client::AppConnectorsService::set_iam_policy] calls.
+    /// The request builder for [AppConnectorsService::set_iam_policy][crate::client::AppConnectorsService::set_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1086,7 +1086,7 @@ pub mod app_connectors_service {
         }
     }
 
-    /// The request builder for [AppConnectorsService::get_iam_policy][super::super::client::AppConnectorsService::get_iam_policy] calls.
+    /// The request builder for [AppConnectorsService::get_iam_policy][crate::client::AppConnectorsService::get_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1167,7 +1167,7 @@ pub mod app_connectors_service {
         }
     }
 
-    /// The request builder for [AppConnectorsService::test_iam_permissions][super::super::client::AppConnectorsService::test_iam_permissions] calls.
+    /// The request builder for [AppConnectorsService::test_iam_permissions][crate::client::AppConnectorsService::test_iam_permissions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1246,7 +1246,7 @@ pub mod app_connectors_service {
         }
     }
 
-    /// The request builder for [AppConnectorsService::list_operations][super::super::client::AppConnectorsService::list_operations] calls.
+    /// The request builder for [AppConnectorsService::list_operations][crate::client::AppConnectorsService::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1358,7 +1358,7 @@ pub mod app_connectors_service {
         }
     }
 
-    /// The request builder for [AppConnectorsService::get_operation][super::super::client::AppConnectorsService::get_operation] calls.
+    /// The request builder for [AppConnectorsService::get_operation][crate::client::AppConnectorsService::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1422,7 +1422,7 @@ pub mod app_connectors_service {
         }
     }
 
-    /// The request builder for [AppConnectorsService::delete_operation][super::super::client::AppConnectorsService::delete_operation] calls.
+    /// The request builder for [AppConnectorsService::delete_operation][crate::client::AppConnectorsService::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1486,7 +1486,7 @@ pub mod app_connectors_service {
         }
     }
 
-    /// The request builder for [AppConnectorsService::cancel_operation][super::super::client::AppConnectorsService::cancel_operation] calls.
+    /// The request builder for [AppConnectorsService::cancel_operation][crate::client::AppConnectorsService::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run

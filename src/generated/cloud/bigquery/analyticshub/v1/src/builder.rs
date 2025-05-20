@@ -17,7 +17,7 @@
 pub mod analytics_hub_service {
     use crate::Result;
 
-    /// A builder for [AnalyticsHubService][super::super::client::AnalyticsHubService].
+    /// A builder for [AnalyticsHubService][crate::client::AnalyticsHubService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod analytics_hub_service {
         }
     }
 
-    /// Common implementation for [super::super::client::AnalyticsHubService] request builders.
+    /// Common implementation for [crate::client::AnalyticsHubService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::AnalyticsHubService>,
@@ -68,7 +68,7 @@ pub mod analytics_hub_service {
         }
     }
 
-    /// The request builder for [AnalyticsHubService::list_data_exchanges][super::super::client::AnalyticsHubService::list_data_exchanges] calls.
+    /// The request builder for [AnalyticsHubService::list_data_exchanges][crate::client::AnalyticsHubService::list_data_exchanges] calls.
     ///
     /// # Example
     /// ```no_run
@@ -174,7 +174,7 @@ pub mod analytics_hub_service {
         }
     }
 
-    /// The request builder for [AnalyticsHubService::list_org_data_exchanges][super::super::client::AnalyticsHubService::list_org_data_exchanges] calls.
+    /// The request builder for [AnalyticsHubService::list_org_data_exchanges][crate::client::AnalyticsHubService::list_org_data_exchanges] calls.
     ///
     /// # Example
     /// ```no_run
@@ -282,7 +282,7 @@ pub mod analytics_hub_service {
         }
     }
 
-    /// The request builder for [AnalyticsHubService::get_data_exchange][super::super::client::AnalyticsHubService::get_data_exchange] calls.
+    /// The request builder for [AnalyticsHubService::get_data_exchange][crate::client::AnalyticsHubService::get_data_exchange] calls.
     ///
     /// # Example
     /// ```no_run
@@ -345,7 +345,7 @@ pub mod analytics_hub_service {
         }
     }
 
-    /// The request builder for [AnalyticsHubService::create_data_exchange][super::super::client::AnalyticsHubService::create_data_exchange] calls.
+    /// The request builder for [AnalyticsHubService::create_data_exchange][crate::client::AnalyticsHubService::create_data_exchange] calls.
     ///
     /// # Example
     /// ```no_run
@@ -441,7 +441,7 @@ pub mod analytics_hub_service {
         }
     }
 
-    /// The request builder for [AnalyticsHubService::update_data_exchange][super::super::client::AnalyticsHubService::update_data_exchange] calls.
+    /// The request builder for [AnalyticsHubService::update_data_exchange][crate::client::AnalyticsHubService::update_data_exchange] calls.
     ///
     /// # Example
     /// ```no_run
@@ -543,7 +543,7 @@ pub mod analytics_hub_service {
         }
     }
 
-    /// The request builder for [AnalyticsHubService::delete_data_exchange][super::super::client::AnalyticsHubService::delete_data_exchange] calls.
+    /// The request builder for [AnalyticsHubService::delete_data_exchange][crate::client::AnalyticsHubService::delete_data_exchange] calls.
     ///
     /// # Example
     /// ```no_run
@@ -609,7 +609,7 @@ pub mod analytics_hub_service {
         }
     }
 
-    /// The request builder for [AnalyticsHubService::list_listings][super::super::client::AnalyticsHubService::list_listings] calls.
+    /// The request builder for [AnalyticsHubService::list_listings][crate::client::AnalyticsHubService::list_listings] calls.
     ///
     /// # Example
     /// ```no_run
@@ -712,7 +712,7 @@ pub mod analytics_hub_service {
         }
     }
 
-    /// The request builder for [AnalyticsHubService::get_listing][super::super::client::AnalyticsHubService::get_listing] calls.
+    /// The request builder for [AnalyticsHubService::get_listing][crate::client::AnalyticsHubService::get_listing] calls.
     ///
     /// # Example
     /// ```no_run
@@ -775,7 +775,7 @@ pub mod analytics_hub_service {
         }
     }
 
-    /// The request builder for [AnalyticsHubService::create_listing][super::super::client::AnalyticsHubService::create_listing] calls.
+    /// The request builder for [AnalyticsHubService::create_listing][crate::client::AnalyticsHubService::create_listing] calls.
     ///
     /// # Example
     /// ```no_run
@@ -868,7 +868,7 @@ pub mod analytics_hub_service {
         }
     }
 
-    /// The request builder for [AnalyticsHubService::update_listing][super::super::client::AnalyticsHubService::update_listing] calls.
+    /// The request builder for [AnalyticsHubService::update_listing][crate::client::AnalyticsHubService::update_listing] calls.
     ///
     /// # Example
     /// ```no_run
@@ -967,7 +967,7 @@ pub mod analytics_hub_service {
         }
     }
 
-    /// The request builder for [AnalyticsHubService::delete_listing][super::super::client::AnalyticsHubService::delete_listing] calls.
+    /// The request builder for [AnalyticsHubService::delete_listing][crate::client::AnalyticsHubService::delete_listing] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1036,7 +1036,7 @@ pub mod analytics_hub_service {
         }
     }
 
-    /// The request builder for [AnalyticsHubService::subscribe_listing][super::super::client::AnalyticsHubService::subscribe_listing] calls.
+    /// The request builder for [AnalyticsHubService::subscribe_listing][crate::client::AnalyticsHubService::subscribe_listing] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1146,7 +1146,7 @@ pub mod analytics_hub_service {
         }
     }
 
-    /// The request builder for [AnalyticsHubService::subscribe_data_exchange][super::super::client::AnalyticsHubService::subscribe_data_exchange] calls.
+    /// The request builder for [AnalyticsHubService::subscribe_data_exchange][crate::client::AnalyticsHubService::subscribe_data_exchange] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1194,7 +1194,7 @@ pub mod analytics_hub_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [subscribe_data_exchange][super::super::client::AnalyticsHubService::subscribe_data_exchange].
+        /// on [subscribe_data_exchange][crate::client::AnalyticsHubService::subscribe_data_exchange].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .subscribe_data_exchange(self.0.request, self.0.options)
@@ -1294,7 +1294,7 @@ pub mod analytics_hub_service {
         }
     }
 
-    /// The request builder for [AnalyticsHubService::refresh_subscription][super::super::client::AnalyticsHubService::refresh_subscription] calls.
+    /// The request builder for [AnalyticsHubService::refresh_subscription][crate::client::AnalyticsHubService::refresh_subscription] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1342,7 +1342,7 @@ pub mod analytics_hub_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [refresh_subscription][super::super::client::AnalyticsHubService::refresh_subscription].
+        /// on [refresh_subscription][crate::client::AnalyticsHubService::refresh_subscription].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .refresh_subscription(self.0.request, self.0.options)
@@ -1402,7 +1402,7 @@ pub mod analytics_hub_service {
         }
     }
 
-    /// The request builder for [AnalyticsHubService::get_subscription][super::super::client::AnalyticsHubService::get_subscription] calls.
+    /// The request builder for [AnalyticsHubService::get_subscription][crate::client::AnalyticsHubService::get_subscription] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1465,7 +1465,7 @@ pub mod analytics_hub_service {
         }
     }
 
-    /// The request builder for [AnalyticsHubService::list_subscriptions][super::super::client::AnalyticsHubService::list_subscriptions] calls.
+    /// The request builder for [AnalyticsHubService::list_subscriptions][crate::client::AnalyticsHubService::list_subscriptions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1577,7 +1577,7 @@ pub mod analytics_hub_service {
         }
     }
 
-    /// The request builder for [AnalyticsHubService::list_shared_resource_subscriptions][super::super::client::AnalyticsHubService::list_shared_resource_subscriptions] calls.
+    /// The request builder for [AnalyticsHubService::list_shared_resource_subscriptions][crate::client::AnalyticsHubService::list_shared_resource_subscriptions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1695,7 +1695,7 @@ pub mod analytics_hub_service {
         }
     }
 
-    /// The request builder for [AnalyticsHubService::revoke_subscription][super::super::client::AnalyticsHubService::revoke_subscription] calls.
+    /// The request builder for [AnalyticsHubService::revoke_subscription][crate::client::AnalyticsHubService::revoke_subscription] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1767,7 +1767,7 @@ pub mod analytics_hub_service {
         }
     }
 
-    /// The request builder for [AnalyticsHubService::delete_subscription][super::super::client::AnalyticsHubService::delete_subscription] calls.
+    /// The request builder for [AnalyticsHubService::delete_subscription][crate::client::AnalyticsHubService::delete_subscription] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1815,7 +1815,7 @@ pub mod analytics_hub_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_subscription][super::super::client::AnalyticsHubService::delete_subscription].
+        /// on [delete_subscription][crate::client::AnalyticsHubService::delete_subscription].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_subscription(self.0.request, self.0.options)
@@ -1874,7 +1874,7 @@ pub mod analytics_hub_service {
         }
     }
 
-    /// The request builder for [AnalyticsHubService::get_iam_policy][super::super::client::AnalyticsHubService::get_iam_policy] calls.
+    /// The request builder for [AnalyticsHubService::get_iam_policy][crate::client::AnalyticsHubService::get_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1955,7 +1955,7 @@ pub mod analytics_hub_service {
         }
     }
 
-    /// The request builder for [AnalyticsHubService::set_iam_policy][super::super::client::AnalyticsHubService::set_iam_policy] calls.
+    /// The request builder for [AnalyticsHubService::set_iam_policy][crate::client::AnalyticsHubService::set_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2058,7 +2058,7 @@ pub mod analytics_hub_service {
         }
     }
 
-    /// The request builder for [AnalyticsHubService::test_iam_permissions][super::super::client::AnalyticsHubService::test_iam_permissions] calls.
+    /// The request builder for [AnalyticsHubService::test_iam_permissions][crate::client::AnalyticsHubService::test_iam_permissions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2137,7 +2137,7 @@ pub mod analytics_hub_service {
         }
     }
 
-    /// The request builder for [AnalyticsHubService::get_operation][super::super::client::AnalyticsHubService::get_operation] calls.
+    /// The request builder for [AnalyticsHubService::get_operation][crate::client::AnalyticsHubService::get_operation] calls.
     ///
     /// # Example
     /// ```no_run

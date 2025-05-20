@@ -17,7 +17,7 @@
 pub mod asset_service {
     use crate::Result;
 
-    /// A builder for [AssetService][super::super::client::AssetService].
+    /// A builder for [AssetService][crate::client::AssetService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod asset_service {
         }
     }
 
-    /// Common implementation for [super::super::client::AssetService] request builders.
+    /// Common implementation for [crate::client::AssetService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::AssetService>,
@@ -68,7 +68,7 @@ pub mod asset_service {
         }
     }
 
-    /// The request builder for [AssetService::export_assets][super::super::client::AssetService::export_assets] calls.
+    /// The request builder for [AssetService::export_assets][crate::client::AssetService::export_assets] calls.
     ///
     /// # Example
     /// ```no_run
@@ -113,7 +113,7 @@ pub mod asset_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [export_assets][super::super::client::AssetService::export_assets].
+        /// on [export_assets][crate::client::AssetService::export_assets].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .export_assets(self.0.request, self.0.options)
@@ -241,7 +241,7 @@ pub mod asset_service {
         }
     }
 
-    /// The request builder for [AssetService::list_assets][super::super::client::AssetService::list_assets] calls.
+    /// The request builder for [AssetService::list_assets][crate::client::AssetService::list_assets] calls.
     ///
     /// # Example
     /// ```no_run
@@ -390,7 +390,7 @@ pub mod asset_service {
         }
     }
 
-    /// The request builder for [AssetService::batch_get_assets_history][super::super::client::AssetService::batch_get_assets_history] calls.
+    /// The request builder for [AssetService::batch_get_assets_history][crate::client::AssetService::batch_get_assets_history] calls.
     ///
     /// # Example
     /// ```no_run
@@ -502,7 +502,7 @@ pub mod asset_service {
         }
     }
 
-    /// The request builder for [AssetService::create_feed][super::super::client::AssetService::create_feed] calls.
+    /// The request builder for [AssetService::create_feed][crate::client::AssetService::create_feed] calls.
     ///
     /// # Example
     /// ```no_run
@@ -595,7 +595,7 @@ pub mod asset_service {
         }
     }
 
-    /// The request builder for [AssetService::get_feed][super::super::client::AssetService::get_feed] calls.
+    /// The request builder for [AssetService::get_feed][crate::client::AssetService::get_feed] calls.
     ///
     /// # Example
     /// ```no_run
@@ -658,7 +658,7 @@ pub mod asset_service {
         }
     }
 
-    /// The request builder for [AssetService::list_feeds][super::super::client::AssetService::list_feeds] calls.
+    /// The request builder for [AssetService::list_feeds][crate::client::AssetService::list_feeds] calls.
     ///
     /// # Example
     /// ```no_run
@@ -721,7 +721,7 @@ pub mod asset_service {
         }
     }
 
-    /// The request builder for [AssetService::update_feed][super::super::client::AssetService::update_feed] calls.
+    /// The request builder for [AssetService::update_feed][crate::client::AssetService::update_feed] calls.
     ///
     /// # Example
     /// ```no_run
@@ -820,7 +820,7 @@ pub mod asset_service {
         }
     }
 
-    /// The request builder for [AssetService::delete_feed][super::super::client::AssetService::delete_feed] calls.
+    /// The request builder for [AssetService::delete_feed][crate::client::AssetService::delete_feed] calls.
     ///
     /// # Example
     /// ```no_run
@@ -883,7 +883,7 @@ pub mod asset_service {
         }
     }
 
-    /// The request builder for [AssetService::search_all_resources][super::super::client::AssetService::search_all_resources] calls.
+    /// The request builder for [AssetService::search_all_resources][crate::client::AssetService::search_all_resources] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1032,7 +1032,7 @@ pub mod asset_service {
         }
     }
 
-    /// The request builder for [AssetService::search_all_iam_policies][super::super::client::AssetService::search_all_iam_policies] calls.
+    /// The request builder for [AssetService::search_all_iam_policies][crate::client::AssetService::search_all_iam_policies] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1163,7 +1163,7 @@ pub mod asset_service {
         }
     }
 
-    /// The request builder for [AssetService::analyze_iam_policy][super::super::client::AssetService::analyze_iam_policy] calls.
+    /// The request builder for [AssetService::analyze_iam_policy][crate::client::AssetService::analyze_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1267,7 +1267,7 @@ pub mod asset_service {
         }
     }
 
-    /// The request builder for [AssetService::analyze_iam_policy_longrunning][super::super::client::AssetService::analyze_iam_policy_longrunning] calls.
+    /// The request builder for [AssetService::analyze_iam_policy_longrunning][crate::client::AssetService::analyze_iam_policy_longrunning] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1317,7 +1317,7 @@ pub mod asset_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [analyze_iam_policy_longrunning][super::super::client::AssetService::analyze_iam_policy_longrunning].
+        /// on [analyze_iam_policy_longrunning][crate::client::AssetService::analyze_iam_policy_longrunning].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .analyze_iam_policy_longrunning(self.0.request, self.0.options)
@@ -1421,7 +1421,7 @@ pub mod asset_service {
         }
     }
 
-    /// The request builder for [AssetService::analyze_move][super::super::client::AssetService::analyze_move] calls.
+    /// The request builder for [AssetService::analyze_move][crate::client::AssetService::analyze_move] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1501,7 +1501,7 @@ pub mod asset_service {
         }
     }
 
-    /// The request builder for [AssetService::query_assets][super::super::client::AssetService::query_assets] calls.
+    /// The request builder for [AssetService::query_assets][crate::client::AssetService::query_assets] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1687,7 +1687,7 @@ pub mod asset_service {
         }
     }
 
-    /// The request builder for [AssetService::create_saved_query][super::super::client::AssetService::create_saved_query] calls.
+    /// The request builder for [AssetService::create_saved_query][crate::client::AssetService::create_saved_query] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1783,7 +1783,7 @@ pub mod asset_service {
         }
     }
 
-    /// The request builder for [AssetService::get_saved_query][super::super::client::AssetService::get_saved_query] calls.
+    /// The request builder for [AssetService::get_saved_query][crate::client::AssetService::get_saved_query] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1846,7 +1846,7 @@ pub mod asset_service {
         }
     }
 
-    /// The request builder for [AssetService::list_saved_queries][super::super::client::AssetService::list_saved_queries] calls.
+    /// The request builder for [AssetService::list_saved_queries][crate::client::AssetService::list_saved_queries] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1958,7 +1958,7 @@ pub mod asset_service {
         }
     }
 
-    /// The request builder for [AssetService::update_saved_query][super::super::client::AssetService::update_saved_query] calls.
+    /// The request builder for [AssetService::update_saved_query][crate::client::AssetService::update_saved_query] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2060,7 +2060,7 @@ pub mod asset_service {
         }
     }
 
-    /// The request builder for [AssetService::delete_saved_query][super::super::client::AssetService::delete_saved_query] calls.
+    /// The request builder for [AssetService::delete_saved_query][crate::client::AssetService::delete_saved_query] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2126,7 +2126,7 @@ pub mod asset_service {
         }
     }
 
-    /// The request builder for [AssetService::batch_get_effective_iam_policies][super::super::client::AssetService::batch_get_effective_iam_policies] calls.
+    /// The request builder for [AssetService::batch_get_effective_iam_policies][crate::client::AssetService::batch_get_effective_iam_policies] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2207,7 +2207,7 @@ pub mod asset_service {
         }
     }
 
-    /// The request builder for [AssetService::analyze_org_policies][super::super::client::AssetService::analyze_org_policies] calls.
+    /// The request builder for [AssetService::analyze_org_policies][crate::client::AssetService::analyze_org_policies] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2341,7 +2341,7 @@ pub mod asset_service {
         }
     }
 
-    /// The request builder for [AssetService::analyze_org_policy_governed_containers][super::super::client::AssetService::analyze_org_policy_governed_containers] calls.
+    /// The request builder for [AssetService::analyze_org_policy_governed_containers][crate::client::AssetService::analyze_org_policy_governed_containers] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2481,7 +2481,7 @@ pub mod asset_service {
         }
     }
 
-    /// The request builder for [AssetService::analyze_org_policy_governed_assets][super::super::client::AssetService::analyze_org_policy_governed_assets] calls.
+    /// The request builder for [AssetService::analyze_org_policy_governed_assets][crate::client::AssetService::analyze_org_policy_governed_assets] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2619,7 +2619,7 @@ pub mod asset_service {
         }
     }
 
-    /// The request builder for [AssetService::get_operation][super::super::client::AssetService::get_operation] calls.
+    /// The request builder for [AssetService::get_operation][crate::client::AssetService::get_operation] calls.
     ///
     /// # Example
     /// ```no_run

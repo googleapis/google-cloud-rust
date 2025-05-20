@@ -17,7 +17,7 @@
 pub mod iam_credentials {
     use crate::Result;
 
-    /// A builder for [IAMCredentials][super::super::client::IAMCredentials].
+    /// A builder for [IAMCredentials][crate::client::IAMCredentials].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod iam_credentials {
         }
     }
 
-    /// Common implementation for [super::super::client::IAMCredentials] request builders.
+    /// Common implementation for [crate::client::IAMCredentials] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::IAMCredentials>,
@@ -68,7 +68,7 @@ pub mod iam_credentials {
         }
     }
 
-    /// The request builder for [IAMCredentials::generate_access_token][super::super::client::IAMCredentials::generate_access_token] calls.
+    /// The request builder for [IAMCredentials::generate_access_token][crate::client::IAMCredentials::generate_access_token] calls.
     ///
     /// # Example
     /// ```no_run
@@ -176,7 +176,7 @@ pub mod iam_credentials {
         }
     }
 
-    /// The request builder for [IAMCredentials::generate_id_token][super::super::client::IAMCredentials::generate_id_token] calls.
+    /// The request builder for [IAMCredentials::generate_id_token][crate::client::IAMCredentials::generate_id_token] calls.
     ///
     /// # Example
     /// ```no_run
@@ -264,7 +264,7 @@ pub mod iam_credentials {
         }
     }
 
-    /// The request builder for [IAMCredentials::sign_blob][super::super::client::IAMCredentials::sign_blob] calls.
+    /// The request builder for [IAMCredentials::sign_blob][crate::client::IAMCredentials::sign_blob] calls.
     ///
     /// # Example
     /// ```no_run
@@ -346,7 +346,7 @@ pub mod iam_credentials {
         }
     }
 
-    /// The request builder for [IAMCredentials::sign_jwt][super::super::client::IAMCredentials::sign_jwt] calls.
+    /// The request builder for [IAMCredentials::sign_jwt][crate::client::IAMCredentials::sign_jwt] calls.
     ///
     /// # Example
     /// ```no_run

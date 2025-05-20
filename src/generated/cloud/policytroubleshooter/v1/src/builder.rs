@@ -17,7 +17,7 @@
 pub mod iam_checker {
     use crate::Result;
 
-    /// A builder for [IamChecker][super::super::client::IamChecker].
+    /// A builder for [IamChecker][crate::client::IamChecker].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod iam_checker {
         }
     }
 
-    /// Common implementation for [super::super::client::IamChecker] request builders.
+    /// Common implementation for [crate::client::IamChecker] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::IamChecker>,
@@ -68,7 +68,7 @@ pub mod iam_checker {
         }
     }
 
-    /// The request builder for [IamChecker::troubleshoot_iam_policy][super::super::client::IamChecker::troubleshoot_iam_policy] calls.
+    /// The request builder for [IamChecker::troubleshoot_iam_policy][crate::client::IamChecker::troubleshoot_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run

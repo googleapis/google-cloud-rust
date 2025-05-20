@@ -17,7 +17,7 @@
 pub mod parallelstore {
     use crate::Result;
 
-    /// A builder for [Parallelstore][super::super::client::Parallelstore].
+    /// A builder for [Parallelstore][crate::client::Parallelstore].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod parallelstore {
         }
     }
 
-    /// Common implementation for [super::super::client::Parallelstore] request builders.
+    /// Common implementation for [crate::client::Parallelstore] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::Parallelstore>,
@@ -68,7 +68,7 @@ pub mod parallelstore {
         }
     }
 
-    /// The request builder for [Parallelstore::list_instances][super::super::client::Parallelstore::list_instances] calls.
+    /// The request builder for [Parallelstore::list_instances][crate::client::Parallelstore::list_instances] calls.
     ///
     /// # Example
     /// ```no_run
@@ -183,7 +183,7 @@ pub mod parallelstore {
         }
     }
 
-    /// The request builder for [Parallelstore::get_instance][super::super::client::Parallelstore::get_instance] calls.
+    /// The request builder for [Parallelstore::get_instance][crate::client::Parallelstore::get_instance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -246,7 +246,7 @@ pub mod parallelstore {
         }
     }
 
-    /// The request builder for [Parallelstore::create_instance][super::super::client::Parallelstore::create_instance] calls.
+    /// The request builder for [Parallelstore::create_instance][crate::client::Parallelstore::create_instance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -291,7 +291,7 @@ pub mod parallelstore {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_instance][super::super::client::Parallelstore::create_instance].
+        /// on [create_instance][crate::client::Parallelstore::create_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_instance(self.0.request, self.0.options)
@@ -384,7 +384,7 @@ pub mod parallelstore {
         }
     }
 
-    /// The request builder for [Parallelstore::update_instance][super::super::client::Parallelstore::update_instance] calls.
+    /// The request builder for [Parallelstore::update_instance][crate::client::Parallelstore::update_instance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -429,7 +429,7 @@ pub mod parallelstore {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_instance][super::super::client::Parallelstore::update_instance].
+        /// on [update_instance][crate::client::Parallelstore::update_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_instance(self.0.request, self.0.options)
@@ -528,7 +528,7 @@ pub mod parallelstore {
         }
     }
 
-    /// The request builder for [Parallelstore::delete_instance][super::super::client::Parallelstore::delete_instance] calls.
+    /// The request builder for [Parallelstore::delete_instance][crate::client::Parallelstore::delete_instance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -573,7 +573,7 @@ pub mod parallelstore {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_instance][super::super::client::Parallelstore::delete_instance].
+        /// on [delete_instance][crate::client::Parallelstore::delete_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_instance(self.0.request, self.0.options)
@@ -638,7 +638,7 @@ pub mod parallelstore {
         }
     }
 
-    /// The request builder for [Parallelstore::import_data][super::super::client::Parallelstore::import_data] calls.
+    /// The request builder for [Parallelstore::import_data][crate::client::Parallelstore::import_data] calls.
     ///
     /// # Example
     /// ```no_run
@@ -683,7 +683,7 @@ pub mod parallelstore {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [import_data][super::super::client::Parallelstore::import_data].
+        /// on [import_data][crate::client::Parallelstore::import_data].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .import_data(self.0.request, self.0.options)
@@ -809,7 +809,7 @@ pub mod parallelstore {
         }
     }
 
-    /// The request builder for [Parallelstore::export_data][super::super::client::Parallelstore::export_data] calls.
+    /// The request builder for [Parallelstore::export_data][crate::client::Parallelstore::export_data] calls.
     ///
     /// # Example
     /// ```no_run
@@ -854,7 +854,7 @@ pub mod parallelstore {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [export_data][super::super::client::Parallelstore::export_data].
+        /// on [export_data][crate::client::Parallelstore::export_data].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .export_data(self.0.request, self.0.options)
@@ -980,7 +980,7 @@ pub mod parallelstore {
         }
     }
 
-    /// The request builder for [Parallelstore::list_locations][super::super::client::Parallelstore::list_locations] calls.
+    /// The request builder for [Parallelstore::list_locations][crate::client::Parallelstore::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1090,7 +1090,7 @@ pub mod parallelstore {
         }
     }
 
-    /// The request builder for [Parallelstore::get_location][super::super::client::Parallelstore::get_location] calls.
+    /// The request builder for [Parallelstore::get_location][crate::client::Parallelstore::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1151,7 +1151,7 @@ pub mod parallelstore {
         }
     }
 
-    /// The request builder for [Parallelstore::list_operations][super::super::client::Parallelstore::list_operations] calls.
+    /// The request builder for [Parallelstore::list_operations][crate::client::Parallelstore::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1263,7 +1263,7 @@ pub mod parallelstore {
         }
     }
 
-    /// The request builder for [Parallelstore::get_operation][super::super::client::Parallelstore::get_operation] calls.
+    /// The request builder for [Parallelstore::get_operation][crate::client::Parallelstore::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1327,7 +1327,7 @@ pub mod parallelstore {
         }
     }
 
-    /// The request builder for [Parallelstore::delete_operation][super::super::client::Parallelstore::delete_operation] calls.
+    /// The request builder for [Parallelstore::delete_operation][crate::client::Parallelstore::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1391,7 +1391,7 @@ pub mod parallelstore {
         }
     }
 
-    /// The request builder for [Parallelstore::cancel_operation][super::super::client::Parallelstore::cancel_operation] calls.
+    /// The request builder for [Parallelstore::cancel_operation][crate::client::Parallelstore::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run

@@ -17,7 +17,7 @@
 pub mod service_usage {
     use crate::Result;
 
-    /// A builder for [ServiceUsage][super::super::client::ServiceUsage].
+    /// A builder for [ServiceUsage][crate::client::ServiceUsage].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod service_usage {
         }
     }
 
-    /// Common implementation for [super::super::client::ServiceUsage] request builders.
+    /// Common implementation for [crate::client::ServiceUsage] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceUsage>,
@@ -68,7 +68,7 @@ pub mod service_usage {
         }
     }
 
-    /// The request builder for [ServiceUsage::enable_service][super::super::client::ServiceUsage::enable_service] calls.
+    /// The request builder for [ServiceUsage::enable_service][crate::client::ServiceUsage::enable_service] calls.
     ///
     /// # Example
     /// ```no_run
@@ -113,7 +113,7 @@ pub mod service_usage {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [enable_service][super::super::client::ServiceUsage::enable_service].
+        /// on [enable_service][crate::client::ServiceUsage::enable_service].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .enable_service(self.0.request, self.0.options)
@@ -171,7 +171,7 @@ pub mod service_usage {
         }
     }
 
-    /// The request builder for [ServiceUsage::disable_service][super::super::client::ServiceUsage::disable_service] calls.
+    /// The request builder for [ServiceUsage::disable_service][crate::client::ServiceUsage::disable_service] calls.
     ///
     /// # Example
     /// ```no_run
@@ -216,7 +216,7 @@ pub mod service_usage {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [disable_service][super::super::client::ServiceUsage::disable_service].
+        /// on [disable_service][crate::client::ServiceUsage::disable_service].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .disable_service(self.0.request, self.0.options)
@@ -291,7 +291,7 @@ pub mod service_usage {
         }
     }
 
-    /// The request builder for [ServiceUsage::get_service][super::super::client::ServiceUsage::get_service] calls.
+    /// The request builder for [ServiceUsage::get_service][crate::client::ServiceUsage::get_service] calls.
     ///
     /// # Example
     /// ```no_run
@@ -352,7 +352,7 @@ pub mod service_usage {
         }
     }
 
-    /// The request builder for [ServiceUsage::list_services][super::super::client::ServiceUsage::list_services] calls.
+    /// The request builder for [ServiceUsage::list_services][crate::client::ServiceUsage::list_services] calls.
     ///
     /// # Example
     /// ```no_run
@@ -459,7 +459,7 @@ pub mod service_usage {
         }
     }
 
-    /// The request builder for [ServiceUsage::batch_enable_services][super::super::client::ServiceUsage::batch_enable_services] calls.
+    /// The request builder for [ServiceUsage::batch_enable_services][crate::client::ServiceUsage::batch_enable_services] calls.
     ///
     /// # Example
     /// ```no_run
@@ -507,7 +507,7 @@ pub mod service_usage {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [batch_enable_services][super::super::client::ServiceUsage::batch_enable_services].
+        /// on [batch_enable_services][crate::client::ServiceUsage::batch_enable_services].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .batch_enable_services(self.0.request, self.0.options)
@@ -576,7 +576,7 @@ pub mod service_usage {
         }
     }
 
-    /// The request builder for [ServiceUsage::batch_get_services][super::super::client::ServiceUsage::batch_get_services] calls.
+    /// The request builder for [ServiceUsage::batch_get_services][crate::client::ServiceUsage::batch_get_services] calls.
     ///
     /// # Example
     /// ```no_run
@@ -651,7 +651,7 @@ pub mod service_usage {
         }
     }
 
-    /// The request builder for [ServiceUsage::list_operations][super::super::client::ServiceUsage::list_operations] calls.
+    /// The request builder for [ServiceUsage::list_operations][crate::client::ServiceUsage::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -763,7 +763,7 @@ pub mod service_usage {
         }
     }
 
-    /// The request builder for [ServiceUsage::get_operation][super::super::client::ServiceUsage::get_operation] calls.
+    /// The request builder for [ServiceUsage::get_operation][crate::client::ServiceUsage::get_operation] calls.
     ///
     /// # Example
     /// ```no_run

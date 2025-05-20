@@ -28,9 +28,38 @@ use http::{Extensions, HeaderMap};
 use serde_json::Value;
 use std::future::Future;
 use std::sync::Arc;
+use std::sync::atomic::{AtomicU64, Ordering};
 
 pub(crate) const QUOTA_PROJECT_KEY: &str = "x-goog-user-project";
 pub(crate) const DEFAULT_UNIVERSE_DOMAIN: &str = "googleapis.com";
+
+/// Represents an Entity Tag (ETag) for a cacheable resource.
+///
+/// An `EntityTag` is an opaque token that can be used to determine if a
+/// cached resource has changed. The specific format of the ETag is
+/// determined by its generator.
+#[derive(Clone, Debug, PartialEq, Default)]
+pub struct EntityTag(u64);
+
+static ENTITY_TAG_GENERATOR: AtomicU64 = AtomicU64::new(0);
+impl EntityTag {
+    pub fn new() -> Self {
+        let value = ENTITY_TAG_GENERATOR.fetch_add(1, Ordering::SeqCst);
+        Self(value)
+    }
+}
+
+/// Represents a resource that can be cached, along with its [EntityTag].
+///
+/// This enum is used to provide cacheable data to the consumers of the credential provider.
+/// It allows a data provider to return either new data (with an [EntityTag]) or
+/// indicate that the client's cached version (identified by a previously provided [EntityTag])
+/// is still valid.
+#[derive(Clone, PartialEq, Debug)]
+pub enum CacheableResource<T> {
+    NotModified,
+    New { entity_tag: EntityTag, data: T },
+}
 
 /// An implementation of [crate::credentials::CredentialsProvider].
 ///
@@ -89,7 +118,7 @@ where
 }
 
 impl Credentials {
-    pub async fn headers(&self, extensions: Extensions) -> Result<HeaderMap> {
+    pub async fn headers(&self, extensions: Extensions) -> Result<CacheableResource<HeaderMap>> {
         self.inner.headers(extensions).await
     }
 
@@ -144,10 +173,25 @@ pub trait CredentialsProvider: std::fmt::Debug {
     /// [Credentials] constructs the headers (and header values) that should be
     /// sent with a request.
     ///
-    /// The underlying implementation refreshes the token as needed.
-    // TODO(#2036): After the return type is updated to return a cacheable resource
-    // update Rustdoc to fully explain the `extensions: http::Extensions` parameter.
-    fn headers(&self, extensions: Extensions) -> impl Future<Output = Result<HeaderMap>> + Send;
+    /// # Parameters
+    /// * `extensions` - An `http::Extensions` map that can be used to pass additional
+    ///   context to the credential provider. For caching purposes, this can include
+    ///   an [EntityTag] from a previously returned [`CacheableResource<HeaderMap>`].    
+    ///   If a valid `EntityTag` is provided and the underlying authentication data
+    ///   has not changed, this method returns `Ok(CacheableResource::NotModified)`.
+    ///
+    /// # Returns
+    /// A `Future` that resolves to a `Result` containing:
+    /// * `Ok(CacheableResource::New { entity_tag, data })`: If new or updated headers
+    ///   are available.
+    /// * `Ok(CacheableResource::NotModified)`: If the headers have not changed since
+    ///   the ETag provided via `extensions` was issued.
+    /// * `Err(CredentialsError)`: If an error occurs while trying to fetch or
+    ///   generating the headers.
+    fn headers(
+        &self,
+        extensions: Extensions,
+    ) -> impl Future<Output = Result<CacheableResource<HeaderMap>>> + Send;
 
     /// Retrieves the universe domain associated with the credentials, if any.
     fn universe_domain(&self) -> impl Future<Output = Option<String>> + Send;
@@ -155,7 +199,7 @@ pub trait CredentialsProvider: std::fmt::Debug {
 
 pub(crate) mod dynamic {
     use super::Result;
-    use super::{Extensions, HeaderMap};
+    use super::{CacheableResource, Extensions, HeaderMap};
 
     /// A dyn-compatible, crate-private version of `CredentialsProvider`.
     #[async_trait::async_trait]
@@ -166,10 +210,22 @@ pub(crate) mod dynamic {
         /// [Credentials] constructs the headers (and header values) that should be
         /// sent with a request.
         ///
-        /// The underlying implementation refreshes the token as needed.
-        // TODO(#2036): After the return type is updated to return cacheable resource
-        // update Rustdoc to fully explain the `extensions: Option<http::Extensions>` parameter.
-        async fn headers(&self, extensions: Extensions) -> Result<HeaderMap>;
+        /// # Parameters
+        /// * `extensions` - An `http::Extensions` map that can be used to pass additional
+        ///   context to the credential provider. For caching purposes, this can include
+        ///   an [EntityTag] from a previously returned [CacheableResource<HeaderMap>].    
+        ///   If a valid `EntityTag` is provided and the underlying authentication data
+        ///   has not changed, this method returns `Ok(CacheableResource::NotModified)`.
+        ///
+        /// # Returns
+        /// A `Future` that resolves to a `Result` containing:
+        /// * `Ok(CacheableResource::New { entity_tag, data })`: If new or updated headers
+        ///   are available.
+        /// * `Ok(CacheableResource::NotModified)`: If the headers have not changed since
+        ///   the ETag provided via `extensions` was issued.
+        /// * `Err(CredentialsError)`: If an error occurs while trying to fetch or
+        ///   generating the headers.
+        async fn headers(&self, extensions: Extensions) -> Result<CacheableResource<HeaderMap>>;
 
         /// Retrieves the universe domain associated with the credentials, if any.
         async fn universe_domain(&self) -> Option<String> {
@@ -183,7 +239,7 @@ pub(crate) mod dynamic {
     where
         T: super::CredentialsProvider + Send + Sync,
     {
-        async fn headers(&self, extensions: Extensions) -> Result<HeaderMap> {
+        async fn headers(&self, extensions: Extensions) -> Result<CacheableResource<HeaderMap>> {
             T::headers(self, extensions).await
         }
         async fn universe_domain(&self) -> Option<String> {
@@ -458,7 +514,7 @@ fn build_credentials(
 ) -> Result<Credentials> {
     match json {
         None => config_builder!(
-            mds::Builder::default(),
+            mds::Builder::from_adc(),
             quota_project_id,
             scopes,
             |b: mds::Builder, s: Vec<String>| b.with_scopes(s)
@@ -555,6 +611,7 @@ fn adc_well_known_path() -> Option<String> {
 #[cfg_attr(test, mutants::skip)]
 #[doc(hidden)]
 pub mod testing {
+    use super::{CacheableResource, EntityTag};
     use crate::Result;
     use crate::credentials::Credentials;
     use crate::credentials::dynamic::CredentialsProvider;
@@ -575,8 +632,11 @@ pub mod testing {
 
     #[async_trait::async_trait]
     impl CredentialsProvider for TestCredentials {
-        async fn headers(&self, _extensions: Extensions) -> Result<HeaderMap> {
-            Ok(HeaderMap::new())
+        async fn headers(&self, _extensions: Extensions) -> Result<CacheableResource<HeaderMap>> {
+            Ok(CacheableResource::New {
+                entity_tag: EntityTag::default(),
+                data: HeaderMap::new(),
+            })
         }
 
         async fn universe_domain(&self) -> Option<String> {
@@ -598,7 +658,7 @@ pub mod testing {
 
     #[async_trait::async_trait]
     impl CredentialsProvider for ErrorCredentials {
-        async fn headers(&self, _extensions: Extensions) -> Result<HeaderMap> {
+        async fn headers(&self, _extensions: Extensions) -> Result<CacheableResource<HeaderMap>> {
             Err(super::CredentialsError::from_str(self.0, "test-only"))
         }
 
@@ -623,20 +683,40 @@ mod test {
 
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
 
-    pub(crate) fn get_token_from_headers(headers: &HeaderMap) -> Option<String> {
-        headers
-            .get(AUTHORIZATION)
-            .and_then(|token_value| token_value.to_str().ok())
-            .and_then(|s| s.split_whitespace().nth(1))
-            .map(|s| s.to_string())
+    pub(crate) fn get_headers_from_cache(
+        headers: CacheableResource<HeaderMap>,
+    ) -> Result<HeaderMap> {
+        match headers {
+            CacheableResource::New { data, .. } => Ok(data),
+            CacheableResource::NotModified => Err(CredentialsError::from_str(
+                false,
+                "Expecting headers to be present",
+            )),
+        }
     }
 
-    pub(crate) fn get_token_type_from_headers(headers: &HeaderMap) -> Option<String> {
-        headers
-            .get(AUTHORIZATION)
-            .and_then(|token_value| token_value.to_str().ok())
-            .and_then(|s| s.split_whitespace().next())
-            .map(|s| s.to_string())
+    pub(crate) fn get_token_from_headers(headers: CacheableResource<HeaderMap>) -> Option<String> {
+        match headers {
+            CacheableResource::New { data, .. } => data
+                .get(AUTHORIZATION)
+                .and_then(|token_value| token_value.to_str().ok())
+                .and_then(|s| s.split_whitespace().nth(1))
+                .map(|s| s.to_string()),
+            CacheableResource::NotModified => None,
+        }
+    }
+
+    pub(crate) fn get_token_type_from_headers(
+        headers: CacheableResource<HeaderMap>,
+    ) -> Option<String> {
+        match headers {
+            CacheableResource::New { data, .. } => data
+                .get(AUTHORIZATION)
+                .and_then(|token_value| token_value.to_str().ok())
+                .and_then(|s| s.split_whitespace().next())
+                .map(|s| s.to_string()),
+            CacheableResource::NotModified => None,
+        }
     }
 
     pub static RSA_PRIVATE_KEY: LazyLock<RsaPrivateKey> = LazyLock::new(|| {
@@ -841,7 +921,7 @@ mod test {
             .unwrap();
 
         let headers = sac.headers(Extensions::new()).await?;
-        let token = get_token_from_headers(&headers).unwrap();
+        let token = get_token_from_headers(headers).unwrap();
         let parts: Vec<_> = token.split('.').collect();
         assert_eq!(parts.len(), 3);
         let claims = b64_decode_to_json(parts.get(1).unwrap().to_string());

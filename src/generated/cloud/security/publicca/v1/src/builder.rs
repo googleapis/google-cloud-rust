@@ -17,7 +17,7 @@
 pub mod public_certificate_authority_service {
     use crate::Result;
 
-    /// A builder for [PublicCertificateAuthorityService][super::super::client::PublicCertificateAuthorityService].
+    /// A builder for [PublicCertificateAuthorityService][crate::client::PublicCertificateAuthorityService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod public_certificate_authority_service {
         }
     }
 
-    /// Common implementation for [super::super::client::PublicCertificateAuthorityService] request builders.
+    /// Common implementation for [crate::client::PublicCertificateAuthorityService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::PublicCertificateAuthorityService>,
@@ -70,7 +70,7 @@ pub mod public_certificate_authority_service {
         }
     }
 
-    /// The request builder for [PublicCertificateAuthorityService::create_external_account_key][super::super::client::PublicCertificateAuthorityService::create_external_account_key] calls.
+    /// The request builder for [PublicCertificateAuthorityService::create_external_account_key][crate::client::PublicCertificateAuthorityService::create_external_account_key] calls.
     ///
     /// # Example
     /// ```no_run

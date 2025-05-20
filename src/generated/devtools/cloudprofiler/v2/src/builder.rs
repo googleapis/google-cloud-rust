@@ -17,7 +17,7 @@
 pub mod profiler_service {
     use crate::Result;
 
-    /// A builder for [ProfilerService][super::super::client::ProfilerService].
+    /// A builder for [ProfilerService][crate::client::ProfilerService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod profiler_service {
         }
     }
 
-    /// Common implementation for [super::super::client::ProfilerService] request builders.
+    /// Common implementation for [crate::client::ProfilerService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::ProfilerService>,
@@ -68,7 +68,7 @@ pub mod profiler_service {
         }
     }
 
-    /// The request builder for [ProfilerService::create_profile][super::super::client::ProfilerService::create_profile] calls.
+    /// The request builder for [ProfilerService::create_profile][crate::client::ProfilerService::create_profile] calls.
     ///
     /// # Example
     /// ```no_run
@@ -158,7 +158,7 @@ pub mod profiler_service {
         }
     }
 
-    /// The request builder for [ProfilerService::create_offline_profile][super::super::client::ProfilerService::create_offline_profile] calls.
+    /// The request builder for [ProfilerService::create_offline_profile][crate::client::ProfilerService::create_offline_profile] calls.
     ///
     /// # Example
     /// ```no_run
@@ -240,7 +240,7 @@ pub mod profiler_service {
         }
     }
 
-    /// The request builder for [ProfilerService::update_profile][super::super::client::ProfilerService::update_profile] calls.
+    /// The request builder for [ProfilerService::update_profile][crate::client::ProfilerService::update_profile] calls.
     ///
     /// # Example
     /// ```no_run
@@ -335,7 +335,7 @@ pub mod profiler_service {
 pub mod export_service {
     use crate::Result;
 
-    /// A builder for [ExportService][super::super::client::ExportService].
+    /// A builder for [ExportService][crate::client::ExportService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -363,7 +363,7 @@ pub mod export_service {
         }
     }
 
-    /// Common implementation for [super::super::client::ExportService] request builders.
+    /// Common implementation for [crate::client::ExportService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::ExportService>,
@@ -386,7 +386,7 @@ pub mod export_service {
         }
     }
 
-    /// The request builder for [ExportService::list_profiles][super::super::client::ExportService::list_profiles] calls.
+    /// The request builder for [ExportService::list_profiles][crate::client::ExportService::list_profiles] calls.
     ///
     /// # Example
     /// ```no_run

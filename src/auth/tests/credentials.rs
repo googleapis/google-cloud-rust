@@ -17,7 +17,7 @@ use google_cloud_auth::credentials::service_account::Builder as ServiceAccountBu
 use google_cloud_auth::credentials::testing::test_credentials;
 use google_cloud_auth::credentials::user_account::Builder as UserAccountCredentialBuilder;
 use google_cloud_auth::credentials::{
-    Builder as AccessTokenCredentialBuilder, Credentials, CredentialsProvider,
+    Builder as AccessTokenCredentialBuilder, CacheableResource, Credentials, CredentialsProvider,
     api_key_credentials::Builder as ApiKeyCredentialsBuilder,
 };
 use google_cloud_auth::errors::CredentialsError;
@@ -30,6 +30,7 @@ mod test {
     use super::*;
     use base64::Engine;
     use google_cloud_auth::credentials::external_account;
+    use google_cloud_auth::credentials::EntityTag;
     use http::header::{AUTHORIZATION, HeaderName, HeaderValue};
     use http::{Extensions, HeaderMap};
     use httptest::{Expectation, Server, matchers::*, responders::*};
@@ -322,7 +323,7 @@ mod test {
         Credentials {}
 
         impl CredentialsProvider for Credentials {
-            async fn headers(&self, extensions: Extensions) -> Result<HeaderMap>;
+            async fn headers(&self, extensions: Extensions) -> Result<CacheableResource<HeaderMap>>;
             async fn universe_domain(&self) -> Option<String>;
         }
     }
@@ -330,12 +331,25 @@ mod test {
     #[tokio::test]
     async fn mocking_with_default_values() -> Result<()> {
         let mut mock = MockCredentials::new();
-        mock.expect_headers()
-            .return_once(|_extensions| Ok(HeaderMap::default()));
+        mock.expect_headers().return_once(|_extensions| {
+            Ok(CacheableResource::New {
+                entity_tag: EntityTag::default(),
+                data: HeaderMap::new(),
+            })
+        });
         mock.expect_universe_domain().return_once(|| None);
 
         let creds = Credentials::from(mock);
-        assert!(creds.headers(Extensions::new()).await?.is_empty());
+        let cached_headers = creds.headers(Extensions::new()).await?;
+        match cached_headers {
+            CacheableResource::New { entity_tag, data } => {
+                assert_eq!(entity_tag, EntityTag::default());
+                assert!(data.is_empty());
+            }
+            CacheableResource::NotModified => {
+                unreachable!("Expecting a header to be present");
+            }
+        };
         assert_eq!(creds.universe_domain().await, None);
 
         Ok(())
@@ -348,13 +362,20 @@ mod test {
             HeaderName::from_static("test-header"),
             HeaderValue::from_static("test-value"),
         )]);
-        let headers_clone = headers.clone();
+        let cached_headers = CacheableResource::New {
+            entity_tag: EntityTag::new(),
+            data: headers,
+        };
+        let cached_headers_clone = cached_headers.clone();
         mock.expect_headers()
-            .return_once(|_extensions| Ok(headers_clone));
+            .return_once(|_extensions| Ok(cached_headers));
         mock.expect_universe_domain().return_once(|| None);
 
         let creds = Credentials::from(mock);
-        assert_eq!(creds.headers(Extensions::new()).await?, headers);
+        assert_eq!(
+            creds.headers(Extensions::new()).await?,
+            cached_headers_clone
+        );
         assert_eq!(creds.universe_domain().await, None);
 
         Ok(())
@@ -366,13 +387,25 @@ mod test {
 
         let universe_domain = "test-universe-domain";
         let universe_domain_clone = universe_domain.to_string();
-        mock.expect_headers()
-            .return_once(|_extensions| Ok(HeaderMap::default()));
+        mock.expect_headers().return_once(|_extensions| {
+            Ok(CacheableResource::New {
+                entity_tag: EntityTag::default(),
+                data: HeaderMap::new(),
+            })
+        });
         mock.expect_universe_domain()
             .return_once(|| Some(universe_domain_clone));
 
         let creds = Credentials::from(mock);
-        assert!(creds.headers(Extensions::new()).await?.is_empty());
+        match creds.headers(Extensions::new()).await? {
+            CacheableResource::New { entity_tag, data } => {
+                assert_eq!(entity_tag, EntityTag::default());
+                assert!(data.is_empty());
+            }
+            CacheableResource::NotModified => {
+                unreachable!("Expecting a header to be present");
+            }
+        };
         assert_eq!(creds.universe_domain().await.unwrap(), universe_domain);
 
         Ok(())
@@ -381,7 +414,16 @@ mod test {
     #[tokio::test]
     async fn testing_credentials() -> Result<()> {
         let creds = test_credentials();
-        assert!(creds.headers(Extensions::new()).await?.is_empty());
+        let cached_headers = creds.headers(Extensions::new()).await?;
+        match cached_headers {
+            CacheableResource::New { entity_tag, data } => {
+                assert_eq!(entity_tag, EntityTag::default());
+                assert!(data.is_empty());
+            }
+            CacheableResource::NotModified => {
+                unreachable!("Expecting a header to be present");
+            }
+        };
         assert_eq!(creds.universe_domain().await, None);
         Ok(())
     }

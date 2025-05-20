@@ -17,7 +17,7 @@
 pub mod api_gateway_service {
     use crate::Result;
 
-    /// A builder for [ApiGatewayService][super::super::client::ApiGatewayService].
+    /// A builder for [ApiGatewayService][crate::client::ApiGatewayService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod api_gateway_service {
         }
     }
 
-    /// Common implementation for [super::super::client::ApiGatewayService] request builders.
+    /// Common implementation for [crate::client::ApiGatewayService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiGatewayService>,
@@ -68,7 +68,7 @@ pub mod api_gateway_service {
         }
     }
 
-    /// The request builder for [ApiGatewayService::list_gateways][super::super::client::ApiGatewayService::list_gateways] calls.
+    /// The request builder for [ApiGatewayService::list_gateways][crate::client::ApiGatewayService::list_gateways] calls.
     ///
     /// # Example
     /// ```no_run
@@ -183,7 +183,7 @@ pub mod api_gateway_service {
         }
     }
 
-    /// The request builder for [ApiGatewayService::get_gateway][super::super::client::ApiGatewayService::get_gateway] calls.
+    /// The request builder for [ApiGatewayService::get_gateway][crate::client::ApiGatewayService::get_gateway] calls.
     ///
     /// # Example
     /// ```no_run
@@ -246,7 +246,7 @@ pub mod api_gateway_service {
         }
     }
 
-    /// The request builder for [ApiGatewayService::create_gateway][super::super::client::ApiGatewayService::create_gateway] calls.
+    /// The request builder for [ApiGatewayService::create_gateway][crate::client::ApiGatewayService::create_gateway] calls.
     ///
     /// # Example
     /// ```no_run
@@ -291,7 +291,7 @@ pub mod api_gateway_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_gateway][super::super::client::ApiGatewayService::create_gateway].
+        /// on [create_gateway][crate::client::ApiGatewayService::create_gateway].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_gateway(self.0.request, self.0.options)
@@ -378,7 +378,7 @@ pub mod api_gateway_service {
         }
     }
 
-    /// The request builder for [ApiGatewayService::update_gateway][super::super::client::ApiGatewayService::update_gateway] calls.
+    /// The request builder for [ApiGatewayService::update_gateway][crate::client::ApiGatewayService::update_gateway] calls.
     ///
     /// # Example
     /// ```no_run
@@ -423,7 +423,7 @@ pub mod api_gateway_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_gateway][super::super::client::ApiGatewayService::update_gateway].
+        /// on [update_gateway][crate::client::ApiGatewayService::update_gateway].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_gateway(self.0.request, self.0.options)
@@ -512,7 +512,7 @@ pub mod api_gateway_service {
         }
     }
 
-    /// The request builder for [ApiGatewayService::delete_gateway][super::super::client::ApiGatewayService::delete_gateway] calls.
+    /// The request builder for [ApiGatewayService::delete_gateway][crate::client::ApiGatewayService::delete_gateway] calls.
     ///
     /// # Example
     /// ```no_run
@@ -557,7 +557,7 @@ pub mod api_gateway_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_gateway][super::super::client::ApiGatewayService::delete_gateway].
+        /// on [delete_gateway][crate::client::ApiGatewayService::delete_gateway].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_gateway(self.0.request, self.0.options)
@@ -616,7 +616,7 @@ pub mod api_gateway_service {
         }
     }
 
-    /// The request builder for [ApiGatewayService::list_apis][super::super::client::ApiGatewayService::list_apis] calls.
+    /// The request builder for [ApiGatewayService::list_apis][crate::client::ApiGatewayService::list_apis] calls.
     ///
     /// # Example
     /// ```no_run
@@ -731,7 +731,7 @@ pub mod api_gateway_service {
         }
     }
 
-    /// The request builder for [ApiGatewayService::get_api][super::super::client::ApiGatewayService::get_api] calls.
+    /// The request builder for [ApiGatewayService::get_api][crate::client::ApiGatewayService::get_api] calls.
     ///
     /// # Example
     /// ```no_run
@@ -794,7 +794,7 @@ pub mod api_gateway_service {
         }
     }
 
-    /// The request builder for [ApiGatewayService::create_api][super::super::client::ApiGatewayService::create_api] calls.
+    /// The request builder for [ApiGatewayService::create_api][crate::client::ApiGatewayService::create_api] calls.
     ///
     /// # Example
     /// ```no_run
@@ -839,7 +839,7 @@ pub mod api_gateway_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_api][super::super::client::ApiGatewayService::create_api].
+        /// on [create_api][crate::client::ApiGatewayService::create_api].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_api(self.0.request, self.0.options)
@@ -926,7 +926,7 @@ pub mod api_gateway_service {
         }
     }
 
-    /// The request builder for [ApiGatewayService::update_api][super::super::client::ApiGatewayService::update_api] calls.
+    /// The request builder for [ApiGatewayService::update_api][crate::client::ApiGatewayService::update_api] calls.
     ///
     /// # Example
     /// ```no_run
@@ -971,7 +971,7 @@ pub mod api_gateway_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_api][super::super::client::ApiGatewayService::update_api].
+        /// on [update_api][crate::client::ApiGatewayService::update_api].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_api(self.0.request, self.0.options)
@@ -1060,7 +1060,7 @@ pub mod api_gateway_service {
         }
     }
 
-    /// The request builder for [ApiGatewayService::delete_api][super::super::client::ApiGatewayService::delete_api] calls.
+    /// The request builder for [ApiGatewayService::delete_api][crate::client::ApiGatewayService::delete_api] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1105,7 +1105,7 @@ pub mod api_gateway_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_api][super::super::client::ApiGatewayService::delete_api].
+        /// on [delete_api][crate::client::ApiGatewayService::delete_api].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_api(self.0.request, self.0.options)
@@ -1164,7 +1164,7 @@ pub mod api_gateway_service {
         }
     }
 
-    /// The request builder for [ApiGatewayService::list_api_configs][super::super::client::ApiGatewayService::list_api_configs] calls.
+    /// The request builder for [ApiGatewayService::list_api_configs][crate::client::ApiGatewayService::list_api_configs] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1279,7 +1279,7 @@ pub mod api_gateway_service {
         }
     }
 
-    /// The request builder for [ApiGatewayService::get_api_config][super::super::client::ApiGatewayService::get_api_config] calls.
+    /// The request builder for [ApiGatewayService::get_api_config][crate::client::ApiGatewayService::get_api_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1351,7 +1351,7 @@ pub mod api_gateway_service {
         }
     }
 
-    /// The request builder for [ApiGatewayService::create_api_config][super::super::client::ApiGatewayService::create_api_config] calls.
+    /// The request builder for [ApiGatewayService::create_api_config][crate::client::ApiGatewayService::create_api_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1396,7 +1396,7 @@ pub mod api_gateway_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_api_config][super::super::client::ApiGatewayService::create_api_config].
+        /// on [create_api_config][crate::client::ApiGatewayService::create_api_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_api_config(self.0.request, self.0.options)
@@ -1483,7 +1483,7 @@ pub mod api_gateway_service {
         }
     }
 
-    /// The request builder for [ApiGatewayService::update_api_config][super::super::client::ApiGatewayService::update_api_config] calls.
+    /// The request builder for [ApiGatewayService::update_api_config][crate::client::ApiGatewayService::update_api_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1528,7 +1528,7 @@ pub mod api_gateway_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_api_config][super::super::client::ApiGatewayService::update_api_config].
+        /// on [update_api_config][crate::client::ApiGatewayService::update_api_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_api_config(self.0.request, self.0.options)
@@ -1617,7 +1617,7 @@ pub mod api_gateway_service {
         }
     }
 
-    /// The request builder for [ApiGatewayService::delete_api_config][super::super::client::ApiGatewayService::delete_api_config] calls.
+    /// The request builder for [ApiGatewayService::delete_api_config][crate::client::ApiGatewayService::delete_api_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1662,7 +1662,7 @@ pub mod api_gateway_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_api_config][super::super::client::ApiGatewayService::delete_api_config].
+        /// on [delete_api_config][crate::client::ApiGatewayService::delete_api_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_api_config(self.0.request, self.0.options)
@@ -1721,7 +1721,7 @@ pub mod api_gateway_service {
         }
     }
 
-    /// The request builder for [ApiGatewayService::list_operations][super::super::client::ApiGatewayService::list_operations] calls.
+    /// The request builder for [ApiGatewayService::list_operations][crate::client::ApiGatewayService::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1833,7 +1833,7 @@ pub mod api_gateway_service {
         }
     }
 
-    /// The request builder for [ApiGatewayService::get_operation][super::super::client::ApiGatewayService::get_operation] calls.
+    /// The request builder for [ApiGatewayService::get_operation][crate::client::ApiGatewayService::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1897,7 +1897,7 @@ pub mod api_gateway_service {
         }
     }
 
-    /// The request builder for [ApiGatewayService::delete_operation][super::super::client::ApiGatewayService::delete_operation] calls.
+    /// The request builder for [ApiGatewayService::delete_operation][crate::client::ApiGatewayService::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1961,7 +1961,7 @@ pub mod api_gateway_service {
         }
     }
 
-    /// The request builder for [ApiGatewayService::cancel_operation][super::super::client::ApiGatewayService::cancel_operation] calls.
+    /// The request builder for [ApiGatewayService::cancel_operation][crate::client::ApiGatewayService::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run

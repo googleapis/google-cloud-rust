@@ -17,7 +17,7 @@
 pub mod cloud_controls_partner_core {
     use crate::Result;
 
-    /// A builder for [CloudControlsPartnerCore][super::super::client::CloudControlsPartnerCore].
+    /// A builder for [CloudControlsPartnerCore][crate::client::CloudControlsPartnerCore].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod cloud_controls_partner_core {
         }
     }
 
-    /// Common implementation for [super::super::client::CloudControlsPartnerCore] request builders.
+    /// Common implementation for [crate::client::CloudControlsPartnerCore] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudControlsPartnerCore>,
@@ -68,7 +68,7 @@ pub mod cloud_controls_partner_core {
         }
     }
 
-    /// The request builder for [CloudControlsPartnerCore::get_workload][super::super::client::CloudControlsPartnerCore::get_workload] calls.
+    /// The request builder for [CloudControlsPartnerCore::get_workload][crate::client::CloudControlsPartnerCore::get_workload] calls.
     ///
     /// # Example
     /// ```no_run
@@ -131,7 +131,7 @@ pub mod cloud_controls_partner_core {
         }
     }
 
-    /// The request builder for [CloudControlsPartnerCore::list_workloads][super::super::client::CloudControlsPartnerCore::list_workloads] calls.
+    /// The request builder for [CloudControlsPartnerCore::list_workloads][crate::client::CloudControlsPartnerCore::list_workloads] calls.
     ///
     /// # Example
     /// ```no_run
@@ -246,7 +246,7 @@ pub mod cloud_controls_partner_core {
         }
     }
 
-    /// The request builder for [CloudControlsPartnerCore::get_customer][super::super::client::CloudControlsPartnerCore::get_customer] calls.
+    /// The request builder for [CloudControlsPartnerCore::get_customer][crate::client::CloudControlsPartnerCore::get_customer] calls.
     ///
     /// # Example
     /// ```no_run
@@ -309,7 +309,7 @@ pub mod cloud_controls_partner_core {
         }
     }
 
-    /// The request builder for [CloudControlsPartnerCore::list_customers][super::super::client::CloudControlsPartnerCore::list_customers] calls.
+    /// The request builder for [CloudControlsPartnerCore::list_customers][crate::client::CloudControlsPartnerCore::list_customers] calls.
     ///
     /// # Example
     /// ```no_run
@@ -424,7 +424,7 @@ pub mod cloud_controls_partner_core {
         }
     }
 
-    /// The request builder for [CloudControlsPartnerCore::get_ekm_connections][super::super::client::CloudControlsPartnerCore::get_ekm_connections] calls.
+    /// The request builder for [CloudControlsPartnerCore::get_ekm_connections][crate::client::CloudControlsPartnerCore::get_ekm_connections] calls.
     ///
     /// # Example
     /// ```no_run
@@ -490,7 +490,7 @@ pub mod cloud_controls_partner_core {
         }
     }
 
-    /// The request builder for [CloudControlsPartnerCore::get_partner_permissions][super::super::client::CloudControlsPartnerCore::get_partner_permissions] calls.
+    /// The request builder for [CloudControlsPartnerCore::get_partner_permissions][crate::client::CloudControlsPartnerCore::get_partner_permissions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -556,7 +556,7 @@ pub mod cloud_controls_partner_core {
         }
     }
 
-    /// The request builder for [CloudControlsPartnerCore::list_access_approval_requests][super::super::client::CloudControlsPartnerCore::list_access_approval_requests] calls.
+    /// The request builder for [CloudControlsPartnerCore::list_access_approval_requests][crate::client::CloudControlsPartnerCore::list_access_approval_requests] calls.
     ///
     /// # Example
     /// ```no_run
@@ -680,7 +680,7 @@ pub mod cloud_controls_partner_core {
         }
     }
 
-    /// The request builder for [CloudControlsPartnerCore::get_partner][super::super::client::CloudControlsPartnerCore::get_partner] calls.
+    /// The request builder for [CloudControlsPartnerCore::get_partner][crate::client::CloudControlsPartnerCore::get_partner] calls.
     ///
     /// # Example
     /// ```no_run
@@ -743,7 +743,7 @@ pub mod cloud_controls_partner_core {
         }
     }
 
-    /// The request builder for [CloudControlsPartnerCore::create_customer][super::super::client::CloudControlsPartnerCore::create_customer] calls.
+    /// The request builder for [CloudControlsPartnerCore::create_customer][crate::client::CloudControlsPartnerCore::create_customer] calls.
     ///
     /// # Example
     /// ```no_run
@@ -836,7 +836,7 @@ pub mod cloud_controls_partner_core {
         }
     }
 
-    /// The request builder for [CloudControlsPartnerCore::update_customer][super::super::client::CloudControlsPartnerCore::update_customer] calls.
+    /// The request builder for [CloudControlsPartnerCore::update_customer][crate::client::CloudControlsPartnerCore::update_customer] calls.
     ///
     /// # Example
     /// ```no_run
@@ -931,7 +931,7 @@ pub mod cloud_controls_partner_core {
         }
     }
 
-    /// The request builder for [CloudControlsPartnerCore::delete_customer][super::super::client::CloudControlsPartnerCore::delete_customer] calls.
+    /// The request builder for [CloudControlsPartnerCore::delete_customer][crate::client::CloudControlsPartnerCore::delete_customer] calls.
     ///
     /// # Example
     /// ```no_run
@@ -998,7 +998,7 @@ pub mod cloud_controls_partner_core {
 pub mod cloud_controls_partner_monitoring {
     use crate::Result;
 
-    /// A builder for [CloudControlsPartnerMonitoring][super::super::client::CloudControlsPartnerMonitoring].
+    /// A builder for [CloudControlsPartnerMonitoring][crate::client::CloudControlsPartnerMonitoring].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -1026,7 +1026,7 @@ pub mod cloud_controls_partner_monitoring {
         }
     }
 
-    /// Common implementation for [super::super::client::CloudControlsPartnerMonitoring] request builders.
+    /// Common implementation for [crate::client::CloudControlsPartnerMonitoring] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudControlsPartnerMonitoring>,
@@ -1049,7 +1049,7 @@ pub mod cloud_controls_partner_monitoring {
         }
     }
 
-    /// The request builder for [CloudControlsPartnerMonitoring::list_violations][super::super::client::CloudControlsPartnerMonitoring::list_violations] calls.
+    /// The request builder for [CloudControlsPartnerMonitoring::list_violations][crate::client::CloudControlsPartnerMonitoring::list_violations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1182,7 +1182,7 @@ pub mod cloud_controls_partner_monitoring {
         }
     }
 
-    /// The request builder for [CloudControlsPartnerMonitoring::get_violation][super::super::client::CloudControlsPartnerMonitoring::get_violation] calls.
+    /// The request builder for [CloudControlsPartnerMonitoring::get_violation][crate::client::CloudControlsPartnerMonitoring::get_violation] calls.
     ///
     /// # Example
     /// ```no_run

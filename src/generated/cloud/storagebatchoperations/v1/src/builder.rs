@@ -17,7 +17,7 @@
 pub mod storage_batch_operations {
     use crate::Result;
 
-    /// A builder for [StorageBatchOperations][super::super::client::StorageBatchOperations].
+    /// A builder for [StorageBatchOperations][crate::client::StorageBatchOperations].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod storage_batch_operations {
         }
     }
 
-    /// Common implementation for [super::super::client::StorageBatchOperations] request builders.
+    /// Common implementation for [crate::client::StorageBatchOperations] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageBatchOperations>,
@@ -68,7 +68,7 @@ pub mod storage_batch_operations {
         }
     }
 
-    /// The request builder for [StorageBatchOperations::list_jobs][super::super::client::StorageBatchOperations::list_jobs] calls.
+    /// The request builder for [StorageBatchOperations::list_jobs][crate::client::StorageBatchOperations::list_jobs] calls.
     ///
     /// # Example
     /// ```no_run
@@ -183,7 +183,7 @@ pub mod storage_batch_operations {
         }
     }
 
-    /// The request builder for [StorageBatchOperations::get_job][super::super::client::StorageBatchOperations::get_job] calls.
+    /// The request builder for [StorageBatchOperations::get_job][crate::client::StorageBatchOperations::get_job] calls.
     ///
     /// # Example
     /// ```no_run
@@ -246,7 +246,7 @@ pub mod storage_batch_operations {
         }
     }
 
-    /// The request builder for [StorageBatchOperations::create_job][super::super::client::StorageBatchOperations::create_job] calls.
+    /// The request builder for [StorageBatchOperations::create_job][crate::client::StorageBatchOperations::create_job] calls.
     ///
     /// # Example
     /// ```no_run
@@ -291,7 +291,7 @@ pub mod storage_batch_operations {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_job][super::super::client::StorageBatchOperations::create_job].
+        /// on [create_job][crate::client::StorageBatchOperations::create_job].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_job(self.0.request, self.0.options)
@@ -384,7 +384,7 @@ pub mod storage_batch_operations {
         }
     }
 
-    /// The request builder for [StorageBatchOperations::delete_job][super::super::client::StorageBatchOperations::delete_job] calls.
+    /// The request builder for [StorageBatchOperations::delete_job][crate::client::StorageBatchOperations::delete_job] calls.
     ///
     /// # Example
     /// ```no_run
@@ -453,7 +453,7 @@ pub mod storage_batch_operations {
         }
     }
 
-    /// The request builder for [StorageBatchOperations::cancel_job][super::super::client::StorageBatchOperations::cancel_job] calls.
+    /// The request builder for [StorageBatchOperations::cancel_job][crate::client::StorageBatchOperations::cancel_job] calls.
     ///
     /// # Example
     /// ```no_run
@@ -522,7 +522,7 @@ pub mod storage_batch_operations {
         }
     }
 
-    /// The request builder for [StorageBatchOperations::list_locations][super::super::client::StorageBatchOperations::list_locations] calls.
+    /// The request builder for [StorageBatchOperations::list_locations][crate::client::StorageBatchOperations::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -632,7 +632,7 @@ pub mod storage_batch_operations {
         }
     }
 
-    /// The request builder for [StorageBatchOperations::get_location][super::super::client::StorageBatchOperations::get_location] calls.
+    /// The request builder for [StorageBatchOperations::get_location][crate::client::StorageBatchOperations::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -693,7 +693,7 @@ pub mod storage_batch_operations {
         }
     }
 
-    /// The request builder for [StorageBatchOperations::list_operations][super::super::client::StorageBatchOperations::list_operations] calls.
+    /// The request builder for [StorageBatchOperations::list_operations][crate::client::StorageBatchOperations::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -805,7 +805,7 @@ pub mod storage_batch_operations {
         }
     }
 
-    /// The request builder for [StorageBatchOperations::get_operation][super::super::client::StorageBatchOperations::get_operation] calls.
+    /// The request builder for [StorageBatchOperations::get_operation][crate::client::StorageBatchOperations::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -869,7 +869,7 @@ pub mod storage_batch_operations {
         }
     }
 
-    /// The request builder for [StorageBatchOperations::delete_operation][super::super::client::StorageBatchOperations::delete_operation] calls.
+    /// The request builder for [StorageBatchOperations::delete_operation][crate::client::StorageBatchOperations::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -933,7 +933,7 @@ pub mod storage_batch_operations {
         }
     }
 
-    /// The request builder for [StorageBatchOperations::cancel_operation][super::super::client::StorageBatchOperations::cancel_operation] calls.
+    /// The request builder for [StorageBatchOperations::cancel_operation][crate::client::StorageBatchOperations::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run

@@ -17,7 +17,7 @@
 pub mod vpc_access_service {
     use crate::Result;
 
-    /// A builder for [VpcAccessService][super::super::client::VpcAccessService].
+    /// A builder for [VpcAccessService][crate::client::VpcAccessService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod vpc_access_service {
         }
     }
 
-    /// Common implementation for [super::super::client::VpcAccessService] request builders.
+    /// Common implementation for [crate::client::VpcAccessService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::VpcAccessService>,
@@ -68,7 +68,7 @@ pub mod vpc_access_service {
         }
     }
 
-    /// The request builder for [VpcAccessService::create_connector][super::super::client::VpcAccessService::create_connector] calls.
+    /// The request builder for [VpcAccessService::create_connector][crate::client::VpcAccessService::create_connector] calls.
     ///
     /// # Example
     /// ```no_run
@@ -113,7 +113,7 @@ pub mod vpc_access_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_connector][super::super::client::VpcAccessService::create_connector].
+        /// on [create_connector][crate::client::VpcAccessService::create_connector].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_connector(self.0.request, self.0.options)
@@ -200,7 +200,7 @@ pub mod vpc_access_service {
         }
     }
 
-    /// The request builder for [VpcAccessService::get_connector][super::super::client::VpcAccessService::get_connector] calls.
+    /// The request builder for [VpcAccessService::get_connector][crate::client::VpcAccessService::get_connector] calls.
     ///
     /// # Example
     /// ```no_run
@@ -263,7 +263,7 @@ pub mod vpc_access_service {
         }
     }
 
-    /// The request builder for [VpcAccessService::list_connectors][super::super::client::VpcAccessService::list_connectors] calls.
+    /// The request builder for [VpcAccessService::list_connectors][crate::client::VpcAccessService::list_connectors] calls.
     ///
     /// # Example
     /// ```no_run
@@ -366,7 +366,7 @@ pub mod vpc_access_service {
         }
     }
 
-    /// The request builder for [VpcAccessService::delete_connector][super::super::client::VpcAccessService::delete_connector] calls.
+    /// The request builder for [VpcAccessService::delete_connector][crate::client::VpcAccessService::delete_connector] calls.
     ///
     /// # Example
     /// ```no_run
@@ -411,7 +411,7 @@ pub mod vpc_access_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_connector][super::super::client::VpcAccessService::delete_connector].
+        /// on [delete_connector][crate::client::VpcAccessService::delete_connector].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_connector(self.0.request, self.0.options)
@@ -470,7 +470,7 @@ pub mod vpc_access_service {
         }
     }
 
-    /// The request builder for [VpcAccessService::list_locations][super::super::client::VpcAccessService::list_locations] calls.
+    /// The request builder for [VpcAccessService::list_locations][crate::client::VpcAccessService::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -580,7 +580,7 @@ pub mod vpc_access_service {
         }
     }
 
-    /// The request builder for [VpcAccessService::list_operations][super::super::client::VpcAccessService::list_operations] calls.
+    /// The request builder for [VpcAccessService::list_operations][crate::client::VpcAccessService::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -692,7 +692,7 @@ pub mod vpc_access_service {
         }
     }
 
-    /// The request builder for [VpcAccessService::get_operation][super::super::client::VpcAccessService::get_operation] calls.
+    /// The request builder for [VpcAccessService::get_operation][crate::client::VpcAccessService::get_operation] calls.
     ///
     /// # Example
     /// ```no_run

@@ -17,7 +17,7 @@
 pub mod workstations {
     use crate::Result;
 
-    /// A builder for [Workstations][super::super::client::Workstations].
+    /// A builder for [Workstations][crate::client::Workstations].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod workstations {
         }
     }
 
-    /// Common implementation for [super::super::client::Workstations] request builders.
+    /// Common implementation for [crate::client::Workstations] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
@@ -68,7 +68,7 @@ pub mod workstations {
         }
     }
 
-    /// The request builder for [Workstations::get_workstation_cluster][super::super::client::Workstations::get_workstation_cluster] calls.
+    /// The request builder for [Workstations::get_workstation_cluster][crate::client::Workstations::get_workstation_cluster] calls.
     ///
     /// # Example
     /// ```no_run
@@ -134,7 +134,7 @@ pub mod workstations {
         }
     }
 
-    /// The request builder for [Workstations::list_workstation_clusters][super::super::client::Workstations::list_workstation_clusters] calls.
+    /// The request builder for [Workstations::list_workstation_clusters][crate::client::Workstations::list_workstation_clusters] calls.
     ///
     /// # Example
     /// ```no_run
@@ -246,7 +246,7 @@ pub mod workstations {
         }
     }
 
-    /// The request builder for [Workstations::create_workstation_cluster][super::super::client::Workstations::create_workstation_cluster] calls.
+    /// The request builder for [Workstations::create_workstation_cluster][crate::client::Workstations::create_workstation_cluster] calls.
     ///
     /// # Example
     /// ```no_run
@@ -296,7 +296,7 @@ pub mod workstations {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_workstation_cluster][super::super::client::Workstations::create_workstation_cluster].
+        /// on [create_workstation_cluster][crate::client::Workstations::create_workstation_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_workstation_cluster(self.0.request, self.0.options)
@@ -392,7 +392,7 @@ pub mod workstations {
         }
     }
 
-    /// The request builder for [Workstations::update_workstation_cluster][super::super::client::Workstations::update_workstation_cluster] calls.
+    /// The request builder for [Workstations::update_workstation_cluster][crate::client::Workstations::update_workstation_cluster] calls.
     ///
     /// # Example
     /// ```no_run
@@ -442,7 +442,7 @@ pub mod workstations {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_workstation_cluster][super::super::client::Workstations::update_workstation_cluster].
+        /// on [update_workstation_cluster][crate::client::Workstations::update_workstation_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_workstation_cluster(self.0.request, self.0.options)
@@ -550,7 +550,7 @@ pub mod workstations {
         }
     }
 
-    /// The request builder for [Workstations::delete_workstation_cluster][super::super::client::Workstations::delete_workstation_cluster] calls.
+    /// The request builder for [Workstations::delete_workstation_cluster][crate::client::Workstations::delete_workstation_cluster] calls.
     ///
     /// # Example
     /// ```no_run
@@ -600,7 +600,7 @@ pub mod workstations {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_workstation_cluster][super::super::client::Workstations::delete_workstation_cluster].
+        /// on [delete_workstation_cluster][crate::client::Workstations::delete_workstation_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_workstation_cluster(self.0.request, self.0.options)
@@ -678,7 +678,7 @@ pub mod workstations {
         }
     }
 
-    /// The request builder for [Workstations::get_workstation_config][super::super::client::Workstations::get_workstation_config] calls.
+    /// The request builder for [Workstations::get_workstation_config][crate::client::Workstations::get_workstation_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -744,7 +744,7 @@ pub mod workstations {
         }
     }
 
-    /// The request builder for [Workstations::list_workstation_configs][super::super::client::Workstations::list_workstation_configs] calls.
+    /// The request builder for [Workstations::list_workstation_configs][crate::client::Workstations::list_workstation_configs] calls.
     ///
     /// # Example
     /// ```no_run
@@ -854,7 +854,7 @@ pub mod workstations {
         }
     }
 
-    /// The request builder for [Workstations::list_usable_workstation_configs][super::super::client::Workstations::list_usable_workstation_configs] calls.
+    /// The request builder for [Workstations::list_usable_workstation_configs][crate::client::Workstations::list_usable_workstation_configs] calls.
     ///
     /// # Example
     /// ```no_run
@@ -966,7 +966,7 @@ pub mod workstations {
         }
     }
 
-    /// The request builder for [Workstations::create_workstation_config][super::super::client::Workstations::create_workstation_config] calls.
+    /// The request builder for [Workstations::create_workstation_config][crate::client::Workstations::create_workstation_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1016,7 +1016,7 @@ pub mod workstations {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_workstation_config][super::super::client::Workstations::create_workstation_config].
+        /// on [create_workstation_config][crate::client::Workstations::create_workstation_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_workstation_config(self.0.request, self.0.options)
@@ -1112,7 +1112,7 @@ pub mod workstations {
         }
     }
 
-    /// The request builder for [Workstations::update_workstation_config][super::super::client::Workstations::update_workstation_config] calls.
+    /// The request builder for [Workstations::update_workstation_config][crate::client::Workstations::update_workstation_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1162,7 +1162,7 @@ pub mod workstations {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_workstation_config][super::super::client::Workstations::update_workstation_config].
+        /// on [update_workstation_config][crate::client::Workstations::update_workstation_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_workstation_config(self.0.request, self.0.options)
@@ -1270,7 +1270,7 @@ pub mod workstations {
         }
     }
 
-    /// The request builder for [Workstations::delete_workstation_config][super::super::client::Workstations::delete_workstation_config] calls.
+    /// The request builder for [Workstations::delete_workstation_config][crate::client::Workstations::delete_workstation_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1320,7 +1320,7 @@ pub mod workstations {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_workstation_config][super::super::client::Workstations::delete_workstation_config].
+        /// on [delete_workstation_config][crate::client::Workstations::delete_workstation_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_workstation_config(self.0.request, self.0.options)
@@ -1398,7 +1398,7 @@ pub mod workstations {
         }
     }
 
-    /// The request builder for [Workstations::get_workstation][super::super::client::Workstations::get_workstation] calls.
+    /// The request builder for [Workstations::get_workstation][crate::client::Workstations::get_workstation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1461,7 +1461,7 @@ pub mod workstations {
         }
     }
 
-    /// The request builder for [Workstations::list_workstations][super::super::client::Workstations::list_workstations] calls.
+    /// The request builder for [Workstations::list_workstations][crate::client::Workstations::list_workstations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1567,7 +1567,7 @@ pub mod workstations {
         }
     }
 
-    /// The request builder for [Workstations::list_usable_workstations][super::super::client::Workstations::list_usable_workstations] calls.
+    /// The request builder for [Workstations::list_usable_workstations][crate::client::Workstations::list_usable_workstations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1677,7 +1677,7 @@ pub mod workstations {
         }
     }
 
-    /// The request builder for [Workstations::create_workstation][super::super::client::Workstations::create_workstation] calls.
+    /// The request builder for [Workstations::create_workstation][crate::client::Workstations::create_workstation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1725,7 +1725,7 @@ pub mod workstations {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_workstation][super::super::client::Workstations::create_workstation].
+        /// on [create_workstation][crate::client::Workstations::create_workstation].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_workstation(self.0.request, self.0.options)
@@ -1820,7 +1820,7 @@ pub mod workstations {
         }
     }
 
-    /// The request builder for [Workstations::update_workstation][super::super::client::Workstations::update_workstation] calls.
+    /// The request builder for [Workstations::update_workstation][crate::client::Workstations::update_workstation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1868,7 +1868,7 @@ pub mod workstations {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_workstation][super::super::client::Workstations::update_workstation].
+        /// on [update_workstation][crate::client::Workstations::update_workstation].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_workstation(self.0.request, self.0.options)
@@ -1975,7 +1975,7 @@ pub mod workstations {
         }
     }
 
-    /// The request builder for [Workstations::delete_workstation][super::super::client::Workstations::delete_workstation] calls.
+    /// The request builder for [Workstations::delete_workstation][crate::client::Workstations::delete_workstation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2023,7 +2023,7 @@ pub mod workstations {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_workstation][super::super::client::Workstations::delete_workstation].
+        /// on [delete_workstation][crate::client::Workstations::delete_workstation].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_workstation(self.0.request, self.0.options)
@@ -2094,7 +2094,7 @@ pub mod workstations {
         }
     }
 
-    /// The request builder for [Workstations::start_workstation][super::super::client::Workstations::start_workstation] calls.
+    /// The request builder for [Workstations::start_workstation][crate::client::Workstations::start_workstation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2142,7 +2142,7 @@ pub mod workstations {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [start_workstation][super::super::client::Workstations::start_workstation].
+        /// on [start_workstation][crate::client::Workstations::start_workstation].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .start_workstation(self.0.request, self.0.options)
@@ -2213,7 +2213,7 @@ pub mod workstations {
         }
     }
 
-    /// The request builder for [Workstations::stop_workstation][super::super::client::Workstations::stop_workstation] calls.
+    /// The request builder for [Workstations::stop_workstation][crate::client::Workstations::stop_workstation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2258,7 +2258,7 @@ pub mod workstations {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [stop_workstation][super::super::client::Workstations::stop_workstation].
+        /// on [stop_workstation][crate::client::Workstations::stop_workstation].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .stop_workstation(self.0.request, self.0.options)
@@ -2329,7 +2329,7 @@ pub mod workstations {
         }
     }
 
-    /// The request builder for [Workstations::generate_access_token][super::super::client::Workstations::generate_access_token] calls.
+    /// The request builder for [Workstations::generate_access_token][crate::client::Workstations::generate_access_token] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2435,7 +2435,7 @@ pub mod workstations {
         }
     }
 
-    /// The request builder for [Workstations::set_iam_policy][super::super::client::Workstations::set_iam_policy] calls.
+    /// The request builder for [Workstations::set_iam_policy][crate::client::Workstations::set_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2538,7 +2538,7 @@ pub mod workstations {
         }
     }
 
-    /// The request builder for [Workstations::get_iam_policy][super::super::client::Workstations::get_iam_policy] calls.
+    /// The request builder for [Workstations::get_iam_policy][crate::client::Workstations::get_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2619,7 +2619,7 @@ pub mod workstations {
         }
     }
 
-    /// The request builder for [Workstations::test_iam_permissions][super::super::client::Workstations::test_iam_permissions] calls.
+    /// The request builder for [Workstations::test_iam_permissions][crate::client::Workstations::test_iam_permissions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2698,7 +2698,7 @@ pub mod workstations {
         }
     }
 
-    /// The request builder for [Workstations::list_operations][super::super::client::Workstations::list_operations] calls.
+    /// The request builder for [Workstations::list_operations][crate::client::Workstations::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2810,7 +2810,7 @@ pub mod workstations {
         }
     }
 
-    /// The request builder for [Workstations::get_operation][super::super::client::Workstations::get_operation] calls.
+    /// The request builder for [Workstations::get_operation][crate::client::Workstations::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2874,7 +2874,7 @@ pub mod workstations {
         }
     }
 
-    /// The request builder for [Workstations::delete_operation][super::super::client::Workstations::delete_operation] calls.
+    /// The request builder for [Workstations::delete_operation][crate::client::Workstations::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2938,7 +2938,7 @@ pub mod workstations {
         }
     }
 
-    /// The request builder for [Workstations::cancel_operation][super::super::client::Workstations::cancel_operation] calls.
+    /// The request builder for [Workstations::cancel_operation][crate::client::Workstations::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run

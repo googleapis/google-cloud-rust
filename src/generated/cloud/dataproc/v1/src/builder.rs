@@ -17,7 +17,7 @@
 pub mod autoscaling_policy_service {
     use crate::Result;
 
-    /// A builder for [AutoscalingPolicyService][super::super::client::AutoscalingPolicyService].
+    /// A builder for [AutoscalingPolicyService][crate::client::AutoscalingPolicyService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod autoscaling_policy_service {
         }
     }
 
-    /// Common implementation for [super::super::client::AutoscalingPolicyService] request builders.
+    /// Common implementation for [crate::client::AutoscalingPolicyService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::AutoscalingPolicyService>,
@@ -68,7 +68,7 @@ pub mod autoscaling_policy_service {
         }
     }
 
-    /// The request builder for [AutoscalingPolicyService::create_autoscaling_policy][super::super::client::AutoscalingPolicyService::create_autoscaling_policy] calls.
+    /// The request builder for [AutoscalingPolicyService::create_autoscaling_policy][crate::client::AutoscalingPolicyService::create_autoscaling_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -158,7 +158,7 @@ pub mod autoscaling_policy_service {
         }
     }
 
-    /// The request builder for [AutoscalingPolicyService::update_autoscaling_policy][super::super::client::AutoscalingPolicyService::update_autoscaling_policy] calls.
+    /// The request builder for [AutoscalingPolicyService::update_autoscaling_policy][crate::client::AutoscalingPolicyService::update_autoscaling_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -240,7 +240,7 @@ pub mod autoscaling_policy_service {
         }
     }
 
-    /// The request builder for [AutoscalingPolicyService::get_autoscaling_policy][super::super::client::AutoscalingPolicyService::get_autoscaling_policy] calls.
+    /// The request builder for [AutoscalingPolicyService::get_autoscaling_policy][crate::client::AutoscalingPolicyService::get_autoscaling_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -306,7 +306,7 @@ pub mod autoscaling_policy_service {
         }
     }
 
-    /// The request builder for [AutoscalingPolicyService::list_autoscaling_policies][super::super::client::AutoscalingPolicyService::list_autoscaling_policies] calls.
+    /// The request builder for [AutoscalingPolicyService::list_autoscaling_policies][crate::client::AutoscalingPolicyService::list_autoscaling_policies] calls.
     ///
     /// # Example
     /// ```no_run
@@ -418,7 +418,7 @@ pub mod autoscaling_policy_service {
         }
     }
 
-    /// The request builder for [AutoscalingPolicyService::delete_autoscaling_policy][super::super::client::AutoscalingPolicyService::delete_autoscaling_policy] calls.
+    /// The request builder for [AutoscalingPolicyService::delete_autoscaling_policy][crate::client::AutoscalingPolicyService::delete_autoscaling_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -486,7 +486,7 @@ pub mod autoscaling_policy_service {
         }
     }
 
-    /// The request builder for [AutoscalingPolicyService::set_iam_policy][super::super::client::AutoscalingPolicyService::set_iam_policy] calls.
+    /// The request builder for [AutoscalingPolicyService::set_iam_policy][crate::client::AutoscalingPolicyService::set_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -589,7 +589,7 @@ pub mod autoscaling_policy_service {
         }
     }
 
-    /// The request builder for [AutoscalingPolicyService::get_iam_policy][super::super::client::AutoscalingPolicyService::get_iam_policy] calls.
+    /// The request builder for [AutoscalingPolicyService::get_iam_policy][crate::client::AutoscalingPolicyService::get_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -670,7 +670,7 @@ pub mod autoscaling_policy_service {
         }
     }
 
-    /// The request builder for [AutoscalingPolicyService::test_iam_permissions][super::super::client::AutoscalingPolicyService::test_iam_permissions] calls.
+    /// The request builder for [AutoscalingPolicyService::test_iam_permissions][crate::client::AutoscalingPolicyService::test_iam_permissions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -749,7 +749,7 @@ pub mod autoscaling_policy_service {
         }
     }
 
-    /// The request builder for [AutoscalingPolicyService::list_operations][super::super::client::AutoscalingPolicyService::list_operations] calls.
+    /// The request builder for [AutoscalingPolicyService::list_operations][crate::client::AutoscalingPolicyService::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -861,7 +861,7 @@ pub mod autoscaling_policy_service {
         }
     }
 
-    /// The request builder for [AutoscalingPolicyService::get_operation][super::super::client::AutoscalingPolicyService::get_operation] calls.
+    /// The request builder for [AutoscalingPolicyService::get_operation][crate::client::AutoscalingPolicyService::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -925,7 +925,7 @@ pub mod autoscaling_policy_service {
         }
     }
 
-    /// The request builder for [AutoscalingPolicyService::delete_operation][super::super::client::AutoscalingPolicyService::delete_operation] calls.
+    /// The request builder for [AutoscalingPolicyService::delete_operation][crate::client::AutoscalingPolicyService::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -989,7 +989,7 @@ pub mod autoscaling_policy_service {
         }
     }
 
-    /// The request builder for [AutoscalingPolicyService::cancel_operation][super::super::client::AutoscalingPolicyService::cancel_operation] calls.
+    /// The request builder for [AutoscalingPolicyService::cancel_operation][crate::client::AutoscalingPolicyService::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1057,7 +1057,7 @@ pub mod autoscaling_policy_service {
 pub mod batch_controller {
     use crate::Result;
 
-    /// A builder for [BatchController][super::super::client::BatchController].
+    /// A builder for [BatchController][crate::client::BatchController].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -1085,7 +1085,7 @@ pub mod batch_controller {
         }
     }
 
-    /// Common implementation for [super::super::client::BatchController] request builders.
+    /// Common implementation for [crate::client::BatchController] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::BatchController>,
@@ -1108,7 +1108,7 @@ pub mod batch_controller {
         }
     }
 
-    /// The request builder for [BatchController::create_batch][super::super::client::BatchController::create_batch] calls.
+    /// The request builder for [BatchController::create_batch][crate::client::BatchController::create_batch] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1153,7 +1153,7 @@ pub mod batch_controller {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_batch][super::super::client::BatchController::create_batch].
+        /// on [create_batch][crate::client::BatchController::create_batch].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_batch(self.0.request, self.0.options)
@@ -1244,7 +1244,7 @@ pub mod batch_controller {
         }
     }
 
-    /// The request builder for [BatchController::get_batch][super::super::client::BatchController::get_batch] calls.
+    /// The request builder for [BatchController::get_batch][crate::client::BatchController::get_batch] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1307,7 +1307,7 @@ pub mod batch_controller {
         }
     }
 
-    /// The request builder for [BatchController::list_batches][super::super::client::BatchController::list_batches] calls.
+    /// The request builder for [BatchController::list_batches][crate::client::BatchController::list_batches] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1422,7 +1422,7 @@ pub mod batch_controller {
         }
     }
 
-    /// The request builder for [BatchController::delete_batch][super::super::client::BatchController::delete_batch] calls.
+    /// The request builder for [BatchController::delete_batch][crate::client::BatchController::delete_batch] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1485,7 +1485,7 @@ pub mod batch_controller {
         }
     }
 
-    /// The request builder for [BatchController::set_iam_policy][super::super::client::BatchController::set_iam_policy] calls.
+    /// The request builder for [BatchController::set_iam_policy][crate::client::BatchController::set_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1588,7 +1588,7 @@ pub mod batch_controller {
         }
     }
 
-    /// The request builder for [BatchController::get_iam_policy][super::super::client::BatchController::get_iam_policy] calls.
+    /// The request builder for [BatchController::get_iam_policy][crate::client::BatchController::get_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1669,7 +1669,7 @@ pub mod batch_controller {
         }
     }
 
-    /// The request builder for [BatchController::test_iam_permissions][super::super::client::BatchController::test_iam_permissions] calls.
+    /// The request builder for [BatchController::test_iam_permissions][crate::client::BatchController::test_iam_permissions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1748,7 +1748,7 @@ pub mod batch_controller {
         }
     }
 
-    /// The request builder for [BatchController::list_operations][super::super::client::BatchController::list_operations] calls.
+    /// The request builder for [BatchController::list_operations][crate::client::BatchController::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1860,7 +1860,7 @@ pub mod batch_controller {
         }
     }
 
-    /// The request builder for [BatchController::get_operation][super::super::client::BatchController::get_operation] calls.
+    /// The request builder for [BatchController::get_operation][crate::client::BatchController::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1924,7 +1924,7 @@ pub mod batch_controller {
         }
     }
 
-    /// The request builder for [BatchController::delete_operation][super::super::client::BatchController::delete_operation] calls.
+    /// The request builder for [BatchController::delete_operation][crate::client::BatchController::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1988,7 +1988,7 @@ pub mod batch_controller {
         }
     }
 
-    /// The request builder for [BatchController::cancel_operation][super::super::client::BatchController::cancel_operation] calls.
+    /// The request builder for [BatchController::cancel_operation][crate::client::BatchController::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2056,7 +2056,7 @@ pub mod batch_controller {
 pub mod cluster_controller {
     use crate::Result;
 
-    /// A builder for [ClusterController][super::super::client::ClusterController].
+    /// A builder for [ClusterController][crate::client::ClusterController].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -2084,7 +2084,7 @@ pub mod cluster_controller {
         }
     }
 
-    /// Common implementation for [super::super::client::ClusterController] request builders.
+    /// Common implementation for [crate::client::ClusterController] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterController>,
@@ -2107,7 +2107,7 @@ pub mod cluster_controller {
         }
     }
 
-    /// The request builder for [ClusterController::create_cluster][super::super::client::ClusterController::create_cluster] calls.
+    /// The request builder for [ClusterController::create_cluster][crate::client::ClusterController::create_cluster] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2152,7 +2152,7 @@ pub mod cluster_controller {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_cluster][super::super::client::ClusterController::create_cluster].
+        /// on [create_cluster][crate::client::ClusterController::create_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_cluster(self.0.request, self.0.options)
@@ -2257,7 +2257,7 @@ pub mod cluster_controller {
         }
     }
 
-    /// The request builder for [ClusterController::update_cluster][super::super::client::ClusterController::update_cluster] calls.
+    /// The request builder for [ClusterController::update_cluster][crate::client::ClusterController::update_cluster] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2302,7 +2302,7 @@ pub mod cluster_controller {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_cluster][super::super::client::ClusterController::update_cluster].
+        /// on [update_cluster][crate::client::ClusterController::update_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_cluster(self.0.request, self.0.options)
@@ -2449,7 +2449,7 @@ pub mod cluster_controller {
         }
     }
 
-    /// The request builder for [ClusterController::stop_cluster][super::super::client::ClusterController::stop_cluster] calls.
+    /// The request builder for [ClusterController::stop_cluster][crate::client::ClusterController::stop_cluster] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2494,7 +2494,7 @@ pub mod cluster_controller {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [stop_cluster][super::super::client::ClusterController::stop_cluster].
+        /// on [stop_cluster][crate::client::ClusterController::stop_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .stop_cluster(self.0.request, self.0.options)
@@ -2582,7 +2582,7 @@ pub mod cluster_controller {
         }
     }
 
-    /// The request builder for [ClusterController::start_cluster][super::super::client::ClusterController::start_cluster] calls.
+    /// The request builder for [ClusterController::start_cluster][crate::client::ClusterController::start_cluster] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2627,7 +2627,7 @@ pub mod cluster_controller {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [start_cluster][super::super::client::ClusterController::start_cluster].
+        /// on [start_cluster][crate::client::ClusterController::start_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .start_cluster(self.0.request, self.0.options)
@@ -2715,7 +2715,7 @@ pub mod cluster_controller {
         }
     }
 
-    /// The request builder for [ClusterController::delete_cluster][super::super::client::ClusterController::delete_cluster] calls.
+    /// The request builder for [ClusterController::delete_cluster][crate::client::ClusterController::delete_cluster] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2760,7 +2760,7 @@ pub mod cluster_controller {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_cluster][super::super::client::ClusterController::delete_cluster].
+        /// on [delete_cluster][crate::client::ClusterController::delete_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_cluster(self.0.request, self.0.options)
@@ -2848,7 +2848,7 @@ pub mod cluster_controller {
         }
     }
 
-    /// The request builder for [ClusterController::get_cluster][super::super::client::ClusterController::get_cluster] calls.
+    /// The request builder for [ClusterController::get_cluster][crate::client::ClusterController::get_cluster] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2927,7 +2927,7 @@ pub mod cluster_controller {
         }
     }
 
-    /// The request builder for [ClusterController::list_clusters][super::super::client::ClusterController::list_clusters] calls.
+    /// The request builder for [ClusterController::list_clusters][crate::client::ClusterController::list_clusters] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3044,7 +3044,7 @@ pub mod cluster_controller {
         }
     }
 
-    /// The request builder for [ClusterController::diagnose_cluster][super::super::client::ClusterController::diagnose_cluster] calls.
+    /// The request builder for [ClusterController::diagnose_cluster][crate::client::ClusterController::diagnose_cluster] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3089,7 +3089,7 @@ pub mod cluster_controller {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [diagnose_cluster][super::super::client::ClusterController::diagnose_cluster].
+        /// on [diagnose_cluster][crate::client::ClusterController::diagnose_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .diagnose_cluster(self.0.request, self.0.options)
@@ -3222,7 +3222,7 @@ pub mod cluster_controller {
         }
     }
 
-    /// The request builder for [ClusterController::set_iam_policy][super::super::client::ClusterController::set_iam_policy] calls.
+    /// The request builder for [ClusterController::set_iam_policy][crate::client::ClusterController::set_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3325,7 +3325,7 @@ pub mod cluster_controller {
         }
     }
 
-    /// The request builder for [ClusterController::get_iam_policy][super::super::client::ClusterController::get_iam_policy] calls.
+    /// The request builder for [ClusterController::get_iam_policy][crate::client::ClusterController::get_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3406,7 +3406,7 @@ pub mod cluster_controller {
         }
     }
 
-    /// The request builder for [ClusterController::test_iam_permissions][super::super::client::ClusterController::test_iam_permissions] calls.
+    /// The request builder for [ClusterController::test_iam_permissions][crate::client::ClusterController::test_iam_permissions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3485,7 +3485,7 @@ pub mod cluster_controller {
         }
     }
 
-    /// The request builder for [ClusterController::list_operations][super::super::client::ClusterController::list_operations] calls.
+    /// The request builder for [ClusterController::list_operations][crate::client::ClusterController::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3597,7 +3597,7 @@ pub mod cluster_controller {
         }
     }
 
-    /// The request builder for [ClusterController::get_operation][super::super::client::ClusterController::get_operation] calls.
+    /// The request builder for [ClusterController::get_operation][crate::client::ClusterController::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3661,7 +3661,7 @@ pub mod cluster_controller {
         }
     }
 
-    /// The request builder for [ClusterController::delete_operation][super::super::client::ClusterController::delete_operation] calls.
+    /// The request builder for [ClusterController::delete_operation][crate::client::ClusterController::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3725,7 +3725,7 @@ pub mod cluster_controller {
         }
     }
 
-    /// The request builder for [ClusterController::cancel_operation][super::super::client::ClusterController::cancel_operation] calls.
+    /// The request builder for [ClusterController::cancel_operation][crate::client::ClusterController::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3793,7 +3793,7 @@ pub mod cluster_controller {
 pub mod job_controller {
     use crate::Result;
 
-    /// A builder for [JobController][super::super::client::JobController].
+    /// A builder for [JobController][crate::client::JobController].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -3821,7 +3821,7 @@ pub mod job_controller {
         }
     }
 
-    /// Common implementation for [super::super::client::JobController] request builders.
+    /// Common implementation for [crate::client::JobController] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::JobController>,
@@ -3844,7 +3844,7 @@ pub mod job_controller {
         }
     }
 
-    /// The request builder for [JobController::submit_job][super::super::client::JobController::submit_job] calls.
+    /// The request builder for [JobController::submit_job][crate::client::JobController::submit_job] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3943,7 +3943,7 @@ pub mod job_controller {
         }
     }
 
-    /// The request builder for [JobController::submit_job_as_operation][super::super::client::JobController::submit_job_as_operation] calls.
+    /// The request builder for [JobController::submit_job_as_operation][crate::client::JobController::submit_job_as_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3988,7 +3988,7 @@ pub mod job_controller {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [submit_job_as_operation][super::super::client::JobController::submit_job_as_operation].
+        /// on [submit_job_as_operation][crate::client::JobController::submit_job_as_operation].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .submit_job_as_operation(self.0.request, self.0.options)
@@ -4078,7 +4078,7 @@ pub mod job_controller {
         }
     }
 
-    /// The request builder for [JobController::get_job][super::super::client::JobController::get_job] calls.
+    /// The request builder for [JobController::get_job][crate::client::JobController::get_job] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4157,7 +4157,7 @@ pub mod job_controller {
         }
     }
 
-    /// The request builder for [JobController::list_jobs][super::super::client::JobController::list_jobs] calls.
+    /// The request builder for [JobController::list_jobs][crate::client::JobController::list_jobs] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4289,7 +4289,7 @@ pub mod job_controller {
         }
     }
 
-    /// The request builder for [JobController::update_job][super::super::client::JobController::update_job] calls.
+    /// The request builder for [JobController::update_job][crate::client::JobController::update_job] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4412,7 +4412,7 @@ pub mod job_controller {
         }
     }
 
-    /// The request builder for [JobController::cancel_job][super::super::client::JobController::cancel_job] calls.
+    /// The request builder for [JobController::cancel_job][crate::client::JobController::cancel_job] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4491,7 +4491,7 @@ pub mod job_controller {
         }
     }
 
-    /// The request builder for [JobController::delete_job][super::super::client::JobController::delete_job] calls.
+    /// The request builder for [JobController::delete_job][crate::client::JobController::delete_job] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4570,7 +4570,7 @@ pub mod job_controller {
         }
     }
 
-    /// The request builder for [JobController::set_iam_policy][super::super::client::JobController::set_iam_policy] calls.
+    /// The request builder for [JobController::set_iam_policy][crate::client::JobController::set_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4673,7 +4673,7 @@ pub mod job_controller {
         }
     }
 
-    /// The request builder for [JobController::get_iam_policy][super::super::client::JobController::get_iam_policy] calls.
+    /// The request builder for [JobController::get_iam_policy][crate::client::JobController::get_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4754,7 +4754,7 @@ pub mod job_controller {
         }
     }
 
-    /// The request builder for [JobController::test_iam_permissions][super::super::client::JobController::test_iam_permissions] calls.
+    /// The request builder for [JobController::test_iam_permissions][crate::client::JobController::test_iam_permissions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4833,7 +4833,7 @@ pub mod job_controller {
         }
     }
 
-    /// The request builder for [JobController::list_operations][super::super::client::JobController::list_operations] calls.
+    /// The request builder for [JobController::list_operations][crate::client::JobController::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4945,7 +4945,7 @@ pub mod job_controller {
         }
     }
 
-    /// The request builder for [JobController::get_operation][super::super::client::JobController::get_operation] calls.
+    /// The request builder for [JobController::get_operation][crate::client::JobController::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5009,7 +5009,7 @@ pub mod job_controller {
         }
     }
 
-    /// The request builder for [JobController::delete_operation][super::super::client::JobController::delete_operation] calls.
+    /// The request builder for [JobController::delete_operation][crate::client::JobController::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5073,7 +5073,7 @@ pub mod job_controller {
         }
     }
 
-    /// The request builder for [JobController::cancel_operation][super::super::client::JobController::cancel_operation] calls.
+    /// The request builder for [JobController::cancel_operation][crate::client::JobController::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5141,7 +5141,7 @@ pub mod job_controller {
 pub mod node_group_controller {
     use crate::Result;
 
-    /// A builder for [NodeGroupController][super::super::client::NodeGroupController].
+    /// A builder for [NodeGroupController][crate::client::NodeGroupController].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -5169,7 +5169,7 @@ pub mod node_group_controller {
         }
     }
 
-    /// Common implementation for [super::super::client::NodeGroupController] request builders.
+    /// Common implementation for [crate::client::NodeGroupController] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::NodeGroupController>,
@@ -5192,7 +5192,7 @@ pub mod node_group_controller {
         }
     }
 
-    /// The request builder for [NodeGroupController::create_node_group][super::super::client::NodeGroupController::create_node_group] calls.
+    /// The request builder for [NodeGroupController::create_node_group][crate::client::NodeGroupController::create_node_group] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5237,7 +5237,7 @@ pub mod node_group_controller {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_node_group][super::super::client::NodeGroupController::create_node_group].
+        /// on [create_node_group][crate::client::NodeGroupController::create_node_group].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_node_group(self.0.request, self.0.options)
@@ -5331,7 +5331,7 @@ pub mod node_group_controller {
         }
     }
 
-    /// The request builder for [NodeGroupController::resize_node_group][super::super::client::NodeGroupController::resize_node_group] calls.
+    /// The request builder for [NodeGroupController::resize_node_group][crate::client::NodeGroupController::resize_node_group] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5376,7 +5376,7 @@ pub mod node_group_controller {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [resize_node_group][super::super::client::NodeGroupController::resize_node_group].
+        /// on [resize_node_group][crate::client::NodeGroupController::resize_node_group].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .resize_node_group(self.0.request, self.0.options)
@@ -5471,7 +5471,7 @@ pub mod node_group_controller {
         }
     }
 
-    /// The request builder for [NodeGroupController::get_node_group][super::super::client::NodeGroupController::get_node_group] calls.
+    /// The request builder for [NodeGroupController::get_node_group][crate::client::NodeGroupController::get_node_group] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5534,7 +5534,7 @@ pub mod node_group_controller {
         }
     }
 
-    /// The request builder for [NodeGroupController::set_iam_policy][super::super::client::NodeGroupController::set_iam_policy] calls.
+    /// The request builder for [NodeGroupController::set_iam_policy][crate::client::NodeGroupController::set_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5637,7 +5637,7 @@ pub mod node_group_controller {
         }
     }
 
-    /// The request builder for [NodeGroupController::get_iam_policy][super::super::client::NodeGroupController::get_iam_policy] calls.
+    /// The request builder for [NodeGroupController::get_iam_policy][crate::client::NodeGroupController::get_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5718,7 +5718,7 @@ pub mod node_group_controller {
         }
     }
 
-    /// The request builder for [NodeGroupController::test_iam_permissions][super::super::client::NodeGroupController::test_iam_permissions] calls.
+    /// The request builder for [NodeGroupController::test_iam_permissions][crate::client::NodeGroupController::test_iam_permissions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5797,7 +5797,7 @@ pub mod node_group_controller {
         }
     }
 
-    /// The request builder for [NodeGroupController::list_operations][super::super::client::NodeGroupController::list_operations] calls.
+    /// The request builder for [NodeGroupController::list_operations][crate::client::NodeGroupController::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5909,7 +5909,7 @@ pub mod node_group_controller {
         }
     }
 
-    /// The request builder for [NodeGroupController::get_operation][super::super::client::NodeGroupController::get_operation] calls.
+    /// The request builder for [NodeGroupController::get_operation][crate::client::NodeGroupController::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5973,7 +5973,7 @@ pub mod node_group_controller {
         }
     }
 
-    /// The request builder for [NodeGroupController::delete_operation][super::super::client::NodeGroupController::delete_operation] calls.
+    /// The request builder for [NodeGroupController::delete_operation][crate::client::NodeGroupController::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6037,7 +6037,7 @@ pub mod node_group_controller {
         }
     }
 
-    /// The request builder for [NodeGroupController::cancel_operation][super::super::client::NodeGroupController::cancel_operation] calls.
+    /// The request builder for [NodeGroupController::cancel_operation][crate::client::NodeGroupController::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6105,7 +6105,7 @@ pub mod node_group_controller {
 pub mod session_template_controller {
     use crate::Result;
 
-    /// A builder for [SessionTemplateController][super::super::client::SessionTemplateController].
+    /// A builder for [SessionTemplateController][crate::client::SessionTemplateController].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -6133,7 +6133,7 @@ pub mod session_template_controller {
         }
     }
 
-    /// Common implementation for [super::super::client::SessionTemplateController] request builders.
+    /// Common implementation for [crate::client::SessionTemplateController] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::SessionTemplateController>,
@@ -6156,7 +6156,7 @@ pub mod session_template_controller {
         }
     }
 
-    /// The request builder for [SessionTemplateController::create_session_template][super::super::client::SessionTemplateController::create_session_template] calls.
+    /// The request builder for [SessionTemplateController::create_session_template][crate::client::SessionTemplateController::create_session_template] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6244,7 +6244,7 @@ pub mod session_template_controller {
         }
     }
 
-    /// The request builder for [SessionTemplateController::update_session_template][super::super::client::SessionTemplateController::update_session_template] calls.
+    /// The request builder for [SessionTemplateController::update_session_template][crate::client::SessionTemplateController::update_session_template] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6324,7 +6324,7 @@ pub mod session_template_controller {
         }
     }
 
-    /// The request builder for [SessionTemplateController::get_session_template][super::super::client::SessionTemplateController::get_session_template] calls.
+    /// The request builder for [SessionTemplateController::get_session_template][crate::client::SessionTemplateController::get_session_template] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6390,7 +6390,7 @@ pub mod session_template_controller {
         }
     }
 
-    /// The request builder for [SessionTemplateController::list_session_templates][super::super::client::SessionTemplateController::list_session_templates] calls.
+    /// The request builder for [SessionTemplateController::list_session_templates][crate::client::SessionTemplateController::list_session_templates] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6504,7 +6504,7 @@ pub mod session_template_controller {
         }
     }
 
-    /// The request builder for [SessionTemplateController::delete_session_template][super::super::client::SessionTemplateController::delete_session_template] calls.
+    /// The request builder for [SessionTemplateController::delete_session_template][crate::client::SessionTemplateController::delete_session_template] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6570,7 +6570,7 @@ pub mod session_template_controller {
         }
     }
 
-    /// The request builder for [SessionTemplateController::set_iam_policy][super::super::client::SessionTemplateController::set_iam_policy] calls.
+    /// The request builder for [SessionTemplateController::set_iam_policy][crate::client::SessionTemplateController::set_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6673,7 +6673,7 @@ pub mod session_template_controller {
         }
     }
 
-    /// The request builder for [SessionTemplateController::get_iam_policy][super::super::client::SessionTemplateController::get_iam_policy] calls.
+    /// The request builder for [SessionTemplateController::get_iam_policy][crate::client::SessionTemplateController::get_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6754,7 +6754,7 @@ pub mod session_template_controller {
         }
     }
 
-    /// The request builder for [SessionTemplateController::test_iam_permissions][super::super::client::SessionTemplateController::test_iam_permissions] calls.
+    /// The request builder for [SessionTemplateController::test_iam_permissions][crate::client::SessionTemplateController::test_iam_permissions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6833,7 +6833,7 @@ pub mod session_template_controller {
         }
     }
 
-    /// The request builder for [SessionTemplateController::list_operations][super::super::client::SessionTemplateController::list_operations] calls.
+    /// The request builder for [SessionTemplateController::list_operations][crate::client::SessionTemplateController::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6945,7 +6945,7 @@ pub mod session_template_controller {
         }
     }
 
-    /// The request builder for [SessionTemplateController::get_operation][super::super::client::SessionTemplateController::get_operation] calls.
+    /// The request builder for [SessionTemplateController::get_operation][crate::client::SessionTemplateController::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -7009,7 +7009,7 @@ pub mod session_template_controller {
         }
     }
 
-    /// The request builder for [SessionTemplateController::delete_operation][super::super::client::SessionTemplateController::delete_operation] calls.
+    /// The request builder for [SessionTemplateController::delete_operation][crate::client::SessionTemplateController::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -7073,7 +7073,7 @@ pub mod session_template_controller {
         }
     }
 
-    /// The request builder for [SessionTemplateController::cancel_operation][super::super::client::SessionTemplateController::cancel_operation] calls.
+    /// The request builder for [SessionTemplateController::cancel_operation][crate::client::SessionTemplateController::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -7141,7 +7141,7 @@ pub mod session_template_controller {
 pub mod session_controller {
     use crate::Result;
 
-    /// A builder for [SessionController][super::super::client::SessionController].
+    /// A builder for [SessionController][crate::client::SessionController].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -7169,7 +7169,7 @@ pub mod session_controller {
         }
     }
 
-    /// Common implementation for [super::super::client::SessionController] request builders.
+    /// Common implementation for [crate::client::SessionController] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::SessionController>,
@@ -7192,7 +7192,7 @@ pub mod session_controller {
         }
     }
 
-    /// The request builder for [SessionController::create_session][super::super::client::SessionController::create_session] calls.
+    /// The request builder for [SessionController::create_session][crate::client::SessionController::create_session] calls.
     ///
     /// # Example
     /// ```no_run
@@ -7237,7 +7237,7 @@ pub mod session_controller {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_session][super::super::client::SessionController::create_session].
+        /// on [create_session][crate::client::SessionController::create_session].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_session(self.0.request, self.0.options)
@@ -7333,7 +7333,7 @@ pub mod session_controller {
         }
     }
 
-    /// The request builder for [SessionController::get_session][super::super::client::SessionController::get_session] calls.
+    /// The request builder for [SessionController::get_session][crate::client::SessionController::get_session] calls.
     ///
     /// # Example
     /// ```no_run
@@ -7396,7 +7396,7 @@ pub mod session_controller {
         }
     }
 
-    /// The request builder for [SessionController::list_sessions][super::super::client::SessionController::list_sessions] calls.
+    /// The request builder for [SessionController::list_sessions][crate::client::SessionController::list_sessions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -7505,7 +7505,7 @@ pub mod session_controller {
         }
     }
 
-    /// The request builder for [SessionController::terminate_session][super::super::client::SessionController::terminate_session] calls.
+    /// The request builder for [SessionController::terminate_session][crate::client::SessionController::terminate_session] calls.
     ///
     /// # Example
     /// ```no_run
@@ -7553,7 +7553,7 @@ pub mod session_controller {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [terminate_session][super::super::client::SessionController::terminate_session].
+        /// on [terminate_session][crate::client::SessionController::terminate_session].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .terminate_session(self.0.request, self.0.options)
@@ -7619,7 +7619,7 @@ pub mod session_controller {
         }
     }
 
-    /// The request builder for [SessionController::delete_session][super::super::client::SessionController::delete_session] calls.
+    /// The request builder for [SessionController::delete_session][crate::client::SessionController::delete_session] calls.
     ///
     /// # Example
     /// ```no_run
@@ -7664,7 +7664,7 @@ pub mod session_controller {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_session][super::super::client::SessionController::delete_session].
+        /// on [delete_session][crate::client::SessionController::delete_session].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_session(self.0.request, self.0.options)
@@ -7730,7 +7730,7 @@ pub mod session_controller {
         }
     }
 
-    /// The request builder for [SessionController::set_iam_policy][super::super::client::SessionController::set_iam_policy] calls.
+    /// The request builder for [SessionController::set_iam_policy][crate::client::SessionController::set_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -7833,7 +7833,7 @@ pub mod session_controller {
         }
     }
 
-    /// The request builder for [SessionController::get_iam_policy][super::super::client::SessionController::get_iam_policy] calls.
+    /// The request builder for [SessionController::get_iam_policy][crate::client::SessionController::get_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -7914,7 +7914,7 @@ pub mod session_controller {
         }
     }
 
-    /// The request builder for [SessionController::test_iam_permissions][super::super::client::SessionController::test_iam_permissions] calls.
+    /// The request builder for [SessionController::test_iam_permissions][crate::client::SessionController::test_iam_permissions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -7993,7 +7993,7 @@ pub mod session_controller {
         }
     }
 
-    /// The request builder for [SessionController::list_operations][super::super::client::SessionController::list_operations] calls.
+    /// The request builder for [SessionController::list_operations][crate::client::SessionController::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -8105,7 +8105,7 @@ pub mod session_controller {
         }
     }
 
-    /// The request builder for [SessionController::get_operation][super::super::client::SessionController::get_operation] calls.
+    /// The request builder for [SessionController::get_operation][crate::client::SessionController::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -8169,7 +8169,7 @@ pub mod session_controller {
         }
     }
 
-    /// The request builder for [SessionController::delete_operation][super::super::client::SessionController::delete_operation] calls.
+    /// The request builder for [SessionController::delete_operation][crate::client::SessionController::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -8233,7 +8233,7 @@ pub mod session_controller {
         }
     }
 
-    /// The request builder for [SessionController::cancel_operation][super::super::client::SessionController::cancel_operation] calls.
+    /// The request builder for [SessionController::cancel_operation][crate::client::SessionController::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -8301,7 +8301,7 @@ pub mod session_controller {
 pub mod workflow_template_service {
     use crate::Result;
 
-    /// A builder for [WorkflowTemplateService][super::super::client::WorkflowTemplateService].
+    /// A builder for [WorkflowTemplateService][crate::client::WorkflowTemplateService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -8329,7 +8329,7 @@ pub mod workflow_template_service {
         }
     }
 
-    /// Common implementation for [super::super::client::WorkflowTemplateService] request builders.
+    /// Common implementation for [crate::client::WorkflowTemplateService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::WorkflowTemplateService>,
@@ -8352,7 +8352,7 @@ pub mod workflow_template_service {
         }
     }
 
-    /// The request builder for [WorkflowTemplateService::create_workflow_template][super::super::client::WorkflowTemplateService::create_workflow_template] calls.
+    /// The request builder for [WorkflowTemplateService::create_workflow_template][crate::client::WorkflowTemplateService::create_workflow_template] calls.
     ///
     /// # Example
     /// ```no_run
@@ -8440,7 +8440,7 @@ pub mod workflow_template_service {
         }
     }
 
-    /// The request builder for [WorkflowTemplateService::get_workflow_template][super::super::client::WorkflowTemplateService::get_workflow_template] calls.
+    /// The request builder for [WorkflowTemplateService::get_workflow_template][crate::client::WorkflowTemplateService::get_workflow_template] calls.
     ///
     /// # Example
     /// ```no_run
@@ -8512,7 +8512,7 @@ pub mod workflow_template_service {
         }
     }
 
-    /// The request builder for [WorkflowTemplateService::instantiate_workflow_template][super::super::client::WorkflowTemplateService::instantiate_workflow_template] calls.
+    /// The request builder for [WorkflowTemplateService::instantiate_workflow_template][crate::client::WorkflowTemplateService::instantiate_workflow_template] calls.
     ///
     /// # Example
     /// ```no_run
@@ -8562,7 +8562,7 @@ pub mod workflow_template_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [instantiate_workflow_template][super::super::client::WorkflowTemplateService::instantiate_workflow_template].
+        /// on [instantiate_workflow_template][crate::client::WorkflowTemplateService::instantiate_workflow_template].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .instantiate_workflow_template(self.0.request, self.0.options)
@@ -8644,7 +8644,7 @@ pub mod workflow_template_service {
         }
     }
 
-    /// The request builder for [WorkflowTemplateService::instantiate_inline_workflow_template][super::super::client::WorkflowTemplateService::instantiate_inline_workflow_template] calls.
+    /// The request builder for [WorkflowTemplateService::instantiate_inline_workflow_template][crate::client::WorkflowTemplateService::instantiate_inline_workflow_template] calls.
     ///
     /// # Example
     /// ```no_run
@@ -8694,7 +8694,7 @@ pub mod workflow_template_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [instantiate_inline_workflow_template][super::super::client::WorkflowTemplateService::instantiate_inline_workflow_template].
+        /// on [instantiate_inline_workflow_template][crate::client::WorkflowTemplateService::instantiate_inline_workflow_template].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .instantiate_inline_workflow_template(self.0.request, self.0.options)
@@ -8781,7 +8781,7 @@ pub mod workflow_template_service {
         }
     }
 
-    /// The request builder for [WorkflowTemplateService::update_workflow_template][super::super::client::WorkflowTemplateService::update_workflow_template] calls.
+    /// The request builder for [WorkflowTemplateService::update_workflow_template][crate::client::WorkflowTemplateService::update_workflow_template] calls.
     ///
     /// # Example
     /// ```no_run
@@ -8861,7 +8861,7 @@ pub mod workflow_template_service {
         }
     }
 
-    /// The request builder for [WorkflowTemplateService::list_workflow_templates][super::super::client::WorkflowTemplateService::list_workflow_templates] calls.
+    /// The request builder for [WorkflowTemplateService::list_workflow_templates][crate::client::WorkflowTemplateService::list_workflow_templates] calls.
     ///
     /// # Example
     /// ```no_run
@@ -8969,7 +8969,7 @@ pub mod workflow_template_service {
         }
     }
 
-    /// The request builder for [WorkflowTemplateService::delete_workflow_template][super::super::client::WorkflowTemplateService::delete_workflow_template] calls.
+    /// The request builder for [WorkflowTemplateService::delete_workflow_template][crate::client::WorkflowTemplateService::delete_workflow_template] calls.
     ///
     /// # Example
     /// ```no_run
@@ -9041,7 +9041,7 @@ pub mod workflow_template_service {
         }
     }
 
-    /// The request builder for [WorkflowTemplateService::set_iam_policy][super::super::client::WorkflowTemplateService::set_iam_policy] calls.
+    /// The request builder for [WorkflowTemplateService::set_iam_policy][crate::client::WorkflowTemplateService::set_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -9144,7 +9144,7 @@ pub mod workflow_template_service {
         }
     }
 
-    /// The request builder for [WorkflowTemplateService::get_iam_policy][super::super::client::WorkflowTemplateService::get_iam_policy] calls.
+    /// The request builder for [WorkflowTemplateService::get_iam_policy][crate::client::WorkflowTemplateService::get_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -9225,7 +9225,7 @@ pub mod workflow_template_service {
         }
     }
 
-    /// The request builder for [WorkflowTemplateService::test_iam_permissions][super::super::client::WorkflowTemplateService::test_iam_permissions] calls.
+    /// The request builder for [WorkflowTemplateService::test_iam_permissions][crate::client::WorkflowTemplateService::test_iam_permissions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -9304,7 +9304,7 @@ pub mod workflow_template_service {
         }
     }
 
-    /// The request builder for [WorkflowTemplateService::list_operations][super::super::client::WorkflowTemplateService::list_operations] calls.
+    /// The request builder for [WorkflowTemplateService::list_operations][crate::client::WorkflowTemplateService::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -9416,7 +9416,7 @@ pub mod workflow_template_service {
         }
     }
 
-    /// The request builder for [WorkflowTemplateService::get_operation][super::super::client::WorkflowTemplateService::get_operation] calls.
+    /// The request builder for [WorkflowTemplateService::get_operation][crate::client::WorkflowTemplateService::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -9480,7 +9480,7 @@ pub mod workflow_template_service {
         }
     }
 
-    /// The request builder for [WorkflowTemplateService::delete_operation][super::super::client::WorkflowTemplateService::delete_operation] calls.
+    /// The request builder for [WorkflowTemplateService::delete_operation][crate::client::WorkflowTemplateService::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -9544,7 +9544,7 @@ pub mod workflow_template_service {
         }
     }
 
-    /// The request builder for [WorkflowTemplateService::cancel_operation][super::super::client::WorkflowTemplateService::cancel_operation] calls.
+    /// The request builder for [WorkflowTemplateService::cancel_operation][crate::client::WorkflowTemplateService::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run

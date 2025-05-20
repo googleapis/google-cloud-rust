@@ -17,7 +17,7 @@
 pub mod org_policy {
     use crate::Result;
 
-    /// A builder for [OrgPolicy][super::super::client::OrgPolicy].
+    /// A builder for [OrgPolicy][crate::client::OrgPolicy].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod org_policy {
         }
     }
 
-    /// Common implementation for [super::super::client::OrgPolicy] request builders.
+    /// Common implementation for [crate::client::OrgPolicy] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::OrgPolicy>,
@@ -68,7 +68,7 @@ pub mod org_policy {
         }
     }
 
-    /// The request builder for [OrgPolicy::list_constraints][super::super::client::OrgPolicy::list_constraints] calls.
+    /// The request builder for [OrgPolicy::list_constraints][crate::client::OrgPolicy::list_constraints] calls.
     ///
     /// # Example
     /// ```no_run
@@ -171,7 +171,7 @@ pub mod org_policy {
         }
     }
 
-    /// The request builder for [OrgPolicy::list_policies][super::super::client::OrgPolicy::list_policies] calls.
+    /// The request builder for [OrgPolicy::list_policies][crate::client::OrgPolicy::list_policies] calls.
     ///
     /// # Example
     /// ```no_run
@@ -274,7 +274,7 @@ pub mod org_policy {
         }
     }
 
-    /// The request builder for [OrgPolicy::get_policy][super::super::client::OrgPolicy::get_policy] calls.
+    /// The request builder for [OrgPolicy::get_policy][crate::client::OrgPolicy::get_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -337,7 +337,7 @@ pub mod org_policy {
         }
     }
 
-    /// The request builder for [OrgPolicy::get_effective_policy][super::super::client::OrgPolicy::get_effective_policy] calls.
+    /// The request builder for [OrgPolicy::get_effective_policy][crate::client::OrgPolicy::get_effective_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -403,7 +403,7 @@ pub mod org_policy {
         }
     }
 
-    /// The request builder for [OrgPolicy::create_policy][super::super::client::OrgPolicy::create_policy] calls.
+    /// The request builder for [OrgPolicy::create_policy][crate::client::OrgPolicy::create_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -488,7 +488,7 @@ pub mod org_policy {
         }
     }
 
-    /// The request builder for [OrgPolicy::update_policy][super::super::client::OrgPolicy::update_policy] calls.
+    /// The request builder for [OrgPolicy::update_policy][crate::client::OrgPolicy::update_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -583,7 +583,7 @@ pub mod org_policy {
         }
     }
 
-    /// The request builder for [OrgPolicy::delete_policy][super::super::client::OrgPolicy::delete_policy] calls.
+    /// The request builder for [OrgPolicy::delete_policy][crate::client::OrgPolicy::delete_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -652,7 +652,7 @@ pub mod org_policy {
         }
     }
 
-    /// The request builder for [OrgPolicy::create_custom_constraint][super::super::client::OrgPolicy::create_custom_constraint] calls.
+    /// The request builder for [OrgPolicy::create_custom_constraint][crate::client::OrgPolicy::create_custom_constraint] calls.
     ///
     /// # Example
     /// ```no_run
@@ -740,7 +740,7 @@ pub mod org_policy {
         }
     }
 
-    /// The request builder for [OrgPolicy::update_custom_constraint][super::super::client::OrgPolicy::update_custom_constraint] calls.
+    /// The request builder for [OrgPolicy::update_custom_constraint][crate::client::OrgPolicy::update_custom_constraint] calls.
     ///
     /// # Example
     /// ```no_run
@@ -820,7 +820,7 @@ pub mod org_policy {
         }
     }
 
-    /// The request builder for [OrgPolicy::get_custom_constraint][super::super::client::OrgPolicy::get_custom_constraint] calls.
+    /// The request builder for [OrgPolicy::get_custom_constraint][crate::client::OrgPolicy::get_custom_constraint] calls.
     ///
     /// # Example
     /// ```no_run
@@ -886,7 +886,7 @@ pub mod org_policy {
         }
     }
 
-    /// The request builder for [OrgPolicy::list_custom_constraints][super::super::client::OrgPolicy::list_custom_constraints] calls.
+    /// The request builder for [OrgPolicy::list_custom_constraints][crate::client::OrgPolicy::list_custom_constraints] calls.
     ///
     /// # Example
     /// ```no_run
@@ -994,7 +994,7 @@ pub mod org_policy {
         }
     }
 
-    /// The request builder for [OrgPolicy::delete_custom_constraint][super::super::client::OrgPolicy::delete_custom_constraint] calls.
+    /// The request builder for [OrgPolicy::delete_custom_constraint][crate::client::OrgPolicy::delete_custom_constraint] calls.
     ///
     /// # Example
     /// ```no_run

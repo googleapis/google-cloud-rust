@@ -17,7 +17,7 @@
 pub mod essential_contacts_service {
     use crate::Result;
 
-    /// A builder for [EssentialContactsService][super::super::client::EssentialContactsService].
+    /// A builder for [EssentialContactsService][crate::client::EssentialContactsService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod essential_contacts_service {
         }
     }
 
-    /// Common implementation for [super::super::client::EssentialContactsService] request builders.
+    /// Common implementation for [crate::client::EssentialContactsService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::EssentialContactsService>,
@@ -68,7 +68,7 @@ pub mod essential_contacts_service {
         }
     }
 
-    /// The request builder for [EssentialContactsService::create_contact][super::super::client::EssentialContactsService::create_contact] calls.
+    /// The request builder for [EssentialContactsService::create_contact][crate::client::EssentialContactsService::create_contact] calls.
     ///
     /// # Example
     /// ```no_run
@@ -153,7 +153,7 @@ pub mod essential_contacts_service {
         }
     }
 
-    /// The request builder for [EssentialContactsService::update_contact][super::super::client::EssentialContactsService::update_contact] calls.
+    /// The request builder for [EssentialContactsService::update_contact][crate::client::EssentialContactsService::update_contact] calls.
     ///
     /// # Example
     /// ```no_run
@@ -248,7 +248,7 @@ pub mod essential_contacts_service {
         }
     }
 
-    /// The request builder for [EssentialContactsService::list_contacts][super::super::client::EssentialContactsService::list_contacts] calls.
+    /// The request builder for [EssentialContactsService::list_contacts][crate::client::EssentialContactsService::list_contacts] calls.
     ///
     /// # Example
     /// ```no_run
@@ -351,7 +351,7 @@ pub mod essential_contacts_service {
         }
     }
 
-    /// The request builder for [EssentialContactsService::get_contact][super::super::client::EssentialContactsService::get_contact] calls.
+    /// The request builder for [EssentialContactsService::get_contact][crate::client::EssentialContactsService::get_contact] calls.
     ///
     /// # Example
     /// ```no_run
@@ -414,7 +414,7 @@ pub mod essential_contacts_service {
         }
     }
 
-    /// The request builder for [EssentialContactsService::delete_contact][super::super::client::EssentialContactsService::delete_contact] calls.
+    /// The request builder for [EssentialContactsService::delete_contact][crate::client::EssentialContactsService::delete_contact] calls.
     ///
     /// # Example
     /// ```no_run
@@ -477,7 +477,7 @@ pub mod essential_contacts_service {
         }
     }
 
-    /// The request builder for [EssentialContactsService::compute_contacts][super::super::client::EssentialContactsService::compute_contacts] calls.
+    /// The request builder for [EssentialContactsService::compute_contacts][crate::client::EssentialContactsService::compute_contacts] calls.
     ///
     /// # Example
     /// ```no_run
@@ -591,7 +591,7 @@ pub mod essential_contacts_service {
         }
     }
 
-    /// The request builder for [EssentialContactsService::send_test_message][super::super::client::EssentialContactsService::send_test_message] calls.
+    /// The request builder for [EssentialContactsService::send_test_message][crate::client::EssentialContactsService::send_test_message] calls.
     ///
     /// # Example
     /// ```no_run

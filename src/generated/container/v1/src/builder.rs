@@ -17,7 +17,7 @@
 pub mod cluster_manager {
     use crate::Result;
 
-    /// A builder for [ClusterManager][super::super::client::ClusterManager].
+    /// A builder for [ClusterManager][crate::client::ClusterManager].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod cluster_manager {
         }
     }
 
-    /// Common implementation for [super::super::client::ClusterManager] request builders.
+    /// Common implementation for [crate::client::ClusterManager] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
@@ -68,7 +68,7 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for [ClusterManager::list_clusters][super::super::client::ClusterManager::list_clusters] calls.
+    /// The request builder for [ClusterManager::list_clusters][crate::client::ClusterManager::list_clusters] calls.
     ///
     /// # Example
     /// ```no_run
@@ -143,7 +143,7 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for [ClusterManager::get_cluster][super::super::client::ClusterManager::get_cluster] calls.
+    /// The request builder for [ClusterManager::get_cluster][crate::client::ClusterManager::get_cluster] calls.
     ///
     /// # Example
     /// ```no_run
@@ -225,7 +225,7 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for [ClusterManager::create_cluster][super::super::client::ClusterManager::create_cluster] calls.
+    /// The request builder for [ClusterManager::create_cluster][crate::client::ClusterManager::create_cluster] calls.
     ///
     /// # Example
     /// ```no_run
@@ -322,7 +322,7 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for [ClusterManager::update_cluster][super::super::client::ClusterManager::update_cluster] calls.
+    /// The request builder for [ClusterManager::update_cluster][crate::client::ClusterManager::update_cluster] calls.
     ///
     /// # Example
     /// ```no_run
@@ -426,7 +426,7 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for [ClusterManager::update_node_pool][super::super::client::ClusterManager::update_node_pool] calls.
+    /// The request builder for [ClusterManager::update_node_pool][crate::client::ClusterManager::update_node_pool] calls.
     ///
     /// # Example
     /// ```no_run
@@ -912,7 +912,7 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for [ClusterManager::set_node_pool_autoscaling][super::super::client::ClusterManager::set_node_pool_autoscaling] calls.
+    /// The request builder for [ClusterManager::set_node_pool_autoscaling][crate::client::ClusterManager::set_node_pool_autoscaling] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1026,7 +1026,7 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for [ClusterManager::set_logging_service][super::super::client::ClusterManager::set_logging_service] calls.
+    /// The request builder for [ClusterManager::set_logging_service][crate::client::ClusterManager::set_logging_service] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1119,7 +1119,7 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for [ClusterManager::set_monitoring_service][super::super::client::ClusterManager::set_monitoring_service] calls.
+    /// The request builder for [ClusterManager::set_monitoring_service][crate::client::ClusterManager::set_monitoring_service] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1212,7 +1212,7 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for [ClusterManager::set_addons_config][super::super::client::ClusterManager::set_addons_config] calls.
+    /// The request builder for [ClusterManager::set_addons_config][crate::client::ClusterManager::set_addons_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1316,7 +1316,7 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for [ClusterManager::set_locations][super::super::client::ClusterManager::set_locations] calls.
+    /// The request builder for [ClusterManager::set_locations][crate::client::ClusterManager::set_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1411,7 +1411,7 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for [ClusterManager::update_master][super::super::client::ClusterManager::update_master] calls.
+    /// The request builder for [ClusterManager::update_master][crate::client::ClusterManager::update_master] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1501,7 +1501,7 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for [ClusterManager::set_master_auth][super::super::client::ClusterManager::set_master_auth] calls.
+    /// The request builder for [ClusterManager::set_master_auth][crate::client::ClusterManager::set_master_auth] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1616,7 +1616,7 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for [ClusterManager::delete_cluster][super::super::client::ClusterManager::delete_cluster] calls.
+    /// The request builder for [ClusterManager::delete_cluster][crate::client::ClusterManager::delete_cluster] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1698,7 +1698,7 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for [ClusterManager::list_operations][super::super::client::ClusterManager::list_operations] calls.
+    /// The request builder for [ClusterManager::list_operations][crate::client::ClusterManager::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1773,7 +1773,7 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for [ClusterManager::get_operation][super::super::client::ClusterManager::get_operation] calls.
+    /// The request builder for [ClusterManager::get_operation][crate::client::ClusterManager::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1855,7 +1855,7 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for [ClusterManager::cancel_operation][super::super::client::ClusterManager::cancel_operation] calls.
+    /// The request builder for [ClusterManager::cancel_operation][crate::client::ClusterManager::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1937,7 +1937,7 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for [ClusterManager::get_server_config][super::super::client::ClusterManager::get_server_config] calls.
+    /// The request builder for [ClusterManager::get_server_config][crate::client::ClusterManager::get_server_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2012,7 +2012,7 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for [ClusterManager::get_json_web_keys][super::super::client::ClusterManager::get_json_web_keys] calls.
+    /// The request builder for [ClusterManager::get_json_web_keys][crate::client::ClusterManager::get_json_web_keys] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2073,7 +2073,7 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for [ClusterManager::list_node_pools][super::super::client::ClusterManager::list_node_pools] calls.
+    /// The request builder for [ClusterManager::list_node_pools][crate::client::ClusterManager::list_node_pools] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2155,7 +2155,7 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for [ClusterManager::get_node_pool][super::super::client::ClusterManager::get_node_pool] calls.
+    /// The request builder for [ClusterManager::get_node_pool][crate::client::ClusterManager::get_node_pool] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2244,7 +2244,7 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for [ClusterManager::create_node_pool][super::super::client::ClusterManager::create_node_pool] calls.
+    /// The request builder for [ClusterManager::create_node_pool][crate::client::ClusterManager::create_node_pool] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2348,7 +2348,7 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for [ClusterManager::delete_node_pool][super::super::client::ClusterManager::delete_node_pool] calls.
+    /// The request builder for [ClusterManager::delete_node_pool][crate::client::ClusterManager::delete_node_pool] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2437,7 +2437,7 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for [ClusterManager::complete_node_pool_upgrade][super::super::client::ClusterManager::complete_node_pool_upgrade] calls.
+    /// The request builder for [ClusterManager::complete_node_pool_upgrade][crate::client::ClusterManager::complete_node_pool_upgrade] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2503,7 +2503,7 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for [ClusterManager::rollback_node_pool_upgrade][super::super::client::ClusterManager::rollback_node_pool_upgrade] calls.
+    /// The request builder for [ClusterManager::rollback_node_pool_upgrade][crate::client::ClusterManager::rollback_node_pool_upgrade] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2603,7 +2603,7 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for [ClusterManager::set_node_pool_management][super::super::client::ClusterManager::set_node_pool_management] calls.
+    /// The request builder for [ClusterManager::set_node_pool_management][crate::client::ClusterManager::set_node_pool_management] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2717,7 +2717,7 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for [ClusterManager::set_labels][super::super::client::ClusterManager::set_labels] calls.
+    /// The request builder for [ClusterManager::set_labels][crate::client::ClusterManager::set_labels] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2821,7 +2821,7 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for [ClusterManager::set_legacy_abac][super::super::client::ClusterManager::set_legacy_abac] calls.
+    /// The request builder for [ClusterManager::set_legacy_abac][crate::client::ClusterManager::set_legacy_abac] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2911,7 +2911,7 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for [ClusterManager::start_ip_rotation][super::super::client::ClusterManager::start_ip_rotation] calls.
+    /// The request builder for [ClusterManager::start_ip_rotation][crate::client::ClusterManager::start_ip_rotation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2999,7 +2999,7 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for [ClusterManager::complete_ip_rotation][super::super::client::ClusterManager::complete_ip_rotation] calls.
+    /// The request builder for [ClusterManager::complete_ip_rotation][crate::client::ClusterManager::complete_ip_rotation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3084,7 +3084,7 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for [ClusterManager::set_node_pool_size][super::super::client::ClusterManager::set_node_pool_size] calls.
+    /// The request builder for [ClusterManager::set_node_pool_size][crate::client::ClusterManager::set_node_pool_size] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3181,7 +3181,7 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for [ClusterManager::set_network_policy][super::super::client::ClusterManager::set_network_policy] calls.
+    /// The request builder for [ClusterManager::set_network_policy][crate::client::ClusterManager::set_network_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3288,7 +3288,7 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for [ClusterManager::set_maintenance_policy][super::super::client::ClusterManager::set_maintenance_policy] calls.
+    /// The request builder for [ClusterManager::set_maintenance_policy][crate::client::ClusterManager::set_maintenance_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3398,7 +3398,7 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for [ClusterManager::list_usable_subnetworks][super::super::client::ClusterManager::list_usable_subnetworks] calls.
+    /// The request builder for [ClusterManager::list_usable_subnetworks][crate::client::ClusterManager::list_usable_subnetworks] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3510,7 +3510,7 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for [ClusterManager::check_autopilot_compatibility][super::super::client::ClusterManager::check_autopilot_compatibility] calls.
+    /// The request builder for [ClusterManager::check_autopilot_compatibility][crate::client::ClusterManager::check_autopilot_compatibility] calls.
     ///
     /// # Example
     /// ```no_run

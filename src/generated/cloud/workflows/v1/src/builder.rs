@@ -17,7 +17,7 @@
 pub mod workflows {
     use crate::Result;
 
-    /// A builder for [Workflows][super::super::client::Workflows].
+    /// A builder for [Workflows][crate::client::Workflows].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod workflows {
         }
     }
 
-    /// Common implementation for [super::super::client::Workflows] request builders.
+    /// Common implementation for [crate::client::Workflows] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::Workflows>,
@@ -68,7 +68,7 @@ pub mod workflows {
         }
     }
 
-    /// The request builder for [Workflows::list_workflows][super::super::client::Workflows::list_workflows] calls.
+    /// The request builder for [Workflows::list_workflows][crate::client::Workflows::list_workflows] calls.
     ///
     /// # Example
     /// ```no_run
@@ -183,7 +183,7 @@ pub mod workflows {
         }
     }
 
-    /// The request builder for [Workflows::get_workflow][super::super::client::Workflows::get_workflow] calls.
+    /// The request builder for [Workflows::get_workflow][crate::client::Workflows::get_workflow] calls.
     ///
     /// # Example
     /// ```no_run
@@ -252,7 +252,7 @@ pub mod workflows {
         }
     }
 
-    /// The request builder for [Workflows::create_workflow][super::super::client::Workflows::create_workflow] calls.
+    /// The request builder for [Workflows::create_workflow][crate::client::Workflows::create_workflow] calls.
     ///
     /// # Example
     /// ```no_run
@@ -297,7 +297,7 @@ pub mod workflows {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_workflow][super::super::client::Workflows::create_workflow].
+        /// on [create_workflow][crate::client::Workflows::create_workflow].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_workflow(self.0.request, self.0.options)
@@ -384,7 +384,7 @@ pub mod workflows {
         }
     }
 
-    /// The request builder for [Workflows::delete_workflow][super::super::client::Workflows::delete_workflow] calls.
+    /// The request builder for [Workflows::delete_workflow][crate::client::Workflows::delete_workflow] calls.
     ///
     /// # Example
     /// ```no_run
@@ -429,7 +429,7 @@ pub mod workflows {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_workflow][super::super::client::Workflows::delete_workflow].
+        /// on [delete_workflow][crate::client::Workflows::delete_workflow].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_workflow(self.0.request, self.0.options)
@@ -488,7 +488,7 @@ pub mod workflows {
         }
     }
 
-    /// The request builder for [Workflows::update_workflow][super::super::client::Workflows::update_workflow] calls.
+    /// The request builder for [Workflows::update_workflow][crate::client::Workflows::update_workflow] calls.
     ///
     /// # Example
     /// ```no_run
@@ -533,7 +533,7 @@ pub mod workflows {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_workflow][super::super::client::Workflows::update_workflow].
+        /// on [update_workflow][crate::client::Workflows::update_workflow].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_workflow(self.0.request, self.0.options)
@@ -622,7 +622,7 @@ pub mod workflows {
         }
     }
 
-    /// The request builder for [Workflows::list_workflow_revisions][super::super::client::Workflows::list_workflow_revisions] calls.
+    /// The request builder for [Workflows::list_workflow_revisions][crate::client::Workflows::list_workflow_revisions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -730,7 +730,7 @@ pub mod workflows {
         }
     }
 
-    /// The request builder for [Workflows::list_locations][super::super::client::Workflows::list_locations] calls.
+    /// The request builder for [Workflows::list_locations][crate::client::Workflows::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -840,7 +840,7 @@ pub mod workflows {
         }
     }
 
-    /// The request builder for [Workflows::get_location][super::super::client::Workflows::get_location] calls.
+    /// The request builder for [Workflows::get_location][crate::client::Workflows::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -901,7 +901,7 @@ pub mod workflows {
         }
     }
 
-    /// The request builder for [Workflows::list_operations][super::super::client::Workflows::list_operations] calls.
+    /// The request builder for [Workflows::list_operations][crate::client::Workflows::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1013,7 +1013,7 @@ pub mod workflows {
         }
     }
 
-    /// The request builder for [Workflows::get_operation][super::super::client::Workflows::get_operation] calls.
+    /// The request builder for [Workflows::get_operation][crate::client::Workflows::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1077,7 +1077,7 @@ pub mod workflows {
         }
     }
 
-    /// The request builder for [Workflows::delete_operation][super::super::client::Workflows::delete_operation] calls.
+    /// The request builder for [Workflows::delete_operation][crate::client::Workflows::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run

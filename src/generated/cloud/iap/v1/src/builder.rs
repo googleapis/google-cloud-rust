@@ -17,7 +17,7 @@
 pub mod identity_aware_proxy_admin_service {
     use crate::Result;
 
-    /// A builder for [IdentityAwareProxyAdminService][super::super::client::IdentityAwareProxyAdminService].
+    /// A builder for [IdentityAwareProxyAdminService][crate::client::IdentityAwareProxyAdminService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod identity_aware_proxy_admin_service {
         }
     }
 
-    /// Common implementation for [super::super::client::IdentityAwareProxyAdminService] request builders.
+    /// Common implementation for [crate::client::IdentityAwareProxyAdminService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyAdminService>,
@@ -68,7 +68,7 @@ pub mod identity_aware_proxy_admin_service {
         }
     }
 
-    /// The request builder for [IdentityAwareProxyAdminService::set_iam_policy][super::super::client::IdentityAwareProxyAdminService::set_iam_policy] calls.
+    /// The request builder for [IdentityAwareProxyAdminService::set_iam_policy][crate::client::IdentityAwareProxyAdminService::set_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -171,7 +171,7 @@ pub mod identity_aware_proxy_admin_service {
         }
     }
 
-    /// The request builder for [IdentityAwareProxyAdminService::get_iam_policy][super::super::client::IdentityAwareProxyAdminService::get_iam_policy] calls.
+    /// The request builder for [IdentityAwareProxyAdminService::get_iam_policy][crate::client::IdentityAwareProxyAdminService::get_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -252,7 +252,7 @@ pub mod identity_aware_proxy_admin_service {
         }
     }
 
-    /// The request builder for [IdentityAwareProxyAdminService::test_iam_permissions][super::super::client::IdentityAwareProxyAdminService::test_iam_permissions] calls.
+    /// The request builder for [IdentityAwareProxyAdminService::test_iam_permissions][crate::client::IdentityAwareProxyAdminService::test_iam_permissions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -331,7 +331,7 @@ pub mod identity_aware_proxy_admin_service {
         }
     }
 
-    /// The request builder for [IdentityAwareProxyAdminService::get_iap_settings][super::super::client::IdentityAwareProxyAdminService::get_iap_settings] calls.
+    /// The request builder for [IdentityAwareProxyAdminService::get_iap_settings][crate::client::IdentityAwareProxyAdminService::get_iap_settings] calls.
     ///
     /// # Example
     /// ```no_run
@@ -394,7 +394,7 @@ pub mod identity_aware_proxy_admin_service {
         }
     }
 
-    /// The request builder for [IdentityAwareProxyAdminService::update_iap_settings][super::super::client::IdentityAwareProxyAdminService::update_iap_settings] calls.
+    /// The request builder for [IdentityAwareProxyAdminService::update_iap_settings][crate::client::IdentityAwareProxyAdminService::update_iap_settings] calls.
     ///
     /// # Example
     /// ```no_run
@@ -492,7 +492,7 @@ pub mod identity_aware_proxy_admin_service {
         }
     }
 
-    /// The request builder for [IdentityAwareProxyAdminService::validate_iap_attribute_expression][super::super::client::IdentityAwareProxyAdminService::validate_iap_attribute_expression] calls.
+    /// The request builder for [IdentityAwareProxyAdminService::validate_iap_attribute_expression][crate::client::IdentityAwareProxyAdminService::validate_iap_attribute_expression] calls.
     ///
     /// # Example
     /// ```no_run
@@ -568,7 +568,7 @@ pub mod identity_aware_proxy_admin_service {
         }
     }
 
-    /// The request builder for [IdentityAwareProxyAdminService::list_tunnel_dest_groups][super::super::client::IdentityAwareProxyAdminService::list_tunnel_dest_groups] calls.
+    /// The request builder for [IdentityAwareProxyAdminService::list_tunnel_dest_groups][crate::client::IdentityAwareProxyAdminService::list_tunnel_dest_groups] calls.
     ///
     /// # Example
     /// ```no_run
@@ -676,7 +676,7 @@ pub mod identity_aware_proxy_admin_service {
         }
     }
 
-    /// The request builder for [IdentityAwareProxyAdminService::create_tunnel_dest_group][super::super::client::IdentityAwareProxyAdminService::create_tunnel_dest_group] calls.
+    /// The request builder for [IdentityAwareProxyAdminService::create_tunnel_dest_group][crate::client::IdentityAwareProxyAdminService::create_tunnel_dest_group] calls.
     ///
     /// # Example
     /// ```no_run
@@ -772,7 +772,7 @@ pub mod identity_aware_proxy_admin_service {
         }
     }
 
-    /// The request builder for [IdentityAwareProxyAdminService::get_tunnel_dest_group][super::super::client::IdentityAwareProxyAdminService::get_tunnel_dest_group] calls.
+    /// The request builder for [IdentityAwareProxyAdminService::get_tunnel_dest_group][crate::client::IdentityAwareProxyAdminService::get_tunnel_dest_group] calls.
     ///
     /// # Example
     /// ```no_run
@@ -838,7 +838,7 @@ pub mod identity_aware_proxy_admin_service {
         }
     }
 
-    /// The request builder for [IdentityAwareProxyAdminService::delete_tunnel_dest_group][super::super::client::IdentityAwareProxyAdminService::delete_tunnel_dest_group] calls.
+    /// The request builder for [IdentityAwareProxyAdminService::delete_tunnel_dest_group][crate::client::IdentityAwareProxyAdminService::delete_tunnel_dest_group] calls.
     ///
     /// # Example
     /// ```no_run
@@ -904,7 +904,7 @@ pub mod identity_aware_proxy_admin_service {
         }
     }
 
-    /// The request builder for [IdentityAwareProxyAdminService::update_tunnel_dest_group][super::super::client::IdentityAwareProxyAdminService::update_tunnel_dest_group] calls.
+    /// The request builder for [IdentityAwareProxyAdminService::update_tunnel_dest_group][crate::client::IdentityAwareProxyAdminService::update_tunnel_dest_group] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1006,7 +1006,7 @@ pub mod identity_aware_proxy_admin_service {
 pub mod identity_aware_proxy_o_auth_service {
     use crate::Result;
 
-    /// A builder for [IdentityAwareProxyOAuthService][super::super::client::IdentityAwareProxyOAuthService].
+    /// A builder for [IdentityAwareProxyOAuthService][crate::client::IdentityAwareProxyOAuthService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -1034,7 +1034,7 @@ pub mod identity_aware_proxy_o_auth_service {
         }
     }
 
-    /// Common implementation for [super::super::client::IdentityAwareProxyOAuthService] request builders.
+    /// Common implementation for [crate::client::IdentityAwareProxyOAuthService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::IdentityAwareProxyOAuthService>,
@@ -1057,7 +1057,7 @@ pub mod identity_aware_proxy_o_auth_service {
         }
     }
 
-    /// The request builder for [IdentityAwareProxyOAuthService::list_brands][super::super::client::IdentityAwareProxyOAuthService::list_brands] calls.
+    /// The request builder for [IdentityAwareProxyOAuthService::list_brands][crate::client::IdentityAwareProxyOAuthService::list_brands] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1120,7 +1120,7 @@ pub mod identity_aware_proxy_o_auth_service {
         }
     }
 
-    /// The request builder for [IdentityAwareProxyOAuthService::create_brand][super::super::client::IdentityAwareProxyOAuthService::create_brand] calls.
+    /// The request builder for [IdentityAwareProxyOAuthService::create_brand][crate::client::IdentityAwareProxyOAuthService::create_brand] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1205,7 +1205,7 @@ pub mod identity_aware_proxy_o_auth_service {
         }
     }
 
-    /// The request builder for [IdentityAwareProxyOAuthService::get_brand][super::super::client::IdentityAwareProxyOAuthService::get_brand] calls.
+    /// The request builder for [IdentityAwareProxyOAuthService::get_brand][crate::client::IdentityAwareProxyOAuthService::get_brand] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1268,7 +1268,7 @@ pub mod identity_aware_proxy_o_auth_service {
         }
     }
 
-    /// The request builder for [IdentityAwareProxyOAuthService::create_identity_aware_proxy_client][super::super::client::IdentityAwareProxyOAuthService::create_identity_aware_proxy_client] calls.
+    /// The request builder for [IdentityAwareProxyOAuthService::create_identity_aware_proxy_client][crate::client::IdentityAwareProxyOAuthService::create_identity_aware_proxy_client] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1361,7 +1361,7 @@ pub mod identity_aware_proxy_o_auth_service {
         }
     }
 
-    /// The request builder for [IdentityAwareProxyOAuthService::list_identity_aware_proxy_clients][super::super::client::IdentityAwareProxyOAuthService::list_identity_aware_proxy_clients] calls.
+    /// The request builder for [IdentityAwareProxyOAuthService::list_identity_aware_proxy_clients][crate::client::IdentityAwareProxyOAuthService::list_identity_aware_proxy_clients] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1473,7 +1473,7 @@ pub mod identity_aware_proxy_o_auth_service {
         }
     }
 
-    /// The request builder for [IdentityAwareProxyOAuthService::get_identity_aware_proxy_client][super::super::client::IdentityAwareProxyOAuthService::get_identity_aware_proxy_client] calls.
+    /// The request builder for [IdentityAwareProxyOAuthService::get_identity_aware_proxy_client][crate::client::IdentityAwareProxyOAuthService::get_identity_aware_proxy_client] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1541,7 +1541,7 @@ pub mod identity_aware_proxy_o_auth_service {
         }
     }
 
-    /// The request builder for [IdentityAwareProxyOAuthService::reset_identity_aware_proxy_client_secret][super::super::client::IdentityAwareProxyOAuthService::reset_identity_aware_proxy_client_secret] calls.
+    /// The request builder for [IdentityAwareProxyOAuthService::reset_identity_aware_proxy_client_secret][crate::client::IdentityAwareProxyOAuthService::reset_identity_aware_proxy_client_secret] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1609,7 +1609,7 @@ pub mod identity_aware_proxy_o_auth_service {
         }
     }
 
-    /// The request builder for [IdentityAwareProxyOAuthService::delete_identity_aware_proxy_client][super::super::client::IdentityAwareProxyOAuthService::delete_identity_aware_proxy_client] calls.
+    /// The request builder for [IdentityAwareProxyOAuthService::delete_identity_aware_proxy_client][crate::client::IdentityAwareProxyOAuthService::delete_identity_aware_proxy_client] calls.
     ///
     /// # Example
     /// ```no_run

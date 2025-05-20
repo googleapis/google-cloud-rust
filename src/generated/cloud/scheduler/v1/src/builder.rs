@@ -17,7 +17,7 @@
 pub mod cloud_scheduler {
     use crate::Result;
 
-    /// A builder for [CloudScheduler][super::super::client::CloudScheduler].
+    /// A builder for [CloudScheduler][crate::client::CloudScheduler].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod cloud_scheduler {
         }
     }
 
-    /// Common implementation for [super::super::client::CloudScheduler] request builders.
+    /// Common implementation for [crate::client::CloudScheduler] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudScheduler>,
@@ -68,7 +68,7 @@ pub mod cloud_scheduler {
         }
     }
 
-    /// The request builder for [CloudScheduler::list_jobs][super::super::client::CloudScheduler::list_jobs] calls.
+    /// The request builder for [CloudScheduler::list_jobs][crate::client::CloudScheduler::list_jobs] calls.
     ///
     /// # Example
     /// ```no_run
@@ -171,7 +171,7 @@ pub mod cloud_scheduler {
         }
     }
 
-    /// The request builder for [CloudScheduler::get_job][super::super::client::CloudScheduler::get_job] calls.
+    /// The request builder for [CloudScheduler::get_job][crate::client::CloudScheduler::get_job] calls.
     ///
     /// # Example
     /// ```no_run
@@ -234,7 +234,7 @@ pub mod cloud_scheduler {
         }
     }
 
-    /// The request builder for [CloudScheduler::create_job][super::super::client::CloudScheduler::create_job] calls.
+    /// The request builder for [CloudScheduler::create_job][crate::client::CloudScheduler::create_job] calls.
     ///
     /// # Example
     /// ```no_run
@@ -319,7 +319,7 @@ pub mod cloud_scheduler {
         }
     }
 
-    /// The request builder for [CloudScheduler::update_job][super::super::client::CloudScheduler::update_job] calls.
+    /// The request builder for [CloudScheduler::update_job][crate::client::CloudScheduler::update_job] calls.
     ///
     /// # Example
     /// ```no_run
@@ -414,7 +414,7 @@ pub mod cloud_scheduler {
         }
     }
 
-    /// The request builder for [CloudScheduler::delete_job][super::super::client::CloudScheduler::delete_job] calls.
+    /// The request builder for [CloudScheduler::delete_job][crate::client::CloudScheduler::delete_job] calls.
     ///
     /// # Example
     /// ```no_run
@@ -477,7 +477,7 @@ pub mod cloud_scheduler {
         }
     }
 
-    /// The request builder for [CloudScheduler::pause_job][super::super::client::CloudScheduler::pause_job] calls.
+    /// The request builder for [CloudScheduler::pause_job][crate::client::CloudScheduler::pause_job] calls.
     ///
     /// # Example
     /// ```no_run
@@ -540,7 +540,7 @@ pub mod cloud_scheduler {
         }
     }
 
-    /// The request builder for [CloudScheduler::resume_job][super::super::client::CloudScheduler::resume_job] calls.
+    /// The request builder for [CloudScheduler::resume_job][crate::client::CloudScheduler::resume_job] calls.
     ///
     /// # Example
     /// ```no_run
@@ -603,7 +603,7 @@ pub mod cloud_scheduler {
         }
     }
 
-    /// The request builder for [CloudScheduler::run_job][super::super::client::CloudScheduler::run_job] calls.
+    /// The request builder for [CloudScheduler::run_job][crate::client::CloudScheduler::run_job] calls.
     ///
     /// # Example
     /// ```no_run
@@ -666,7 +666,7 @@ pub mod cloud_scheduler {
         }
     }
 
-    /// The request builder for [CloudScheduler::list_locations][super::super::client::CloudScheduler::list_locations] calls.
+    /// The request builder for [CloudScheduler::list_locations][crate::client::CloudScheduler::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -776,7 +776,7 @@ pub mod cloud_scheduler {
         }
     }
 
-    /// The request builder for [CloudScheduler::get_location][super::super::client::CloudScheduler::get_location] calls.
+    /// The request builder for [CloudScheduler::get_location][crate::client::CloudScheduler::get_location] calls.
     ///
     /// # Example
     /// ```no_run

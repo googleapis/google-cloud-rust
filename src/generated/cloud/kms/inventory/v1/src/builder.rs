@@ -17,7 +17,7 @@
 pub mod key_dashboard_service {
     use crate::Result;
 
-    /// A builder for [KeyDashboardService][super::super::client::KeyDashboardService].
+    /// A builder for [KeyDashboardService][crate::client::KeyDashboardService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod key_dashboard_service {
         }
     }
 
-    /// Common implementation for [super::super::client::KeyDashboardService] request builders.
+    /// Common implementation for [crate::client::KeyDashboardService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyDashboardService>,
@@ -68,7 +68,7 @@ pub mod key_dashboard_service {
         }
     }
 
-    /// The request builder for [KeyDashboardService::list_crypto_keys][super::super::client::KeyDashboardService::list_crypto_keys] calls.
+    /// The request builder for [KeyDashboardService::list_crypto_keys][crate::client::KeyDashboardService::list_crypto_keys] calls.
     ///
     /// # Example
     /// ```no_run
@@ -175,7 +175,7 @@ pub mod key_dashboard_service {
 pub mod key_tracking_service {
     use crate::Result;
 
-    /// A builder for [KeyTrackingService][super::super::client::KeyTrackingService].
+    /// A builder for [KeyTrackingService][crate::client::KeyTrackingService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -203,7 +203,7 @@ pub mod key_tracking_service {
         }
     }
 
-    /// Common implementation for [super::super::client::KeyTrackingService] request builders.
+    /// Common implementation for [crate::client::KeyTrackingService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyTrackingService>,
@@ -226,7 +226,7 @@ pub mod key_tracking_service {
         }
     }
 
-    /// The request builder for [KeyTrackingService::get_protected_resources_summary][super::super::client::KeyTrackingService::get_protected_resources_summary] calls.
+    /// The request builder for [KeyTrackingService::get_protected_resources_summary][crate::client::KeyTrackingService::get_protected_resources_summary] calls.
     ///
     /// # Example
     /// ```no_run
@@ -294,7 +294,7 @@ pub mod key_tracking_service {
         }
     }
 
-    /// The request builder for [KeyTrackingService::search_protected_resources][super::super::client::KeyTrackingService::search_protected_resources] calls.
+    /// The request builder for [KeyTrackingService::search_protected_resources][crate::client::KeyTrackingService::search_protected_resources] calls.
     ///
     /// # Example
     /// ```no_run

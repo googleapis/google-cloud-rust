@@ -27,6 +27,11 @@
 
 use crate::google;
 use gaxi::prost::{ConvertError, FromProto, ToProto};
+// This would fail if storage admin introduces LROs. This is unlikely as
+// one of the motivations for `StorageControl` was to separate the LROs.
+// Worst case, we can skip the offending functions until we have fixed
+// this code to support them.
+use crate::generated::gapic_control::transport::{lro_any_from_prost, lro_any_to_prost};
 
 impl ToProto<google::rpc::Status> for rpc::model::Status {
     type Output = google::rpc::Status;
@@ -52,7 +57,6 @@ impl FromProto<rpc::model::Status> for google::rpc::Status {
     }
 }
 
-// TODO(#2037) - The generator should control this code.
 impl ToProto<google::longrunning::Operation> for longrunning::model::Operation {
     type Output = google::longrunning::Operation;
     fn to_proto(
@@ -80,7 +84,6 @@ impl ToProto<google::longrunning::Operation> for longrunning::model::Operation {
     }
 }
 
-// TODO(#2037) - The generator should control this code.
 impl FromProto<longrunning::model::Operation> for google::longrunning::Operation {
     fn cnv(self) -> std::result::Result<longrunning::model::Operation, ConvertError> {
         use crate::google::longrunning::operation::Result as P;
@@ -99,94 +102,6 @@ impl FromProto<longrunning::model::Operation> for google::longrunning::Operation
             .set_or_clear_metadata(metadata)
             .set_done(self.done)
             .set_result(result))
-    }
-}
-
-// TODO(#2037) - The generator should control this code.
-/// Convert from our `wkt::Any` to a `prost_types::Any`
-///
-/// The encoded types considered for conversion are either metadata or result
-/// types for LROs in this service.
-fn lro_any_to_prost(
-    value: wkt::Any,
-) -> std::result::Result<prost_types::Any, gaxi::prost::ConvertError> {
-    match value.type_url().unwrap_or_default() {
-        "" => Ok(prost_types::Any::default()),
-        "type.googleapis.com/google.storage.control.v2.RenameFolderMetadata" => value
-            .to_msg::<crate::model::RenameFolderMetadata>()
-            .map_err(ConvertError::other)?
-            .to_proto()
-            .and_then(|prost_msg| {
-                prost_types::Any::from_msg(&prost_msg).map_err(ConvertError::other)
-            }),
-        "type.googleapis.com/google.storage.control.v2.CreateAnywhereCacheMetadata" => value
-            .to_msg::<crate::model::CreateAnywhereCacheMetadata>()
-            .map_err(ConvertError::other)?
-            .to_proto()
-            .and_then(|prost_msg| {
-                prost_types::Any::from_msg(&prost_msg).map_err(ConvertError::other)
-            }),
-        "type.googleapis.com/google.storage.control.v2.UpdateAnywhereCacheMetadata" => value
-            .to_msg::<crate::model::UpdateAnywhereCacheMetadata>()
-            .map_err(ConvertError::other)?
-            .to_proto()
-            .and_then(|prost_msg| {
-                prost_types::Any::from_msg(&prost_msg).map_err(ConvertError::other)
-            }),
-        "type.googleapis.com/google.storage.control.v2.Folder" => value
-            .to_msg::<crate::model::Folder>()
-            .map_err(ConvertError::other)?
-            .to_proto()
-            .and_then(|prost_msg| {
-                prost_types::Any::from_msg(&prost_msg).map_err(ConvertError::other)
-            }),
-        "type.googleapis.com/google.storage.control.v2.AnywhereCache" => value
-            .to_msg::<crate::model::AnywhereCache>()
-            .map_err(ConvertError::other)?
-            .to_proto()
-            .and_then(|prost_msg| {
-                prost_types::Any::from_msg(&prost_msg).map_err(ConvertError::other)
-            }),
-        type_url => Err(ConvertError::UnexpectedTypeUrl(type_url.to_string())),
-    }
-}
-
-// TODO(#2037) - The generator should control this code.
-/// Convert from a `prost_types::Any` to our `wkt::Any`
-///
-/// The encoded types considered for conversion are either metadata or result
-/// types for LROs in this service.
-pub(crate) fn lro_any_from_prost(
-    value: prost_types::Any,
-) -> std::result::Result<wkt::Any, gaxi::prost::ConvertError> {
-    match value.type_url.as_str() {
-        "" => Ok(wkt::Any::default()),
-        "type.googleapis.com/google.storage.control.v2.RenameFolderMetadata" => value
-            .to_msg::<google::storage::control::v2::RenameFolderMetadata>()
-            .map_err(ConvertError::other)?
-            .cnv()
-            .and_then(|our_msg| wkt::Any::from_msg(&our_msg).map_err(ConvertError::other)),
-        "type.googleapis.com/google.storage.control.v2.CreateAnywhereCacheMetadata" => value
-            .to_msg::<google::storage::control::v2::CreateAnywhereCacheMetadata>()
-            .map_err(ConvertError::other)?
-            .cnv()
-            .and_then(|our_msg| wkt::Any::from_msg(&our_msg).map_err(ConvertError::other)),
-        "type.googleapis.com/google.storage.control.v2.UpdateAnywhereCacheMetadata" => value
-            .to_msg::<google::storage::control::v2::UpdateAnywhereCacheMetadata>()
-            .map_err(ConvertError::other)?
-            .cnv()
-            .and_then(|our_msg| wkt::Any::from_msg(&our_msg).map_err(ConvertError::other)),
-        "type.googleapis.com/google.storage.control.v2.Folder" => value
-            .to_msg::<google::storage::control::v2::Folder>()
-            .map_err(ConvertError::other)?
-            .cnv()
-            .and_then(|our_msg| wkt::Any::from_msg(&our_msg).map_err(ConvertError::other)),
-        "type.googleapis.com/google.storage.control.v2.AnywhereCache" => value
-            .to_msg::<google::storage::control::v2::AnywhereCache>()
-            .map_err(ConvertError::other)?
-            .cnv()
-            .and_then(|our_msg| wkt::Any::from_msg(&our_msg).map_err(ConvertError::other)),
-        type_url => Err(ConvertError::UnexpectedTypeUrl(type_url.to_string())),
     }
 }
 

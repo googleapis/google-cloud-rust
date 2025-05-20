@@ -17,7 +17,7 @@
 pub mod backup_for_gke {
     use crate::Result;
 
-    /// A builder for [BackupForGKE][super::super::client::BackupForGKE].
+    /// A builder for [BackupForGKE][crate::client::BackupForGKE].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// Common implementation for [super::super::client::BackupForGKE] request builders.
+    /// Common implementation for [crate::client::BackupForGKE] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupForGKE>,
@@ -68,7 +68,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for [BackupForGKE::create_backup_plan][super::super::client::BackupForGKE::create_backup_plan] calls.
+    /// The request builder for [BackupForGKE::create_backup_plan][crate::client::BackupForGKE::create_backup_plan] calls.
     ///
     /// # Example
     /// ```no_run
@@ -116,7 +116,7 @@ pub mod backup_for_gke {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_backup_plan][super::super::client::BackupForGKE::create_backup_plan].
+        /// on [create_backup_plan][crate::client::BackupForGKE::create_backup_plan].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_backup_plan(self.0.request, self.0.options)
@@ -203,7 +203,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for [BackupForGKE::list_backup_plans][super::super::client::BackupForGKE::list_backup_plans] calls.
+    /// The request builder for [BackupForGKE::list_backup_plans][crate::client::BackupForGKE::list_backup_plans] calls.
     ///
     /// # Example
     /// ```no_run
@@ -318,7 +318,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for [BackupForGKE::get_backup_plan][super::super::client::BackupForGKE::get_backup_plan] calls.
+    /// The request builder for [BackupForGKE::get_backup_plan][crate::client::BackupForGKE::get_backup_plan] calls.
     ///
     /// # Example
     /// ```no_run
@@ -381,7 +381,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for [BackupForGKE::update_backup_plan][super::super::client::BackupForGKE::update_backup_plan] calls.
+    /// The request builder for [BackupForGKE::update_backup_plan][crate::client::BackupForGKE::update_backup_plan] calls.
     ///
     /// # Example
     /// ```no_run
@@ -429,7 +429,7 @@ pub mod backup_for_gke {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_backup_plan][super::super::client::BackupForGKE::update_backup_plan].
+        /// on [update_backup_plan][crate::client::BackupForGKE::update_backup_plan].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_backup_plan(self.0.request, self.0.options)
@@ -518,7 +518,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for [BackupForGKE::delete_backup_plan][super::super::client::BackupForGKE::delete_backup_plan] calls.
+    /// The request builder for [BackupForGKE::delete_backup_plan][crate::client::BackupForGKE::delete_backup_plan] calls.
     ///
     /// # Example
     /// ```no_run
@@ -566,7 +566,7 @@ pub mod backup_for_gke {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_backup_plan][super::super::client::BackupForGKE::delete_backup_plan].
+        /// on [delete_backup_plan][crate::client::BackupForGKE::delete_backup_plan].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_backup_plan(self.0.request, self.0.options)
@@ -631,7 +631,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for [BackupForGKE::create_backup_channel][super::super::client::BackupForGKE::create_backup_channel] calls.
+    /// The request builder for [BackupForGKE::create_backup_channel][crate::client::BackupForGKE::create_backup_channel] calls.
     ///
     /// # Example
     /// ```no_run
@@ -679,7 +679,7 @@ pub mod backup_for_gke {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_backup_channel][super::super::client::BackupForGKE::create_backup_channel].
+        /// on [create_backup_channel][crate::client::BackupForGKE::create_backup_channel].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_backup_channel(self.0.request, self.0.options)
@@ -767,7 +767,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for [BackupForGKE::list_backup_channels][super::super::client::BackupForGKE::list_backup_channels] calls.
+    /// The request builder for [BackupForGKE::list_backup_channels][crate::client::BackupForGKE::list_backup_channels] calls.
     ///
     /// # Example
     /// ```no_run
@@ -887,7 +887,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for [BackupForGKE::get_backup_channel][super::super::client::BackupForGKE::get_backup_channel] calls.
+    /// The request builder for [BackupForGKE::get_backup_channel][crate::client::BackupForGKE::get_backup_channel] calls.
     ///
     /// # Example
     /// ```no_run
@@ -953,7 +953,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for [BackupForGKE::update_backup_channel][super::super::client::BackupForGKE::update_backup_channel] calls.
+    /// The request builder for [BackupForGKE::update_backup_channel][crate::client::BackupForGKE::update_backup_channel] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1001,7 +1001,7 @@ pub mod backup_for_gke {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_backup_channel][super::super::client::BackupForGKE::update_backup_channel].
+        /// on [update_backup_channel][crate::client::BackupForGKE::update_backup_channel].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_backup_channel(self.0.request, self.0.options)
@@ -1093,7 +1093,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for [BackupForGKE::delete_backup_channel][super::super::client::BackupForGKE::delete_backup_channel] calls.
+    /// The request builder for [BackupForGKE::delete_backup_channel][crate::client::BackupForGKE::delete_backup_channel] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1141,7 +1141,7 @@ pub mod backup_for_gke {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_backup_channel][super::super::client::BackupForGKE::delete_backup_channel].
+        /// on [delete_backup_channel][crate::client::BackupForGKE::delete_backup_channel].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_backup_channel(self.0.request, self.0.options)
@@ -1212,7 +1212,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for [BackupForGKE::list_backup_plan_bindings][super::super::client::BackupForGKE::list_backup_plan_bindings] calls.
+    /// The request builder for [BackupForGKE::list_backup_plan_bindings][crate::client::BackupForGKE::list_backup_plan_bindings] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1334,7 +1334,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for [BackupForGKE::get_backup_plan_binding][super::super::client::BackupForGKE::get_backup_plan_binding] calls.
+    /// The request builder for [BackupForGKE::get_backup_plan_binding][crate::client::BackupForGKE::get_backup_plan_binding] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1400,7 +1400,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for [BackupForGKE::create_backup][super::super::client::BackupForGKE::create_backup] calls.
+    /// The request builder for [BackupForGKE::create_backup][crate::client::BackupForGKE::create_backup] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1445,7 +1445,7 @@ pub mod backup_for_gke {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_backup][super::super::client::BackupForGKE::create_backup].
+        /// on [create_backup][crate::client::BackupForGKE::create_backup].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_backup(self.0.request, self.0.options)
@@ -1526,7 +1526,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for [BackupForGKE::list_backups][super::super::client::BackupForGKE::list_backups] calls.
+    /// The request builder for [BackupForGKE::list_backups][crate::client::BackupForGKE::list_backups] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1647,7 +1647,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for [BackupForGKE::get_backup][super::super::client::BackupForGKE::get_backup] calls.
+    /// The request builder for [BackupForGKE::get_backup][crate::client::BackupForGKE::get_backup] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1710,7 +1710,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for [BackupForGKE::update_backup][super::super::client::BackupForGKE::update_backup] calls.
+    /// The request builder for [BackupForGKE::update_backup][crate::client::BackupForGKE::update_backup] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1755,7 +1755,7 @@ pub mod backup_for_gke {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_backup][super::super::client::BackupForGKE::update_backup].
+        /// on [update_backup][crate::client::BackupForGKE::update_backup].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_backup(self.0.request, self.0.options)
@@ -1844,7 +1844,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for [BackupForGKE::delete_backup][super::super::client::BackupForGKE::delete_backup] calls.
+    /// The request builder for [BackupForGKE::delete_backup][crate::client::BackupForGKE::delete_backup] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1889,7 +1889,7 @@ pub mod backup_for_gke {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_backup][super::super::client::BackupForGKE::delete_backup].
+        /// on [delete_backup][crate::client::BackupForGKE::delete_backup].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_backup(self.0.request, self.0.options)
@@ -1960,7 +1960,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for [BackupForGKE::list_volume_backups][super::super::client::BackupForGKE::list_volume_backups] calls.
+    /// The request builder for [BackupForGKE::list_volume_backups][crate::client::BackupForGKE::list_volume_backups] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2078,7 +2078,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for [BackupForGKE::get_volume_backup][super::super::client::BackupForGKE::get_volume_backup] calls.
+    /// The request builder for [BackupForGKE::get_volume_backup][crate::client::BackupForGKE::get_volume_backup] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2141,7 +2141,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for [BackupForGKE::create_restore_plan][super::super::client::BackupForGKE::create_restore_plan] calls.
+    /// The request builder for [BackupForGKE::create_restore_plan][crate::client::BackupForGKE::create_restore_plan] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2189,7 +2189,7 @@ pub mod backup_for_gke {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_restore_plan][super::super::client::BackupForGKE::create_restore_plan].
+        /// on [create_restore_plan][crate::client::BackupForGKE::create_restore_plan].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_restore_plan(self.0.request, self.0.options)
@@ -2278,7 +2278,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for [BackupForGKE::list_restore_plans][super::super::client::BackupForGKE::list_restore_plans] calls.
+    /// The request builder for [BackupForGKE::list_restore_plans][crate::client::BackupForGKE::list_restore_plans] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2396,7 +2396,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for [BackupForGKE::get_restore_plan][super::super::client::BackupForGKE::get_restore_plan] calls.
+    /// The request builder for [BackupForGKE::get_restore_plan][crate::client::BackupForGKE::get_restore_plan] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2459,7 +2459,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for [BackupForGKE::update_restore_plan][super::super::client::BackupForGKE::update_restore_plan] calls.
+    /// The request builder for [BackupForGKE::update_restore_plan][crate::client::BackupForGKE::update_restore_plan] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2507,7 +2507,7 @@ pub mod backup_for_gke {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_restore_plan][super::super::client::BackupForGKE::update_restore_plan].
+        /// on [update_restore_plan][crate::client::BackupForGKE::update_restore_plan].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_restore_plan(self.0.request, self.0.options)
@@ -2598,7 +2598,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for [BackupForGKE::delete_restore_plan][super::super::client::BackupForGKE::delete_restore_plan] calls.
+    /// The request builder for [BackupForGKE::delete_restore_plan][crate::client::BackupForGKE::delete_restore_plan] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2646,7 +2646,7 @@ pub mod backup_for_gke {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_restore_plan][super::super::client::BackupForGKE::delete_restore_plan].
+        /// on [delete_restore_plan][crate::client::BackupForGKE::delete_restore_plan].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_restore_plan(self.0.request, self.0.options)
@@ -2717,7 +2717,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for [BackupForGKE::create_restore_channel][super::super::client::BackupForGKE::create_restore_channel] calls.
+    /// The request builder for [BackupForGKE::create_restore_channel][crate::client::BackupForGKE::create_restore_channel] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2765,7 +2765,7 @@ pub mod backup_for_gke {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_restore_channel][super::super::client::BackupForGKE::create_restore_channel].
+        /// on [create_restore_channel][crate::client::BackupForGKE::create_restore_channel].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_restore_channel(self.0.request, self.0.options)
@@ -2853,7 +2853,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for [BackupForGKE::list_restore_channels][super::super::client::BackupForGKE::list_restore_channels] calls.
+    /// The request builder for [BackupForGKE::list_restore_channels][crate::client::BackupForGKE::list_restore_channels] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2973,7 +2973,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for [BackupForGKE::get_restore_channel][super::super::client::BackupForGKE::get_restore_channel] calls.
+    /// The request builder for [BackupForGKE::get_restore_channel][crate::client::BackupForGKE::get_restore_channel] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3039,7 +3039,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for [BackupForGKE::update_restore_channel][super::super::client::BackupForGKE::update_restore_channel] calls.
+    /// The request builder for [BackupForGKE::update_restore_channel][crate::client::BackupForGKE::update_restore_channel] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3087,7 +3087,7 @@ pub mod backup_for_gke {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_restore_channel][super::super::client::BackupForGKE::update_restore_channel].
+        /// on [update_restore_channel][crate::client::BackupForGKE::update_restore_channel].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_restore_channel(self.0.request, self.0.options)
@@ -3179,7 +3179,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for [BackupForGKE::delete_restore_channel][super::super::client::BackupForGKE::delete_restore_channel] calls.
+    /// The request builder for [BackupForGKE::delete_restore_channel][crate::client::BackupForGKE::delete_restore_channel] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3227,7 +3227,7 @@ pub mod backup_for_gke {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_restore_channel][super::super::client::BackupForGKE::delete_restore_channel].
+        /// on [delete_restore_channel][crate::client::BackupForGKE::delete_restore_channel].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_restore_channel(self.0.request, self.0.options)
@@ -3292,7 +3292,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for [BackupForGKE::list_restore_plan_bindings][super::super::client::BackupForGKE::list_restore_plan_bindings] calls.
+    /// The request builder for [BackupForGKE::list_restore_plan_bindings][crate::client::BackupForGKE::list_restore_plan_bindings] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3416,7 +3416,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for [BackupForGKE::get_restore_plan_binding][super::super::client::BackupForGKE::get_restore_plan_binding] calls.
+    /// The request builder for [BackupForGKE::get_restore_plan_binding][crate::client::BackupForGKE::get_restore_plan_binding] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3482,7 +3482,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for [BackupForGKE::create_restore][super::super::client::BackupForGKE::create_restore] calls.
+    /// The request builder for [BackupForGKE::create_restore][crate::client::BackupForGKE::create_restore] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3527,7 +3527,7 @@ pub mod backup_for_gke {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_restore][super::super::client::BackupForGKE::create_restore].
+        /// on [create_restore][crate::client::BackupForGKE::create_restore].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_restore(self.0.request, self.0.options)
@@ -3614,7 +3614,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for [BackupForGKE::list_restores][super::super::client::BackupForGKE::list_restores] calls.
+    /// The request builder for [BackupForGKE::list_restores][crate::client::BackupForGKE::list_restores] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3729,7 +3729,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for [BackupForGKE::get_restore][super::super::client::BackupForGKE::get_restore] calls.
+    /// The request builder for [BackupForGKE::get_restore][crate::client::BackupForGKE::get_restore] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3792,7 +3792,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for [BackupForGKE::update_restore][super::super::client::BackupForGKE::update_restore] calls.
+    /// The request builder for [BackupForGKE::update_restore][crate::client::BackupForGKE::update_restore] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3837,7 +3837,7 @@ pub mod backup_for_gke {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_restore][super::super::client::BackupForGKE::update_restore].
+        /// on [update_restore][crate::client::BackupForGKE::update_restore].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_restore(self.0.request, self.0.options)
@@ -3926,7 +3926,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for [BackupForGKE::delete_restore][super::super::client::BackupForGKE::delete_restore] calls.
+    /// The request builder for [BackupForGKE::delete_restore][crate::client::BackupForGKE::delete_restore] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3971,7 +3971,7 @@ pub mod backup_for_gke {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_restore][super::super::client::BackupForGKE::delete_restore].
+        /// on [delete_restore][crate::client::BackupForGKE::delete_restore].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_restore(self.0.request, self.0.options)
@@ -4042,7 +4042,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for [BackupForGKE::list_volume_restores][super::super::client::BackupForGKE::list_volume_restores] calls.
+    /// The request builder for [BackupForGKE::list_volume_restores][crate::client::BackupForGKE::list_volume_restores] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4162,7 +4162,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for [BackupForGKE::get_volume_restore][super::super::client::BackupForGKE::get_volume_restore] calls.
+    /// The request builder for [BackupForGKE::get_volume_restore][crate::client::BackupForGKE::get_volume_restore] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4228,7 +4228,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for [BackupForGKE::get_backup_index_download_url][super::super::client::BackupForGKE::get_backup_index_download_url] calls.
+    /// The request builder for [BackupForGKE::get_backup_index_download_url][crate::client::BackupForGKE::get_backup_index_download_url] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4296,7 +4296,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for [BackupForGKE::list_locations][super::super::client::BackupForGKE::list_locations] calls.
+    /// The request builder for [BackupForGKE::list_locations][crate::client::BackupForGKE::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4406,7 +4406,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for [BackupForGKE::get_location][super::super::client::BackupForGKE::get_location] calls.
+    /// The request builder for [BackupForGKE::get_location][crate::client::BackupForGKE::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4467,7 +4467,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for [BackupForGKE::set_iam_policy][super::super::client::BackupForGKE::set_iam_policy] calls.
+    /// The request builder for [BackupForGKE::set_iam_policy][crate::client::BackupForGKE::set_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4570,7 +4570,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for [BackupForGKE::get_iam_policy][super::super::client::BackupForGKE::get_iam_policy] calls.
+    /// The request builder for [BackupForGKE::get_iam_policy][crate::client::BackupForGKE::get_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4651,7 +4651,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for [BackupForGKE::test_iam_permissions][super::super::client::BackupForGKE::test_iam_permissions] calls.
+    /// The request builder for [BackupForGKE::test_iam_permissions][crate::client::BackupForGKE::test_iam_permissions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4730,7 +4730,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for [BackupForGKE::list_operations][super::super::client::BackupForGKE::list_operations] calls.
+    /// The request builder for [BackupForGKE::list_operations][crate::client::BackupForGKE::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4842,7 +4842,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for [BackupForGKE::get_operation][super::super::client::BackupForGKE::get_operation] calls.
+    /// The request builder for [BackupForGKE::get_operation][crate::client::BackupForGKE::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4906,7 +4906,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for [BackupForGKE::delete_operation][super::super::client::BackupForGKE::delete_operation] calls.
+    /// The request builder for [BackupForGKE::delete_operation][crate::client::BackupForGKE::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4970,7 +4970,7 @@ pub mod backup_for_gke {
         }
     }
 
-    /// The request builder for [BackupForGKE::cancel_operation][super::super::client::BackupForGKE::cancel_operation] calls.
+    /// The request builder for [BackupForGKE::cancel_operation][crate::client::BackupForGKE::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run

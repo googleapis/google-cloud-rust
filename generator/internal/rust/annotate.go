@@ -78,13 +78,19 @@ type serviceAnnotations struct {
 	// Only a subset of the methods is generated.
 	Methods     []*api.Method
 	DefaultHost string
-	// If true, this service includes methods that return long-running operations.
-	HasLROs  bool
+	// A set of all types involved in an LRO, whether used as metadata or
+	// response.
+	LROTypes []*api.Message
 	APITitle string
 	// If set, gate this service under a feature named `ModuleName`.
 	PerServiceFeatures bool
 	// If true, there is a handwritten client surface.
 	HasVeneer bool
+}
+
+// If true, this service includes methods that return long-running operations.
+func (s *serviceAnnotations) HasLROs() bool {
+	return len(s.LROTypes) > 0
 }
 
 func (a *serviceAnnotations) FeatureName() string {
@@ -457,23 +463,31 @@ func (c *codec) annotateService(s *api.Service, model *api.API) {
 	methods := language.FilterSlice(s.Methods, func(m *api.Method) bool {
 		return c.generateMethod(m)
 	})
-	hasLROs := false
+	seenLROTypes := make(map[string]bool)
+	var lroTypes []*api.Message
 	for _, m := range methods {
 		if m.OperationInfo != nil {
-			hasLROs = true
-			break
+			if _, ok := seenLROTypes[m.OperationInfo.MetadataTypeID]; !ok {
+				seenLROTypes[m.OperationInfo.MetadataTypeID] = true
+				lroTypes = append(lroTypes, model.State.MessageByID[m.OperationInfo.MetadataTypeID])
+			}
+			if _, ok := seenLROTypes[m.OperationInfo.ResponseTypeID]; !ok {
+				seenLROTypes[m.OperationInfo.ResponseTypeID] = true
+				lroTypes = append(lroTypes, model.State.MessageByID[m.OperationInfo.ResponseTypeID])
+			}
 		}
 	}
-	moduleName := toSnake(s.Name)
+	serviceName := ServiceName(s, c.serviceNameOverrides)
+	moduleName := toSnake(serviceName)
 	ann := &serviceAnnotations{
-		Name:              toPascal(s.Name),
+		Name:              toPascal(serviceName),
 		PackageModuleName: packageToModuleName(s.Package),
 		ModuleName:        moduleName,
 		DocLines: c.formatDocComments(
 			s.Documentation, s.ID, model.State, []string{s.ID, s.Package}),
 		Methods:            methods,
 		DefaultHost:        s.DefaultHost,
-		HasLROs:            hasLROs,
+		LROTypes:           lroTypes,
 		APITitle:           model.Title,
 		PerServiceFeatures: c.perServiceFeatures,
 		HasVeneer:          c.hasVeneer,
@@ -551,6 +565,7 @@ func (c *codec) annotateMethod(m *api.Method, s *api.Service, state *api.APIStat
 	if m.ReturnsEmpty {
 		returnType = "()"
 	}
+	serviceName := ServiceName(s, c.serviceNameOverrides)
 	annotation := &methodAnnotation{
 		Name:                strcase.ToSnake(m.Name),
 		BuilderName:         toPascal(m.Name),
@@ -559,9 +574,9 @@ func (c *codec) annotateMethod(m *api.Method, s *api.Service, state *api.APIStat
 		PathInfo:            m.PathInfo,
 		PathParams:          language.PathParams(m, state),
 		QueryParams:         language.QueryParams(m, state),
-		ServiceNameToPascal: toPascal(s.Name),
-		ServiceNameToCamel:  toCamel(s.Name),
-		ServiceNameToSnake:  toSnake(s.Name),
+		ServiceNameToPascal: toPascal(serviceName),
+		ServiceNameToCamel:  toCamel(serviceName),
+		ServiceNameToSnake:  toSnake(serviceName),
 		SystemParameters:    c.systemParameters,
 		ReturnType:          returnType,
 		HasVeneer:           c.hasVeneer,

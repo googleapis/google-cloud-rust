@@ -914,3 +914,90 @@ impl super::stub::StorageControl for StorageControl {
             .and_then(gaxi::grpc::to_gax_response::<TR, longrunning::model::Operation>)
     }
 }
+
+use gaxi::prost::{ConvertError, FromProto, ToProto};
+/// Convert from our `wkt::Any` to a `prost_types::Any`
+///
+/// The encoded types considered for conversion are either metadata or result
+/// types for LROs in this service.
+pub(crate) fn lro_any_to_prost(
+    value: wkt::Any,
+) -> std::result::Result<prost_types::Any, ConvertError> {
+    match value.type_url().unwrap_or_default() {
+        "" => Ok(prost_types::Any::default()),
+        "type.googleapis.com/google.storage.control.v2.RenameFolderMetadata" => value
+            .to_msg::<crate::model::RenameFolderMetadata>()
+            .map_err(ConvertError::other)?
+            .to_proto()
+            .and_then(|prost_msg| {
+                prost_types::Any::from_msg(&prost_msg).map_err(ConvertError::other)
+            }),
+        "type.googleapis.com/google.storage.control.v2.Folder" => value
+            .to_msg::<crate::model::Folder>()
+            .map_err(ConvertError::other)?
+            .to_proto()
+            .and_then(|prost_msg| {
+                prost_types::Any::from_msg(&prost_msg).map_err(ConvertError::other)
+            }),
+        "type.googleapis.com/google.storage.control.v2.CreateAnywhereCacheMetadata" => value
+            .to_msg::<crate::model::CreateAnywhereCacheMetadata>()
+            .map_err(ConvertError::other)?
+            .to_proto()
+            .and_then(|prost_msg| {
+                prost_types::Any::from_msg(&prost_msg).map_err(ConvertError::other)
+            }),
+        "type.googleapis.com/google.storage.control.v2.AnywhereCache" => value
+            .to_msg::<crate::model::AnywhereCache>()
+            .map_err(ConvertError::other)?
+            .to_proto()
+            .and_then(|prost_msg| {
+                prost_types::Any::from_msg(&prost_msg).map_err(ConvertError::other)
+            }),
+        "type.googleapis.com/google.storage.control.v2.UpdateAnywhereCacheMetadata" => value
+            .to_msg::<crate::model::UpdateAnywhereCacheMetadata>()
+            .map_err(ConvertError::other)?
+            .to_proto()
+            .and_then(|prost_msg| {
+                prost_types::Any::from_msg(&prost_msg).map_err(ConvertError::other)
+            }),
+        type_url => Err(ConvertError::UnexpectedTypeUrl(type_url.to_string())),
+    }
+}
+
+/// Convert from a `prost_types::Any` to our `wkt::Any`
+///
+/// The encoded types considered for conversion are either metadata or result
+/// types for LROs in this service.
+pub(crate) fn lro_any_from_prost(
+    value: prost_types::Any,
+) -> std::result::Result<wkt::Any, ConvertError> {
+    match value.type_url.as_str() {
+        "" => Ok(wkt::Any::default()),
+        "type.googleapis.com/google.storage.control.v2.RenameFolderMetadata" => value
+            .to_msg::<crate::google::storage::control::v2::RenameFolderMetadata>()
+            .map_err(ConvertError::other)?
+            .cnv()
+            .and_then(|our_msg| wkt::Any::from_msg(&our_msg).map_err(ConvertError::other)),
+        "type.googleapis.com/google.storage.control.v2.Folder" => value
+            .to_msg::<crate::google::storage::control::v2::Folder>()
+            .map_err(ConvertError::other)?
+            .cnv()
+            .and_then(|our_msg| wkt::Any::from_msg(&our_msg).map_err(ConvertError::other)),
+        "type.googleapis.com/google.storage.control.v2.CreateAnywhereCacheMetadata" => value
+            .to_msg::<crate::google::storage::control::v2::CreateAnywhereCacheMetadata>()
+            .map_err(ConvertError::other)?
+            .cnv()
+            .and_then(|our_msg| wkt::Any::from_msg(&our_msg).map_err(ConvertError::other)),
+        "type.googleapis.com/google.storage.control.v2.AnywhereCache" => value
+            .to_msg::<crate::google::storage::control::v2::AnywhereCache>()
+            .map_err(ConvertError::other)?
+            .cnv()
+            .and_then(|our_msg| wkt::Any::from_msg(&our_msg).map_err(ConvertError::other)),
+        "type.googleapis.com/google.storage.control.v2.UpdateAnywhereCacheMetadata" => value
+            .to_msg::<crate::google::storage::control::v2::UpdateAnywhereCacheMetadata>()
+            .map_err(ConvertError::other)?
+            .cnv()
+            .and_then(|our_msg| wkt::Any::from_msg(&our_msg).map_err(ConvertError::other)),
+        type_url => Err(ConvertError::UnexpectedTypeUrl(type_url.to_string())),
+    }
+}

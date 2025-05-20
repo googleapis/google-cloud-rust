@@ -17,7 +17,7 @@
 pub mod vmware_engine {
     use crate::Result;
 
-    /// A builder for [VmwareEngine][super::super::client::VmwareEngine].
+    /// A builder for [VmwareEngine][crate::client::VmwareEngine].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// Common implementation for [super::super::client::VmwareEngine] request builders.
+    /// Common implementation for [crate::client::VmwareEngine] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
@@ -68,7 +68,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::list_private_clouds][super::super::client::VmwareEngine::list_private_clouds] calls.
+    /// The request builder for [VmwareEngine::list_private_clouds][crate::client::VmwareEngine::list_private_clouds] calls.
     ///
     /// # Example
     /// ```no_run
@@ -186,7 +186,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::get_private_cloud][super::super::client::VmwareEngine::get_private_cloud] calls.
+    /// The request builder for [VmwareEngine::get_private_cloud][crate::client::VmwareEngine::get_private_cloud] calls.
     ///
     /// # Example
     /// ```no_run
@@ -249,7 +249,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::create_private_cloud][super::super::client::VmwareEngine::create_private_cloud] calls.
+    /// The request builder for [VmwareEngine::create_private_cloud][crate::client::VmwareEngine::create_private_cloud] calls.
     ///
     /// # Example
     /// ```no_run
@@ -297,7 +297,7 @@ pub mod vmware_engine {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_private_cloud][super::super::client::VmwareEngine::create_private_cloud].
+        /// on [create_private_cloud][crate::client::VmwareEngine::create_private_cloud].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_private_cloud(self.0.request, self.0.options)
@@ -398,7 +398,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::update_private_cloud][super::super::client::VmwareEngine::update_private_cloud] calls.
+    /// The request builder for [VmwareEngine::update_private_cloud][crate::client::VmwareEngine::update_private_cloud] calls.
     ///
     /// # Example
     /// ```no_run
@@ -446,7 +446,7 @@ pub mod vmware_engine {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_private_cloud][super::super::client::VmwareEngine::update_private_cloud].
+        /// on [update_private_cloud][crate::client::VmwareEngine::update_private_cloud].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_private_cloud(self.0.request, self.0.options)
@@ -547,7 +547,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::delete_private_cloud][super::super::client::VmwareEngine::delete_private_cloud] calls.
+    /// The request builder for [VmwareEngine::delete_private_cloud][crate::client::VmwareEngine::delete_private_cloud] calls.
     ///
     /// # Example
     /// ```no_run
@@ -595,7 +595,7 @@ pub mod vmware_engine {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_private_cloud][super::super::client::VmwareEngine::delete_private_cloud].
+        /// on [delete_private_cloud][crate::client::VmwareEngine::delete_private_cloud].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_private_cloud(self.0.request, self.0.options)
@@ -684,7 +684,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::undelete_private_cloud][super::super::client::VmwareEngine::undelete_private_cloud] calls.
+    /// The request builder for [VmwareEngine::undelete_private_cloud][crate::client::VmwareEngine::undelete_private_cloud] calls.
     ///
     /// # Example
     /// ```no_run
@@ -732,7 +732,7 @@ pub mod vmware_engine {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [undelete_private_cloud][super::super::client::VmwareEngine::undelete_private_cloud].
+        /// on [undelete_private_cloud][crate::client::VmwareEngine::undelete_private_cloud].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .undelete_private_cloud(self.0.request, self.0.options)
@@ -797,7 +797,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::list_clusters][super::super::client::VmwareEngine::list_clusters] calls.
+    /// The request builder for [VmwareEngine::list_clusters][crate::client::VmwareEngine::list_clusters] calls.
     ///
     /// # Example
     /// ```no_run
@@ -912,7 +912,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::get_cluster][super::super::client::VmwareEngine::get_cluster] calls.
+    /// The request builder for [VmwareEngine::get_cluster][crate::client::VmwareEngine::get_cluster] calls.
     ///
     /// # Example
     /// ```no_run
@@ -975,7 +975,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::create_cluster][super::super::client::VmwareEngine::create_cluster] calls.
+    /// The request builder for [VmwareEngine::create_cluster][crate::client::VmwareEngine::create_cluster] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1020,7 +1020,7 @@ pub mod vmware_engine {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_cluster][super::super::client::VmwareEngine::create_cluster].
+        /// on [create_cluster][crate::client::VmwareEngine::create_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_cluster(self.0.request, self.0.options)
@@ -1119,7 +1119,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::update_cluster][super::super::client::VmwareEngine::update_cluster] calls.
+    /// The request builder for [VmwareEngine::update_cluster][crate::client::VmwareEngine::update_cluster] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1164,7 +1164,7 @@ pub mod vmware_engine {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_cluster][super::super::client::VmwareEngine::update_cluster].
+        /// on [update_cluster][crate::client::VmwareEngine::update_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_cluster(self.0.request, self.0.options)
@@ -1269,7 +1269,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::delete_cluster][super::super::client::VmwareEngine::delete_cluster] calls.
+    /// The request builder for [VmwareEngine::delete_cluster][crate::client::VmwareEngine::delete_cluster] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1314,7 +1314,7 @@ pub mod vmware_engine {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_cluster][super::super::client::VmwareEngine::delete_cluster].
+        /// on [delete_cluster][crate::client::VmwareEngine::delete_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_cluster(self.0.request, self.0.options)
@@ -1379,7 +1379,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::list_nodes][super::super::client::VmwareEngine::list_nodes] calls.
+    /// The request builder for [VmwareEngine::list_nodes][crate::client::VmwareEngine::list_nodes] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1482,7 +1482,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::get_node][super::super::client::VmwareEngine::get_node] calls.
+    /// The request builder for [VmwareEngine::get_node][crate::client::VmwareEngine::get_node] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1545,7 +1545,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::list_external_addresses][super::super::client::VmwareEngine::list_external_addresses] calls.
+    /// The request builder for [VmwareEngine::list_external_addresses][crate::client::VmwareEngine::list_external_addresses] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1665,7 +1665,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::fetch_network_policy_external_addresses][super::super::client::VmwareEngine::fetch_network_policy_external_addresses] calls.
+    /// The request builder for [VmwareEngine::fetch_network_policy_external_addresses][crate::client::VmwareEngine::fetch_network_policy_external_addresses] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1779,7 +1779,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::get_external_address][super::super::client::VmwareEngine::get_external_address] calls.
+    /// The request builder for [VmwareEngine::get_external_address][crate::client::VmwareEngine::get_external_address] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1845,7 +1845,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::create_external_address][super::super::client::VmwareEngine::create_external_address] calls.
+    /// The request builder for [VmwareEngine::create_external_address][crate::client::VmwareEngine::create_external_address] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1893,7 +1893,7 @@ pub mod vmware_engine {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_external_address][super::super::client::VmwareEngine::create_external_address].
+        /// on [create_external_address][crate::client::VmwareEngine::create_external_address].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_external_address(self.0.request, self.0.options)
@@ -1989,7 +1989,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::update_external_address][super::super::client::VmwareEngine::update_external_address] calls.
+    /// The request builder for [VmwareEngine::update_external_address][crate::client::VmwareEngine::update_external_address] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2037,7 +2037,7 @@ pub mod vmware_engine {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_external_address][super::super::client::VmwareEngine::update_external_address].
+        /// on [update_external_address][crate::client::VmwareEngine::update_external_address].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_external_address(self.0.request, self.0.options)
@@ -2139,7 +2139,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::delete_external_address][super::super::client::VmwareEngine::delete_external_address] calls.
+    /// The request builder for [VmwareEngine::delete_external_address][crate::client::VmwareEngine::delete_external_address] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2187,7 +2187,7 @@ pub mod vmware_engine {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_external_address][super::super::client::VmwareEngine::delete_external_address].
+        /// on [delete_external_address][crate::client::VmwareEngine::delete_external_address].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_external_address(self.0.request, self.0.options)
@@ -2252,7 +2252,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::list_subnets][super::super::client::VmwareEngine::list_subnets] calls.
+    /// The request builder for [VmwareEngine::list_subnets][crate::client::VmwareEngine::list_subnets] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2355,7 +2355,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::get_subnet][super::super::client::VmwareEngine::get_subnet] calls.
+    /// The request builder for [VmwareEngine::get_subnet][crate::client::VmwareEngine::get_subnet] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2418,7 +2418,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::update_subnet][super::super::client::VmwareEngine::update_subnet] calls.
+    /// The request builder for [VmwareEngine::update_subnet][crate::client::VmwareEngine::update_subnet] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2463,7 +2463,7 @@ pub mod vmware_engine {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_subnet][super::super::client::VmwareEngine::update_subnet].
+        /// on [update_subnet][crate::client::VmwareEngine::update_subnet].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_subnet(self.0.request, self.0.options)
@@ -2556,7 +2556,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::list_external_access_rules][super::super::client::VmwareEngine::list_external_access_rules] calls.
+    /// The request builder for [VmwareEngine::list_external_access_rules][crate::client::VmwareEngine::list_external_access_rules] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2680,7 +2680,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::get_external_access_rule][super::super::client::VmwareEngine::get_external_access_rule] calls.
+    /// The request builder for [VmwareEngine::get_external_access_rule][crate::client::VmwareEngine::get_external_access_rule] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2746,7 +2746,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::create_external_access_rule][super::super::client::VmwareEngine::create_external_access_rule] calls.
+    /// The request builder for [VmwareEngine::create_external_access_rule][crate::client::VmwareEngine::create_external_access_rule] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2796,7 +2796,7 @@ pub mod vmware_engine {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_external_access_rule][super::super::client::VmwareEngine::create_external_access_rule].
+        /// on [create_external_access_rule][crate::client::VmwareEngine::create_external_access_rule].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_external_access_rule(self.0.request, self.0.options)
@@ -2892,7 +2892,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::update_external_access_rule][super::super::client::VmwareEngine::update_external_access_rule] calls.
+    /// The request builder for [VmwareEngine::update_external_access_rule][crate::client::VmwareEngine::update_external_access_rule] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2942,7 +2942,7 @@ pub mod vmware_engine {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_external_access_rule][super::super::client::VmwareEngine::update_external_access_rule].
+        /// on [update_external_access_rule][crate::client::VmwareEngine::update_external_access_rule].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_external_access_rule(self.0.request, self.0.options)
@@ -3044,7 +3044,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::delete_external_access_rule][super::super::client::VmwareEngine::delete_external_access_rule] calls.
+    /// The request builder for [VmwareEngine::delete_external_access_rule][crate::client::VmwareEngine::delete_external_access_rule] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3094,7 +3094,7 @@ pub mod vmware_engine {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_external_access_rule][super::super::client::VmwareEngine::delete_external_access_rule].
+        /// on [delete_external_access_rule][crate::client::VmwareEngine::delete_external_access_rule].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_external_access_rule(self.0.request, self.0.options)
@@ -3159,7 +3159,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::list_logging_servers][super::super::client::VmwareEngine::list_logging_servers] calls.
+    /// The request builder for [VmwareEngine::list_logging_servers][crate::client::VmwareEngine::list_logging_servers] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3279,7 +3279,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::get_logging_server][super::super::client::VmwareEngine::get_logging_server] calls.
+    /// The request builder for [VmwareEngine::get_logging_server][crate::client::VmwareEngine::get_logging_server] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3345,7 +3345,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::create_logging_server][super::super::client::VmwareEngine::create_logging_server] calls.
+    /// The request builder for [VmwareEngine::create_logging_server][crate::client::VmwareEngine::create_logging_server] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3393,7 +3393,7 @@ pub mod vmware_engine {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_logging_server][super::super::client::VmwareEngine::create_logging_server].
+        /// on [create_logging_server][crate::client::VmwareEngine::create_logging_server].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_logging_server(self.0.request, self.0.options)
@@ -3489,7 +3489,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::update_logging_server][super::super::client::VmwareEngine::update_logging_server] calls.
+    /// The request builder for [VmwareEngine::update_logging_server][crate::client::VmwareEngine::update_logging_server] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3537,7 +3537,7 @@ pub mod vmware_engine {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_logging_server][super::super::client::VmwareEngine::update_logging_server].
+        /// on [update_logging_server][crate::client::VmwareEngine::update_logging_server].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_logging_server(self.0.request, self.0.options)
@@ -3639,7 +3639,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::delete_logging_server][super::super::client::VmwareEngine::delete_logging_server] calls.
+    /// The request builder for [VmwareEngine::delete_logging_server][crate::client::VmwareEngine::delete_logging_server] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3687,7 +3687,7 @@ pub mod vmware_engine {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_logging_server][super::super::client::VmwareEngine::delete_logging_server].
+        /// on [delete_logging_server][crate::client::VmwareEngine::delete_logging_server].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_logging_server(self.0.request, self.0.options)
@@ -3752,7 +3752,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::list_node_types][super::super::client::VmwareEngine::list_node_types] calls.
+    /// The request builder for [VmwareEngine::list_node_types][crate::client::VmwareEngine::list_node_types] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3861,7 +3861,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::get_node_type][super::super::client::VmwareEngine::get_node_type] calls.
+    /// The request builder for [VmwareEngine::get_node_type][crate::client::VmwareEngine::get_node_type] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3924,7 +3924,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::show_nsx_credentials][super::super::client::VmwareEngine::show_nsx_credentials] calls.
+    /// The request builder for [VmwareEngine::show_nsx_credentials][crate::client::VmwareEngine::show_nsx_credentials] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3990,7 +3990,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::show_vcenter_credentials][super::super::client::VmwareEngine::show_vcenter_credentials] calls.
+    /// The request builder for [VmwareEngine::show_vcenter_credentials][crate::client::VmwareEngine::show_vcenter_credentials] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4062,7 +4062,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::reset_nsx_credentials][super::super::client::VmwareEngine::reset_nsx_credentials] calls.
+    /// The request builder for [VmwareEngine::reset_nsx_credentials][crate::client::VmwareEngine::reset_nsx_credentials] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4110,7 +4110,7 @@ pub mod vmware_engine {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [reset_nsx_credentials][super::super::client::VmwareEngine::reset_nsx_credentials].
+        /// on [reset_nsx_credentials][crate::client::VmwareEngine::reset_nsx_credentials].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .reset_nsx_credentials(self.0.request, self.0.options)
@@ -4175,7 +4175,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::reset_vcenter_credentials][super::super::client::VmwareEngine::reset_vcenter_credentials] calls.
+    /// The request builder for [VmwareEngine::reset_vcenter_credentials][crate::client::VmwareEngine::reset_vcenter_credentials] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4225,7 +4225,7 @@ pub mod vmware_engine {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [reset_vcenter_credentials][super::super::client::VmwareEngine::reset_vcenter_credentials].
+        /// on [reset_vcenter_credentials][crate::client::VmwareEngine::reset_vcenter_credentials].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .reset_vcenter_credentials(self.0.request, self.0.options)
@@ -4296,7 +4296,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::get_dns_forwarding][super::super::client::VmwareEngine::get_dns_forwarding] calls.
+    /// The request builder for [VmwareEngine::get_dns_forwarding][crate::client::VmwareEngine::get_dns_forwarding] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4362,7 +4362,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::update_dns_forwarding][super::super::client::VmwareEngine::update_dns_forwarding] calls.
+    /// The request builder for [VmwareEngine::update_dns_forwarding][crate::client::VmwareEngine::update_dns_forwarding] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4410,7 +4410,7 @@ pub mod vmware_engine {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_dns_forwarding][super::super::client::VmwareEngine::update_dns_forwarding].
+        /// on [update_dns_forwarding][crate::client::VmwareEngine::update_dns_forwarding].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_dns_forwarding(self.0.request, self.0.options)
@@ -4512,7 +4512,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::get_network_peering][super::super::client::VmwareEngine::get_network_peering] calls.
+    /// The request builder for [VmwareEngine::get_network_peering][crate::client::VmwareEngine::get_network_peering] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4578,7 +4578,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::list_network_peerings][super::super::client::VmwareEngine::list_network_peerings] calls.
+    /// The request builder for [VmwareEngine::list_network_peerings][crate::client::VmwareEngine::list_network_peerings] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4698,7 +4698,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::create_network_peering][super::super::client::VmwareEngine::create_network_peering] calls.
+    /// The request builder for [VmwareEngine::create_network_peering][crate::client::VmwareEngine::create_network_peering] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4746,7 +4746,7 @@ pub mod vmware_engine {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_network_peering][super::super::client::VmwareEngine::create_network_peering].
+        /// on [create_network_peering][crate::client::VmwareEngine::create_network_peering].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_network_peering(self.0.request, self.0.options)
@@ -4842,7 +4842,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::delete_network_peering][super::super::client::VmwareEngine::delete_network_peering] calls.
+    /// The request builder for [VmwareEngine::delete_network_peering][crate::client::VmwareEngine::delete_network_peering] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4890,7 +4890,7 @@ pub mod vmware_engine {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_network_peering][super::super::client::VmwareEngine::delete_network_peering].
+        /// on [delete_network_peering][crate::client::VmwareEngine::delete_network_peering].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_network_peering(self.0.request, self.0.options)
@@ -4955,7 +4955,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::update_network_peering][super::super::client::VmwareEngine::update_network_peering] calls.
+    /// The request builder for [VmwareEngine::update_network_peering][crate::client::VmwareEngine::update_network_peering] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5003,7 +5003,7 @@ pub mod vmware_engine {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_network_peering][super::super::client::VmwareEngine::update_network_peering].
+        /// on [update_network_peering][crate::client::VmwareEngine::update_network_peering].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_network_peering(self.0.request, self.0.options)
@@ -5105,7 +5105,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::list_peering_routes][super::super::client::VmwareEngine::list_peering_routes] calls.
+    /// The request builder for [VmwareEngine::list_peering_routes][crate::client::VmwareEngine::list_peering_routes] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5217,7 +5217,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::create_hcx_activation_key][super::super::client::VmwareEngine::create_hcx_activation_key] calls.
+    /// The request builder for [VmwareEngine::create_hcx_activation_key][crate::client::VmwareEngine::create_hcx_activation_key] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5265,7 +5265,7 @@ pub mod vmware_engine {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_hcx_activation_key][super::super::client::VmwareEngine::create_hcx_activation_key].
+        /// on [create_hcx_activation_key][crate::client::VmwareEngine::create_hcx_activation_key].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_hcx_activation_key(self.0.request, self.0.options)
@@ -5361,7 +5361,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::list_hcx_activation_keys][super::super::client::VmwareEngine::list_hcx_activation_keys] calls.
+    /// The request builder for [VmwareEngine::list_hcx_activation_keys][crate::client::VmwareEngine::list_hcx_activation_keys] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5469,7 +5469,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::get_hcx_activation_key][super::super::client::VmwareEngine::get_hcx_activation_key] calls.
+    /// The request builder for [VmwareEngine::get_hcx_activation_key][crate::client::VmwareEngine::get_hcx_activation_key] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5535,7 +5535,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::get_network_policy][super::super::client::VmwareEngine::get_network_policy] calls.
+    /// The request builder for [VmwareEngine::get_network_policy][crate::client::VmwareEngine::get_network_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5601,7 +5601,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::list_network_policies][super::super::client::VmwareEngine::list_network_policies] calls.
+    /// The request builder for [VmwareEngine::list_network_policies][crate::client::VmwareEngine::list_network_policies] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5721,7 +5721,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::create_network_policy][super::super::client::VmwareEngine::create_network_policy] calls.
+    /// The request builder for [VmwareEngine::create_network_policy][crate::client::VmwareEngine::create_network_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5769,7 +5769,7 @@ pub mod vmware_engine {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_network_policy][super::super::client::VmwareEngine::create_network_policy].
+        /// on [create_network_policy][crate::client::VmwareEngine::create_network_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_network_policy(self.0.request, self.0.options)
@@ -5865,7 +5865,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::update_network_policy][super::super::client::VmwareEngine::update_network_policy] calls.
+    /// The request builder for [VmwareEngine::update_network_policy][crate::client::VmwareEngine::update_network_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5913,7 +5913,7 @@ pub mod vmware_engine {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_network_policy][super::super::client::VmwareEngine::update_network_policy].
+        /// on [update_network_policy][crate::client::VmwareEngine::update_network_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_network_policy(self.0.request, self.0.options)
@@ -6015,7 +6015,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::delete_network_policy][super::super::client::VmwareEngine::delete_network_policy] calls.
+    /// The request builder for [VmwareEngine::delete_network_policy][crate::client::VmwareEngine::delete_network_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6063,7 +6063,7 @@ pub mod vmware_engine {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_network_policy][super::super::client::VmwareEngine::delete_network_policy].
+        /// on [delete_network_policy][crate::client::VmwareEngine::delete_network_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_network_policy(self.0.request, self.0.options)
@@ -6128,7 +6128,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::list_management_dns_zone_bindings][super::super::client::VmwareEngine::list_management_dns_zone_bindings] calls.
+    /// The request builder for [VmwareEngine::list_management_dns_zone_bindings][crate::client::VmwareEngine::list_management_dns_zone_bindings] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6252,7 +6252,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::get_management_dns_zone_binding][super::super::client::VmwareEngine::get_management_dns_zone_binding] calls.
+    /// The request builder for [VmwareEngine::get_management_dns_zone_binding][crate::client::VmwareEngine::get_management_dns_zone_binding] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6320,7 +6320,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::create_management_dns_zone_binding][super::super::client::VmwareEngine::create_management_dns_zone_binding] calls.
+    /// The request builder for [VmwareEngine::create_management_dns_zone_binding][crate::client::VmwareEngine::create_management_dns_zone_binding] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6370,7 +6370,7 @@ pub mod vmware_engine {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_management_dns_zone_binding][super::super::client::VmwareEngine::create_management_dns_zone_binding].
+        /// on [create_management_dns_zone_binding][crate::client::VmwareEngine::create_management_dns_zone_binding].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_management_dns_zone_binding(self.0.request, self.0.options)
@@ -6472,7 +6472,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::update_management_dns_zone_binding][super::super::client::VmwareEngine::update_management_dns_zone_binding] calls.
+    /// The request builder for [VmwareEngine::update_management_dns_zone_binding][crate::client::VmwareEngine::update_management_dns_zone_binding] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6522,7 +6522,7 @@ pub mod vmware_engine {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_management_dns_zone_binding][super::super::client::VmwareEngine::update_management_dns_zone_binding].
+        /// on [update_management_dns_zone_binding][crate::client::VmwareEngine::update_management_dns_zone_binding].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_management_dns_zone_binding(self.0.request, self.0.options)
@@ -6627,7 +6627,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::delete_management_dns_zone_binding][super::super::client::VmwareEngine::delete_management_dns_zone_binding] calls.
+    /// The request builder for [VmwareEngine::delete_management_dns_zone_binding][crate::client::VmwareEngine::delete_management_dns_zone_binding] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6677,7 +6677,7 @@ pub mod vmware_engine {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_management_dns_zone_binding][super::super::client::VmwareEngine::delete_management_dns_zone_binding].
+        /// on [delete_management_dns_zone_binding][crate::client::VmwareEngine::delete_management_dns_zone_binding].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_management_dns_zone_binding(self.0.request, self.0.options)
@@ -6742,7 +6742,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::repair_management_dns_zone_binding][super::super::client::VmwareEngine::repair_management_dns_zone_binding] calls.
+    /// The request builder for [VmwareEngine::repair_management_dns_zone_binding][crate::client::VmwareEngine::repair_management_dns_zone_binding] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6792,7 +6792,7 @@ pub mod vmware_engine {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [repair_management_dns_zone_binding][super::super::client::VmwareEngine::repair_management_dns_zone_binding].
+        /// on [repair_management_dns_zone_binding][crate::client::VmwareEngine::repair_management_dns_zone_binding].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .repair_management_dns_zone_binding(self.0.request, self.0.options)
@@ -6858,7 +6858,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::create_vmware_engine_network][super::super::client::VmwareEngine::create_vmware_engine_network] calls.
+    /// The request builder for [VmwareEngine::create_vmware_engine_network][crate::client::VmwareEngine::create_vmware_engine_network] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6908,7 +6908,7 @@ pub mod vmware_engine {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_vmware_engine_network][super::super::client::VmwareEngine::create_vmware_engine_network].
+        /// on [create_vmware_engine_network][crate::client::VmwareEngine::create_vmware_engine_network].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_vmware_engine_network(self.0.request, self.0.options)
@@ -7004,7 +7004,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::update_vmware_engine_network][super::super::client::VmwareEngine::update_vmware_engine_network] calls.
+    /// The request builder for [VmwareEngine::update_vmware_engine_network][crate::client::VmwareEngine::update_vmware_engine_network] calls.
     ///
     /// # Example
     /// ```no_run
@@ -7054,7 +7054,7 @@ pub mod vmware_engine {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_vmware_engine_network][super::super::client::VmwareEngine::update_vmware_engine_network].
+        /// on [update_vmware_engine_network][crate::client::VmwareEngine::update_vmware_engine_network].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_vmware_engine_network(self.0.request, self.0.options)
@@ -7156,7 +7156,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::delete_vmware_engine_network][super::super::client::VmwareEngine::delete_vmware_engine_network] calls.
+    /// The request builder for [VmwareEngine::delete_vmware_engine_network][crate::client::VmwareEngine::delete_vmware_engine_network] calls.
     ///
     /// # Example
     /// ```no_run
@@ -7206,7 +7206,7 @@ pub mod vmware_engine {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_vmware_engine_network][super::super::client::VmwareEngine::delete_vmware_engine_network].
+        /// on [delete_vmware_engine_network][crate::client::VmwareEngine::delete_vmware_engine_network].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_vmware_engine_network(self.0.request, self.0.options)
@@ -7277,7 +7277,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::get_vmware_engine_network][super::super::client::VmwareEngine::get_vmware_engine_network] calls.
+    /// The request builder for [VmwareEngine::get_vmware_engine_network][crate::client::VmwareEngine::get_vmware_engine_network] calls.
     ///
     /// # Example
     /// ```no_run
@@ -7343,7 +7343,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::list_vmware_engine_networks][super::super::client::VmwareEngine::list_vmware_engine_networks] calls.
+    /// The request builder for [VmwareEngine::list_vmware_engine_networks][crate::client::VmwareEngine::list_vmware_engine_networks] calls.
     ///
     /// # Example
     /// ```no_run
@@ -7467,7 +7467,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::create_private_connection][super::super::client::VmwareEngine::create_private_connection] calls.
+    /// The request builder for [VmwareEngine::create_private_connection][crate::client::VmwareEngine::create_private_connection] calls.
     ///
     /// # Example
     /// ```no_run
@@ -7517,7 +7517,7 @@ pub mod vmware_engine {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_private_connection][super::super::client::VmwareEngine::create_private_connection].
+        /// on [create_private_connection][crate::client::VmwareEngine::create_private_connection].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_private_connection(self.0.request, self.0.options)
@@ -7613,7 +7613,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::get_private_connection][super::super::client::VmwareEngine::get_private_connection] calls.
+    /// The request builder for [VmwareEngine::get_private_connection][crate::client::VmwareEngine::get_private_connection] calls.
     ///
     /// # Example
     /// ```no_run
@@ -7679,7 +7679,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::list_private_connections][super::super::client::VmwareEngine::list_private_connections] calls.
+    /// The request builder for [VmwareEngine::list_private_connections][crate::client::VmwareEngine::list_private_connections] calls.
     ///
     /// # Example
     /// ```no_run
@@ -7801,7 +7801,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::update_private_connection][super::super::client::VmwareEngine::update_private_connection] calls.
+    /// The request builder for [VmwareEngine::update_private_connection][crate::client::VmwareEngine::update_private_connection] calls.
     ///
     /// # Example
     /// ```no_run
@@ -7851,7 +7851,7 @@ pub mod vmware_engine {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_private_connection][super::super::client::VmwareEngine::update_private_connection].
+        /// on [update_private_connection][crate::client::VmwareEngine::update_private_connection].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_private_connection(self.0.request, self.0.options)
@@ -7953,7 +7953,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::delete_private_connection][super::super::client::VmwareEngine::delete_private_connection] calls.
+    /// The request builder for [VmwareEngine::delete_private_connection][crate::client::VmwareEngine::delete_private_connection] calls.
     ///
     /// # Example
     /// ```no_run
@@ -8003,7 +8003,7 @@ pub mod vmware_engine {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_private_connection][super::super::client::VmwareEngine::delete_private_connection].
+        /// on [delete_private_connection][crate::client::VmwareEngine::delete_private_connection].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_private_connection(self.0.request, self.0.options)
@@ -8068,7 +8068,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::list_private_connection_peering_routes][super::super::client::VmwareEngine::list_private_connection_peering_routes] calls.
+    /// The request builder for [VmwareEngine::list_private_connection_peering_routes][crate::client::VmwareEngine::list_private_connection_peering_routes] calls.
     ///
     /// # Example
     /// ```no_run
@@ -8182,7 +8182,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::grant_dns_bind_permission][super::super::client::VmwareEngine::grant_dns_bind_permission] calls.
+    /// The request builder for [VmwareEngine::grant_dns_bind_permission][crate::client::VmwareEngine::grant_dns_bind_permission] calls.
     ///
     /// # Example
     /// ```no_run
@@ -8230,7 +8230,7 @@ pub mod vmware_engine {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [grant_dns_bind_permission][super::super::client::VmwareEngine::grant_dns_bind_permission].
+        /// on [grant_dns_bind_permission][crate::client::VmwareEngine::grant_dns_bind_permission].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .grant_dns_bind_permission(self.0.request, self.0.options)
@@ -8318,7 +8318,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::get_dns_bind_permission][super::super::client::VmwareEngine::get_dns_bind_permission] calls.
+    /// The request builder for [VmwareEngine::get_dns_bind_permission][crate::client::VmwareEngine::get_dns_bind_permission] calls.
     ///
     /// # Example
     /// ```no_run
@@ -8384,7 +8384,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::revoke_dns_bind_permission][super::super::client::VmwareEngine::revoke_dns_bind_permission] calls.
+    /// The request builder for [VmwareEngine::revoke_dns_bind_permission][crate::client::VmwareEngine::revoke_dns_bind_permission] calls.
     ///
     /// # Example
     /// ```no_run
@@ -8434,7 +8434,7 @@ pub mod vmware_engine {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [revoke_dns_bind_permission][super::super::client::VmwareEngine::revoke_dns_bind_permission].
+        /// on [revoke_dns_bind_permission][crate::client::VmwareEngine::revoke_dns_bind_permission].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .revoke_dns_bind_permission(self.0.request, self.0.options)
@@ -8522,7 +8522,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::list_locations][super::super::client::VmwareEngine::list_locations] calls.
+    /// The request builder for [VmwareEngine::list_locations][crate::client::VmwareEngine::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -8632,7 +8632,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::get_location][super::super::client::VmwareEngine::get_location] calls.
+    /// The request builder for [VmwareEngine::get_location][crate::client::VmwareEngine::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -8693,7 +8693,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::set_iam_policy][super::super::client::VmwareEngine::set_iam_policy] calls.
+    /// The request builder for [VmwareEngine::set_iam_policy][crate::client::VmwareEngine::set_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -8796,7 +8796,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::get_iam_policy][super::super::client::VmwareEngine::get_iam_policy] calls.
+    /// The request builder for [VmwareEngine::get_iam_policy][crate::client::VmwareEngine::get_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -8877,7 +8877,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::test_iam_permissions][super::super::client::VmwareEngine::test_iam_permissions] calls.
+    /// The request builder for [VmwareEngine::test_iam_permissions][crate::client::VmwareEngine::test_iam_permissions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -8956,7 +8956,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::list_operations][super::super::client::VmwareEngine::list_operations] calls.
+    /// The request builder for [VmwareEngine::list_operations][crate::client::VmwareEngine::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -9068,7 +9068,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::get_operation][super::super::client::VmwareEngine::get_operation] calls.
+    /// The request builder for [VmwareEngine::get_operation][crate::client::VmwareEngine::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -9132,7 +9132,7 @@ pub mod vmware_engine {
         }
     }
 
-    /// The request builder for [VmwareEngine::delete_operation][super::super::client::VmwareEngine::delete_operation] calls.
+    /// The request builder for [VmwareEngine::delete_operation][crate::client::VmwareEngine::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run

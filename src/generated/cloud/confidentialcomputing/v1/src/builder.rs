@@ -17,7 +17,7 @@
 pub mod confidential_computing {
     use crate::Result;
 
-    /// A builder for [ConfidentialComputing][super::super::client::ConfidentialComputing].
+    /// A builder for [ConfidentialComputing][crate::client::ConfidentialComputing].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod confidential_computing {
         }
     }
 
-    /// Common implementation for [super::super::client::ConfidentialComputing] request builders.
+    /// Common implementation for [crate::client::ConfidentialComputing] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::ConfidentialComputing>,
@@ -68,7 +68,7 @@ pub mod confidential_computing {
         }
     }
 
-    /// The request builder for [ConfidentialComputing::create_challenge][super::super::client::ConfidentialComputing::create_challenge] calls.
+    /// The request builder for [ConfidentialComputing::create_challenge][crate::client::ConfidentialComputing::create_challenge] calls.
     ///
     /// # Example
     /// ```no_run
@@ -153,7 +153,7 @@ pub mod confidential_computing {
         }
     }
 
-    /// The request builder for [ConfidentialComputing::verify_attestation][super::super::client::ConfidentialComputing::verify_attestation] calls.
+    /// The request builder for [ConfidentialComputing::verify_attestation][crate::client::ConfidentialComputing::verify_attestation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -345,7 +345,7 @@ pub mod confidential_computing {
         }
     }
 
-    /// The request builder for [ConfidentialComputing::list_locations][super::super::client::ConfidentialComputing::list_locations] calls.
+    /// The request builder for [ConfidentialComputing::list_locations][crate::client::ConfidentialComputing::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -455,7 +455,7 @@ pub mod confidential_computing {
         }
     }
 
-    /// The request builder for [ConfidentialComputing::get_location][super::super::client::ConfidentialComputing::get_location] calls.
+    /// The request builder for [ConfidentialComputing::get_location][crate::client::ConfidentialComputing::get_location] calls.
     ///
     /// # Example
     /// ```no_run

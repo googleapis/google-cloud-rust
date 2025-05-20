@@ -17,7 +17,7 @@
 pub mod telco_automation {
     use crate::Result;
 
-    /// A builder for [TelcoAutomation][super::super::client::TelcoAutomation].
+    /// A builder for [TelcoAutomation][crate::client::TelcoAutomation].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod telco_automation {
         }
     }
 
-    /// Common implementation for [super::super::client::TelcoAutomation] request builders.
+    /// Common implementation for [crate::client::TelcoAutomation] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
@@ -68,7 +68,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::list_orchestration_clusters][super::super::client::TelcoAutomation::list_orchestration_clusters] calls.
+    /// The request builder for [TelcoAutomation::list_orchestration_clusters][crate::client::TelcoAutomation::list_orchestration_clusters] calls.
     ///
     /// # Example
     /// ```no_run
@@ -192,7 +192,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::get_orchestration_cluster][super::super::client::TelcoAutomation::get_orchestration_cluster] calls.
+    /// The request builder for [TelcoAutomation::get_orchestration_cluster][crate::client::TelcoAutomation::get_orchestration_cluster] calls.
     ///
     /// # Example
     /// ```no_run
@@ -260,7 +260,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::create_orchestration_cluster][super::super::client::TelcoAutomation::create_orchestration_cluster] calls.
+    /// The request builder for [TelcoAutomation::create_orchestration_cluster][crate::client::TelcoAutomation::create_orchestration_cluster] calls.
     ///
     /// # Example
     /// ```no_run
@@ -310,7 +310,7 @@ pub mod telco_automation {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_orchestration_cluster][super::super::client::TelcoAutomation::create_orchestration_cluster].
+        /// on [create_orchestration_cluster][crate::client::TelcoAutomation::create_orchestration_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_orchestration_cluster(self.0.request, self.0.options)
@@ -406,7 +406,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::delete_orchestration_cluster][super::super::client::TelcoAutomation::delete_orchestration_cluster] calls.
+    /// The request builder for [TelcoAutomation::delete_orchestration_cluster][crate::client::TelcoAutomation::delete_orchestration_cluster] calls.
     ///
     /// # Example
     /// ```no_run
@@ -456,7 +456,7 @@ pub mod telco_automation {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_orchestration_cluster][super::super::client::TelcoAutomation::delete_orchestration_cluster].
+        /// on [delete_orchestration_cluster][crate::client::TelcoAutomation::delete_orchestration_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_orchestration_cluster(self.0.request, self.0.options)
@@ -521,7 +521,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::list_edge_slms][super::super::client::TelcoAutomation::list_edge_slms] calls.
+    /// The request builder for [TelcoAutomation::list_edge_slms][crate::client::TelcoAutomation::list_edge_slms] calls.
     ///
     /// # Example
     /// ```no_run
@@ -636,7 +636,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::get_edge_slm][super::super::client::TelcoAutomation::get_edge_slm] calls.
+    /// The request builder for [TelcoAutomation::get_edge_slm][crate::client::TelcoAutomation::get_edge_slm] calls.
     ///
     /// # Example
     /// ```no_run
@@ -699,7 +699,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::create_edge_slm][super::super::client::TelcoAutomation::create_edge_slm] calls.
+    /// The request builder for [TelcoAutomation::create_edge_slm][crate::client::TelcoAutomation::create_edge_slm] calls.
     ///
     /// # Example
     /// ```no_run
@@ -744,7 +744,7 @@ pub mod telco_automation {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_edge_slm][super::super::client::TelcoAutomation::create_edge_slm].
+        /// on [create_edge_slm][crate::client::TelcoAutomation::create_edge_slm].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_edge_slm(self.0.request, self.0.options)
@@ -837,7 +837,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::delete_edge_slm][super::super::client::TelcoAutomation::delete_edge_slm] calls.
+    /// The request builder for [TelcoAutomation::delete_edge_slm][crate::client::TelcoAutomation::delete_edge_slm] calls.
     ///
     /// # Example
     /// ```no_run
@@ -882,7 +882,7 @@ pub mod telco_automation {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_edge_slm][super::super::client::TelcoAutomation::delete_edge_slm].
+        /// on [delete_edge_slm][crate::client::TelcoAutomation::delete_edge_slm].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_edge_slm(self.0.request, self.0.options)
@@ -947,7 +947,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::create_blueprint][super::super::client::TelcoAutomation::create_blueprint] calls.
+    /// The request builder for [TelcoAutomation::create_blueprint][crate::client::TelcoAutomation::create_blueprint] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1038,7 +1038,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::update_blueprint][super::super::client::TelcoAutomation::update_blueprint] calls.
+    /// The request builder for [TelcoAutomation::update_blueprint][crate::client::TelcoAutomation::update_blueprint] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1137,7 +1137,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::get_blueprint][super::super::client::TelcoAutomation::get_blueprint] calls.
+    /// The request builder for [TelcoAutomation::get_blueprint][crate::client::TelcoAutomation::get_blueprint] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1206,7 +1206,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::delete_blueprint][super::super::client::TelcoAutomation::delete_blueprint] calls.
+    /// The request builder for [TelcoAutomation::delete_blueprint][crate::client::TelcoAutomation::delete_blueprint] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1269,7 +1269,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::list_blueprints][super::super::client::TelcoAutomation::list_blueprints] calls.
+    /// The request builder for [TelcoAutomation::list_blueprints][crate::client::TelcoAutomation::list_blueprints] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1378,7 +1378,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::approve_blueprint][super::super::client::TelcoAutomation::approve_blueprint] calls.
+    /// The request builder for [TelcoAutomation::approve_blueprint][crate::client::TelcoAutomation::approve_blueprint] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1444,7 +1444,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::propose_blueprint][super::super::client::TelcoAutomation::propose_blueprint] calls.
+    /// The request builder for [TelcoAutomation::propose_blueprint][crate::client::TelcoAutomation::propose_blueprint] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1510,7 +1510,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::reject_blueprint][super::super::client::TelcoAutomation::reject_blueprint] calls.
+    /// The request builder for [TelcoAutomation::reject_blueprint][crate::client::TelcoAutomation::reject_blueprint] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1573,7 +1573,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::list_blueprint_revisions][super::super::client::TelcoAutomation::list_blueprint_revisions] calls.
+    /// The request builder for [TelcoAutomation::list_blueprint_revisions][crate::client::TelcoAutomation::list_blueprint_revisions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1683,7 +1683,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::search_blueprint_revisions][super::super::client::TelcoAutomation::search_blueprint_revisions] calls.
+    /// The request builder for [TelcoAutomation::search_blueprint_revisions][crate::client::TelcoAutomation::search_blueprint_revisions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1803,7 +1803,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::search_deployment_revisions][super::super::client::TelcoAutomation::search_deployment_revisions] calls.
+    /// The request builder for [TelcoAutomation::search_deployment_revisions][crate::client::TelcoAutomation::search_deployment_revisions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1923,7 +1923,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::discard_blueprint_changes][super::super::client::TelcoAutomation::discard_blueprint_changes] calls.
+    /// The request builder for [TelcoAutomation::discard_blueprint_changes][crate::client::TelcoAutomation::discard_blueprint_changes] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1991,7 +1991,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::list_public_blueprints][super::super::client::TelcoAutomation::list_public_blueprints] calls.
+    /// The request builder for [TelcoAutomation::list_public_blueprints][crate::client::TelcoAutomation::list_public_blueprints] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2099,7 +2099,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::get_public_blueprint][super::super::client::TelcoAutomation::get_public_blueprint] calls.
+    /// The request builder for [TelcoAutomation::get_public_blueprint][crate::client::TelcoAutomation::get_public_blueprint] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2165,7 +2165,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::create_deployment][super::super::client::TelcoAutomation::create_deployment] calls.
+    /// The request builder for [TelcoAutomation::create_deployment][crate::client::TelcoAutomation::create_deployment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2259,7 +2259,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::update_deployment][super::super::client::TelcoAutomation::update_deployment] calls.
+    /// The request builder for [TelcoAutomation::update_deployment][crate::client::TelcoAutomation::update_deployment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2361,7 +2361,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::get_deployment][super::super::client::TelcoAutomation::get_deployment] calls.
+    /// The request builder for [TelcoAutomation::get_deployment][crate::client::TelcoAutomation::get_deployment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2430,7 +2430,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::remove_deployment][super::super::client::TelcoAutomation::remove_deployment] calls.
+    /// The request builder for [TelcoAutomation::remove_deployment][crate::client::TelcoAutomation::remove_deployment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2496,7 +2496,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::list_deployments][super::super::client::TelcoAutomation::list_deployments] calls.
+    /// The request builder for [TelcoAutomation::list_deployments][crate::client::TelcoAutomation::list_deployments] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2605,7 +2605,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::list_deployment_revisions][super::super::client::TelcoAutomation::list_deployment_revisions] calls.
+    /// The request builder for [TelcoAutomation::list_deployment_revisions][crate::client::TelcoAutomation::list_deployment_revisions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2717,7 +2717,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::discard_deployment_changes][super::super::client::TelcoAutomation::discard_deployment_changes] calls.
+    /// The request builder for [TelcoAutomation::discard_deployment_changes][crate::client::TelcoAutomation::discard_deployment_changes] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2785,7 +2785,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::apply_deployment][super::super::client::TelcoAutomation::apply_deployment] calls.
+    /// The request builder for [TelcoAutomation::apply_deployment][crate::client::TelcoAutomation::apply_deployment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2848,7 +2848,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::compute_deployment_status][super::super::client::TelcoAutomation::compute_deployment_status] calls.
+    /// The request builder for [TelcoAutomation::compute_deployment_status][crate::client::TelcoAutomation::compute_deployment_status] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2916,7 +2916,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::rollback_deployment][super::super::client::TelcoAutomation::rollback_deployment] calls.
+    /// The request builder for [TelcoAutomation::rollback_deployment][crate::client::TelcoAutomation::rollback_deployment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2990,7 +2990,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::get_hydrated_deployment][super::super::client::TelcoAutomation::get_hydrated_deployment] calls.
+    /// The request builder for [TelcoAutomation::get_hydrated_deployment][crate::client::TelcoAutomation::get_hydrated_deployment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3056,7 +3056,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::list_hydrated_deployments][super::super::client::TelcoAutomation::list_hydrated_deployments] calls.
+    /// The request builder for [TelcoAutomation::list_hydrated_deployments][crate::client::TelcoAutomation::list_hydrated_deployments] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3168,7 +3168,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::update_hydrated_deployment][super::super::client::TelcoAutomation::update_hydrated_deployment] calls.
+    /// The request builder for [TelcoAutomation::update_hydrated_deployment][crate::client::TelcoAutomation::update_hydrated_deployment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3272,7 +3272,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::apply_hydrated_deployment][super::super::client::TelcoAutomation::apply_hydrated_deployment] calls.
+    /// The request builder for [TelcoAutomation::apply_hydrated_deployment][crate::client::TelcoAutomation::apply_hydrated_deployment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3340,7 +3340,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::list_locations][super::super::client::TelcoAutomation::list_locations] calls.
+    /// The request builder for [TelcoAutomation::list_locations][crate::client::TelcoAutomation::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3450,7 +3450,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::get_location][super::super::client::TelcoAutomation::get_location] calls.
+    /// The request builder for [TelcoAutomation::get_location][crate::client::TelcoAutomation::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3511,7 +3511,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::list_operations][super::super::client::TelcoAutomation::list_operations] calls.
+    /// The request builder for [TelcoAutomation::list_operations][crate::client::TelcoAutomation::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3623,7 +3623,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::get_operation][super::super::client::TelcoAutomation::get_operation] calls.
+    /// The request builder for [TelcoAutomation::get_operation][crate::client::TelcoAutomation::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3687,7 +3687,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::delete_operation][super::super::client::TelcoAutomation::delete_operation] calls.
+    /// The request builder for [TelcoAutomation::delete_operation][crate::client::TelcoAutomation::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3751,7 +3751,7 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::cancel_operation][super::super::client::TelcoAutomation::cancel_operation] calls.
+    /// The request builder for [TelcoAutomation::cancel_operation][crate::client::TelcoAutomation::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run

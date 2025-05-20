@@ -17,7 +17,7 @@
 pub mod app_connections_service {
     use crate::Result;
 
-    /// A builder for [AppConnectionsService][super::super::client::AppConnectionsService].
+    /// A builder for [AppConnectionsService][crate::client::AppConnectionsService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod app_connections_service {
         }
     }
 
-    /// Common implementation for [super::super::client::AppConnectionsService] request builders.
+    /// Common implementation for [crate::client::AppConnectionsService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::AppConnectionsService>,
@@ -68,7 +68,7 @@ pub mod app_connections_service {
         }
     }
 
-    /// The request builder for [AppConnectionsService::list_app_connections][super::super::client::AppConnectionsService::list_app_connections] calls.
+    /// The request builder for [AppConnectionsService::list_app_connections][crate::client::AppConnectionsService::list_app_connections] calls.
     ///
     /// # Example
     /// ```no_run
@@ -188,7 +188,7 @@ pub mod app_connections_service {
         }
     }
 
-    /// The request builder for [AppConnectionsService::get_app_connection][super::super::client::AppConnectionsService::get_app_connection] calls.
+    /// The request builder for [AppConnectionsService::get_app_connection][crate::client::AppConnectionsService::get_app_connection] calls.
     ///
     /// # Example
     /// ```no_run
@@ -254,7 +254,7 @@ pub mod app_connections_service {
         }
     }
 
-    /// The request builder for [AppConnectionsService::create_app_connection][super::super::client::AppConnectionsService::create_app_connection] calls.
+    /// The request builder for [AppConnectionsService::create_app_connection][crate::client::AppConnectionsService::create_app_connection] calls.
     ///
     /// # Example
     /// ```no_run
@@ -302,7 +302,7 @@ pub mod app_connections_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_app_connection][super::super::client::AppConnectionsService::create_app_connection].
+        /// on [create_app_connection][crate::client::AppConnectionsService::create_app_connection].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_app_connection(self.0.request, self.0.options)
@@ -402,7 +402,7 @@ pub mod app_connections_service {
         }
     }
 
-    /// The request builder for [AppConnectionsService::update_app_connection][super::super::client::AppConnectionsService::update_app_connection] calls.
+    /// The request builder for [AppConnectionsService::update_app_connection][crate::client::AppConnectionsService::update_app_connection] calls.
     ///
     /// # Example
     /// ```no_run
@@ -450,7 +450,7 @@ pub mod app_connections_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_app_connection][super::super::client::AppConnectionsService::update_app_connection].
+        /// on [update_app_connection][crate::client::AppConnectionsService::update_app_connection].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_app_connection(self.0.request, self.0.options)
@@ -564,7 +564,7 @@ pub mod app_connections_service {
         }
     }
 
-    /// The request builder for [AppConnectionsService::delete_app_connection][super::super::client::AppConnectionsService::delete_app_connection] calls.
+    /// The request builder for [AppConnectionsService::delete_app_connection][crate::client::AppConnectionsService::delete_app_connection] calls.
     ///
     /// # Example
     /// ```no_run
@@ -612,7 +612,7 @@ pub mod app_connections_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_app_connection][super::super::client::AppConnectionsService::delete_app_connection].
+        /// on [delete_app_connection][crate::client::AppConnectionsService::delete_app_connection].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_app_connection(self.0.request, self.0.options)
@@ -684,7 +684,7 @@ pub mod app_connections_service {
         }
     }
 
-    /// The request builder for [AppConnectionsService::resolve_app_connections][super::super::client::AppConnectionsService::resolve_app_connections] calls.
+    /// The request builder for [AppConnectionsService::resolve_app_connections][crate::client::AppConnectionsService::resolve_app_connections] calls.
     ///
     /// # Example
     /// ```no_run
@@ -800,7 +800,7 @@ pub mod app_connections_service {
         }
     }
 
-    /// The request builder for [AppConnectionsService::list_locations][super::super::client::AppConnectionsService::list_locations] calls.
+    /// The request builder for [AppConnectionsService::list_locations][crate::client::AppConnectionsService::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -910,7 +910,7 @@ pub mod app_connections_service {
         }
     }
 
-    /// The request builder for [AppConnectionsService::get_location][super::super::client::AppConnectionsService::get_location] calls.
+    /// The request builder for [AppConnectionsService::get_location][crate::client::AppConnectionsService::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -971,7 +971,7 @@ pub mod app_connections_service {
         }
     }
 
-    /// The request builder for [AppConnectionsService::set_iam_policy][super::super::client::AppConnectionsService::set_iam_policy] calls.
+    /// The request builder for [AppConnectionsService::set_iam_policy][crate::client::AppConnectionsService::set_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1074,7 +1074,7 @@ pub mod app_connections_service {
         }
     }
 
-    /// The request builder for [AppConnectionsService::get_iam_policy][super::super::client::AppConnectionsService::get_iam_policy] calls.
+    /// The request builder for [AppConnectionsService::get_iam_policy][crate::client::AppConnectionsService::get_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1155,7 +1155,7 @@ pub mod app_connections_service {
         }
     }
 
-    /// The request builder for [AppConnectionsService::test_iam_permissions][super::super::client::AppConnectionsService::test_iam_permissions] calls.
+    /// The request builder for [AppConnectionsService::test_iam_permissions][crate::client::AppConnectionsService::test_iam_permissions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1234,7 +1234,7 @@ pub mod app_connections_service {
         }
     }
 
-    /// The request builder for [AppConnectionsService::list_operations][super::super::client::AppConnectionsService::list_operations] calls.
+    /// The request builder for [AppConnectionsService::list_operations][crate::client::AppConnectionsService::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1346,7 +1346,7 @@ pub mod app_connections_service {
         }
     }
 
-    /// The request builder for [AppConnectionsService::get_operation][super::super::client::AppConnectionsService::get_operation] calls.
+    /// The request builder for [AppConnectionsService::get_operation][crate::client::AppConnectionsService::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1410,7 +1410,7 @@ pub mod app_connections_service {
         }
     }
 
-    /// The request builder for [AppConnectionsService::delete_operation][super::super::client::AppConnectionsService::delete_operation] calls.
+    /// The request builder for [AppConnectionsService::delete_operation][crate::client::AppConnectionsService::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1474,7 +1474,7 @@ pub mod app_connections_service {
         }
     }
 
-    /// The request builder for [AppConnectionsService::cancel_operation][super::super::client::AppConnectionsService::cancel_operation] calls.
+    /// The request builder for [AppConnectionsService::cancel_operation][crate::client::AppConnectionsService::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run

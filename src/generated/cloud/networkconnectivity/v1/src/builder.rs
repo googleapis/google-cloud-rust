@@ -17,7 +17,7 @@
 pub mod cross_network_automation_service {
     use crate::Result;
 
-    /// A builder for [CrossNetworkAutomationService][super::super::client::CrossNetworkAutomationService].
+    /// A builder for [CrossNetworkAutomationService][crate::client::CrossNetworkAutomationService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod cross_network_automation_service {
         }
     }
 
-    /// Common implementation for [super::super::client::CrossNetworkAutomationService] request builders.
+    /// Common implementation for [crate::client::CrossNetworkAutomationService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::CrossNetworkAutomationService>,
@@ -68,7 +68,7 @@ pub mod cross_network_automation_service {
         }
     }
 
-    /// The request builder for [CrossNetworkAutomationService::list_service_connection_maps][super::super::client::CrossNetworkAutomationService::list_service_connection_maps] calls.
+    /// The request builder for [CrossNetworkAutomationService::list_service_connection_maps][crate::client::CrossNetworkAutomationService::list_service_connection_maps] calls.
     ///
     /// # Example
     /// ```no_run
@@ -192,7 +192,7 @@ pub mod cross_network_automation_service {
         }
     }
 
-    /// The request builder for [CrossNetworkAutomationService::get_service_connection_map][super::super::client::CrossNetworkAutomationService::get_service_connection_map] calls.
+    /// The request builder for [CrossNetworkAutomationService::get_service_connection_map][crate::client::CrossNetworkAutomationService::get_service_connection_map] calls.
     ///
     /// # Example
     /// ```no_run
@@ -260,7 +260,7 @@ pub mod cross_network_automation_service {
         }
     }
 
-    /// The request builder for [CrossNetworkAutomationService::create_service_connection_map][super::super::client::CrossNetworkAutomationService::create_service_connection_map] calls.
+    /// The request builder for [CrossNetworkAutomationService::create_service_connection_map][crate::client::CrossNetworkAutomationService::create_service_connection_map] calls.
     ///
     /// # Example
     /// ```no_run
@@ -310,7 +310,7 @@ pub mod cross_network_automation_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_service_connection_map][super::super::client::CrossNetworkAutomationService::create_service_connection_map].
+        /// on [create_service_connection_map][crate::client::CrossNetworkAutomationService::create_service_connection_map].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_service_connection_map(self.0.request, self.0.options)
@@ -404,7 +404,7 @@ pub mod cross_network_automation_service {
         }
     }
 
-    /// The request builder for [CrossNetworkAutomationService::update_service_connection_map][super::super::client::CrossNetworkAutomationService::update_service_connection_map] calls.
+    /// The request builder for [CrossNetworkAutomationService::update_service_connection_map][crate::client::CrossNetworkAutomationService::update_service_connection_map] calls.
     ///
     /// # Example
     /// ```no_run
@@ -454,7 +454,7 @@ pub mod cross_network_automation_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_service_connection_map][super::super::client::CrossNetworkAutomationService::update_service_connection_map].
+        /// on [update_service_connection_map][crate::client::CrossNetworkAutomationService::update_service_connection_map].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_service_connection_map(self.0.request, self.0.options)
@@ -552,7 +552,7 @@ pub mod cross_network_automation_service {
         }
     }
 
-    /// The request builder for [CrossNetworkAutomationService::delete_service_connection_map][super::super::client::CrossNetworkAutomationService::delete_service_connection_map] calls.
+    /// The request builder for [CrossNetworkAutomationService::delete_service_connection_map][crate::client::CrossNetworkAutomationService::delete_service_connection_map] calls.
     ///
     /// # Example
     /// ```no_run
@@ -602,7 +602,7 @@ pub mod cross_network_automation_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_service_connection_map][super::super::client::CrossNetworkAutomationService::delete_service_connection_map].
+        /// on [delete_service_connection_map][crate::client::CrossNetworkAutomationService::delete_service_connection_map].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_service_connection_map(self.0.request, self.0.options)
@@ -685,7 +685,7 @@ pub mod cross_network_automation_service {
         }
     }
 
-    /// The request builder for [CrossNetworkAutomationService::list_service_connection_policies][super::super::client::CrossNetworkAutomationService::list_service_connection_policies] calls.
+    /// The request builder for [CrossNetworkAutomationService::list_service_connection_policies][crate::client::CrossNetworkAutomationService::list_service_connection_policies] calls.
     ///
     /// # Example
     /// ```no_run
@@ -809,7 +809,7 @@ pub mod cross_network_automation_service {
         }
     }
 
-    /// The request builder for [CrossNetworkAutomationService::get_service_connection_policy][super::super::client::CrossNetworkAutomationService::get_service_connection_policy] calls.
+    /// The request builder for [CrossNetworkAutomationService::get_service_connection_policy][crate::client::CrossNetworkAutomationService::get_service_connection_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -877,7 +877,7 @@ pub mod cross_network_automation_service {
         }
     }
 
-    /// The request builder for [CrossNetworkAutomationService::create_service_connection_policy][super::super::client::CrossNetworkAutomationService::create_service_connection_policy] calls.
+    /// The request builder for [CrossNetworkAutomationService::create_service_connection_policy][crate::client::CrossNetworkAutomationService::create_service_connection_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -927,7 +927,7 @@ pub mod cross_network_automation_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_service_connection_policy][super::super::client::CrossNetworkAutomationService::create_service_connection_policy].
+        /// on [create_service_connection_policy][crate::client::CrossNetworkAutomationService::create_service_connection_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_service_connection_policy(self.0.request, self.0.options)
@@ -1027,7 +1027,7 @@ pub mod cross_network_automation_service {
         }
     }
 
-    /// The request builder for [CrossNetworkAutomationService::update_service_connection_policy][super::super::client::CrossNetworkAutomationService::update_service_connection_policy] calls.
+    /// The request builder for [CrossNetworkAutomationService::update_service_connection_policy][crate::client::CrossNetworkAutomationService::update_service_connection_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1077,7 +1077,7 @@ pub mod cross_network_automation_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_service_connection_policy][super::super::client::CrossNetworkAutomationService::update_service_connection_policy].
+        /// on [update_service_connection_policy][crate::client::CrossNetworkAutomationService::update_service_connection_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_service_connection_policy(self.0.request, self.0.options)
@@ -1178,7 +1178,7 @@ pub mod cross_network_automation_service {
         }
     }
 
-    /// The request builder for [CrossNetworkAutomationService::delete_service_connection_policy][super::super::client::CrossNetworkAutomationService::delete_service_connection_policy] calls.
+    /// The request builder for [CrossNetworkAutomationService::delete_service_connection_policy][crate::client::CrossNetworkAutomationService::delete_service_connection_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1228,7 +1228,7 @@ pub mod cross_network_automation_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_service_connection_policy][super::super::client::CrossNetworkAutomationService::delete_service_connection_policy].
+        /// on [delete_service_connection_policy][crate::client::CrossNetworkAutomationService::delete_service_connection_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_service_connection_policy(self.0.request, self.0.options)
@@ -1311,7 +1311,7 @@ pub mod cross_network_automation_service {
         }
     }
 
-    /// The request builder for [CrossNetworkAutomationService::list_service_classes][super::super::client::CrossNetworkAutomationService::list_service_classes] calls.
+    /// The request builder for [CrossNetworkAutomationService::list_service_classes][crate::client::CrossNetworkAutomationService::list_service_classes] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1431,7 +1431,7 @@ pub mod cross_network_automation_service {
         }
     }
 
-    /// The request builder for [CrossNetworkAutomationService::get_service_class][super::super::client::CrossNetworkAutomationService::get_service_class] calls.
+    /// The request builder for [CrossNetworkAutomationService::get_service_class][crate::client::CrossNetworkAutomationService::get_service_class] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1494,7 +1494,7 @@ pub mod cross_network_automation_service {
         }
     }
 
-    /// The request builder for [CrossNetworkAutomationService::update_service_class][super::super::client::CrossNetworkAutomationService::update_service_class] calls.
+    /// The request builder for [CrossNetworkAutomationService::update_service_class][crate::client::CrossNetworkAutomationService::update_service_class] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1542,7 +1542,7 @@ pub mod cross_network_automation_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_service_class][super::super::client::CrossNetworkAutomationService::update_service_class].
+        /// on [update_service_class][crate::client::CrossNetworkAutomationService::update_service_class].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_service_class(self.0.request, self.0.options)
@@ -1639,7 +1639,7 @@ pub mod cross_network_automation_service {
         }
     }
 
-    /// The request builder for [CrossNetworkAutomationService::delete_service_class][super::super::client::CrossNetworkAutomationService::delete_service_class] calls.
+    /// The request builder for [CrossNetworkAutomationService::delete_service_class][crate::client::CrossNetworkAutomationService::delete_service_class] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1687,7 +1687,7 @@ pub mod cross_network_automation_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_service_class][super::super::client::CrossNetworkAutomationService::delete_service_class].
+        /// on [delete_service_class][crate::client::CrossNetworkAutomationService::delete_service_class].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_service_class(self.0.request, self.0.options)
@@ -1770,7 +1770,7 @@ pub mod cross_network_automation_service {
         }
     }
 
-    /// The request builder for [CrossNetworkAutomationService::get_service_connection_token][super::super::client::CrossNetworkAutomationService::get_service_connection_token] calls.
+    /// The request builder for [CrossNetworkAutomationService::get_service_connection_token][crate::client::CrossNetworkAutomationService::get_service_connection_token] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1838,7 +1838,7 @@ pub mod cross_network_automation_service {
         }
     }
 
-    /// The request builder for [CrossNetworkAutomationService::list_service_connection_tokens][super::super::client::CrossNetworkAutomationService::list_service_connection_tokens] calls.
+    /// The request builder for [CrossNetworkAutomationService::list_service_connection_tokens][crate::client::CrossNetworkAutomationService::list_service_connection_tokens] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1962,7 +1962,7 @@ pub mod cross_network_automation_service {
         }
     }
 
-    /// The request builder for [CrossNetworkAutomationService::create_service_connection_token][super::super::client::CrossNetworkAutomationService::create_service_connection_token] calls.
+    /// The request builder for [CrossNetworkAutomationService::create_service_connection_token][crate::client::CrossNetworkAutomationService::create_service_connection_token] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2012,7 +2012,7 @@ pub mod cross_network_automation_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_service_connection_token][super::super::client::CrossNetworkAutomationService::create_service_connection_token].
+        /// on [create_service_connection_token][crate::client::CrossNetworkAutomationService::create_service_connection_token].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_service_connection_token(self.0.request, self.0.options)
@@ -2109,7 +2109,7 @@ pub mod cross_network_automation_service {
         }
     }
 
-    /// The request builder for [CrossNetworkAutomationService::delete_service_connection_token][super::super::client::CrossNetworkAutomationService::delete_service_connection_token] calls.
+    /// The request builder for [CrossNetworkAutomationService::delete_service_connection_token][crate::client::CrossNetworkAutomationService::delete_service_connection_token] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2159,7 +2159,7 @@ pub mod cross_network_automation_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_service_connection_token][super::super::client::CrossNetworkAutomationService::delete_service_connection_token].
+        /// on [delete_service_connection_token][crate::client::CrossNetworkAutomationService::delete_service_connection_token].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_service_connection_token(self.0.request, self.0.options)
@@ -2242,7 +2242,7 @@ pub mod cross_network_automation_service {
         }
     }
 
-    /// The request builder for [CrossNetworkAutomationService::list_locations][super::super::client::CrossNetworkAutomationService::list_locations] calls.
+    /// The request builder for [CrossNetworkAutomationService::list_locations][crate::client::CrossNetworkAutomationService::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2352,7 +2352,7 @@ pub mod cross_network_automation_service {
         }
     }
 
-    /// The request builder for [CrossNetworkAutomationService::get_location][super::super::client::CrossNetworkAutomationService::get_location] calls.
+    /// The request builder for [CrossNetworkAutomationService::get_location][crate::client::CrossNetworkAutomationService::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2413,7 +2413,7 @@ pub mod cross_network_automation_service {
         }
     }
 
-    /// The request builder for [CrossNetworkAutomationService::set_iam_policy][super::super::client::CrossNetworkAutomationService::set_iam_policy] calls.
+    /// The request builder for [CrossNetworkAutomationService::set_iam_policy][crate::client::CrossNetworkAutomationService::set_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2516,7 +2516,7 @@ pub mod cross_network_automation_service {
         }
     }
 
-    /// The request builder for [CrossNetworkAutomationService::get_iam_policy][super::super::client::CrossNetworkAutomationService::get_iam_policy] calls.
+    /// The request builder for [CrossNetworkAutomationService::get_iam_policy][crate::client::CrossNetworkAutomationService::get_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2597,7 +2597,7 @@ pub mod cross_network_automation_service {
         }
     }
 
-    /// The request builder for [CrossNetworkAutomationService::test_iam_permissions][super::super::client::CrossNetworkAutomationService::test_iam_permissions] calls.
+    /// The request builder for [CrossNetworkAutomationService::test_iam_permissions][crate::client::CrossNetworkAutomationService::test_iam_permissions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2676,7 +2676,7 @@ pub mod cross_network_automation_service {
         }
     }
 
-    /// The request builder for [CrossNetworkAutomationService::list_operations][super::super::client::CrossNetworkAutomationService::list_operations] calls.
+    /// The request builder for [CrossNetworkAutomationService::list_operations][crate::client::CrossNetworkAutomationService::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2788,7 +2788,7 @@ pub mod cross_network_automation_service {
         }
     }
 
-    /// The request builder for [CrossNetworkAutomationService::get_operation][super::super::client::CrossNetworkAutomationService::get_operation] calls.
+    /// The request builder for [CrossNetworkAutomationService::get_operation][crate::client::CrossNetworkAutomationService::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2852,7 +2852,7 @@ pub mod cross_network_automation_service {
         }
     }
 
-    /// The request builder for [CrossNetworkAutomationService::delete_operation][super::super::client::CrossNetworkAutomationService::delete_operation] calls.
+    /// The request builder for [CrossNetworkAutomationService::delete_operation][crate::client::CrossNetworkAutomationService::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2916,7 +2916,7 @@ pub mod cross_network_automation_service {
         }
     }
 
-    /// The request builder for [CrossNetworkAutomationService::cancel_operation][super::super::client::CrossNetworkAutomationService::cancel_operation] calls.
+    /// The request builder for [CrossNetworkAutomationService::cancel_operation][crate::client::CrossNetworkAutomationService::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2984,7 +2984,7 @@ pub mod cross_network_automation_service {
 pub mod hub_service {
     use crate::Result;
 
-    /// A builder for [HubService][super::super::client::HubService].
+    /// A builder for [HubService][crate::client::HubService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -3012,7 +3012,7 @@ pub mod hub_service {
         }
     }
 
-    /// Common implementation for [super::super::client::HubService] request builders.
+    /// Common implementation for [crate::client::HubService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::HubService>,
@@ -3035,7 +3035,7 @@ pub mod hub_service {
         }
     }
 
-    /// The request builder for [HubService::list_hubs][super::super::client::HubService::list_hubs] calls.
+    /// The request builder for [HubService::list_hubs][crate::client::HubService::list_hubs] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3150,7 +3150,7 @@ pub mod hub_service {
         }
     }
 
-    /// The request builder for [HubService::get_hub][super::super::client::HubService::get_hub] calls.
+    /// The request builder for [HubService::get_hub][crate::client::HubService::get_hub] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3213,7 +3213,7 @@ pub mod hub_service {
         }
     }
 
-    /// The request builder for [HubService::create_hub][super::super::client::HubService::create_hub] calls.
+    /// The request builder for [HubService::create_hub][crate::client::HubService::create_hub] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3258,7 +3258,7 @@ pub mod hub_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_hub][super::super::client::HubService::create_hub].
+        /// on [create_hub][crate::client::HubService::create_hub].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_hub(self.0.request, self.0.options)
@@ -3351,7 +3351,7 @@ pub mod hub_service {
         }
     }
 
-    /// The request builder for [HubService::update_hub][super::super::client::HubService::update_hub] calls.
+    /// The request builder for [HubService::update_hub][crate::client::HubService::update_hub] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3396,7 +3396,7 @@ pub mod hub_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_hub][super::super::client::HubService::update_hub].
+        /// on [update_hub][crate::client::HubService::update_hub].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_hub(self.0.request, self.0.options)
@@ -3491,7 +3491,7 @@ pub mod hub_service {
         }
     }
 
-    /// The request builder for [HubService::delete_hub][super::super::client::HubService::delete_hub] calls.
+    /// The request builder for [HubService::delete_hub][crate::client::HubService::delete_hub] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3536,7 +3536,7 @@ pub mod hub_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_hub][super::super::client::HubService::delete_hub].
+        /// on [delete_hub][crate::client::HubService::delete_hub].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_hub(self.0.request, self.0.options)
@@ -3601,7 +3601,7 @@ pub mod hub_service {
         }
     }
 
-    /// The request builder for [HubService::list_hub_spokes][super::super::client::HubService::list_hub_spokes] calls.
+    /// The request builder for [HubService::list_hub_spokes][crate::client::HubService::list_hub_spokes] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3736,7 +3736,7 @@ pub mod hub_service {
         }
     }
 
-    /// The request builder for [HubService::query_hub_status][super::super::client::HubService::query_hub_status] calls.
+    /// The request builder for [HubService::query_hub_status][crate::client::HubService::query_hub_status] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3857,7 +3857,7 @@ pub mod hub_service {
         }
     }
 
-    /// The request builder for [HubService::list_spokes][super::super::client::HubService::list_spokes] calls.
+    /// The request builder for [HubService::list_spokes][crate::client::HubService::list_spokes] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3972,7 +3972,7 @@ pub mod hub_service {
         }
     }
 
-    /// The request builder for [HubService::get_spoke][super::super::client::HubService::get_spoke] calls.
+    /// The request builder for [HubService::get_spoke][crate::client::HubService::get_spoke] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4035,7 +4035,7 @@ pub mod hub_service {
         }
     }
 
-    /// The request builder for [HubService::create_spoke][super::super::client::HubService::create_spoke] calls.
+    /// The request builder for [HubService::create_spoke][crate::client::HubService::create_spoke] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4080,7 +4080,7 @@ pub mod hub_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_spoke][super::super::client::HubService::create_spoke].
+        /// on [create_spoke][crate::client::HubService::create_spoke].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_spoke(self.0.request, self.0.options)
@@ -4173,7 +4173,7 @@ pub mod hub_service {
         }
     }
 
-    /// The request builder for [HubService::update_spoke][super::super::client::HubService::update_spoke] calls.
+    /// The request builder for [HubService::update_spoke][crate::client::HubService::update_spoke] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4218,7 +4218,7 @@ pub mod hub_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_spoke][super::super::client::HubService::update_spoke].
+        /// on [update_spoke][crate::client::HubService::update_spoke].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_spoke(self.0.request, self.0.options)
@@ -4313,7 +4313,7 @@ pub mod hub_service {
         }
     }
 
-    /// The request builder for [HubService::reject_hub_spoke][super::super::client::HubService::reject_hub_spoke] calls.
+    /// The request builder for [HubService::reject_hub_spoke][crate::client::HubService::reject_hub_spoke] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4358,7 +4358,7 @@ pub mod hub_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [reject_hub_spoke][super::super::client::HubService::reject_hub_spoke].
+        /// on [reject_hub_spoke][crate::client::HubService::reject_hub_spoke].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .reject_hub_spoke(self.0.request, self.0.options)
@@ -4438,7 +4438,7 @@ pub mod hub_service {
         }
     }
 
-    /// The request builder for [HubService::accept_hub_spoke][super::super::client::HubService::accept_hub_spoke] calls.
+    /// The request builder for [HubService::accept_hub_spoke][crate::client::HubService::accept_hub_spoke] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4483,7 +4483,7 @@ pub mod hub_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [accept_hub_spoke][super::super::client::HubService::accept_hub_spoke].
+        /// on [accept_hub_spoke][crate::client::HubService::accept_hub_spoke].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .accept_hub_spoke(self.0.request, self.0.options)
@@ -4557,7 +4557,7 @@ pub mod hub_service {
         }
     }
 
-    /// The request builder for [HubService::accept_spoke_update][super::super::client::HubService::accept_spoke_update] calls.
+    /// The request builder for [HubService::accept_spoke_update][crate::client::HubService::accept_spoke_update] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4605,7 +4605,7 @@ pub mod hub_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [accept_spoke_update][super::super::client::HubService::accept_spoke_update].
+        /// on [accept_spoke_update][crate::client::HubService::accept_spoke_update].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .accept_spoke_update(self.0.request, self.0.options)
@@ -4687,7 +4687,7 @@ pub mod hub_service {
         }
     }
 
-    /// The request builder for [HubService::reject_spoke_update][super::super::client::HubService::reject_spoke_update] calls.
+    /// The request builder for [HubService::reject_spoke_update][crate::client::HubService::reject_spoke_update] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4735,7 +4735,7 @@ pub mod hub_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [reject_spoke_update][super::super::client::HubService::reject_spoke_update].
+        /// on [reject_spoke_update][crate::client::HubService::reject_spoke_update].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .reject_spoke_update(self.0.request, self.0.options)
@@ -4823,7 +4823,7 @@ pub mod hub_service {
         }
     }
 
-    /// The request builder for [HubService::delete_spoke][super::super::client::HubService::delete_spoke] calls.
+    /// The request builder for [HubService::delete_spoke][crate::client::HubService::delete_spoke] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4868,7 +4868,7 @@ pub mod hub_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_spoke][super::super::client::HubService::delete_spoke].
+        /// on [delete_spoke][crate::client::HubService::delete_spoke].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_spoke(self.0.request, self.0.options)
@@ -4933,7 +4933,7 @@ pub mod hub_service {
         }
     }
 
-    /// The request builder for [HubService::get_route_table][super::super::client::HubService::get_route_table] calls.
+    /// The request builder for [HubService::get_route_table][crate::client::HubService::get_route_table] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4996,7 +4996,7 @@ pub mod hub_service {
         }
     }
 
-    /// The request builder for [HubService::get_route][super::super::client::HubService::get_route] calls.
+    /// The request builder for [HubService::get_route][crate::client::HubService::get_route] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5059,7 +5059,7 @@ pub mod hub_service {
         }
     }
 
-    /// The request builder for [HubService::list_routes][super::super::client::HubService::list_routes] calls.
+    /// The request builder for [HubService::list_routes][crate::client::HubService::list_routes] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5174,7 +5174,7 @@ pub mod hub_service {
         }
     }
 
-    /// The request builder for [HubService::list_route_tables][super::super::client::HubService::list_route_tables] calls.
+    /// The request builder for [HubService::list_route_tables][crate::client::HubService::list_route_tables] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5289,7 +5289,7 @@ pub mod hub_service {
         }
     }
 
-    /// The request builder for [HubService::get_group][super::super::client::HubService::get_group] calls.
+    /// The request builder for [HubService::get_group][crate::client::HubService::get_group] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5352,7 +5352,7 @@ pub mod hub_service {
         }
     }
 
-    /// The request builder for [HubService::list_groups][super::super::client::HubService::list_groups] calls.
+    /// The request builder for [HubService::list_groups][crate::client::HubService::list_groups] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5467,7 +5467,7 @@ pub mod hub_service {
         }
     }
 
-    /// The request builder for [HubService::update_group][super::super::client::HubService::update_group] calls.
+    /// The request builder for [HubService::update_group][crate::client::HubService::update_group] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5512,7 +5512,7 @@ pub mod hub_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_group][super::super::client::HubService::update_group].
+        /// on [update_group][crate::client::HubService::update_group].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_group(self.0.request, self.0.options)
@@ -5607,7 +5607,7 @@ pub mod hub_service {
         }
     }
 
-    /// The request builder for [HubService::list_locations][super::super::client::HubService::list_locations] calls.
+    /// The request builder for [HubService::list_locations][crate::client::HubService::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5717,7 +5717,7 @@ pub mod hub_service {
         }
     }
 
-    /// The request builder for [HubService::get_location][super::super::client::HubService::get_location] calls.
+    /// The request builder for [HubService::get_location][crate::client::HubService::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5778,7 +5778,7 @@ pub mod hub_service {
         }
     }
 
-    /// The request builder for [HubService::set_iam_policy][super::super::client::HubService::set_iam_policy] calls.
+    /// The request builder for [HubService::set_iam_policy][crate::client::HubService::set_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5881,7 +5881,7 @@ pub mod hub_service {
         }
     }
 
-    /// The request builder for [HubService::get_iam_policy][super::super::client::HubService::get_iam_policy] calls.
+    /// The request builder for [HubService::get_iam_policy][crate::client::HubService::get_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5962,7 +5962,7 @@ pub mod hub_service {
         }
     }
 
-    /// The request builder for [HubService::test_iam_permissions][super::super::client::HubService::test_iam_permissions] calls.
+    /// The request builder for [HubService::test_iam_permissions][crate::client::HubService::test_iam_permissions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6041,7 +6041,7 @@ pub mod hub_service {
         }
     }
 
-    /// The request builder for [HubService::list_operations][super::super::client::HubService::list_operations] calls.
+    /// The request builder for [HubService::list_operations][crate::client::HubService::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6153,7 +6153,7 @@ pub mod hub_service {
         }
     }
 
-    /// The request builder for [HubService::get_operation][super::super::client::HubService::get_operation] calls.
+    /// The request builder for [HubService::get_operation][crate::client::HubService::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6217,7 +6217,7 @@ pub mod hub_service {
         }
     }
 
-    /// The request builder for [HubService::delete_operation][super::super::client::HubService::delete_operation] calls.
+    /// The request builder for [HubService::delete_operation][crate::client::HubService::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6281,7 +6281,7 @@ pub mod hub_service {
         }
     }
 
-    /// The request builder for [HubService::cancel_operation][super::super::client::HubService::cancel_operation] calls.
+    /// The request builder for [HubService::cancel_operation][crate::client::HubService::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6349,7 +6349,7 @@ pub mod hub_service {
 pub mod policy_based_routing_service {
     use crate::Result;
 
-    /// A builder for [PolicyBasedRoutingService][super::super::client::PolicyBasedRoutingService].
+    /// A builder for [PolicyBasedRoutingService][crate::client::PolicyBasedRoutingService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -6377,7 +6377,7 @@ pub mod policy_based_routing_service {
         }
     }
 
-    /// Common implementation for [super::super::client::PolicyBasedRoutingService] request builders.
+    /// Common implementation for [crate::client::PolicyBasedRoutingService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyBasedRoutingService>,
@@ -6400,7 +6400,7 @@ pub mod policy_based_routing_service {
         }
     }
 
-    /// The request builder for [PolicyBasedRoutingService::list_policy_based_routes][super::super::client::PolicyBasedRoutingService::list_policy_based_routes] calls.
+    /// The request builder for [PolicyBasedRoutingService::list_policy_based_routes][crate::client::PolicyBasedRoutingService::list_policy_based_routes] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6520,7 +6520,7 @@ pub mod policy_based_routing_service {
         }
     }
 
-    /// The request builder for [PolicyBasedRoutingService::get_policy_based_route][super::super::client::PolicyBasedRoutingService::get_policy_based_route] calls.
+    /// The request builder for [PolicyBasedRoutingService::get_policy_based_route][crate::client::PolicyBasedRoutingService::get_policy_based_route] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6586,7 +6586,7 @@ pub mod policy_based_routing_service {
         }
     }
 
-    /// The request builder for [PolicyBasedRoutingService::create_policy_based_route][super::super::client::PolicyBasedRoutingService::create_policy_based_route] calls.
+    /// The request builder for [PolicyBasedRoutingService::create_policy_based_route][crate::client::PolicyBasedRoutingService::create_policy_based_route] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6634,7 +6634,7 @@ pub mod policy_based_routing_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_policy_based_route][super::super::client::PolicyBasedRoutingService::create_policy_based_route].
+        /// on [create_policy_based_route][crate::client::PolicyBasedRoutingService::create_policy_based_route].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_policy_based_route(self.0.request, self.0.options)
@@ -6730,7 +6730,7 @@ pub mod policy_based_routing_service {
         }
     }
 
-    /// The request builder for [PolicyBasedRoutingService::delete_policy_based_route][super::super::client::PolicyBasedRoutingService::delete_policy_based_route] calls.
+    /// The request builder for [PolicyBasedRoutingService::delete_policy_based_route][crate::client::PolicyBasedRoutingService::delete_policy_based_route] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6778,7 +6778,7 @@ pub mod policy_based_routing_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_policy_based_route][super::super::client::PolicyBasedRoutingService::delete_policy_based_route].
+        /// on [delete_policy_based_route][crate::client::PolicyBasedRoutingService::delete_policy_based_route].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_policy_based_route(self.0.request, self.0.options)
@@ -6843,7 +6843,7 @@ pub mod policy_based_routing_service {
         }
     }
 
-    /// The request builder for [PolicyBasedRoutingService::list_locations][super::super::client::PolicyBasedRoutingService::list_locations] calls.
+    /// The request builder for [PolicyBasedRoutingService::list_locations][crate::client::PolicyBasedRoutingService::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6953,7 +6953,7 @@ pub mod policy_based_routing_service {
         }
     }
 
-    /// The request builder for [PolicyBasedRoutingService::get_location][super::super::client::PolicyBasedRoutingService::get_location] calls.
+    /// The request builder for [PolicyBasedRoutingService::get_location][crate::client::PolicyBasedRoutingService::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -7014,7 +7014,7 @@ pub mod policy_based_routing_service {
         }
     }
 
-    /// The request builder for [PolicyBasedRoutingService::set_iam_policy][super::super::client::PolicyBasedRoutingService::set_iam_policy] calls.
+    /// The request builder for [PolicyBasedRoutingService::set_iam_policy][crate::client::PolicyBasedRoutingService::set_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -7117,7 +7117,7 @@ pub mod policy_based_routing_service {
         }
     }
 
-    /// The request builder for [PolicyBasedRoutingService::get_iam_policy][super::super::client::PolicyBasedRoutingService::get_iam_policy] calls.
+    /// The request builder for [PolicyBasedRoutingService::get_iam_policy][crate::client::PolicyBasedRoutingService::get_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -7198,7 +7198,7 @@ pub mod policy_based_routing_service {
         }
     }
 
-    /// The request builder for [PolicyBasedRoutingService::test_iam_permissions][super::super::client::PolicyBasedRoutingService::test_iam_permissions] calls.
+    /// The request builder for [PolicyBasedRoutingService::test_iam_permissions][crate::client::PolicyBasedRoutingService::test_iam_permissions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -7277,7 +7277,7 @@ pub mod policy_based_routing_service {
         }
     }
 
-    /// The request builder for [PolicyBasedRoutingService::list_operations][super::super::client::PolicyBasedRoutingService::list_operations] calls.
+    /// The request builder for [PolicyBasedRoutingService::list_operations][crate::client::PolicyBasedRoutingService::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -7389,7 +7389,7 @@ pub mod policy_based_routing_service {
         }
     }
 
-    /// The request builder for [PolicyBasedRoutingService::get_operation][super::super::client::PolicyBasedRoutingService::get_operation] calls.
+    /// The request builder for [PolicyBasedRoutingService::get_operation][crate::client::PolicyBasedRoutingService::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -7453,7 +7453,7 @@ pub mod policy_based_routing_service {
         }
     }
 
-    /// The request builder for [PolicyBasedRoutingService::delete_operation][super::super::client::PolicyBasedRoutingService::delete_operation] calls.
+    /// The request builder for [PolicyBasedRoutingService::delete_operation][crate::client::PolicyBasedRoutingService::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -7517,7 +7517,7 @@ pub mod policy_based_routing_service {
         }
     }
 
-    /// The request builder for [PolicyBasedRoutingService::cancel_operation][super::super::client::PolicyBasedRoutingService::cancel_operation] calls.
+    /// The request builder for [PolicyBasedRoutingService::cancel_operation][crate::client::PolicyBasedRoutingService::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run

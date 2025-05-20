@@ -17,7 +17,7 @@
 pub mod managed_identities_service {
     use crate::Result;
 
-    /// A builder for [ManagedIdentitiesService][super::super::client::ManagedIdentitiesService].
+    /// A builder for [ManagedIdentitiesService][crate::client::ManagedIdentitiesService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod managed_identities_service {
         }
     }
 
-    /// Common implementation for [super::super::client::ManagedIdentitiesService] request builders.
+    /// Common implementation for [crate::client::ManagedIdentitiesService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
@@ -68,7 +68,7 @@ pub mod managed_identities_service {
         }
     }
 
-    /// The request builder for [ManagedIdentitiesService::create_microsoft_ad_domain][super::super::client::ManagedIdentitiesService::create_microsoft_ad_domain] calls.
+    /// The request builder for [ManagedIdentitiesService::create_microsoft_ad_domain][crate::client::ManagedIdentitiesService::create_microsoft_ad_domain] calls.
     ///
     /// # Example
     /// ```no_run
@@ -118,7 +118,7 @@ pub mod managed_identities_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_microsoft_ad_domain][super::super::client::ManagedIdentitiesService::create_microsoft_ad_domain].
+        /// on [create_microsoft_ad_domain][crate::client::ManagedIdentitiesService::create_microsoft_ad_domain].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_microsoft_ad_domain(self.0.request, self.0.options)
@@ -203,7 +203,7 @@ pub mod managed_identities_service {
         }
     }
 
-    /// The request builder for [ManagedIdentitiesService::reset_admin_password][super::super::client::ManagedIdentitiesService::reset_admin_password] calls.
+    /// The request builder for [ManagedIdentitiesService::reset_admin_password][crate::client::ManagedIdentitiesService::reset_admin_password] calls.
     ///
     /// # Example
     /// ```no_run
@@ -269,7 +269,7 @@ pub mod managed_identities_service {
         }
     }
 
-    /// The request builder for [ManagedIdentitiesService::list_domains][super::super::client::ManagedIdentitiesService::list_domains] calls.
+    /// The request builder for [ManagedIdentitiesService::list_domains][crate::client::ManagedIdentitiesService::list_domains] calls.
     ///
     /// # Example
     /// ```no_run
@@ -384,7 +384,7 @@ pub mod managed_identities_service {
         }
     }
 
-    /// The request builder for [ManagedIdentitiesService::get_domain][super::super::client::ManagedIdentitiesService::get_domain] calls.
+    /// The request builder for [ManagedIdentitiesService::get_domain][crate::client::ManagedIdentitiesService::get_domain] calls.
     ///
     /// # Example
     /// ```no_run
@@ -447,7 +447,7 @@ pub mod managed_identities_service {
         }
     }
 
-    /// The request builder for [ManagedIdentitiesService::update_domain][super::super::client::ManagedIdentitiesService::update_domain] calls.
+    /// The request builder for [ManagedIdentitiesService::update_domain][crate::client::ManagedIdentitiesService::update_domain] calls.
     ///
     /// # Example
     /// ```no_run
@@ -492,7 +492,7 @@ pub mod managed_identities_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_domain][super::super::client::ManagedIdentitiesService::update_domain].
+        /// on [update_domain][crate::client::ManagedIdentitiesService::update_domain].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_domain(self.0.request, self.0.options)
@@ -583,7 +583,7 @@ pub mod managed_identities_service {
         }
     }
 
-    /// The request builder for [ManagedIdentitiesService::delete_domain][super::super::client::ManagedIdentitiesService::delete_domain] calls.
+    /// The request builder for [ManagedIdentitiesService::delete_domain][crate::client::ManagedIdentitiesService::delete_domain] calls.
     ///
     /// # Example
     /// ```no_run
@@ -628,7 +628,7 @@ pub mod managed_identities_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_domain][super::super::client::ManagedIdentitiesService::delete_domain].
+        /// on [delete_domain][crate::client::ManagedIdentitiesService::delete_domain].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_domain(self.0.request, self.0.options)
@@ -687,7 +687,7 @@ pub mod managed_identities_service {
         }
     }
 
-    /// The request builder for [ManagedIdentitiesService::attach_trust][super::super::client::ManagedIdentitiesService::attach_trust] calls.
+    /// The request builder for [ManagedIdentitiesService::attach_trust][crate::client::ManagedIdentitiesService::attach_trust] calls.
     ///
     /// # Example
     /// ```no_run
@@ -732,7 +732,7 @@ pub mod managed_identities_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [attach_trust][super::super::client::ManagedIdentitiesService::attach_trust].
+        /// on [attach_trust][crate::client::ManagedIdentitiesService::attach_trust].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .attach_trust(self.0.request, self.0.options)
@@ -809,7 +809,7 @@ pub mod managed_identities_service {
         }
     }
 
-    /// The request builder for [ManagedIdentitiesService::reconfigure_trust][super::super::client::ManagedIdentitiesService::reconfigure_trust] calls.
+    /// The request builder for [ManagedIdentitiesService::reconfigure_trust][crate::client::ManagedIdentitiesService::reconfigure_trust] calls.
     ///
     /// # Example
     /// ```no_run
@@ -857,7 +857,7 @@ pub mod managed_identities_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [reconfigure_trust][super::super::client::ManagedIdentitiesService::reconfigure_trust].
+        /// on [reconfigure_trust][crate::client::ManagedIdentitiesService::reconfigure_trust].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .reconfigure_trust(self.0.request, self.0.options)
@@ -933,7 +933,7 @@ pub mod managed_identities_service {
         }
     }
 
-    /// The request builder for [ManagedIdentitiesService::detach_trust][super::super::client::ManagedIdentitiesService::detach_trust] calls.
+    /// The request builder for [ManagedIdentitiesService::detach_trust][crate::client::ManagedIdentitiesService::detach_trust] calls.
     ///
     /// # Example
     /// ```no_run
@@ -978,7 +978,7 @@ pub mod managed_identities_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [detach_trust][super::super::client::ManagedIdentitiesService::detach_trust].
+        /// on [detach_trust][crate::client::ManagedIdentitiesService::detach_trust].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .detach_trust(self.0.request, self.0.options)
@@ -1055,7 +1055,7 @@ pub mod managed_identities_service {
         }
     }
 
-    /// The request builder for [ManagedIdentitiesService::validate_trust][super::super::client::ManagedIdentitiesService::validate_trust] calls.
+    /// The request builder for [ManagedIdentitiesService::validate_trust][crate::client::ManagedIdentitiesService::validate_trust] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1100,7 +1100,7 @@ pub mod managed_identities_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [validate_trust][super::super::client::ManagedIdentitiesService::validate_trust].
+        /// on [validate_trust][crate::client::ManagedIdentitiesService::validate_trust].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .validate_trust(self.0.request, self.0.options)
@@ -1177,7 +1177,7 @@ pub mod managed_identities_service {
         }
     }
 
-    /// The request builder for [ManagedIdentitiesService::list_operations][super::super::client::ManagedIdentitiesService::list_operations] calls.
+    /// The request builder for [ManagedIdentitiesService::list_operations][crate::client::ManagedIdentitiesService::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1289,7 +1289,7 @@ pub mod managed_identities_service {
         }
     }
 
-    /// The request builder for [ManagedIdentitiesService::get_operation][super::super::client::ManagedIdentitiesService::get_operation] calls.
+    /// The request builder for [ManagedIdentitiesService::get_operation][crate::client::ManagedIdentitiesService::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1353,7 +1353,7 @@ pub mod managed_identities_service {
         }
     }
 
-    /// The request builder for [ManagedIdentitiesService::delete_operation][super::super::client::ManagedIdentitiesService::delete_operation] calls.
+    /// The request builder for [ManagedIdentitiesService::delete_operation][crate::client::ManagedIdentitiesService::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1417,7 +1417,7 @@ pub mod managed_identities_service {
         }
     }
 
-    /// The request builder for [ManagedIdentitiesService::cancel_operation][super::super::client::ManagedIdentitiesService::cancel_operation] calls.
+    /// The request builder for [ManagedIdentitiesService::cancel_operation][crate::client::ManagedIdentitiesService::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run

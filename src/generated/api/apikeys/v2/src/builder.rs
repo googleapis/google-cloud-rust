@@ -17,7 +17,7 @@
 pub mod api_keys {
     use crate::Result;
 
-    /// A builder for [ApiKeys][super::super::client::ApiKeys].
+    /// A builder for [ApiKeys][crate::client::ApiKeys].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod api_keys {
         }
     }
 
-    /// Common implementation for [super::super::client::ApiKeys] request builders.
+    /// Common implementation for [crate::client::ApiKeys] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiKeys>,
@@ -66,7 +66,7 @@ pub mod api_keys {
         }
     }
 
-    /// The request builder for [ApiKeys::create_key][super::super::client::ApiKeys::create_key] calls.
+    /// The request builder for [ApiKeys::create_key][crate::client::ApiKeys::create_key] calls.
     ///
     /// # Example
     /// ```no_run
@@ -109,7 +109,7 @@ pub mod api_keys {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_key][super::super::client::ApiKeys::create_key].
+        /// on [create_key][crate::client::ApiKeys::create_key].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_key(self.0.request, self.0.options)
@@ -196,7 +196,7 @@ pub mod api_keys {
         }
     }
 
-    /// The request builder for [ApiKeys::list_keys][super::super::client::ApiKeys::list_keys] calls.
+    /// The request builder for [ApiKeys::list_keys][crate::client::ApiKeys::list_keys] calls.
     ///
     /// # Example
     /// ```no_run
@@ -303,7 +303,7 @@ pub mod api_keys {
         }
     }
 
-    /// The request builder for [ApiKeys::get_key][super::super::client::ApiKeys::get_key] calls.
+    /// The request builder for [ApiKeys::get_key][crate::client::ApiKeys::get_key] calls.
     ///
     /// # Example
     /// ```no_run
@@ -364,7 +364,7 @@ pub mod api_keys {
         }
     }
 
-    /// The request builder for [ApiKeys::get_key_string][super::super::client::ApiKeys::get_key_string] calls.
+    /// The request builder for [ApiKeys::get_key_string][crate::client::ApiKeys::get_key_string] calls.
     ///
     /// # Example
     /// ```no_run
@@ -425,7 +425,7 @@ pub mod api_keys {
         }
     }
 
-    /// The request builder for [ApiKeys::update_key][super::super::client::ApiKeys::update_key] calls.
+    /// The request builder for [ApiKeys::update_key][crate::client::ApiKeys::update_key] calls.
     ///
     /// # Example
     /// ```no_run
@@ -468,7 +468,7 @@ pub mod api_keys {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_key][super::super::client::ApiKeys::update_key].
+        /// on [update_key][crate::client::ApiKeys::update_key].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_key(self.0.request, self.0.options)
@@ -559,7 +559,7 @@ pub mod api_keys {
         }
     }
 
-    /// The request builder for [ApiKeys::delete_key][super::super::client::ApiKeys::delete_key] calls.
+    /// The request builder for [ApiKeys::delete_key][crate::client::ApiKeys::delete_key] calls.
     ///
     /// # Example
     /// ```no_run
@@ -602,7 +602,7 @@ pub mod api_keys {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_key][super::super::client::ApiKeys::delete_key].
+        /// on [delete_key][crate::client::ApiKeys::delete_key].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_key(self.0.request, self.0.options)
@@ -667,7 +667,7 @@ pub mod api_keys {
         }
     }
 
-    /// The request builder for [ApiKeys::undelete_key][super::super::client::ApiKeys::undelete_key] calls.
+    /// The request builder for [ApiKeys::undelete_key][crate::client::ApiKeys::undelete_key] calls.
     ///
     /// # Example
     /// ```no_run
@@ -710,7 +710,7 @@ pub mod api_keys {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [undelete_key][super::super::client::ApiKeys::undelete_key].
+        /// on [undelete_key][crate::client::ApiKeys::undelete_key].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .undelete_key(self.0.request, self.0.options)
@@ -769,7 +769,7 @@ pub mod api_keys {
         }
     }
 
-    /// The request builder for [ApiKeys::lookup_key][super::super::client::ApiKeys::lookup_key] calls.
+    /// The request builder for [ApiKeys::lookup_key][crate::client::ApiKeys::lookup_key] calls.
     ///
     /// # Example
     /// ```no_run
@@ -830,7 +830,7 @@ pub mod api_keys {
         }
     }
 
-    /// The request builder for [ApiKeys::get_operation][super::super::client::ApiKeys::get_operation] calls.
+    /// The request builder for [ApiKeys::get_operation][crate::client::ApiKeys::get_operation] calls.
     ///
     /// # Example
     /// ```no_run

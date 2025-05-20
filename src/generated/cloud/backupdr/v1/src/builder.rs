@@ -17,7 +17,7 @@
 pub mod backup_dr {
     use crate::Result;
 
-    /// A builder for [BackupDR][super::super::client::BackupDR].
+    /// A builder for [BackupDR][crate::client::BackupDR].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod backup_dr {
         }
     }
 
-    /// Common implementation for [super::super::client::BackupDR] request builders.
+    /// Common implementation for [crate::client::BackupDR] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>,
@@ -66,7 +66,7 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for [BackupDR::list_management_servers][super::super::client::BackupDR::list_management_servers] calls.
+    /// The request builder for [BackupDR::list_management_servers][crate::client::BackupDR::list_management_servers] calls.
     ///
     /// # Example
     /// ```no_run
@@ -208,7 +208,7 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for [BackupDR::get_management_server][super::super::client::BackupDR::get_management_server] calls.
+    /// The request builder for [BackupDR::get_management_server][crate::client::BackupDR::get_management_server] calls.
     ///
     /// # Example
     /// ```no_run
@@ -272,7 +272,7 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for [BackupDR::create_management_server][super::super::client::BackupDR::create_management_server] calls.
+    /// The request builder for [BackupDR::create_management_server][crate::client::BackupDR::create_management_server] calls.
     ///
     /// # Example
     /// ```no_run
@@ -318,7 +318,7 @@ pub mod backup_dr {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_management_server][super::super::client::BackupDR::create_management_server].
+        /// on [create_management_server][crate::client::BackupDR::create_management_server].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_management_server(self.0.request, self.0.options)
@@ -414,7 +414,7 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for [BackupDR::delete_management_server][super::super::client::BackupDR::delete_management_server] calls.
+    /// The request builder for [BackupDR::delete_management_server][crate::client::BackupDR::delete_management_server] calls.
     ///
     /// # Example
     /// ```no_run
@@ -460,7 +460,7 @@ pub mod backup_dr {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_management_server][super::super::client::BackupDR::delete_management_server].
+        /// on [delete_management_server][crate::client::BackupDR::delete_management_server].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_management_server(self.0.request, self.0.options)
@@ -525,7 +525,7 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for [BackupDR::create_backup_vault][super::super::client::BackupDR::create_backup_vault] calls.
+    /// The request builder for [BackupDR::create_backup_vault][crate::client::BackupDR::create_backup_vault] calls.
     ///
     /// # Example
     /// ```no_run
@@ -571,7 +571,7 @@ pub mod backup_dr {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_backup_vault][super::super::client::BackupDR::create_backup_vault].
+        /// on [create_backup_vault][crate::client::BackupDR::create_backup_vault].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_backup_vault(self.0.request, self.0.options)
@@ -672,7 +672,7 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for [BackupDR::list_backup_vaults][super::super::client::BackupDR::list_backup_vaults] calls.
+    /// The request builder for [BackupDR::list_backup_vaults][crate::client::BackupDR::list_backup_vaults] calls.
     ///
     /// # Example
     /// ```no_run
@@ -794,7 +794,7 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for [BackupDR::fetch_usable_backup_vaults][super::super::client::BackupDR::fetch_usable_backup_vaults] calls.
+    /// The request builder for [BackupDR::fetch_usable_backup_vaults][crate::client::BackupDR::fetch_usable_backup_vaults] calls.
     ///
     /// # Example
     /// ```no_run
@@ -916,7 +916,7 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for [BackupDR::get_backup_vault][super::super::client::BackupDR::get_backup_vault] calls.
+    /// The request builder for [BackupDR::get_backup_vault][crate::client::BackupDR::get_backup_vault] calls.
     ///
     /// # Example
     /// ```no_run
@@ -983,7 +983,7 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for [BackupDR::update_backup_vault][super::super::client::BackupDR::update_backup_vault] calls.
+    /// The request builder for [BackupDR::update_backup_vault][crate::client::BackupDR::update_backup_vault] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1029,7 +1029,7 @@ pub mod backup_dr {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_backup_vault][super::super::client::BackupDR::update_backup_vault].
+        /// on [update_backup_vault][crate::client::BackupDR::update_backup_vault].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_backup_vault(self.0.request, self.0.options)
@@ -1142,7 +1142,7 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for [BackupDR::delete_backup_vault][super::super::client::BackupDR::delete_backup_vault] calls.
+    /// The request builder for [BackupDR::delete_backup_vault][crate::client::BackupDR::delete_backup_vault] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1188,7 +1188,7 @@ pub mod backup_dr {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_backup_vault][super::super::client::BackupDR::delete_backup_vault].
+        /// on [delete_backup_vault][crate::client::BackupDR::delete_backup_vault].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_backup_vault(self.0.request, self.0.options)
@@ -1283,7 +1283,7 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for [BackupDR::list_data_sources][super::super::client::BackupDR::list_data_sources] calls.
+    /// The request builder for [BackupDR::list_data_sources][crate::client::BackupDR::list_data_sources] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1396,7 +1396,7 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for [BackupDR::get_data_source][super::super::client::BackupDR::get_data_source] calls.
+    /// The request builder for [BackupDR::get_data_source][crate::client::BackupDR::get_data_source] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1457,7 +1457,7 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for [BackupDR::update_data_source][super::super::client::BackupDR::update_data_source] calls.
+    /// The request builder for [BackupDR::update_data_source][crate::client::BackupDR::update_data_source] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1503,7 +1503,7 @@ pub mod backup_dr {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_data_source][super::super::client::BackupDR::update_data_source].
+        /// on [update_data_source][crate::client::BackupDR::update_data_source].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_data_source(self.0.request, self.0.options)
@@ -1608,7 +1608,7 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for [BackupDR::list_backups][super::super::client::BackupDR::list_backups] calls.
+    /// The request builder for [BackupDR::list_backups][crate::client::BackupDR::list_backups] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1727,7 +1727,7 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for [BackupDR::get_backup][super::super::client::BackupDR::get_backup] calls.
+    /// The request builder for [BackupDR::get_backup][crate::client::BackupDR::get_backup] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1794,7 +1794,7 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for [BackupDR::update_backup][super::super::client::BackupDR::update_backup] calls.
+    /// The request builder for [BackupDR::update_backup][crate::client::BackupDR::update_backup] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1837,7 +1837,7 @@ pub mod backup_dr {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_backup][super::super::client::BackupDR::update_backup].
+        /// on [update_backup][crate::client::BackupDR::update_backup].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_backup(self.0.request, self.0.options)
@@ -1936,7 +1936,7 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for [BackupDR::delete_backup][super::super::client::BackupDR::delete_backup] calls.
+    /// The request builder for [BackupDR::delete_backup][crate::client::BackupDR::delete_backup] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1979,7 +1979,7 @@ pub mod backup_dr {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_backup][super::super::client::BackupDR::delete_backup].
+        /// on [delete_backup][crate::client::BackupDR::delete_backup].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_backup(self.0.request, self.0.options)
@@ -2042,7 +2042,7 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for [BackupDR::restore_backup][super::super::client::BackupDR::restore_backup] calls.
+    /// The request builder for [BackupDR::restore_backup][crate::client::BackupDR::restore_backup] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2085,7 +2085,7 @@ pub mod backup_dr {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [restore_backup][super::super::client::BackupDR::restore_backup].
+        /// on [restore_backup][crate::client::BackupDR::restore_backup].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .restore_backup(self.0.request, self.0.options)
@@ -2209,7 +2209,7 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for [BackupDR::create_backup_plan][super::super::client::BackupDR::create_backup_plan] calls.
+    /// The request builder for [BackupDR::create_backup_plan][crate::client::BackupDR::create_backup_plan] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2255,7 +2255,7 @@ pub mod backup_dr {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_backup_plan][super::super::client::BackupDR::create_backup_plan].
+        /// on [create_backup_plan][crate::client::BackupDR::create_backup_plan].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_backup_plan(self.0.request, self.0.options)
@@ -2348,7 +2348,7 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for [BackupDR::get_backup_plan][super::super::client::BackupDR::get_backup_plan] calls.
+    /// The request builder for [BackupDR::get_backup_plan][crate::client::BackupDR::get_backup_plan] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2409,7 +2409,7 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for [BackupDR::list_backup_plans][super::super::client::BackupDR::list_backup_plans] calls.
+    /// The request builder for [BackupDR::list_backup_plans][crate::client::BackupDR::list_backup_plans] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2522,7 +2522,7 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for [BackupDR::delete_backup_plan][super::super::client::BackupDR::delete_backup_plan] calls.
+    /// The request builder for [BackupDR::delete_backup_plan][crate::client::BackupDR::delete_backup_plan] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2568,7 +2568,7 @@ pub mod backup_dr {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_backup_plan][super::super::client::BackupDR::delete_backup_plan].
+        /// on [delete_backup_plan][crate::client::BackupDR::delete_backup_plan].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_backup_plan(self.0.request, self.0.options)
@@ -2633,7 +2633,7 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for [BackupDR::create_backup_plan_association][super::super::client::BackupDR::create_backup_plan_association] calls.
+    /// The request builder for [BackupDR::create_backup_plan_association][crate::client::BackupDR::create_backup_plan_association] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2681,7 +2681,7 @@ pub mod backup_dr {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_backup_plan_association][super::super::client::BackupDR::create_backup_plan_association].
+        /// on [create_backup_plan_association][crate::client::BackupDR::create_backup_plan_association].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_backup_plan_association(self.0.request, self.0.options)
@@ -2780,7 +2780,7 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for [BackupDR::get_backup_plan_association][super::super::client::BackupDR::get_backup_plan_association] calls.
+    /// The request builder for [BackupDR::get_backup_plan_association][crate::client::BackupDR::get_backup_plan_association] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2846,7 +2846,7 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for [BackupDR::list_backup_plan_associations][super::super::client::BackupDR::list_backup_plan_associations] calls.
+    /// The request builder for [BackupDR::list_backup_plan_associations][crate::client::BackupDR::list_backup_plan_associations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2962,7 +2962,7 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for [BackupDR::delete_backup_plan_association][super::super::client::BackupDR::delete_backup_plan_association] calls.
+    /// The request builder for [BackupDR::delete_backup_plan_association][crate::client::BackupDR::delete_backup_plan_association] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3010,7 +3010,7 @@ pub mod backup_dr {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_backup_plan_association][super::super::client::BackupDR::delete_backup_plan_association].
+        /// on [delete_backup_plan_association][crate::client::BackupDR::delete_backup_plan_association].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_backup_plan_association(self.0.request, self.0.options)
@@ -3075,7 +3075,7 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for [BackupDR::trigger_backup][super::super::client::BackupDR::trigger_backup] calls.
+    /// The request builder for [BackupDR::trigger_backup][crate::client::BackupDR::trigger_backup] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3118,7 +3118,7 @@ pub mod backup_dr {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [trigger_backup][super::super::client::BackupDR::trigger_backup].
+        /// on [trigger_backup][crate::client::BackupDR::trigger_backup].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .trigger_backup(self.0.request, self.0.options)
@@ -3192,7 +3192,7 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for [BackupDR::initialize_service][super::super::client::BackupDR::initialize_service] calls.
+    /// The request builder for [BackupDR::initialize_service][crate::client::BackupDR::initialize_service] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3238,7 +3238,7 @@ pub mod backup_dr {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [initialize_service][super::super::client::BackupDR::initialize_service].
+        /// on [initialize_service][crate::client::BackupDR::initialize_service].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .initialize_service(self.0.request, self.0.options)
@@ -3312,7 +3312,7 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for [BackupDR::list_locations][super::super::client::BackupDR::list_locations] calls.
+    /// The request builder for [BackupDR::list_locations][crate::client::BackupDR::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3420,7 +3420,7 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for [BackupDR::get_location][super::super::client::BackupDR::get_location] calls.
+    /// The request builder for [BackupDR::get_location][crate::client::BackupDR::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3479,7 +3479,7 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for [BackupDR::set_iam_policy][super::super::client::BackupDR::set_iam_policy] calls.
+    /// The request builder for [BackupDR::set_iam_policy][crate::client::BackupDR::set_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3580,7 +3580,7 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for [BackupDR::get_iam_policy][super::super::client::BackupDR::get_iam_policy] calls.
+    /// The request builder for [BackupDR::get_iam_policy][crate::client::BackupDR::get_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3659,7 +3659,7 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for [BackupDR::test_iam_permissions][super::super::client::BackupDR::test_iam_permissions] calls.
+    /// The request builder for [BackupDR::test_iam_permissions][crate::client::BackupDR::test_iam_permissions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3736,7 +3736,7 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for [BackupDR::list_operations][super::super::client::BackupDR::list_operations] calls.
+    /// The request builder for [BackupDR::list_operations][crate::client::BackupDR::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3846,7 +3846,7 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for [BackupDR::get_operation][super::super::client::BackupDR::get_operation] calls.
+    /// The request builder for [BackupDR::get_operation][crate::client::BackupDR::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3908,7 +3908,7 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for [BackupDR::delete_operation][super::super::client::BackupDR::delete_operation] calls.
+    /// The request builder for [BackupDR::delete_operation][crate::client::BackupDR::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3970,7 +3970,7 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for [BackupDR::cancel_operation][super::super::client::BackupDR::cancel_operation] calls.
+    /// The request builder for [BackupDR::cancel_operation][crate::client::BackupDR::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run

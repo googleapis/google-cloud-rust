@@ -17,7 +17,7 @@
 pub mod alloy_dbcsql_admin {
     use crate::Result;
 
-    /// A builder for [AlloyDBCSQLAdmin][super::super::client::AlloyDBCSQLAdmin].
+    /// A builder for [AlloyDBCSQLAdmin][crate::client::AlloyDBCSQLAdmin].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod alloy_dbcsql_admin {
         }
     }
 
-    /// Common implementation for [super::super::client::AlloyDBCSQLAdmin] request builders.
+    /// Common implementation for [crate::client::AlloyDBCSQLAdmin] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBCSQLAdmin>,
@@ -68,7 +68,7 @@ pub mod alloy_dbcsql_admin {
         }
     }
 
-    /// The request builder for [AlloyDBCSQLAdmin::restore_from_cloud_sql][super::super::client::AlloyDBCSQLAdmin::restore_from_cloud_sql] calls.
+    /// The request builder for [AlloyDBCSQLAdmin::restore_from_cloud_sql][crate::client::AlloyDBCSQLAdmin::restore_from_cloud_sql] calls.
     ///
     /// # Example
     /// ```no_run
@@ -116,7 +116,7 @@ pub mod alloy_dbcsql_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [restore_from_cloud_sql][super::super::client::AlloyDBCSQLAdmin::restore_from_cloud_sql].
+        /// on [restore_from_cloud_sql][crate::client::AlloyDBCSQLAdmin::restore_from_cloud_sql].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .restore_from_cloud_sql(self.0.request, self.0.options)
@@ -230,7 +230,7 @@ pub mod alloy_dbcsql_admin {
         }
     }
 
-    /// The request builder for [AlloyDBCSQLAdmin::list_locations][super::super::client::AlloyDBCSQLAdmin::list_locations] calls.
+    /// The request builder for [AlloyDBCSQLAdmin::list_locations][crate::client::AlloyDBCSQLAdmin::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -340,7 +340,7 @@ pub mod alloy_dbcsql_admin {
         }
     }
 
-    /// The request builder for [AlloyDBCSQLAdmin::get_location][super::super::client::AlloyDBCSQLAdmin::get_location] calls.
+    /// The request builder for [AlloyDBCSQLAdmin::get_location][crate::client::AlloyDBCSQLAdmin::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -401,7 +401,7 @@ pub mod alloy_dbcsql_admin {
         }
     }
 
-    /// The request builder for [AlloyDBCSQLAdmin::list_operations][super::super::client::AlloyDBCSQLAdmin::list_operations] calls.
+    /// The request builder for [AlloyDBCSQLAdmin::list_operations][crate::client::AlloyDBCSQLAdmin::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -513,7 +513,7 @@ pub mod alloy_dbcsql_admin {
         }
     }
 
-    /// The request builder for [AlloyDBCSQLAdmin::get_operation][super::super::client::AlloyDBCSQLAdmin::get_operation] calls.
+    /// The request builder for [AlloyDBCSQLAdmin::get_operation][crate::client::AlloyDBCSQLAdmin::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -577,7 +577,7 @@ pub mod alloy_dbcsql_admin {
         }
     }
 
-    /// The request builder for [AlloyDBCSQLAdmin::delete_operation][super::super::client::AlloyDBCSQLAdmin::delete_operation] calls.
+    /// The request builder for [AlloyDBCSQLAdmin::delete_operation][crate::client::AlloyDBCSQLAdmin::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -641,7 +641,7 @@ pub mod alloy_dbcsql_admin {
         }
     }
 
-    /// The request builder for [AlloyDBCSQLAdmin::cancel_operation][super::super::client::AlloyDBCSQLAdmin::cancel_operation] calls.
+    /// The request builder for [AlloyDBCSQLAdmin::cancel_operation][crate::client::AlloyDBCSQLAdmin::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -709,7 +709,7 @@ pub mod alloy_dbcsql_admin {
 pub mod alloy_db_admin {
     use crate::Result;
 
-    /// A builder for [AlloyDBAdmin][super::super::client::AlloyDBAdmin].
+    /// A builder for [AlloyDBAdmin][crate::client::AlloyDBAdmin].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -737,7 +737,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// Common implementation for [super::super::client::AlloyDBAdmin] request builders.
+    /// Common implementation for [crate::client::AlloyDBAdmin] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::AlloyDBAdmin>,
@@ -760,7 +760,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for [AlloyDBAdmin::list_clusters][super::super::client::AlloyDBAdmin::list_clusters] calls.
+    /// The request builder for [AlloyDBAdmin::list_clusters][crate::client::AlloyDBAdmin::list_clusters] calls.
     ///
     /// # Example
     /// ```no_run
@@ -875,7 +875,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for [AlloyDBAdmin::get_cluster][super::super::client::AlloyDBAdmin::get_cluster] calls.
+    /// The request builder for [AlloyDBAdmin::get_cluster][crate::client::AlloyDBAdmin::get_cluster] calls.
     ///
     /// # Example
     /// ```no_run
@@ -944,7 +944,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for [AlloyDBAdmin::create_cluster][super::super::client::AlloyDBAdmin::create_cluster] calls.
+    /// The request builder for [AlloyDBAdmin::create_cluster][crate::client::AlloyDBAdmin::create_cluster] calls.
     ///
     /// # Example
     /// ```no_run
@@ -989,7 +989,7 @@ pub mod alloy_db_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_cluster][super::super::client::AlloyDBAdmin::create_cluster].
+        /// on [create_cluster][crate::client::AlloyDBAdmin::create_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_cluster(self.0.request, self.0.options)
@@ -1088,7 +1088,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for [AlloyDBAdmin::update_cluster][super::super::client::AlloyDBAdmin::update_cluster] calls.
+    /// The request builder for [AlloyDBAdmin::update_cluster][crate::client::AlloyDBAdmin::update_cluster] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1133,7 +1133,7 @@ pub mod alloy_db_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_cluster][super::super::client::AlloyDBAdmin::update_cluster].
+        /// on [update_cluster][crate::client::AlloyDBAdmin::update_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_cluster(self.0.request, self.0.options)
@@ -1240,7 +1240,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for [AlloyDBAdmin::export_cluster][super::super::client::AlloyDBAdmin::export_cluster] calls.
+    /// The request builder for [AlloyDBAdmin::export_cluster][crate::client::AlloyDBAdmin::export_cluster] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1285,7 +1285,7 @@ pub mod alloy_db_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [export_cluster][super::super::client::AlloyDBAdmin::export_cluster].
+        /// on [export_cluster][crate::client::AlloyDBAdmin::export_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .export_cluster(self.0.request, self.0.options)
@@ -1430,7 +1430,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for [AlloyDBAdmin::import_cluster][super::super::client::AlloyDBAdmin::import_cluster] calls.
+    /// The request builder for [AlloyDBAdmin::import_cluster][crate::client::AlloyDBAdmin::import_cluster] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1475,7 +1475,7 @@ pub mod alloy_db_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [import_cluster][super::super::client::AlloyDBAdmin::import_cluster].
+        /// on [import_cluster][crate::client::AlloyDBAdmin::import_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .import_cluster(self.0.request, self.0.options)
@@ -1603,7 +1603,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for [AlloyDBAdmin::upgrade_cluster][super::super::client::AlloyDBAdmin::upgrade_cluster] calls.
+    /// The request builder for [AlloyDBAdmin::upgrade_cluster][crate::client::AlloyDBAdmin::upgrade_cluster] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1648,7 +1648,7 @@ pub mod alloy_db_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [upgrade_cluster][super::super::client::AlloyDBAdmin::upgrade_cluster].
+        /// on [upgrade_cluster][crate::client::AlloyDBAdmin::upgrade_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .upgrade_cluster(self.0.request, self.0.options)
@@ -1734,7 +1734,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for [AlloyDBAdmin::delete_cluster][super::super::client::AlloyDBAdmin::delete_cluster] calls.
+    /// The request builder for [AlloyDBAdmin::delete_cluster][crate::client::AlloyDBAdmin::delete_cluster] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1779,7 +1779,7 @@ pub mod alloy_db_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_cluster][super::super::client::AlloyDBAdmin::delete_cluster].
+        /// on [delete_cluster][crate::client::AlloyDBAdmin::delete_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_cluster(self.0.request, self.0.options)
@@ -1862,7 +1862,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for [AlloyDBAdmin::promote_cluster][super::super::client::AlloyDBAdmin::promote_cluster] calls.
+    /// The request builder for [AlloyDBAdmin::promote_cluster][crate::client::AlloyDBAdmin::promote_cluster] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1907,7 +1907,7 @@ pub mod alloy_db_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [promote_cluster][super::super::client::AlloyDBAdmin::promote_cluster].
+        /// on [promote_cluster][crate::client::AlloyDBAdmin::promote_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .promote_cluster(self.0.request, self.0.options)
@@ -1982,7 +1982,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for [AlloyDBAdmin::switchover_cluster][super::super::client::AlloyDBAdmin::switchover_cluster] calls.
+    /// The request builder for [AlloyDBAdmin::switchover_cluster][crate::client::AlloyDBAdmin::switchover_cluster] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2030,7 +2030,7 @@ pub mod alloy_db_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [switchover_cluster][super::super::client::AlloyDBAdmin::switchover_cluster].
+        /// on [switchover_cluster][crate::client::AlloyDBAdmin::switchover_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .switchover_cluster(self.0.request, self.0.options)
@@ -2099,7 +2099,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for [AlloyDBAdmin::restore_cluster][super::super::client::AlloyDBAdmin::restore_cluster] calls.
+    /// The request builder for [AlloyDBAdmin::restore_cluster][crate::client::AlloyDBAdmin::restore_cluster] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2144,7 +2144,7 @@ pub mod alloy_db_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [restore_cluster][super::super::client::AlloyDBAdmin::restore_cluster].
+        /// on [restore_cluster][crate::client::AlloyDBAdmin::restore_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .restore_cluster(self.0.request, self.0.options)
@@ -2285,7 +2285,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for [AlloyDBAdmin::create_secondary_cluster][super::super::client::AlloyDBAdmin::create_secondary_cluster] calls.
+    /// The request builder for [AlloyDBAdmin::create_secondary_cluster][crate::client::AlloyDBAdmin::create_secondary_cluster] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2333,7 +2333,7 @@ pub mod alloy_db_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_secondary_cluster][super::super::client::AlloyDBAdmin::create_secondary_cluster].
+        /// on [create_secondary_cluster][crate::client::AlloyDBAdmin::create_secondary_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_secondary_cluster(self.0.request, self.0.options)
@@ -2432,7 +2432,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for [AlloyDBAdmin::list_instances][super::super::client::AlloyDBAdmin::list_instances] calls.
+    /// The request builder for [AlloyDBAdmin::list_instances][crate::client::AlloyDBAdmin::list_instances] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2547,7 +2547,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for [AlloyDBAdmin::get_instance][super::super::client::AlloyDBAdmin::get_instance] calls.
+    /// The request builder for [AlloyDBAdmin::get_instance][crate::client::AlloyDBAdmin::get_instance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2616,7 +2616,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for [AlloyDBAdmin::create_instance][super::super::client::AlloyDBAdmin::create_instance] calls.
+    /// The request builder for [AlloyDBAdmin::create_instance][crate::client::AlloyDBAdmin::create_instance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2661,7 +2661,7 @@ pub mod alloy_db_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_instance][super::super::client::AlloyDBAdmin::create_instance].
+        /// on [create_instance][crate::client::AlloyDBAdmin::create_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_instance(self.0.request, self.0.options)
@@ -2760,7 +2760,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for [AlloyDBAdmin::create_secondary_instance][super::super::client::AlloyDBAdmin::create_secondary_instance] calls.
+    /// The request builder for [AlloyDBAdmin::create_secondary_instance][crate::client::AlloyDBAdmin::create_secondary_instance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2810,7 +2810,7 @@ pub mod alloy_db_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_secondary_instance][super::super::client::AlloyDBAdmin::create_secondary_instance].
+        /// on [create_secondary_instance][crate::client::AlloyDBAdmin::create_secondary_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_secondary_instance(self.0.request, self.0.options)
@@ -2909,7 +2909,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for [AlloyDBAdmin::batch_create_instances][super::super::client::AlloyDBAdmin::batch_create_instances] calls.
+    /// The request builder for [AlloyDBAdmin::batch_create_instances][crate::client::AlloyDBAdmin::batch_create_instances] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2957,7 +2957,7 @@ pub mod alloy_db_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [batch_create_instances][super::super::client::AlloyDBAdmin::batch_create_instances].
+        /// on [batch_create_instances][crate::client::AlloyDBAdmin::batch_create_instances].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .batch_create_instances(self.0.request, self.0.options)
@@ -3045,7 +3045,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for [AlloyDBAdmin::update_instance][super::super::client::AlloyDBAdmin::update_instance] calls.
+    /// The request builder for [AlloyDBAdmin::update_instance][crate::client::AlloyDBAdmin::update_instance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3090,7 +3090,7 @@ pub mod alloy_db_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_instance][super::super::client::AlloyDBAdmin::update_instance].
+        /// on [update_instance][crate::client::AlloyDBAdmin::update_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_instance(self.0.request, self.0.options)
@@ -3197,7 +3197,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for [AlloyDBAdmin::delete_instance][super::super::client::AlloyDBAdmin::delete_instance] calls.
+    /// The request builder for [AlloyDBAdmin::delete_instance][crate::client::AlloyDBAdmin::delete_instance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3242,7 +3242,7 @@ pub mod alloy_db_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_instance][super::super::client::AlloyDBAdmin::delete_instance].
+        /// on [delete_instance][crate::client::AlloyDBAdmin::delete_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_instance(self.0.request, self.0.options)
@@ -3319,7 +3319,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for [AlloyDBAdmin::failover_instance][super::super::client::AlloyDBAdmin::failover_instance] calls.
+    /// The request builder for [AlloyDBAdmin::failover_instance][crate::client::AlloyDBAdmin::failover_instance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3367,7 +3367,7 @@ pub mod alloy_db_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [failover_instance][super::super::client::AlloyDBAdmin::failover_instance].
+        /// on [failover_instance][crate::client::AlloyDBAdmin::failover_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .failover_instance(self.0.request, self.0.options)
@@ -3436,7 +3436,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for [AlloyDBAdmin::inject_fault][super::super::client::AlloyDBAdmin::inject_fault] calls.
+    /// The request builder for [AlloyDBAdmin::inject_fault][crate::client::AlloyDBAdmin::inject_fault] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3481,7 +3481,7 @@ pub mod alloy_db_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [inject_fault][super::super::client::AlloyDBAdmin::inject_fault].
+        /// on [inject_fault][crate::client::AlloyDBAdmin::inject_fault].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .inject_fault(self.0.request, self.0.options)
@@ -3561,7 +3561,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for [AlloyDBAdmin::restart_instance][super::super::client::AlloyDBAdmin::restart_instance] calls.
+    /// The request builder for [AlloyDBAdmin::restart_instance][crate::client::AlloyDBAdmin::restart_instance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3606,7 +3606,7 @@ pub mod alloy_db_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [restart_instance][super::super::client::AlloyDBAdmin::restart_instance].
+        /// on [restart_instance][crate::client::AlloyDBAdmin::restart_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .restart_instance(self.0.request, self.0.options)
@@ -3686,7 +3686,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for [AlloyDBAdmin::execute_sql][super::super::client::AlloyDBAdmin::execute_sql] calls.
+    /// The request builder for [AlloyDBAdmin::execute_sql][crate::client::AlloyDBAdmin::execute_sql] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3795,7 +3795,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for [AlloyDBAdmin::list_backups][super::super::client::AlloyDBAdmin::list_backups] calls.
+    /// The request builder for [AlloyDBAdmin::list_backups][crate::client::AlloyDBAdmin::list_backups] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3910,7 +3910,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for [AlloyDBAdmin::get_backup][super::super::client::AlloyDBAdmin::get_backup] calls.
+    /// The request builder for [AlloyDBAdmin::get_backup][crate::client::AlloyDBAdmin::get_backup] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3973,7 +3973,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for [AlloyDBAdmin::create_backup][super::super::client::AlloyDBAdmin::create_backup] calls.
+    /// The request builder for [AlloyDBAdmin::create_backup][crate::client::AlloyDBAdmin::create_backup] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4018,7 +4018,7 @@ pub mod alloy_db_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_backup][super::super::client::AlloyDBAdmin::create_backup].
+        /// on [create_backup][crate::client::AlloyDBAdmin::create_backup].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_backup(self.0.request, self.0.options)
@@ -4117,7 +4117,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for [AlloyDBAdmin::update_backup][super::super::client::AlloyDBAdmin::update_backup] calls.
+    /// The request builder for [AlloyDBAdmin::update_backup][crate::client::AlloyDBAdmin::update_backup] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4162,7 +4162,7 @@ pub mod alloy_db_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_backup][super::super::client::AlloyDBAdmin::update_backup].
+        /// on [update_backup][crate::client::AlloyDBAdmin::update_backup].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_backup(self.0.request, self.0.options)
@@ -4269,7 +4269,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for [AlloyDBAdmin::delete_backup][super::super::client::AlloyDBAdmin::delete_backup] calls.
+    /// The request builder for [AlloyDBAdmin::delete_backup][crate::client::AlloyDBAdmin::delete_backup] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4314,7 +4314,7 @@ pub mod alloy_db_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_backup][super::super::client::AlloyDBAdmin::delete_backup].
+        /// on [delete_backup][crate::client::AlloyDBAdmin::delete_backup].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_backup(self.0.request, self.0.options)
@@ -4391,7 +4391,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for [AlloyDBAdmin::list_supported_database_flags][super::super::client::AlloyDBAdmin::list_supported_database_flags] calls.
+    /// The request builder for [AlloyDBAdmin::list_supported_database_flags][crate::client::AlloyDBAdmin::list_supported_database_flags] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4512,7 +4512,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for [AlloyDBAdmin::generate_client_certificate][super::super::client::AlloyDBAdmin::generate_client_certificate] calls.
+    /// The request builder for [AlloyDBAdmin::generate_client_certificate][crate::client::AlloyDBAdmin::generate_client_certificate] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4616,7 +4616,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for [AlloyDBAdmin::get_connection_info][super::super::client::AlloyDBAdmin::get_connection_info] calls.
+    /// The request builder for [AlloyDBAdmin::get_connection_info][crate::client::AlloyDBAdmin::get_connection_info] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4688,7 +4688,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for [AlloyDBAdmin::list_users][super::super::client::AlloyDBAdmin::list_users] calls.
+    /// The request builder for [AlloyDBAdmin::list_users][crate::client::AlloyDBAdmin::list_users] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4803,7 +4803,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for [AlloyDBAdmin::get_user][super::super::client::AlloyDBAdmin::get_user] calls.
+    /// The request builder for [AlloyDBAdmin::get_user][crate::client::AlloyDBAdmin::get_user] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4866,7 +4866,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for [AlloyDBAdmin::create_user][super::super::client::AlloyDBAdmin::create_user] calls.
+    /// The request builder for [AlloyDBAdmin::create_user][crate::client::AlloyDBAdmin::create_user] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4971,7 +4971,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for [AlloyDBAdmin::update_user][super::super::client::AlloyDBAdmin::update_user] calls.
+    /// The request builder for [AlloyDBAdmin::update_user][crate::client::AlloyDBAdmin::update_user] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5084,7 +5084,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for [AlloyDBAdmin::delete_user][super::super::client::AlloyDBAdmin::delete_user] calls.
+    /// The request builder for [AlloyDBAdmin::delete_user][crate::client::AlloyDBAdmin::delete_user] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5159,7 +5159,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for [AlloyDBAdmin::list_databases][super::super::client::AlloyDBAdmin::list_databases] calls.
+    /// The request builder for [AlloyDBAdmin::list_databases][crate::client::AlloyDBAdmin::list_databases] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5268,7 +5268,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for [AlloyDBAdmin::list_locations][super::super::client::AlloyDBAdmin::list_locations] calls.
+    /// The request builder for [AlloyDBAdmin::list_locations][crate::client::AlloyDBAdmin::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5378,7 +5378,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for [AlloyDBAdmin::get_location][super::super::client::AlloyDBAdmin::get_location] calls.
+    /// The request builder for [AlloyDBAdmin::get_location][crate::client::AlloyDBAdmin::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5439,7 +5439,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for [AlloyDBAdmin::list_operations][super::super::client::AlloyDBAdmin::list_operations] calls.
+    /// The request builder for [AlloyDBAdmin::list_operations][crate::client::AlloyDBAdmin::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5551,7 +5551,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for [AlloyDBAdmin::get_operation][super::super::client::AlloyDBAdmin::get_operation] calls.
+    /// The request builder for [AlloyDBAdmin::get_operation][crate::client::AlloyDBAdmin::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5615,7 +5615,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for [AlloyDBAdmin::delete_operation][super::super::client::AlloyDBAdmin::delete_operation] calls.
+    /// The request builder for [AlloyDBAdmin::delete_operation][crate::client::AlloyDBAdmin::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5679,7 +5679,7 @@ pub mod alloy_db_admin {
         }
     }
 
-    /// The request builder for [AlloyDBAdmin::cancel_operation][super::super::client::AlloyDBAdmin::cancel_operation] calls.
+    /// The request builder for [AlloyDBAdmin::cancel_operation][crate::client::AlloyDBAdmin::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run

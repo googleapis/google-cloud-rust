@@ -72,6 +72,7 @@ pub trait RetryPolicy: Send + Sync + std::fmt::Debug {
     /// * `idempotent` - if `true` assume the operation is idempotent. Many more
     ///   errors are retryable on idempotent operations.
     /// * `error` - the last error when attempting the request.
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
     fn on_error(
         &self,
         loop_start: std::time::Instant,
@@ -90,6 +91,7 @@ pub trait RetryPolicy: Send + Sync + std::fmt::Debug {
     /// * `loop_start` - when the retry loop started.
     /// * `attempt_count` - the number of attempts. This method is never called
     ///   before the first attempt.
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
     fn on_throttle(&self, _loop_start: std::time::Instant, _attempt_count: u32) -> Option<Error> {
         None
     }
@@ -104,6 +106,7 @@ pub trait RetryPolicy: Send + Sync + std::fmt::Debug {
     /// * `loop_start` - when the retry loop started.
     /// * `attempt_count` - the number of attempts. This method is called before
     ///   the first attempt, so the first value is zero.
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
     fn remaining_time(
         &self,
         _loop_start: std::time::Instant,
@@ -580,6 +583,7 @@ where
 mod tests {
     use super::*;
     use crate::error::ServiceError;
+    use http::HeaderMap;
 
     // Verify `RetryPolicyArg` can be converted from the desired types.
     #[test]
@@ -723,19 +727,17 @@ mod tests {
     }
 
     fn http_unavailable() -> Error {
-        use std::collections::HashMap;
         Error::rpc(crate::error::HttpError::new(
             503_u16,
-            HashMap::new(),
+            HeaderMap::new(),
             bytes::Bytes::from_owner("SERVICE UNAVAILABLE".to_string()).into(),
         ))
     }
 
     fn http_permission_denied() -> Error {
-        use std::collections::HashMap;
         Error::rpc(crate::error::HttpError::new(
             403_u16,
-            HashMap::new(),
+            HeaderMap::new(),
             bytes::Bytes::from_owner("PERMISSION DENIED".to_string()).into(),
         ))
     }

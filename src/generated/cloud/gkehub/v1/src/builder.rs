@@ -17,7 +17,7 @@
 pub mod gke_hub {
     use crate::Result;
 
-    /// A builder for [GkeHub][super::super::client::GkeHub].
+    /// A builder for [GkeHub][crate::client::GkeHub].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod gke_hub {
         }
     }
 
-    /// Common implementation for [super::super::client::GkeHub] request builders.
+    /// Common implementation for [crate::client::GkeHub] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeHub>,
@@ -66,7 +66,7 @@ pub mod gke_hub {
         }
     }
 
-    /// The request builder for [GkeHub::list_memberships][super::super::client::GkeHub::list_memberships] calls.
+    /// The request builder for [GkeHub::list_memberships][crate::client::GkeHub::list_memberships] calls.
     ///
     /// # Example
     /// ```no_run
@@ -179,7 +179,7 @@ pub mod gke_hub {
         }
     }
 
-    /// The request builder for [GkeHub::list_features][super::super::client::GkeHub::list_features] calls.
+    /// The request builder for [GkeHub::list_features][crate::client::GkeHub::list_features] calls.
     ///
     /// # Example
     /// ```no_run
@@ -290,7 +290,7 @@ pub mod gke_hub {
         }
     }
 
-    /// The request builder for [GkeHub::get_membership][super::super::client::GkeHub::get_membership] calls.
+    /// The request builder for [GkeHub::get_membership][crate::client::GkeHub::get_membership] calls.
     ///
     /// # Example
     /// ```no_run
@@ -351,7 +351,7 @@ pub mod gke_hub {
         }
     }
 
-    /// The request builder for [GkeHub::get_feature][super::super::client::GkeHub::get_feature] calls.
+    /// The request builder for [GkeHub::get_feature][crate::client::GkeHub::get_feature] calls.
     ///
     /// # Example
     /// ```no_run
@@ -410,7 +410,7 @@ pub mod gke_hub {
         }
     }
 
-    /// The request builder for [GkeHub::create_membership][super::super::client::GkeHub::create_membership] calls.
+    /// The request builder for [GkeHub::create_membership][crate::client::GkeHub::create_membership] calls.
     ///
     /// # Example
     /// ```no_run
@@ -456,7 +456,7 @@ pub mod gke_hub {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_membership][super::super::client::GkeHub::create_membership].
+        /// on [create_membership][crate::client::GkeHub::create_membership].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_membership(self.0.request, self.0.options)
@@ -549,7 +549,7 @@ pub mod gke_hub {
         }
     }
 
-    /// The request builder for [GkeHub::create_feature][super::super::client::GkeHub::create_feature] calls.
+    /// The request builder for [GkeHub::create_feature][crate::client::GkeHub::create_feature] calls.
     ///
     /// # Example
     /// ```no_run
@@ -592,7 +592,7 @@ pub mod gke_hub {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_feature][super::super::client::GkeHub::create_feature].
+        /// on [create_feature][crate::client::GkeHub::create_feature].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_feature(self.0.request, self.0.options)
@@ -677,7 +677,7 @@ pub mod gke_hub {
         }
     }
 
-    /// The request builder for [GkeHub::delete_membership][super::super::client::GkeHub::delete_membership] calls.
+    /// The request builder for [GkeHub::delete_membership][crate::client::GkeHub::delete_membership] calls.
     ///
     /// # Example
     /// ```no_run
@@ -723,7 +723,7 @@ pub mod gke_hub {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_membership][super::super::client::GkeHub::delete_membership].
+        /// on [delete_membership][crate::client::GkeHub::delete_membership].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_membership(self.0.request, self.0.options)
@@ -794,7 +794,7 @@ pub mod gke_hub {
         }
     }
 
-    /// The request builder for [GkeHub::delete_feature][super::super::client::GkeHub::delete_feature] calls.
+    /// The request builder for [GkeHub::delete_feature][crate::client::GkeHub::delete_feature] calls.
     ///
     /// # Example
     /// ```no_run
@@ -837,7 +837,7 @@ pub mod gke_hub {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_feature][super::super::client::GkeHub::delete_feature].
+        /// on [delete_feature][crate::client::GkeHub::delete_feature].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_feature(self.0.request, self.0.options)
@@ -906,7 +906,7 @@ pub mod gke_hub {
         }
     }
 
-    /// The request builder for [GkeHub::update_membership][super::super::client::GkeHub::update_membership] calls.
+    /// The request builder for [GkeHub::update_membership][crate::client::GkeHub::update_membership] calls.
     ///
     /// # Example
     /// ```no_run
@@ -952,7 +952,7 @@ pub mod gke_hub {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_membership][super::super::client::GkeHub::update_membership].
+        /// on [update_membership][crate::client::GkeHub::update_membership].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_membership(self.0.request, self.0.options)
@@ -1059,7 +1059,7 @@ pub mod gke_hub {
         }
     }
 
-    /// The request builder for [GkeHub::update_feature][super::super::client::GkeHub::update_feature] calls.
+    /// The request builder for [GkeHub::update_feature][crate::client::GkeHub::update_feature] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1102,7 +1102,7 @@ pub mod gke_hub {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_feature][super::super::client::GkeHub::update_feature].
+        /// on [update_feature][crate::client::GkeHub::update_feature].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_feature(self.0.request, self.0.options)
@@ -1199,7 +1199,7 @@ pub mod gke_hub {
         }
     }
 
-    /// The request builder for [GkeHub::generate_connect_manifest][super::super::client::GkeHub::generate_connect_manifest] calls.
+    /// The request builder for [GkeHub::generate_connect_manifest][crate::client::GkeHub::generate_connect_manifest] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1301,7 +1301,7 @@ pub mod gke_hub {
         }
     }
 
-    /// The request builder for [GkeHub::list_operations][super::super::client::GkeHub::list_operations] calls.
+    /// The request builder for [GkeHub::list_operations][crate::client::GkeHub::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1411,7 +1411,7 @@ pub mod gke_hub {
         }
     }
 
-    /// The request builder for [GkeHub::get_operation][super::super::client::GkeHub::get_operation] calls.
+    /// The request builder for [GkeHub::get_operation][crate::client::GkeHub::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1473,7 +1473,7 @@ pub mod gke_hub {
         }
     }
 
-    /// The request builder for [GkeHub::delete_operation][super::super::client::GkeHub::delete_operation] calls.
+    /// The request builder for [GkeHub::delete_operation][crate::client::GkeHub::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1535,7 +1535,7 @@ pub mod gke_hub {
         }
     }
 
-    /// The request builder for [GkeHub::cancel_operation][super::super::client::GkeHub::cancel_operation] calls.
+    /// The request builder for [GkeHub::cancel_operation][crate::client::GkeHub::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run

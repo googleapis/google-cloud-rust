@@ -17,7 +17,7 @@
 pub mod alert_policy_service {
     use crate::Result;
 
-    /// A builder for [AlertPolicyService][super::super::client::AlertPolicyService].
+    /// A builder for [AlertPolicyService][crate::client::AlertPolicyService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod alert_policy_service {
         }
     }
 
-    /// Common implementation for [super::super::client::AlertPolicyService] request builders.
+    /// Common implementation for [crate::client::AlertPolicyService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::AlertPolicyService>,
@@ -68,7 +68,7 @@ pub mod alert_policy_service {
         }
     }
 
-    /// The request builder for [AlertPolicyService::list_alert_policies][super::super::client::AlertPolicyService::list_alert_policies] calls.
+    /// The request builder for [AlertPolicyService::list_alert_policies][crate::client::AlertPolicyService::list_alert_policies] calls.
     ///
     /// # Example
     /// ```no_run
@@ -186,7 +186,7 @@ pub mod alert_policy_service {
         }
     }
 
-    /// The request builder for [AlertPolicyService::get_alert_policy][super::super::client::AlertPolicyService::get_alert_policy] calls.
+    /// The request builder for [AlertPolicyService::get_alert_policy][crate::client::AlertPolicyService::get_alert_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -249,7 +249,7 @@ pub mod alert_policy_service {
         }
     }
 
-    /// The request builder for [AlertPolicyService::create_alert_policy][super::super::client::AlertPolicyService::create_alert_policy] calls.
+    /// The request builder for [AlertPolicyService::create_alert_policy][crate::client::AlertPolicyService::create_alert_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -337,7 +337,7 @@ pub mod alert_policy_service {
         }
     }
 
-    /// The request builder for [AlertPolicyService::delete_alert_policy][super::super::client::AlertPolicyService::delete_alert_policy] calls.
+    /// The request builder for [AlertPolicyService::delete_alert_policy][crate::client::AlertPolicyService::delete_alert_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -403,7 +403,7 @@ pub mod alert_policy_service {
         }
     }
 
-    /// The request builder for [AlertPolicyService::update_alert_policy][super::super::client::AlertPolicyService::update_alert_policy] calls.
+    /// The request builder for [AlertPolicyService::update_alert_policy][crate::client::AlertPolicyService::update_alert_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -505,7 +505,7 @@ pub mod alert_policy_service {
 pub mod group_service {
     use crate::Result;
 
-    /// A builder for [GroupService][super::super::client::GroupService].
+    /// A builder for [GroupService][crate::client::GroupService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -533,7 +533,7 @@ pub mod group_service {
         }
     }
 
-    /// Common implementation for [super::super::client::GroupService] request builders.
+    /// Common implementation for [crate::client::GroupService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::GroupService>,
@@ -556,7 +556,7 @@ pub mod group_service {
         }
     }
 
-    /// The request builder for [GroupService::list_groups][super::super::client::GroupService::list_groups] calls.
+    /// The request builder for [GroupService::list_groups][crate::client::GroupService::list_groups] calls.
     ///
     /// # Example
     /// ```no_run
@@ -710,7 +710,7 @@ pub mod group_service {
         }
     }
 
-    /// The request builder for [GroupService::get_group][super::super::client::GroupService::get_group] calls.
+    /// The request builder for [GroupService::get_group][crate::client::GroupService::get_group] calls.
     ///
     /// # Example
     /// ```no_run
@@ -773,7 +773,7 @@ pub mod group_service {
         }
     }
 
-    /// The request builder for [GroupService::create_group][super::super::client::GroupService::create_group] calls.
+    /// The request builder for [GroupService::create_group][crate::client::GroupService::create_group] calls.
     ///
     /// # Example
     /// ```no_run
@@ -864,7 +864,7 @@ pub mod group_service {
         }
     }
 
-    /// The request builder for [GroupService::update_group][super::super::client::GroupService::update_group] calls.
+    /// The request builder for [GroupService::update_group][crate::client::GroupService::update_group] calls.
     ///
     /// # Example
     /// ```no_run
@@ -947,7 +947,7 @@ pub mod group_service {
         }
     }
 
-    /// The request builder for [GroupService::delete_group][super::super::client::GroupService::delete_group] calls.
+    /// The request builder for [GroupService::delete_group][crate::client::GroupService::delete_group] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1016,7 +1016,7 @@ pub mod group_service {
         }
     }
 
-    /// The request builder for [GroupService::list_group_members][super::super::client::GroupService::list_group_members] calls.
+    /// The request builder for [GroupService::list_group_members][crate::client::GroupService::list_group_members] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1150,7 +1150,7 @@ pub mod group_service {
 pub mod metric_service {
     use crate::Result;
 
-    /// A builder for [MetricService][super::super::client::MetricService].
+    /// A builder for [MetricService][crate::client::MetricService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -1178,7 +1178,7 @@ pub mod metric_service {
         }
     }
 
-    /// Common implementation for [super::super::client::MetricService] request builders.
+    /// Common implementation for [crate::client::MetricService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::MetricService>,
@@ -1201,7 +1201,7 @@ pub mod metric_service {
         }
     }
 
-    /// The request builder for [MetricService::list_monitored_resource_descriptors][super::super::client::MetricService::list_monitored_resource_descriptors] calls.
+    /// The request builder for [MetricService::list_monitored_resource_descriptors][crate::client::MetricService::list_monitored_resource_descriptors] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1319,7 +1319,7 @@ pub mod metric_service {
         }
     }
 
-    /// The request builder for [MetricService::get_monitored_resource_descriptor][super::super::client::MetricService::get_monitored_resource_descriptor] calls.
+    /// The request builder for [MetricService::get_monitored_resource_descriptor][crate::client::MetricService::get_monitored_resource_descriptor] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1387,7 +1387,7 @@ pub mod metric_service {
         }
     }
 
-    /// The request builder for [MetricService::list_metric_descriptors][super::super::client::MetricService::list_metric_descriptors] calls.
+    /// The request builder for [MetricService::list_metric_descriptors][crate::client::MetricService::list_metric_descriptors] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1507,7 +1507,7 @@ pub mod metric_service {
         }
     }
 
-    /// The request builder for [MetricService::get_metric_descriptor][super::super::client::MetricService::get_metric_descriptor] calls.
+    /// The request builder for [MetricService::get_metric_descriptor][crate::client::MetricService::get_metric_descriptor] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1573,7 +1573,7 @@ pub mod metric_service {
         }
     }
 
-    /// The request builder for [MetricService::create_metric_descriptor][super::super::client::MetricService::create_metric_descriptor] calls.
+    /// The request builder for [MetricService::create_metric_descriptor][crate::client::MetricService::create_metric_descriptor] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1661,7 +1661,7 @@ pub mod metric_service {
         }
     }
 
-    /// The request builder for [MetricService::delete_metric_descriptor][super::super::client::MetricService::delete_metric_descriptor] calls.
+    /// The request builder for [MetricService::delete_metric_descriptor][crate::client::MetricService::delete_metric_descriptor] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1727,7 +1727,7 @@ pub mod metric_service {
         }
     }
 
-    /// The request builder for [MetricService::list_time_series][super::super::client::MetricService::list_time_series] calls.
+    /// The request builder for [MetricService::list_time_series][crate::client::MetricService::list_time_series] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1913,7 +1913,7 @@ pub mod metric_service {
         }
     }
 
-    /// The request builder for [MetricService::create_time_series][super::super::client::MetricService::create_time_series] calls.
+    /// The request builder for [MetricService::create_time_series][crate::client::MetricService::create_time_series] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1992,7 +1992,7 @@ pub mod metric_service {
         }
     }
 
-    /// The request builder for [MetricService::create_service_time_series][super::super::client::MetricService::create_service_time_series] calls.
+    /// The request builder for [MetricService::create_service_time_series][crate::client::MetricService::create_service_time_series] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2075,7 +2075,7 @@ pub mod metric_service {
 pub mod notification_channel_service {
     use crate::Result;
 
-    /// A builder for [NotificationChannelService][super::super::client::NotificationChannelService].
+    /// A builder for [NotificationChannelService][crate::client::NotificationChannelService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -2103,7 +2103,7 @@ pub mod notification_channel_service {
         }
     }
 
-    /// Common implementation for [super::super::client::NotificationChannelService] request builders.
+    /// Common implementation for [crate::client::NotificationChannelService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::NotificationChannelService>,
@@ -2126,7 +2126,7 @@ pub mod notification_channel_service {
         }
     }
 
-    /// The request builder for [NotificationChannelService::list_notification_channel_descriptors][super::super::client::NotificationChannelService::list_notification_channel_descriptors] calls.
+    /// The request builder for [NotificationChannelService::list_notification_channel_descriptors][crate::client::NotificationChannelService::list_notification_channel_descriptors] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2240,7 +2240,7 @@ pub mod notification_channel_service {
         }
     }
 
-    /// The request builder for [NotificationChannelService::get_notification_channel_descriptor][super::super::client::NotificationChannelService::get_notification_channel_descriptor] calls.
+    /// The request builder for [NotificationChannelService::get_notification_channel_descriptor][crate::client::NotificationChannelService::get_notification_channel_descriptor] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2308,7 +2308,7 @@ pub mod notification_channel_service {
         }
     }
 
-    /// The request builder for [NotificationChannelService::list_notification_channels][super::super::client::NotificationChannelService::list_notification_channels] calls.
+    /// The request builder for [NotificationChannelService::list_notification_channels][crate::client::NotificationChannelService::list_notification_channels] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2432,7 +2432,7 @@ pub mod notification_channel_service {
         }
     }
 
-    /// The request builder for [NotificationChannelService::get_notification_channel][super::super::client::NotificationChannelService::get_notification_channel] calls.
+    /// The request builder for [NotificationChannelService::get_notification_channel][crate::client::NotificationChannelService::get_notification_channel] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2498,7 +2498,7 @@ pub mod notification_channel_service {
         }
     }
 
-    /// The request builder for [NotificationChannelService::create_notification_channel][super::super::client::NotificationChannelService::create_notification_channel] calls.
+    /// The request builder for [NotificationChannelService::create_notification_channel][crate::client::NotificationChannelService::create_notification_channel] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2588,7 +2588,7 @@ pub mod notification_channel_service {
         }
     }
 
-    /// The request builder for [NotificationChannelService::update_notification_channel][super::super::client::NotificationChannelService::update_notification_channel] calls.
+    /// The request builder for [NotificationChannelService::update_notification_channel][crate::client::NotificationChannelService::update_notification_channel] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2688,7 +2688,7 @@ pub mod notification_channel_service {
         }
     }
 
-    /// The request builder for [NotificationChannelService::delete_notification_channel][super::super::client::NotificationChannelService::delete_notification_channel] calls.
+    /// The request builder for [NotificationChannelService::delete_notification_channel][crate::client::NotificationChannelService::delete_notification_channel] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2762,7 +2762,7 @@ pub mod notification_channel_service {
         }
     }
 
-    /// The request builder for [NotificationChannelService::send_notification_channel_verification_code][super::super::client::NotificationChannelService::send_notification_channel_verification_code] calls.
+    /// The request builder for [NotificationChannelService::send_notification_channel_verification_code][crate::client::NotificationChannelService::send_notification_channel_verification_code] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2832,7 +2832,7 @@ pub mod notification_channel_service {
         }
     }
 
-    /// The request builder for [NotificationChannelService::get_notification_channel_verification_code][super::super::client::NotificationChannelService::get_notification_channel_verification_code] calls.
+    /// The request builder for [NotificationChannelService::get_notification_channel_verification_code][crate::client::NotificationChannelService::get_notification_channel_verification_code] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2922,7 +2922,7 @@ pub mod notification_channel_service {
         }
     }
 
-    /// The request builder for [NotificationChannelService::verify_notification_channel][super::super::client::NotificationChannelService::verify_notification_channel] calls.
+    /// The request builder for [NotificationChannelService::verify_notification_channel][crate::client::NotificationChannelService::verify_notification_channel] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3002,7 +3002,7 @@ pub mod notification_channel_service {
 pub mod query_service {
     use crate::Result;
 
-    /// A builder for [QueryService][super::super::client::QueryService].
+    /// A builder for [QueryService][crate::client::QueryService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -3030,7 +3030,7 @@ pub mod query_service {
         }
     }
 
-    /// Common implementation for [super::super::client::QueryService] request builders.
+    /// Common implementation for [crate::client::QueryService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::QueryService>,
@@ -3053,7 +3053,7 @@ pub mod query_service {
         }
     }
 
-    /// The request builder for [QueryService::query_time_series][super::super::client::QueryService::query_time_series] calls.
+    /// The request builder for [QueryService::query_time_series][crate::client::QueryService::query_time_series] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3168,7 +3168,7 @@ pub mod query_service {
 pub mod service_monitoring_service {
     use crate::Result;
 
-    /// A builder for [ServiceMonitoringService][super::super::client::ServiceMonitoringService].
+    /// A builder for [ServiceMonitoringService][crate::client::ServiceMonitoringService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -3196,7 +3196,7 @@ pub mod service_monitoring_service {
         }
     }
 
-    /// Common implementation for [super::super::client::ServiceMonitoringService] request builders.
+    /// Common implementation for [crate::client::ServiceMonitoringService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceMonitoringService>,
@@ -3219,7 +3219,7 @@ pub mod service_monitoring_service {
         }
     }
 
-    /// The request builder for [ServiceMonitoringService::create_service][super::super::client::ServiceMonitoringService::create_service] calls.
+    /// The request builder for [ServiceMonitoringService::create_service][crate::client::ServiceMonitoringService::create_service] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3310,7 +3310,7 @@ pub mod service_monitoring_service {
         }
     }
 
-    /// The request builder for [ServiceMonitoringService::get_service][super::super::client::ServiceMonitoringService::get_service] calls.
+    /// The request builder for [ServiceMonitoringService::get_service][crate::client::ServiceMonitoringService::get_service] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3373,7 +3373,7 @@ pub mod service_monitoring_service {
         }
     }
 
-    /// The request builder for [ServiceMonitoringService::list_services][super::super::client::ServiceMonitoringService::list_services] calls.
+    /// The request builder for [ServiceMonitoringService::list_services][crate::client::ServiceMonitoringService::list_services] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3482,7 +3482,7 @@ pub mod service_monitoring_service {
         }
     }
 
-    /// The request builder for [ServiceMonitoringService::update_service][super::super::client::ServiceMonitoringService::update_service] calls.
+    /// The request builder for [ServiceMonitoringService::update_service][crate::client::ServiceMonitoringService::update_service] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3577,7 +3577,7 @@ pub mod service_monitoring_service {
         }
     }
 
-    /// The request builder for [ServiceMonitoringService::delete_service][super::super::client::ServiceMonitoringService::delete_service] calls.
+    /// The request builder for [ServiceMonitoringService::delete_service][crate::client::ServiceMonitoringService::delete_service] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3640,7 +3640,7 @@ pub mod service_monitoring_service {
         }
     }
 
-    /// The request builder for [ServiceMonitoringService::create_service_level_objective][super::super::client::ServiceMonitoringService::create_service_level_objective] calls.
+    /// The request builder for [ServiceMonitoringService::create_service_level_objective][crate::client::ServiceMonitoringService::create_service_level_objective] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3739,7 +3739,7 @@ pub mod service_monitoring_service {
         }
     }
 
-    /// The request builder for [ServiceMonitoringService::get_service_level_objective][super::super::client::ServiceMonitoringService::get_service_level_objective] calls.
+    /// The request builder for [ServiceMonitoringService::get_service_level_objective][crate::client::ServiceMonitoringService::get_service_level_objective] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3816,7 +3816,7 @@ pub mod service_monitoring_service {
         }
     }
 
-    /// The request builder for [ServiceMonitoringService::list_service_level_objectives][super::super::client::ServiceMonitoringService::list_service_level_objectives] calls.
+    /// The request builder for [ServiceMonitoringService::list_service_level_objectives][crate::client::ServiceMonitoringService::list_service_level_objectives] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3943,7 +3943,7 @@ pub mod service_monitoring_service {
         }
     }
 
-    /// The request builder for [ServiceMonitoringService::update_service_level_objective][super::super::client::ServiceMonitoringService::update_service_level_objective] calls.
+    /// The request builder for [ServiceMonitoringService::update_service_level_objective][crate::client::ServiceMonitoringService::update_service_level_objective] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4043,7 +4043,7 @@ pub mod service_monitoring_service {
         }
     }
 
-    /// The request builder for [ServiceMonitoringService::delete_service_level_objective][super::super::client::ServiceMonitoringService::delete_service_level_objective] calls.
+    /// The request builder for [ServiceMonitoringService::delete_service_level_objective][crate::client::ServiceMonitoringService::delete_service_level_objective] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4115,7 +4115,7 @@ pub mod service_monitoring_service {
 pub mod snooze_service {
     use crate::Result;
 
-    /// A builder for [SnoozeService][super::super::client::SnoozeService].
+    /// A builder for [SnoozeService][crate::client::SnoozeService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -4143,7 +4143,7 @@ pub mod snooze_service {
         }
     }
 
-    /// Common implementation for [super::super::client::SnoozeService] request builders.
+    /// Common implementation for [crate::client::SnoozeService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::SnoozeService>,
@@ -4166,7 +4166,7 @@ pub mod snooze_service {
         }
     }
 
-    /// The request builder for [SnoozeService::create_snooze][super::super::client::SnoozeService::create_snooze] calls.
+    /// The request builder for [SnoozeService::create_snooze][crate::client::SnoozeService::create_snooze] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4251,7 +4251,7 @@ pub mod snooze_service {
         }
     }
 
-    /// The request builder for [SnoozeService::list_snoozes][super::super::client::SnoozeService::list_snoozes] calls.
+    /// The request builder for [SnoozeService::list_snoozes][crate::client::SnoozeService::list_snoozes] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4360,7 +4360,7 @@ pub mod snooze_service {
         }
     }
 
-    /// The request builder for [SnoozeService::get_snooze][super::super::client::SnoozeService::get_snooze] calls.
+    /// The request builder for [SnoozeService::get_snooze][crate::client::SnoozeService::get_snooze] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4423,7 +4423,7 @@ pub mod snooze_service {
         }
     }
 
-    /// The request builder for [SnoozeService::update_snooze][super::super::client::SnoozeService::update_snooze] calls.
+    /// The request builder for [SnoozeService::update_snooze][crate::client::SnoozeService::update_snooze] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4526,7 +4526,7 @@ pub mod snooze_service {
 pub mod uptime_check_service {
     use crate::Result;
 
-    /// A builder for [UptimeCheckService][super::super::client::UptimeCheckService].
+    /// A builder for [UptimeCheckService][crate::client::UptimeCheckService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -4554,7 +4554,7 @@ pub mod uptime_check_service {
         }
     }
 
-    /// Common implementation for [super::super::client::UptimeCheckService] request builders.
+    /// Common implementation for [crate::client::UptimeCheckService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::UptimeCheckService>,
@@ -4577,7 +4577,7 @@ pub mod uptime_check_service {
         }
     }
 
-    /// The request builder for [UptimeCheckService::list_uptime_check_configs][super::super::client::UptimeCheckService::list_uptime_check_configs] calls.
+    /// The request builder for [UptimeCheckService::list_uptime_check_configs][crate::client::UptimeCheckService::list_uptime_check_configs] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4693,7 +4693,7 @@ pub mod uptime_check_service {
         }
     }
 
-    /// The request builder for [UptimeCheckService::get_uptime_check_config][super::super::client::UptimeCheckService::get_uptime_check_config] calls.
+    /// The request builder for [UptimeCheckService::get_uptime_check_config][crate::client::UptimeCheckService::get_uptime_check_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4759,7 +4759,7 @@ pub mod uptime_check_service {
         }
     }
 
-    /// The request builder for [UptimeCheckService::create_uptime_check_config][super::super::client::UptimeCheckService::create_uptime_check_config] calls.
+    /// The request builder for [UptimeCheckService::create_uptime_check_config][crate::client::UptimeCheckService::create_uptime_check_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4849,7 +4849,7 @@ pub mod uptime_check_service {
         }
     }
 
-    /// The request builder for [UptimeCheckService::update_uptime_check_config][super::super::client::UptimeCheckService::update_uptime_check_config] calls.
+    /// The request builder for [UptimeCheckService::update_uptime_check_config][crate::client::UptimeCheckService::update_uptime_check_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4949,7 +4949,7 @@ pub mod uptime_check_service {
         }
     }
 
-    /// The request builder for [UptimeCheckService::delete_uptime_check_config][super::super::client::UptimeCheckService::delete_uptime_check_config] calls.
+    /// The request builder for [UptimeCheckService::delete_uptime_check_config][crate::client::UptimeCheckService::delete_uptime_check_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5017,7 +5017,7 @@ pub mod uptime_check_service {
         }
     }
 
-    /// The request builder for [UptimeCheckService::list_uptime_check_ips][super::super::client::UptimeCheckService::list_uptime_check_ips] calls.
+    /// The request builder for [UptimeCheckService::list_uptime_check_ips][crate::client::UptimeCheckService::list_uptime_check_ips] calls.
     ///
     /// # Example
     /// ```no_run

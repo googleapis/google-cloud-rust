@@ -58,9 +58,9 @@
 //! [Metadata Service]: https://cloud.google.com/compute/docs/metadata/overview
 
 use crate::credentials::dynamic::CredentialsProvider;
-use crate::credentials::{Credentials, DEFAULT_UNIVERSE_DOMAIN, Result};
-use crate::errors::{self, CredentialsError, is_retryable};
-use crate::headers_util::build_bearer_headers;
+use crate::credentials::{CacheableResource, Credentials, DEFAULT_UNIVERSE_DOMAIN, Result};
+use crate::errors::{CredentialsError, is_retryable};
+use crate::headers_util::build_cacheable_headers;
 use crate::token::{CachedTokenProvider, Token, TokenProvider};
 use crate::token_cache::TokenCache;
 use async_trait::async_trait;
@@ -77,6 +77,14 @@ const METADATA_FLAVOR: &str = "metadata-flavor";
 const METADATA_ROOT: &str = "http://metadata.google.internal";
 const MDS_DEFAULT_URI: &str = "/computeMetadata/v1/instance/service-accounts/default";
 const GCE_METADATA_HOST_ENV_VAR: &str = "GCE_METADATA_HOST";
+// TODO(#2235) - Improve this message by talking about retries when really running with MDS
+const MDS_NOT_FOUND_ERROR: &str = concat!(
+    "Could not fetch an auth token to authenticate with Google Cloud. ",
+    "The most common reason for this problem is that you are not running in a Google Cloud Environment ",
+    "and you have not configured local credentials for development and testing. ",
+    "To setup local credentials, run `gcloud auth application-default login`. ",
+    "More information on how to authenticate client libraries can be found at https://cloud.google.com/docs/authentication/client-libraries"
+);
 
 #[derive(Debug)]
 struct MDSCredentials<T>
@@ -105,6 +113,7 @@ pub struct Builder {
     quota_project_id: Option<String>,
     scopes: Option<Vec<String>>,
     universe_domain: Option<String>,
+    created_by_adc: bool,
 }
 
 impl Builder {
@@ -168,14 +177,38 @@ impl Builder {
         self
     }
 
+    // This method is used to build mds credentials from ADC
+    pub(crate) fn from_adc() -> Self {
+        Self {
+            created_by_adc: true,
+            ..Default::default()
+        }
+    }
+
     fn build_token_provider(self) -> MDSAccessTokenProvider {
-        let endpoint = match std::env::var(GCE_METADATA_HOST_ENV_VAR) {
-            Ok(endpoint) => format!("http://{}", endpoint),
-            _ => self.endpoint.clone().unwrap_or(METADATA_ROOT.to_string()),
+        let final_endpoint: String;
+        let endpoint_overridden: bool;
+
+        // Determine the endpoint and whether it was overridden
+        if let Ok(host_from_env) = std::env::var(GCE_METADATA_HOST_ENV_VAR) {
+            // Check GCE_METADATA_HOST environment variable first
+            final_endpoint = format!("http://{}", host_from_env);
+            endpoint_overridden = true;
+        } else if let Some(builder_endpoint) = self.endpoint {
+            // Else, check if an endpoint was provided to the mds::Builder
+            final_endpoint = builder_endpoint;
+            endpoint_overridden = true;
+        } else {
+            // Else, use the default metadata root
+            final_endpoint = METADATA_ROOT.to_string();
+            endpoint_overridden = false;
         };
+
         MDSAccessTokenProvider::builder()
-            .endpoint(endpoint)
+            .endpoint(final_endpoint)
             .maybe_scopes(self.scopes)
+            .endpoint_overridden(endpoint_overridden)
+            .created_by_adc(self.created_by_adc)
             .build()
     }
 
@@ -197,9 +230,9 @@ impl<T> CredentialsProvider for MDSCredentials<T>
 where
     T: CachedTokenProvider,
 {
-    async fn headers(&self, extensions: Extensions) -> Result<HeaderMap> {
-        let token = self.token_provider.token(extensions).await?;
-        build_bearer_headers(&token, &self.quota_project_id)
+    async fn headers(&self, extensions: Extensions) -> Result<CacheableResource<HeaderMap>> {
+        let cached_token = self.token_provider.token(extensions).await?;
+        build_cacheable_headers(&cached_token, &self.quota_project_id)
     }
 
     async fn universe_domain(&self) -> Option<String> {
@@ -231,6 +264,30 @@ struct MDSAccessTokenProvider {
     scopes: Option<Vec<String>>,
     #[builder(into)]
     endpoint: String,
+    endpoint_overridden: bool,
+    created_by_adc: bool,
+}
+
+impl MDSAccessTokenProvider {
+    fn build_error<S: Into<String>>(&self, is_retryable: bool, error: S) -> CredentialsError {
+        // During ADC, if no credentials is found in the well-known location and the GOOGLE_APPLICATION_CREDENTIALS
+        // environment variable is not set, we default to MDS credentials without checking if the code is really
+        // running in an environment with MDS. To help users who got to this state because of lack of credentials
+        // setup on their machines, we provide a detailed error message to them talking about local setup and other
+        // auth mechanisms available to them.
+        // If the endpoint is overridden, even if ADC was used to create the MDS credentials, we do not give a detailed
+        // error message because they deliberately wanted to use an MDS.
+        match self.created_by_adc && !self.endpoint_overridden {
+            true => CredentialsError::from_str(
+                is_retryable,
+                format!("{MDS_NOT_FOUND_ERROR}, error: {}", error.into()),
+            ),
+            false => CredentialsError::from_str(
+                is_retryable,
+                format!("Failed to fetch token. Error: {}", error.into()),
+            ),
+        }
+    }
 }
 
 #[async_trait]
@@ -250,18 +307,22 @@ impl TokenProvider for MDSAccessTokenProvider {
             .into_iter()
             .fold(request, |r, s| r.query(&[("scopes", s)]));
 
-        let response = request.send().await.map_err(errors::retryable)?;
+        // If the connection to MDS was not successful, it is useful to retry when really
+        // running on MDS environments and not useful if there is no MDS. We will mark the error
+        // as retryable and let the retry policy determine whether to retry or not. Whenever we
+        // define a default retry policy, we can skip retrying this case.
+        let response = request
+            .send()
+            .await
+            .map_err(|e| self.build_error(true, e.to_string()))?;
         // Process the response
         if !response.status().is_success() {
             let status = response.status();
             let body = response
                 .text()
                 .await
-                .map_err(|e| CredentialsError::new(is_retryable(status), e))?;
-            return Err(CredentialsError::from_str(
-                is_retryable(status),
-                format!("Failed to fetch token. {body}"),
-            ));
+                .map_err(|e| self.build_error(is_retryable(status), e.to_string()))?;
+            return Err(self.build_error(is_retryable(status), body));
         }
         let response = response.json::<MDSTokenResponse>().await.map_err(|e| {
             let retryable = !e.is_decode();
@@ -283,7 +344,10 @@ impl TokenProvider for MDSAccessTokenProvider {
 mod test {
     use super::*;
     use crate::credentials::QUOTA_PROJECT_KEY;
-    use crate::credentials::test::{get_token_from_headers, get_token_type_from_headers};
+    use crate::credentials::test::{
+        get_headers_from_cache, get_token_from_headers, get_token_type_from_headers,
+    };
+    use crate::errors;
     use crate::token::test::MockTokenProvider;
     use axum::extract::Query;
     use axum::response::IntoResponse;
@@ -320,7 +384,7 @@ mod test {
     }
 
     #[tokio::test]
-    async fn headers_success() {
+    async fn headers_success() -> TestResult {
         let token = Token {
             token: "test-token".to_string(),
             token_type: "Bearer".to_string(),
@@ -336,12 +400,27 @@ mod test {
             universe_domain: None,
             token_provider: TokenCache::new(mock),
         };
-        let headers = mdsc.headers(Extensions::new()).await.unwrap();
-        let token = headers.get(AUTHORIZATION).unwrap();
 
+        let mut extensions = Extensions::new();
+        let cached_headers = mdsc.headers(extensions.clone()).await.unwrap();
+        let (headers, entity_tag) = match cached_headers {
+            CacheableResource::New { entity_tag, data } => (data, entity_tag),
+            CacheableResource::NotModified => unreachable!("expecting new headers"),
+        };
+        let token = headers.get(AUTHORIZATION).unwrap();
         assert_eq!(headers.len(), 1, "{headers:?}");
         assert_eq!(token, HeaderValue::from_static("Bearer test-token"));
         assert!(token.is_sensitive());
+
+        extensions.insert(entity_tag);
+
+        let cached_headers = mdsc.headers(extensions).await?;
+
+        match cached_headers {
+            CacheableResource::New { .. } => unreachable!("expecting new headers"),
+            CacheableResource::NotModified => CacheableResource::<HeaderMap>::NotModified,
+        };
+        Ok(())
     }
 
     #[tokio::test]
@@ -357,6 +436,67 @@ mod test {
             token_provider: TokenCache::new(mock),
         };
         assert!(mdsc.headers(Extensions::new()).await.is_err());
+    }
+
+    #[tokio::test]
+    #[serial]
+    async fn adc_no_mds() -> TestResult {
+        let e = Builder::from_adc()
+            .build_token_provider()
+            .token()
+            .await
+            .err()
+            .unwrap();
+
+        assert!(e.is_retryable(), "{e:?}");
+        assert!(
+            format!("{:?}", e.source()).contains("application-default"),
+            "{e:?}"
+        );
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    #[serial]
+    async fn adc_overridden_mds() -> TestResult {
+        let _e = ScopedEnv::set(super::GCE_METADATA_HOST_ENV_VAR, "metadata.overridden");
+
+        let e = Builder::from_adc()
+            .build_token_provider()
+            .token()
+            .await
+            .err()
+            .unwrap();
+
+        let _e = ScopedEnv::remove(super::GCE_METADATA_HOST_ENV_VAR);
+
+        assert!(e.is_retryable(), "{e:?}");
+        assert!(
+            !format!("{:?}", e.source()).contains("application-default"),
+            "{e:?}"
+        );
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    #[serial]
+    async fn builder_no_mds() -> TestResult {
+        let e = Builder::default()
+            .build_token_provider()
+            .token()
+            .await
+            .err()
+            .unwrap();
+
+        assert!(e.is_retryable(), "{e:?}");
+        assert!(
+            !format!("{:?}", e.source()).contains("application-default"),
+            "{e:?}"
+        );
+
+        Ok(())
     }
 
     fn handle_token_factory(
@@ -435,7 +575,7 @@ mod test {
         let _e = ScopedEnv::remove(super::GCE_METADATA_HOST_ENV_VAR);
 
         assert_eq!(
-            get_token_from_headers(&headers).unwrap(),
+            get_token_from_headers(headers).unwrap(),
             "test-access-token"
         );
     }
@@ -471,7 +611,7 @@ mod test {
             .with_quota_project_id("test-project")
             .build()?;
 
-        let headers = mdsc.headers(Extensions::new()).await.unwrap();
+        let headers = get_headers_from_cache(mdsc.headers(Extensions::new()).await.unwrap())?;
         let token = headers.get(AUTHORIZATION).unwrap();
         let quota_project = headers.get(QUOTA_PROJECT_KEY).unwrap();
 
@@ -483,6 +623,7 @@ mod test {
         assert!(token.is_sensitive());
         assert_eq!(quota_project, HeaderValue::from_static("test-project"));
         assert!(!quota_project.is_sensitive());
+
         Ok(())
     }
 
@@ -518,12 +659,12 @@ mod test {
             .build()?;
         let headers = mdsc.headers(Extensions::new()).await?;
         assert_eq!(
-            get_token_from_headers(&headers).unwrap(),
+            get_token_from_headers(headers).unwrap(),
             "test-access-token"
         );
         let headers = mdsc.headers(Extensions::new()).await?;
         assert_eq!(
-            get_token_from_headers(&headers).unwrap(),
+            get_token_from_headers(headers).unwrap(),
             "test-access-token"
         );
 
@@ -651,11 +792,11 @@ mod test {
             .build()?;
         let headers = mdsc.headers(Extensions::new()).await?;
         assert_eq!(
-            get_token_from_headers(&headers).unwrap(),
+            get_token_from_headers(headers.clone()).unwrap(),
             "test-access-token"
         );
         assert_eq!(
-            get_token_type_from_headers(&headers).unwrap(),
+            get_token_type_from_headers(headers).unwrap(),
             "test-token-type"
         );
 

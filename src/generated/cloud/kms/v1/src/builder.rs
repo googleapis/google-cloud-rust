@@ -17,7 +17,7 @@
 pub mod autokey {
     use crate::Result;
 
-    /// A builder for [Autokey][super::super::client::Autokey].
+    /// A builder for [Autokey][crate::client::Autokey].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod autokey {
         }
     }
 
-    /// Common implementation for [super::super::client::Autokey] request builders.
+    /// Common implementation for [crate::client::Autokey] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::Autokey>,
@@ -66,7 +66,7 @@ pub mod autokey {
         }
     }
 
-    /// The request builder for [Autokey::create_key_handle][super::super::client::Autokey::create_key_handle] calls.
+    /// The request builder for [Autokey::create_key_handle][crate::client::Autokey::create_key_handle] calls.
     ///
     /// # Example
     /// ```no_run
@@ -109,7 +109,7 @@ pub mod autokey {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_key_handle][super::super::client::Autokey::create_key_handle].
+        /// on [create_key_handle][crate::client::Autokey::create_key_handle].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_key_handle(self.0.request, self.0.options)
@@ -197,7 +197,7 @@ pub mod autokey {
         }
     }
 
-    /// The request builder for [Autokey::get_key_handle][super::super::client::Autokey::get_key_handle] calls.
+    /// The request builder for [Autokey::get_key_handle][crate::client::Autokey::get_key_handle] calls.
     ///
     /// # Example
     /// ```no_run
@@ -258,7 +258,7 @@ pub mod autokey {
         }
     }
 
-    /// The request builder for [Autokey::list_key_handles][super::super::client::Autokey::list_key_handles] calls.
+    /// The request builder for [Autokey::list_key_handles][crate::client::Autokey::list_key_handles] calls.
     ///
     /// # Example
     /// ```no_run
@@ -365,7 +365,7 @@ pub mod autokey {
         }
     }
 
-    /// The request builder for [Autokey::list_locations][super::super::client::Autokey::list_locations] calls.
+    /// The request builder for [Autokey::list_locations][crate::client::Autokey::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -473,7 +473,7 @@ pub mod autokey {
         }
     }
 
-    /// The request builder for [Autokey::get_location][super::super::client::Autokey::get_location] calls.
+    /// The request builder for [Autokey::get_location][crate::client::Autokey::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -532,7 +532,7 @@ pub mod autokey {
         }
     }
 
-    /// The request builder for [Autokey::set_iam_policy][super::super::client::Autokey::set_iam_policy] calls.
+    /// The request builder for [Autokey::set_iam_policy][crate::client::Autokey::set_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -633,7 +633,7 @@ pub mod autokey {
         }
     }
 
-    /// The request builder for [Autokey::get_iam_policy][super::super::client::Autokey::get_iam_policy] calls.
+    /// The request builder for [Autokey::get_iam_policy][crate::client::Autokey::get_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -712,7 +712,7 @@ pub mod autokey {
         }
     }
 
-    /// The request builder for [Autokey::test_iam_permissions][super::super::client::Autokey::test_iam_permissions] calls.
+    /// The request builder for [Autokey::test_iam_permissions][crate::client::Autokey::test_iam_permissions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -789,7 +789,7 @@ pub mod autokey {
         }
     }
 
-    /// The request builder for [Autokey::get_operation][super::super::client::Autokey::get_operation] calls.
+    /// The request builder for [Autokey::get_operation][crate::client::Autokey::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -855,7 +855,7 @@ pub mod autokey {
 pub mod autokey_admin {
     use crate::Result;
 
-    /// A builder for [AutokeyAdmin][super::super::client::AutokeyAdmin].
+    /// A builder for [AutokeyAdmin][crate::client::AutokeyAdmin].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -883,7 +883,7 @@ pub mod autokey_admin {
         }
     }
 
-    /// Common implementation for [super::super::client::AutokeyAdmin] request builders.
+    /// Common implementation for [crate::client::AutokeyAdmin] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::AutokeyAdmin>,
@@ -906,7 +906,7 @@ pub mod autokey_admin {
         }
     }
 
-    /// The request builder for [AutokeyAdmin::update_autokey_config][super::super::client::AutokeyAdmin::update_autokey_config] calls.
+    /// The request builder for [AutokeyAdmin::update_autokey_config][crate::client::AutokeyAdmin::update_autokey_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1008,7 +1008,7 @@ pub mod autokey_admin {
         }
     }
 
-    /// The request builder for [AutokeyAdmin::get_autokey_config][super::super::client::AutokeyAdmin::get_autokey_config] calls.
+    /// The request builder for [AutokeyAdmin::get_autokey_config][crate::client::AutokeyAdmin::get_autokey_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1074,7 +1074,7 @@ pub mod autokey_admin {
         }
     }
 
-    /// The request builder for [AutokeyAdmin::show_effective_autokey_config][super::super::client::AutokeyAdmin::show_effective_autokey_config] calls.
+    /// The request builder for [AutokeyAdmin::show_effective_autokey_config][crate::client::AutokeyAdmin::show_effective_autokey_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1142,7 +1142,7 @@ pub mod autokey_admin {
         }
     }
 
-    /// The request builder for [AutokeyAdmin::list_locations][super::super::client::AutokeyAdmin::list_locations] calls.
+    /// The request builder for [AutokeyAdmin::list_locations][crate::client::AutokeyAdmin::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1252,7 +1252,7 @@ pub mod autokey_admin {
         }
     }
 
-    /// The request builder for [AutokeyAdmin::get_location][super::super::client::AutokeyAdmin::get_location] calls.
+    /// The request builder for [AutokeyAdmin::get_location][crate::client::AutokeyAdmin::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1313,7 +1313,7 @@ pub mod autokey_admin {
         }
     }
 
-    /// The request builder for [AutokeyAdmin::set_iam_policy][super::super::client::AutokeyAdmin::set_iam_policy] calls.
+    /// The request builder for [AutokeyAdmin::set_iam_policy][crate::client::AutokeyAdmin::set_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1416,7 +1416,7 @@ pub mod autokey_admin {
         }
     }
 
-    /// The request builder for [AutokeyAdmin::get_iam_policy][super::super::client::AutokeyAdmin::get_iam_policy] calls.
+    /// The request builder for [AutokeyAdmin::get_iam_policy][crate::client::AutokeyAdmin::get_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1497,7 +1497,7 @@ pub mod autokey_admin {
         }
     }
 
-    /// The request builder for [AutokeyAdmin::test_iam_permissions][super::super::client::AutokeyAdmin::test_iam_permissions] calls.
+    /// The request builder for [AutokeyAdmin::test_iam_permissions][crate::client::AutokeyAdmin::test_iam_permissions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1576,7 +1576,7 @@ pub mod autokey_admin {
         }
     }
 
-    /// The request builder for [AutokeyAdmin::get_operation][super::super::client::AutokeyAdmin::get_operation] calls.
+    /// The request builder for [AutokeyAdmin::get_operation][crate::client::AutokeyAdmin::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1644,7 +1644,7 @@ pub mod autokey_admin {
 pub mod ekm_service {
     use crate::Result;
 
-    /// A builder for [EkmService][super::super::client::EkmService].
+    /// A builder for [EkmService][crate::client::EkmService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -1672,7 +1672,7 @@ pub mod ekm_service {
         }
     }
 
-    /// Common implementation for [super::super::client::EkmService] request builders.
+    /// Common implementation for [crate::client::EkmService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::EkmService>,
@@ -1695,7 +1695,7 @@ pub mod ekm_service {
         }
     }
 
-    /// The request builder for [EkmService::list_ekm_connections][super::super::client::EkmService::list_ekm_connections] calls.
+    /// The request builder for [EkmService::list_ekm_connections][crate::client::EkmService::list_ekm_connections] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1815,7 +1815,7 @@ pub mod ekm_service {
         }
     }
 
-    /// The request builder for [EkmService::get_ekm_connection][super::super::client::EkmService::get_ekm_connection] calls.
+    /// The request builder for [EkmService::get_ekm_connection][crate::client::EkmService::get_ekm_connection] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1881,7 +1881,7 @@ pub mod ekm_service {
         }
     }
 
-    /// The request builder for [EkmService::create_ekm_connection][super::super::client::EkmService::create_ekm_connection] calls.
+    /// The request builder for [EkmService::create_ekm_connection][crate::client::EkmService::create_ekm_connection] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1977,7 +1977,7 @@ pub mod ekm_service {
         }
     }
 
-    /// The request builder for [EkmService::update_ekm_connection][super::super::client::EkmService::update_ekm_connection] calls.
+    /// The request builder for [EkmService::update_ekm_connection][crate::client::EkmService::update_ekm_connection] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2079,7 +2079,7 @@ pub mod ekm_service {
         }
     }
 
-    /// The request builder for [EkmService::get_ekm_config][super::super::client::EkmService::get_ekm_config] calls.
+    /// The request builder for [EkmService::get_ekm_config][crate::client::EkmService::get_ekm_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2142,7 +2142,7 @@ pub mod ekm_service {
         }
     }
 
-    /// The request builder for [EkmService::update_ekm_config][super::super::client::EkmService::update_ekm_config] calls.
+    /// The request builder for [EkmService::update_ekm_config][crate::client::EkmService::update_ekm_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2241,7 +2241,7 @@ pub mod ekm_service {
         }
     }
 
-    /// The request builder for [EkmService::verify_connectivity][super::super::client::EkmService::verify_connectivity] calls.
+    /// The request builder for [EkmService::verify_connectivity][crate::client::EkmService::verify_connectivity] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2307,7 +2307,7 @@ pub mod ekm_service {
         }
     }
 
-    /// The request builder for [EkmService::list_locations][super::super::client::EkmService::list_locations] calls.
+    /// The request builder for [EkmService::list_locations][crate::client::EkmService::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2417,7 +2417,7 @@ pub mod ekm_service {
         }
     }
 
-    /// The request builder for [EkmService::get_location][super::super::client::EkmService::get_location] calls.
+    /// The request builder for [EkmService::get_location][crate::client::EkmService::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2478,7 +2478,7 @@ pub mod ekm_service {
         }
     }
 
-    /// The request builder for [EkmService::set_iam_policy][super::super::client::EkmService::set_iam_policy] calls.
+    /// The request builder for [EkmService::set_iam_policy][crate::client::EkmService::set_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2581,7 +2581,7 @@ pub mod ekm_service {
         }
     }
 
-    /// The request builder for [EkmService::get_iam_policy][super::super::client::EkmService::get_iam_policy] calls.
+    /// The request builder for [EkmService::get_iam_policy][crate::client::EkmService::get_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2662,7 +2662,7 @@ pub mod ekm_service {
         }
     }
 
-    /// The request builder for [EkmService::test_iam_permissions][super::super::client::EkmService::test_iam_permissions] calls.
+    /// The request builder for [EkmService::test_iam_permissions][crate::client::EkmService::test_iam_permissions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2741,7 +2741,7 @@ pub mod ekm_service {
         }
     }
 
-    /// The request builder for [EkmService::get_operation][super::super::client::EkmService::get_operation] calls.
+    /// The request builder for [EkmService::get_operation][crate::client::EkmService::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2809,7 +2809,7 @@ pub mod ekm_service {
 pub mod key_management_service {
     use crate::Result;
 
-    /// A builder for [KeyManagementService][super::super::client::KeyManagementService].
+    /// A builder for [KeyManagementService][crate::client::KeyManagementService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -2837,7 +2837,7 @@ pub mod key_management_service {
         }
     }
 
-    /// Common implementation for [super::super::client::KeyManagementService] request builders.
+    /// Common implementation for [crate::client::KeyManagementService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
@@ -2860,7 +2860,7 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for [KeyManagementService::list_key_rings][super::super::client::KeyManagementService::list_key_rings] calls.
+    /// The request builder for [KeyManagementService::list_key_rings][crate::client::KeyManagementService::list_key_rings] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2975,7 +2975,7 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for [KeyManagementService::list_crypto_keys][super::super::client::KeyManagementService::list_crypto_keys] calls.
+    /// The request builder for [KeyManagementService::list_crypto_keys][crate::client::KeyManagementService::list_crypto_keys] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3099,7 +3099,7 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for [KeyManagementService::list_crypto_key_versions][super::super::client::KeyManagementService::list_crypto_key_versions] calls.
+    /// The request builder for [KeyManagementService::list_crypto_key_versions][crate::client::KeyManagementService::list_crypto_key_versions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3228,7 +3228,7 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for [KeyManagementService::list_import_jobs][super::super::client::KeyManagementService::list_import_jobs] calls.
+    /// The request builder for [KeyManagementService::list_import_jobs][crate::client::KeyManagementService::list_import_jobs] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3343,7 +3343,7 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for [KeyManagementService::get_key_ring][super::super::client::KeyManagementService::get_key_ring] calls.
+    /// The request builder for [KeyManagementService::get_key_ring][crate::client::KeyManagementService::get_key_ring] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3406,7 +3406,7 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for [KeyManagementService::get_crypto_key][super::super::client::KeyManagementService::get_crypto_key] calls.
+    /// The request builder for [KeyManagementService::get_crypto_key][crate::client::KeyManagementService::get_crypto_key] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3469,7 +3469,7 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for [KeyManagementService::get_crypto_key_version][super::super::client::KeyManagementService::get_crypto_key_version] calls.
+    /// The request builder for [KeyManagementService::get_crypto_key_version][crate::client::KeyManagementService::get_crypto_key_version] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3535,7 +3535,7 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for [KeyManagementService::get_public_key][super::super::client::KeyManagementService::get_public_key] calls.
+    /// The request builder for [KeyManagementService::get_public_key][crate::client::KeyManagementService::get_public_key] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3607,7 +3607,7 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for [KeyManagementService::get_import_job][super::super::client::KeyManagementService::get_import_job] calls.
+    /// The request builder for [KeyManagementService::get_import_job][crate::client::KeyManagementService::get_import_job] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3670,7 +3670,7 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for [KeyManagementService::create_key_ring][super::super::client::KeyManagementService::create_key_ring] calls.
+    /// The request builder for [KeyManagementService::create_key_ring][crate::client::KeyManagementService::create_key_ring] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3763,7 +3763,7 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for [KeyManagementService::create_crypto_key][super::super::client::KeyManagementService::create_crypto_key] calls.
+    /// The request builder for [KeyManagementService::create_crypto_key][crate::client::KeyManagementService::create_crypto_key] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3862,7 +3862,7 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for [KeyManagementService::create_crypto_key_version][super::super::client::KeyManagementService::create_crypto_key_version] calls.
+    /// The request builder for [KeyManagementService::create_crypto_key_version][crate::client::KeyManagementService::create_crypto_key_version] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3950,7 +3950,7 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for [KeyManagementService::import_crypto_key_version][super::super::client::KeyManagementService::import_crypto_key_version] calls.
+    /// The request builder for [KeyManagementService::import_crypto_key_version][crate::client::KeyManagementService::import_crypto_key_version] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4076,7 +4076,7 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for [KeyManagementService::create_import_job][super::super::client::KeyManagementService::create_import_job] calls.
+    /// The request builder for [KeyManagementService::create_import_job][crate::client::KeyManagementService::create_import_job] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4169,7 +4169,7 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for [KeyManagementService::update_crypto_key][super::super::client::KeyManagementService::update_crypto_key] calls.
+    /// The request builder for [KeyManagementService::update_crypto_key][crate::client::KeyManagementService::update_crypto_key] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4268,7 +4268,7 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for [KeyManagementService::update_crypto_key_version][super::super::client::KeyManagementService::update_crypto_key_version] calls.
+    /// The request builder for [KeyManagementService::update_crypto_key_version][crate::client::KeyManagementService::update_crypto_key_version] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4370,7 +4370,7 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for [KeyManagementService::update_crypto_key_primary_version][super::super::client::KeyManagementService::update_crypto_key_primary_version] calls.
+    /// The request builder for [KeyManagementService::update_crypto_key_primary_version][crate::client::KeyManagementService::update_crypto_key_primary_version] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4446,7 +4446,7 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for [KeyManagementService::destroy_crypto_key_version][super::super::client::KeyManagementService::destroy_crypto_key_version] calls.
+    /// The request builder for [KeyManagementService::destroy_crypto_key_version][crate::client::KeyManagementService::destroy_crypto_key_version] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4514,7 +4514,7 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for [KeyManagementService::restore_crypto_key_version][super::super::client::KeyManagementService::restore_crypto_key_version] calls.
+    /// The request builder for [KeyManagementService::restore_crypto_key_version][crate::client::KeyManagementService::restore_crypto_key_version] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4582,7 +4582,7 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for [KeyManagementService::encrypt][super::super::client::KeyManagementService::encrypt] calls.
+    /// The request builder for [KeyManagementService::encrypt][crate::client::KeyManagementService::encrypt] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4699,7 +4699,7 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for [KeyManagementService::decrypt][super::super::client::KeyManagementService::decrypt] calls.
+    /// The request builder for [KeyManagementService::decrypt][crate::client::KeyManagementService::decrypt] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4816,7 +4816,7 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for [KeyManagementService::raw_encrypt][super::super::client::KeyManagementService::raw_encrypt] calls.
+    /// The request builder for [KeyManagementService::raw_encrypt][crate::client::KeyManagementService::raw_encrypt] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4960,7 +4960,7 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for [KeyManagementService::raw_decrypt][super::super::client::KeyManagementService::raw_decrypt] calls.
+    /// The request builder for [KeyManagementService::raw_decrypt][crate::client::KeyManagementService::raw_decrypt] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5112,7 +5112,7 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for [KeyManagementService::asymmetric_sign][super::super::client::KeyManagementService::asymmetric_sign] calls.
+    /// The request builder for [KeyManagementService::asymmetric_sign][crate::client::KeyManagementService::asymmetric_sign] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5235,7 +5235,7 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for [KeyManagementService::asymmetric_decrypt][super::super::client::KeyManagementService::asymmetric_decrypt] calls.
+    /// The request builder for [KeyManagementService::asymmetric_decrypt][crate::client::KeyManagementService::asymmetric_decrypt] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5327,7 +5327,7 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for [KeyManagementService::mac_sign][super::super::client::KeyManagementService::mac_sign] calls.
+    /// The request builder for [KeyManagementService::mac_sign][crate::client::KeyManagementService::mac_sign] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5416,7 +5416,7 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for [KeyManagementService::mac_verify][super::super::client::KeyManagementService::mac_verify] calls.
+    /// The request builder for [KeyManagementService::mac_verify][crate::client::KeyManagementService::mac_verify] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5531,7 +5531,7 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for [KeyManagementService::generate_random_bytes][super::super::client::KeyManagementService::generate_random_bytes] calls.
+    /// The request builder for [KeyManagementService::generate_random_bytes][crate::client::KeyManagementService::generate_random_bytes] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5610,7 +5610,7 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for [KeyManagementService::list_locations][super::super::client::KeyManagementService::list_locations] calls.
+    /// The request builder for [KeyManagementService::list_locations][crate::client::KeyManagementService::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5720,7 +5720,7 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for [KeyManagementService::get_location][super::super::client::KeyManagementService::get_location] calls.
+    /// The request builder for [KeyManagementService::get_location][crate::client::KeyManagementService::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5781,7 +5781,7 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for [KeyManagementService::set_iam_policy][super::super::client::KeyManagementService::set_iam_policy] calls.
+    /// The request builder for [KeyManagementService::set_iam_policy][crate::client::KeyManagementService::set_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5884,7 +5884,7 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for [KeyManagementService::get_iam_policy][super::super::client::KeyManagementService::get_iam_policy] calls.
+    /// The request builder for [KeyManagementService::get_iam_policy][crate::client::KeyManagementService::get_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5965,7 +5965,7 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for [KeyManagementService::test_iam_permissions][super::super::client::KeyManagementService::test_iam_permissions] calls.
+    /// The request builder for [KeyManagementService::test_iam_permissions][crate::client::KeyManagementService::test_iam_permissions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6044,7 +6044,7 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for [KeyManagementService::get_operation][super::super::client::KeyManagementService::get_operation] calls.
+    /// The request builder for [KeyManagementService::get_operation][crate::client::KeyManagementService::get_operation] calls.
     ///
     /// # Example
     /// ```no_run

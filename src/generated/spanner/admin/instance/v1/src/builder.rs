@@ -17,7 +17,7 @@
 pub mod instance_admin {
     use crate::Result;
 
-    /// A builder for [InstanceAdmin][super::super::client::InstanceAdmin].
+    /// A builder for [InstanceAdmin][crate::client::InstanceAdmin].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod instance_admin {
         }
     }
 
-    /// Common implementation for [super::super::client::InstanceAdmin] request builders.
+    /// Common implementation for [crate::client::InstanceAdmin] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
@@ -68,7 +68,7 @@ pub mod instance_admin {
         }
     }
 
-    /// The request builder for [InstanceAdmin::list_instance_configs][super::super::client::InstanceAdmin::list_instance_configs] calls.
+    /// The request builder for [InstanceAdmin::list_instance_configs][crate::client::InstanceAdmin::list_instance_configs] calls.
     ///
     /// # Example
     /// ```no_run
@@ -176,7 +176,7 @@ pub mod instance_admin {
         }
     }
 
-    /// The request builder for [InstanceAdmin::get_instance_config][super::super::client::InstanceAdmin::get_instance_config] calls.
+    /// The request builder for [InstanceAdmin::get_instance_config][crate::client::InstanceAdmin::get_instance_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -242,7 +242,7 @@ pub mod instance_admin {
         }
     }
 
-    /// The request builder for [InstanceAdmin::create_instance_config][super::super::client::InstanceAdmin::create_instance_config] calls.
+    /// The request builder for [InstanceAdmin::create_instance_config][crate::client::InstanceAdmin::create_instance_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -290,7 +290,7 @@ pub mod instance_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_instance_config][super::super::client::InstanceAdmin::create_instance_config].
+        /// on [create_instance_config][crate::client::InstanceAdmin::create_instance_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_instance_config(self.0.request, self.0.options)
@@ -386,7 +386,7 @@ pub mod instance_admin {
         }
     }
 
-    /// The request builder for [InstanceAdmin::update_instance_config][super::super::client::InstanceAdmin::update_instance_config] calls.
+    /// The request builder for [InstanceAdmin::update_instance_config][crate::client::InstanceAdmin::update_instance_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -434,7 +434,7 @@ pub mod instance_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_instance_config][super::super::client::InstanceAdmin::update_instance_config].
+        /// on [update_instance_config][crate::client::InstanceAdmin::update_instance_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_instance_config(self.0.request, self.0.options)
@@ -536,7 +536,7 @@ pub mod instance_admin {
         }
     }
 
-    /// The request builder for [InstanceAdmin::delete_instance_config][super::super::client::InstanceAdmin::delete_instance_config] calls.
+    /// The request builder for [InstanceAdmin::delete_instance_config][crate::client::InstanceAdmin::delete_instance_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -614,7 +614,7 @@ pub mod instance_admin {
         }
     }
 
-    /// The request builder for [InstanceAdmin::list_instance_config_operations][super::super::client::InstanceAdmin::list_instance_config_operations] calls.
+    /// The request builder for [InstanceAdmin::list_instance_config_operations][crate::client::InstanceAdmin::list_instance_config_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -732,7 +732,7 @@ pub mod instance_admin {
         }
     }
 
-    /// The request builder for [InstanceAdmin::list_instances][super::super::client::InstanceAdmin::list_instances] calls.
+    /// The request builder for [InstanceAdmin::list_instances][crate::client::InstanceAdmin::list_instances] calls.
     ///
     /// # Example
     /// ```no_run
@@ -859,7 +859,7 @@ pub mod instance_admin {
         }
     }
 
-    /// The request builder for [InstanceAdmin::list_instance_partitions][super::super::client::InstanceAdmin::list_instance_partitions] calls.
+    /// The request builder for [InstanceAdmin::list_instance_partitions][crate::client::InstanceAdmin::list_instance_partitions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -990,7 +990,7 @@ pub mod instance_admin {
         }
     }
 
-    /// The request builder for [InstanceAdmin::get_instance][super::super::client::InstanceAdmin::get_instance] calls.
+    /// The request builder for [InstanceAdmin::get_instance][crate::client::InstanceAdmin::get_instance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1071,7 +1071,7 @@ pub mod instance_admin {
         }
     }
 
-    /// The request builder for [InstanceAdmin::create_instance][super::super::client::InstanceAdmin::create_instance] calls.
+    /// The request builder for [InstanceAdmin::create_instance][crate::client::InstanceAdmin::create_instance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1116,7 +1116,7 @@ pub mod instance_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_instance][super::super::client::InstanceAdmin::create_instance].
+        /// on [create_instance][crate::client::InstanceAdmin::create_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_instance(self.0.request, self.0.options)
@@ -1206,7 +1206,7 @@ pub mod instance_admin {
         }
     }
 
-    /// The request builder for [InstanceAdmin::update_instance][super::super::client::InstanceAdmin::update_instance] calls.
+    /// The request builder for [InstanceAdmin::update_instance][crate::client::InstanceAdmin::update_instance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1251,7 +1251,7 @@ pub mod instance_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_instance][super::super::client::InstanceAdmin::update_instance].
+        /// on [update_instance][crate::client::InstanceAdmin::update_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_instance(self.0.request, self.0.options)
@@ -1347,7 +1347,7 @@ pub mod instance_admin {
         }
     }
 
-    /// The request builder for [InstanceAdmin::delete_instance][super::super::client::InstanceAdmin::delete_instance] calls.
+    /// The request builder for [InstanceAdmin::delete_instance][crate::client::InstanceAdmin::delete_instance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1410,7 +1410,7 @@ pub mod instance_admin {
         }
     }
 
-    /// The request builder for [InstanceAdmin::set_iam_policy][super::super::client::InstanceAdmin::set_iam_policy] calls.
+    /// The request builder for [InstanceAdmin::set_iam_policy][crate::client::InstanceAdmin::set_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1513,7 +1513,7 @@ pub mod instance_admin {
         }
     }
 
-    /// The request builder for [InstanceAdmin::get_iam_policy][super::super::client::InstanceAdmin::get_iam_policy] calls.
+    /// The request builder for [InstanceAdmin::get_iam_policy][crate::client::InstanceAdmin::get_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1594,7 +1594,7 @@ pub mod instance_admin {
         }
     }
 
-    /// The request builder for [InstanceAdmin::test_iam_permissions][super::super::client::InstanceAdmin::test_iam_permissions] calls.
+    /// The request builder for [InstanceAdmin::test_iam_permissions][crate::client::InstanceAdmin::test_iam_permissions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1673,7 +1673,7 @@ pub mod instance_admin {
         }
     }
 
-    /// The request builder for [InstanceAdmin::get_instance_partition][super::super::client::InstanceAdmin::get_instance_partition] calls.
+    /// The request builder for [InstanceAdmin::get_instance_partition][crate::client::InstanceAdmin::get_instance_partition] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1739,7 +1739,7 @@ pub mod instance_admin {
         }
     }
 
-    /// The request builder for [InstanceAdmin::create_instance_partition][super::super::client::InstanceAdmin::create_instance_partition] calls.
+    /// The request builder for [InstanceAdmin::create_instance_partition][crate::client::InstanceAdmin::create_instance_partition] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1789,7 +1789,7 @@ pub mod instance_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_instance_partition][super::super::client::InstanceAdmin::create_instance_partition].
+        /// on [create_instance_partition][crate::client::InstanceAdmin::create_instance_partition].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_instance_partition(self.0.request, self.0.options)
@@ -1881,7 +1881,7 @@ pub mod instance_admin {
         }
     }
 
-    /// The request builder for [InstanceAdmin::delete_instance_partition][super::super::client::InstanceAdmin::delete_instance_partition] calls.
+    /// The request builder for [InstanceAdmin::delete_instance_partition][crate::client::InstanceAdmin::delete_instance_partition] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1955,7 +1955,7 @@ pub mod instance_admin {
         }
     }
 
-    /// The request builder for [InstanceAdmin::update_instance_partition][super::super::client::InstanceAdmin::update_instance_partition] calls.
+    /// The request builder for [InstanceAdmin::update_instance_partition][crate::client::InstanceAdmin::update_instance_partition] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2005,7 +2005,7 @@ pub mod instance_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_instance_partition][super::super::client::InstanceAdmin::update_instance_partition].
+        /// on [update_instance_partition][crate::client::InstanceAdmin::update_instance_partition].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_instance_partition(self.0.request, self.0.options)
@@ -2103,7 +2103,7 @@ pub mod instance_admin {
         }
     }
 
-    /// The request builder for [InstanceAdmin::list_instance_partition_operations][super::super::client::InstanceAdmin::list_instance_partition_operations] calls.
+    /// The request builder for [InstanceAdmin::list_instance_partition_operations][crate::client::InstanceAdmin::list_instance_partition_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2242,7 +2242,7 @@ pub mod instance_admin {
         }
     }
 
-    /// The request builder for [InstanceAdmin::move_instance][super::super::client::InstanceAdmin::move_instance] calls.
+    /// The request builder for [InstanceAdmin::move_instance][crate::client::InstanceAdmin::move_instance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2287,7 +2287,7 @@ pub mod instance_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [move_instance][super::super::client::InstanceAdmin::move_instance].
+        /// on [move_instance][crate::client::InstanceAdmin::move_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .move_instance(self.0.request, self.0.options)
@@ -2355,7 +2355,7 @@ pub mod instance_admin {
         }
     }
 
-    /// The request builder for [InstanceAdmin::list_operations][super::super::client::InstanceAdmin::list_operations] calls.
+    /// The request builder for [InstanceAdmin::list_operations][crate::client::InstanceAdmin::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2467,7 +2467,7 @@ pub mod instance_admin {
         }
     }
 
-    /// The request builder for [InstanceAdmin::get_operation][super::super::client::InstanceAdmin::get_operation] calls.
+    /// The request builder for [InstanceAdmin::get_operation][crate::client::InstanceAdmin::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2531,7 +2531,7 @@ pub mod instance_admin {
         }
     }
 
-    /// The request builder for [InstanceAdmin::delete_operation][super::super::client::InstanceAdmin::delete_operation] calls.
+    /// The request builder for [InstanceAdmin::delete_operation][crate::client::InstanceAdmin::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2595,7 +2595,7 @@ pub mod instance_admin {
         }
     }
 
-    /// The request builder for [InstanceAdmin::cancel_operation][super::super::client::InstanceAdmin::cancel_operation] calls.
+    /// The request builder for [InstanceAdmin::cancel_operation][crate::client::InstanceAdmin::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run

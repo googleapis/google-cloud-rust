@@ -17,7 +17,7 @@
 pub mod tpu {
     use crate::Result;
 
-    /// A builder for [Tpu][super::super::client::Tpu].
+    /// A builder for [Tpu][crate::client::Tpu].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod tpu {
         }
     }
 
-    /// Common implementation for [super::super::client::Tpu] request builders.
+    /// Common implementation for [crate::client::Tpu] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::Tpu>,
@@ -66,7 +66,7 @@ pub mod tpu {
         }
     }
 
-    /// The request builder for [Tpu::list_nodes][super::super::client::Tpu::list_nodes] calls.
+    /// The request builder for [Tpu::list_nodes][crate::client::Tpu::list_nodes] calls.
     ///
     /// # Example
     /// ```no_run
@@ -167,7 +167,7 @@ pub mod tpu {
         }
     }
 
-    /// The request builder for [Tpu::get_node][super::super::client::Tpu::get_node] calls.
+    /// The request builder for [Tpu::get_node][crate::client::Tpu::get_node] calls.
     ///
     /// # Example
     /// ```no_run
@@ -228,7 +228,7 @@ pub mod tpu {
         }
     }
 
-    /// The request builder for [Tpu::create_node][super::super::client::Tpu::create_node] calls.
+    /// The request builder for [Tpu::create_node][crate::client::Tpu::create_node] calls.
     ///
     /// # Example
     /// ```no_run
@@ -271,7 +271,7 @@ pub mod tpu {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_node][super::super::client::Tpu::create_node].
+        /// on [create_node][crate::client::Tpu::create_node].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_node(self.0.request, self.0.options)
@@ -356,7 +356,7 @@ pub mod tpu {
         }
     }
 
-    /// The request builder for [Tpu::delete_node][super::super::client::Tpu::delete_node] calls.
+    /// The request builder for [Tpu::delete_node][crate::client::Tpu::delete_node] calls.
     ///
     /// # Example
     /// ```no_run
@@ -399,7 +399,7 @@ pub mod tpu {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_node][super::super::client::Tpu::delete_node].
+        /// on [delete_node][crate::client::Tpu::delete_node].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_node(self.0.request, self.0.options)
@@ -458,7 +458,7 @@ pub mod tpu {
         }
     }
 
-    /// The request builder for [Tpu::stop_node][super::super::client::Tpu::stop_node] calls.
+    /// The request builder for [Tpu::stop_node][crate::client::Tpu::stop_node] calls.
     ///
     /// # Example
     /// ```no_run
@@ -501,7 +501,7 @@ pub mod tpu {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [stop_node][super::super::client::Tpu::stop_node].
+        /// on [stop_node][crate::client::Tpu::stop_node].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .stop_node(self.0.request, self.0.options)
@@ -558,7 +558,7 @@ pub mod tpu {
         }
     }
 
-    /// The request builder for [Tpu::start_node][super::super::client::Tpu::start_node] calls.
+    /// The request builder for [Tpu::start_node][crate::client::Tpu::start_node] calls.
     ///
     /// # Example
     /// ```no_run
@@ -601,7 +601,7 @@ pub mod tpu {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [start_node][super::super::client::Tpu::start_node].
+        /// on [start_node][crate::client::Tpu::start_node].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .start_node(self.0.request, self.0.options)
@@ -658,7 +658,7 @@ pub mod tpu {
         }
     }
 
-    /// The request builder for [Tpu::update_node][super::super::client::Tpu::update_node] calls.
+    /// The request builder for [Tpu::update_node][crate::client::Tpu::update_node] calls.
     ///
     /// # Example
     /// ```no_run
@@ -701,7 +701,7 @@ pub mod tpu {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_node][super::super::client::Tpu::update_node].
+        /// on [update_node][crate::client::Tpu::update_node].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_node(self.0.request, self.0.options)
@@ -794,7 +794,7 @@ pub mod tpu {
         }
     }
 
-    /// The request builder for [Tpu::list_queued_resources][super::super::client::Tpu::list_queued_resources] calls.
+    /// The request builder for [Tpu::list_queued_resources][crate::client::Tpu::list_queued_resources] calls.
     ///
     /// # Example
     /// ```no_run
@@ -900,7 +900,7 @@ pub mod tpu {
         }
     }
 
-    /// The request builder for [Tpu::get_queued_resource][super::super::client::Tpu::get_queued_resource] calls.
+    /// The request builder for [Tpu::get_queued_resource][crate::client::Tpu::get_queued_resource] calls.
     ///
     /// # Example
     /// ```no_run
@@ -964,7 +964,7 @@ pub mod tpu {
         }
     }
 
-    /// The request builder for [Tpu::create_queued_resource][super::super::client::Tpu::create_queued_resource] calls.
+    /// The request builder for [Tpu::create_queued_resource][crate::client::Tpu::create_queued_resource] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1010,7 +1010,7 @@ pub mod tpu {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_queued_resource][super::super::client::Tpu::create_queued_resource].
+        /// on [create_queued_resource][crate::client::Tpu::create_queued_resource].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_queued_resource(self.0.request, self.0.options)
@@ -1104,7 +1104,7 @@ pub mod tpu {
         }
     }
 
-    /// The request builder for [Tpu::delete_queued_resource][super::super::client::Tpu::delete_queued_resource] calls.
+    /// The request builder for [Tpu::delete_queued_resource][crate::client::Tpu::delete_queued_resource] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1150,7 +1150,7 @@ pub mod tpu {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_queued_resource][super::super::client::Tpu::delete_queued_resource].
+        /// on [delete_queued_resource][crate::client::Tpu::delete_queued_resource].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_queued_resource(self.0.request, self.0.options)
@@ -1221,7 +1221,7 @@ pub mod tpu {
         }
     }
 
-    /// The request builder for [Tpu::reset_queued_resource][super::super::client::Tpu::reset_queued_resource] calls.
+    /// The request builder for [Tpu::reset_queued_resource][crate::client::Tpu::reset_queued_resource] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1267,7 +1267,7 @@ pub mod tpu {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [reset_queued_resource][super::super::client::Tpu::reset_queued_resource].
+        /// on [reset_queued_resource][crate::client::Tpu::reset_queued_resource].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .reset_queued_resource(self.0.request, self.0.options)
@@ -1327,7 +1327,7 @@ pub mod tpu {
         }
     }
 
-    /// The request builder for [Tpu::generate_service_identity][super::super::client::Tpu::generate_service_identity] calls.
+    /// The request builder for [Tpu::generate_service_identity][crate::client::Tpu::generate_service_identity] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1393,7 +1393,7 @@ pub mod tpu {
         }
     }
 
-    /// The request builder for [Tpu::list_accelerator_types][super::super::client::Tpu::list_accelerator_types] calls.
+    /// The request builder for [Tpu::list_accelerator_types][crate::client::Tpu::list_accelerator_types] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1511,7 +1511,7 @@ pub mod tpu {
         }
     }
 
-    /// The request builder for [Tpu::get_accelerator_type][super::super::client::Tpu::get_accelerator_type] calls.
+    /// The request builder for [Tpu::get_accelerator_type][crate::client::Tpu::get_accelerator_type] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1575,7 +1575,7 @@ pub mod tpu {
         }
     }
 
-    /// The request builder for [Tpu::list_runtime_versions][super::super::client::Tpu::list_runtime_versions] calls.
+    /// The request builder for [Tpu::list_runtime_versions][crate::client::Tpu::list_runtime_versions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1693,7 +1693,7 @@ pub mod tpu {
         }
     }
 
-    /// The request builder for [Tpu::get_runtime_version][super::super::client::Tpu::get_runtime_version] calls.
+    /// The request builder for [Tpu::get_runtime_version][crate::client::Tpu::get_runtime_version] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1757,7 +1757,7 @@ pub mod tpu {
         }
     }
 
-    /// The request builder for [Tpu::get_guest_attributes][super::super::client::Tpu::get_guest_attributes] calls.
+    /// The request builder for [Tpu::get_guest_attributes][crate::client::Tpu::get_guest_attributes] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1838,7 +1838,7 @@ pub mod tpu {
         }
     }
 
-    /// The request builder for [Tpu::list_locations][super::super::client::Tpu::list_locations] calls.
+    /// The request builder for [Tpu::list_locations][crate::client::Tpu::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1946,7 +1946,7 @@ pub mod tpu {
         }
     }
 
-    /// The request builder for [Tpu::get_location][super::super::client::Tpu::get_location] calls.
+    /// The request builder for [Tpu::get_location][crate::client::Tpu::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2005,7 +2005,7 @@ pub mod tpu {
         }
     }
 
-    /// The request builder for [Tpu::list_operations][super::super::client::Tpu::list_operations] calls.
+    /// The request builder for [Tpu::list_operations][crate::client::Tpu::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2115,7 +2115,7 @@ pub mod tpu {
         }
     }
 
-    /// The request builder for [Tpu::get_operation][super::super::client::Tpu::get_operation] calls.
+    /// The request builder for [Tpu::get_operation][crate::client::Tpu::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2177,7 +2177,7 @@ pub mod tpu {
         }
     }
 
-    /// The request builder for [Tpu::delete_operation][super::super::client::Tpu::delete_operation] calls.
+    /// The request builder for [Tpu::delete_operation][crate::client::Tpu::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2239,7 +2239,7 @@ pub mod tpu {
         }
     }
 
-    /// The request builder for [Tpu::cancel_operation][super::super::client::Tpu::cancel_operation] calls.
+    /// The request builder for [Tpu::cancel_operation][crate::client::Tpu::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run

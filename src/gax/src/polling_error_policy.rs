@@ -59,6 +59,7 @@ pub trait PollingErrorPolicy: Send + Sync + std::fmt::Debug {
     ///   attempt. This method called after LRO successfully starts, it is
     ///   always non-zero.
     /// * `error` - the last error when attempting the request.
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
     fn on_error(
         &self,
         loop_start: std::time::Instant,
@@ -68,6 +69,7 @@ pub trait PollingErrorPolicy: Send + Sync + std::fmt::Debug {
 
     /// Called when the LRO is successfully polled, but the LRO is still in
     /// progress.
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
     fn on_in_progress(
         &self,
         _loop_start: std::time::Instant,
@@ -524,6 +526,7 @@ impl std::error::Error for Exhausted {}
 mod tests {
     use super::*;
     use crate::error::{Error, ServiceError};
+    use http::HeaderMap;
     use std::time::{Duration, Instant};
 
     mockall::mock! {
@@ -639,14 +642,13 @@ mod tests {
     }
 
     fn http_error(code: u16, message: &str) -> Error {
-        use std::collections::HashMap;
         let error = serde_json::json!({"error": {
             "code": code,
             "message": message,
         }});
         let payload = serde_json::to_string(&error).ok();
         let payload = payload.map(bytes::Bytes::from_owner);
-        let http = crate::error::HttpError::new(code, HashMap::new(), payload);
+        let http = crate::error::HttpError::new(code, HeaderMap::new(), payload);
         Error::rpc(http)
     }
 
