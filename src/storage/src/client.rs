@@ -402,10 +402,10 @@ mod v1 {
                             &"Expected a Byte Vector of length 4.",
                         ));
                     }
-                    return Ok(((bytes[0] as u32) << 24)
+                    Ok(((bytes[0] as u32) << 24)
                         + ((bytes[1] as u32) << 16)
                         + ((bytes[2] as u32) << 8)
-                        + (bytes[3] as u32));
+                        + (bytes[3] as u32))
                 }
             }
 
