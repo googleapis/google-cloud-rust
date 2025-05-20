@@ -18,7 +18,7 @@ use std::sync::Arc;
 use crate::credentials::Result;
 use crate::credentials::internal::sts_exchange::ClientAuthentication;
 use crate::errors;
-use crate::headers_util::build_bearer_headers;
+use crate::headers_util::build_cacheable_headers;
 use crate::token::{CachedTokenProvider, Token, TokenProvider};
 use crate::token_cache::TokenCache;
 use gax::error::CredentialsError;
@@ -27,10 +27,10 @@ use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use tokio::time::{Duration, Instant};
 
-use super::Credentials;
 use super::dynamic::CredentialsProvider;
 use super::external_account_sources::url_sourced_account::UrlSourcedCredentials;
 use super::internal::sts_exchange::{ExchangeTokenRequest, STSHandler};
+use super::{CacheableResource, Credentials};
 
 #[async_trait::async_trait]
 pub(crate) trait SubjectTokenProvider: std::fmt::Debug + Send + Sync {
@@ -167,6 +167,7 @@ where
 ///     }
 /// });
 /// let credentials = Builder::new(config)
+///     .with_quota_project_id("quota_project")
 ///     .build();
 /// })
 /// ```
@@ -246,9 +247,9 @@ impl<T> CredentialsProvider for ExternalAccountCredentials<T>
 where
     T: CachedTokenProvider,
 {
-    async fn headers(&self, extensions: Extensions) -> Result<HeaderMap> {
+    async fn headers(&self, extensions: Extensions) -> Result<CacheableResource<HeaderMap>> {
         let token = self.token_provider.token(extensions).await?;
-        build_bearer_headers(&token, &self.quota_project_id)
+        build_cacheable_headers(&token, &self.quota_project_id)
     }
 }
 

@@ -29,8 +29,8 @@ type Result<T> = std::result::Result<T, CredentialsError>;
 mod test {
     use super::*;
     use base64::Engine;
-    use google_cloud_auth::credentials::external_account;
     use google_cloud_auth::credentials::EntityTag;
+    use google_cloud_auth::credentials::external_account;
     use http::header::{AUTHORIZATION, HeaderName, HeaderValue};
     use http::{Extensions, HeaderMap};
     use httptest::{Expectation, Server, matchers::*, responders::*};
@@ -307,13 +307,20 @@ mod test {
         print!("{:?}", creds);
         assert!(fmt.contains("ExternalAccountCredentials"));
 
-        let headers = creds.headers(Extensions::new()).await?;
-        let token = headers
-            .get(AUTHORIZATION)
-            .and_then(|token_value| token_value.to_str().ok())
-            .map(|s| s.to_string())
-            .unwrap();
-        assert!(token.contains("Bearer an_exchanged_token"));
+        let cached_headers = creds.headers(Extensions::new()).await?;
+        match cached_headers {
+            CacheableResource::New { data, .. } => {
+                let token = data
+                    .get(AUTHORIZATION)
+                    .and_then(|token_value| token_value.to_str().ok())
+                    .map(|s| s.to_string())
+                    .unwrap();
+                assert!(token.contains("Bearer an_exchanged_token"));
+            }
+            CacheableResource::NotModified => {
+                unreachable!("Expecting a header to be present");
+            }
+        };
 
         Ok(())
     }
