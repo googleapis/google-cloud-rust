@@ -52,10 +52,34 @@ pub struct CredentialSourceHeaders {
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
-pub struct CredentialSource {
-    pub url: Option<String>,
-    pub headers: Option<CredentialSourceHeaders>,
-    pub format: Option<CredentialSourceFormat>,
+pub struct ExecutableConfig {
+    pub command: String,
+    pub timeout_millis: Option<u32>,
+    pub output_file: Option<String>,
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone)]
+#[serde(untagged)]
+pub enum CredentialSource {
+    UrlSourced {
+        url: String,
+        headers: Option<CredentialSourceHeaders>,
+        format: Option<CredentialSourceFormat>,
+    },
+    File {
+        file: String,
+        format: Option<CredentialSourceFormat>,
+    },
+    Executable {
+        executable: ExecutableConfig,
+    },
+    Aws {
+        environment_id: String,
+        region_url: Option<String>,
+        regional_cred_verification_url: Option<String>,
+        cred_verification_url: Option<String>,
+        imdsv2_session_token_url: Option<String>,
+    },
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
@@ -88,19 +112,38 @@ impl ExternalAccountTokenProvider {
 fn subject_token_provider_from_config(
     config: ExternalAccountConfig,
 ) -> Result<Box<dyn SubjectTokenProvider>> {
-    if let Some(url) = config.credential_source.url {
-        let creds = UrlSourcedCredentials {
+    match config.credential_source {
+        CredentialSource::UrlSourced {
             url,
-            headers: config.credential_source.headers,
-            format: config.credential_source.format,
-        };
-        return Ok(Box::new(creds));
+            headers,
+            format,
+        } => {
+            let creds = UrlSourcedCredentials {
+                url,
+                headers,
+                format,
+            };
+            return Ok(Box::new(creds));
+        }
+        CredentialSource::Executable { .. } => {
+            return Err(CredentialsError::from_str(
+                false,
+                "executable sourced credential not supported yet",
+            ));
+        }
+        CredentialSource::File { .. } => {
+            return Err(CredentialsError::from_str(
+                false,
+                "file sourced credential not supported yet",
+            ));
+        }
+        CredentialSource::Aws { .. } => {
+            return Err(CredentialsError::from_str(
+                false,
+                "AWS sourced credential not supported yet",
+            ));
+        }
     }
-
-    Err(CredentialsError::from_str(
-        false,
-        "unable to parse credential source",
-    ))
 }
 
 #[async_trait::async_trait]
@@ -200,14 +243,6 @@ impl Builder {
         self
     }
 
-    fn build_token_provider(self) -> Result<ExternalAccountTokenProvider> {
-        let external_account_config: ExternalAccountConfig =
-            serde_json::from_value(self.external_account_config).map_err(errors::non_retryable)?;
-        let token_provider = ExternalAccountTokenProvider::new(external_account_config)
-            .map_err(errors::non_retryable)?;
-        Ok(token_provider)
-    }
-
     /// Returns a [Credentials] instance with the configured settings.
     ///
     /// # Errors
@@ -227,6 +262,14 @@ impl Builder {
                 token_provider: TokenCache::new(self.build_token_provider()?),
             }),
         })
+    }
+
+    fn build_token_provider(self) -> Result<ExternalAccountTokenProvider> {
+        let external_account_config: ExternalAccountConfig =
+            serde_json::from_value(self.external_account_config).map_err(errors::non_retryable)?;
+        let token_provider = ExternalAccountTokenProvider::new(external_account_config)
+            .map_err(errors::non_retryable)?;
+        Ok(token_provider)
     }
 }
 
