@@ -316,6 +316,7 @@ pub(crate) mod info {
 
 mod v1 {
     use base64::Engine as _;
+    use wkt::Timestamp;
 
     #[serde_with::serde_as]
     #[derive(Debug, Default, serde::Deserialize, PartialEq, Clone)]
@@ -363,11 +364,15 @@ mod v1 {
         // The following are excluded from the protos, so we don't really need to parse them.
         media_link: String,
         self_link: String,
-        // TODO(#2039) - add all the other fields:
-        //     "retention": {
-        //       "retainUntilTime": "datetime",
-        //       "mode": string
-        //     }
+        // ObjectRetention cannot be configured or reported through the gRPC API.
+        retention: Retention,
+    }
+
+    #[derive(Debug, Default, serde::Deserialize, PartialEq, Clone)]
+    #[serde(default, rename_all = "camelCase")]
+    struct Retention {
+        retain_until_time: Timestamp,
+        mode: String,
     }
 
     // CRC32c checksum is a unsigned 32-bit int encoded using base64 in big-endian byte order.
@@ -586,6 +591,9 @@ mod v1 {
                 "md5Hash": "N8S4ft/8XRmP9aGFzufuCQ==",
                 // base64 encoded uint32 in BigEndian order field:
                 "crc32c": "/ieOcg==",
+                // unused fields:
+                "mediaLink": "my-link",
+                "retention": { "mode": "my-mode", "retainUntilTime": "2026-05-13T10:30:00Z"}
             });
             let object: Object = serde_json::from_value(json)
                 .expect("json value in object test should be deserializable");
@@ -633,6 +641,12 @@ mod v1 {
                 .into(),
                 // base64 encoded uint32 in BigEndian order field:
                 crc32c: Some(4264005234),
+                // unused in control::model::Object:
+                media_link: "my-link".to_string(),
+                retention: Retention {
+                    retain_until_time: wkt::Timestamp::clamp(1778668200, 0),
+                    mode: "my-mode".to_string(),
+                },
                 ..Default::default()
             };
 
@@ -734,6 +748,7 @@ mod v1 {
             // unused in control::model
             media_link: "my-media-link".to_string(),
             self_link: "my-self-link".to_string(),
+            retention: Retention { retain_until_time: wkt::Timestamp::clamp(1747132200, 10), mode: "mode".to_string() }
         }; "all fields set")]
         // Tests for acl values.
         #[test_case(Object { acl: Vec::new(), ..Default::default()}; "empty acl")]
