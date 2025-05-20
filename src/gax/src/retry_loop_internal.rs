@@ -149,7 +149,7 @@ mod test {
 
     #[tokio::test]
     async fn immediate_success() -> anyhow::Result<()> {
-        // This test simulates a server immediate returning a sucessful
+        // This test simulates a server immediate returning a successful
         // response.
         let mut call = MockCall::new();
         call.expect_call().once().returning(|_| success());
@@ -571,7 +571,7 @@ mod test {
     #[tokio::test]
     async fn throttle_and_retry_policy_stops_loop() -> anyhow::Result<()> {
         // This test simulates a server responding with a transient error, and
-        // the retry attemp is throttled, and then the retry loop stops the
+        // the retry attempt is throttled, and then the retry loop stops the
         // loop.
         let mut call = MockCall::new();
         call.expect_call().once().returning(|_| transient());
