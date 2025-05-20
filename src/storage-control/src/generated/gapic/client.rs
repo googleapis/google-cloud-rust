@@ -20,18 +20,18 @@ use crate::Result;
 
 /// Implements a client for the Cloud Storage API.
 #[derive(Clone, Debug)]
-pub struct Storage {
-    inner: std::sync::Arc<dyn super::stub::dynamic::Storage>,
+pub struct StorageControl {
+    inner: std::sync::Arc<dyn super::stub::dynamic::StorageControl>,
 }
 
-impl Storage {
+impl StorageControl {
     /// Creates a new client from the provided stub.
     ///
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stub::Storage + 'static,
+        T: super::stub::StorageControl + 'static,
     {
         Self {
             inner: std::sync::Arc::new(stub),
@@ -45,7 +45,7 @@ impl Storage {
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::Storage>> {
+    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::StorageControl>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -54,57 +54,57 @@ impl Storage {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Storage> {
-        super::transport::Storage::new(conf).await
+    ) -> Result<impl super::stub::StorageControl> {
+        super::transport::StorageControl::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Storage> {
+    ) -> Result<impl super::stub::StorageControl> {
         Self::build_transport(conf)
             .await
-            .map(super::tracing::Storage::new)
+            .map(super::tracing::StorageControl::new)
     }
 
     /// Permanently deletes an empty bucket.
-    pub fn delete_bucket(&self) -> super::builder::storage::DeleteBucket {
-        super::builder::storage::DeleteBucket::new(self.inner.clone())
+    pub fn delete_bucket(&self) -> super::builder::storage_control::DeleteBucket {
+        super::builder::storage_control::DeleteBucket::new(self.inner.clone())
     }
 
     /// Returns metadata for the specified bucket.
-    pub fn get_bucket(&self) -> super::builder::storage::GetBucket {
-        super::builder::storage::GetBucket::new(self.inner.clone())
+    pub fn get_bucket(&self) -> super::builder::storage_control::GetBucket {
+        super::builder::storage_control::GetBucket::new(self.inner.clone())
     }
 
     /// Creates a new bucket.
-    pub fn create_bucket(&self) -> super::builder::storage::CreateBucket {
-        super::builder::storage::CreateBucket::new(self.inner.clone())
+    pub fn create_bucket(&self) -> super::builder::storage_control::CreateBucket {
+        super::builder::storage_control::CreateBucket::new(self.inner.clone())
     }
 
     /// Retrieves a list of buckets for a given project.
-    pub fn list_buckets(&self) -> super::builder::storage::ListBuckets {
-        super::builder::storage::ListBuckets::new(self.inner.clone())
+    pub fn list_buckets(&self) -> super::builder::storage_control::ListBuckets {
+        super::builder::storage_control::ListBuckets::new(self.inner.clone())
     }
 
     /// Locks retention policy on a bucket.
     pub fn lock_bucket_retention_policy(
         &self,
-    ) -> super::builder::storage::LockBucketRetentionPolicy {
-        super::builder::storage::LockBucketRetentionPolicy::new(self.inner.clone())
+    ) -> super::builder::storage_control::LockBucketRetentionPolicy {
+        super::builder::storage_control::LockBucketRetentionPolicy::new(self.inner.clone())
     }
 
     /// Gets the IAM policy for a specified bucket.
     /// The `resource` field in the request should be
     /// `projects/_/buckets/{bucket}`.
-    pub fn get_iam_policy(&self) -> super::builder::storage::GetIamPolicy {
-        super::builder::storage::GetIamPolicy::new(self.inner.clone())
+    pub fn get_iam_policy(&self) -> super::builder::storage_control::GetIamPolicy {
+        super::builder::storage_control::GetIamPolicy::new(self.inner.clone())
     }
 
     /// Updates an IAM policy for the specified bucket.
     /// The `resource` field in the request should be
     /// `projects/_/buckets/{bucket}`.
-    pub fn set_iam_policy(&self) -> super::builder::storage::SetIamPolicy {
-        super::builder::storage::SetIamPolicy::new(self.inner.clone())
+    pub fn set_iam_policy(&self) -> super::builder::storage_control::SetIamPolicy {
+        super::builder::storage_control::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Tests a set of permissions on the given bucket, object, or managed folder
@@ -114,19 +114,19 @@ impl Storage {
     /// `projects/_/buckets/{bucket}/objects/{object}` for an object, or
     /// `projects/_/buckets/{bucket}/managedFolders/{managedFolder}`
     /// for a managed folder.
-    pub fn test_iam_permissions(&self) -> super::builder::storage::TestIamPermissions {
-        super::builder::storage::TestIamPermissions::new(self.inner.clone())
+    pub fn test_iam_permissions(&self) -> super::builder::storage_control::TestIamPermissions {
+        super::builder::storage_control::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Updates a bucket. Equivalent to JSON API's storage.buckets.patch method.
-    pub fn update_bucket(&self) -> super::builder::storage::UpdateBucket {
-        super::builder::storage::UpdateBucket::new(self.inner.clone())
+    pub fn update_bucket(&self) -> super::builder::storage_control::UpdateBucket {
+        super::builder::storage_control::UpdateBucket::new(self.inner.clone())
     }
 
     /// Concatenates a list of existing objects into a new object in the same
     /// bucket.
-    pub fn compose_object(&self) -> super::builder::storage::ComposeObject {
-        super::builder::storage::ComposeObject::new(self.inner.clone())
+    pub fn compose_object(&self) -> super::builder::storage_control::ComposeObject {
+        super::builder::storage_control::ComposeObject::new(self.inner.clone())
     }
 
     /// Deletes an object and its metadata. Deletions are permanent if versioning
@@ -151,13 +151,13 @@ impl Storage {
     /// the bucket.
     ///
     /// [google.storage.v2.Storage.RestoreObject]: crate::client::Storage::restore_object
-    pub fn delete_object(&self) -> super::builder::storage::DeleteObject {
-        super::builder::storage::DeleteObject::new(self.inner.clone())
+    pub fn delete_object(&self) -> super::builder::storage_control::DeleteObject {
+        super::builder::storage_control::DeleteObject::new(self.inner.clone())
     }
 
     /// Restores a soft-deleted object.
-    pub fn restore_object(&self) -> super::builder::storage::RestoreObject {
-        super::builder::storage::RestoreObject::new(self.inner.clone())
+    pub fn restore_object(&self) -> super::builder::storage_control::RestoreObject {
+        super::builder::storage_control::RestoreObject::new(self.inner.clone())
     }
 
     /// Retrieves object metadata.
@@ -168,14 +168,14 @@ impl Storage {
     /// [IAM permission](https://cloud.google.com/iam/docs/overview#permissions) on
     /// the bucket. To return object ACLs, the authenticated user must also have
     /// the `storage.objects.getIamPolicy` permission.
-    pub fn get_object(&self) -> super::builder::storage::GetObject {
-        super::builder::storage::GetObject::new(self.inner.clone())
+    pub fn get_object(&self) -> super::builder::storage_control::GetObject {
+        super::builder::storage_control::GetObject::new(self.inner.clone())
     }
 
     /// Updates an object's metadata.
     /// Equivalent to JSON API's storage.objects.patch.
-    pub fn update_object(&self) -> super::builder::storage::UpdateObject {
-        super::builder::storage::UpdateObject::new(self.inner.clone())
+    pub fn update_object(&self) -> super::builder::storage_control::UpdateObject {
+        super::builder::storage_control::UpdateObject::new(self.inner.clone())
     }
 
     /// Retrieves a list of objects matching the criteria.
@@ -186,18 +186,18 @@ impl Storage {
     /// [IAM permission](https://cloud.google.com/iam/docs/overview#permissions)
     /// to use this method. To return object ACLs, the authenticated user must also
     /// have the `storage.objects.getIamPolicy` permission.
-    pub fn list_objects(&self) -> super::builder::storage::ListObjects {
-        super::builder::storage::ListObjects::new(self.inner.clone())
+    pub fn list_objects(&self) -> super::builder::storage_control::ListObjects {
+        super::builder::storage_control::ListObjects::new(self.inner.clone())
     }
 
     /// Rewrites a source object to a destination object. Optionally overrides
     /// metadata.
-    pub fn rewrite_object(&self) -> super::builder::storage::RewriteObject {
-        super::builder::storage::RewriteObject::new(self.inner.clone())
+    pub fn rewrite_object(&self) -> super::builder::storage_control::RewriteObject {
+        super::builder::storage_control::RewriteObject::new(self.inner.clone())
     }
 
     /// Moves the source object to the destination object in the same bucket.
-    pub fn move_object(&self) -> super::builder::storage::MoveObject {
-        super::builder::storage::MoveObject::new(self.inner.clone())
+    pub fn move_object(&self) -> super::builder::storage_control::MoveObject {
+        super::builder::storage_control::MoveObject::new(self.inner.clone())
     }
 }

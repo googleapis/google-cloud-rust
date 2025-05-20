@@ -81,7 +81,7 @@
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 #[derive(Clone, Debug)]
 pub struct StorageControl {
-    storage: super::generated::gapic::client::Storage,
+    storage: super::generated::gapic::client::StorageControl,
     control: super::generated::gapic_control::client::StorageControl,
 }
 
@@ -433,13 +433,13 @@ impl StorageControl {
     {
         let stub = std::sync::Arc::new(stub);
         Self {
-            storage: super::generated::gapic::client::Storage::from_stub(stub.clone()),
+            storage: super::generated::gapic::client::StorageControl::from_stub(stub.clone()),
             control: super::generated::gapic_control::client::StorageControl::from_stub(stub),
         }
     }
 
     pub(crate) async fn new(config: gaxi::options::ClientConfig) -> crate::Result<Self> {
-        let storage = super::generated::gapic::client::Storage::new(config.clone()).await?;
+        let storage = super::generated::gapic::client::StorageControl::new(config.clone()).await?;
         let control = super::generated::gapic_control::client::StorageControl::new(config).await?;
         Ok(Self { storage, control })
     }
