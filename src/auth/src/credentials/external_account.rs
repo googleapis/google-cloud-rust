@@ -17,6 +17,7 @@ use std::sync::Arc;
 
 use crate::credentials::Result;
 use crate::credentials::internal::sts_exchange::ClientAuthentication;
+use crate::errors;
 use crate::headers_util::build_bearer_headers;
 use crate::token::{CachedTokenProvider, Token, TokenProvider};
 use crate::token_cache::TokenCache;
@@ -141,6 +142,91 @@ where
 {
     token_provider: T,
     quota_project_id: Option<String>,
+}
+
+/// A builder for constructing external account [Credentials] instances.
+///
+/// # Example
+/// ```
+/// # use google_cloud_auth::credentials::external_account::{Builder};
+/// # tokio_test::block_on(async {
+/// let config = serde_json::json!({
+///     "type": "external_account",
+///     "audience": "//iam.googleapis.com/projects/<PROJECT_ID>/locations/global/workloadIdentityPools/<WORKLOAD_IDENTITY_POOL>/providers/<WORKLOAD_IDENTITY_PROVIDER_ID>",
+///     "subject_token_type": "urn:ietf:params:oauth:token-type:jwt",
+///     "token_url": "https://sts.googleapis.com/v1beta/token",
+///     "credential_source": {
+///         "url": "http://169.254.169.254/metadata/identity/oauth2/token?api-version=2018-02-01&resource=https://iam.googleapis.com/projects/<PROJECT_ID>/locations/global/workloadIdentityPools/<WORKLOAD_IDENTITY_POOL>/providers/<WORKLOAD_IDENTITY_PROVIDER_ID>",
+///         "headers": {
+///           "Metadata": "True"
+///         },
+///         "format": {
+///           "type": "json",
+///           "subject_token_field_name": "access_token"
+///         }
+///     }
+/// });
+/// let credentials = Builder::new(config)
+///     .build();
+/// })
+/// ```
+pub struct Builder {
+    external_account_config: Value,
+    quota_project_id: Option<String>,
+}
+
+impl Builder {
+    /// Creates a new builder using [external_account_config] JSON value.    
+    ///
+    /// [external_account_config]: https://cloud.google.com/iam/docs/workload-download-cred-and-grant-access#download-configuration
+    pub fn new(external_account_config: Value) -> Self {
+        Self {
+            external_account_config,
+            quota_project_id: None,
+        }
+    }
+
+    /// Sets the [quota project] for this credentials.
+    ///
+    /// In some services, you can use a service account in
+    /// one project for authentication and authorization, and charge
+    /// the usage to a different project. This requires that the
+    /// service account has `serviceusage.services.use` permissions on the quota project.
+    ///
+    /// [quota project]: https://cloud.google.com/docs/quotas/quota-project
+    pub fn with_quota_project_id<S: Into<String>>(mut self, quota_project_id: S) -> Self {
+        self.quota_project_id = Some(quota_project_id.into());
+        self
+    }
+
+    fn build_token_provider(self) -> Result<ExternalAccountTokenProvider> {
+        let external_account_config: ExternalAccountConfig =
+            serde_json::from_value(self.external_account_config).map_err(errors::non_retryable)?;
+        let token_provider = ExternalAccountTokenProvider::new(external_account_config)
+            .map_err(errors::non_retryable)?;
+        Ok(token_provider)
+    }
+
+    /// Returns a [Credentials] instance with the configured settings.
+    ///
+    /// # Errors
+    ///
+    /// Returns a [CredentialsError] if the `external_account_config`
+    /// provided to [`Builder::new`] cannot be successfully deserialized into the
+    /// expected format for an external account configuration. This typically happens if the
+    /// JSON value is malformed or missing required fields. For more information,
+    /// on the expected format, consult the relevant section in
+    /// the [external account config] guide.
+    ///
+    /// [external account config]: https://cloud.google.com/iam/docs/workload-download-cred-and-grant-access#download-configuration
+    pub fn build(self) -> Result<Credentials> {
+        Ok(Credentials {
+            inner: Arc::new(ExternalAccountCredentials {
+                quota_project_id: self.quota_project_id.clone(),
+                token_provider: TokenCache::new(self.build_token_provider()?),
+            }),
+        })
+    }
 }
 
 pub fn new(external_account_options: Value) -> Result<Credentials> {

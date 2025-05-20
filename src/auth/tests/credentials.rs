@@ -29,6 +29,7 @@ type Result<T> = std::result::Result<T, CredentialsError>;
 mod test {
     use super::*;
     use base64::Engine;
+    use google_cloud_auth::credentials::external_account;
     use http::header::{AUTHORIZATION, HeaderName, HeaderValue};
     use http::{Extensions, HeaderMap};
     use httptest::{Expectation, Server, matchers::*, responders::*};
@@ -197,7 +198,36 @@ mod test {
     }
 
     #[tokio::test]
-    async fn create_access_token_credentials_json_url_sourced_credentials() -> TestResult {
+    async fn create_external_account_credentials_with_builder() {
+        let contents = json!({
+            "type": "external_account",
+            "audience": "//iam.googleapis.com/projects/<PROJECT_ID>/locations/global/workloadIdentityPools/<WORKLOAD_IDENTITY_POOL>/providers/<WORKLOAD_IDENTITY_PROVIDER_ID>",
+            "subject_token_type": "urn:ietf:params:oauth:token-type:jwt",
+            "token_url": "https://sts.googleapis.com/v1beta/token",
+            "credential_source": {
+                "url": "http://169.254.169.254/metadata/identity/oauth2/token?api-version=2018-02-01&resource=https://iam.googleapis.com/projects/<PROJECT_ID>/locations/global/workloadIdentityPools/<WORKLOAD_IDENTITY_POOL>/providers/<WORKLOAD_IDENTITY_PROVIDER_ID>",
+                "headers": {
+                  "Metadata": "True"
+                },
+                "format": {
+                  "type": "json",
+                  "subject_token_field_name": "access_token"
+                }
+            }
+        });
+
+        let creds = external_account::Builder::new(contents)
+            .with_quota_project_id("test_project")
+            .build()
+            .unwrap();
+
+        let fmt = format!("{:?}", creds);
+        print!("{:?}", creds);
+        assert!(fmt.contains("ExternalAccountCredentials"));
+    }
+
+    #[tokio::test]
+    async fn create_external_account_access_token() -> TestResult {
         let source_token_response_body = json!({
             "access_token":"an_example_token",
         })
