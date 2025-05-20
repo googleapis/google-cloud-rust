@@ -27,7 +27,7 @@ pub mod {{Codec.ModuleName}} {
     use crate::Result;
     {{^Codec.HasVeneer}}
 
-    /// A builder for [{{Codec.Name}}][super::super::client::{{Codec.Name}}].
+    /// A builder for [{{Codec.Name}}][crate::client::{{Codec.Name}}].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -56,7 +56,7 @@ pub mod {{Codec.ModuleName}} {
     }
     {{/Codec.HasVeneer}}
 
-    /// Common implementation for [super::super::client::{{Codec.Name}}] request builders.
+    /// Common implementation for [crate::client::{{Codec.Name}}] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::{{Codec.Name}}>,
@@ -78,7 +78,7 @@ pub mod {{Codec.ModuleName}} {
     {{#Codec.Methods}}
     {{! TODO(#1813) - fix and generate builder docs for veneers }}
     {{^Codec.HasVeneer}}
-    /// The request builder for [{{Codec.ServiceNameToPascal}}::{{Codec.Name}}][super::super::client::{{Codec.ServiceNameToPascal}}::{{Codec.Name}}] calls.
+    /// The request builder for [{{Codec.ServiceNameToPascal}}::{{Codec.Name}}][crate::client::{{Codec.ServiceNameToPascal}}::{{Codec.Name}}] calls.
     ///
     /// # Example
     /// ```no_run
@@ -145,7 +145,7 @@ pub mod {{Codec.ModuleName}} {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [{{Method.Codec.Name}}][super::super::client::{{Method.Codec.ServiceNameToPascal}}::{{Method.Codec.Name}}].
+        /// on [{{Method.Codec.Name}}][crate::client::{{Method.Codec.ServiceNameToPascal}}::{{Method.Codec.Name}}].
         {{/OperationInfo}}
         {{/Codec.HasVeneer}}
         pub async fn send(self) -> Result<{{Codec.ReturnType}}> {
