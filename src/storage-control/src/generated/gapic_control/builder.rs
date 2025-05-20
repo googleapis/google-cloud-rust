@@ -40,6 +40,23 @@ pub mod storage_control {
         }
     }
 
+    /// The request builder for [StorageControl::create_folder][crate::client::StorageControl::create_folder] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storage_control::builder;
+    /// use builder::storage_control::CreateFolder;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateFolder {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateFolder(RequestBuilder<crate::model::CreateFolderRequest>);
 
@@ -128,6 +145,23 @@ pub mod storage_control {
         }
     }
 
+    /// The request builder for [StorageControl::delete_folder][crate::client::StorageControl::delete_folder] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storage_control::builder;
+    /// use builder::storage_control::DeleteFolder;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteFolder {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteFolder(RequestBuilder<crate::model::DeleteFolderRequest>);
 
@@ -219,6 +253,23 @@ pub mod storage_control {
         }
     }
 
+    /// The request builder for [StorageControl::get_folder][crate::client::StorageControl::get_folder] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storage_control::builder;
+    /// use builder::storage_control::GetFolder;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetFolder {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetFolder(RequestBuilder<crate::model::GetFolderRequest>);
 
@@ -310,6 +361,27 @@ pub mod storage_control {
         }
     }
 
+    /// The request builder for [StorageControl::list_folders][crate::client::StorageControl::list_folders] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storage_control::builder;
+    /// use builder::storage_control::ListFolders;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListFolders {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListFolders(RequestBuilder<crate::model::ListFoldersRequest>);
 
@@ -422,6 +494,24 @@ pub mod storage_control {
         }
     }
 
+    /// The request builder for [StorageControl::rename_folder][crate::client::StorageControl::rename_folder] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storage_control::builder;
+    /// use builder::storage_control::RenameFolder;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RenameFolder {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RenameFolder(RequestBuilder<crate::model::RenameFolderRequest>);
 
@@ -445,6 +535,11 @@ pub mod storage_control {
         }
 
         /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [rename_folder][crate::client::StorageControl::rename_folder].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .rename_folder(self.0.request, self.0.options)
@@ -554,6 +649,23 @@ pub mod storage_control {
         }
     }
 
+    /// The request builder for [StorageControl::get_storage_layout][crate::client::StorageControl::get_storage_layout] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storage_control::builder;
+    /// use builder::storage_control::GetStorageLayout;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetStorageLayout {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetStorageLayout(RequestBuilder<crate::model::GetStorageLayoutRequest>);
 
@@ -615,6 +727,23 @@ pub mod storage_control {
         }
     }
 
+    /// The request builder for [StorageControl::create_managed_folder][crate::client::StorageControl::create_managed_folder] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storage_control::builder;
+    /// use builder::storage_control::CreateManagedFolder;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateManagedFolder {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateManagedFolder(RequestBuilder<crate::model::CreateManagedFolderRequest>);
 
@@ -700,6 +829,23 @@ pub mod storage_control {
         }
     }
 
+    /// The request builder for [StorageControl::delete_managed_folder][crate::client::StorageControl::delete_managed_folder] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storage_control::builder;
+    /// use builder::storage_control::DeleteManagedFolder;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteManagedFolder {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteManagedFolder(RequestBuilder<crate::model::DeleteManagedFolderRequest>);
 
@@ -800,6 +946,23 @@ pub mod storage_control {
         }
     }
 
+    /// The request builder for [StorageControl::get_managed_folder][crate::client::StorageControl::get_managed_folder] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storage_control::builder;
+    /// use builder::storage_control::GetManagedFolder;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetManagedFolder {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetManagedFolder(RequestBuilder<crate::model::GetManagedFolderRequest>);
 
@@ -894,6 +1057,27 @@ pub mod storage_control {
         }
     }
 
+    /// The request builder for [StorageControl::list_managed_folders][crate::client::StorageControl::list_managed_folders] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storage_control::builder;
+    /// use builder::storage_control::ListManagedFolders;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListManagedFolders {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListManagedFolders(RequestBuilder<crate::model::ListManagedFoldersRequest>);
 
@@ -993,6 +1177,24 @@ pub mod storage_control {
         }
     }
 
+    /// The request builder for [StorageControl::create_anywhere_cache][crate::client::StorageControl::create_anywhere_cache] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storage_control::builder;
+    /// use builder::storage_control::CreateAnywhereCache;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateAnywhereCache {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateAnywhereCache(RequestBuilder<crate::model::CreateAnywhereCacheRequest>);
 
@@ -1019,6 +1221,11 @@ pub mod storage_control {
         }
 
         /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [create_anywhere_cache][crate::client::StorageControl::create_anywhere_cache].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_anywhere_cache(self.0.request, self.0.options)
@@ -1106,6 +1313,24 @@ pub mod storage_control {
         }
     }
 
+    /// The request builder for [StorageControl::update_anywhere_cache][crate::client::StorageControl::update_anywhere_cache] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storage_control::builder;
+    /// use builder::storage_control::UpdateAnywhereCache;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateAnywhereCache {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateAnywhereCache(RequestBuilder<crate::model::UpdateAnywhereCacheRequest>);
 
@@ -1132,6 +1357,11 @@ pub mod storage_control {
         }
 
         /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [update_anywhere_cache][crate::client::StorageControl::update_anywhere_cache].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_anywhere_cache(self.0.request, self.0.options)
@@ -1233,6 +1463,23 @@ pub mod storage_control {
         }
     }
 
+    /// The request builder for [StorageControl::disable_anywhere_cache][crate::client::StorageControl::disable_anywhere_cache] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storage_control::builder;
+    /// use builder::storage_control::DisableAnywhereCache;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DisableAnywhereCache {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DisableAnywhereCache(RequestBuilder<crate::model::DisableAnywhereCacheRequest>);
 
@@ -1288,6 +1535,23 @@ pub mod storage_control {
         }
     }
 
+    /// The request builder for [StorageControl::pause_anywhere_cache][crate::client::StorageControl::pause_anywhere_cache] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storage_control::builder;
+    /// use builder::storage_control::PauseAnywhereCache;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> PauseAnywhereCache {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct PauseAnywhereCache(RequestBuilder<crate::model::PauseAnywhereCacheRequest>);
 
@@ -1343,6 +1607,23 @@ pub mod storage_control {
         }
     }
 
+    /// The request builder for [StorageControl::resume_anywhere_cache][crate::client::StorageControl::resume_anywhere_cache] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storage_control::builder;
+    /// use builder::storage_control::ResumeAnywhereCache;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ResumeAnywhereCache {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ResumeAnywhereCache(RequestBuilder<crate::model::ResumeAnywhereCacheRequest>);
 
@@ -1398,6 +1679,23 @@ pub mod storage_control {
         }
     }
 
+    /// The request builder for [StorageControl::get_anywhere_cache][crate::client::StorageControl::get_anywhere_cache] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storage_control::builder;
+    /// use builder::storage_control::GetAnywhereCache;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetAnywhereCache {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetAnywhereCache(RequestBuilder<crate::model::GetAnywhereCacheRequest>);
 
@@ -1453,6 +1751,27 @@ pub mod storage_control {
         }
     }
 
+    /// The request builder for [StorageControl::list_anywhere_caches][crate::client::StorageControl::list_anywhere_caches] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storage_control::builder;
+    /// use builder::storage_control::ListAnywhereCaches;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListAnywhereCaches {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListAnywhereCaches(RequestBuilder<crate::model::ListAnywhereCachesRequest>);
 
@@ -1546,6 +1865,23 @@ pub mod storage_control {
         }
     }
 
+    /// The request builder for [StorageControl::get_operation][crate::client::StorageControl::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storage_control::builder;
+    /// use builder::storage_control::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
