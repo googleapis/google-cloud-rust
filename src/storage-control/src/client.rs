@@ -182,8 +182,8 @@ impl StorageControl {
     /// Locks retention policy on a bucket.
     pub fn lock_bucket_retention_policy(
         &self,
-    ) -> super::builder::storage::LockBucketRetentionPolicy {
-        super::builder::storage::LockBucketRetentionPolicy::new(self.inner.clone())
+    ) -> super::builder::storage_control::LockBucketRetentionPolicy {
+        self.storage.lock_bucket_retention_policy()
     }
 
     /// Gets the IAM policy for a specified bucket.
@@ -252,14 +252,14 @@ impl StorageControl {
     }
 
     /// Updates a bucket. Equivalent to JSON API's storage.buckets.patch method.
-    pub fn update_bucket(&self) -> super::builder::storage::UpdateBucket {
-        super::builder::storage::UpdateBucket::new(self.inner.clone())
+    pub fn update_bucket(&self) -> super::builder::storage_control::UpdateBucket {
+        self.storage.update_bucket()
     }
 
     /// Concatenates a list of existing objects into a new object in the same
     /// bucket.
-    pub fn compose_object(&self) -> super::builder::storage::ComposeObject {
-        super::builder::storage::ComposeObject::new(self.inner.clone())
+    pub fn compose_object(&self) -> super::builder::storage_control::ComposeObject {
+        self.storage.compose_object()
     }
 
     /// Permanently deletes an object and its metadata.
@@ -297,8 +297,8 @@ impl StorageControl {
     }
 
     /// Restores a soft-deleted object.
-    pub fn restore_object(&self) -> super::builder::storage::RestoreObject {
-        super::builder::storage::RestoreObject::new(self.inner.clone())
+    pub fn restore_object(&self) -> super::builder::storage_control::RestoreObject {
+        self.storage.restore_object()
     }
 
     /// Retrieves object metadata.
@@ -309,14 +309,14 @@ impl StorageControl {
     /// [IAM permission](https://cloud.google.com/iam/docs/overview#permissions) on
     /// the bucket. To return object ACLs, the authenticated user must also have
     /// the `storage.objects.getIamPolicy` permission.
-    pub fn get_object(&self) -> super::builder::storage::GetObject {
-        super::builder::storage::GetObject::new(self.inner.clone())
+    pub fn get_object(&self) -> super::builder::storage_control::GetObject {
+        self.storage.get_object()
     }
 
     /// Updates an object's metadata.
     /// Equivalent to JSON API's storage.objects.patch.
-    pub fn update_object(&self) -> super::builder::storage::UpdateObject {
-        super::builder::storage::UpdateObject::new(self.inner.clone())
+    pub fn update_object(&self) -> super::builder::storage_control::UpdateObject {
+        self.storage.update_object()
     }
 
     /// Retrieves the list of objects for a given bucket.
@@ -342,13 +342,13 @@ impl StorageControl {
 
     /// Rewrites a source object to a destination object. Optionally overrides
     /// metadata.
-    pub fn rewrite_object(&self) -> super::builder::storage::RewriteObject {
-        super::builder::storage::RewriteObject::new(self.inner.clone())
+    pub fn rewrite_object(&self) -> super::builder::storage_control::RewriteObject {
+        self.storage.rewrite_object()
     }
 
     /// Moves the source object to the destination object in the same bucket.
-    pub fn move_object(&self) -> super::builder::storage::MoveObject {
-        super::builder::storage::MoveObject::new(self.inner.clone())
+    pub fn move_object(&self) -> super::builder::storage_control::MoveObject {
+        self.storage.move_object()
     }
 
     /// Creates a new folder.
