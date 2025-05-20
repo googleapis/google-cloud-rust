@@ -867,6 +867,18 @@ mod v1 {
             }
         }
 
+        #[test_case(None, bytes::Bytes::new(), None; "unset")]
+        #[test_case(Some(5), bytes::Bytes::new(), Some(control::model::ObjectChecksums::new().set_crc32c(5_u32)); "crc32c set")]
+        #[test_case(None, "hello".into(), Some(control::model::ObjectChecksums::new().set_md5_hash("hello")); "md5_hash set")]
+        #[test_case(Some(5), "hello".into(), Some(control::model::ObjectChecksums::new().set_crc32c(5_u32).set_md5_hash("hello")); "both set")]
+        fn test_new_object_checksums(
+            crc32c: Option<u32>,
+            md5_hash: bytes::Bytes,
+            want: Option<control::model::ObjectChecksums>,
+        ) {
+            assert_eq!(new_object_checksums(crc32c, md5_hash), want)
+        }
+
         #[test_case("AAAAAA==", 0_u32; "zero")]
         #[test_case("SZYC0g==", 1234567890_u32; "number")]
         #[test_case("/////w==", u32::MAX; "max u32")]
