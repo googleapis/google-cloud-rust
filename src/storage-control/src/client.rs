@@ -115,7 +115,7 @@ impl Storage {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_bucket(&self) -> super::builder::storage::DeleteBucket {
+    pub fn delete_bucket(&self) -> super::builder::storage_control::DeleteBucket {
         self.storage.delete_bucket()
     }
 
@@ -134,7 +134,7 @@ impl Storage {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_bucket(&self) -> super::builder::storage::GetBucket {
+    pub fn get_bucket(&self) -> super::builder::storage_control::GetBucket {
         self.storage.get_bucket()
     }
 
@@ -154,7 +154,7 @@ impl Storage {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_bucket(&self) -> super::builder::storage::CreateBucket {
+    pub fn create_bucket(&self) -> super::builder::storage_control::CreateBucket {
         self.storage.create_bucket()
     }
 
@@ -175,7 +175,7 @@ impl Storage {
     ///     Ok(())
     /// }
     /// ```
-    pub fn list_buckets(&self) -> super::builder::storage::ListBuckets {
+    pub fn list_buckets(&self) -> super::builder::storage_control::ListBuckets {
         self.storage.list_buckets()
     }
 
@@ -209,7 +209,7 @@ impl Storage {
     /// until the soft delete retention period has passed.
     ///
     /// [soft delete]: https://cloud.google.com/storage/docs/soft-delete
-    pub fn delete_object(&self) -> super::builder::storage::DeleteObject {
+    pub fn delete_object(&self) -> super::builder::storage_control::DeleteObject {
         self.storage.delete_object()
     }
 
@@ -230,7 +230,7 @@ impl Storage {
     ///     Ok(())
     /// }
     /// ```
-    pub fn list_objects(&self) -> super::builder::storage::ListObjects {
+    pub fn list_objects(&self) -> super::builder::storage_control::ListObjects {
         self.storage.list_objects()
     }
 
@@ -248,7 +248,7 @@ impl Storage {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_iam_policy(&self) -> super::builder::storage::GetIamPolicy {
+    pub fn get_iam_policy(&self) -> super::builder::storage_control::GetIamPolicy {
         self.storage.get_iam_policy()
     }
 
@@ -275,7 +275,7 @@ impl Storage {
     ///     Ok(())
     /// }
     /// ```
-    pub fn set_iam_policy(&self) -> super::builder::storage::SetIamPolicy {
+    pub fn set_iam_policy(&self) -> super::builder::storage_control::SetIamPolicy {
         self.storage.set_iam_policy()
     }
 
@@ -295,7 +295,7 @@ impl Storage {
     ///     Ok(())
     /// }
     /// ```
-    pub fn test_iam_permissions(&self) -> super::builder::storage::TestIamPermissions {
+    pub fn test_iam_permissions(&self) -> super::builder::storage_control::TestIamPermissions {
         self.storage.test_iam_permissions()
     }
 
@@ -317,7 +317,7 @@ impl Storage {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_folder(&self) -> super::builder::storage::CreateFolder {
+    pub fn create_folder(&self) -> super::builder::storage_control::CreateFolder {
         self.control.create_folder()
     }
 
@@ -338,7 +338,7 @@ impl Storage {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_folder(&self) -> super::builder::storage::GetFolder {
+    pub fn get_folder(&self) -> super::builder::storage_control::GetFolder {
         self.control.get_folder()
     }
 
@@ -358,7 +358,7 @@ impl Storage {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_folder(&self) -> super::builder::storage::DeleteFolder {
+    pub fn delete_folder(&self) -> super::builder::storage_control::DeleteFolder {
         self.control.delete_folder()
     }
 
@@ -382,7 +382,7 @@ impl Storage {
     ///     Ok(())
     /// }
     /// ```
-    pub fn list_folders(&self) -> super::builder::storage::ListFolders {
+    pub fn list_folders(&self) -> super::builder::storage_control::ListFolders {
         self.control.list_folders()
     }
 
@@ -419,7 +419,7 @@ impl Storage {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn rename_folder(&self) -> super::builder::storage::RenameFolder {
+    pub fn rename_folder(&self) -> super::builder::storage_control::RenameFolder {
         self.control.rename_folder()
     }
 
