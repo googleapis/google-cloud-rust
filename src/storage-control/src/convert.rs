@@ -27,7 +27,7 @@
 
 use crate::google;
 use gaxi::prost::{ConvertError, FromProto, ToProto};
-// This would fail if storage admin introduces LROs. This is unlikely as 
+// This would fail if storage admin introduces LROs. This is unlikely as
 // one of the motivations for `StorageControl` was to separate the LROs.
 // Worst case, we can skip the offending functions until we have fixed
 // this code to support them.
