@@ -63,6 +63,7 @@ pub trait PollingBackoffPolicy: Send + Sync + std::fmt::Debug {
     /// * `loop_start` - when the polling loop started.
     /// * `attempt_count` - the number of poll queries. This method is always
     ///   called after the first attempt.
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
     fn wait_period(
         &self,
         loop_start: std::time::Instant,

@@ -59,6 +59,7 @@ pub trait PollingErrorPolicy: Send + Sync + std::fmt::Debug {
     ///   attempt. This method called after LRO successfully starts, it is
     ///   always non-zero.
     /// * `error` - the last error when attempting the request.
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
     fn on_error(
         &self,
         loop_start: std::time::Instant,
@@ -68,6 +69,7 @@ pub trait PollingErrorPolicy: Send + Sync + std::fmt::Debug {
 
     /// Called when the LRO is successfully polled, but the LRO is still in
     /// progress.
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
     fn on_in_progress(
         &self,
         _loop_start: std::time::Instant,
