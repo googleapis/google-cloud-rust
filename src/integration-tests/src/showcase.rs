@@ -87,7 +87,7 @@ async fn install() -> Result<String> {
         )));
     }
     let mut dir = gopath.stdout.clone();
-    assert!(dir.len() > 0, "{gopath:?}");
+    assert!(!dir.is_empty(), "{gopath:?}");
     dir.truncate(dir.len() - 1);
     String::from_utf8(dir).map_err(Error::other)
 }

@@ -60,7 +60,7 @@ async fn update_user(client: &showcase::client::Identity, user: &User) -> Result
         .set_user(
             user.clone()
                 .set_display_name("should not change")
-                .set_or_clear_age(user.age.and_then(|x| Some(x + 1))),
+                .set_or_clear_age(user.age.map(|x| x + 1)),
         )
         .set_update_mask(wkt::FieldMask::default().set_paths(["age"]))
         .send()

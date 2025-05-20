@@ -14,7 +14,6 @@
 
 #[cfg(all(test, feature = "run-integration-tests"))]
 mod driver {
-    use gax::error::*;
     use test_case::test_case;
 
     fn retry_policy() -> impl gax::retry_policy::RetryPolicy {
