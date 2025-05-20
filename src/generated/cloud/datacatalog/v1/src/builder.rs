@@ -17,7 +17,7 @@
 pub mod data_catalog {
     use crate::Result;
 
-    /// A builder for [DataCatalog][super::super::client::DataCatalog].
+    /// A builder for [DataCatalog][crate::client::DataCatalog].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod data_catalog {
         }
     }
 
-    /// Common implementation for [super::super::client::DataCatalog] request builders.
+    /// Common implementation for [crate::client::DataCatalog] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
@@ -68,7 +68,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::search_catalog][super::super::client::DataCatalog::search_catalog] calls.
+    /// The request builder for [DataCatalog::search_catalog][crate::client::DataCatalog::search_catalog] calls.
     ///
     /// # Example
     /// ```no_run
@@ -203,7 +203,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::create_entry_group][super::super::client::DataCatalog::create_entry_group] calls.
+    /// The request builder for [DataCatalog::create_entry_group][crate::client::DataCatalog::create_entry_group] calls.
     ///
     /// # Example
     /// ```no_run
@@ -295,7 +295,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::get_entry_group][super::super::client::DataCatalog::get_entry_group] calls.
+    /// The request builder for [DataCatalog::get_entry_group][crate::client::DataCatalog::get_entry_group] calls.
     ///
     /// # Example
     /// ```no_run
@@ -376,7 +376,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::update_entry_group][super::super::client::DataCatalog::update_entry_group] calls.
+    /// The request builder for [DataCatalog::update_entry_group][crate::client::DataCatalog::update_entry_group] calls.
     ///
     /// # Example
     /// ```no_run
@@ -474,7 +474,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::delete_entry_group][super::super::client::DataCatalog::delete_entry_group] calls.
+    /// The request builder for [DataCatalog::delete_entry_group][crate::client::DataCatalog::delete_entry_group] calls.
     ///
     /// # Example
     /// ```no_run
@@ -546,7 +546,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::list_entry_groups][super::super::client::DataCatalog::list_entry_groups] calls.
+    /// The request builder for [DataCatalog::list_entry_groups][crate::client::DataCatalog::list_entry_groups] calls.
     ///
     /// # Example
     /// ```no_run
@@ -649,7 +649,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::create_entry][super::super::client::DataCatalog::create_entry] calls.
+    /// The request builder for [DataCatalog::create_entry][crate::client::DataCatalog::create_entry] calls.
     ///
     /// # Example
     /// ```no_run
@@ -742,7 +742,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::update_entry][super::super::client::DataCatalog::update_entry] calls.
+    /// The request builder for [DataCatalog::update_entry][crate::client::DataCatalog::update_entry] calls.
     ///
     /// # Example
     /// ```no_run
@@ -837,7 +837,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::delete_entry][super::super::client::DataCatalog::delete_entry] calls.
+    /// The request builder for [DataCatalog::delete_entry][crate::client::DataCatalog::delete_entry] calls.
     ///
     /// # Example
     /// ```no_run
@@ -900,7 +900,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::get_entry][super::super::client::DataCatalog::get_entry] calls.
+    /// The request builder for [DataCatalog::get_entry][crate::client::DataCatalog::get_entry] calls.
     ///
     /// # Example
     /// ```no_run
@@ -963,7 +963,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::lookup_entry][super::super::client::DataCatalog::lookup_entry] calls.
+    /// The request builder for [DataCatalog::lookup_entry][crate::client::DataCatalog::lookup_entry] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1081,7 +1081,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::list_entries][super::super::client::DataCatalog::list_entries] calls.
+    /// The request builder for [DataCatalog::list_entries][crate::client::DataCatalog::list_entries] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1202,7 +1202,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::modify_entry_overview][super::super::client::DataCatalog::modify_entry_overview] calls.
+    /// The request builder for [DataCatalog::modify_entry_overview][crate::client::DataCatalog::modify_entry_overview] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1290,7 +1290,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::modify_entry_contacts][super::super::client::DataCatalog::modify_entry_contacts] calls.
+    /// The request builder for [DataCatalog::modify_entry_contacts][crate::client::DataCatalog::modify_entry_contacts] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1378,7 +1378,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::create_tag_template][super::super::client::DataCatalog::create_tag_template] calls.
+    /// The request builder for [DataCatalog::create_tag_template][crate::client::DataCatalog::create_tag_template] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1474,7 +1474,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::get_tag_template][super::super::client::DataCatalog::get_tag_template] calls.
+    /// The request builder for [DataCatalog::get_tag_template][crate::client::DataCatalog::get_tag_template] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1537,7 +1537,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::update_tag_template][super::super::client::DataCatalog::update_tag_template] calls.
+    /// The request builder for [DataCatalog::update_tag_template][crate::client::DataCatalog::update_tag_template] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1635,7 +1635,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::delete_tag_template][super::super::client::DataCatalog::delete_tag_template] calls.
+    /// The request builder for [DataCatalog::delete_tag_template][crate::client::DataCatalog::delete_tag_template] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1709,7 +1709,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::create_tag_template_field][super::super::client::DataCatalog::create_tag_template_field] calls.
+    /// The request builder for [DataCatalog::create_tag_template_field][crate::client::DataCatalog::create_tag_template_field] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1805,7 +1805,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::update_tag_template_field][super::super::client::DataCatalog::update_tag_template_field] calls.
+    /// The request builder for [DataCatalog::update_tag_template_field][crate::client::DataCatalog::update_tag_template_field] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1911,7 +1911,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::rename_tag_template_field][super::super::client::DataCatalog::rename_tag_template_field] calls.
+    /// The request builder for [DataCatalog::rename_tag_template_field][crate::client::DataCatalog::rename_tag_template_field] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1985,7 +1985,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::rename_tag_template_field_enum_value][super::super::client::DataCatalog::rename_tag_template_field_enum_value] calls.
+    /// The request builder for [DataCatalog::rename_tag_template_field_enum_value][crate::client::DataCatalog::rename_tag_template_field_enum_value] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2064,7 +2064,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::delete_tag_template_field][super::super::client::DataCatalog::delete_tag_template_field] calls.
+    /// The request builder for [DataCatalog::delete_tag_template_field][crate::client::DataCatalog::delete_tag_template_field] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2138,7 +2138,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::create_tag][super::super::client::DataCatalog::create_tag] calls.
+    /// The request builder for [DataCatalog::create_tag][crate::client::DataCatalog::create_tag] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2223,7 +2223,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::update_tag][super::super::client::DataCatalog::update_tag] calls.
+    /// The request builder for [DataCatalog::update_tag][crate::client::DataCatalog::update_tag] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2318,7 +2318,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::delete_tag][super::super::client::DataCatalog::delete_tag] calls.
+    /// The request builder for [DataCatalog::delete_tag][crate::client::DataCatalog::delete_tag] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2381,7 +2381,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::list_tags][super::super::client::DataCatalog::list_tags] calls.
+    /// The request builder for [DataCatalog::list_tags][crate::client::DataCatalog::list_tags] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2484,7 +2484,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::reconcile_tags][super::super::client::DataCatalog::reconcile_tags] calls.
+    /// The request builder for [DataCatalog::reconcile_tags][crate::client::DataCatalog::reconcile_tags] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2529,7 +2529,7 @@ pub mod data_catalog {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [reconcile_tags][super::super::client::DataCatalog::reconcile_tags].
+        /// on [reconcile_tags][crate::client::DataCatalog::reconcile_tags].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .reconcile_tags(self.0.request, self.0.options)
@@ -2614,7 +2614,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::star_entry][super::super::client::DataCatalog::star_entry] calls.
+    /// The request builder for [DataCatalog::star_entry][crate::client::DataCatalog::star_entry] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2677,7 +2677,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::unstar_entry][super::super::client::DataCatalog::unstar_entry] calls.
+    /// The request builder for [DataCatalog::unstar_entry][crate::client::DataCatalog::unstar_entry] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2740,7 +2740,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::set_iam_policy][super::super::client::DataCatalog::set_iam_policy] calls.
+    /// The request builder for [DataCatalog::set_iam_policy][crate::client::DataCatalog::set_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2843,7 +2843,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::get_iam_policy][super::super::client::DataCatalog::get_iam_policy] calls.
+    /// The request builder for [DataCatalog::get_iam_policy][crate::client::DataCatalog::get_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2924,7 +2924,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::test_iam_permissions][super::super::client::DataCatalog::test_iam_permissions] calls.
+    /// The request builder for [DataCatalog::test_iam_permissions][crate::client::DataCatalog::test_iam_permissions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3003,7 +3003,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::import_entries][super::super::client::DataCatalog::import_entries] calls.
+    /// The request builder for [DataCatalog::import_entries][crate::client::DataCatalog::import_entries] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3048,7 +3048,7 @@ pub mod data_catalog {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [import_entries][super::super::client::DataCatalog::import_entries].
+        /// on [import_entries][crate::client::DataCatalog::import_entries].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .import_entries(self.0.request, self.0.options)
@@ -3139,7 +3139,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::set_config][super::super::client::DataCatalog::set_config] calls.
+    /// The request builder for [DataCatalog::set_config][crate::client::DataCatalog::set_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3246,7 +3246,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::retrieve_config][super::super::client::DataCatalog::retrieve_config] calls.
+    /// The request builder for [DataCatalog::retrieve_config][crate::client::DataCatalog::retrieve_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3309,7 +3309,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::retrieve_effective_config][super::super::client::DataCatalog::retrieve_effective_config] calls.
+    /// The request builder for [DataCatalog::retrieve_effective_config][crate::client::DataCatalog::retrieve_effective_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3377,7 +3377,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::list_operations][super::super::client::DataCatalog::list_operations] calls.
+    /// The request builder for [DataCatalog::list_operations][crate::client::DataCatalog::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3489,7 +3489,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::get_operation][super::super::client::DataCatalog::get_operation] calls.
+    /// The request builder for [DataCatalog::get_operation][crate::client::DataCatalog::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3553,7 +3553,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::delete_operation][super::super::client::DataCatalog::delete_operation] calls.
+    /// The request builder for [DataCatalog::delete_operation][crate::client::DataCatalog::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3617,7 +3617,7 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::cancel_operation][super::super::client::DataCatalog::cancel_operation] calls.
+    /// The request builder for [DataCatalog::cancel_operation][crate::client::DataCatalog::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3685,7 +3685,7 @@ pub mod data_catalog {
 pub mod policy_tag_manager {
     use crate::Result;
 
-    /// A builder for [PolicyTagManager][super::super::client::PolicyTagManager].
+    /// A builder for [PolicyTagManager][crate::client::PolicyTagManager].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -3713,7 +3713,7 @@ pub mod policy_tag_manager {
         }
     }
 
-    /// Common implementation for [super::super::client::PolicyTagManager] request builders.
+    /// Common implementation for [crate::client::PolicyTagManager] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManager>,
@@ -3736,7 +3736,7 @@ pub mod policy_tag_manager {
         }
     }
 
-    /// The request builder for [PolicyTagManager::create_taxonomy][super::super::client::PolicyTagManager::create_taxonomy] calls.
+    /// The request builder for [PolicyTagManager::create_taxonomy][crate::client::PolicyTagManager::create_taxonomy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3817,7 +3817,7 @@ pub mod policy_tag_manager {
         }
     }
 
-    /// The request builder for [PolicyTagManager::delete_taxonomy][super::super::client::PolicyTagManager::delete_taxonomy] calls.
+    /// The request builder for [PolicyTagManager::delete_taxonomy][crate::client::PolicyTagManager::delete_taxonomy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3880,7 +3880,7 @@ pub mod policy_tag_manager {
         }
     }
 
-    /// The request builder for [PolicyTagManager::update_taxonomy][super::super::client::PolicyTagManager::update_taxonomy] calls.
+    /// The request builder for [PolicyTagManager::update_taxonomy][crate::client::PolicyTagManager::update_taxonomy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3971,7 +3971,7 @@ pub mod policy_tag_manager {
         }
     }
 
-    /// The request builder for [PolicyTagManager::list_taxonomies][super::super::client::PolicyTagManager::list_taxonomies] calls.
+    /// The request builder for [PolicyTagManager::list_taxonomies][crate::client::PolicyTagManager::list_taxonomies] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4080,7 +4080,7 @@ pub mod policy_tag_manager {
         }
     }
 
-    /// The request builder for [PolicyTagManager::get_taxonomy][super::super::client::PolicyTagManager::get_taxonomy] calls.
+    /// The request builder for [PolicyTagManager::get_taxonomy][crate::client::PolicyTagManager::get_taxonomy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4143,7 +4143,7 @@ pub mod policy_tag_manager {
         }
     }
 
-    /// The request builder for [PolicyTagManager::create_policy_tag][super::super::client::PolicyTagManager::create_policy_tag] calls.
+    /// The request builder for [PolicyTagManager::create_policy_tag][crate::client::PolicyTagManager::create_policy_tag] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4224,7 +4224,7 @@ pub mod policy_tag_manager {
         }
     }
 
-    /// The request builder for [PolicyTagManager::delete_policy_tag][super::super::client::PolicyTagManager::delete_policy_tag] calls.
+    /// The request builder for [PolicyTagManager::delete_policy_tag][crate::client::PolicyTagManager::delete_policy_tag] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4287,7 +4287,7 @@ pub mod policy_tag_manager {
         }
     }
 
-    /// The request builder for [PolicyTagManager::update_policy_tag][super::super::client::PolicyTagManager::update_policy_tag] calls.
+    /// The request builder for [PolicyTagManager::update_policy_tag][crate::client::PolicyTagManager::update_policy_tag] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4378,7 +4378,7 @@ pub mod policy_tag_manager {
         }
     }
 
-    /// The request builder for [PolicyTagManager::list_policy_tags][super::super::client::PolicyTagManager::list_policy_tags] calls.
+    /// The request builder for [PolicyTagManager::list_policy_tags][crate::client::PolicyTagManager::list_policy_tags] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4481,7 +4481,7 @@ pub mod policy_tag_manager {
         }
     }
 
-    /// The request builder for [PolicyTagManager::get_policy_tag][super::super::client::PolicyTagManager::get_policy_tag] calls.
+    /// The request builder for [PolicyTagManager::get_policy_tag][crate::client::PolicyTagManager::get_policy_tag] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4544,7 +4544,7 @@ pub mod policy_tag_manager {
         }
     }
 
-    /// The request builder for [PolicyTagManager::get_iam_policy][super::super::client::PolicyTagManager::get_iam_policy] calls.
+    /// The request builder for [PolicyTagManager::get_iam_policy][crate::client::PolicyTagManager::get_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4625,7 +4625,7 @@ pub mod policy_tag_manager {
         }
     }
 
-    /// The request builder for [PolicyTagManager::set_iam_policy][super::super::client::PolicyTagManager::set_iam_policy] calls.
+    /// The request builder for [PolicyTagManager::set_iam_policy][crate::client::PolicyTagManager::set_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4728,7 +4728,7 @@ pub mod policy_tag_manager {
         }
     }
 
-    /// The request builder for [PolicyTagManager::test_iam_permissions][super::super::client::PolicyTagManager::test_iam_permissions] calls.
+    /// The request builder for [PolicyTagManager::test_iam_permissions][crate::client::PolicyTagManager::test_iam_permissions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4807,7 +4807,7 @@ pub mod policy_tag_manager {
         }
     }
 
-    /// The request builder for [PolicyTagManager::list_operations][super::super::client::PolicyTagManager::list_operations] calls.
+    /// The request builder for [PolicyTagManager::list_operations][crate::client::PolicyTagManager::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4919,7 +4919,7 @@ pub mod policy_tag_manager {
         }
     }
 
-    /// The request builder for [PolicyTagManager::get_operation][super::super::client::PolicyTagManager::get_operation] calls.
+    /// The request builder for [PolicyTagManager::get_operation][crate::client::PolicyTagManager::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4983,7 +4983,7 @@ pub mod policy_tag_manager {
         }
     }
 
-    /// The request builder for [PolicyTagManager::delete_operation][super::super::client::PolicyTagManager::delete_operation] calls.
+    /// The request builder for [PolicyTagManager::delete_operation][crate::client::PolicyTagManager::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5047,7 +5047,7 @@ pub mod policy_tag_manager {
         }
     }
 
-    /// The request builder for [PolicyTagManager::cancel_operation][super::super::client::PolicyTagManager::cancel_operation] calls.
+    /// The request builder for [PolicyTagManager::cancel_operation][crate::client::PolicyTagManager::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5115,7 +5115,7 @@ pub mod policy_tag_manager {
 pub mod policy_tag_manager_serialization {
     use crate::Result;
 
-    /// A builder for [PolicyTagManagerSerialization][super::super::client::PolicyTagManagerSerialization].
+    /// A builder for [PolicyTagManagerSerialization][crate::client::PolicyTagManagerSerialization].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -5143,7 +5143,7 @@ pub mod policy_tag_manager_serialization {
         }
     }
 
-    /// Common implementation for [super::super::client::PolicyTagManagerSerialization] request builders.
+    /// Common implementation for [crate::client::PolicyTagManagerSerialization] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManagerSerialization>,
@@ -5166,7 +5166,7 @@ pub mod policy_tag_manager_serialization {
         }
     }
 
-    /// The request builder for [PolicyTagManagerSerialization::replace_taxonomy][super::super::client::PolicyTagManagerSerialization::replace_taxonomy] calls.
+    /// The request builder for [PolicyTagManagerSerialization::replace_taxonomy][crate::client::PolicyTagManagerSerialization::replace_taxonomy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5251,7 +5251,7 @@ pub mod policy_tag_manager_serialization {
         }
     }
 
-    /// The request builder for [PolicyTagManagerSerialization::import_taxonomies][super::super::client::PolicyTagManagerSerialization::import_taxonomies] calls.
+    /// The request builder for [PolicyTagManagerSerialization::import_taxonomies][crate::client::PolicyTagManagerSerialization::import_taxonomies] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5359,7 +5359,7 @@ pub mod policy_tag_manager_serialization {
         }
     }
 
-    /// The request builder for [PolicyTagManagerSerialization::export_taxonomies][super::super::client::PolicyTagManagerSerialization::export_taxonomies] calls.
+    /// The request builder for [PolicyTagManagerSerialization::export_taxonomies][crate::client::PolicyTagManagerSerialization::export_taxonomies] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5462,7 +5462,7 @@ pub mod policy_tag_manager_serialization {
         }
     }
 
-    /// The request builder for [PolicyTagManagerSerialization::list_operations][super::super::client::PolicyTagManagerSerialization::list_operations] calls.
+    /// The request builder for [PolicyTagManagerSerialization::list_operations][crate::client::PolicyTagManagerSerialization::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5574,7 +5574,7 @@ pub mod policy_tag_manager_serialization {
         }
     }
 
-    /// The request builder for [PolicyTagManagerSerialization::get_operation][super::super::client::PolicyTagManagerSerialization::get_operation] calls.
+    /// The request builder for [PolicyTagManagerSerialization::get_operation][crate::client::PolicyTagManagerSerialization::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5638,7 +5638,7 @@ pub mod policy_tag_manager_serialization {
         }
     }
 
-    /// The request builder for [PolicyTagManagerSerialization::delete_operation][super::super::client::PolicyTagManagerSerialization::delete_operation] calls.
+    /// The request builder for [PolicyTagManagerSerialization::delete_operation][crate::client::PolicyTagManagerSerialization::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5702,7 +5702,7 @@ pub mod policy_tag_manager_serialization {
         }
     }
 
-    /// The request builder for [PolicyTagManagerSerialization::cancel_operation][super::super::client::PolicyTagManagerSerialization::cancel_operation] calls.
+    /// The request builder for [PolicyTagManagerSerialization::cancel_operation][crate::client::PolicyTagManagerSerialization::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run

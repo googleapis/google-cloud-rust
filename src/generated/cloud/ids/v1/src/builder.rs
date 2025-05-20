@@ -17,7 +17,7 @@
 pub mod ids {
     use crate::Result;
 
-    /// A builder for [Ids][super::super::client::Ids].
+    /// A builder for [Ids][crate::client::Ids].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod ids {
         }
     }
 
-    /// Common implementation for [super::super::client::Ids] request builders.
+    /// Common implementation for [crate::client::Ids] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::Ids>,
@@ -66,7 +66,7 @@ pub mod ids {
         }
     }
 
-    /// The request builder for [Ids::list_endpoints][super::super::client::Ids::list_endpoints] calls.
+    /// The request builder for [Ids::list_endpoints][crate::client::Ids::list_endpoints] calls.
     ///
     /// # Example
     /// ```no_run
@@ -179,7 +179,7 @@ pub mod ids {
         }
     }
 
-    /// The request builder for [Ids::get_endpoint][super::super::client::Ids::get_endpoint] calls.
+    /// The request builder for [Ids::get_endpoint][crate::client::Ids::get_endpoint] calls.
     ///
     /// # Example
     /// ```no_run
@@ -240,7 +240,7 @@ pub mod ids {
         }
     }
 
-    /// The request builder for [Ids::create_endpoint][super::super::client::Ids::create_endpoint] calls.
+    /// The request builder for [Ids::create_endpoint][crate::client::Ids::create_endpoint] calls.
     ///
     /// # Example
     /// ```no_run
@@ -283,7 +283,7 @@ pub mod ids {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_endpoint][super::super::client::Ids::create_endpoint].
+        /// on [create_endpoint][crate::client::Ids::create_endpoint].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_endpoint(self.0.request, self.0.options)
@@ -376,7 +376,7 @@ pub mod ids {
         }
     }
 
-    /// The request builder for [Ids::delete_endpoint][super::super::client::Ids::delete_endpoint] calls.
+    /// The request builder for [Ids::delete_endpoint][crate::client::Ids::delete_endpoint] calls.
     ///
     /// # Example
     /// ```no_run
@@ -419,7 +419,7 @@ pub mod ids {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_endpoint][super::super::client::Ids::delete_endpoint].
+        /// on [delete_endpoint][crate::client::Ids::delete_endpoint].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_endpoint(self.0.request, self.0.options)
@@ -484,7 +484,7 @@ pub mod ids {
         }
     }
 
-    /// The request builder for [Ids::list_operations][super::super::client::Ids::list_operations] calls.
+    /// The request builder for [Ids::list_operations][crate::client::Ids::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -594,7 +594,7 @@ pub mod ids {
         }
     }
 
-    /// The request builder for [Ids::get_operation][super::super::client::Ids::get_operation] calls.
+    /// The request builder for [Ids::get_operation][crate::client::Ids::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -656,7 +656,7 @@ pub mod ids {
         }
     }
 
-    /// The request builder for [Ids::delete_operation][super::super::client::Ids::delete_operation] calls.
+    /// The request builder for [Ids::delete_operation][crate::client::Ids::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -718,7 +718,7 @@ pub mod ids {
         }
     }
 
-    /// The request builder for [Ids::cancel_operation][super::super::client::Ids::cancel_operation] calls.
+    /// The request builder for [Ids::cancel_operation][crate::client::Ids::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run

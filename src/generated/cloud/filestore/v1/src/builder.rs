@@ -17,7 +17,7 @@
 pub mod cloud_filestore_manager {
     use crate::Result;
 
-    /// A builder for [CloudFilestoreManager][super::super::client::CloudFilestoreManager].
+    /// A builder for [CloudFilestoreManager][crate::client::CloudFilestoreManager].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    /// Common implementation for [super::super::client::CloudFilestoreManager] request builders.
+    /// Common implementation for [crate::client::CloudFilestoreManager] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
@@ -68,7 +68,7 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    /// The request builder for [CloudFilestoreManager::list_instances][super::super::client::CloudFilestoreManager::list_instances] calls.
+    /// The request builder for [CloudFilestoreManager::list_instances][crate::client::CloudFilestoreManager::list_instances] calls.
     ///
     /// # Example
     /// ```no_run
@@ -183,7 +183,7 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    /// The request builder for [CloudFilestoreManager::get_instance][super::super::client::CloudFilestoreManager::get_instance] calls.
+    /// The request builder for [CloudFilestoreManager::get_instance][crate::client::CloudFilestoreManager::get_instance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -246,7 +246,7 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    /// The request builder for [CloudFilestoreManager::create_instance][super::super::client::CloudFilestoreManager::create_instance] calls.
+    /// The request builder for [CloudFilestoreManager::create_instance][crate::client::CloudFilestoreManager::create_instance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -291,7 +291,7 @@ pub mod cloud_filestore_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_instance][super::super::client::CloudFilestoreManager::create_instance].
+        /// on [create_instance][crate::client::CloudFilestoreManager::create_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_instance(self.0.request, self.0.options)
@@ -381,7 +381,7 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    /// The request builder for [CloudFilestoreManager::update_instance][super::super::client::CloudFilestoreManager::update_instance] calls.
+    /// The request builder for [CloudFilestoreManager::update_instance][crate::client::CloudFilestoreManager::update_instance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -426,7 +426,7 @@ pub mod cloud_filestore_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_instance][super::super::client::CloudFilestoreManager::update_instance].
+        /// on [update_instance][crate::client::CloudFilestoreManager::update_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_instance(self.0.request, self.0.options)
@@ -514,7 +514,7 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    /// The request builder for [CloudFilestoreManager::restore_instance][super::super::client::CloudFilestoreManager::restore_instance] calls.
+    /// The request builder for [CloudFilestoreManager::restore_instance][crate::client::CloudFilestoreManager::restore_instance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -559,7 +559,7 @@ pub mod cloud_filestore_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [restore_instance][super::super::client::CloudFilestoreManager::restore_instance].
+        /// on [restore_instance][crate::client::CloudFilestoreManager::restore_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .restore_instance(self.0.request, self.0.options)
@@ -652,7 +652,7 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    /// The request builder for [CloudFilestoreManager::revert_instance][super::super::client::CloudFilestoreManager::revert_instance] calls.
+    /// The request builder for [CloudFilestoreManager::revert_instance][crate::client::CloudFilestoreManager::revert_instance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -697,7 +697,7 @@ pub mod cloud_filestore_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [revert_instance][super::super::client::CloudFilestoreManager::revert_instance].
+        /// on [revert_instance][crate::client::CloudFilestoreManager::revert_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .revert_instance(self.0.request, self.0.options)
@@ -765,7 +765,7 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    /// The request builder for [CloudFilestoreManager::delete_instance][super::super::client::CloudFilestoreManager::delete_instance] calls.
+    /// The request builder for [CloudFilestoreManager::delete_instance][crate::client::CloudFilestoreManager::delete_instance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -810,7 +810,7 @@ pub mod cloud_filestore_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_instance][super::super::client::CloudFilestoreManager::delete_instance].
+        /// on [delete_instance][crate::client::CloudFilestoreManager::delete_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_instance(self.0.request, self.0.options)
@@ -876,7 +876,7 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    /// The request builder for [CloudFilestoreManager::list_snapshots][super::super::client::CloudFilestoreManager::list_snapshots] calls.
+    /// The request builder for [CloudFilestoreManager::list_snapshots][crate::client::CloudFilestoreManager::list_snapshots] calls.
     ///
     /// # Example
     /// ```no_run
@@ -997,7 +997,7 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    /// The request builder for [CloudFilestoreManager::get_snapshot][super::super::client::CloudFilestoreManager::get_snapshot] calls.
+    /// The request builder for [CloudFilestoreManager::get_snapshot][crate::client::CloudFilestoreManager::get_snapshot] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1060,7 +1060,7 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    /// The request builder for [CloudFilestoreManager::create_snapshot][super::super::client::CloudFilestoreManager::create_snapshot] calls.
+    /// The request builder for [CloudFilestoreManager::create_snapshot][crate::client::CloudFilestoreManager::create_snapshot] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1105,7 +1105,7 @@ pub mod cloud_filestore_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_snapshot][super::super::client::CloudFilestoreManager::create_snapshot].
+        /// on [create_snapshot][crate::client::CloudFilestoreManager::create_snapshot].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_snapshot(self.0.request, self.0.options)
@@ -1195,7 +1195,7 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    /// The request builder for [CloudFilestoreManager::delete_snapshot][super::super::client::CloudFilestoreManager::delete_snapshot] calls.
+    /// The request builder for [CloudFilestoreManager::delete_snapshot][crate::client::CloudFilestoreManager::delete_snapshot] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1240,7 +1240,7 @@ pub mod cloud_filestore_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_snapshot][super::super::client::CloudFilestoreManager::delete_snapshot].
+        /// on [delete_snapshot][crate::client::CloudFilestoreManager::delete_snapshot].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_snapshot(self.0.request, self.0.options)
@@ -1300,7 +1300,7 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    /// The request builder for [CloudFilestoreManager::update_snapshot][super::super::client::CloudFilestoreManager::update_snapshot] calls.
+    /// The request builder for [CloudFilestoreManager::update_snapshot][crate::client::CloudFilestoreManager::update_snapshot] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1345,7 +1345,7 @@ pub mod cloud_filestore_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_snapshot][super::super::client::CloudFilestoreManager::update_snapshot].
+        /// on [update_snapshot][crate::client::CloudFilestoreManager::update_snapshot].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_snapshot(self.0.request, self.0.options)
@@ -1441,7 +1441,7 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    /// The request builder for [CloudFilestoreManager::list_backups][super::super::client::CloudFilestoreManager::list_backups] calls.
+    /// The request builder for [CloudFilestoreManager::list_backups][crate::client::CloudFilestoreManager::list_backups] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1556,7 +1556,7 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    /// The request builder for [CloudFilestoreManager::get_backup][super::super::client::CloudFilestoreManager::get_backup] calls.
+    /// The request builder for [CloudFilestoreManager::get_backup][crate::client::CloudFilestoreManager::get_backup] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1619,7 +1619,7 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    /// The request builder for [CloudFilestoreManager::create_backup][super::super::client::CloudFilestoreManager::create_backup] calls.
+    /// The request builder for [CloudFilestoreManager::create_backup][crate::client::CloudFilestoreManager::create_backup] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1664,7 +1664,7 @@ pub mod cloud_filestore_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_backup][super::super::client::CloudFilestoreManager::create_backup].
+        /// on [create_backup][crate::client::CloudFilestoreManager::create_backup].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_backup(self.0.request, self.0.options)
@@ -1754,7 +1754,7 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    /// The request builder for [CloudFilestoreManager::delete_backup][super::super::client::CloudFilestoreManager::delete_backup] calls.
+    /// The request builder for [CloudFilestoreManager::delete_backup][crate::client::CloudFilestoreManager::delete_backup] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1799,7 +1799,7 @@ pub mod cloud_filestore_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_backup][super::super::client::CloudFilestoreManager::delete_backup].
+        /// on [delete_backup][crate::client::CloudFilestoreManager::delete_backup].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_backup(self.0.request, self.0.options)
@@ -1859,7 +1859,7 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    /// The request builder for [CloudFilestoreManager::update_backup][super::super::client::CloudFilestoreManager::update_backup] calls.
+    /// The request builder for [CloudFilestoreManager::update_backup][crate::client::CloudFilestoreManager::update_backup] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1904,7 +1904,7 @@ pub mod cloud_filestore_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_backup][super::super::client::CloudFilestoreManager::update_backup].
+        /// on [update_backup][crate::client::CloudFilestoreManager::update_backup].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_backup(self.0.request, self.0.options)
@@ -2000,7 +2000,7 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    /// The request builder for [CloudFilestoreManager::promote_replica][super::super::client::CloudFilestoreManager::promote_replica] calls.
+    /// The request builder for [CloudFilestoreManager::promote_replica][crate::client::CloudFilestoreManager::promote_replica] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2045,7 +2045,7 @@ pub mod cloud_filestore_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [promote_replica][super::super::client::CloudFilestoreManager::promote_replica].
+        /// on [promote_replica][crate::client::CloudFilestoreManager::promote_replica].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .promote_replica(self.0.request, self.0.options)
@@ -2111,7 +2111,7 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    /// The request builder for [CloudFilestoreManager::list_locations][super::super::client::CloudFilestoreManager::list_locations] calls.
+    /// The request builder for [CloudFilestoreManager::list_locations][crate::client::CloudFilestoreManager::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2221,7 +2221,7 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    /// The request builder for [CloudFilestoreManager::get_location][super::super::client::CloudFilestoreManager::get_location] calls.
+    /// The request builder for [CloudFilestoreManager::get_location][crate::client::CloudFilestoreManager::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2282,7 +2282,7 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    /// The request builder for [CloudFilestoreManager::list_operations][super::super::client::CloudFilestoreManager::list_operations] calls.
+    /// The request builder for [CloudFilestoreManager::list_operations][crate::client::CloudFilestoreManager::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2394,7 +2394,7 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    /// The request builder for [CloudFilestoreManager::get_operation][super::super::client::CloudFilestoreManager::get_operation] calls.
+    /// The request builder for [CloudFilestoreManager::get_operation][crate::client::CloudFilestoreManager::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2458,7 +2458,7 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    /// The request builder for [CloudFilestoreManager::delete_operation][super::super::client::CloudFilestoreManager::delete_operation] calls.
+    /// The request builder for [CloudFilestoreManager::delete_operation][crate::client::CloudFilestoreManager::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2522,7 +2522,7 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    /// The request builder for [CloudFilestoreManager::cancel_operation][super::super::client::CloudFilestoreManager::cancel_operation] calls.
+    /// The request builder for [CloudFilestoreManager::cancel_operation][crate::client::CloudFilestoreManager::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run

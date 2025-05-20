@@ -17,7 +17,7 @@
 pub mod iam_policy {
     use crate::Result;
 
-    /// A builder for [IAMPolicy][super::super::client::IAMPolicy].
+    /// A builder for [IAMPolicy][crate::client::IAMPolicy].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod iam_policy {
         }
     }
 
-    /// Common implementation for [super::super::client::IAMPolicy] request builders.
+    /// Common implementation for [crate::client::IAMPolicy] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::IAMPolicy>,
@@ -68,7 +68,7 @@ pub mod iam_policy {
         }
     }
 
-    /// The request builder for [IAMPolicy::set_iam_policy][super::super::client::IAMPolicy::set_iam_policy] calls.
+    /// The request builder for [IAMPolicy::set_iam_policy][crate::client::IAMPolicy::set_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -171,7 +171,7 @@ pub mod iam_policy {
         }
     }
 
-    /// The request builder for [IAMPolicy::get_iam_policy][super::super::client::IAMPolicy::get_iam_policy] calls.
+    /// The request builder for [IAMPolicy::get_iam_policy][crate::client::IAMPolicy::get_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -252,7 +252,7 @@ pub mod iam_policy {
         }
     }
 
-    /// The request builder for [IAMPolicy::test_iam_permissions][super::super::client::IAMPolicy::test_iam_permissions] calls.
+    /// The request builder for [IAMPolicy::test_iam_permissions][crate::client::IAMPolicy::test_iam_permissions] calls.
     ///
     /// # Example
     /// ```no_run

@@ -17,7 +17,7 @@
 pub mod data_transfer_service {
     use crate::Result;
 
-    /// A builder for [DataTransferService][super::super::client::DataTransferService].
+    /// A builder for [DataTransferService][crate::client::DataTransferService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod data_transfer_service {
         }
     }
 
-    /// Common implementation for [super::super::client::DataTransferService] request builders.
+    /// Common implementation for [crate::client::DataTransferService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>,
@@ -68,7 +68,7 @@ pub mod data_transfer_service {
         }
     }
 
-    /// The request builder for [DataTransferService::get_data_source][super::super::client::DataTransferService::get_data_source] calls.
+    /// The request builder for [DataTransferService::get_data_source][crate::client::DataTransferService::get_data_source] calls.
     ///
     /// # Example
     /// ```no_run
@@ -131,7 +131,7 @@ pub mod data_transfer_service {
         }
     }
 
-    /// The request builder for [DataTransferService::list_data_sources][super::super::client::DataTransferService::list_data_sources] calls.
+    /// The request builder for [DataTransferService::list_data_sources][crate::client::DataTransferService::list_data_sources] calls.
     ///
     /// # Example
     /// ```no_run
@@ -234,7 +234,7 @@ pub mod data_transfer_service {
         }
     }
 
-    /// The request builder for [DataTransferService::create_transfer_config][super::super::client::DataTransferService::create_transfer_config] calls.
+    /// The request builder for [DataTransferService::create_transfer_config][crate::client::DataTransferService::create_transfer_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -341,7 +341,7 @@ pub mod data_transfer_service {
         }
     }
 
-    /// The request builder for [DataTransferService::update_transfer_config][super::super::client::DataTransferService::update_transfer_config] calls.
+    /// The request builder for [DataTransferService::update_transfer_config][crate::client::DataTransferService::update_transfer_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -462,7 +462,7 @@ pub mod data_transfer_service {
         }
     }
 
-    /// The request builder for [DataTransferService::delete_transfer_config][super::super::client::DataTransferService::delete_transfer_config] calls.
+    /// The request builder for [DataTransferService::delete_transfer_config][crate::client::DataTransferService::delete_transfer_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -528,7 +528,7 @@ pub mod data_transfer_service {
         }
     }
 
-    /// The request builder for [DataTransferService::get_transfer_config][super::super::client::DataTransferService::get_transfer_config] calls.
+    /// The request builder for [DataTransferService::get_transfer_config][crate::client::DataTransferService::get_transfer_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -594,7 +594,7 @@ pub mod data_transfer_service {
         }
     }
 
-    /// The request builder for [DataTransferService::list_transfer_configs][super::super::client::DataTransferService::list_transfer_configs] calls.
+    /// The request builder for [DataTransferService::list_transfer_configs][crate::client::DataTransferService::list_transfer_configs] calls.
     ///
     /// # Example
     /// ```no_run
@@ -713,7 +713,7 @@ pub mod data_transfer_service {
         }
     }
 
-    /// The request builder for [DataTransferService::schedule_transfer_runs][super::super::client::DataTransferService::schedule_transfer_runs] calls.
+    /// The request builder for [DataTransferService::schedule_transfer_runs][crate::client::DataTransferService::schedule_transfer_runs] calls.
     ///
     /// # Example
     /// ```no_run
@@ -823,7 +823,7 @@ pub mod data_transfer_service {
         }
     }
 
-    /// The request builder for [DataTransferService::start_manual_transfer_runs][super::super::client::DataTransferService::start_manual_transfer_runs] calls.
+    /// The request builder for [DataTransferService::start_manual_transfer_runs][crate::client::DataTransferService::start_manual_transfer_runs] calls.
     ///
     /// # Example
     /// ```no_run
@@ -933,7 +933,7 @@ pub mod data_transfer_service {
         }
     }
 
-    /// The request builder for [DataTransferService::get_transfer_run][super::super::client::DataTransferService::get_transfer_run] calls.
+    /// The request builder for [DataTransferService::get_transfer_run][crate::client::DataTransferService::get_transfer_run] calls.
     ///
     /// # Example
     /// ```no_run
@@ -996,7 +996,7 @@ pub mod data_transfer_service {
         }
     }
 
-    /// The request builder for [DataTransferService::delete_transfer_run][super::super::client::DataTransferService::delete_transfer_run] calls.
+    /// The request builder for [DataTransferService::delete_transfer_run][crate::client::DataTransferService::delete_transfer_run] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1062,7 +1062,7 @@ pub mod data_transfer_service {
         }
     }
 
-    /// The request builder for [DataTransferService::list_transfer_runs][super::super::client::DataTransferService::list_transfer_runs] calls.
+    /// The request builder for [DataTransferService::list_transfer_runs][crate::client::DataTransferService::list_transfer_runs] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1188,7 +1188,7 @@ pub mod data_transfer_service {
         }
     }
 
-    /// The request builder for [DataTransferService::list_transfer_logs][super::super::client::DataTransferService::list_transfer_logs] calls.
+    /// The request builder for [DataTransferService::list_transfer_logs][crate::client::DataTransferService::list_transfer_logs] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1305,7 +1305,7 @@ pub mod data_transfer_service {
         }
     }
 
-    /// The request builder for [DataTransferService::check_valid_creds][super::super::client::DataTransferService::check_valid_creds] calls.
+    /// The request builder for [DataTransferService::check_valid_creds][crate::client::DataTransferService::check_valid_creds] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1368,7 +1368,7 @@ pub mod data_transfer_service {
         }
     }
 
-    /// The request builder for [DataTransferService::enroll_data_sources][super::super::client::DataTransferService::enroll_data_sources] calls.
+    /// The request builder for [DataTransferService::enroll_data_sources][crate::client::DataTransferService::enroll_data_sources] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1445,7 +1445,7 @@ pub mod data_transfer_service {
         }
     }
 
-    /// The request builder for [DataTransferService::unenroll_data_sources][super::super::client::DataTransferService::unenroll_data_sources] calls.
+    /// The request builder for [DataTransferService::unenroll_data_sources][crate::client::DataTransferService::unenroll_data_sources] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1522,7 +1522,7 @@ pub mod data_transfer_service {
         }
     }
 
-    /// The request builder for [DataTransferService::list_locations][super::super::client::DataTransferService::list_locations] calls.
+    /// The request builder for [DataTransferService::list_locations][crate::client::DataTransferService::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1632,7 +1632,7 @@ pub mod data_transfer_service {
         }
     }
 
-    /// The request builder for [DataTransferService::get_location][super::super::client::DataTransferService::get_location] calls.
+    /// The request builder for [DataTransferService::get_location][crate::client::DataTransferService::get_location] calls.
     ///
     /// # Example
     /// ```no_run

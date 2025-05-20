@@ -17,7 +17,7 @@
 pub mod notebook_service {
     use crate::Result;
 
-    /// A builder for [NotebookService][super::super::client::NotebookService].
+    /// A builder for [NotebookService][crate::client::NotebookService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod notebook_service {
         }
     }
 
-    /// Common implementation for [super::super::client::NotebookService] request builders.
+    /// Common implementation for [crate::client::NotebookService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::NotebookService>,
@@ -68,7 +68,7 @@ pub mod notebook_service {
         }
     }
 
-    /// The request builder for [NotebookService::list_instances][super::super::client::NotebookService::list_instances] calls.
+    /// The request builder for [NotebookService::list_instances][crate::client::NotebookService::list_instances] calls.
     ///
     /// # Example
     /// ```no_run
@@ -183,7 +183,7 @@ pub mod notebook_service {
         }
     }
 
-    /// The request builder for [NotebookService::get_instance][super::super::client::NotebookService::get_instance] calls.
+    /// The request builder for [NotebookService::get_instance][crate::client::NotebookService::get_instance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -246,7 +246,7 @@ pub mod notebook_service {
         }
     }
 
-    /// The request builder for [NotebookService::create_instance][super::super::client::NotebookService::create_instance] calls.
+    /// The request builder for [NotebookService::create_instance][crate::client::NotebookService::create_instance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -291,7 +291,7 @@ pub mod notebook_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_instance][super::super::client::NotebookService::create_instance].
+        /// on [create_instance][crate::client::NotebookService::create_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_instance(self.0.request, self.0.options)
@@ -384,7 +384,7 @@ pub mod notebook_service {
         }
     }
 
-    /// The request builder for [NotebookService::update_instance][super::super::client::NotebookService::update_instance] calls.
+    /// The request builder for [NotebookService::update_instance][crate::client::NotebookService::update_instance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -429,7 +429,7 @@ pub mod notebook_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_instance][super::super::client::NotebookService::update_instance].
+        /// on [update_instance][crate::client::NotebookService::update_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_instance(self.0.request, self.0.options)
@@ -528,7 +528,7 @@ pub mod notebook_service {
         }
     }
 
-    /// The request builder for [NotebookService::delete_instance][super::super::client::NotebookService::delete_instance] calls.
+    /// The request builder for [NotebookService::delete_instance][crate::client::NotebookService::delete_instance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -573,7 +573,7 @@ pub mod notebook_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_instance][super::super::client::NotebookService::delete_instance].
+        /// on [delete_instance][crate::client::NotebookService::delete_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_instance(self.0.request, self.0.options)
@@ -638,7 +638,7 @@ pub mod notebook_service {
         }
     }
 
-    /// The request builder for [NotebookService::start_instance][super::super::client::NotebookService::start_instance] calls.
+    /// The request builder for [NotebookService::start_instance][crate::client::NotebookService::start_instance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -683,7 +683,7 @@ pub mod notebook_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [start_instance][super::super::client::NotebookService::start_instance].
+        /// on [start_instance][crate::client::NotebookService::start_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .start_instance(self.0.request, self.0.options)
@@ -740,7 +740,7 @@ pub mod notebook_service {
         }
     }
 
-    /// The request builder for [NotebookService::stop_instance][super::super::client::NotebookService::stop_instance] calls.
+    /// The request builder for [NotebookService::stop_instance][crate::client::NotebookService::stop_instance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -785,7 +785,7 @@ pub mod notebook_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [stop_instance][super::super::client::NotebookService::stop_instance].
+        /// on [stop_instance][crate::client::NotebookService::stop_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .stop_instance(self.0.request, self.0.options)
@@ -842,7 +842,7 @@ pub mod notebook_service {
         }
     }
 
-    /// The request builder for [NotebookService::reset_instance][super::super::client::NotebookService::reset_instance] calls.
+    /// The request builder for [NotebookService::reset_instance][crate::client::NotebookService::reset_instance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -887,7 +887,7 @@ pub mod notebook_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [reset_instance][super::super::client::NotebookService::reset_instance].
+        /// on [reset_instance][crate::client::NotebookService::reset_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .reset_instance(self.0.request, self.0.options)
@@ -944,7 +944,7 @@ pub mod notebook_service {
         }
     }
 
-    /// The request builder for [NotebookService::check_instance_upgradability][super::super::client::NotebookService::check_instance_upgradability] calls.
+    /// The request builder for [NotebookService::check_instance_upgradability][crate::client::NotebookService::check_instance_upgradability] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1012,7 +1012,7 @@ pub mod notebook_service {
         }
     }
 
-    /// The request builder for [NotebookService::upgrade_instance][super::super::client::NotebookService::upgrade_instance] calls.
+    /// The request builder for [NotebookService::upgrade_instance][crate::client::NotebookService::upgrade_instance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1057,7 +1057,7 @@ pub mod notebook_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [upgrade_instance][super::super::client::NotebookService::upgrade_instance].
+        /// on [upgrade_instance][crate::client::NotebookService::upgrade_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .upgrade_instance(self.0.request, self.0.options)
@@ -1114,7 +1114,7 @@ pub mod notebook_service {
         }
     }
 
-    /// The request builder for [NotebookService::rollback_instance][super::super::client::NotebookService::rollback_instance] calls.
+    /// The request builder for [NotebookService::rollback_instance][crate::client::NotebookService::rollback_instance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1162,7 +1162,7 @@ pub mod notebook_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [rollback_instance][super::super::client::NotebookService::rollback_instance].
+        /// on [rollback_instance][crate::client::NotebookService::rollback_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .rollback_instance(self.0.request, self.0.options)
@@ -1235,7 +1235,7 @@ pub mod notebook_service {
         }
     }
 
-    /// The request builder for [NotebookService::diagnose_instance][super::super::client::NotebookService::diagnose_instance] calls.
+    /// The request builder for [NotebookService::diagnose_instance][crate::client::NotebookService::diagnose_instance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1283,7 +1283,7 @@ pub mod notebook_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [diagnose_instance][super::super::client::NotebookService::diagnose_instance].
+        /// on [diagnose_instance][crate::client::NotebookService::diagnose_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .diagnose_instance(self.0.request, self.0.options)
@@ -1368,7 +1368,7 @@ pub mod notebook_service {
         }
     }
 
-    /// The request builder for [NotebookService::list_locations][super::super::client::NotebookService::list_locations] calls.
+    /// The request builder for [NotebookService::list_locations][crate::client::NotebookService::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1478,7 +1478,7 @@ pub mod notebook_service {
         }
     }
 
-    /// The request builder for [NotebookService::get_location][super::super::client::NotebookService::get_location] calls.
+    /// The request builder for [NotebookService::get_location][crate::client::NotebookService::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1539,7 +1539,7 @@ pub mod notebook_service {
         }
     }
 
-    /// The request builder for [NotebookService::set_iam_policy][super::super::client::NotebookService::set_iam_policy] calls.
+    /// The request builder for [NotebookService::set_iam_policy][crate::client::NotebookService::set_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1642,7 +1642,7 @@ pub mod notebook_service {
         }
     }
 
-    /// The request builder for [NotebookService::get_iam_policy][super::super::client::NotebookService::get_iam_policy] calls.
+    /// The request builder for [NotebookService::get_iam_policy][crate::client::NotebookService::get_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1723,7 +1723,7 @@ pub mod notebook_service {
         }
     }
 
-    /// The request builder for [NotebookService::test_iam_permissions][super::super::client::NotebookService::test_iam_permissions] calls.
+    /// The request builder for [NotebookService::test_iam_permissions][crate::client::NotebookService::test_iam_permissions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1802,7 +1802,7 @@ pub mod notebook_service {
         }
     }
 
-    /// The request builder for [NotebookService::list_operations][super::super::client::NotebookService::list_operations] calls.
+    /// The request builder for [NotebookService::list_operations][crate::client::NotebookService::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1914,7 +1914,7 @@ pub mod notebook_service {
         }
     }
 
-    /// The request builder for [NotebookService::get_operation][super::super::client::NotebookService::get_operation] calls.
+    /// The request builder for [NotebookService::get_operation][crate::client::NotebookService::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1978,7 +1978,7 @@ pub mod notebook_service {
         }
     }
 
-    /// The request builder for [NotebookService::delete_operation][super::super::client::NotebookService::delete_operation] calls.
+    /// The request builder for [NotebookService::delete_operation][crate::client::NotebookService::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2042,7 +2042,7 @@ pub mod notebook_service {
         }
     }
 
-    /// The request builder for [NotebookService::cancel_operation][super::super::client::NotebookService::cancel_operation] calls.
+    /// The request builder for [NotebookService::cancel_operation][crate::client::NotebookService::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run

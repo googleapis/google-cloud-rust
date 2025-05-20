@@ -17,7 +17,7 @@
 pub mod image_annotator {
     use crate::Result;
 
-    /// A builder for [ImageAnnotator][super::super::client::ImageAnnotator].
+    /// A builder for [ImageAnnotator][crate::client::ImageAnnotator].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod image_annotator {
         }
     }
 
-    /// Common implementation for [super::super::client::ImageAnnotator] request builders.
+    /// Common implementation for [crate::client::ImageAnnotator] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::ImageAnnotator>,
@@ -68,7 +68,7 @@ pub mod image_annotator {
         }
     }
 
-    /// The request builder for [ImageAnnotator::batch_annotate_images][super::super::client::ImageAnnotator::batch_annotate_images] calls.
+    /// The request builder for [ImageAnnotator::batch_annotate_images][crate::client::ImageAnnotator::batch_annotate_images] calls.
     ///
     /// # Example
     /// ```no_run
@@ -156,7 +156,7 @@ pub mod image_annotator {
         }
     }
 
-    /// The request builder for [ImageAnnotator::batch_annotate_files][super::super::client::ImageAnnotator::batch_annotate_files] calls.
+    /// The request builder for [ImageAnnotator::batch_annotate_files][crate::client::ImageAnnotator::batch_annotate_files] calls.
     ///
     /// # Example
     /// ```no_run
@@ -244,7 +244,7 @@ pub mod image_annotator {
         }
     }
 
-    /// The request builder for [ImageAnnotator::async_batch_annotate_images][super::super::client::ImageAnnotator::async_batch_annotate_images] calls.
+    /// The request builder for [ImageAnnotator::async_batch_annotate_images][crate::client::ImageAnnotator::async_batch_annotate_images] calls.
     ///
     /// # Example
     /// ```no_run
@@ -294,7 +294,7 @@ pub mod image_annotator {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [async_batch_annotate_images][super::super::client::ImageAnnotator::async_batch_annotate_images].
+        /// on [async_batch_annotate_images][crate::client::ImageAnnotator::async_batch_annotate_images].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .async_batch_annotate_images(self.0.request, self.0.options)
@@ -400,7 +400,7 @@ pub mod image_annotator {
         }
     }
 
-    /// The request builder for [ImageAnnotator::async_batch_annotate_files][super::super::client::ImageAnnotator::async_batch_annotate_files] calls.
+    /// The request builder for [ImageAnnotator::async_batch_annotate_files][crate::client::ImageAnnotator::async_batch_annotate_files] calls.
     ///
     /// # Example
     /// ```no_run
@@ -450,7 +450,7 @@ pub mod image_annotator {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [async_batch_annotate_files][super::super::client::ImageAnnotator::async_batch_annotate_files].
+        /// on [async_batch_annotate_files][crate::client::ImageAnnotator::async_batch_annotate_files].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .async_batch_annotate_files(self.0.request, self.0.options)
@@ -534,7 +534,7 @@ pub mod image_annotator {
         }
     }
 
-    /// The request builder for [ImageAnnotator::get_operation][super::super::client::ImageAnnotator::get_operation] calls.
+    /// The request builder for [ImageAnnotator::get_operation][crate::client::ImageAnnotator::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -602,7 +602,7 @@ pub mod image_annotator {
 pub mod product_search {
     use crate::Result;
 
-    /// A builder for [ProductSearch][super::super::client::ProductSearch].
+    /// A builder for [ProductSearch][crate::client::ProductSearch].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -630,7 +630,7 @@ pub mod product_search {
         }
     }
 
-    /// Common implementation for [super::super::client::ProductSearch] request builders.
+    /// Common implementation for [crate::client::ProductSearch] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::ProductSearch>,
@@ -653,7 +653,7 @@ pub mod product_search {
         }
     }
 
-    /// The request builder for [ProductSearch::create_product_set][super::super::client::ProductSearch::create_product_set] calls.
+    /// The request builder for [ProductSearch::create_product_set][crate::client::ProductSearch::create_product_set] calls.
     ///
     /// # Example
     /// ```no_run
@@ -747,7 +747,7 @@ pub mod product_search {
         }
     }
 
-    /// The request builder for [ProductSearch::list_product_sets][super::super::client::ProductSearch::list_product_sets] calls.
+    /// The request builder for [ProductSearch::list_product_sets][crate::client::ProductSearch::list_product_sets] calls.
     ///
     /// # Example
     /// ```no_run
@@ -850,7 +850,7 @@ pub mod product_search {
         }
     }
 
-    /// The request builder for [ProductSearch::get_product_set][super::super::client::ProductSearch::get_product_set] calls.
+    /// The request builder for [ProductSearch::get_product_set][crate::client::ProductSearch::get_product_set] calls.
     ///
     /// # Example
     /// ```no_run
@@ -913,7 +913,7 @@ pub mod product_search {
         }
     }
 
-    /// The request builder for [ProductSearch::update_product_set][super::super::client::ProductSearch::update_product_set] calls.
+    /// The request builder for [ProductSearch::update_product_set][crate::client::ProductSearch::update_product_set] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1011,7 +1011,7 @@ pub mod product_search {
         }
     }
 
-    /// The request builder for [ProductSearch::delete_product_set][super::super::client::ProductSearch::delete_product_set] calls.
+    /// The request builder for [ProductSearch::delete_product_set][crate::client::ProductSearch::delete_product_set] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1077,7 +1077,7 @@ pub mod product_search {
         }
     }
 
-    /// The request builder for [ProductSearch::create_product][super::super::client::ProductSearch::create_product] calls.
+    /// The request builder for [ProductSearch::create_product][crate::client::ProductSearch::create_product] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1168,7 +1168,7 @@ pub mod product_search {
         }
     }
 
-    /// The request builder for [ProductSearch::list_products][super::super::client::ProductSearch::list_products] calls.
+    /// The request builder for [ProductSearch::list_products][crate::client::ProductSearch::list_products] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1271,7 +1271,7 @@ pub mod product_search {
         }
     }
 
-    /// The request builder for [ProductSearch::get_product][super::super::client::ProductSearch::get_product] calls.
+    /// The request builder for [ProductSearch::get_product][crate::client::ProductSearch::get_product] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1334,7 +1334,7 @@ pub mod product_search {
         }
     }
 
-    /// The request builder for [ProductSearch::update_product][super::super::client::ProductSearch::update_product] calls.
+    /// The request builder for [ProductSearch::update_product][crate::client::ProductSearch::update_product] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1429,7 +1429,7 @@ pub mod product_search {
         }
     }
 
-    /// The request builder for [ProductSearch::delete_product][super::super::client::ProductSearch::delete_product] calls.
+    /// The request builder for [ProductSearch::delete_product][crate::client::ProductSearch::delete_product] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1492,7 +1492,7 @@ pub mod product_search {
         }
     }
 
-    /// The request builder for [ProductSearch::create_reference_image][super::super::client::ProductSearch::create_reference_image] calls.
+    /// The request builder for [ProductSearch::create_reference_image][crate::client::ProductSearch::create_reference_image] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1586,7 +1586,7 @@ pub mod product_search {
         }
     }
 
-    /// The request builder for [ProductSearch::delete_reference_image][super::super::client::ProductSearch::delete_reference_image] calls.
+    /// The request builder for [ProductSearch::delete_reference_image][crate::client::ProductSearch::delete_reference_image] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1652,7 +1652,7 @@ pub mod product_search {
         }
     }
 
-    /// The request builder for [ProductSearch::list_reference_images][super::super::client::ProductSearch::list_reference_images] calls.
+    /// The request builder for [ProductSearch::list_reference_images][crate::client::ProductSearch::list_reference_images] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1760,7 +1760,7 @@ pub mod product_search {
         }
     }
 
-    /// The request builder for [ProductSearch::get_reference_image][super::super::client::ProductSearch::get_reference_image] calls.
+    /// The request builder for [ProductSearch::get_reference_image][crate::client::ProductSearch::get_reference_image] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1826,7 +1826,7 @@ pub mod product_search {
         }
     }
 
-    /// The request builder for [ProductSearch::add_product_to_product_set][super::super::client::ProductSearch::add_product_to_product_set] calls.
+    /// The request builder for [ProductSearch::add_product_to_product_set][crate::client::ProductSearch::add_product_to_product_set] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1900,7 +1900,7 @@ pub mod product_search {
         }
     }
 
-    /// The request builder for [ProductSearch::remove_product_from_product_set][super::super::client::ProductSearch::remove_product_from_product_set] calls.
+    /// The request builder for [ProductSearch::remove_product_from_product_set][crate::client::ProductSearch::remove_product_from_product_set] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1976,7 +1976,7 @@ pub mod product_search {
         }
     }
 
-    /// The request builder for [ProductSearch::list_products_in_product_set][super::super::client::ProductSearch::list_products_in_product_set] calls.
+    /// The request builder for [ProductSearch::list_products_in_product_set][crate::client::ProductSearch::list_products_in_product_set] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2088,7 +2088,7 @@ pub mod product_search {
         }
     }
 
-    /// The request builder for [ProductSearch::import_product_sets][super::super::client::ProductSearch::import_product_sets] calls.
+    /// The request builder for [ProductSearch::import_product_sets][crate::client::ProductSearch::import_product_sets] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2136,7 +2136,7 @@ pub mod product_search {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [import_product_sets][super::super::client::ProductSearch::import_product_sets].
+        /// on [import_product_sets][crate::client::ProductSearch::import_product_sets].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .import_product_sets(self.0.request, self.0.options)
@@ -2220,7 +2220,7 @@ pub mod product_search {
         }
     }
 
-    /// The request builder for [ProductSearch::purge_products][super::super::client::ProductSearch::purge_products] calls.
+    /// The request builder for [ProductSearch::purge_products][crate::client::ProductSearch::purge_products] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2265,7 +2265,7 @@ pub mod product_search {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [purge_products][super::super::client::ProductSearch::purge_products].
+        /// on [purge_products][crate::client::ProductSearch::purge_products].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .purge_products(self.0.request, self.0.options)
@@ -2368,7 +2368,7 @@ pub mod product_search {
         }
     }
 
-    /// The request builder for [ProductSearch::get_operation][super::super::client::ProductSearch::get_operation] calls.
+    /// The request builder for [ProductSearch::get_operation][crate::client::ProductSearch::get_operation] calls.
     ///
     /// # Example
     /// ```no_run

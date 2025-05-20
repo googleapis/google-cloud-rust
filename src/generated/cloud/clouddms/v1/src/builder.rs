@@ -17,7 +17,7 @@
 pub mod data_migration_service {
     use crate::Result;
 
-    /// A builder for [DataMigrationService][super::super::client::DataMigrationService].
+    /// A builder for [DataMigrationService][crate::client::DataMigrationService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// Common implementation for [super::super::client::DataMigrationService] request builders.
+    /// Common implementation for [crate::client::DataMigrationService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::DataMigrationService>,
@@ -68,7 +68,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for [DataMigrationService::list_migration_jobs][super::super::client::DataMigrationService::list_migration_jobs] calls.
+    /// The request builder for [DataMigrationService::list_migration_jobs][crate::client::DataMigrationService::list_migration_jobs] calls.
     ///
     /// # Example
     /// ```no_run
@@ -186,7 +186,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for [DataMigrationService::get_migration_job][super::super::client::DataMigrationService::get_migration_job] calls.
+    /// The request builder for [DataMigrationService::get_migration_job][crate::client::DataMigrationService::get_migration_job] calls.
     ///
     /// # Example
     /// ```no_run
@@ -249,7 +249,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for [DataMigrationService::create_migration_job][super::super::client::DataMigrationService::create_migration_job] calls.
+    /// The request builder for [DataMigrationService::create_migration_job][crate::client::DataMigrationService::create_migration_job] calls.
     ///
     /// # Example
     /// ```no_run
@@ -297,7 +297,7 @@ pub mod data_migration_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_migration_job][super::super::client::DataMigrationService::create_migration_job].
+        /// on [create_migration_job][crate::client::DataMigrationService::create_migration_job].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_migration_job(self.0.request, self.0.options)
@@ -392,7 +392,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for [DataMigrationService::update_migration_job][super::super::client::DataMigrationService::update_migration_job] calls.
+    /// The request builder for [DataMigrationService::update_migration_job][crate::client::DataMigrationService::update_migration_job] calls.
     ///
     /// # Example
     /// ```no_run
@@ -440,7 +440,7 @@ pub mod data_migration_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_migration_job][super::super::client::DataMigrationService::update_migration_job].
+        /// on [update_migration_job][crate::client::DataMigrationService::update_migration_job].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_migration_job(self.0.request, self.0.options)
@@ -541,7 +541,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for [DataMigrationService::delete_migration_job][super::super::client::DataMigrationService::delete_migration_job] calls.
+    /// The request builder for [DataMigrationService::delete_migration_job][crate::client::DataMigrationService::delete_migration_job] calls.
     ///
     /// # Example
     /// ```no_run
@@ -589,7 +589,7 @@ pub mod data_migration_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_migration_job][super::super::client::DataMigrationService::delete_migration_job].
+        /// on [delete_migration_job][crate::client::DataMigrationService::delete_migration_job].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_migration_job(self.0.request, self.0.options)
@@ -660,7 +660,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for [DataMigrationService::start_migration_job][super::super::client::DataMigrationService::start_migration_job] calls.
+    /// The request builder for [DataMigrationService::start_migration_job][crate::client::DataMigrationService::start_migration_job] calls.
     ///
     /// # Example
     /// ```no_run
@@ -708,7 +708,7 @@ pub mod data_migration_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [start_migration_job][super::super::client::DataMigrationService::start_migration_job].
+        /// on [start_migration_job][crate::client::DataMigrationService::start_migration_job].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .start_migration_job(self.0.request, self.0.options)
@@ -771,7 +771,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for [DataMigrationService::stop_migration_job][super::super::client::DataMigrationService::stop_migration_job] calls.
+    /// The request builder for [DataMigrationService::stop_migration_job][crate::client::DataMigrationService::stop_migration_job] calls.
     ///
     /// # Example
     /// ```no_run
@@ -819,7 +819,7 @@ pub mod data_migration_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [stop_migration_job][super::super::client::DataMigrationService::stop_migration_job].
+        /// on [stop_migration_job][crate::client::DataMigrationService::stop_migration_job].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .stop_migration_job(self.0.request, self.0.options)
@@ -876,7 +876,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for [DataMigrationService::resume_migration_job][super::super::client::DataMigrationService::resume_migration_job] calls.
+    /// The request builder for [DataMigrationService::resume_migration_job][crate::client::DataMigrationService::resume_migration_job] calls.
     ///
     /// # Example
     /// ```no_run
@@ -924,7 +924,7 @@ pub mod data_migration_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [resume_migration_job][super::super::client::DataMigrationService::resume_migration_job].
+        /// on [resume_migration_job][crate::client::DataMigrationService::resume_migration_job].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .resume_migration_job(self.0.request, self.0.options)
@@ -981,7 +981,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for [DataMigrationService::promote_migration_job][super::super::client::DataMigrationService::promote_migration_job] calls.
+    /// The request builder for [DataMigrationService::promote_migration_job][crate::client::DataMigrationService::promote_migration_job] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1029,7 +1029,7 @@ pub mod data_migration_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [promote_migration_job][super::super::client::DataMigrationService::promote_migration_job].
+        /// on [promote_migration_job][crate::client::DataMigrationService::promote_migration_job].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .promote_migration_job(self.0.request, self.0.options)
@@ -1086,7 +1086,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for [DataMigrationService::verify_migration_job][super::super::client::DataMigrationService::verify_migration_job] calls.
+    /// The request builder for [DataMigrationService::verify_migration_job][crate::client::DataMigrationService::verify_migration_job] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1134,7 +1134,7 @@ pub mod data_migration_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [verify_migration_job][super::super::client::DataMigrationService::verify_migration_job].
+        /// on [verify_migration_job][crate::client::DataMigrationService::verify_migration_job].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .verify_migration_job(self.0.request, self.0.options)
@@ -1227,7 +1227,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for [DataMigrationService::restart_migration_job][super::super::client::DataMigrationService::restart_migration_job] calls.
+    /// The request builder for [DataMigrationService::restart_migration_job][crate::client::DataMigrationService::restart_migration_job] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1275,7 +1275,7 @@ pub mod data_migration_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [restart_migration_job][super::super::client::DataMigrationService::restart_migration_job].
+        /// on [restart_migration_job][crate::client::DataMigrationService::restart_migration_job].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .restart_migration_job(self.0.request, self.0.options)
@@ -1338,7 +1338,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for [DataMigrationService::generate_ssh_script][super::super::client::DataMigrationService::generate_ssh_script] calls.
+    /// The request builder for [DataMigrationService::generate_ssh_script][crate::client::DataMigrationService::generate_ssh_script] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1460,7 +1460,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for [DataMigrationService::generate_tcp_proxy_script][super::super::client::DataMigrationService::generate_tcp_proxy_script] calls.
+    /// The request builder for [DataMigrationService::generate_tcp_proxy_script][crate::client::DataMigrationService::generate_tcp_proxy_script] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1554,7 +1554,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for [DataMigrationService::list_connection_profiles][super::super::client::DataMigrationService::list_connection_profiles] calls.
+    /// The request builder for [DataMigrationService::list_connection_profiles][crate::client::DataMigrationService::list_connection_profiles] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1676,7 +1676,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for [DataMigrationService::get_connection_profile][super::super::client::DataMigrationService::get_connection_profile] calls.
+    /// The request builder for [DataMigrationService::get_connection_profile][crate::client::DataMigrationService::get_connection_profile] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1742,7 +1742,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for [DataMigrationService::create_connection_profile][super::super::client::DataMigrationService::create_connection_profile] calls.
+    /// The request builder for [DataMigrationService::create_connection_profile][crate::client::DataMigrationService::create_connection_profile] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1792,7 +1792,7 @@ pub mod data_migration_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_connection_profile][super::super::client::DataMigrationService::create_connection_profile].
+        /// on [create_connection_profile][crate::client::DataMigrationService::create_connection_profile].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_connection_profile(self.0.request, self.0.options)
@@ -1900,7 +1900,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for [DataMigrationService::update_connection_profile][super::super::client::DataMigrationService::update_connection_profile] calls.
+    /// The request builder for [DataMigrationService::update_connection_profile][crate::client::DataMigrationService::update_connection_profile] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1950,7 +1950,7 @@ pub mod data_migration_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_connection_profile][super::super::client::DataMigrationService::update_connection_profile].
+        /// on [update_connection_profile][crate::client::DataMigrationService::update_connection_profile].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_connection_profile(self.0.request, self.0.options)
@@ -2064,7 +2064,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for [DataMigrationService::delete_connection_profile][super::super::client::DataMigrationService::delete_connection_profile] calls.
+    /// The request builder for [DataMigrationService::delete_connection_profile][crate::client::DataMigrationService::delete_connection_profile] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2114,7 +2114,7 @@ pub mod data_migration_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_connection_profile][super::super::client::DataMigrationService::delete_connection_profile].
+        /// on [delete_connection_profile][crate::client::DataMigrationService::delete_connection_profile].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_connection_profile(self.0.request, self.0.options)
@@ -2185,7 +2185,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for [DataMigrationService::create_private_connection][super::super::client::DataMigrationService::create_private_connection] calls.
+    /// The request builder for [DataMigrationService::create_private_connection][crate::client::DataMigrationService::create_private_connection] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2235,7 +2235,7 @@ pub mod data_migration_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_private_connection][super::super::client::DataMigrationService::create_private_connection].
+        /// on [create_private_connection][crate::client::DataMigrationService::create_private_connection].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_private_connection(self.0.request, self.0.options)
@@ -2337,7 +2337,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for [DataMigrationService::get_private_connection][super::super::client::DataMigrationService::get_private_connection] calls.
+    /// The request builder for [DataMigrationService::get_private_connection][crate::client::DataMigrationService::get_private_connection] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2403,7 +2403,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for [DataMigrationService::list_private_connections][super::super::client::DataMigrationService::list_private_connections] calls.
+    /// The request builder for [DataMigrationService::list_private_connections][crate::client::DataMigrationService::list_private_connections] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2525,7 +2525,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for [DataMigrationService::delete_private_connection][super::super::client::DataMigrationService::delete_private_connection] calls.
+    /// The request builder for [DataMigrationService::delete_private_connection][crate::client::DataMigrationService::delete_private_connection] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2575,7 +2575,7 @@ pub mod data_migration_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_private_connection][super::super::client::DataMigrationService::delete_private_connection].
+        /// on [delete_private_connection][crate::client::DataMigrationService::delete_private_connection].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_private_connection(self.0.request, self.0.options)
@@ -2640,7 +2640,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for [DataMigrationService::get_conversion_workspace][super::super::client::DataMigrationService::get_conversion_workspace] calls.
+    /// The request builder for [DataMigrationService::get_conversion_workspace][crate::client::DataMigrationService::get_conversion_workspace] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2706,7 +2706,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for [DataMigrationService::list_conversion_workspaces][super::super::client::DataMigrationService::list_conversion_workspaces] calls.
+    /// The request builder for [DataMigrationService::list_conversion_workspaces][crate::client::DataMigrationService::list_conversion_workspaces] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2824,7 +2824,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for [DataMigrationService::create_conversion_workspace][super::super::client::DataMigrationService::create_conversion_workspace] calls.
+    /// The request builder for [DataMigrationService::create_conversion_workspace][crate::client::DataMigrationService::create_conversion_workspace] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2874,7 +2874,7 @@ pub mod data_migration_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_conversion_workspace][super::super::client::DataMigrationService::create_conversion_workspace].
+        /// on [create_conversion_workspace][crate::client::DataMigrationService::create_conversion_workspace].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_conversion_workspace(self.0.request, self.0.options)
@@ -2970,7 +2970,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for [DataMigrationService::update_conversion_workspace][super::super::client::DataMigrationService::update_conversion_workspace] calls.
+    /// The request builder for [DataMigrationService::update_conversion_workspace][crate::client::DataMigrationService::update_conversion_workspace] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3020,7 +3020,7 @@ pub mod data_migration_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_conversion_workspace][super::super::client::DataMigrationService::update_conversion_workspace].
+        /// on [update_conversion_workspace][crate::client::DataMigrationService::update_conversion_workspace].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_conversion_workspace(self.0.request, self.0.options)
@@ -3122,7 +3122,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for [DataMigrationService::delete_conversion_workspace][super::super::client::DataMigrationService::delete_conversion_workspace] calls.
+    /// The request builder for [DataMigrationService::delete_conversion_workspace][crate::client::DataMigrationService::delete_conversion_workspace] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3172,7 +3172,7 @@ pub mod data_migration_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_conversion_workspace][super::super::client::DataMigrationService::delete_conversion_workspace].
+        /// on [delete_conversion_workspace][crate::client::DataMigrationService::delete_conversion_workspace].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_conversion_workspace(self.0.request, self.0.options)
@@ -3243,7 +3243,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for [DataMigrationService::create_mapping_rule][super::super::client::DataMigrationService::create_mapping_rule] calls.
+    /// The request builder for [DataMigrationService::create_mapping_rule][crate::client::DataMigrationService::create_mapping_rule] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3345,7 +3345,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for [DataMigrationService::delete_mapping_rule][super::super::client::DataMigrationService::delete_mapping_rule] calls.
+    /// The request builder for [DataMigrationService::delete_mapping_rule][crate::client::DataMigrationService::delete_mapping_rule] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3417,7 +3417,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for [DataMigrationService::list_mapping_rules][super::super::client::DataMigrationService::list_mapping_rules] calls.
+    /// The request builder for [DataMigrationService::list_mapping_rules][crate::client::DataMigrationService::list_mapping_rules] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3523,7 +3523,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for [DataMigrationService::get_mapping_rule][super::super::client::DataMigrationService::get_mapping_rule] calls.
+    /// The request builder for [DataMigrationService::get_mapping_rule][crate::client::DataMigrationService::get_mapping_rule] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3586,7 +3586,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for [DataMigrationService::seed_conversion_workspace][super::super::client::DataMigrationService::seed_conversion_workspace] calls.
+    /// The request builder for [DataMigrationService::seed_conversion_workspace][crate::client::DataMigrationService::seed_conversion_workspace] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3636,7 +3636,7 @@ pub mod data_migration_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [seed_conversion_workspace][super::super::client::DataMigrationService::seed_conversion_workspace].
+        /// on [seed_conversion_workspace][crate::client::DataMigrationService::seed_conversion_workspace].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .seed_conversion_workspace(self.0.request, self.0.options)
@@ -3740,7 +3740,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for [DataMigrationService::import_mapping_rules][super::super::client::DataMigrationService::import_mapping_rules] calls.
+    /// The request builder for [DataMigrationService::import_mapping_rules][crate::client::DataMigrationService::import_mapping_rules] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3788,7 +3788,7 @@ pub mod data_migration_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [import_mapping_rules][super::super::client::DataMigrationService::import_mapping_rules].
+        /// on [import_mapping_rules][crate::client::DataMigrationService::import_mapping_rules].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .import_mapping_rules(self.0.request, self.0.options)
@@ -3880,7 +3880,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for [DataMigrationService::convert_conversion_workspace][super::super::client::DataMigrationService::convert_conversion_workspace] calls.
+    /// The request builder for [DataMigrationService::convert_conversion_workspace][crate::client::DataMigrationService::convert_conversion_workspace] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3930,7 +3930,7 @@ pub mod data_migration_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [convert_conversion_workspace][super::super::client::DataMigrationService::convert_conversion_workspace].
+        /// on [convert_conversion_workspace][crate::client::DataMigrationService::convert_conversion_workspace].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .convert_conversion_workspace(self.0.request, self.0.options)
@@ -4006,7 +4006,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for [DataMigrationService::commit_conversion_workspace][super::super::client::DataMigrationService::commit_conversion_workspace] calls.
+    /// The request builder for [DataMigrationService::commit_conversion_workspace][crate::client::DataMigrationService::commit_conversion_workspace] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4056,7 +4056,7 @@ pub mod data_migration_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [commit_conversion_workspace][super::super::client::DataMigrationService::commit_conversion_workspace].
+        /// on [commit_conversion_workspace][crate::client::DataMigrationService::commit_conversion_workspace].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .commit_conversion_workspace(self.0.request, self.0.options)
@@ -4122,7 +4122,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for [DataMigrationService::rollback_conversion_workspace][super::super::client::DataMigrationService::rollback_conversion_workspace] calls.
+    /// The request builder for [DataMigrationService::rollback_conversion_workspace][crate::client::DataMigrationService::rollback_conversion_workspace] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4172,7 +4172,7 @@ pub mod data_migration_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [rollback_conversion_workspace][super::super::client::DataMigrationService::rollback_conversion_workspace].
+        /// on [rollback_conversion_workspace][crate::client::DataMigrationService::rollback_conversion_workspace].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .rollback_conversion_workspace(self.0.request, self.0.options)
@@ -4232,7 +4232,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for [DataMigrationService::apply_conversion_workspace][super::super::client::DataMigrationService::apply_conversion_workspace] calls.
+    /// The request builder for [DataMigrationService::apply_conversion_workspace][crate::client::DataMigrationService::apply_conversion_workspace] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4282,7 +4282,7 @@ pub mod data_migration_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [apply_conversion_workspace][super::super::client::DataMigrationService::apply_conversion_workspace].
+        /// on [apply_conversion_workspace][crate::client::DataMigrationService::apply_conversion_workspace].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .apply_conversion_workspace(self.0.request, self.0.options)
@@ -4387,7 +4387,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for [DataMigrationService::describe_database_entities][super::super::client::DataMigrationService::describe_database_entities] calls.
+    /// The request builder for [DataMigrationService::describe_database_entities][crate::client::DataMigrationService::describe_database_entities] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4534,7 +4534,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for [DataMigrationService::search_background_jobs][super::super::client::DataMigrationService::search_background_jobs] calls.
+    /// The request builder for [DataMigrationService::search_background_jobs][crate::client::DataMigrationService::search_background_jobs] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4630,7 +4630,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for [DataMigrationService::describe_conversion_workspace_revisions][super::super::client::DataMigrationService::describe_conversion_workspace_revisions] calls.
+    /// The request builder for [DataMigrationService::describe_conversion_workspace_revisions][crate::client::DataMigrationService::describe_conversion_workspace_revisions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4706,7 +4706,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for [DataMigrationService::fetch_static_ips][super::super::client::DataMigrationService::fetch_static_ips] calls.
+    /// The request builder for [DataMigrationService::fetch_static_ips][crate::client::DataMigrationService::fetch_static_ips] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4781,7 +4781,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for [DataMigrationService::list_locations][super::super::client::DataMigrationService::list_locations] calls.
+    /// The request builder for [DataMigrationService::list_locations][crate::client::DataMigrationService::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4891,7 +4891,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for [DataMigrationService::get_location][super::super::client::DataMigrationService::get_location] calls.
+    /// The request builder for [DataMigrationService::get_location][crate::client::DataMigrationService::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4952,7 +4952,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for [DataMigrationService::set_iam_policy][super::super::client::DataMigrationService::set_iam_policy] calls.
+    /// The request builder for [DataMigrationService::set_iam_policy][crate::client::DataMigrationService::set_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5055,7 +5055,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for [DataMigrationService::get_iam_policy][super::super::client::DataMigrationService::get_iam_policy] calls.
+    /// The request builder for [DataMigrationService::get_iam_policy][crate::client::DataMigrationService::get_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5136,7 +5136,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for [DataMigrationService::test_iam_permissions][super::super::client::DataMigrationService::test_iam_permissions] calls.
+    /// The request builder for [DataMigrationService::test_iam_permissions][crate::client::DataMigrationService::test_iam_permissions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5215,7 +5215,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for [DataMigrationService::list_operations][super::super::client::DataMigrationService::list_operations] calls.
+    /// The request builder for [DataMigrationService::list_operations][crate::client::DataMigrationService::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5327,7 +5327,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for [DataMigrationService::get_operation][super::super::client::DataMigrationService::get_operation] calls.
+    /// The request builder for [DataMigrationService::get_operation][crate::client::DataMigrationService::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5391,7 +5391,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for [DataMigrationService::delete_operation][super::super::client::DataMigrationService::delete_operation] calls.
+    /// The request builder for [DataMigrationService::delete_operation][crate::client::DataMigrationService::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5455,7 +5455,7 @@ pub mod data_migration_service {
         }
     }
 
-    /// The request builder for [DataMigrationService::cancel_operation][super::super::client::DataMigrationService::cancel_operation] calls.
+    /// The request builder for [DataMigrationService::cancel_operation][crate::client::DataMigrationService::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run

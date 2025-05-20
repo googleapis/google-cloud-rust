@@ -17,7 +17,7 @@
 pub mod reservation_service {
     use crate::Result;
 
-    /// A builder for [ReservationService][super::super::client::ReservationService].
+    /// A builder for [ReservationService][crate::client::ReservationService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod reservation_service {
         }
     }
 
-    /// Common implementation for [super::super::client::ReservationService] request builders.
+    /// Common implementation for [crate::client::ReservationService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>,
@@ -68,7 +68,7 @@ pub mod reservation_service {
         }
     }
 
-    /// The request builder for [ReservationService::create_reservation][super::super::client::ReservationService::create_reservation] calls.
+    /// The request builder for [ReservationService::create_reservation][crate::client::ReservationService::create_reservation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -158,7 +158,7 @@ pub mod reservation_service {
         }
     }
 
-    /// The request builder for [ReservationService::list_reservations][super::super::client::ReservationService::list_reservations] calls.
+    /// The request builder for [ReservationService::list_reservations][crate::client::ReservationService::list_reservations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -264,7 +264,7 @@ pub mod reservation_service {
         }
     }
 
-    /// The request builder for [ReservationService::get_reservation][super::super::client::ReservationService::get_reservation] calls.
+    /// The request builder for [ReservationService::get_reservation][crate::client::ReservationService::get_reservation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -327,7 +327,7 @@ pub mod reservation_service {
         }
     }
 
-    /// The request builder for [ReservationService::delete_reservation][super::super::client::ReservationService::delete_reservation] calls.
+    /// The request builder for [ReservationService::delete_reservation][crate::client::ReservationService::delete_reservation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -393,7 +393,7 @@ pub mod reservation_service {
         }
     }
 
-    /// The request builder for [ReservationService::update_reservation][super::super::client::ReservationService::update_reservation] calls.
+    /// The request builder for [ReservationService::update_reservation][crate::client::ReservationService::update_reservation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -487,7 +487,7 @@ pub mod reservation_service {
         }
     }
 
-    /// The request builder for [ReservationService::failover_reservation][super::super::client::ReservationService::failover_reservation] calls.
+    /// The request builder for [ReservationService::failover_reservation][crate::client::ReservationService::failover_reservation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -553,7 +553,7 @@ pub mod reservation_service {
         }
     }
 
-    /// The request builder for [ReservationService::create_capacity_commitment][super::super::client::ReservationService::create_capacity_commitment] calls.
+    /// The request builder for [ReservationService::create_capacity_commitment][crate::client::ReservationService::create_capacity_commitment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -651,7 +651,7 @@ pub mod reservation_service {
         }
     }
 
-    /// The request builder for [ReservationService::list_capacity_commitments][super::super::client::ReservationService::list_capacity_commitments] calls.
+    /// The request builder for [ReservationService::list_capacity_commitments][crate::client::ReservationService::list_capacity_commitments] calls.
     ///
     /// # Example
     /// ```no_run
@@ -763,7 +763,7 @@ pub mod reservation_service {
         }
     }
 
-    /// The request builder for [ReservationService::get_capacity_commitment][super::super::client::ReservationService::get_capacity_commitment] calls.
+    /// The request builder for [ReservationService::get_capacity_commitment][crate::client::ReservationService::get_capacity_commitment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -829,7 +829,7 @@ pub mod reservation_service {
         }
     }
 
-    /// The request builder for [ReservationService::delete_capacity_commitment][super::super::client::ReservationService::delete_capacity_commitment] calls.
+    /// The request builder for [ReservationService::delete_capacity_commitment][crate::client::ReservationService::delete_capacity_commitment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -903,7 +903,7 @@ pub mod reservation_service {
         }
     }
 
-    /// The request builder for [ReservationService::update_capacity_commitment][super::super::client::ReservationService::update_capacity_commitment] calls.
+    /// The request builder for [ReservationService::update_capacity_commitment][crate::client::ReservationService::update_capacity_commitment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -999,7 +999,7 @@ pub mod reservation_service {
         }
     }
 
-    /// The request builder for [ReservationService::split_capacity_commitment][super::super::client::ReservationService::split_capacity_commitment] calls.
+    /// The request builder for [ReservationService::split_capacity_commitment][crate::client::ReservationService::split_capacity_commitment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1073,7 +1073,7 @@ pub mod reservation_service {
         }
     }
 
-    /// The request builder for [ReservationService::merge_capacity_commitments][super::super::client::ReservationService::merge_capacity_commitments] calls.
+    /// The request builder for [ReservationService::merge_capacity_commitments][crate::client::ReservationService::merge_capacity_commitments] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1150,7 +1150,7 @@ pub mod reservation_service {
         }
     }
 
-    /// The request builder for [ReservationService::create_assignment][super::super::client::ReservationService::create_assignment] calls.
+    /// The request builder for [ReservationService::create_assignment][crate::client::ReservationService::create_assignment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1240,7 +1240,7 @@ pub mod reservation_service {
         }
     }
 
-    /// The request builder for [ReservationService::list_assignments][super::super::client::ReservationService::list_assignments] calls.
+    /// The request builder for [ReservationService::list_assignments][crate::client::ReservationService::list_assignments] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1343,7 +1343,7 @@ pub mod reservation_service {
         }
     }
 
-    /// The request builder for [ReservationService::delete_assignment][super::super::client::ReservationService::delete_assignment] calls.
+    /// The request builder for [ReservationService::delete_assignment][crate::client::ReservationService::delete_assignment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1409,7 +1409,7 @@ pub mod reservation_service {
         }
     }
 
-    /// The request builder for [ReservationService::search_assignments][super::super::client::ReservationService::search_assignments] calls.
+    /// The request builder for [ReservationService::search_assignments][crate::client::ReservationService::search_assignments] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1521,7 +1521,7 @@ pub mod reservation_service {
         }
     }
 
-    /// The request builder for [ReservationService::search_all_assignments][super::super::client::ReservationService::search_all_assignments] calls.
+    /// The request builder for [ReservationService::search_all_assignments][crate::client::ReservationService::search_all_assignments] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1635,7 +1635,7 @@ pub mod reservation_service {
         }
     }
 
-    /// The request builder for [ReservationService::move_assignment][super::super::client::ReservationService::move_assignment] calls.
+    /// The request builder for [ReservationService::move_assignment][crate::client::ReservationService::move_assignment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1710,7 +1710,7 @@ pub mod reservation_service {
         }
     }
 
-    /// The request builder for [ReservationService::update_assignment][super::super::client::ReservationService::update_assignment] calls.
+    /// The request builder for [ReservationService::update_assignment][crate::client::ReservationService::update_assignment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1804,7 +1804,7 @@ pub mod reservation_service {
         }
     }
 
-    /// The request builder for [ReservationService::get_bi_reservation][super::super::client::ReservationService::get_bi_reservation] calls.
+    /// The request builder for [ReservationService::get_bi_reservation][crate::client::ReservationService::get_bi_reservation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1870,7 +1870,7 @@ pub mod reservation_service {
         }
     }
 
-    /// The request builder for [ReservationService::update_bi_reservation][super::super::client::ReservationService::update_bi_reservation] calls.
+    /// The request builder for [ReservationService::update_bi_reservation][crate::client::ReservationService::update_bi_reservation] calls.
     ///
     /// # Example
     /// ```no_run

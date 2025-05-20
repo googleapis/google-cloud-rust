@@ -17,7 +17,7 @@
 pub mod operations {
     use crate::Result;
 
-    /// A builder for [Operations][super::super::client::Operations].
+    /// A builder for [Operations][crate::client::Operations].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod operations {
         }
     }
 
-    /// Common implementation for [super::super::client::Operations] request builders.
+    /// Common implementation for [crate::client::Operations] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::Operations>,
@@ -68,7 +68,7 @@ pub mod operations {
         }
     }
 
-    /// The request builder for [Operations::list_operations][super::super::client::Operations::list_operations] calls.
+    /// The request builder for [Operations::list_operations][crate::client::Operations::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -175,7 +175,7 @@ pub mod operations {
         }
     }
 
-    /// The request builder for [Operations::get_operation][super::super::client::Operations::get_operation] calls.
+    /// The request builder for [Operations::get_operation][crate::client::Operations::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -236,7 +236,7 @@ pub mod operations {
         }
     }
 
-    /// The request builder for [Operations::delete_operation][super::super::client::Operations::delete_operation] calls.
+    /// The request builder for [Operations::delete_operation][crate::client::Operations::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -297,7 +297,7 @@ pub mod operations {
         }
     }
 
-    /// The request builder for [Operations::cancel_operation][super::super::client::Operations::cancel_operation] calls.
+    /// The request builder for [Operations::cancel_operation][crate::client::Operations::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run

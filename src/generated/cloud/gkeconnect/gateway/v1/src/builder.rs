@@ -17,7 +17,7 @@
 pub mod gateway_control {
     use crate::Result;
 
-    /// A builder for [GatewayControl][super::super::client::GatewayControl].
+    /// A builder for [GatewayControl][crate::client::GatewayControl].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod gateway_control {
         }
     }
 
-    /// Common implementation for [super::super::client::GatewayControl] request builders.
+    /// Common implementation for [crate::client::GatewayControl] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::GatewayControl>,
@@ -68,7 +68,7 @@ pub mod gateway_control {
         }
     }
 
-    /// The request builder for [GatewayControl::generate_credentials][super::super::client::GatewayControl::generate_credentials] calls.
+    /// The request builder for [GatewayControl::generate_credentials][crate::client::GatewayControl::generate_credentials] calls.
     ///
     /// # Example
     /// ```no_run

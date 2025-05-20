@@ -17,7 +17,7 @@
 pub mod access_context_manager {
     use crate::Result;
 
-    /// A builder for [AccessContextManager][super::super::client::AccessContextManager].
+    /// A builder for [AccessContextManager][crate::client::AccessContextManager].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod access_context_manager {
         }
     }
 
-    /// Common implementation for [super::super::client::AccessContextManager] request builders.
+    /// Common implementation for [crate::client::AccessContextManager] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
@@ -68,7 +68,7 @@ pub mod access_context_manager {
         }
     }
 
-    /// The request builder for [AccessContextManager::list_access_policies][super::super::client::AccessContextManager::list_access_policies] calls.
+    /// The request builder for [AccessContextManager::list_access_policies][crate::client::AccessContextManager::list_access_policies] calls.
     ///
     /// # Example
     /// ```no_run
@@ -176,7 +176,7 @@ pub mod access_context_manager {
         }
     }
 
-    /// The request builder for [AccessContextManager::get_access_policy][super::super::client::AccessContextManager::get_access_policy] calls.
+    /// The request builder for [AccessContextManager::get_access_policy][crate::client::AccessContextManager::get_access_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -239,7 +239,7 @@ pub mod access_context_manager {
         }
     }
 
-    /// The request builder for [AccessContextManager::create_access_policy][super::super::client::AccessContextManager::create_access_policy] calls.
+    /// The request builder for [AccessContextManager::create_access_policy][crate::client::AccessContextManager::create_access_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -284,7 +284,7 @@ pub mod access_context_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_access_policy][super::super::client::AccessContextManager::create_access_policy].
+        /// on [create_access_policy][crate::client::AccessContextManager::create_access_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_access_policy(self.0.request, self.0.options)
@@ -409,7 +409,7 @@ pub mod access_context_manager {
         }
     }
 
-    /// The request builder for [AccessContextManager::update_access_policy][super::super::client::AccessContextManager::update_access_policy] calls.
+    /// The request builder for [AccessContextManager::update_access_policy][crate::client::AccessContextManager::update_access_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -457,7 +457,7 @@ pub mod access_context_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_access_policy][super::super::client::AccessContextManager::update_access_policy].
+        /// on [update_access_policy][crate::client::AccessContextManager::update_access_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_access_policy(self.0.request, self.0.options)
@@ -555,7 +555,7 @@ pub mod access_context_manager {
         }
     }
 
-    /// The request builder for [AccessContextManager::delete_access_policy][super::super::client::AccessContextManager::delete_access_policy] calls.
+    /// The request builder for [AccessContextManager::delete_access_policy][crate::client::AccessContextManager::delete_access_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -603,7 +603,7 @@ pub mod access_context_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_access_policy][super::super::client::AccessContextManager::delete_access_policy].
+        /// on [delete_access_policy][crate::client::AccessContextManager::delete_access_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_access_policy(self.0.request, self.0.options)
@@ -667,7 +667,7 @@ pub mod access_context_manager {
         }
     }
 
-    /// The request builder for [AccessContextManager::list_access_levels][super::super::client::AccessContextManager::list_access_levels] calls.
+    /// The request builder for [AccessContextManager::list_access_levels][crate::client::AccessContextManager::list_access_levels] calls.
     ///
     /// # Example
     /// ```no_run
@@ -779,7 +779,7 @@ pub mod access_context_manager {
         }
     }
 
-    /// The request builder for [AccessContextManager::get_access_level][super::super::client::AccessContextManager::get_access_level] calls.
+    /// The request builder for [AccessContextManager::get_access_level][crate::client::AccessContextManager::get_access_level] calls.
     ///
     /// # Example
     /// ```no_run
@@ -848,7 +848,7 @@ pub mod access_context_manager {
         }
     }
 
-    /// The request builder for [AccessContextManager::create_access_level][super::super::client::AccessContextManager::create_access_level] calls.
+    /// The request builder for [AccessContextManager::create_access_level][crate::client::AccessContextManager::create_access_level] calls.
     ///
     /// # Example
     /// ```no_run
@@ -896,7 +896,7 @@ pub mod access_context_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_access_level][super::super::client::AccessContextManager::create_access_level].
+        /// on [create_access_level][crate::client::AccessContextManager::create_access_level].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_access_level(self.0.request, self.0.options)
@@ -980,7 +980,7 @@ pub mod access_context_manager {
         }
     }
 
-    /// The request builder for [AccessContextManager::update_access_level][super::super::client::AccessContextManager::update_access_level] calls.
+    /// The request builder for [AccessContextManager::update_access_level][crate::client::AccessContextManager::update_access_level] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1028,7 +1028,7 @@ pub mod access_context_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_access_level][super::super::client::AccessContextManager::update_access_level].
+        /// on [update_access_level][crate::client::AccessContextManager::update_access_level].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_access_level(self.0.request, self.0.options)
@@ -1126,7 +1126,7 @@ pub mod access_context_manager {
         }
     }
 
-    /// The request builder for [AccessContextManager::delete_access_level][super::super::client::AccessContextManager::delete_access_level] calls.
+    /// The request builder for [AccessContextManager::delete_access_level][crate::client::AccessContextManager::delete_access_level] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1174,7 +1174,7 @@ pub mod access_context_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_access_level][super::super::client::AccessContextManager::delete_access_level].
+        /// on [delete_access_level][crate::client::AccessContextManager::delete_access_level].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_access_level(self.0.request, self.0.options)
@@ -1238,7 +1238,7 @@ pub mod access_context_manager {
         }
     }
 
-    /// The request builder for [AccessContextManager::replace_access_levels][super::super::client::AccessContextManager::replace_access_levels] calls.
+    /// The request builder for [AccessContextManager::replace_access_levels][crate::client::AccessContextManager::replace_access_levels] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1286,7 +1286,7 @@ pub mod access_context_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [replace_access_levels][super::super::client::AccessContextManager::replace_access_levels].
+        /// on [replace_access_levels][crate::client::AccessContextManager::replace_access_levels].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .replace_access_levels(self.0.request, self.0.options)
@@ -1367,7 +1367,7 @@ pub mod access_context_manager {
         }
     }
 
-    /// The request builder for [AccessContextManager::list_service_perimeters][super::super::client::AccessContextManager::list_service_perimeters] calls.
+    /// The request builder for [AccessContextManager::list_service_perimeters][crate::client::AccessContextManager::list_service_perimeters] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1475,7 +1475,7 @@ pub mod access_context_manager {
         }
     }
 
-    /// The request builder for [AccessContextManager::get_service_perimeter][super::super::client::AccessContextManager::get_service_perimeter] calls.
+    /// The request builder for [AccessContextManager::get_service_perimeter][crate::client::AccessContextManager::get_service_perimeter] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1541,7 +1541,7 @@ pub mod access_context_manager {
         }
     }
 
-    /// The request builder for [AccessContextManager::create_service_perimeter][super::super::client::AccessContextManager::create_service_perimeter] calls.
+    /// The request builder for [AccessContextManager::create_service_perimeter][crate::client::AccessContextManager::create_service_perimeter] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1589,7 +1589,7 @@ pub mod access_context_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_service_perimeter][super::super::client::AccessContextManager::create_service_perimeter].
+        /// on [create_service_perimeter][crate::client::AccessContextManager::create_service_perimeter].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_service_perimeter(self.0.request, self.0.options)
@@ -1673,7 +1673,7 @@ pub mod access_context_manager {
         }
     }
 
-    /// The request builder for [AccessContextManager::update_service_perimeter][super::super::client::AccessContextManager::update_service_perimeter] calls.
+    /// The request builder for [AccessContextManager::update_service_perimeter][crate::client::AccessContextManager::update_service_perimeter] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1721,7 +1721,7 @@ pub mod access_context_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_service_perimeter][super::super::client::AccessContextManager::update_service_perimeter].
+        /// on [update_service_perimeter][crate::client::AccessContextManager::update_service_perimeter].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_service_perimeter(self.0.request, self.0.options)
@@ -1819,7 +1819,7 @@ pub mod access_context_manager {
         }
     }
 
-    /// The request builder for [AccessContextManager::delete_service_perimeter][super::super::client::AccessContextManager::delete_service_perimeter] calls.
+    /// The request builder for [AccessContextManager::delete_service_perimeter][crate::client::AccessContextManager::delete_service_perimeter] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1867,7 +1867,7 @@ pub mod access_context_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_service_perimeter][super::super::client::AccessContextManager::delete_service_perimeter].
+        /// on [delete_service_perimeter][crate::client::AccessContextManager::delete_service_perimeter].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_service_perimeter(self.0.request, self.0.options)
@@ -1931,7 +1931,7 @@ pub mod access_context_manager {
         }
     }
 
-    /// The request builder for [AccessContextManager::replace_service_perimeters][super::super::client::AccessContextManager::replace_service_perimeters] calls.
+    /// The request builder for [AccessContextManager::replace_service_perimeters][crate::client::AccessContextManager::replace_service_perimeters] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1981,7 +1981,7 @@ pub mod access_context_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [replace_service_perimeters][super::super::client::AccessContextManager::replace_service_perimeters].
+        /// on [replace_service_perimeters][crate::client::AccessContextManager::replace_service_perimeters].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .replace_service_perimeters(self.0.request, self.0.options)
@@ -2062,7 +2062,7 @@ pub mod access_context_manager {
         }
     }
 
-    /// The request builder for [AccessContextManager::commit_service_perimeters][super::super::client::AccessContextManager::commit_service_perimeters] calls.
+    /// The request builder for [AccessContextManager::commit_service_perimeters][crate::client::AccessContextManager::commit_service_perimeters] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2112,7 +2112,7 @@ pub mod access_context_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [commit_service_perimeters][super::super::client::AccessContextManager::commit_service_perimeters].
+        /// on [commit_service_perimeters][crate::client::AccessContextManager::commit_service_perimeters].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .commit_service_perimeters(self.0.request, self.0.options)
@@ -2180,7 +2180,7 @@ pub mod access_context_manager {
         }
     }
 
-    /// The request builder for [AccessContextManager::list_gcp_user_access_bindings][super::super::client::AccessContextManager::list_gcp_user_access_bindings] calls.
+    /// The request builder for [AccessContextManager::list_gcp_user_access_bindings][crate::client::AccessContextManager::list_gcp_user_access_bindings] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2292,7 +2292,7 @@ pub mod access_context_manager {
         }
     }
 
-    /// The request builder for [AccessContextManager::get_gcp_user_access_binding][super::super::client::AccessContextManager::get_gcp_user_access_binding] calls.
+    /// The request builder for [AccessContextManager::get_gcp_user_access_binding][crate::client::AccessContextManager::get_gcp_user_access_binding] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2360,7 +2360,7 @@ pub mod access_context_manager {
         }
     }
 
-    /// The request builder for [AccessContextManager::create_gcp_user_access_binding][super::super::client::AccessContextManager::create_gcp_user_access_binding] calls.
+    /// The request builder for [AccessContextManager::create_gcp_user_access_binding][crate::client::AccessContextManager::create_gcp_user_access_binding] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2410,7 +2410,7 @@ pub mod access_context_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_gcp_user_access_binding][super::super::client::AccessContextManager::create_gcp_user_access_binding].
+        /// on [create_gcp_user_access_binding][crate::client::AccessContextManager::create_gcp_user_access_binding].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_gcp_user_access_binding(self.0.request, self.0.options)
@@ -2494,7 +2494,7 @@ pub mod access_context_manager {
         }
     }
 
-    /// The request builder for [AccessContextManager::update_gcp_user_access_binding][super::super::client::AccessContextManager::update_gcp_user_access_binding] calls.
+    /// The request builder for [AccessContextManager::update_gcp_user_access_binding][crate::client::AccessContextManager::update_gcp_user_access_binding] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2544,7 +2544,7 @@ pub mod access_context_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_gcp_user_access_binding][super::super::client::AccessContextManager::update_gcp_user_access_binding].
+        /// on [update_gcp_user_access_binding][crate::client::AccessContextManager::update_gcp_user_access_binding].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_gcp_user_access_binding(self.0.request, self.0.options)
@@ -2642,7 +2642,7 @@ pub mod access_context_manager {
         }
     }
 
-    /// The request builder for [AccessContextManager::delete_gcp_user_access_binding][super::super::client::AccessContextManager::delete_gcp_user_access_binding] calls.
+    /// The request builder for [AccessContextManager::delete_gcp_user_access_binding][crate::client::AccessContextManager::delete_gcp_user_access_binding] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2692,7 +2692,7 @@ pub mod access_context_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_gcp_user_access_binding][super::super::client::AccessContextManager::delete_gcp_user_access_binding].
+        /// on [delete_gcp_user_access_binding][crate::client::AccessContextManager::delete_gcp_user_access_binding].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_gcp_user_access_binding(self.0.request, self.0.options)
@@ -2756,7 +2756,7 @@ pub mod access_context_manager {
         }
     }
 
-    /// The request builder for [AccessContextManager::set_iam_policy][super::super::client::AccessContextManager::set_iam_policy] calls.
+    /// The request builder for [AccessContextManager::set_iam_policy][crate::client::AccessContextManager::set_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2859,7 +2859,7 @@ pub mod access_context_manager {
         }
     }
 
-    /// The request builder for [AccessContextManager::get_iam_policy][super::super::client::AccessContextManager::get_iam_policy] calls.
+    /// The request builder for [AccessContextManager::get_iam_policy][crate::client::AccessContextManager::get_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2940,7 +2940,7 @@ pub mod access_context_manager {
         }
     }
 
-    /// The request builder for [AccessContextManager::test_iam_permissions][super::super::client::AccessContextManager::test_iam_permissions] calls.
+    /// The request builder for [AccessContextManager::test_iam_permissions][crate::client::AccessContextManager::test_iam_permissions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3019,7 +3019,7 @@ pub mod access_context_manager {
         }
     }
 
-    /// The request builder for [AccessContextManager::get_operation][super::super::client::AccessContextManager::get_operation] calls.
+    /// The request builder for [AccessContextManager::get_operation][crate::client::AccessContextManager::get_operation] calls.
     ///
     /// # Example
     /// ```no_run

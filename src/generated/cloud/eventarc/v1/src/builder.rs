@@ -17,7 +17,7 @@
 pub mod eventarc {
     use crate::Result;
 
-    /// A builder for [Eventarc][super::super::client::Eventarc].
+    /// A builder for [Eventarc][crate::client::Eventarc].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod eventarc {
         }
     }
 
-    /// Common implementation for [super::super::client::Eventarc] request builders.
+    /// Common implementation for [crate::client::Eventarc] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>,
@@ -66,7 +66,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::get_trigger][super::super::client::Eventarc::get_trigger] calls.
+    /// The request builder for [Eventarc::get_trigger][crate::client::Eventarc::get_trigger] calls.
     ///
     /// # Example
     /// ```no_run
@@ -127,7 +127,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::list_triggers][super::super::client::Eventarc::list_triggers] calls.
+    /// The request builder for [Eventarc::list_triggers][crate::client::Eventarc::list_triggers] calls.
     ///
     /// # Example
     /// ```no_run
@@ -240,7 +240,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::create_trigger][super::super::client::Eventarc::create_trigger] calls.
+    /// The request builder for [Eventarc::create_trigger][crate::client::Eventarc::create_trigger] calls.
     ///
     /// # Example
     /// ```no_run
@@ -283,7 +283,7 @@ pub mod eventarc {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_trigger][super::super::client::Eventarc::create_trigger].
+        /// on [create_trigger][crate::client::Eventarc::create_trigger].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_trigger(self.0.request, self.0.options)
@@ -376,7 +376,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::update_trigger][super::super::client::Eventarc::update_trigger] calls.
+    /// The request builder for [Eventarc::update_trigger][crate::client::Eventarc::update_trigger] calls.
     ///
     /// # Example
     /// ```no_run
@@ -419,7 +419,7 @@ pub mod eventarc {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_trigger][super::super::client::Eventarc::update_trigger].
+        /// on [update_trigger][crate::client::Eventarc::update_trigger].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_trigger(self.0.request, self.0.options)
@@ -516,7 +516,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::delete_trigger][super::super::client::Eventarc::delete_trigger] calls.
+    /// The request builder for [Eventarc::delete_trigger][crate::client::Eventarc::delete_trigger] calls.
     ///
     /// # Example
     /// ```no_run
@@ -559,7 +559,7 @@ pub mod eventarc {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_trigger][super::super::client::Eventarc::delete_trigger].
+        /// on [delete_trigger][crate::client::Eventarc::delete_trigger].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_trigger(self.0.request, self.0.options)
@@ -634,7 +634,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::get_channel][super::super::client::Eventarc::get_channel] calls.
+    /// The request builder for [Eventarc::get_channel][crate::client::Eventarc::get_channel] calls.
     ///
     /// # Example
     /// ```no_run
@@ -695,7 +695,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::list_channels][super::super::client::Eventarc::list_channels] calls.
+    /// The request builder for [Eventarc::list_channels][crate::client::Eventarc::list_channels] calls.
     ///
     /// # Example
     /// ```no_run
@@ -802,7 +802,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::create_channel][super::super::client::Eventarc::create_channel] calls.
+    /// The request builder for [Eventarc::create_channel][crate::client::Eventarc::create_channel] calls.
     ///
     /// # Example
     /// ```no_run
@@ -845,7 +845,7 @@ pub mod eventarc {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_channel][super::super::client::Eventarc::create_channel].
+        /// on [create_channel][crate::client::Eventarc::create_channel].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_channel(self.0.request, self.0.options)
@@ -938,7 +938,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::update_channel][super::super::client::Eventarc::update_channel] calls.
+    /// The request builder for [Eventarc::update_channel][crate::client::Eventarc::update_channel] calls.
     ///
     /// # Example
     /// ```no_run
@@ -981,7 +981,7 @@ pub mod eventarc {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_channel][super::super::client::Eventarc::update_channel].
+        /// on [update_channel][crate::client::Eventarc::update_channel].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_channel(self.0.request, self.0.options)
@@ -1072,7 +1072,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::delete_channel][super::super::client::Eventarc::delete_channel] calls.
+    /// The request builder for [Eventarc::delete_channel][crate::client::Eventarc::delete_channel] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1115,7 +1115,7 @@ pub mod eventarc {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_channel][super::super::client::Eventarc::delete_channel].
+        /// on [delete_channel][crate::client::Eventarc::delete_channel].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_channel(self.0.request, self.0.options)
@@ -1178,7 +1178,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::get_provider][super::super::client::Eventarc::get_provider] calls.
+    /// The request builder for [Eventarc::get_provider][crate::client::Eventarc::get_provider] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1239,7 +1239,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::list_providers][super::super::client::Eventarc::list_providers] calls.
+    /// The request builder for [Eventarc::list_providers][crate::client::Eventarc::list_providers] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1352,7 +1352,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::get_channel_connection][super::super::client::Eventarc::get_channel_connection] calls.
+    /// The request builder for [Eventarc::get_channel_connection][crate::client::Eventarc::get_channel_connection] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1416,7 +1416,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::list_channel_connections][super::super::client::Eventarc::list_channel_connections] calls.
+    /// The request builder for [Eventarc::list_channel_connections][crate::client::Eventarc::list_channel_connections] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1524,7 +1524,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::create_channel_connection][super::super::client::Eventarc::create_channel_connection] calls.
+    /// The request builder for [Eventarc::create_channel_connection][crate::client::Eventarc::create_channel_connection] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1572,7 +1572,7 @@ pub mod eventarc {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_channel_connection][super::super::client::Eventarc::create_channel_connection].
+        /// on [create_channel_connection][crate::client::Eventarc::create_channel_connection].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_channel_connection(self.0.request, self.0.options)
@@ -1662,7 +1662,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::delete_channel_connection][super::super::client::Eventarc::delete_channel_connection] calls.
+    /// The request builder for [Eventarc::delete_channel_connection][crate::client::Eventarc::delete_channel_connection] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1710,7 +1710,7 @@ pub mod eventarc {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_channel_connection][super::super::client::Eventarc::delete_channel_connection].
+        /// on [delete_channel_connection][crate::client::Eventarc::delete_channel_connection].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_channel_connection(self.0.request, self.0.options)
@@ -1770,7 +1770,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::get_google_channel_config][super::super::client::Eventarc::get_google_channel_config] calls.
+    /// The request builder for [Eventarc::get_google_channel_config][crate::client::Eventarc::get_google_channel_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1834,7 +1834,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::update_google_channel_config][super::super::client::Eventarc::update_google_channel_config] calls.
+    /// The request builder for [Eventarc::update_google_channel_config][crate::client::Eventarc::update_google_channel_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1932,7 +1932,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::get_message_bus][super::super::client::Eventarc::get_message_bus] calls.
+    /// The request builder for [Eventarc::get_message_bus][crate::client::Eventarc::get_message_bus] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1993,7 +1993,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::list_message_buses][super::super::client::Eventarc::list_message_buses] calls.
+    /// The request builder for [Eventarc::list_message_buses][crate::client::Eventarc::list_message_buses] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2109,7 +2109,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::list_message_bus_enrollments][super::super::client::Eventarc::list_message_bus_enrollments] calls.
+    /// The request builder for [Eventarc::list_message_bus_enrollments][crate::client::Eventarc::list_message_bus_enrollments] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2187,7 +2187,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::create_message_bus][super::super::client::Eventarc::create_message_bus] calls.
+    /// The request builder for [Eventarc::create_message_bus][crate::client::Eventarc::create_message_bus] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2233,7 +2233,7 @@ pub mod eventarc {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_message_bus][super::super::client::Eventarc::create_message_bus].
+        /// on [create_message_bus][crate::client::Eventarc::create_message_bus].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_message_bus(self.0.request, self.0.options)
@@ -2326,7 +2326,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::update_message_bus][super::super::client::Eventarc::update_message_bus] calls.
+    /// The request builder for [Eventarc::update_message_bus][crate::client::Eventarc::update_message_bus] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2372,7 +2372,7 @@ pub mod eventarc {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_message_bus][super::super::client::Eventarc::update_message_bus].
+        /// on [update_message_bus][crate::client::Eventarc::update_message_bus].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_message_bus(self.0.request, self.0.options)
@@ -2473,7 +2473,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::delete_message_bus][super::super::client::Eventarc::delete_message_bus] calls.
+    /// The request builder for [Eventarc::delete_message_bus][crate::client::Eventarc::delete_message_bus] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2519,7 +2519,7 @@ pub mod eventarc {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_message_bus][super::super::client::Eventarc::delete_message_bus].
+        /// on [delete_message_bus][crate::client::Eventarc::delete_message_bus].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_message_bus(self.0.request, self.0.options)
@@ -2594,7 +2594,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::get_enrollment][super::super::client::Eventarc::get_enrollment] calls.
+    /// The request builder for [Eventarc::get_enrollment][crate::client::Eventarc::get_enrollment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2655,7 +2655,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::list_enrollments][super::super::client::Eventarc::list_enrollments] calls.
+    /// The request builder for [Eventarc::list_enrollments][crate::client::Eventarc::list_enrollments] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2768,7 +2768,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::create_enrollment][super::super::client::Eventarc::create_enrollment] calls.
+    /// The request builder for [Eventarc::create_enrollment][crate::client::Eventarc::create_enrollment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2814,7 +2814,7 @@ pub mod eventarc {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_enrollment][super::super::client::Eventarc::create_enrollment].
+        /// on [create_enrollment][crate::client::Eventarc::create_enrollment].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_enrollment(self.0.request, self.0.options)
@@ -2907,7 +2907,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::update_enrollment][super::super::client::Eventarc::update_enrollment] calls.
+    /// The request builder for [Eventarc::update_enrollment][crate::client::Eventarc::update_enrollment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2953,7 +2953,7 @@ pub mod eventarc {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_enrollment][super::super::client::Eventarc::update_enrollment].
+        /// on [update_enrollment][crate::client::Eventarc::update_enrollment].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_enrollment(self.0.request, self.0.options)
@@ -3054,7 +3054,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::delete_enrollment][super::super::client::Eventarc::delete_enrollment] calls.
+    /// The request builder for [Eventarc::delete_enrollment][crate::client::Eventarc::delete_enrollment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3100,7 +3100,7 @@ pub mod eventarc {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_enrollment][super::super::client::Eventarc::delete_enrollment].
+        /// on [delete_enrollment][crate::client::Eventarc::delete_enrollment].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_enrollment(self.0.request, self.0.options)
@@ -3175,7 +3175,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::get_pipeline][super::super::client::Eventarc::get_pipeline] calls.
+    /// The request builder for [Eventarc::get_pipeline][crate::client::Eventarc::get_pipeline] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3236,7 +3236,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::list_pipelines][super::super::client::Eventarc::list_pipelines] calls.
+    /// The request builder for [Eventarc::list_pipelines][crate::client::Eventarc::list_pipelines] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3349,7 +3349,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::create_pipeline][super::super::client::Eventarc::create_pipeline] calls.
+    /// The request builder for [Eventarc::create_pipeline][crate::client::Eventarc::create_pipeline] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3392,7 +3392,7 @@ pub mod eventarc {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_pipeline][super::super::client::Eventarc::create_pipeline].
+        /// on [create_pipeline][crate::client::Eventarc::create_pipeline].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_pipeline(self.0.request, self.0.options)
@@ -3485,7 +3485,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::update_pipeline][super::super::client::Eventarc::update_pipeline] calls.
+    /// The request builder for [Eventarc::update_pipeline][crate::client::Eventarc::update_pipeline] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3528,7 +3528,7 @@ pub mod eventarc {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_pipeline][super::super::client::Eventarc::update_pipeline].
+        /// on [update_pipeline][crate::client::Eventarc::update_pipeline].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_pipeline(self.0.request, self.0.options)
@@ -3629,7 +3629,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::delete_pipeline][super::super::client::Eventarc::delete_pipeline] calls.
+    /// The request builder for [Eventarc::delete_pipeline][crate::client::Eventarc::delete_pipeline] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3672,7 +3672,7 @@ pub mod eventarc {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_pipeline][super::super::client::Eventarc::delete_pipeline].
+        /// on [delete_pipeline][crate::client::Eventarc::delete_pipeline].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_pipeline(self.0.request, self.0.options)
@@ -3747,7 +3747,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::get_google_api_source][super::super::client::Eventarc::get_google_api_source] calls.
+    /// The request builder for [Eventarc::get_google_api_source][crate::client::Eventarc::get_google_api_source] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3811,7 +3811,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::list_google_api_sources][super::super::client::Eventarc::list_google_api_sources] calls.
+    /// The request builder for [Eventarc::list_google_api_sources][crate::client::Eventarc::list_google_api_sources] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3929,7 +3929,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::create_google_api_source][super::super::client::Eventarc::create_google_api_source] calls.
+    /// The request builder for [Eventarc::create_google_api_source][crate::client::Eventarc::create_google_api_source] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3975,7 +3975,7 @@ pub mod eventarc {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_google_api_source][super::super::client::Eventarc::create_google_api_source].
+        /// on [create_google_api_source][crate::client::Eventarc::create_google_api_source].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_google_api_source(self.0.request, self.0.options)
@@ -4071,7 +4071,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::update_google_api_source][super::super::client::Eventarc::update_google_api_source] calls.
+    /// The request builder for [Eventarc::update_google_api_source][crate::client::Eventarc::update_google_api_source] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4117,7 +4117,7 @@ pub mod eventarc {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_google_api_source][super::super::client::Eventarc::update_google_api_source].
+        /// on [update_google_api_source][crate::client::Eventarc::update_google_api_source].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_google_api_source(self.0.request, self.0.options)
@@ -4221,7 +4221,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::delete_google_api_source][super::super::client::Eventarc::delete_google_api_source] calls.
+    /// The request builder for [Eventarc::delete_google_api_source][crate::client::Eventarc::delete_google_api_source] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4267,7 +4267,7 @@ pub mod eventarc {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_google_api_source][super::super::client::Eventarc::delete_google_api_source].
+        /// on [delete_google_api_source][crate::client::Eventarc::delete_google_api_source].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_google_api_source(self.0.request, self.0.options)
@@ -4345,7 +4345,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::list_locations][super::super::client::Eventarc::list_locations] calls.
+    /// The request builder for [Eventarc::list_locations][crate::client::Eventarc::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4453,7 +4453,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::get_location][super::super::client::Eventarc::get_location] calls.
+    /// The request builder for [Eventarc::get_location][crate::client::Eventarc::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4512,7 +4512,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::set_iam_policy][super::super::client::Eventarc::set_iam_policy] calls.
+    /// The request builder for [Eventarc::set_iam_policy][crate::client::Eventarc::set_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4613,7 +4613,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::get_iam_policy][super::super::client::Eventarc::get_iam_policy] calls.
+    /// The request builder for [Eventarc::get_iam_policy][crate::client::Eventarc::get_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4692,7 +4692,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::test_iam_permissions][super::super::client::Eventarc::test_iam_permissions] calls.
+    /// The request builder for [Eventarc::test_iam_permissions][crate::client::Eventarc::test_iam_permissions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4769,7 +4769,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::list_operations][super::super::client::Eventarc::list_operations] calls.
+    /// The request builder for [Eventarc::list_operations][crate::client::Eventarc::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4879,7 +4879,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::get_operation][super::super::client::Eventarc::get_operation] calls.
+    /// The request builder for [Eventarc::get_operation][crate::client::Eventarc::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4941,7 +4941,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::delete_operation][super::super::client::Eventarc::delete_operation] calls.
+    /// The request builder for [Eventarc::delete_operation][crate::client::Eventarc::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5003,7 +5003,7 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::cancel_operation][super::super::client::Eventarc::cancel_operation] calls.
+    /// The request builder for [Eventarc::cancel_operation][crate::client::Eventarc::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run

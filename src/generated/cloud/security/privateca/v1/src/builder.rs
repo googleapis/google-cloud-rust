@@ -17,7 +17,7 @@
 pub mod certificate_authority_service {
     use crate::Result;
 
-    /// A builder for [CertificateAuthorityService][super::super::client::CertificateAuthorityService].
+    /// A builder for [CertificateAuthorityService][crate::client::CertificateAuthorityService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// Common implementation for [super::super::client::CertificateAuthorityService] request builders.
+    /// Common implementation for [crate::client::CertificateAuthorityService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
@@ -68,7 +68,7 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for [CertificateAuthorityService::create_certificate][super::super::client::CertificateAuthorityService::create_certificate] calls.
+    /// The request builder for [CertificateAuthorityService::create_certificate][crate::client::CertificateAuthorityService::create_certificate] calls.
     ///
     /// # Example
     /// ```no_run
@@ -183,7 +183,7 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for [CertificateAuthorityService::get_certificate][super::super::client::CertificateAuthorityService::get_certificate] calls.
+    /// The request builder for [CertificateAuthorityService::get_certificate][crate::client::CertificateAuthorityService::get_certificate] calls.
     ///
     /// # Example
     /// ```no_run
@@ -246,7 +246,7 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for [CertificateAuthorityService::list_certificates][super::super::client::CertificateAuthorityService::list_certificates] calls.
+    /// The request builder for [CertificateAuthorityService::list_certificates][crate::client::CertificateAuthorityService::list_certificates] calls.
     ///
     /// # Example
     /// ```no_run
@@ -364,7 +364,7 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for [CertificateAuthorityService::revoke_certificate][super::super::client::CertificateAuthorityService::revoke_certificate] calls.
+    /// The request builder for [CertificateAuthorityService::revoke_certificate][crate::client::CertificateAuthorityService::revoke_certificate] calls.
     ///
     /// # Example
     /// ```no_run
@@ -444,7 +444,7 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for [CertificateAuthorityService::update_certificate][super::super::client::CertificateAuthorityService::update_certificate] calls.
+    /// The request builder for [CertificateAuthorityService::update_certificate][crate::client::CertificateAuthorityService::update_certificate] calls.
     ///
     /// # Example
     /// ```no_run
@@ -552,7 +552,7 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for [CertificateAuthorityService::activate_certificate_authority][super::super::client::CertificateAuthorityService::activate_certificate_authority] calls.
+    /// The request builder for [CertificateAuthorityService::activate_certificate_authority][crate::client::CertificateAuthorityService::activate_certificate_authority] calls.
     ///
     /// # Example
     /// ```no_run
@@ -602,7 +602,7 @@ pub mod certificate_authority_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [activate_certificate_authority][super::super::client::CertificateAuthorityService::activate_certificate_authority].
+        /// on [activate_certificate_authority][crate::client::CertificateAuthorityService::activate_certificate_authority].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .activate_certificate_authority(self.0.request, self.0.options)
@@ -698,7 +698,7 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for [CertificateAuthorityService::create_certificate_authority][super::super::client::CertificateAuthorityService::create_certificate_authority] calls.
+    /// The request builder for [CertificateAuthorityService::create_certificate_authority][crate::client::CertificateAuthorityService::create_certificate_authority] calls.
     ///
     /// # Example
     /// ```no_run
@@ -748,7 +748,7 @@ pub mod certificate_authority_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_certificate_authority][super::super::client::CertificateAuthorityService::create_certificate_authority].
+        /// on [create_certificate_authority][crate::client::CertificateAuthorityService::create_certificate_authority].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_certificate_authority(self.0.request, self.0.options)
@@ -844,7 +844,7 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for [CertificateAuthorityService::disable_certificate_authority][super::super::client::CertificateAuthorityService::disable_certificate_authority] calls.
+    /// The request builder for [CertificateAuthorityService::disable_certificate_authority][crate::client::CertificateAuthorityService::disable_certificate_authority] calls.
     ///
     /// # Example
     /// ```no_run
@@ -894,7 +894,7 @@ pub mod certificate_authority_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [disable_certificate_authority][super::super::client::CertificateAuthorityService::disable_certificate_authority].
+        /// on [disable_certificate_authority][crate::client::CertificateAuthorityService::disable_certificate_authority].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .disable_certificate_authority(self.0.request, self.0.options)
@@ -966,7 +966,7 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for [CertificateAuthorityService::enable_certificate_authority][super::super::client::CertificateAuthorityService::enable_certificate_authority] calls.
+    /// The request builder for [CertificateAuthorityService::enable_certificate_authority][crate::client::CertificateAuthorityService::enable_certificate_authority] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1016,7 +1016,7 @@ pub mod certificate_authority_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [enable_certificate_authority][super::super::client::CertificateAuthorityService::enable_certificate_authority].
+        /// on [enable_certificate_authority][crate::client::CertificateAuthorityService::enable_certificate_authority].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .enable_certificate_authority(self.0.request, self.0.options)
@@ -1082,7 +1082,7 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for [CertificateAuthorityService::fetch_certificate_authority_csr][super::super::client::CertificateAuthorityService::fetch_certificate_authority_csr] calls.
+    /// The request builder for [CertificateAuthorityService::fetch_certificate_authority_csr][crate::client::CertificateAuthorityService::fetch_certificate_authority_csr] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1150,7 +1150,7 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for [CertificateAuthorityService::get_certificate_authority][super::super::client::CertificateAuthorityService::get_certificate_authority] calls.
+    /// The request builder for [CertificateAuthorityService::get_certificate_authority][crate::client::CertificateAuthorityService::get_certificate_authority] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1218,7 +1218,7 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for [CertificateAuthorityService::list_certificate_authorities][super::super::client::CertificateAuthorityService::list_certificate_authorities] calls.
+    /// The request builder for [CertificateAuthorityService::list_certificate_authorities][crate::client::CertificateAuthorityService::list_certificate_authorities] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1342,7 +1342,7 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for [CertificateAuthorityService::undelete_certificate_authority][super::super::client::CertificateAuthorityService::undelete_certificate_authority] calls.
+    /// The request builder for [CertificateAuthorityService::undelete_certificate_authority][crate::client::CertificateAuthorityService::undelete_certificate_authority] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1392,7 +1392,7 @@ pub mod certificate_authority_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [undelete_certificate_authority][super::super::client::CertificateAuthorityService::undelete_certificate_authority].
+        /// on [undelete_certificate_authority][crate::client::CertificateAuthorityService::undelete_certificate_authority].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .undelete_certificate_authority(self.0.request, self.0.options)
@@ -1458,7 +1458,7 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for [CertificateAuthorityService::delete_certificate_authority][super::super::client::CertificateAuthorityService::delete_certificate_authority] calls.
+    /// The request builder for [CertificateAuthorityService::delete_certificate_authority][crate::client::CertificateAuthorityService::delete_certificate_authority] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1508,7 +1508,7 @@ pub mod certificate_authority_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_certificate_authority][super::super::client::CertificateAuthorityService::delete_certificate_authority].
+        /// on [delete_certificate_authority][crate::client::CertificateAuthorityService::delete_certificate_authority].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_certificate_authority(self.0.request, self.0.options)
@@ -1592,7 +1592,7 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for [CertificateAuthorityService::update_certificate_authority][super::super::client::CertificateAuthorityService::update_certificate_authority] calls.
+    /// The request builder for [CertificateAuthorityService::update_certificate_authority][crate::client::CertificateAuthorityService::update_certificate_authority] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1642,7 +1642,7 @@ pub mod certificate_authority_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_certificate_authority][super::super::client::CertificateAuthorityService::update_certificate_authority].
+        /// on [update_certificate_authority][crate::client::CertificateAuthorityService::update_certificate_authority].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_certificate_authority(self.0.request, self.0.options)
@@ -1744,7 +1744,7 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for [CertificateAuthorityService::create_ca_pool][super::super::client::CertificateAuthorityService::create_ca_pool] calls.
+    /// The request builder for [CertificateAuthorityService::create_ca_pool][crate::client::CertificateAuthorityService::create_ca_pool] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1789,7 +1789,7 @@ pub mod certificate_authority_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_ca_pool][super::super::client::CertificateAuthorityService::create_ca_pool].
+        /// on [create_ca_pool][crate::client::CertificateAuthorityService::create_ca_pool].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_ca_pool(self.0.request, self.0.options)
@@ -1882,7 +1882,7 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for [CertificateAuthorityService::update_ca_pool][super::super::client::CertificateAuthorityService::update_ca_pool] calls.
+    /// The request builder for [CertificateAuthorityService::update_ca_pool][crate::client::CertificateAuthorityService::update_ca_pool] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1927,7 +1927,7 @@ pub mod certificate_authority_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_ca_pool][super::super::client::CertificateAuthorityService::update_ca_pool].
+        /// on [update_ca_pool][crate::client::CertificateAuthorityService::update_ca_pool].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_ca_pool(self.0.request, self.0.options)
@@ -2026,7 +2026,7 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for [CertificateAuthorityService::get_ca_pool][super::super::client::CertificateAuthorityService::get_ca_pool] calls.
+    /// The request builder for [CertificateAuthorityService::get_ca_pool][crate::client::CertificateAuthorityService::get_ca_pool] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2089,7 +2089,7 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for [CertificateAuthorityService::list_ca_pools][super::super::client::CertificateAuthorityService::list_ca_pools] calls.
+    /// The request builder for [CertificateAuthorityService::list_ca_pools][crate::client::CertificateAuthorityService::list_ca_pools] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2204,7 +2204,7 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for [CertificateAuthorityService::delete_ca_pool][super::super::client::CertificateAuthorityService::delete_ca_pool] calls.
+    /// The request builder for [CertificateAuthorityService::delete_ca_pool][crate::client::CertificateAuthorityService::delete_ca_pool] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2249,7 +2249,7 @@ pub mod certificate_authority_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_ca_pool][super::super::client::CertificateAuthorityService::delete_ca_pool].
+        /// on [delete_ca_pool][crate::client::CertificateAuthorityService::delete_ca_pool].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_ca_pool(self.0.request, self.0.options)
@@ -2320,7 +2320,7 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for [CertificateAuthorityService::fetch_ca_certs][super::super::client::CertificateAuthorityService::fetch_ca_certs] calls.
+    /// The request builder for [CertificateAuthorityService::fetch_ca_certs][crate::client::CertificateAuthorityService::fetch_ca_certs] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2389,7 +2389,7 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for [CertificateAuthorityService::get_certificate_revocation_list][super::super::client::CertificateAuthorityService::get_certificate_revocation_list] calls.
+    /// The request builder for [CertificateAuthorityService::get_certificate_revocation_list][crate::client::CertificateAuthorityService::get_certificate_revocation_list] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2457,7 +2457,7 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for [CertificateAuthorityService::list_certificate_revocation_lists][super::super::client::CertificateAuthorityService::list_certificate_revocation_lists] calls.
+    /// The request builder for [CertificateAuthorityService::list_certificate_revocation_lists][crate::client::CertificateAuthorityService::list_certificate_revocation_lists] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2581,7 +2581,7 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for [CertificateAuthorityService::update_certificate_revocation_list][super::super::client::CertificateAuthorityService::update_certificate_revocation_list] calls.
+    /// The request builder for [CertificateAuthorityService::update_certificate_revocation_list][crate::client::CertificateAuthorityService::update_certificate_revocation_list] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2631,7 +2631,7 @@ pub mod certificate_authority_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_certificate_revocation_list][super::super::client::CertificateAuthorityService::update_certificate_revocation_list].
+        /// on [update_certificate_revocation_list][crate::client::CertificateAuthorityService::update_certificate_revocation_list].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_certificate_revocation_list(self.0.request, self.0.options)
@@ -2736,7 +2736,7 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for [CertificateAuthorityService::create_certificate_template][super::super::client::CertificateAuthorityService::create_certificate_template] calls.
+    /// The request builder for [CertificateAuthorityService::create_certificate_template][crate::client::CertificateAuthorityService::create_certificate_template] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2786,7 +2786,7 @@ pub mod certificate_authority_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_certificate_template][super::super::client::CertificateAuthorityService::create_certificate_template].
+        /// on [create_certificate_template][crate::client::CertificateAuthorityService::create_certificate_template].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_certificate_template(self.0.request, self.0.options)
@@ -2882,7 +2882,7 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for [CertificateAuthorityService::delete_certificate_template][super::super::client::CertificateAuthorityService::delete_certificate_template] calls.
+    /// The request builder for [CertificateAuthorityService::delete_certificate_template][crate::client::CertificateAuthorityService::delete_certificate_template] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2932,7 +2932,7 @@ pub mod certificate_authority_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_certificate_template][super::super::client::CertificateAuthorityService::delete_certificate_template].
+        /// on [delete_certificate_template][crate::client::CertificateAuthorityService::delete_certificate_template].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_certificate_template(self.0.request, self.0.options)
@@ -2997,7 +2997,7 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for [CertificateAuthorityService::get_certificate_template][super::super::client::CertificateAuthorityService::get_certificate_template] calls.
+    /// The request builder for [CertificateAuthorityService::get_certificate_template][crate::client::CertificateAuthorityService::get_certificate_template] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3063,7 +3063,7 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for [CertificateAuthorityService::list_certificate_templates][super::super::client::CertificateAuthorityService::list_certificate_templates] calls.
+    /// The request builder for [CertificateAuthorityService::list_certificate_templates][crate::client::CertificateAuthorityService::list_certificate_templates] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3187,7 +3187,7 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for [CertificateAuthorityService::update_certificate_template][super::super::client::CertificateAuthorityService::update_certificate_template] calls.
+    /// The request builder for [CertificateAuthorityService::update_certificate_template][crate::client::CertificateAuthorityService::update_certificate_template] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3237,7 +3237,7 @@ pub mod certificate_authority_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_certificate_template][super::super::client::CertificateAuthorityService::update_certificate_template].
+        /// on [update_certificate_template][crate::client::CertificateAuthorityService::update_certificate_template].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_certificate_template(self.0.request, self.0.options)
@@ -3339,7 +3339,7 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for [CertificateAuthorityService::list_locations][super::super::client::CertificateAuthorityService::list_locations] calls.
+    /// The request builder for [CertificateAuthorityService::list_locations][crate::client::CertificateAuthorityService::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3449,7 +3449,7 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for [CertificateAuthorityService::get_location][super::super::client::CertificateAuthorityService::get_location] calls.
+    /// The request builder for [CertificateAuthorityService::get_location][crate::client::CertificateAuthorityService::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3510,7 +3510,7 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for [CertificateAuthorityService::set_iam_policy][super::super::client::CertificateAuthorityService::set_iam_policy] calls.
+    /// The request builder for [CertificateAuthorityService::set_iam_policy][crate::client::CertificateAuthorityService::set_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3613,7 +3613,7 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for [CertificateAuthorityService::get_iam_policy][super::super::client::CertificateAuthorityService::get_iam_policy] calls.
+    /// The request builder for [CertificateAuthorityService::get_iam_policy][crate::client::CertificateAuthorityService::get_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3694,7 +3694,7 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for [CertificateAuthorityService::test_iam_permissions][super::super::client::CertificateAuthorityService::test_iam_permissions] calls.
+    /// The request builder for [CertificateAuthorityService::test_iam_permissions][crate::client::CertificateAuthorityService::test_iam_permissions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3773,7 +3773,7 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for [CertificateAuthorityService::list_operations][super::super::client::CertificateAuthorityService::list_operations] calls.
+    /// The request builder for [CertificateAuthorityService::list_operations][crate::client::CertificateAuthorityService::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3885,7 +3885,7 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for [CertificateAuthorityService::get_operation][super::super::client::CertificateAuthorityService::get_operation] calls.
+    /// The request builder for [CertificateAuthorityService::get_operation][crate::client::CertificateAuthorityService::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3949,7 +3949,7 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for [CertificateAuthorityService::delete_operation][super::super::client::CertificateAuthorityService::delete_operation] calls.
+    /// The request builder for [CertificateAuthorityService::delete_operation][crate::client::CertificateAuthorityService::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4013,7 +4013,7 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for [CertificateAuthorityService::cancel_operation][super::super::client::CertificateAuthorityService::cancel_operation] calls.
+    /// The request builder for [CertificateAuthorityService::cancel_operation][crate::client::CertificateAuthorityService::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run

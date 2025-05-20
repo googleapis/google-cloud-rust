@@ -17,7 +17,7 @@
 pub mod sql_backup_runs_service {
     use crate::Result;
 
-    /// A builder for [SqlBackupRunsService][super::super::client::SqlBackupRunsService].
+    /// A builder for [SqlBackupRunsService][crate::client::SqlBackupRunsService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod sql_backup_runs_service {
         }
     }
 
-    /// Common implementation for [super::super::client::SqlBackupRunsService] request builders.
+    /// Common implementation for [crate::client::SqlBackupRunsService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlBackupRunsService>,
@@ -68,7 +68,7 @@ pub mod sql_backup_runs_service {
         }
     }
 
-    /// The request builder for [SqlBackupRunsService::delete][super::super::client::SqlBackupRunsService::delete] calls.
+    /// The request builder for [SqlBackupRunsService::delete][crate::client::SqlBackupRunsService::delete] calls.
     ///
     /// # Example
     /// ```no_run
@@ -144,7 +144,7 @@ pub mod sql_backup_runs_service {
         }
     }
 
-    /// The request builder for [SqlBackupRunsService::get][super::super::client::SqlBackupRunsService::get] calls.
+    /// The request builder for [SqlBackupRunsService::get][crate::client::SqlBackupRunsService::get] calls.
     ///
     /// # Example
     /// ```no_run
@@ -220,7 +220,7 @@ pub mod sql_backup_runs_service {
         }
     }
 
-    /// The request builder for [SqlBackupRunsService::insert][super::super::client::SqlBackupRunsService::insert] calls.
+    /// The request builder for [SqlBackupRunsService::insert][crate::client::SqlBackupRunsService::insert] calls.
     ///
     /// # Example
     /// ```no_run
@@ -308,7 +308,7 @@ pub mod sql_backup_runs_service {
         }
     }
 
-    /// The request builder for [SqlBackupRunsService::list][super::super::client::SqlBackupRunsService::list] calls.
+    /// The request builder for [SqlBackupRunsService::list][crate::client::SqlBackupRunsService::list] calls.
     ///
     /// # Example
     /// ```no_run
@@ -422,7 +422,7 @@ pub mod sql_backup_runs_service {
 pub mod sql_connect_service {
     use crate::Result;
 
-    /// A builder for [SqlConnectService][super::super::client::SqlConnectService].
+    /// A builder for [SqlConnectService][crate::client::SqlConnectService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -450,7 +450,7 @@ pub mod sql_connect_service {
         }
     }
 
-    /// Common implementation for [super::super::client::SqlConnectService] request builders.
+    /// Common implementation for [crate::client::SqlConnectService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlConnectService>,
@@ -473,7 +473,7 @@ pub mod sql_connect_service {
         }
     }
 
-    /// The request builder for [SqlConnectService::get_connect_settings][super::super::client::SqlConnectService::get_connect_settings] calls.
+    /// The request builder for [SqlConnectService::get_connect_settings][crate::client::SqlConnectService::get_connect_settings] calls.
     ///
     /// # Example
     /// ```no_run
@@ -561,7 +561,7 @@ pub mod sql_connect_service {
         }
     }
 
-    /// The request builder for [SqlConnectService::generate_ephemeral_cert][super::super::client::SqlConnectService::generate_ephemeral_cert] calls.
+    /// The request builder for [SqlConnectService::generate_ephemeral_cert][crate::client::SqlConnectService::generate_ephemeral_cert] calls.
     ///
     /// # Example
     /// ```no_run
@@ -683,7 +683,7 @@ pub mod sql_connect_service {
 pub mod sql_databases_service {
     use crate::Result;
 
-    /// A builder for [SqlDatabasesService][super::super::client::SqlDatabasesService].
+    /// A builder for [SqlDatabasesService][crate::client::SqlDatabasesService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -711,7 +711,7 @@ pub mod sql_databases_service {
         }
     }
 
-    /// Common implementation for [super::super::client::SqlDatabasesService] request builders.
+    /// Common implementation for [crate::client::SqlDatabasesService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlDatabasesService>,
@@ -734,7 +734,7 @@ pub mod sql_databases_service {
         }
     }
 
-    /// The request builder for [SqlDatabasesService::delete][super::super::client::SqlDatabasesService::delete] calls.
+    /// The request builder for [SqlDatabasesService::delete][crate::client::SqlDatabasesService::delete] calls.
     ///
     /// # Example
     /// ```no_run
@@ -810,7 +810,7 @@ pub mod sql_databases_service {
         }
     }
 
-    /// The request builder for [SqlDatabasesService::get][super::super::client::SqlDatabasesService::get] calls.
+    /// The request builder for [SqlDatabasesService::get][crate::client::SqlDatabasesService::get] calls.
     ///
     /// # Example
     /// ```no_run
@@ -883,7 +883,7 @@ pub mod sql_databases_service {
         }
     }
 
-    /// The request builder for [SqlDatabasesService::insert][super::super::client::SqlDatabasesService::insert] calls.
+    /// The request builder for [SqlDatabasesService::insert][crate::client::SqlDatabasesService::insert] calls.
     ///
     /// # Example
     /// ```no_run
@@ -971,7 +971,7 @@ pub mod sql_databases_service {
         }
     }
 
-    /// The request builder for [SqlDatabasesService::list][super::super::client::SqlDatabasesService::list] calls.
+    /// The request builder for [SqlDatabasesService::list][crate::client::SqlDatabasesService::list] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1041,7 +1041,7 @@ pub mod sql_databases_service {
         }
     }
 
-    /// The request builder for [SqlDatabasesService::patch][super::super::client::SqlDatabasesService::patch] calls.
+    /// The request builder for [SqlDatabasesService::patch][crate::client::SqlDatabasesService::patch] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1135,7 +1135,7 @@ pub mod sql_databases_service {
         }
     }
 
-    /// The request builder for [SqlDatabasesService::update][super::super::client::SqlDatabasesService::update] calls.
+    /// The request builder for [SqlDatabasesService::update][crate::client::SqlDatabasesService::update] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1233,7 +1233,7 @@ pub mod sql_databases_service {
 pub mod sql_flags_service {
     use crate::Result;
 
-    /// A builder for [SqlFlagsService][super::super::client::SqlFlagsService].
+    /// A builder for [SqlFlagsService][crate::client::SqlFlagsService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -1261,7 +1261,7 @@ pub mod sql_flags_service {
         }
     }
 
-    /// Common implementation for [super::super::client::SqlFlagsService] request builders.
+    /// Common implementation for [crate::client::SqlFlagsService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlFlagsService>,
@@ -1284,7 +1284,7 @@ pub mod sql_flags_service {
         }
     }
 
-    /// The request builder for [SqlFlagsService::list][super::super::client::SqlFlagsService::list] calls.
+    /// The request builder for [SqlFlagsService::list][crate::client::SqlFlagsService::list] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1349,7 +1349,7 @@ pub mod sql_flags_service {
 pub mod sql_instances_service {
     use crate::Result;
 
-    /// A builder for [SqlInstancesService][super::super::client::SqlInstancesService].
+    /// A builder for [SqlInstancesService][crate::client::SqlInstancesService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -1377,7 +1377,7 @@ pub mod sql_instances_service {
         }
     }
 
-    /// Common implementation for [super::super::client::SqlInstancesService] request builders.
+    /// Common implementation for [crate::client::SqlInstancesService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlInstancesService>,
@@ -1400,7 +1400,7 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for [SqlInstancesService::add_server_ca][super::super::client::SqlInstancesService::add_server_ca] calls.
+    /// The request builder for [SqlInstancesService::add_server_ca][crate::client::SqlInstancesService::add_server_ca] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1470,7 +1470,7 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for [SqlInstancesService::clone][super::super::client::SqlInstancesService::clone] calls.
+    /// The request builder for [SqlInstancesService::clone][crate::client::SqlInstancesService::clone] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1558,7 +1558,7 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for [SqlInstancesService::delete][super::super::client::SqlInstancesService::delete] calls.
+    /// The request builder for [SqlInstancesService::delete][crate::client::SqlInstancesService::delete] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1628,7 +1628,7 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for [SqlInstancesService::demote_master][super::super::client::SqlInstancesService::demote_master] calls.
+    /// The request builder for [SqlInstancesService::demote_master][crate::client::SqlInstancesService::demote_master] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1716,7 +1716,7 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for [SqlInstancesService::demote][super::super::client::SqlInstancesService::demote] calls.
+    /// The request builder for [SqlInstancesService::demote][crate::client::SqlInstancesService::demote] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1812,7 +1812,7 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for [SqlInstancesService::export][super::super::client::SqlInstancesService::export] calls.
+    /// The request builder for [SqlInstancesService::export][crate::client::SqlInstancesService::export] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1900,7 +1900,7 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for [SqlInstancesService::failover][super::super::client::SqlInstancesService::failover] calls.
+    /// The request builder for [SqlInstancesService::failover][crate::client::SqlInstancesService::failover] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1988,7 +1988,7 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for [SqlInstancesService::reencrypt][super::super::client::SqlInstancesService::reencrypt] calls.
+    /// The request builder for [SqlInstancesService::reencrypt][crate::client::SqlInstancesService::reencrypt] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2076,7 +2076,7 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for [SqlInstancesService::get][super::super::client::SqlInstancesService::get] calls.
+    /// The request builder for [SqlInstancesService::get][crate::client::SqlInstancesService::get] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2143,7 +2143,7 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for [SqlInstancesService::import][super::super::client::SqlInstancesService::import] calls.
+    /// The request builder for [SqlInstancesService::import][crate::client::SqlInstancesService::import] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2231,7 +2231,7 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for [SqlInstancesService::insert][super::super::client::SqlInstancesService::insert] calls.
+    /// The request builder for [SqlInstancesService::insert][crate::client::SqlInstancesService::insert] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2313,7 +2313,7 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for [SqlInstancesService::list][super::super::client::SqlInstancesService::list] calls.
+    /// The request builder for [SqlInstancesService::list][crate::client::SqlInstancesService::list] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2423,7 +2423,7 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for [SqlInstancesService::list_server_cas][super::super::client::SqlInstancesService::list_server_cas] calls.
+    /// The request builder for [SqlInstancesService::list_server_cas][crate::client::SqlInstancesService::list_server_cas] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2493,7 +2493,7 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for [SqlInstancesService::patch][super::super::client::SqlInstancesService::patch] calls.
+    /// The request builder for [SqlInstancesService::patch][crate::client::SqlInstancesService::patch] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2581,7 +2581,7 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for [SqlInstancesService::promote_replica][super::super::client::SqlInstancesService::promote_replica] calls.
+    /// The request builder for [SqlInstancesService::promote_replica][crate::client::SqlInstancesService::promote_replica] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2657,7 +2657,7 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for [SqlInstancesService::switchover][super::super::client::SqlInstancesService::switchover] calls.
+    /// The request builder for [SqlInstancesService::switchover][crate::client::SqlInstancesService::switchover] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2745,7 +2745,7 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for [SqlInstancesService::reset_ssl_config][super::super::client::SqlInstancesService::reset_ssl_config] calls.
+    /// The request builder for [SqlInstancesService::reset_ssl_config][crate::client::SqlInstancesService::reset_ssl_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2815,7 +2815,7 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for [SqlInstancesService::restart][super::super::client::SqlInstancesService::restart] calls.
+    /// The request builder for [SqlInstancesService::restart][crate::client::SqlInstancesService::restart] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2885,7 +2885,7 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for [SqlInstancesService::restore_backup][super::super::client::SqlInstancesService::restore_backup] calls.
+    /// The request builder for [SqlInstancesService::restore_backup][crate::client::SqlInstancesService::restore_backup] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2973,7 +2973,7 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for [SqlInstancesService::rotate_server_ca][super::super::client::SqlInstancesService::rotate_server_ca] calls.
+    /// The request builder for [SqlInstancesService::rotate_server_ca][crate::client::SqlInstancesService::rotate_server_ca] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3061,7 +3061,7 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for [SqlInstancesService::start_replica][super::super::client::SqlInstancesService::start_replica] calls.
+    /// The request builder for [SqlInstancesService::start_replica][crate::client::SqlInstancesService::start_replica] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3131,7 +3131,7 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for [SqlInstancesService::stop_replica][super::super::client::SqlInstancesService::stop_replica] calls.
+    /// The request builder for [SqlInstancesService::stop_replica][crate::client::SqlInstancesService::stop_replica] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3201,7 +3201,7 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for [SqlInstancesService::truncate_log][super::super::client::SqlInstancesService::truncate_log] calls.
+    /// The request builder for [SqlInstancesService::truncate_log][crate::client::SqlInstancesService::truncate_log] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3289,7 +3289,7 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for [SqlInstancesService::update][super::super::client::SqlInstancesService::update] calls.
+    /// The request builder for [SqlInstancesService::update][crate::client::SqlInstancesService::update] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3377,7 +3377,7 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for [SqlInstancesService::create_ephemeral][super::super::client::SqlInstancesService::create_ephemeral] calls.
+    /// The request builder for [SqlInstancesService::create_ephemeral][crate::client::SqlInstancesService::create_ephemeral] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3467,7 +3467,7 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for [SqlInstancesService::reschedule_maintenance][super::super::client::SqlInstancesService::reschedule_maintenance] calls.
+    /// The request builder for [SqlInstancesService::reschedule_maintenance][crate::client::SqlInstancesService::reschedule_maintenance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3557,7 +3557,7 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for [SqlInstancesService::verify_external_sync_settings][super::super::client::SqlInstancesService::verify_external_sync_settings] calls.
+    /// The request builder for [SqlInstancesService::verify_external_sync_settings][crate::client::SqlInstancesService::verify_external_sync_settings] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3711,7 +3711,7 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for [SqlInstancesService::start_external_sync][super::super::client::SqlInstancesService::start_external_sync] calls.
+    /// The request builder for [SqlInstancesService::start_external_sync][crate::client::SqlInstancesService::start_external_sync] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3851,7 +3851,7 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for [SqlInstancesService::perform_disk_shrink][super::super::client::SqlInstancesService::perform_disk_shrink] calls.
+    /// The request builder for [SqlInstancesService::perform_disk_shrink][crate::client::SqlInstancesService::perform_disk_shrink] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3941,7 +3941,7 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for [SqlInstancesService::get_disk_shrink_config][super::super::client::SqlInstancesService::get_disk_shrink_config] calls.
+    /// The request builder for [SqlInstancesService::get_disk_shrink_config][crate::client::SqlInstancesService::get_disk_shrink_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4013,7 +4013,7 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for [SqlInstancesService::reset_replica_size][super::super::client::SqlInstancesService::reset_replica_size] calls.
+    /// The request builder for [SqlInstancesService::reset_replica_size][crate::client::SqlInstancesService::reset_replica_size] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4083,7 +4083,7 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for [SqlInstancesService::get_latest_recovery_time][super::super::client::SqlInstancesService::get_latest_recovery_time] calls.
+    /// The request builder for [SqlInstancesService::get_latest_recovery_time][crate::client::SqlInstancesService::get_latest_recovery_time] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4155,7 +4155,7 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for [SqlInstancesService::acquire_ssrs_lease][super::super::client::SqlInstancesService::acquire_ssrs_lease] calls.
+    /// The request builder for [SqlInstancesService::acquire_ssrs_lease][crate::client::SqlInstancesService::acquire_ssrs_lease] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4251,7 +4251,7 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for [SqlInstancesService::release_ssrs_lease][super::super::client::SqlInstancesService::release_ssrs_lease] calls.
+    /// The request builder for [SqlInstancesService::release_ssrs_lease][crate::client::SqlInstancesService::release_ssrs_lease] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4329,7 +4329,7 @@ pub mod sql_instances_service {
 pub mod sql_operations_service {
     use crate::Result;
 
-    /// A builder for [SqlOperationsService][super::super::client::SqlOperationsService].
+    /// A builder for [SqlOperationsService][crate::client::SqlOperationsService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -4357,7 +4357,7 @@ pub mod sql_operations_service {
         }
     }
 
-    /// Common implementation for [super::super::client::SqlOperationsService] request builders.
+    /// Common implementation for [crate::client::SqlOperationsService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlOperationsService>,
@@ -4380,7 +4380,7 @@ pub mod sql_operations_service {
         }
     }
 
-    /// The request builder for [SqlOperationsService::get][super::super::client::SqlOperationsService::get] calls.
+    /// The request builder for [SqlOperationsService::get][crate::client::SqlOperationsService::get] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4450,7 +4450,7 @@ pub mod sql_operations_service {
         }
     }
 
-    /// The request builder for [SqlOperationsService::list][super::super::client::SqlOperationsService::list] calls.
+    /// The request builder for [SqlOperationsService::list][crate::client::SqlOperationsService::list] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4560,7 +4560,7 @@ pub mod sql_operations_service {
         }
     }
 
-    /// The request builder for [SqlOperationsService::cancel][super::super::client::SqlOperationsService::cancel] calls.
+    /// The request builder for [SqlOperationsService::cancel][crate::client::SqlOperationsService::cancel] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4634,7 +4634,7 @@ pub mod sql_operations_service {
 pub mod sql_ssl_certs_service {
     use crate::Result;
 
-    /// A builder for [SqlSslCertsService][super::super::client::SqlSslCertsService].
+    /// A builder for [SqlSslCertsService][crate::client::SqlSslCertsService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -4662,7 +4662,7 @@ pub mod sql_ssl_certs_service {
         }
     }
 
-    /// Common implementation for [super::super::client::SqlSslCertsService] request builders.
+    /// Common implementation for [crate::client::SqlSslCertsService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlSslCertsService>,
@@ -4685,7 +4685,7 @@ pub mod sql_ssl_certs_service {
         }
     }
 
-    /// The request builder for [SqlSslCertsService::delete][super::super::client::SqlSslCertsService::delete] calls.
+    /// The request builder for [SqlSslCertsService::delete][crate::client::SqlSslCertsService::delete] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4761,7 +4761,7 @@ pub mod sql_ssl_certs_service {
         }
     }
 
-    /// The request builder for [SqlSslCertsService::get][super::super::client::SqlSslCertsService::get] calls.
+    /// The request builder for [SqlSslCertsService::get][crate::client::SqlSslCertsService::get] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4834,7 +4834,7 @@ pub mod sql_ssl_certs_service {
         }
     }
 
-    /// The request builder for [SqlSslCertsService::insert][super::super::client::SqlSslCertsService::insert] calls.
+    /// The request builder for [SqlSslCertsService::insert][crate::client::SqlSslCertsService::insert] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4922,7 +4922,7 @@ pub mod sql_ssl_certs_service {
         }
     }
 
-    /// The request builder for [SqlSslCertsService::list][super::super::client::SqlSslCertsService::list] calls.
+    /// The request builder for [SqlSslCertsService::list][crate::client::SqlSslCertsService::list] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4993,7 +4993,7 @@ pub mod sql_ssl_certs_service {
 pub mod sql_tiers_service {
     use crate::Result;
 
-    /// A builder for [SqlTiersService][super::super::client::SqlTiersService].
+    /// A builder for [SqlTiersService][crate::client::SqlTiersService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -5021,7 +5021,7 @@ pub mod sql_tiers_service {
         }
     }
 
-    /// Common implementation for [super::super::client::SqlTiersService] request builders.
+    /// Common implementation for [crate::client::SqlTiersService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlTiersService>,
@@ -5044,7 +5044,7 @@ pub mod sql_tiers_service {
         }
     }
 
-    /// The request builder for [SqlTiersService::list][super::super::client::SqlTiersService::list] calls.
+    /// The request builder for [SqlTiersService::list][crate::client::SqlTiersService::list] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5109,7 +5109,7 @@ pub mod sql_tiers_service {
 pub mod sql_users_service {
     use crate::Result;
 
-    /// A builder for [SqlUsersService][super::super::client::SqlUsersService].
+    /// A builder for [SqlUsersService][crate::client::SqlUsersService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -5137,7 +5137,7 @@ pub mod sql_users_service {
         }
     }
 
-    /// Common implementation for [super::super::client::SqlUsersService] request builders.
+    /// Common implementation for [crate::client::SqlUsersService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlUsersService>,
@@ -5160,7 +5160,7 @@ pub mod sql_users_service {
         }
     }
 
-    /// The request builder for [SqlUsersService::delete][super::super::client::SqlUsersService::delete] calls.
+    /// The request builder for [SqlUsersService::delete][crate::client::SqlUsersService::delete] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5239,7 +5239,7 @@ pub mod sql_users_service {
         }
     }
 
-    /// The request builder for [SqlUsersService::get][super::super::client::SqlUsersService::get] calls.
+    /// The request builder for [SqlUsersService::get][crate::client::SqlUsersService::get] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5318,7 +5318,7 @@ pub mod sql_users_service {
         }
     }
 
-    /// The request builder for [SqlUsersService::insert][super::super::client::SqlUsersService::insert] calls.
+    /// The request builder for [SqlUsersService::insert][crate::client::SqlUsersService::insert] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5403,7 +5403,7 @@ pub mod sql_users_service {
         }
     }
 
-    /// The request builder for [SqlUsersService::list][super::super::client::SqlUsersService::list] calls.
+    /// The request builder for [SqlUsersService::list][crate::client::SqlUsersService::list] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5470,7 +5470,7 @@ pub mod sql_users_service {
         }
     }
 
-    /// The request builder for [SqlUsersService::update][super::super::client::SqlUsersService::update] calls.
+    /// The request builder for [SqlUsersService::update][crate::client::SqlUsersService::update] calls.
     ///
     /// # Example
     /// ```no_run

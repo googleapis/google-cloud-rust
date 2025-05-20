@@ -17,7 +17,7 @@
 pub mod data_fusion {
     use crate::Result;
 
-    /// A builder for [DataFusion][super::super::client::DataFusion].
+    /// A builder for [DataFusion][crate::client::DataFusion].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod data_fusion {
         }
     }
 
-    /// Common implementation for [super::super::client::DataFusion] request builders.
+    /// Common implementation for [crate::client::DataFusion] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::DataFusion>,
@@ -68,7 +68,7 @@ pub mod data_fusion {
         }
     }
 
-    /// The request builder for [DataFusion::list_available_versions][super::super::client::DataFusion::list_available_versions] calls.
+    /// The request builder for [DataFusion::list_available_versions][crate::client::DataFusion::list_available_versions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -182,7 +182,7 @@ pub mod data_fusion {
         }
     }
 
-    /// The request builder for [DataFusion::list_instances][super::super::client::DataFusion::list_instances] calls.
+    /// The request builder for [DataFusion::list_instances][crate::client::DataFusion::list_instances] calls.
     ///
     /// # Example
     /// ```no_run
@@ -297,7 +297,7 @@ pub mod data_fusion {
         }
     }
 
-    /// The request builder for [DataFusion::get_instance][super::super::client::DataFusion::get_instance] calls.
+    /// The request builder for [DataFusion::get_instance][crate::client::DataFusion::get_instance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -360,7 +360,7 @@ pub mod data_fusion {
         }
     }
 
-    /// The request builder for [DataFusion::create_instance][super::super::client::DataFusion::create_instance] calls.
+    /// The request builder for [DataFusion::create_instance][crate::client::DataFusion::create_instance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -405,7 +405,7 @@ pub mod data_fusion {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_instance][super::super::client::DataFusion::create_instance].
+        /// on [create_instance][crate::client::DataFusion::create_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_instance(self.0.request, self.0.options)
@@ -488,7 +488,7 @@ pub mod data_fusion {
         }
     }
 
-    /// The request builder for [DataFusion::delete_instance][super::super::client::DataFusion::delete_instance] calls.
+    /// The request builder for [DataFusion::delete_instance][crate::client::DataFusion::delete_instance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -533,7 +533,7 @@ pub mod data_fusion {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_instance][super::super::client::DataFusion::delete_instance].
+        /// on [delete_instance][crate::client::DataFusion::delete_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_instance(self.0.request, self.0.options)
@@ -592,7 +592,7 @@ pub mod data_fusion {
         }
     }
 
-    /// The request builder for [DataFusion::update_instance][super::super::client::DataFusion::update_instance] calls.
+    /// The request builder for [DataFusion::update_instance][crate::client::DataFusion::update_instance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -637,7 +637,7 @@ pub mod data_fusion {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_instance][super::super::client::DataFusion::update_instance].
+        /// on [update_instance][crate::client::DataFusion::update_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_instance(self.0.request, self.0.options)
@@ -726,7 +726,7 @@ pub mod data_fusion {
         }
     }
 
-    /// The request builder for [DataFusion::restart_instance][super::super::client::DataFusion::restart_instance] calls.
+    /// The request builder for [DataFusion::restart_instance][crate::client::DataFusion::restart_instance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -771,7 +771,7 @@ pub mod data_fusion {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [restart_instance][super::super::client::DataFusion::restart_instance].
+        /// on [restart_instance][crate::client::DataFusion::restart_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .restart_instance(self.0.request, self.0.options)
@@ -828,7 +828,7 @@ pub mod data_fusion {
         }
     }
 
-    /// The request builder for [DataFusion::list_operations][super::super::client::DataFusion::list_operations] calls.
+    /// The request builder for [DataFusion::list_operations][crate::client::DataFusion::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -940,7 +940,7 @@ pub mod data_fusion {
         }
     }
 
-    /// The request builder for [DataFusion::get_operation][super::super::client::DataFusion::get_operation] calls.
+    /// The request builder for [DataFusion::get_operation][crate::client::DataFusion::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1004,7 +1004,7 @@ pub mod data_fusion {
         }
     }
 
-    /// The request builder for [DataFusion::delete_operation][super::super::client::DataFusion::delete_operation] calls.
+    /// The request builder for [DataFusion::delete_operation][crate::client::DataFusion::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1068,7 +1068,7 @@ pub mod data_fusion {
         }
     }
 
-    /// The request builder for [DataFusion::cancel_operation][super::super::client::DataFusion::cancel_operation] calls.
+    /// The request builder for [DataFusion::cancel_operation][crate::client::DataFusion::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run

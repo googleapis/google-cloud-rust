@@ -17,7 +17,7 @@
 pub mod metrics_scopes {
     use crate::Result;
 
-    /// A builder for [MetricsScopes][super::super::client::MetricsScopes].
+    /// A builder for [MetricsScopes][crate::client::MetricsScopes].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod metrics_scopes {
         }
     }
 
-    /// Common implementation for [super::super::client::MetricsScopes] request builders.
+    /// Common implementation for [crate::client::MetricsScopes] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::MetricsScopes>,
@@ -68,7 +68,7 @@ pub mod metrics_scopes {
         }
     }
 
-    /// The request builder for [MetricsScopes::get_metrics_scope][super::super::client::MetricsScopes::get_metrics_scope] calls.
+    /// The request builder for [MetricsScopes::get_metrics_scope][crate::client::MetricsScopes::get_metrics_scope] calls.
     ///
     /// # Example
     /// ```no_run
@@ -131,7 +131,7 @@ pub mod metrics_scopes {
         }
     }
 
-    /// The request builder for [MetricsScopes::list_metrics_scopes_by_monitored_project][super::super::client::MetricsScopes::list_metrics_scopes_by_monitored_project] calls.
+    /// The request builder for [MetricsScopes::list_metrics_scopes_by_monitored_project][crate::client::MetricsScopes::list_metrics_scopes_by_monitored_project] calls.
     ///
     /// # Example
     /// ```no_run
@@ -204,7 +204,7 @@ pub mod metrics_scopes {
         }
     }
 
-    /// The request builder for [MetricsScopes::create_monitored_project][super::super::client::MetricsScopes::create_monitored_project] calls.
+    /// The request builder for [MetricsScopes::create_monitored_project][crate::client::MetricsScopes::create_monitored_project] calls.
     ///
     /// # Example
     /// ```no_run
@@ -252,7 +252,7 @@ pub mod metrics_scopes {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_monitored_project][super::super::client::MetricsScopes::create_monitored_project].
+        /// on [create_monitored_project][crate::client::MetricsScopes::create_monitored_project].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_monitored_project(self.0.request, self.0.options)
@@ -334,7 +334,7 @@ pub mod metrics_scopes {
         }
     }
 
-    /// The request builder for [MetricsScopes::delete_monitored_project][super::super::client::MetricsScopes::delete_monitored_project] calls.
+    /// The request builder for [MetricsScopes::delete_monitored_project][crate::client::MetricsScopes::delete_monitored_project] calls.
     ///
     /// # Example
     /// ```no_run
@@ -382,7 +382,7 @@ pub mod metrics_scopes {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_monitored_project][super::super::client::MetricsScopes::delete_monitored_project].
+        /// on [delete_monitored_project][crate::client::MetricsScopes::delete_monitored_project].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_monitored_project(self.0.request, self.0.options)
@@ -441,7 +441,7 @@ pub mod metrics_scopes {
         }
     }
 
-    /// The request builder for [MetricsScopes::get_operation][super::super::client::MetricsScopes::get_operation] calls.
+    /// The request builder for [MetricsScopes::get_operation][crate::client::MetricsScopes::get_operation] calls.
     ///
     /// # Example
     /// ```no_run

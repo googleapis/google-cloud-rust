@@ -17,7 +17,7 @@
 pub mod access_approval {
     use crate::Result;
 
-    /// A builder for [AccessApproval][super::super::client::AccessApproval].
+    /// A builder for [AccessApproval][crate::client::AccessApproval].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod access_approval {
         }
     }
 
-    /// Common implementation for [super::super::client::AccessApproval] request builders.
+    /// Common implementation for [crate::client::AccessApproval] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessApproval>,
@@ -68,7 +68,7 @@ pub mod access_approval {
         }
     }
 
-    /// The request builder for [AccessApproval::list_approval_requests][super::super::client::AccessApproval::list_approval_requests] calls.
+    /// The request builder for [AccessApproval::list_approval_requests][crate::client::AccessApproval::list_approval_requests] calls.
     ///
     /// # Example
     /// ```no_run
@@ -180,7 +180,7 @@ pub mod access_approval {
         }
     }
 
-    /// The request builder for [AccessApproval::get_approval_request][super::super::client::AccessApproval::get_approval_request] calls.
+    /// The request builder for [AccessApproval::get_approval_request][crate::client::AccessApproval::get_approval_request] calls.
     ///
     /// # Example
     /// ```no_run
@@ -244,7 +244,7 @@ pub mod access_approval {
         }
     }
 
-    /// The request builder for [AccessApproval::approve_approval_request][super::super::client::AccessApproval::approve_approval_request] calls.
+    /// The request builder for [AccessApproval::approve_approval_request][crate::client::AccessApproval::approve_approval_request] calls.
     ///
     /// # Example
     /// ```no_run
@@ -326,7 +326,7 @@ pub mod access_approval {
         }
     }
 
-    /// The request builder for [AccessApproval::dismiss_approval_request][super::super::client::AccessApproval::dismiss_approval_request] calls.
+    /// The request builder for [AccessApproval::dismiss_approval_request][crate::client::AccessApproval::dismiss_approval_request] calls.
     ///
     /// # Example
     /// ```no_run
@@ -390,7 +390,7 @@ pub mod access_approval {
         }
     }
 
-    /// The request builder for [AccessApproval::invalidate_approval_request][super::super::client::AccessApproval::invalidate_approval_request] calls.
+    /// The request builder for [AccessApproval::invalidate_approval_request][crate::client::AccessApproval::invalidate_approval_request] calls.
     ///
     /// # Example
     /// ```no_run
@@ -456,7 +456,7 @@ pub mod access_approval {
         }
     }
 
-    /// The request builder for [AccessApproval::get_access_approval_settings][super::super::client::AccessApproval::get_access_approval_settings] calls.
+    /// The request builder for [AccessApproval::get_access_approval_settings][crate::client::AccessApproval::get_access_approval_settings] calls.
     ///
     /// # Example
     /// ```no_run
@@ -522,7 +522,7 @@ pub mod access_approval {
         }
     }
 
-    /// The request builder for [AccessApproval::update_access_approval_settings][super::super::client::AccessApproval::update_access_approval_settings] calls.
+    /// The request builder for [AccessApproval::update_access_approval_settings][crate::client::AccessApproval::update_access_approval_settings] calls.
     ///
     /// # Example
     /// ```no_run
@@ -618,7 +618,7 @@ pub mod access_approval {
         }
     }
 
-    /// The request builder for [AccessApproval::delete_access_approval_settings][super::super::client::AccessApproval::delete_access_approval_settings] calls.
+    /// The request builder for [AccessApproval::delete_access_approval_settings][crate::client::AccessApproval::delete_access_approval_settings] calls.
     ///
     /// # Example
     /// ```no_run
@@ -684,7 +684,7 @@ pub mod access_approval {
         }
     }
 
-    /// The request builder for [AccessApproval::get_access_approval_service_account][super::super::client::AccessApproval::get_access_approval_service_account] calls.
+    /// The request builder for [AccessApproval::get_access_approval_service_account][crate::client::AccessApproval::get_access_approval_service_account] calls.
     ///
     /// # Example
     /// ```no_run

@@ -17,7 +17,7 @@
 pub mod migration_service {
     use crate::Result;
 
-    /// A builder for [MigrationService][super::super::client::MigrationService].
+    /// A builder for [MigrationService][crate::client::MigrationService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod migration_service {
         }
     }
 
-    /// Common implementation for [super::super::client::MigrationService] request builders.
+    /// Common implementation for [crate::client::MigrationService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationService>,
@@ -68,7 +68,7 @@ pub mod migration_service {
         }
     }
 
-    /// The request builder for [MigrationService::create_migration_workflow][super::super::client::MigrationService::create_migration_workflow] calls.
+    /// The request builder for [MigrationService::create_migration_workflow][crate::client::MigrationService::create_migration_workflow] calls.
     ///
     /// # Example
     /// ```no_run
@@ -158,7 +158,7 @@ pub mod migration_service {
         }
     }
 
-    /// The request builder for [MigrationService::get_migration_workflow][super::super::client::MigrationService::get_migration_workflow] calls.
+    /// The request builder for [MigrationService::get_migration_workflow][crate::client::MigrationService::get_migration_workflow] calls.
     ///
     /// # Example
     /// ```no_run
@@ -242,7 +242,7 @@ pub mod migration_service {
         }
     }
 
-    /// The request builder for [MigrationService::list_migration_workflows][super::super::client::MigrationService::list_migration_workflows] calls.
+    /// The request builder for [MigrationService::list_migration_workflows][crate::client::MigrationService::list_migration_workflows] calls.
     ///
     /// # Example
     /// ```no_run
@@ -370,7 +370,7 @@ pub mod migration_service {
         }
     }
 
-    /// The request builder for [MigrationService::delete_migration_workflow][super::super::client::MigrationService::delete_migration_workflow] calls.
+    /// The request builder for [MigrationService::delete_migration_workflow][crate::client::MigrationService::delete_migration_workflow] calls.
     ///
     /// # Example
     /// ```no_run
@@ -438,7 +438,7 @@ pub mod migration_service {
         }
     }
 
-    /// The request builder for [MigrationService::start_migration_workflow][super::super::client::MigrationService::start_migration_workflow] calls.
+    /// The request builder for [MigrationService::start_migration_workflow][crate::client::MigrationService::start_migration_workflow] calls.
     ///
     /// # Example
     /// ```no_run
@@ -504,7 +504,7 @@ pub mod migration_service {
         }
     }
 
-    /// The request builder for [MigrationService::get_migration_subtask][super::super::client::MigrationService::get_migration_subtask] calls.
+    /// The request builder for [MigrationService::get_migration_subtask][crate::client::MigrationService::get_migration_subtask] calls.
     ///
     /// # Example
     /// ```no_run
@@ -588,7 +588,7 @@ pub mod migration_service {
         }
     }
 
-    /// The request builder for [MigrationService::list_migration_subtasks][super::super::client::MigrationService::list_migration_subtasks] calls.
+    /// The request builder for [MigrationService::list_migration_subtasks][crate::client::MigrationService::list_migration_subtasks] calls.
     ///
     /// # Example
     /// ```no_run

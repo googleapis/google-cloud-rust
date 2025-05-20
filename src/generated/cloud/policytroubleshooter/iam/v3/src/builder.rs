@@ -17,7 +17,7 @@
 pub mod policy_troubleshooter {
     use crate::Result;
 
-    /// A builder for [PolicyTroubleshooter][super::super::client::PolicyTroubleshooter].
+    /// A builder for [PolicyTroubleshooter][crate::client::PolicyTroubleshooter].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod policy_troubleshooter {
         }
     }
 
-    /// Common implementation for [super::super::client::PolicyTroubleshooter] request builders.
+    /// Common implementation for [crate::client::PolicyTroubleshooter] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTroubleshooter>,
@@ -68,7 +68,7 @@ pub mod policy_troubleshooter {
         }
     }
 
-    /// The request builder for [PolicyTroubleshooter::troubleshoot_iam_policy][super::super::client::PolicyTroubleshooter::troubleshoot_iam_policy] calls.
+    /// The request builder for [PolicyTroubleshooter::troubleshoot_iam_policy][crate::client::PolicyTroubleshooter::troubleshoot_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run

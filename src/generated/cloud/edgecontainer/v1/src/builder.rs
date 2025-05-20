@@ -17,7 +17,7 @@
 pub mod edge_container {
     use crate::Result;
 
-    /// A builder for [EdgeContainer][super::super::client::EdgeContainer].
+    /// A builder for [EdgeContainer][crate::client::EdgeContainer].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod edge_container {
         }
     }
 
-    /// Common implementation for [super::super::client::EdgeContainer] request builders.
+    /// Common implementation for [crate::client::EdgeContainer] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
@@ -68,7 +68,7 @@ pub mod edge_container {
         }
     }
 
-    /// The request builder for [EdgeContainer::list_clusters][super::super::client::EdgeContainer::list_clusters] calls.
+    /// The request builder for [EdgeContainer::list_clusters][crate::client::EdgeContainer::list_clusters] calls.
     ///
     /// # Example
     /// ```no_run
@@ -183,7 +183,7 @@ pub mod edge_container {
         }
     }
 
-    /// The request builder for [EdgeContainer::get_cluster][super::super::client::EdgeContainer::get_cluster] calls.
+    /// The request builder for [EdgeContainer::get_cluster][crate::client::EdgeContainer::get_cluster] calls.
     ///
     /// # Example
     /// ```no_run
@@ -246,7 +246,7 @@ pub mod edge_container {
         }
     }
 
-    /// The request builder for [EdgeContainer::create_cluster][super::super::client::EdgeContainer::create_cluster] calls.
+    /// The request builder for [EdgeContainer::create_cluster][crate::client::EdgeContainer::create_cluster] calls.
     ///
     /// # Example
     /// ```no_run
@@ -291,7 +291,7 @@ pub mod edge_container {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_cluster][super::super::client::EdgeContainer::create_cluster].
+        /// on [create_cluster][crate::client::EdgeContainer::create_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_cluster(self.0.request, self.0.options)
@@ -384,7 +384,7 @@ pub mod edge_container {
         }
     }
 
-    /// The request builder for [EdgeContainer::update_cluster][super::super::client::EdgeContainer::update_cluster] calls.
+    /// The request builder for [EdgeContainer::update_cluster][crate::client::EdgeContainer::update_cluster] calls.
     ///
     /// # Example
     /// ```no_run
@@ -429,7 +429,7 @@ pub mod edge_container {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_cluster][super::super::client::EdgeContainer::update_cluster].
+        /// on [update_cluster][crate::client::EdgeContainer::update_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_cluster(self.0.request, self.0.options)
@@ -520,7 +520,7 @@ pub mod edge_container {
         }
     }
 
-    /// The request builder for [EdgeContainer::upgrade_cluster][super::super::client::EdgeContainer::upgrade_cluster] calls.
+    /// The request builder for [EdgeContainer::upgrade_cluster][crate::client::EdgeContainer::upgrade_cluster] calls.
     ///
     /// # Example
     /// ```no_run
@@ -565,7 +565,7 @@ pub mod edge_container {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [upgrade_cluster][super::super::client::EdgeContainer::upgrade_cluster].
+        /// on [upgrade_cluster][crate::client::EdgeContainer::upgrade_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .upgrade_cluster(self.0.request, self.0.options)
@@ -645,7 +645,7 @@ pub mod edge_container {
         }
     }
 
-    /// The request builder for [EdgeContainer::delete_cluster][super::super::client::EdgeContainer::delete_cluster] calls.
+    /// The request builder for [EdgeContainer::delete_cluster][crate::client::EdgeContainer::delete_cluster] calls.
     ///
     /// # Example
     /// ```no_run
@@ -690,7 +690,7 @@ pub mod edge_container {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_cluster][super::super::client::EdgeContainer::delete_cluster].
+        /// on [delete_cluster][crate::client::EdgeContainer::delete_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_cluster(self.0.request, self.0.options)
@@ -755,7 +755,7 @@ pub mod edge_container {
         }
     }
 
-    /// The request builder for [EdgeContainer::generate_access_token][super::super::client::EdgeContainer::generate_access_token] calls.
+    /// The request builder for [EdgeContainer::generate_access_token][crate::client::EdgeContainer::generate_access_token] calls.
     ///
     /// # Example
     /// ```no_run
@@ -821,7 +821,7 @@ pub mod edge_container {
         }
     }
 
-    /// The request builder for [EdgeContainer::generate_offline_credential][super::super::client::EdgeContainer::generate_offline_credential] calls.
+    /// The request builder for [EdgeContainer::generate_offline_credential][crate::client::EdgeContainer::generate_offline_credential] calls.
     ///
     /// # Example
     /// ```no_run
@@ -889,7 +889,7 @@ pub mod edge_container {
         }
     }
 
-    /// The request builder for [EdgeContainer::list_node_pools][super::super::client::EdgeContainer::list_node_pools] calls.
+    /// The request builder for [EdgeContainer::list_node_pools][crate::client::EdgeContainer::list_node_pools] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1004,7 +1004,7 @@ pub mod edge_container {
         }
     }
 
-    /// The request builder for [EdgeContainer::get_node_pool][super::super::client::EdgeContainer::get_node_pool] calls.
+    /// The request builder for [EdgeContainer::get_node_pool][crate::client::EdgeContainer::get_node_pool] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1067,7 +1067,7 @@ pub mod edge_container {
         }
     }
 
-    /// The request builder for [EdgeContainer::create_node_pool][super::super::client::EdgeContainer::create_node_pool] calls.
+    /// The request builder for [EdgeContainer::create_node_pool][crate::client::EdgeContainer::create_node_pool] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1112,7 +1112,7 @@ pub mod edge_container {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_node_pool][super::super::client::EdgeContainer::create_node_pool].
+        /// on [create_node_pool][crate::client::EdgeContainer::create_node_pool].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_node_pool(self.0.request, self.0.options)
@@ -1205,7 +1205,7 @@ pub mod edge_container {
         }
     }
 
-    /// The request builder for [EdgeContainer::update_node_pool][super::super::client::EdgeContainer::update_node_pool] calls.
+    /// The request builder for [EdgeContainer::update_node_pool][crate::client::EdgeContainer::update_node_pool] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1250,7 +1250,7 @@ pub mod edge_container {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_node_pool][super::super::client::EdgeContainer::update_node_pool].
+        /// on [update_node_pool][crate::client::EdgeContainer::update_node_pool].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_node_pool(self.0.request, self.0.options)
@@ -1341,7 +1341,7 @@ pub mod edge_container {
         }
     }
 
-    /// The request builder for [EdgeContainer::delete_node_pool][super::super::client::EdgeContainer::delete_node_pool] calls.
+    /// The request builder for [EdgeContainer::delete_node_pool][crate::client::EdgeContainer::delete_node_pool] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1386,7 +1386,7 @@ pub mod edge_container {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_node_pool][super::super::client::EdgeContainer::delete_node_pool].
+        /// on [delete_node_pool][crate::client::EdgeContainer::delete_node_pool].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_node_pool(self.0.request, self.0.options)
@@ -1451,7 +1451,7 @@ pub mod edge_container {
         }
     }
 
-    /// The request builder for [EdgeContainer::list_machines][super::super::client::EdgeContainer::list_machines] calls.
+    /// The request builder for [EdgeContainer::list_machines][crate::client::EdgeContainer::list_machines] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1566,7 +1566,7 @@ pub mod edge_container {
         }
     }
 
-    /// The request builder for [EdgeContainer::get_machine][super::super::client::EdgeContainer::get_machine] calls.
+    /// The request builder for [EdgeContainer::get_machine][crate::client::EdgeContainer::get_machine] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1629,7 +1629,7 @@ pub mod edge_container {
         }
     }
 
-    /// The request builder for [EdgeContainer::list_vpn_connections][super::super::client::EdgeContainer::list_vpn_connections] calls.
+    /// The request builder for [EdgeContainer::list_vpn_connections][crate::client::EdgeContainer::list_vpn_connections] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1749,7 +1749,7 @@ pub mod edge_container {
         }
     }
 
-    /// The request builder for [EdgeContainer::get_vpn_connection][super::super::client::EdgeContainer::get_vpn_connection] calls.
+    /// The request builder for [EdgeContainer::get_vpn_connection][crate::client::EdgeContainer::get_vpn_connection] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1815,7 +1815,7 @@ pub mod edge_container {
         }
     }
 
-    /// The request builder for [EdgeContainer::create_vpn_connection][super::super::client::EdgeContainer::create_vpn_connection] calls.
+    /// The request builder for [EdgeContainer::create_vpn_connection][crate::client::EdgeContainer::create_vpn_connection] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1863,7 +1863,7 @@ pub mod edge_container {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_vpn_connection][super::super::client::EdgeContainer::create_vpn_connection].
+        /// on [create_vpn_connection][crate::client::EdgeContainer::create_vpn_connection].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_vpn_connection(self.0.request, self.0.options)
@@ -1959,7 +1959,7 @@ pub mod edge_container {
         }
     }
 
-    /// The request builder for [EdgeContainer::delete_vpn_connection][super::super::client::EdgeContainer::delete_vpn_connection] calls.
+    /// The request builder for [EdgeContainer::delete_vpn_connection][crate::client::EdgeContainer::delete_vpn_connection] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2007,7 +2007,7 @@ pub mod edge_container {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_vpn_connection][super::super::client::EdgeContainer::delete_vpn_connection].
+        /// on [delete_vpn_connection][crate::client::EdgeContainer::delete_vpn_connection].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_vpn_connection(self.0.request, self.0.options)
@@ -2072,7 +2072,7 @@ pub mod edge_container {
         }
     }
 
-    /// The request builder for [EdgeContainer::get_server_config][super::super::client::EdgeContainer::get_server_config] calls.
+    /// The request builder for [EdgeContainer::get_server_config][crate::client::EdgeContainer::get_server_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2135,7 +2135,7 @@ pub mod edge_container {
         }
     }
 
-    /// The request builder for [EdgeContainer::list_locations][super::super::client::EdgeContainer::list_locations] calls.
+    /// The request builder for [EdgeContainer::list_locations][crate::client::EdgeContainer::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2245,7 +2245,7 @@ pub mod edge_container {
         }
     }
 
-    /// The request builder for [EdgeContainer::get_location][super::super::client::EdgeContainer::get_location] calls.
+    /// The request builder for [EdgeContainer::get_location][crate::client::EdgeContainer::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2306,7 +2306,7 @@ pub mod edge_container {
         }
     }
 
-    /// The request builder for [EdgeContainer::list_operations][super::super::client::EdgeContainer::list_operations] calls.
+    /// The request builder for [EdgeContainer::list_operations][crate::client::EdgeContainer::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2418,7 +2418,7 @@ pub mod edge_container {
         }
     }
 
-    /// The request builder for [EdgeContainer::get_operation][super::super::client::EdgeContainer::get_operation] calls.
+    /// The request builder for [EdgeContainer::get_operation][crate::client::EdgeContainer::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2482,7 +2482,7 @@ pub mod edge_container {
         }
     }
 
-    /// The request builder for [EdgeContainer::delete_operation][super::super::client::EdgeContainer::delete_operation] calls.
+    /// The request builder for [EdgeContainer::delete_operation][crate::client::EdgeContainer::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2546,7 +2546,7 @@ pub mod edge_container {
         }
     }
 
-    /// The request builder for [EdgeContainer::cancel_operation][super::super::client::EdgeContainer::cancel_operation] calls.
+    /// The request builder for [EdgeContainer::cancel_operation][crate::client::EdgeContainer::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run

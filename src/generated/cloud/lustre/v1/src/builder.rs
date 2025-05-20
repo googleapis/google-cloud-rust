@@ -17,7 +17,7 @@
 pub mod lustre {
     use crate::Result;
 
-    /// A builder for [Lustre][super::super::client::Lustre].
+    /// A builder for [Lustre][crate::client::Lustre].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod lustre {
         }
     }
 
-    /// Common implementation for [super::super::client::Lustre] request builders.
+    /// Common implementation for [crate::client::Lustre] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::Lustre>,
@@ -66,7 +66,7 @@ pub mod lustre {
         }
     }
 
-    /// The request builder for [Lustre::list_instances][super::super::client::Lustre::list_instances] calls.
+    /// The request builder for [Lustre::list_instances][crate::client::Lustre::list_instances] calls.
     ///
     /// # Example
     /// ```no_run
@@ -179,7 +179,7 @@ pub mod lustre {
         }
     }
 
-    /// The request builder for [Lustre::get_instance][super::super::client::Lustre::get_instance] calls.
+    /// The request builder for [Lustre::get_instance][crate::client::Lustre::get_instance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -240,7 +240,7 @@ pub mod lustre {
         }
     }
 
-    /// The request builder for [Lustre::create_instance][super::super::client::Lustre::create_instance] calls.
+    /// The request builder for [Lustre::create_instance][crate::client::Lustre::create_instance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -283,7 +283,7 @@ pub mod lustre {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_instance][super::super::client::Lustre::create_instance].
+        /// on [create_instance][crate::client::Lustre::create_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_instance(self.0.request, self.0.options)
@@ -376,7 +376,7 @@ pub mod lustre {
         }
     }
 
-    /// The request builder for [Lustre::update_instance][super::super::client::Lustre::update_instance] calls.
+    /// The request builder for [Lustre::update_instance][crate::client::Lustre::update_instance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -419,7 +419,7 @@ pub mod lustre {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_instance][super::super::client::Lustre::update_instance].
+        /// on [update_instance][crate::client::Lustre::update_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_instance(self.0.request, self.0.options)
@@ -514,7 +514,7 @@ pub mod lustre {
         }
     }
 
-    /// The request builder for [Lustre::delete_instance][super::super::client::Lustre::delete_instance] calls.
+    /// The request builder for [Lustre::delete_instance][crate::client::Lustre::delete_instance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -557,7 +557,7 @@ pub mod lustre {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_instance][super::super::client::Lustre::delete_instance].
+        /// on [delete_instance][crate::client::Lustre::delete_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_instance(self.0.request, self.0.options)
@@ -622,7 +622,7 @@ pub mod lustre {
         }
     }
 
-    /// The request builder for [Lustre::import_data][super::super::client::Lustre::import_data] calls.
+    /// The request builder for [Lustre::import_data][crate::client::Lustre::import_data] calls.
     ///
     /// # Example
     /// ```no_run
@@ -665,7 +665,7 @@ pub mod lustre {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [import_data][super::super::client::Lustre::import_data].
+        /// on [import_data][crate::client::Lustre::import_data].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .import_data(self.0.request, self.0.options)
@@ -787,7 +787,7 @@ pub mod lustre {
         }
     }
 
-    /// The request builder for [Lustre::export_data][super::super::client::Lustre::export_data] calls.
+    /// The request builder for [Lustre::export_data][crate::client::Lustre::export_data] calls.
     ///
     /// # Example
     /// ```no_run
@@ -830,7 +830,7 @@ pub mod lustre {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [export_data][super::super::client::Lustre::export_data].
+        /// on [export_data][crate::client::Lustre::export_data].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .export_data(self.0.request, self.0.options)
@@ -952,7 +952,7 @@ pub mod lustre {
         }
     }
 
-    /// The request builder for [Lustre::list_locations][super::super::client::Lustre::list_locations] calls.
+    /// The request builder for [Lustre::list_locations][crate::client::Lustre::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1060,7 +1060,7 @@ pub mod lustre {
         }
     }
 
-    /// The request builder for [Lustre::get_location][super::super::client::Lustre::get_location] calls.
+    /// The request builder for [Lustre::get_location][crate::client::Lustre::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1119,7 +1119,7 @@ pub mod lustre {
         }
     }
 
-    /// The request builder for [Lustre::list_operations][super::super::client::Lustre::list_operations] calls.
+    /// The request builder for [Lustre::list_operations][crate::client::Lustre::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1229,7 +1229,7 @@ pub mod lustre {
         }
     }
 
-    /// The request builder for [Lustre::get_operation][super::super::client::Lustre::get_operation] calls.
+    /// The request builder for [Lustre::get_operation][crate::client::Lustre::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1291,7 +1291,7 @@ pub mod lustre {
         }
     }
 
-    /// The request builder for [Lustre::delete_operation][super::super::client::Lustre::delete_operation] calls.
+    /// The request builder for [Lustre::delete_operation][crate::client::Lustre::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1353,7 +1353,7 @@ pub mod lustre {
         }
     }
 
-    /// The request builder for [Lustre::cancel_operation][super::super::client::Lustre::cancel_operation] calls.
+    /// The request builder for [Lustre::cancel_operation][crate::client::Lustre::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run

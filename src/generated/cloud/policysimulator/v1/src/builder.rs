@@ -17,7 +17,7 @@
 pub mod simulator {
     use crate::Result;
 
-    /// A builder for [Simulator][super::super::client::Simulator].
+    /// A builder for [Simulator][crate::client::Simulator].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod simulator {
         }
     }
 
-    /// Common implementation for [super::super::client::Simulator] request builders.
+    /// Common implementation for [crate::client::Simulator] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::Simulator>,
@@ -68,7 +68,7 @@ pub mod simulator {
         }
     }
 
-    /// The request builder for [Simulator::get_replay][super::super::client::Simulator::get_replay] calls.
+    /// The request builder for [Simulator::get_replay][crate::client::Simulator::get_replay] calls.
     ///
     /// # Example
     /// ```no_run
@@ -131,7 +131,7 @@ pub mod simulator {
         }
     }
 
-    /// The request builder for [Simulator::create_replay][super::super::client::Simulator::create_replay] calls.
+    /// The request builder for [Simulator::create_replay][crate::client::Simulator::create_replay] calls.
     ///
     /// # Example
     /// ```no_run
@@ -176,7 +176,7 @@ pub mod simulator {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_replay][super::super::client::Simulator::create_replay].
+        /// on [create_replay][crate::client::Simulator::create_replay].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_replay(self.0.request, self.0.options)
@@ -257,7 +257,7 @@ pub mod simulator {
         }
     }
 
-    /// The request builder for [Simulator::list_replay_results][super::super::client::Simulator::list_replay_results] calls.
+    /// The request builder for [Simulator::list_replay_results][crate::client::Simulator::list_replay_results] calls.
     ///
     /// # Example
     /// ```no_run
@@ -363,7 +363,7 @@ pub mod simulator {
         }
     }
 
-    /// The request builder for [Simulator::list_operations][super::super::client::Simulator::list_operations] calls.
+    /// The request builder for [Simulator::list_operations][crate::client::Simulator::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -475,7 +475,7 @@ pub mod simulator {
         }
     }
 
-    /// The request builder for [Simulator::get_operation][super::super::client::Simulator::get_operation] calls.
+    /// The request builder for [Simulator::get_operation][crate::client::Simulator::get_operation] calls.
     ///
     /// # Example
     /// ```no_run

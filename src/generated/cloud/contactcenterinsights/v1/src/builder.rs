@@ -17,7 +17,7 @@
 pub mod contact_center_insights {
     use crate::Result;
 
-    /// A builder for [ContactCenterInsights][super::super::client::ContactCenterInsights].
+    /// A builder for [ContactCenterInsights][crate::client::ContactCenterInsights].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod contact_center_insights {
         }
     }
 
-    /// Common implementation for [super::super::client::ContactCenterInsights] request builders.
+    /// Common implementation for [crate::client::ContactCenterInsights] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
@@ -68,7 +68,7 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::create_conversation][super::super::client::ContactCenterInsights::create_conversation] calls.
+    /// The request builder for [ContactCenterInsights::create_conversation][crate::client::ContactCenterInsights::create_conversation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -162,7 +162,7 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::upload_conversation][super::super::client::ContactCenterInsights::upload_conversation] calls.
+    /// The request builder for [ContactCenterInsights::upload_conversation][crate::client::ContactCenterInsights::upload_conversation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -210,7 +210,7 @@ pub mod contact_center_insights {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [upload_conversation][super::super::client::ContactCenterInsights::upload_conversation].
+        /// on [upload_conversation][crate::client::ContactCenterInsights::upload_conversation].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .upload_conversation(self.0.request, self.0.options)
@@ -334,7 +334,7 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::update_conversation][super::super::client::ContactCenterInsights::update_conversation] calls.
+    /// The request builder for [ContactCenterInsights::update_conversation][crate::client::ContactCenterInsights::update_conversation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -432,7 +432,7 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::get_conversation][super::super::client::ContactCenterInsights::get_conversation] calls.
+    /// The request builder for [ContactCenterInsights::get_conversation][crate::client::ContactCenterInsights::get_conversation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -501,7 +501,7 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::list_conversations][super::super::client::ContactCenterInsights::list_conversations] calls.
+    /// The request builder for [ContactCenterInsights::list_conversations][crate::client::ContactCenterInsights::list_conversations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -625,7 +625,7 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::delete_conversation][super::super::client::ContactCenterInsights::delete_conversation] calls.
+    /// The request builder for [ContactCenterInsights::delete_conversation][crate::client::ContactCenterInsights::delete_conversation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -697,7 +697,7 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::create_analysis][super::super::client::ContactCenterInsights::create_analysis] calls.
+    /// The request builder for [ContactCenterInsights::create_analysis][crate::client::ContactCenterInsights::create_analysis] calls.
     ///
     /// # Example
     /// ```no_run
@@ -742,7 +742,7 @@ pub mod contact_center_insights {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_analysis][super::super::client::ContactCenterInsights::create_analysis].
+        /// on [create_analysis][crate::client::ContactCenterInsights::create_analysis].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_analysis(self.0.request, self.0.options)
@@ -824,7 +824,7 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::get_analysis][super::super::client::ContactCenterInsights::get_analysis] calls.
+    /// The request builder for [ContactCenterInsights::get_analysis][crate::client::ContactCenterInsights::get_analysis] calls.
     ///
     /// # Example
     /// ```no_run
@@ -887,7 +887,7 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::list_analyses][super::super::client::ContactCenterInsights::list_analyses] calls.
+    /// The request builder for [ContactCenterInsights::list_analyses][crate::client::ContactCenterInsights::list_analyses] calls.
     ///
     /// # Example
     /// ```no_run
@@ -996,7 +996,7 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::delete_analysis][super::super::client::ContactCenterInsights::delete_analysis] calls.
+    /// The request builder for [ContactCenterInsights::delete_analysis][crate::client::ContactCenterInsights::delete_analysis] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1059,7 +1059,7 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::bulk_analyze_conversations][super::super::client::ContactCenterInsights::bulk_analyze_conversations] calls.
+    /// The request builder for [ContactCenterInsights::bulk_analyze_conversations][crate::client::ContactCenterInsights::bulk_analyze_conversations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1109,7 +1109,7 @@ pub mod contact_center_insights {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [bulk_analyze_conversations][super::super::client::ContactCenterInsights::bulk_analyze_conversations].
+        /// on [bulk_analyze_conversations][crate::client::ContactCenterInsights::bulk_analyze_conversations].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .bulk_analyze_conversations(self.0.request, self.0.options)
@@ -1205,7 +1205,7 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::bulk_delete_conversations][super::super::client::ContactCenterInsights::bulk_delete_conversations] calls.
+    /// The request builder for [ContactCenterInsights::bulk_delete_conversations][crate::client::ContactCenterInsights::bulk_delete_conversations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1255,7 +1255,7 @@ pub mod contact_center_insights {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [bulk_delete_conversations][super::super::client::ContactCenterInsights::bulk_delete_conversations].
+        /// on [bulk_delete_conversations][crate::client::ContactCenterInsights::bulk_delete_conversations].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .bulk_delete_conversations(self.0.request, self.0.options)
@@ -1335,7 +1335,7 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::ingest_conversations][super::super::client::ContactCenterInsights::ingest_conversations] calls.
+    /// The request builder for [ContactCenterInsights::ingest_conversations][crate::client::ContactCenterInsights::ingest_conversations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1383,7 +1383,7 @@ pub mod contact_center_insights {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [ingest_conversations][super::super::client::ContactCenterInsights::ingest_conversations].
+        /// on [ingest_conversations][crate::client::ContactCenterInsights::ingest_conversations].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .ingest_conversations(self.0.request, self.0.options)
@@ -1579,7 +1579,7 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::export_insights_data][super::super::client::ContactCenterInsights::export_insights_data] calls.
+    /// The request builder for [ContactCenterInsights::export_insights_data][crate::client::ContactCenterInsights::export_insights_data] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1627,7 +1627,7 @@ pub mod contact_center_insights {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [export_insights_data][super::super::client::ContactCenterInsights::export_insights_data].
+        /// on [export_insights_data][crate::client::ContactCenterInsights::export_insights_data].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .export_insights_data(self.0.request, self.0.options)
@@ -1745,7 +1745,7 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::create_issue_model][super::super::client::ContactCenterInsights::create_issue_model] calls.
+    /// The request builder for [ContactCenterInsights::create_issue_model][crate::client::ContactCenterInsights::create_issue_model] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1793,7 +1793,7 @@ pub mod contact_center_insights {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_issue_model][super::super::client::ContactCenterInsights::create_issue_model].
+        /// on [create_issue_model][crate::client::ContactCenterInsights::create_issue_model].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_issue_model(self.0.request, self.0.options)
@@ -1875,7 +1875,7 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::update_issue_model][super::super::client::ContactCenterInsights::update_issue_model] calls.
+    /// The request builder for [ContactCenterInsights::update_issue_model][crate::client::ContactCenterInsights::update_issue_model] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1973,7 +1973,7 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::get_issue_model][super::super::client::ContactCenterInsights::get_issue_model] calls.
+    /// The request builder for [ContactCenterInsights::get_issue_model][crate::client::ContactCenterInsights::get_issue_model] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2036,7 +2036,7 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::list_issue_models][super::super::client::ContactCenterInsights::list_issue_models] calls.
+    /// The request builder for [ContactCenterInsights::list_issue_models][crate::client::ContactCenterInsights::list_issue_models] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2099,7 +2099,7 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::delete_issue_model][super::super::client::ContactCenterInsights::delete_issue_model] calls.
+    /// The request builder for [ContactCenterInsights::delete_issue_model][crate::client::ContactCenterInsights::delete_issue_model] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2147,7 +2147,7 @@ pub mod contact_center_insights {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_issue_model][super::super::client::ContactCenterInsights::delete_issue_model].
+        /// on [delete_issue_model][crate::client::ContactCenterInsights::delete_issue_model].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_issue_model(self.0.request, self.0.options)
@@ -2207,7 +2207,7 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::deploy_issue_model][super::super::client::ContactCenterInsights::deploy_issue_model] calls.
+    /// The request builder for [ContactCenterInsights::deploy_issue_model][crate::client::ContactCenterInsights::deploy_issue_model] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2255,7 +2255,7 @@ pub mod contact_center_insights {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [deploy_issue_model][super::super::client::ContactCenterInsights::deploy_issue_model].
+        /// on [deploy_issue_model][crate::client::ContactCenterInsights::deploy_issue_model].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .deploy_issue_model(self.0.request, self.0.options)
@@ -2317,7 +2317,7 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::undeploy_issue_model][super::super::client::ContactCenterInsights::undeploy_issue_model] calls.
+    /// The request builder for [ContactCenterInsights::undeploy_issue_model][crate::client::ContactCenterInsights::undeploy_issue_model] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2365,7 +2365,7 @@ pub mod contact_center_insights {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [undeploy_issue_model][super::super::client::ContactCenterInsights::undeploy_issue_model].
+        /// on [undeploy_issue_model][crate::client::ContactCenterInsights::undeploy_issue_model].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .undeploy_issue_model(self.0.request, self.0.options)
@@ -2427,7 +2427,7 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::export_issue_model][super::super::client::ContactCenterInsights::export_issue_model] calls.
+    /// The request builder for [ContactCenterInsights::export_issue_model][crate::client::ContactCenterInsights::export_issue_model] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2475,7 +2475,7 @@ pub mod contact_center_insights {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [export_issue_model][super::super::client::ContactCenterInsights::export_issue_model].
+        /// on [export_issue_model][crate::client::ContactCenterInsights::export_issue_model].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .export_issue_model(self.0.request, self.0.options)
@@ -2568,7 +2568,7 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::import_issue_model][super::super::client::ContactCenterInsights::import_issue_model] calls.
+    /// The request builder for [ContactCenterInsights::import_issue_model][crate::client::ContactCenterInsights::import_issue_model] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2616,7 +2616,7 @@ pub mod contact_center_insights {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [import_issue_model][super::super::client::ContactCenterInsights::import_issue_model].
+        /// on [import_issue_model][crate::client::ContactCenterInsights::import_issue_model].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .import_issue_model(self.0.request, self.0.options)
@@ -2713,7 +2713,7 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::get_issue][super::super::client::ContactCenterInsights::get_issue] calls.
+    /// The request builder for [ContactCenterInsights::get_issue][crate::client::ContactCenterInsights::get_issue] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2776,7 +2776,7 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::list_issues][super::super::client::ContactCenterInsights::list_issues] calls.
+    /// The request builder for [ContactCenterInsights::list_issues][crate::client::ContactCenterInsights::list_issues] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2839,7 +2839,7 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::update_issue][super::super::client::ContactCenterInsights::update_issue] calls.
+    /// The request builder for [ContactCenterInsights::update_issue][crate::client::ContactCenterInsights::update_issue] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2934,7 +2934,7 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::delete_issue][super::super::client::ContactCenterInsights::delete_issue] calls.
+    /// The request builder for [ContactCenterInsights::delete_issue][crate::client::ContactCenterInsights::delete_issue] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2997,7 +2997,7 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::calculate_issue_model_stats][super::super::client::ContactCenterInsights::calculate_issue_model_stats] calls.
+    /// The request builder for [ContactCenterInsights::calculate_issue_model_stats][crate::client::ContactCenterInsights::calculate_issue_model_stats] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3065,7 +3065,7 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::create_phrase_matcher][super::super::client::ContactCenterInsights::create_phrase_matcher] calls.
+    /// The request builder for [ContactCenterInsights::create_phrase_matcher][crate::client::ContactCenterInsights::create_phrase_matcher] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3153,7 +3153,7 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::get_phrase_matcher][super::super::client::ContactCenterInsights::get_phrase_matcher] calls.
+    /// The request builder for [ContactCenterInsights::get_phrase_matcher][crate::client::ContactCenterInsights::get_phrase_matcher] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3219,7 +3219,7 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::list_phrase_matchers][super::super::client::ContactCenterInsights::list_phrase_matchers] calls.
+    /// The request builder for [ContactCenterInsights::list_phrase_matchers][crate::client::ContactCenterInsights::list_phrase_matchers] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3333,7 +3333,7 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::delete_phrase_matcher][super::super::client::ContactCenterInsights::delete_phrase_matcher] calls.
+    /// The request builder for [ContactCenterInsights::delete_phrase_matcher][crate::client::ContactCenterInsights::delete_phrase_matcher] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3399,7 +3399,7 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::update_phrase_matcher][super::super::client::ContactCenterInsights::update_phrase_matcher] calls.
+    /// The request builder for [ContactCenterInsights::update_phrase_matcher][crate::client::ContactCenterInsights::update_phrase_matcher] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3497,7 +3497,7 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::calculate_stats][super::super::client::ContactCenterInsights::calculate_stats] calls.
+    /// The request builder for [ContactCenterInsights::calculate_stats][crate::client::ContactCenterInsights::calculate_stats] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3566,7 +3566,7 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::get_settings][super::super::client::ContactCenterInsights::get_settings] calls.
+    /// The request builder for [ContactCenterInsights::get_settings][crate::client::ContactCenterInsights::get_settings] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3629,7 +3629,7 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::update_settings][super::super::client::ContactCenterInsights::update_settings] calls.
+    /// The request builder for [ContactCenterInsights::update_settings][crate::client::ContactCenterInsights::update_settings] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3728,7 +3728,7 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::create_analysis_rule][super::super::client::ContactCenterInsights::create_analysis_rule] calls.
+    /// The request builder for [ContactCenterInsights::create_analysis_rule][crate::client::ContactCenterInsights::create_analysis_rule] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3816,7 +3816,7 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::get_analysis_rule][super::super::client::ContactCenterInsights::get_analysis_rule] calls.
+    /// The request builder for [ContactCenterInsights::get_analysis_rule][crate::client::ContactCenterInsights::get_analysis_rule] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3879,7 +3879,7 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::list_analysis_rules][super::super::client::ContactCenterInsights::list_analysis_rules] calls.
+    /// The request builder for [ContactCenterInsights::list_analysis_rules][crate::client::ContactCenterInsights::list_analysis_rules] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3985,7 +3985,7 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::update_analysis_rule][super::super::client::ContactCenterInsights::update_analysis_rule] calls.
+    /// The request builder for [ContactCenterInsights::update_analysis_rule][crate::client::ContactCenterInsights::update_analysis_rule] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4083,7 +4083,7 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::delete_analysis_rule][super::super::client::ContactCenterInsights::delete_analysis_rule] calls.
+    /// The request builder for [ContactCenterInsights::delete_analysis_rule][crate::client::ContactCenterInsights::delete_analysis_rule] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4149,7 +4149,7 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::get_encryption_spec][super::super::client::ContactCenterInsights::get_encryption_spec] calls.
+    /// The request builder for [ContactCenterInsights::get_encryption_spec][crate::client::ContactCenterInsights::get_encryption_spec] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4215,7 +4215,7 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::initialize_encryption_spec][super::super::client::ContactCenterInsights::initialize_encryption_spec] calls.
+    /// The request builder for [ContactCenterInsights::initialize_encryption_spec][crate::client::ContactCenterInsights::initialize_encryption_spec] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4265,7 +4265,7 @@ pub mod contact_center_insights {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [initialize_encryption_spec][super::super::client::ContactCenterInsights::initialize_encryption_spec].
+        /// on [initialize_encryption_spec][crate::client::ContactCenterInsights::initialize_encryption_spec].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .initialize_encryption_spec(self.0.request, self.0.options)
@@ -4341,7 +4341,7 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::create_view][super::super::client::ContactCenterInsights::create_view] calls.
+    /// The request builder for [ContactCenterInsights::create_view][crate::client::ContactCenterInsights::create_view] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4426,7 +4426,7 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::get_view][super::super::client::ContactCenterInsights::get_view] calls.
+    /// The request builder for [ContactCenterInsights::get_view][crate::client::ContactCenterInsights::get_view] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4489,7 +4489,7 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::list_views][super::super::client::ContactCenterInsights::list_views] calls.
+    /// The request builder for [ContactCenterInsights::list_views][crate::client::ContactCenterInsights::list_views] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4592,7 +4592,7 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::update_view][super::super::client::ContactCenterInsights::update_view] calls.
+    /// The request builder for [ContactCenterInsights::update_view][crate::client::ContactCenterInsights::update_view] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4687,7 +4687,7 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::delete_view][super::super::client::ContactCenterInsights::delete_view] calls.
+    /// The request builder for [ContactCenterInsights::delete_view][crate::client::ContactCenterInsights::delete_view] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4750,7 +4750,7 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::query_metrics][super::super::client::ContactCenterInsights::query_metrics] calls.
+    /// The request builder for [ContactCenterInsights::query_metrics][crate::client::ContactCenterInsights::query_metrics] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4795,7 +4795,7 @@ pub mod contact_center_insights {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [query_metrics][super::super::client::ContactCenterInsights::query_metrics].
+        /// on [query_metrics][crate::client::ContactCenterInsights::query_metrics].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .query_metrics(self.0.request, self.0.options)
@@ -4903,7 +4903,7 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::create_qa_question][super::super::client::ContactCenterInsights::create_qa_question] calls.
+    /// The request builder for [ContactCenterInsights::create_qa_question][crate::client::ContactCenterInsights::create_qa_question] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4997,7 +4997,7 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::get_qa_question][super::super::client::ContactCenterInsights::get_qa_question] calls.
+    /// The request builder for [ContactCenterInsights::get_qa_question][crate::client::ContactCenterInsights::get_qa_question] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5060,7 +5060,7 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::update_qa_question][super::super::client::ContactCenterInsights::update_qa_question] calls.
+    /// The request builder for [ContactCenterInsights::update_qa_question][crate::client::ContactCenterInsights::update_qa_question] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5162,7 +5162,7 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::delete_qa_question][super::super::client::ContactCenterInsights::delete_qa_question] calls.
+    /// The request builder for [ContactCenterInsights::delete_qa_question][crate::client::ContactCenterInsights::delete_qa_question] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5228,7 +5228,7 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::list_qa_questions][super::super::client::ContactCenterInsights::list_qa_questions] calls.
+    /// The request builder for [ContactCenterInsights::list_qa_questions][crate::client::ContactCenterInsights::list_qa_questions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5331,7 +5331,7 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::create_qa_scorecard][super::super::client::ContactCenterInsights::create_qa_scorecard] calls.
+    /// The request builder for [ContactCenterInsights::create_qa_scorecard][crate::client::ContactCenterInsights::create_qa_scorecard] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5425,7 +5425,7 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::get_qa_scorecard][super::super::client::ContactCenterInsights::get_qa_scorecard] calls.
+    /// The request builder for [ContactCenterInsights::get_qa_scorecard][crate::client::ContactCenterInsights::get_qa_scorecard] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5488,7 +5488,7 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::update_qa_scorecard][super::super::client::ContactCenterInsights::update_qa_scorecard] calls.
+    /// The request builder for [ContactCenterInsights::update_qa_scorecard][crate::client::ContactCenterInsights::update_qa_scorecard] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5590,7 +5590,7 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::delete_qa_scorecard][super::super::client::ContactCenterInsights::delete_qa_scorecard] calls.
+    /// The request builder for [ContactCenterInsights::delete_qa_scorecard][crate::client::ContactCenterInsights::delete_qa_scorecard] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5662,7 +5662,7 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::list_qa_scorecards][super::super::client::ContactCenterInsights::list_qa_scorecards] calls.
+    /// The request builder for [ContactCenterInsights::list_qa_scorecards][crate::client::ContactCenterInsights::list_qa_scorecards] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5768,7 +5768,7 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::create_qa_scorecard_revision][super::super::client::ContactCenterInsights::create_qa_scorecard_revision] calls.
+    /// The request builder for [ContactCenterInsights::create_qa_scorecard_revision][crate::client::ContactCenterInsights::create_qa_scorecard_revision] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5864,7 +5864,7 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::get_qa_scorecard_revision][super::super::client::ContactCenterInsights::get_qa_scorecard_revision] calls.
+    /// The request builder for [ContactCenterInsights::get_qa_scorecard_revision][crate::client::ContactCenterInsights::get_qa_scorecard_revision] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5930,7 +5930,7 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::tune_qa_scorecard_revision][super::super::client::ContactCenterInsights::tune_qa_scorecard_revision] calls.
+    /// The request builder for [ContactCenterInsights::tune_qa_scorecard_revision][crate::client::ContactCenterInsights::tune_qa_scorecard_revision] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5980,7 +5980,7 @@ pub mod contact_center_insights {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [tune_qa_scorecard_revision][super::super::client::ContactCenterInsights::tune_qa_scorecard_revision].
+        /// on [tune_qa_scorecard_revision][crate::client::ContactCenterInsights::tune_qa_scorecard_revision].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .tune_qa_scorecard_revision(self.0.request, self.0.options)
@@ -6056,7 +6056,7 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::deploy_qa_scorecard_revision][super::super::client::ContactCenterInsights::deploy_qa_scorecard_revision] calls.
+    /// The request builder for [ContactCenterInsights::deploy_qa_scorecard_revision][crate::client::ContactCenterInsights::deploy_qa_scorecard_revision] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6124,7 +6124,7 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::undeploy_qa_scorecard_revision][super::super::client::ContactCenterInsights::undeploy_qa_scorecard_revision] calls.
+    /// The request builder for [ContactCenterInsights::undeploy_qa_scorecard_revision][crate::client::ContactCenterInsights::undeploy_qa_scorecard_revision] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6192,7 +6192,7 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::delete_qa_scorecard_revision][super::super::client::ContactCenterInsights::delete_qa_scorecard_revision] calls.
+    /// The request builder for [ContactCenterInsights::delete_qa_scorecard_revision][crate::client::ContactCenterInsights::delete_qa_scorecard_revision] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6266,7 +6266,7 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::list_qa_scorecard_revisions][super::super::client::ContactCenterInsights::list_qa_scorecard_revisions] calls.
+    /// The request builder for [ContactCenterInsights::list_qa_scorecard_revisions][crate::client::ContactCenterInsights::list_qa_scorecard_revisions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6384,7 +6384,7 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::create_feedback_label][super::super::client::ContactCenterInsights::create_feedback_label] calls.
+    /// The request builder for [ContactCenterInsights::create_feedback_label][crate::client::ContactCenterInsights::create_feedback_label] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6478,7 +6478,7 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::list_feedback_labels][super::super::client::ContactCenterInsights::list_feedback_labels] calls.
+    /// The request builder for [ContactCenterInsights::list_feedback_labels][crate::client::ContactCenterInsights::list_feedback_labels] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6592,7 +6592,7 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::get_feedback_label][super::super::client::ContactCenterInsights::get_feedback_label] calls.
+    /// The request builder for [ContactCenterInsights::get_feedback_label][crate::client::ContactCenterInsights::get_feedback_label] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6658,7 +6658,7 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::update_feedback_label][super::super::client::ContactCenterInsights::update_feedback_label] calls.
+    /// The request builder for [ContactCenterInsights::update_feedback_label][crate::client::ContactCenterInsights::update_feedback_label] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6760,7 +6760,7 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::delete_feedback_label][super::super::client::ContactCenterInsights::delete_feedback_label] calls.
+    /// The request builder for [ContactCenterInsights::delete_feedback_label][crate::client::ContactCenterInsights::delete_feedback_label] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6826,7 +6826,7 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::list_all_feedback_labels][super::super::client::ContactCenterInsights::list_all_feedback_labels] calls.
+    /// The request builder for [ContactCenterInsights::list_all_feedback_labels][crate::client::ContactCenterInsights::list_all_feedback_labels] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6940,7 +6940,7 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::bulk_upload_feedback_labels][super::super::client::ContactCenterInsights::bulk_upload_feedback_labels] calls.
+    /// The request builder for [ContactCenterInsights::bulk_upload_feedback_labels][crate::client::ContactCenterInsights::bulk_upload_feedback_labels] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6990,7 +6990,7 @@ pub mod contact_center_insights {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [bulk_upload_feedback_labels][super::super::client::ContactCenterInsights::bulk_upload_feedback_labels].
+        /// on [bulk_upload_feedback_labels][crate::client::ContactCenterInsights::bulk_upload_feedback_labels].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .bulk_upload_feedback_labels(self.0.request, self.0.options)
@@ -7089,7 +7089,7 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::bulk_download_feedback_labels][super::super::client::ContactCenterInsights::bulk_download_feedback_labels] calls.
+    /// The request builder for [ContactCenterInsights::bulk_download_feedback_labels][crate::client::ContactCenterInsights::bulk_download_feedback_labels] calls.
     ///
     /// # Example
     /// ```no_run
@@ -7139,7 +7139,7 @@ pub mod contact_center_insights {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [bulk_download_feedback_labels][super::super::client::ContactCenterInsights::bulk_download_feedback_labels].
+        /// on [bulk_download_feedback_labels][crate::client::ContactCenterInsights::bulk_download_feedback_labels].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .bulk_download_feedback_labels(self.0.request, self.0.options)
@@ -7274,7 +7274,7 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::list_operations][super::super::client::ContactCenterInsights::list_operations] calls.
+    /// The request builder for [ContactCenterInsights::list_operations][crate::client::ContactCenterInsights::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -7386,7 +7386,7 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::get_operation][super::super::client::ContactCenterInsights::get_operation] calls.
+    /// The request builder for [ContactCenterInsights::get_operation][crate::client::ContactCenterInsights::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -7450,7 +7450,7 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::cancel_operation][super::super::client::ContactCenterInsights::cancel_operation] calls.
+    /// The request builder for [ContactCenterInsights::cancel_operation][crate::client::ContactCenterInsights::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run

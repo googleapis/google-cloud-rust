@@ -17,7 +17,7 @@
 pub mod artifact_registry {
     use crate::Result;
 
-    /// A builder for [ArtifactRegistry][super::super::client::ArtifactRegistry].
+    /// A builder for [ArtifactRegistry][crate::client::ArtifactRegistry].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// Common implementation for [super::super::client::ArtifactRegistry] request builders.
+    /// Common implementation for [crate::client::ArtifactRegistry] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
@@ -68,7 +68,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::list_docker_images][super::super::client::ArtifactRegistry::list_docker_images] calls.
+    /// The request builder for [ArtifactRegistry::list_docker_images][crate::client::ArtifactRegistry::list_docker_images] calls.
     ///
     /// # Example
     /// ```no_run
@@ -180,7 +180,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::get_docker_image][super::super::client::ArtifactRegistry::get_docker_image] calls.
+    /// The request builder for [ArtifactRegistry::get_docker_image][crate::client::ArtifactRegistry::get_docker_image] calls.
     ///
     /// # Example
     /// ```no_run
@@ -243,7 +243,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::list_maven_artifacts][super::super::client::ArtifactRegistry::list_maven_artifacts] calls.
+    /// The request builder for [ArtifactRegistry::list_maven_artifacts][crate::client::ArtifactRegistry::list_maven_artifacts] calls.
     ///
     /// # Example
     /// ```no_run
@@ -351,7 +351,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::get_maven_artifact][super::super::client::ArtifactRegistry::get_maven_artifact] calls.
+    /// The request builder for [ArtifactRegistry::get_maven_artifact][crate::client::ArtifactRegistry::get_maven_artifact] calls.
     ///
     /// # Example
     /// ```no_run
@@ -417,7 +417,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::list_npm_packages][super::super::client::ArtifactRegistry::list_npm_packages] calls.
+    /// The request builder for [ArtifactRegistry::list_npm_packages][crate::client::ArtifactRegistry::list_npm_packages] calls.
     ///
     /// # Example
     /// ```no_run
@@ -520,7 +520,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::get_npm_package][super::super::client::ArtifactRegistry::get_npm_package] calls.
+    /// The request builder for [ArtifactRegistry::get_npm_package][crate::client::ArtifactRegistry::get_npm_package] calls.
     ///
     /// # Example
     /// ```no_run
@@ -583,7 +583,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::list_python_packages][super::super::client::ArtifactRegistry::list_python_packages] calls.
+    /// The request builder for [ArtifactRegistry::list_python_packages][crate::client::ArtifactRegistry::list_python_packages] calls.
     ///
     /// # Example
     /// ```no_run
@@ -691,7 +691,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::get_python_package][super::super::client::ArtifactRegistry::get_python_package] calls.
+    /// The request builder for [ArtifactRegistry::get_python_package][crate::client::ArtifactRegistry::get_python_package] calls.
     ///
     /// # Example
     /// ```no_run
@@ -757,7 +757,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::import_apt_artifacts][super::super::client::ArtifactRegistry::import_apt_artifacts] calls.
+    /// The request builder for [ArtifactRegistry::import_apt_artifacts][crate::client::ArtifactRegistry::import_apt_artifacts] calls.
     ///
     /// # Example
     /// ```no_run
@@ -805,7 +805,7 @@ pub mod artifact_registry {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [import_apt_artifacts][super::super::client::ArtifactRegistry::import_apt_artifacts].
+        /// on [import_apt_artifacts][crate::client::ArtifactRegistry::import_apt_artifacts].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .import_apt_artifacts(self.0.request, self.0.options)
@@ -892,7 +892,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::import_yum_artifacts][super::super::client::ArtifactRegistry::import_yum_artifacts] calls.
+    /// The request builder for [ArtifactRegistry::import_yum_artifacts][crate::client::ArtifactRegistry::import_yum_artifacts] calls.
     ///
     /// # Example
     /// ```no_run
@@ -940,7 +940,7 @@ pub mod artifact_registry {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [import_yum_artifacts][super::super::client::ArtifactRegistry::import_yum_artifacts].
+        /// on [import_yum_artifacts][crate::client::ArtifactRegistry::import_yum_artifacts].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .import_yum_artifacts(self.0.request, self.0.options)
@@ -1027,7 +1027,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::list_repositories][super::super::client::ArtifactRegistry::list_repositories] calls.
+    /// The request builder for [ArtifactRegistry::list_repositories][crate::client::ArtifactRegistry::list_repositories] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1145,7 +1145,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::get_repository][super::super::client::ArtifactRegistry::get_repository] calls.
+    /// The request builder for [ArtifactRegistry::get_repository][crate::client::ArtifactRegistry::get_repository] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1208,7 +1208,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::create_repository][super::super::client::ArtifactRegistry::create_repository] calls.
+    /// The request builder for [ArtifactRegistry::create_repository][crate::client::ArtifactRegistry::create_repository] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1256,7 +1256,7 @@ pub mod artifact_registry {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_repository][super::super::client::ArtifactRegistry::create_repository].
+        /// on [create_repository][crate::client::ArtifactRegistry::create_repository].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_repository(self.0.request, self.0.options)
@@ -1343,7 +1343,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::update_repository][super::super::client::ArtifactRegistry::update_repository] calls.
+    /// The request builder for [ArtifactRegistry::update_repository][crate::client::ArtifactRegistry::update_repository] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1437,7 +1437,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::delete_repository][super::super::client::ArtifactRegistry::delete_repository] calls.
+    /// The request builder for [ArtifactRegistry::delete_repository][crate::client::ArtifactRegistry::delete_repository] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1485,7 +1485,7 @@ pub mod artifact_registry {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_repository][super::super::client::ArtifactRegistry::delete_repository].
+        /// on [delete_repository][crate::client::ArtifactRegistry::delete_repository].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_repository(self.0.request, self.0.options)
@@ -1544,7 +1544,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::list_packages][super::super::client::ArtifactRegistry::list_packages] calls.
+    /// The request builder for [ArtifactRegistry::list_packages][crate::client::ArtifactRegistry::list_packages] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1659,7 +1659,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::get_package][super::super::client::ArtifactRegistry::get_package] calls.
+    /// The request builder for [ArtifactRegistry::get_package][crate::client::ArtifactRegistry::get_package] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1722,7 +1722,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::delete_package][super::super::client::ArtifactRegistry::delete_package] calls.
+    /// The request builder for [ArtifactRegistry::delete_package][crate::client::ArtifactRegistry::delete_package] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1767,7 +1767,7 @@ pub mod artifact_registry {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_package][super::super::client::ArtifactRegistry::delete_package].
+        /// on [delete_package][crate::client::ArtifactRegistry::delete_package].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_package(self.0.request, self.0.options)
@@ -1826,7 +1826,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::list_versions][super::super::client::ArtifactRegistry::list_versions] calls.
+    /// The request builder for [ArtifactRegistry::list_versions][crate::client::ArtifactRegistry::list_versions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1945,7 +1945,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::get_version][super::super::client::ArtifactRegistry::get_version] calls.
+    /// The request builder for [ArtifactRegistry::get_version][crate::client::ArtifactRegistry::get_version] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2012,7 +2012,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::delete_version][super::super::client::ArtifactRegistry::delete_version] calls.
+    /// The request builder for [ArtifactRegistry::delete_version][crate::client::ArtifactRegistry::delete_version] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2057,7 +2057,7 @@ pub mod artifact_registry {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_version][super::super::client::ArtifactRegistry::delete_version].
+        /// on [delete_version][crate::client::ArtifactRegistry::delete_version].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_version(self.0.request, self.0.options)
@@ -2120,7 +2120,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::batch_delete_versions][super::super::client::ArtifactRegistry::batch_delete_versions] calls.
+    /// The request builder for [ArtifactRegistry::batch_delete_versions][crate::client::ArtifactRegistry::batch_delete_versions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2168,7 +2168,7 @@ pub mod artifact_registry {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [batch_delete_versions][super::super::client::ArtifactRegistry::batch_delete_versions].
+        /// on [batch_delete_versions][crate::client::ArtifactRegistry::batch_delete_versions].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .batch_delete_versions(self.0.request, self.0.options)
@@ -2245,7 +2245,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::update_version][super::super::client::ArtifactRegistry::update_version] calls.
+    /// The request builder for [ArtifactRegistry::update_version][crate::client::ArtifactRegistry::update_version] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2340,7 +2340,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::list_files][super::super::client::ArtifactRegistry::list_files] calls.
+    /// The request builder for [ArtifactRegistry::list_files][crate::client::ArtifactRegistry::list_files] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2455,7 +2455,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::get_file][super::super::client::ArtifactRegistry::get_file] calls.
+    /// The request builder for [ArtifactRegistry::get_file][crate::client::ArtifactRegistry::get_file] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2518,7 +2518,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::delete_file][super::super::client::ArtifactRegistry::delete_file] calls.
+    /// The request builder for [ArtifactRegistry::delete_file][crate::client::ArtifactRegistry::delete_file] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2563,7 +2563,7 @@ pub mod artifact_registry {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_file][super::super::client::ArtifactRegistry::delete_file].
+        /// on [delete_file][crate::client::ArtifactRegistry::delete_file].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_file(self.0.request, self.0.options)
@@ -2622,7 +2622,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::update_file][super::super::client::ArtifactRegistry::update_file] calls.
+    /// The request builder for [ArtifactRegistry::update_file][crate::client::ArtifactRegistry::update_file] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2721,7 +2721,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::list_tags][super::super::client::ArtifactRegistry::list_tags] calls.
+    /// The request builder for [ArtifactRegistry::list_tags][crate::client::ArtifactRegistry::list_tags] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2828,7 +2828,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::get_tag][super::super::client::ArtifactRegistry::get_tag] calls.
+    /// The request builder for [ArtifactRegistry::get_tag][crate::client::ArtifactRegistry::get_tag] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2889,7 +2889,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::create_tag][super::super::client::ArtifactRegistry::create_tag] calls.
+    /// The request builder for [ArtifactRegistry::create_tag][crate::client::ArtifactRegistry::create_tag] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2974,7 +2974,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::update_tag][super::super::client::ArtifactRegistry::update_tag] calls.
+    /// The request builder for [ArtifactRegistry::update_tag][crate::client::ArtifactRegistry::update_tag] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3065,7 +3065,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::delete_tag][super::super::client::ArtifactRegistry::delete_tag] calls.
+    /// The request builder for [ArtifactRegistry::delete_tag][crate::client::ArtifactRegistry::delete_tag] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3126,7 +3126,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::create_rule][super::super::client::ArtifactRegistry::create_rule] calls.
+    /// The request builder for [ArtifactRegistry::create_rule][crate::client::ArtifactRegistry::create_rule] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3213,7 +3213,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::list_rules][super::super::client::ArtifactRegistry::list_rules] calls.
+    /// The request builder for [ArtifactRegistry::list_rules][crate::client::ArtifactRegistry::list_rules] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3316,7 +3316,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::get_rule][super::super::client::ArtifactRegistry::get_rule] calls.
+    /// The request builder for [ArtifactRegistry::get_rule][crate::client::ArtifactRegistry::get_rule] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3379,7 +3379,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::update_rule][super::super::client::ArtifactRegistry::update_rule] calls.
+    /// The request builder for [ArtifactRegistry::update_rule][crate::client::ArtifactRegistry::update_rule] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3470,7 +3470,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::delete_rule][super::super::client::ArtifactRegistry::delete_rule] calls.
+    /// The request builder for [ArtifactRegistry::delete_rule][crate::client::ArtifactRegistry::delete_rule] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3533,7 +3533,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::set_iam_policy][super::super::client::ArtifactRegistry::set_iam_policy] calls.
+    /// The request builder for [ArtifactRegistry::set_iam_policy][crate::client::ArtifactRegistry::set_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3636,7 +3636,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::get_iam_policy][super::super::client::ArtifactRegistry::get_iam_policy] calls.
+    /// The request builder for [ArtifactRegistry::get_iam_policy][crate::client::ArtifactRegistry::get_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3717,7 +3717,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::test_iam_permissions][super::super::client::ArtifactRegistry::test_iam_permissions] calls.
+    /// The request builder for [ArtifactRegistry::test_iam_permissions][crate::client::ArtifactRegistry::test_iam_permissions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3796,7 +3796,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::get_project_settings][super::super::client::ArtifactRegistry::get_project_settings] calls.
+    /// The request builder for [ArtifactRegistry::get_project_settings][crate::client::ArtifactRegistry::get_project_settings] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3862,7 +3862,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::update_project_settings][super::super::client::ArtifactRegistry::update_project_settings] calls.
+    /// The request builder for [ArtifactRegistry::update_project_settings][crate::client::ArtifactRegistry::update_project_settings] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3956,7 +3956,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::get_vpcsc_config][super::super::client::ArtifactRegistry::get_vpcsc_config] calls.
+    /// The request builder for [ArtifactRegistry::get_vpcsc_config][crate::client::ArtifactRegistry::get_vpcsc_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4019,7 +4019,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::update_vpcsc_config][super::super::client::ArtifactRegistry::update_vpcsc_config] calls.
+    /// The request builder for [ArtifactRegistry::update_vpcsc_config][crate::client::ArtifactRegistry::update_vpcsc_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4113,7 +4113,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::update_package][super::super::client::ArtifactRegistry::update_package] calls.
+    /// The request builder for [ArtifactRegistry::update_package][crate::client::ArtifactRegistry::update_package] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4204,7 +4204,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::list_attachments][super::super::client::ArtifactRegistry::list_attachments] calls.
+    /// The request builder for [ArtifactRegistry::list_attachments][crate::client::ArtifactRegistry::list_attachments] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4313,7 +4313,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::get_attachment][super::super::client::ArtifactRegistry::get_attachment] calls.
+    /// The request builder for [ArtifactRegistry::get_attachment][crate::client::ArtifactRegistry::get_attachment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4376,7 +4376,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::create_attachment][super::super::client::ArtifactRegistry::create_attachment] calls.
+    /// The request builder for [ArtifactRegistry::create_attachment][crate::client::ArtifactRegistry::create_attachment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4424,7 +4424,7 @@ pub mod artifact_registry {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_attachment][super::super::client::ArtifactRegistry::create_attachment].
+        /// on [create_attachment][crate::client::ArtifactRegistry::create_attachment].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_attachment(self.0.request, self.0.options)
@@ -4511,7 +4511,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::delete_attachment][super::super::client::ArtifactRegistry::delete_attachment] calls.
+    /// The request builder for [ArtifactRegistry::delete_attachment][crate::client::ArtifactRegistry::delete_attachment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4559,7 +4559,7 @@ pub mod artifact_registry {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_attachment][super::super::client::ArtifactRegistry::delete_attachment].
+        /// on [delete_attachment][crate::client::ArtifactRegistry::delete_attachment].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_attachment(self.0.request, self.0.options)
@@ -4618,7 +4618,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::list_locations][super::super::client::ArtifactRegistry::list_locations] calls.
+    /// The request builder for [ArtifactRegistry::list_locations][crate::client::ArtifactRegistry::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4728,7 +4728,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::get_location][super::super::client::ArtifactRegistry::get_location] calls.
+    /// The request builder for [ArtifactRegistry::get_location][crate::client::ArtifactRegistry::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4789,7 +4789,7 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::get_operation][super::super::client::ArtifactRegistry::get_operation] calls.
+    /// The request builder for [ArtifactRegistry::get_operation][crate::client::ArtifactRegistry::get_operation] calls.
     ///
     /// # Example
     /// ```no_run

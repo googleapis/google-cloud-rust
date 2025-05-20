@@ -17,7 +17,7 @@
 pub mod reachability_service {
     use crate::Result;
 
-    /// A builder for [ReachabilityService][super::super::client::ReachabilityService].
+    /// A builder for [ReachabilityService][crate::client::ReachabilityService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod reachability_service {
         }
     }
 
-    /// Common implementation for [super::super::client::ReachabilityService] request builders.
+    /// Common implementation for [crate::client::ReachabilityService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::ReachabilityService>,
@@ -68,7 +68,7 @@ pub mod reachability_service {
         }
     }
 
-    /// The request builder for [ReachabilityService::list_connectivity_tests][super::super::client::ReachabilityService::list_connectivity_tests] calls.
+    /// The request builder for [ReachabilityService::list_connectivity_tests][crate::client::ReachabilityService::list_connectivity_tests] calls.
     ///
     /// # Example
     /// ```no_run
@@ -188,7 +188,7 @@ pub mod reachability_service {
         }
     }
 
-    /// The request builder for [ReachabilityService::get_connectivity_test][super::super::client::ReachabilityService::get_connectivity_test] calls.
+    /// The request builder for [ReachabilityService::get_connectivity_test][crate::client::ReachabilityService::get_connectivity_test] calls.
     ///
     /// # Example
     /// ```no_run
@@ -254,7 +254,7 @@ pub mod reachability_service {
         }
     }
 
-    /// The request builder for [ReachabilityService::create_connectivity_test][super::super::client::ReachabilityService::create_connectivity_test] calls.
+    /// The request builder for [ReachabilityService::create_connectivity_test][crate::client::ReachabilityService::create_connectivity_test] calls.
     ///
     /// # Example
     /// ```no_run
@@ -302,7 +302,7 @@ pub mod reachability_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_connectivity_test][super::super::client::ReachabilityService::create_connectivity_test].
+        /// on [create_connectivity_test][crate::client::ReachabilityService::create_connectivity_test].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_connectivity_test(self.0.request, self.0.options)
@@ -392,7 +392,7 @@ pub mod reachability_service {
         }
     }
 
-    /// The request builder for [ReachabilityService::update_connectivity_test][super::super::client::ReachabilityService::update_connectivity_test] calls.
+    /// The request builder for [ReachabilityService::update_connectivity_test][crate::client::ReachabilityService::update_connectivity_test] calls.
     ///
     /// # Example
     /// ```no_run
@@ -440,7 +440,7 @@ pub mod reachability_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_connectivity_test][super::super::client::ReachabilityService::update_connectivity_test].
+        /// on [update_connectivity_test][crate::client::ReachabilityService::update_connectivity_test].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_connectivity_test(self.0.request, self.0.options)
@@ -536,7 +536,7 @@ pub mod reachability_service {
         }
     }
 
-    /// The request builder for [ReachabilityService::rerun_connectivity_test][super::super::client::ReachabilityService::rerun_connectivity_test] calls.
+    /// The request builder for [ReachabilityService::rerun_connectivity_test][crate::client::ReachabilityService::rerun_connectivity_test] calls.
     ///
     /// # Example
     /// ```no_run
@@ -584,7 +584,7 @@ pub mod reachability_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [rerun_connectivity_test][super::super::client::ReachabilityService::rerun_connectivity_test].
+        /// on [rerun_connectivity_test][crate::client::ReachabilityService::rerun_connectivity_test].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .rerun_connectivity_test(self.0.request, self.0.options)
@@ -644,7 +644,7 @@ pub mod reachability_service {
         }
     }
 
-    /// The request builder for [ReachabilityService::delete_connectivity_test][super::super::client::ReachabilityService::delete_connectivity_test] calls.
+    /// The request builder for [ReachabilityService::delete_connectivity_test][crate::client::ReachabilityService::delete_connectivity_test] calls.
     ///
     /// # Example
     /// ```no_run
@@ -692,7 +692,7 @@ pub mod reachability_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_connectivity_test][super::super::client::ReachabilityService::delete_connectivity_test].
+        /// on [delete_connectivity_test][crate::client::ReachabilityService::delete_connectivity_test].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_connectivity_test(self.0.request, self.0.options)
@@ -751,7 +751,7 @@ pub mod reachability_service {
         }
     }
 
-    /// The request builder for [ReachabilityService::list_locations][super::super::client::ReachabilityService::list_locations] calls.
+    /// The request builder for [ReachabilityService::list_locations][crate::client::ReachabilityService::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -861,7 +861,7 @@ pub mod reachability_service {
         }
     }
 
-    /// The request builder for [ReachabilityService::get_location][super::super::client::ReachabilityService::get_location] calls.
+    /// The request builder for [ReachabilityService::get_location][crate::client::ReachabilityService::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -922,7 +922,7 @@ pub mod reachability_service {
         }
     }
 
-    /// The request builder for [ReachabilityService::set_iam_policy][super::super::client::ReachabilityService::set_iam_policy] calls.
+    /// The request builder for [ReachabilityService::set_iam_policy][crate::client::ReachabilityService::set_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1025,7 +1025,7 @@ pub mod reachability_service {
         }
     }
 
-    /// The request builder for [ReachabilityService::get_iam_policy][super::super::client::ReachabilityService::get_iam_policy] calls.
+    /// The request builder for [ReachabilityService::get_iam_policy][crate::client::ReachabilityService::get_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1106,7 +1106,7 @@ pub mod reachability_service {
         }
     }
 
-    /// The request builder for [ReachabilityService::test_iam_permissions][super::super::client::ReachabilityService::test_iam_permissions] calls.
+    /// The request builder for [ReachabilityService::test_iam_permissions][crate::client::ReachabilityService::test_iam_permissions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1185,7 +1185,7 @@ pub mod reachability_service {
         }
     }
 
-    /// The request builder for [ReachabilityService::list_operations][super::super::client::ReachabilityService::list_operations] calls.
+    /// The request builder for [ReachabilityService::list_operations][crate::client::ReachabilityService::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1297,7 +1297,7 @@ pub mod reachability_service {
         }
     }
 
-    /// The request builder for [ReachabilityService::get_operation][super::super::client::ReachabilityService::get_operation] calls.
+    /// The request builder for [ReachabilityService::get_operation][crate::client::ReachabilityService::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1361,7 +1361,7 @@ pub mod reachability_service {
         }
     }
 
-    /// The request builder for [ReachabilityService::delete_operation][super::super::client::ReachabilityService::delete_operation] calls.
+    /// The request builder for [ReachabilityService::delete_operation][crate::client::ReachabilityService::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1425,7 +1425,7 @@ pub mod reachability_service {
         }
     }
 
-    /// The request builder for [ReachabilityService::cancel_operation][super::super::client::ReachabilityService::cancel_operation] calls.
+    /// The request builder for [ReachabilityService::cancel_operation][crate::client::ReachabilityService::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1493,7 +1493,7 @@ pub mod reachability_service {
 pub mod vpc_flow_logs_service {
     use crate::Result;
 
-    /// A builder for [VpcFlowLogsService][super::super::client::VpcFlowLogsService].
+    /// A builder for [VpcFlowLogsService][crate::client::VpcFlowLogsService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -1521,7 +1521,7 @@ pub mod vpc_flow_logs_service {
         }
     }
 
-    /// Common implementation for [super::super::client::VpcFlowLogsService] request builders.
+    /// Common implementation for [crate::client::VpcFlowLogsService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::VpcFlowLogsService>,
@@ -1544,7 +1544,7 @@ pub mod vpc_flow_logs_service {
         }
     }
 
-    /// The request builder for [VpcFlowLogsService::list_vpc_flow_logs_configs][super::super::client::VpcFlowLogsService::list_vpc_flow_logs_configs] calls.
+    /// The request builder for [VpcFlowLogsService::list_vpc_flow_logs_configs][crate::client::VpcFlowLogsService::list_vpc_flow_logs_configs] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1666,7 +1666,7 @@ pub mod vpc_flow_logs_service {
         }
     }
 
-    /// The request builder for [VpcFlowLogsService::get_vpc_flow_logs_config][super::super::client::VpcFlowLogsService::get_vpc_flow_logs_config] calls.
+    /// The request builder for [VpcFlowLogsService::get_vpc_flow_logs_config][crate::client::VpcFlowLogsService::get_vpc_flow_logs_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1732,7 +1732,7 @@ pub mod vpc_flow_logs_service {
         }
     }
 
-    /// The request builder for [VpcFlowLogsService::create_vpc_flow_logs_config][super::super::client::VpcFlowLogsService::create_vpc_flow_logs_config] calls.
+    /// The request builder for [VpcFlowLogsService::create_vpc_flow_logs_config][crate::client::VpcFlowLogsService::create_vpc_flow_logs_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1782,7 +1782,7 @@ pub mod vpc_flow_logs_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_vpc_flow_logs_config][super::super::client::VpcFlowLogsService::create_vpc_flow_logs_config].
+        /// on [create_vpc_flow_logs_config][crate::client::VpcFlowLogsService::create_vpc_flow_logs_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_vpc_flow_logs_config(self.0.request, self.0.options)
@@ -1872,7 +1872,7 @@ pub mod vpc_flow_logs_service {
         }
     }
 
-    /// The request builder for [VpcFlowLogsService::update_vpc_flow_logs_config][super::super::client::VpcFlowLogsService::update_vpc_flow_logs_config] calls.
+    /// The request builder for [VpcFlowLogsService::update_vpc_flow_logs_config][crate::client::VpcFlowLogsService::update_vpc_flow_logs_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1922,7 +1922,7 @@ pub mod vpc_flow_logs_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_vpc_flow_logs_config][super::super::client::VpcFlowLogsService::update_vpc_flow_logs_config].
+        /// on [update_vpc_flow_logs_config][crate::client::VpcFlowLogsService::update_vpc_flow_logs_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_vpc_flow_logs_config(self.0.request, self.0.options)
@@ -2018,7 +2018,7 @@ pub mod vpc_flow_logs_service {
         }
     }
 
-    /// The request builder for [VpcFlowLogsService::delete_vpc_flow_logs_config][super::super::client::VpcFlowLogsService::delete_vpc_flow_logs_config] calls.
+    /// The request builder for [VpcFlowLogsService::delete_vpc_flow_logs_config][crate::client::VpcFlowLogsService::delete_vpc_flow_logs_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2068,7 +2068,7 @@ pub mod vpc_flow_logs_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_vpc_flow_logs_config][super::super::client::VpcFlowLogsService::delete_vpc_flow_logs_config].
+        /// on [delete_vpc_flow_logs_config][crate::client::VpcFlowLogsService::delete_vpc_flow_logs_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_vpc_flow_logs_config(self.0.request, self.0.options)
@@ -2127,7 +2127,7 @@ pub mod vpc_flow_logs_service {
         }
     }
 
-    /// The request builder for [VpcFlowLogsService::list_locations][super::super::client::VpcFlowLogsService::list_locations] calls.
+    /// The request builder for [VpcFlowLogsService::list_locations][crate::client::VpcFlowLogsService::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2237,7 +2237,7 @@ pub mod vpc_flow_logs_service {
         }
     }
 
-    /// The request builder for [VpcFlowLogsService::get_location][super::super::client::VpcFlowLogsService::get_location] calls.
+    /// The request builder for [VpcFlowLogsService::get_location][crate::client::VpcFlowLogsService::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2298,7 +2298,7 @@ pub mod vpc_flow_logs_service {
         }
     }
 
-    /// The request builder for [VpcFlowLogsService::set_iam_policy][super::super::client::VpcFlowLogsService::set_iam_policy] calls.
+    /// The request builder for [VpcFlowLogsService::set_iam_policy][crate::client::VpcFlowLogsService::set_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2401,7 +2401,7 @@ pub mod vpc_flow_logs_service {
         }
     }
 
-    /// The request builder for [VpcFlowLogsService::get_iam_policy][super::super::client::VpcFlowLogsService::get_iam_policy] calls.
+    /// The request builder for [VpcFlowLogsService::get_iam_policy][crate::client::VpcFlowLogsService::get_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2482,7 +2482,7 @@ pub mod vpc_flow_logs_service {
         }
     }
 
-    /// The request builder for [VpcFlowLogsService::test_iam_permissions][super::super::client::VpcFlowLogsService::test_iam_permissions] calls.
+    /// The request builder for [VpcFlowLogsService::test_iam_permissions][crate::client::VpcFlowLogsService::test_iam_permissions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2561,7 +2561,7 @@ pub mod vpc_flow_logs_service {
         }
     }
 
-    /// The request builder for [VpcFlowLogsService::list_operations][super::super::client::VpcFlowLogsService::list_operations] calls.
+    /// The request builder for [VpcFlowLogsService::list_operations][crate::client::VpcFlowLogsService::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2673,7 +2673,7 @@ pub mod vpc_flow_logs_service {
         }
     }
 
-    /// The request builder for [VpcFlowLogsService::get_operation][super::super::client::VpcFlowLogsService::get_operation] calls.
+    /// The request builder for [VpcFlowLogsService::get_operation][crate::client::VpcFlowLogsService::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2737,7 +2737,7 @@ pub mod vpc_flow_logs_service {
         }
     }
 
-    /// The request builder for [VpcFlowLogsService::delete_operation][super::super::client::VpcFlowLogsService::delete_operation] calls.
+    /// The request builder for [VpcFlowLogsService::delete_operation][crate::client::VpcFlowLogsService::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2801,7 +2801,7 @@ pub mod vpc_flow_logs_service {
         }
     }
 
-    /// The request builder for [VpcFlowLogsService::cancel_operation][super::super::client::VpcFlowLogsService::cancel_operation] calls.
+    /// The request builder for [VpcFlowLogsService::cancel_operation][crate::client::VpcFlowLogsService::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run

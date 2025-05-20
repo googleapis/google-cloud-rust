@@ -17,7 +17,7 @@
 pub mod function_service {
     use crate::Result;
 
-    /// A builder for [FunctionService][super::super::client::FunctionService].
+    /// A builder for [FunctionService][crate::client::FunctionService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod function_service {
         }
     }
 
-    /// Common implementation for [super::super::client::FunctionService] request builders.
+    /// Common implementation for [crate::client::FunctionService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::FunctionService>,
@@ -68,7 +68,7 @@ pub mod function_service {
         }
     }
 
-    /// The request builder for [FunctionService::get_function][super::super::client::FunctionService::get_function] calls.
+    /// The request builder for [FunctionService::get_function][crate::client::FunctionService::get_function] calls.
     ///
     /// # Example
     /// ```no_run
@@ -137,7 +137,7 @@ pub mod function_service {
         }
     }
 
-    /// The request builder for [FunctionService::list_functions][super::super::client::FunctionService::list_functions] calls.
+    /// The request builder for [FunctionService::list_functions][crate::client::FunctionService::list_functions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -252,7 +252,7 @@ pub mod function_service {
         }
     }
 
-    /// The request builder for [FunctionService::create_function][super::super::client::FunctionService::create_function] calls.
+    /// The request builder for [FunctionService::create_function][crate::client::FunctionService::create_function] calls.
     ///
     /// # Example
     /// ```no_run
@@ -297,7 +297,7 @@ pub mod function_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_function][super::super::client::FunctionService::create_function].
+        /// on [create_function][crate::client::FunctionService::create_function].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_function(self.0.request, self.0.options)
@@ -382,7 +382,7 @@ pub mod function_service {
         }
     }
 
-    /// The request builder for [FunctionService::update_function][super::super::client::FunctionService::update_function] calls.
+    /// The request builder for [FunctionService::update_function][crate::client::FunctionService::update_function] calls.
     ///
     /// # Example
     /// ```no_run
@@ -427,7 +427,7 @@ pub mod function_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_function][super::super::client::FunctionService::update_function].
+        /// on [update_function][crate::client::FunctionService::update_function].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_function(self.0.request, self.0.options)
@@ -516,7 +516,7 @@ pub mod function_service {
         }
     }
 
-    /// The request builder for [FunctionService::delete_function][super::super::client::FunctionService::delete_function] calls.
+    /// The request builder for [FunctionService::delete_function][crate::client::FunctionService::delete_function] calls.
     ///
     /// # Example
     /// ```no_run
@@ -561,7 +561,7 @@ pub mod function_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_function][super::super::client::FunctionService::delete_function].
+        /// on [delete_function][crate::client::FunctionService::delete_function].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_function(self.0.request, self.0.options)
@@ -620,7 +620,7 @@ pub mod function_service {
         }
     }
 
-    /// The request builder for [FunctionService::generate_upload_url][super::super::client::FunctionService::generate_upload_url] calls.
+    /// The request builder for [FunctionService::generate_upload_url][crate::client::FunctionService::generate_upload_url] calls.
     ///
     /// # Example
     /// ```no_run
@@ -698,7 +698,7 @@ pub mod function_service {
         }
     }
 
-    /// The request builder for [FunctionService::generate_download_url][super::super::client::FunctionService::generate_download_url] calls.
+    /// The request builder for [FunctionService::generate_download_url][crate::client::FunctionService::generate_download_url] calls.
     ///
     /// # Example
     /// ```no_run
@@ -764,7 +764,7 @@ pub mod function_service {
         }
     }
 
-    /// The request builder for [FunctionService::list_runtimes][super::super::client::FunctionService::list_runtimes] calls.
+    /// The request builder for [FunctionService::list_runtimes][crate::client::FunctionService::list_runtimes] calls.
     ///
     /// # Example
     /// ```no_run
@@ -833,7 +833,7 @@ pub mod function_service {
         }
     }
 
-    /// The request builder for [FunctionService::list_locations][super::super::client::FunctionService::list_locations] calls.
+    /// The request builder for [FunctionService::list_locations][crate::client::FunctionService::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -943,7 +943,7 @@ pub mod function_service {
         }
     }
 
-    /// The request builder for [FunctionService::set_iam_policy][super::super::client::FunctionService::set_iam_policy] calls.
+    /// The request builder for [FunctionService::set_iam_policy][crate::client::FunctionService::set_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1046,7 +1046,7 @@ pub mod function_service {
         }
     }
 
-    /// The request builder for [FunctionService::get_iam_policy][super::super::client::FunctionService::get_iam_policy] calls.
+    /// The request builder for [FunctionService::get_iam_policy][crate::client::FunctionService::get_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1127,7 +1127,7 @@ pub mod function_service {
         }
     }
 
-    /// The request builder for [FunctionService::test_iam_permissions][super::super::client::FunctionService::test_iam_permissions] calls.
+    /// The request builder for [FunctionService::test_iam_permissions][crate::client::FunctionService::test_iam_permissions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1206,7 +1206,7 @@ pub mod function_service {
         }
     }
 
-    /// The request builder for [FunctionService::list_operations][super::super::client::FunctionService::list_operations] calls.
+    /// The request builder for [FunctionService::list_operations][crate::client::FunctionService::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1318,7 +1318,7 @@ pub mod function_service {
         }
     }
 
-    /// The request builder for [FunctionService::get_operation][super::super::client::FunctionService::get_operation] calls.
+    /// The request builder for [FunctionService::get_operation][crate::client::FunctionService::get_operation] calls.
     ///
     /// # Example
     /// ```no_run

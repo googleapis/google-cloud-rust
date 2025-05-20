@@ -17,7 +17,7 @@
 pub mod dep_service {
     use crate::Result;
 
-    /// A builder for [DepService][super::super::client::DepService].
+    /// A builder for [DepService][crate::client::DepService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod dep_service {
         }
     }
 
-    /// Common implementation for [super::super::client::DepService] request builders.
+    /// Common implementation for [crate::client::DepService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::DepService>,
@@ -68,7 +68,7 @@ pub mod dep_service {
         }
     }
 
-    /// The request builder for [DepService::list_lb_traffic_extensions][super::super::client::DepService::list_lb_traffic_extensions] calls.
+    /// The request builder for [DepService::list_lb_traffic_extensions][crate::client::DepService::list_lb_traffic_extensions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -192,7 +192,7 @@ pub mod dep_service {
         }
     }
 
-    /// The request builder for [DepService::get_lb_traffic_extension][super::super::client::DepService::get_lb_traffic_extension] calls.
+    /// The request builder for [DepService::get_lb_traffic_extension][crate::client::DepService::get_lb_traffic_extension] calls.
     ///
     /// # Example
     /// ```no_run
@@ -258,7 +258,7 @@ pub mod dep_service {
         }
     }
 
-    /// The request builder for [DepService::create_lb_traffic_extension][super::super::client::DepService::create_lb_traffic_extension] calls.
+    /// The request builder for [DepService::create_lb_traffic_extension][crate::client::DepService::create_lb_traffic_extension] calls.
     ///
     /// # Example
     /// ```no_run
@@ -308,7 +308,7 @@ pub mod dep_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_lb_traffic_extension][super::super::client::DepService::create_lb_traffic_extension].
+        /// on [create_lb_traffic_extension][crate::client::DepService::create_lb_traffic_extension].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_lb_traffic_extension(self.0.request, self.0.options)
@@ -404,7 +404,7 @@ pub mod dep_service {
         }
     }
 
-    /// The request builder for [DepService::update_lb_traffic_extension][super::super::client::DepService::update_lb_traffic_extension] calls.
+    /// The request builder for [DepService::update_lb_traffic_extension][crate::client::DepService::update_lb_traffic_extension] calls.
     ///
     /// # Example
     /// ```no_run
@@ -454,7 +454,7 @@ pub mod dep_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_lb_traffic_extension][super::super::client::DepService::update_lb_traffic_extension].
+        /// on [update_lb_traffic_extension][crate::client::DepService::update_lb_traffic_extension].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_lb_traffic_extension(self.0.request, self.0.options)
@@ -552,7 +552,7 @@ pub mod dep_service {
         }
     }
 
-    /// The request builder for [DepService::delete_lb_traffic_extension][super::super::client::DepService::delete_lb_traffic_extension] calls.
+    /// The request builder for [DepService::delete_lb_traffic_extension][crate::client::DepService::delete_lb_traffic_extension] calls.
     ///
     /// # Example
     /// ```no_run
@@ -602,7 +602,7 @@ pub mod dep_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_lb_traffic_extension][super::super::client::DepService::delete_lb_traffic_extension].
+        /// on [delete_lb_traffic_extension][crate::client::DepService::delete_lb_traffic_extension].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_lb_traffic_extension(self.0.request, self.0.options)
@@ -667,7 +667,7 @@ pub mod dep_service {
         }
     }
 
-    /// The request builder for [DepService::list_lb_route_extensions][super::super::client::DepService::list_lb_route_extensions] calls.
+    /// The request builder for [DepService::list_lb_route_extensions][crate::client::DepService::list_lb_route_extensions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -787,7 +787,7 @@ pub mod dep_service {
         }
     }
 
-    /// The request builder for [DepService::get_lb_route_extension][super::super::client::DepService::get_lb_route_extension] calls.
+    /// The request builder for [DepService::get_lb_route_extension][crate::client::DepService::get_lb_route_extension] calls.
     ///
     /// # Example
     /// ```no_run
@@ -853,7 +853,7 @@ pub mod dep_service {
         }
     }
 
-    /// The request builder for [DepService::create_lb_route_extension][super::super::client::DepService::create_lb_route_extension] calls.
+    /// The request builder for [DepService::create_lb_route_extension][crate::client::DepService::create_lb_route_extension] calls.
     ///
     /// # Example
     /// ```no_run
@@ -901,7 +901,7 @@ pub mod dep_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_lb_route_extension][super::super::client::DepService::create_lb_route_extension].
+        /// on [create_lb_route_extension][crate::client::DepService::create_lb_route_extension].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_lb_route_extension(self.0.request, self.0.options)
@@ -997,7 +997,7 @@ pub mod dep_service {
         }
     }
 
-    /// The request builder for [DepService::update_lb_route_extension][super::super::client::DepService::update_lb_route_extension] calls.
+    /// The request builder for [DepService::update_lb_route_extension][crate::client::DepService::update_lb_route_extension] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1045,7 +1045,7 @@ pub mod dep_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_lb_route_extension][super::super::client::DepService::update_lb_route_extension].
+        /// on [update_lb_route_extension][crate::client::DepService::update_lb_route_extension].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_lb_route_extension(self.0.request, self.0.options)
@@ -1143,7 +1143,7 @@ pub mod dep_service {
         }
     }
 
-    /// The request builder for [DepService::delete_lb_route_extension][super::super::client::DepService::delete_lb_route_extension] calls.
+    /// The request builder for [DepService::delete_lb_route_extension][crate::client::DepService::delete_lb_route_extension] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1191,7 +1191,7 @@ pub mod dep_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_lb_route_extension][super::super::client::DepService::delete_lb_route_extension].
+        /// on [delete_lb_route_extension][crate::client::DepService::delete_lb_route_extension].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_lb_route_extension(self.0.request, self.0.options)
@@ -1256,7 +1256,7 @@ pub mod dep_service {
         }
     }
 
-    /// The request builder for [DepService::list_locations][super::super::client::DepService::list_locations] calls.
+    /// The request builder for [DepService::list_locations][crate::client::DepService::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1366,7 +1366,7 @@ pub mod dep_service {
         }
     }
 
-    /// The request builder for [DepService::get_location][super::super::client::DepService::get_location] calls.
+    /// The request builder for [DepService::get_location][crate::client::DepService::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1427,7 +1427,7 @@ pub mod dep_service {
         }
     }
 
-    /// The request builder for [DepService::set_iam_policy][super::super::client::DepService::set_iam_policy] calls.
+    /// The request builder for [DepService::set_iam_policy][crate::client::DepService::set_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1530,7 +1530,7 @@ pub mod dep_service {
         }
     }
 
-    /// The request builder for [DepService::get_iam_policy][super::super::client::DepService::get_iam_policy] calls.
+    /// The request builder for [DepService::get_iam_policy][crate::client::DepService::get_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1611,7 +1611,7 @@ pub mod dep_service {
         }
     }
 
-    /// The request builder for [DepService::test_iam_permissions][super::super::client::DepService::test_iam_permissions] calls.
+    /// The request builder for [DepService::test_iam_permissions][crate::client::DepService::test_iam_permissions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1690,7 +1690,7 @@ pub mod dep_service {
         }
     }
 
-    /// The request builder for [DepService::list_operations][super::super::client::DepService::list_operations] calls.
+    /// The request builder for [DepService::list_operations][crate::client::DepService::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1802,7 +1802,7 @@ pub mod dep_service {
         }
     }
 
-    /// The request builder for [DepService::get_operation][super::super::client::DepService::get_operation] calls.
+    /// The request builder for [DepService::get_operation][crate::client::DepService::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1866,7 +1866,7 @@ pub mod dep_service {
         }
     }
 
-    /// The request builder for [DepService::delete_operation][super::super::client::DepService::delete_operation] calls.
+    /// The request builder for [DepService::delete_operation][crate::client::DepService::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1930,7 +1930,7 @@ pub mod dep_service {
         }
     }
 
-    /// The request builder for [DepService::cancel_operation][super::super::client::DepService::cancel_operation] calls.
+    /// The request builder for [DepService::cancel_operation][crate::client::DepService::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1998,7 +1998,7 @@ pub mod dep_service {
 pub mod network_services {
     use crate::Result;
 
-    /// A builder for [NetworkServices][super::super::client::NetworkServices].
+    /// A builder for [NetworkServices][crate::client::NetworkServices].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -2026,7 +2026,7 @@ pub mod network_services {
         }
     }
 
-    /// Common implementation for [super::super::client::NetworkServices] request builders.
+    /// Common implementation for [crate::client::NetworkServices] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
@@ -2049,7 +2049,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for [NetworkServices::list_endpoint_policies][super::super::client::NetworkServices::list_endpoint_policies] calls.
+    /// The request builder for [NetworkServices::list_endpoint_policies][crate::client::NetworkServices::list_endpoint_policies] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2157,7 +2157,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for [NetworkServices::get_endpoint_policy][super::super::client::NetworkServices::get_endpoint_policy] calls.
+    /// The request builder for [NetworkServices::get_endpoint_policy][crate::client::NetworkServices::get_endpoint_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2223,7 +2223,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for [NetworkServices::create_endpoint_policy][super::super::client::NetworkServices::create_endpoint_policy] calls.
+    /// The request builder for [NetworkServices::create_endpoint_policy][crate::client::NetworkServices::create_endpoint_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2271,7 +2271,7 @@ pub mod network_services {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_endpoint_policy][super::super::client::NetworkServices::create_endpoint_policy].
+        /// on [create_endpoint_policy][crate::client::NetworkServices::create_endpoint_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_endpoint_policy(self.0.request, self.0.options)
@@ -2361,7 +2361,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for [NetworkServices::update_endpoint_policy][super::super::client::NetworkServices::update_endpoint_policy] calls.
+    /// The request builder for [NetworkServices::update_endpoint_policy][crate::client::NetworkServices::update_endpoint_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2409,7 +2409,7 @@ pub mod network_services {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_endpoint_policy][super::super::client::NetworkServices::update_endpoint_policy].
+        /// on [update_endpoint_policy][crate::client::NetworkServices::update_endpoint_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_endpoint_policy(self.0.request, self.0.options)
@@ -2501,7 +2501,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for [NetworkServices::delete_endpoint_policy][super::super::client::NetworkServices::delete_endpoint_policy] calls.
+    /// The request builder for [NetworkServices::delete_endpoint_policy][crate::client::NetworkServices::delete_endpoint_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2549,7 +2549,7 @@ pub mod network_services {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_endpoint_policy][super::super::client::NetworkServices::delete_endpoint_policy].
+        /// on [delete_endpoint_policy][crate::client::NetworkServices::delete_endpoint_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_endpoint_policy(self.0.request, self.0.options)
@@ -2608,7 +2608,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for [NetworkServices::list_gateways][super::super::client::NetworkServices::list_gateways] calls.
+    /// The request builder for [NetworkServices::list_gateways][crate::client::NetworkServices::list_gateways] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2711,7 +2711,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for [NetworkServices::get_gateway][super::super::client::NetworkServices::get_gateway] calls.
+    /// The request builder for [NetworkServices::get_gateway][crate::client::NetworkServices::get_gateway] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2774,7 +2774,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for [NetworkServices::create_gateway][super::super::client::NetworkServices::create_gateway] calls.
+    /// The request builder for [NetworkServices::create_gateway][crate::client::NetworkServices::create_gateway] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2819,7 +2819,7 @@ pub mod network_services {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_gateway][super::super::client::NetworkServices::create_gateway].
+        /// on [create_gateway][crate::client::NetworkServices::create_gateway].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_gateway(self.0.request, self.0.options)
@@ -2906,7 +2906,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for [NetworkServices::update_gateway][super::super::client::NetworkServices::update_gateway] calls.
+    /// The request builder for [NetworkServices::update_gateway][crate::client::NetworkServices::update_gateway] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2951,7 +2951,7 @@ pub mod network_services {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_gateway][super::super::client::NetworkServices::update_gateway].
+        /// on [update_gateway][crate::client::NetworkServices::update_gateway].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_gateway(self.0.request, self.0.options)
@@ -3040,7 +3040,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for [NetworkServices::delete_gateway][super::super::client::NetworkServices::delete_gateway] calls.
+    /// The request builder for [NetworkServices::delete_gateway][crate::client::NetworkServices::delete_gateway] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3085,7 +3085,7 @@ pub mod network_services {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_gateway][super::super::client::NetworkServices::delete_gateway].
+        /// on [delete_gateway][crate::client::NetworkServices::delete_gateway].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_gateway(self.0.request, self.0.options)
@@ -3144,7 +3144,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for [NetworkServices::list_grpc_routes][super::super::client::NetworkServices::list_grpc_routes] calls.
+    /// The request builder for [NetworkServices::list_grpc_routes][crate::client::NetworkServices::list_grpc_routes] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3247,7 +3247,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for [NetworkServices::get_grpc_route][super::super::client::NetworkServices::get_grpc_route] calls.
+    /// The request builder for [NetworkServices::get_grpc_route][crate::client::NetworkServices::get_grpc_route] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3310,7 +3310,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for [NetworkServices::create_grpc_route][super::super::client::NetworkServices::create_grpc_route] calls.
+    /// The request builder for [NetworkServices::create_grpc_route][crate::client::NetworkServices::create_grpc_route] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3355,7 +3355,7 @@ pub mod network_services {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_grpc_route][super::super::client::NetworkServices::create_grpc_route].
+        /// on [create_grpc_route][crate::client::NetworkServices::create_grpc_route].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_grpc_route(self.0.request, self.0.options)
@@ -3442,7 +3442,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for [NetworkServices::update_grpc_route][super::super::client::NetworkServices::update_grpc_route] calls.
+    /// The request builder for [NetworkServices::update_grpc_route][crate::client::NetworkServices::update_grpc_route] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3487,7 +3487,7 @@ pub mod network_services {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_grpc_route][super::super::client::NetworkServices::update_grpc_route].
+        /// on [update_grpc_route][crate::client::NetworkServices::update_grpc_route].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_grpc_route(self.0.request, self.0.options)
@@ -3576,7 +3576,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for [NetworkServices::delete_grpc_route][super::super::client::NetworkServices::delete_grpc_route] calls.
+    /// The request builder for [NetworkServices::delete_grpc_route][crate::client::NetworkServices::delete_grpc_route] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3621,7 +3621,7 @@ pub mod network_services {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_grpc_route][super::super::client::NetworkServices::delete_grpc_route].
+        /// on [delete_grpc_route][crate::client::NetworkServices::delete_grpc_route].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_grpc_route(self.0.request, self.0.options)
@@ -3680,7 +3680,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for [NetworkServices::list_http_routes][super::super::client::NetworkServices::list_http_routes] calls.
+    /// The request builder for [NetworkServices::list_http_routes][crate::client::NetworkServices::list_http_routes] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3783,7 +3783,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for [NetworkServices::get_http_route][super::super::client::NetworkServices::get_http_route] calls.
+    /// The request builder for [NetworkServices::get_http_route][crate::client::NetworkServices::get_http_route] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3846,7 +3846,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for [NetworkServices::create_http_route][super::super::client::NetworkServices::create_http_route] calls.
+    /// The request builder for [NetworkServices::create_http_route][crate::client::NetworkServices::create_http_route] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3891,7 +3891,7 @@ pub mod network_services {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_http_route][super::super::client::NetworkServices::create_http_route].
+        /// on [create_http_route][crate::client::NetworkServices::create_http_route].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_http_route(self.0.request, self.0.options)
@@ -3978,7 +3978,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for [NetworkServices::update_http_route][super::super::client::NetworkServices::update_http_route] calls.
+    /// The request builder for [NetworkServices::update_http_route][crate::client::NetworkServices::update_http_route] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4023,7 +4023,7 @@ pub mod network_services {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_http_route][super::super::client::NetworkServices::update_http_route].
+        /// on [update_http_route][crate::client::NetworkServices::update_http_route].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_http_route(self.0.request, self.0.options)
@@ -4112,7 +4112,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for [NetworkServices::delete_http_route][super::super::client::NetworkServices::delete_http_route] calls.
+    /// The request builder for [NetworkServices::delete_http_route][crate::client::NetworkServices::delete_http_route] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4157,7 +4157,7 @@ pub mod network_services {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_http_route][super::super::client::NetworkServices::delete_http_route].
+        /// on [delete_http_route][crate::client::NetworkServices::delete_http_route].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_http_route(self.0.request, self.0.options)
@@ -4216,7 +4216,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for [NetworkServices::list_tcp_routes][super::super::client::NetworkServices::list_tcp_routes] calls.
+    /// The request builder for [NetworkServices::list_tcp_routes][crate::client::NetworkServices::list_tcp_routes] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4319,7 +4319,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for [NetworkServices::get_tcp_route][super::super::client::NetworkServices::get_tcp_route] calls.
+    /// The request builder for [NetworkServices::get_tcp_route][crate::client::NetworkServices::get_tcp_route] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4382,7 +4382,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for [NetworkServices::create_tcp_route][super::super::client::NetworkServices::create_tcp_route] calls.
+    /// The request builder for [NetworkServices::create_tcp_route][crate::client::NetworkServices::create_tcp_route] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4427,7 +4427,7 @@ pub mod network_services {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_tcp_route][super::super::client::NetworkServices::create_tcp_route].
+        /// on [create_tcp_route][crate::client::NetworkServices::create_tcp_route].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_tcp_route(self.0.request, self.0.options)
@@ -4514,7 +4514,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for [NetworkServices::update_tcp_route][super::super::client::NetworkServices::update_tcp_route] calls.
+    /// The request builder for [NetworkServices::update_tcp_route][crate::client::NetworkServices::update_tcp_route] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4559,7 +4559,7 @@ pub mod network_services {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_tcp_route][super::super::client::NetworkServices::update_tcp_route].
+        /// on [update_tcp_route][crate::client::NetworkServices::update_tcp_route].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_tcp_route(self.0.request, self.0.options)
@@ -4648,7 +4648,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for [NetworkServices::delete_tcp_route][super::super::client::NetworkServices::delete_tcp_route] calls.
+    /// The request builder for [NetworkServices::delete_tcp_route][crate::client::NetworkServices::delete_tcp_route] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4693,7 +4693,7 @@ pub mod network_services {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_tcp_route][super::super::client::NetworkServices::delete_tcp_route].
+        /// on [delete_tcp_route][crate::client::NetworkServices::delete_tcp_route].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_tcp_route(self.0.request, self.0.options)
@@ -4752,7 +4752,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for [NetworkServices::list_tls_routes][super::super::client::NetworkServices::list_tls_routes] calls.
+    /// The request builder for [NetworkServices::list_tls_routes][crate::client::NetworkServices::list_tls_routes] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4855,7 +4855,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for [NetworkServices::get_tls_route][super::super::client::NetworkServices::get_tls_route] calls.
+    /// The request builder for [NetworkServices::get_tls_route][crate::client::NetworkServices::get_tls_route] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4918,7 +4918,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for [NetworkServices::create_tls_route][super::super::client::NetworkServices::create_tls_route] calls.
+    /// The request builder for [NetworkServices::create_tls_route][crate::client::NetworkServices::create_tls_route] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4963,7 +4963,7 @@ pub mod network_services {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_tls_route][super::super::client::NetworkServices::create_tls_route].
+        /// on [create_tls_route][crate::client::NetworkServices::create_tls_route].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_tls_route(self.0.request, self.0.options)
@@ -5050,7 +5050,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for [NetworkServices::update_tls_route][super::super::client::NetworkServices::update_tls_route] calls.
+    /// The request builder for [NetworkServices::update_tls_route][crate::client::NetworkServices::update_tls_route] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5095,7 +5095,7 @@ pub mod network_services {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_tls_route][super::super::client::NetworkServices::update_tls_route].
+        /// on [update_tls_route][crate::client::NetworkServices::update_tls_route].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_tls_route(self.0.request, self.0.options)
@@ -5184,7 +5184,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for [NetworkServices::delete_tls_route][super::super::client::NetworkServices::delete_tls_route] calls.
+    /// The request builder for [NetworkServices::delete_tls_route][crate::client::NetworkServices::delete_tls_route] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5229,7 +5229,7 @@ pub mod network_services {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_tls_route][super::super::client::NetworkServices::delete_tls_route].
+        /// on [delete_tls_route][crate::client::NetworkServices::delete_tls_route].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_tls_route(self.0.request, self.0.options)
@@ -5288,7 +5288,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for [NetworkServices::list_service_bindings][super::super::client::NetworkServices::list_service_bindings] calls.
+    /// The request builder for [NetworkServices::list_service_bindings][crate::client::NetworkServices::list_service_bindings] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5396,7 +5396,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for [NetworkServices::get_service_binding][super::super::client::NetworkServices::get_service_binding] calls.
+    /// The request builder for [NetworkServices::get_service_binding][crate::client::NetworkServices::get_service_binding] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5462,7 +5462,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for [NetworkServices::create_service_binding][super::super::client::NetworkServices::create_service_binding] calls.
+    /// The request builder for [NetworkServices::create_service_binding][crate::client::NetworkServices::create_service_binding] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5510,7 +5510,7 @@ pub mod network_services {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_service_binding][super::super::client::NetworkServices::create_service_binding].
+        /// on [create_service_binding][crate::client::NetworkServices::create_service_binding].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_service_binding(self.0.request, self.0.options)
@@ -5600,7 +5600,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for [NetworkServices::delete_service_binding][super::super::client::NetworkServices::delete_service_binding] calls.
+    /// The request builder for [NetworkServices::delete_service_binding][crate::client::NetworkServices::delete_service_binding] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5648,7 +5648,7 @@ pub mod network_services {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_service_binding][super::super::client::NetworkServices::delete_service_binding].
+        /// on [delete_service_binding][crate::client::NetworkServices::delete_service_binding].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_service_binding(self.0.request, self.0.options)
@@ -5707,7 +5707,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for [NetworkServices::list_meshes][super::super::client::NetworkServices::list_meshes] calls.
+    /// The request builder for [NetworkServices::list_meshes][crate::client::NetworkServices::list_meshes] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5810,7 +5810,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for [NetworkServices::get_mesh][super::super::client::NetworkServices::get_mesh] calls.
+    /// The request builder for [NetworkServices::get_mesh][crate::client::NetworkServices::get_mesh] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5873,7 +5873,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for [NetworkServices::create_mesh][super::super::client::NetworkServices::create_mesh] calls.
+    /// The request builder for [NetworkServices::create_mesh][crate::client::NetworkServices::create_mesh] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5918,7 +5918,7 @@ pub mod network_services {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_mesh][super::super::client::NetworkServices::create_mesh].
+        /// on [create_mesh][crate::client::NetworkServices::create_mesh].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_mesh(self.0.request, self.0.options)
@@ -6005,7 +6005,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for [NetworkServices::update_mesh][super::super::client::NetworkServices::update_mesh] calls.
+    /// The request builder for [NetworkServices::update_mesh][crate::client::NetworkServices::update_mesh] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6050,7 +6050,7 @@ pub mod network_services {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_mesh][super::super::client::NetworkServices::update_mesh].
+        /// on [update_mesh][crate::client::NetworkServices::update_mesh].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_mesh(self.0.request, self.0.options)
@@ -6139,7 +6139,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for [NetworkServices::delete_mesh][super::super::client::NetworkServices::delete_mesh] calls.
+    /// The request builder for [NetworkServices::delete_mesh][crate::client::NetworkServices::delete_mesh] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6184,7 +6184,7 @@ pub mod network_services {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_mesh][super::super::client::NetworkServices::delete_mesh].
+        /// on [delete_mesh][crate::client::NetworkServices::delete_mesh].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_mesh(self.0.request, self.0.options)
@@ -6243,7 +6243,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for [NetworkServices::list_locations][super::super::client::NetworkServices::list_locations] calls.
+    /// The request builder for [NetworkServices::list_locations][crate::client::NetworkServices::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6353,7 +6353,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for [NetworkServices::get_location][super::super::client::NetworkServices::get_location] calls.
+    /// The request builder for [NetworkServices::get_location][crate::client::NetworkServices::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6414,7 +6414,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for [NetworkServices::set_iam_policy][super::super::client::NetworkServices::set_iam_policy] calls.
+    /// The request builder for [NetworkServices::set_iam_policy][crate::client::NetworkServices::set_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6517,7 +6517,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for [NetworkServices::get_iam_policy][super::super::client::NetworkServices::get_iam_policy] calls.
+    /// The request builder for [NetworkServices::get_iam_policy][crate::client::NetworkServices::get_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6598,7 +6598,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for [NetworkServices::test_iam_permissions][super::super::client::NetworkServices::test_iam_permissions] calls.
+    /// The request builder for [NetworkServices::test_iam_permissions][crate::client::NetworkServices::test_iam_permissions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6677,7 +6677,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for [NetworkServices::list_operations][super::super::client::NetworkServices::list_operations] calls.
+    /// The request builder for [NetworkServices::list_operations][crate::client::NetworkServices::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6789,7 +6789,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for [NetworkServices::get_operation][super::super::client::NetworkServices::get_operation] calls.
+    /// The request builder for [NetworkServices::get_operation][crate::client::NetworkServices::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6853,7 +6853,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for [NetworkServices::delete_operation][super::super::client::NetworkServices::delete_operation] calls.
+    /// The request builder for [NetworkServices::delete_operation][crate::client::NetworkServices::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6917,7 +6917,7 @@ pub mod network_services {
         }
     }
 
-    /// The request builder for [NetworkServices::cancel_operation][super::super::client::NetworkServices::cancel_operation] calls.
+    /// The request builder for [NetworkServices::cancel_operation][crate::client::NetworkServices::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run

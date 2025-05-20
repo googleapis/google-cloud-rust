@@ -17,7 +17,7 @@
 pub mod client_gateways_service {
     use crate::Result;
 
-    /// A builder for [ClientGatewaysService][super::super::client::ClientGatewaysService].
+    /// A builder for [ClientGatewaysService][crate::client::ClientGatewaysService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod client_gateways_service {
         }
     }
 
-    /// Common implementation for [super::super::client::ClientGatewaysService] request builders.
+    /// Common implementation for [crate::client::ClientGatewaysService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::ClientGatewaysService>,
@@ -68,7 +68,7 @@ pub mod client_gateways_service {
         }
     }
 
-    /// The request builder for [ClientGatewaysService::list_client_gateways][super::super::client::ClientGatewaysService::list_client_gateways] calls.
+    /// The request builder for [ClientGatewaysService::list_client_gateways][crate::client::ClientGatewaysService::list_client_gateways] calls.
     ///
     /// # Example
     /// ```no_run
@@ -188,7 +188,7 @@ pub mod client_gateways_service {
         }
     }
 
-    /// The request builder for [ClientGatewaysService::get_client_gateway][super::super::client::ClientGatewaysService::get_client_gateway] calls.
+    /// The request builder for [ClientGatewaysService::get_client_gateway][crate::client::ClientGatewaysService::get_client_gateway] calls.
     ///
     /// # Example
     /// ```no_run
@@ -254,7 +254,7 @@ pub mod client_gateways_service {
         }
     }
 
-    /// The request builder for [ClientGatewaysService::create_client_gateway][super::super::client::ClientGatewaysService::create_client_gateway] calls.
+    /// The request builder for [ClientGatewaysService::create_client_gateway][crate::client::ClientGatewaysService::create_client_gateway] calls.
     ///
     /// # Example
     /// ```no_run
@@ -302,7 +302,7 @@ pub mod client_gateways_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_client_gateway][super::super::client::ClientGatewaysService::create_client_gateway].
+        /// on [create_client_gateway][crate::client::ClientGatewaysService::create_client_gateway].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_client_gateway(self.0.request, self.0.options)
@@ -402,7 +402,7 @@ pub mod client_gateways_service {
         }
     }
 
-    /// The request builder for [ClientGatewaysService::delete_client_gateway][super::super::client::ClientGatewaysService::delete_client_gateway] calls.
+    /// The request builder for [ClientGatewaysService::delete_client_gateway][crate::client::ClientGatewaysService::delete_client_gateway] calls.
     ///
     /// # Example
     /// ```no_run
@@ -450,7 +450,7 @@ pub mod client_gateways_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_client_gateway][super::super::client::ClientGatewaysService::delete_client_gateway].
+        /// on [delete_client_gateway][crate::client::ClientGatewaysService::delete_client_gateway].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_client_gateway(self.0.request, self.0.options)
@@ -522,7 +522,7 @@ pub mod client_gateways_service {
         }
     }
 
-    /// The request builder for [ClientGatewaysService::list_locations][super::super::client::ClientGatewaysService::list_locations] calls.
+    /// The request builder for [ClientGatewaysService::list_locations][crate::client::ClientGatewaysService::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -632,7 +632,7 @@ pub mod client_gateways_service {
         }
     }
 
-    /// The request builder for [ClientGatewaysService::get_location][super::super::client::ClientGatewaysService::get_location] calls.
+    /// The request builder for [ClientGatewaysService::get_location][crate::client::ClientGatewaysService::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -693,7 +693,7 @@ pub mod client_gateways_service {
         }
     }
 
-    /// The request builder for [ClientGatewaysService::set_iam_policy][super::super::client::ClientGatewaysService::set_iam_policy] calls.
+    /// The request builder for [ClientGatewaysService::set_iam_policy][crate::client::ClientGatewaysService::set_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -796,7 +796,7 @@ pub mod client_gateways_service {
         }
     }
 
-    /// The request builder for [ClientGatewaysService::get_iam_policy][super::super::client::ClientGatewaysService::get_iam_policy] calls.
+    /// The request builder for [ClientGatewaysService::get_iam_policy][crate::client::ClientGatewaysService::get_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -877,7 +877,7 @@ pub mod client_gateways_service {
         }
     }
 
-    /// The request builder for [ClientGatewaysService::test_iam_permissions][super::super::client::ClientGatewaysService::test_iam_permissions] calls.
+    /// The request builder for [ClientGatewaysService::test_iam_permissions][crate::client::ClientGatewaysService::test_iam_permissions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -956,7 +956,7 @@ pub mod client_gateways_service {
         }
     }
 
-    /// The request builder for [ClientGatewaysService::list_operations][super::super::client::ClientGatewaysService::list_operations] calls.
+    /// The request builder for [ClientGatewaysService::list_operations][crate::client::ClientGatewaysService::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1068,7 +1068,7 @@ pub mod client_gateways_service {
         }
     }
 
-    /// The request builder for [ClientGatewaysService::get_operation][super::super::client::ClientGatewaysService::get_operation] calls.
+    /// The request builder for [ClientGatewaysService::get_operation][crate::client::ClientGatewaysService::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1132,7 +1132,7 @@ pub mod client_gateways_service {
         }
     }
 
-    /// The request builder for [ClientGatewaysService::delete_operation][super::super::client::ClientGatewaysService::delete_operation] calls.
+    /// The request builder for [ClientGatewaysService::delete_operation][crate::client::ClientGatewaysService::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1196,7 +1196,7 @@ pub mod client_gateways_service {
         }
     }
 
-    /// The request builder for [ClientGatewaysService::cancel_operation][super::super::client::ClientGatewaysService::cancel_operation] calls.
+    /// The request builder for [ClientGatewaysService::cancel_operation][crate::client::ClientGatewaysService::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run

@@ -17,7 +17,7 @@
 pub mod bigtable_instance_admin {
     use crate::Result;
 
-    /// A builder for [BigtableInstanceAdmin][super::super::client::BigtableInstanceAdmin].
+    /// A builder for [BigtableInstanceAdmin][crate::client::BigtableInstanceAdmin].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// Common implementation for [super::super::client::BigtableInstanceAdmin] request builders.
+    /// Common implementation for [crate::client::BigtableInstanceAdmin] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
@@ -68,7 +68,7 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for [BigtableInstanceAdmin::create_instance][super::super::client::BigtableInstanceAdmin::create_instance] calls.
+    /// The request builder for [BigtableInstanceAdmin::create_instance][crate::client::BigtableInstanceAdmin::create_instance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -113,7 +113,7 @@ pub mod bigtable_instance_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_instance][super::super::client::BigtableInstanceAdmin::create_instance].
+        /// on [create_instance][crate::client::BigtableInstanceAdmin::create_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_instance(self.0.request, self.0.options)
@@ -216,7 +216,7 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for [BigtableInstanceAdmin::get_instance][super::super::client::BigtableInstanceAdmin::get_instance] calls.
+    /// The request builder for [BigtableInstanceAdmin::get_instance][crate::client::BigtableInstanceAdmin::get_instance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -279,7 +279,7 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for [BigtableInstanceAdmin::list_instances][super::super::client::BigtableInstanceAdmin::list_instances] calls.
+    /// The request builder for [BigtableInstanceAdmin::list_instances][crate::client::BigtableInstanceAdmin::list_instances] calls.
     ///
     /// # Example
     /// ```no_run
@@ -348,7 +348,7 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for [BigtableInstanceAdmin::update_instance][super::super::client::BigtableInstanceAdmin::update_instance] calls.
+    /// The request builder for [BigtableInstanceAdmin::update_instance][crate::client::BigtableInstanceAdmin::update_instance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -494,7 +494,7 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for [BigtableInstanceAdmin::partial_update_instance][super::super::client::BigtableInstanceAdmin::partial_update_instance] calls.
+    /// The request builder for [BigtableInstanceAdmin::partial_update_instance][crate::client::BigtableInstanceAdmin::partial_update_instance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -542,7 +542,7 @@ pub mod bigtable_instance_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [partial_update_instance][super::super::client::BigtableInstanceAdmin::partial_update_instance].
+        /// on [partial_update_instance][crate::client::BigtableInstanceAdmin::partial_update_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .partial_update_instance(self.0.request, self.0.options)
@@ -638,7 +638,7 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for [BigtableInstanceAdmin::delete_instance][super::super::client::BigtableInstanceAdmin::delete_instance] calls.
+    /// The request builder for [BigtableInstanceAdmin::delete_instance][crate::client::BigtableInstanceAdmin::delete_instance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -701,7 +701,7 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for [BigtableInstanceAdmin::create_cluster][super::super::client::BigtableInstanceAdmin::create_cluster] calls.
+    /// The request builder for [BigtableInstanceAdmin::create_cluster][crate::client::BigtableInstanceAdmin::create_cluster] calls.
     ///
     /// # Example
     /// ```no_run
@@ -746,7 +746,7 @@ pub mod bigtable_instance_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_cluster][super::super::client::BigtableInstanceAdmin::create_cluster].
+        /// on [create_cluster][crate::client::BigtableInstanceAdmin::create_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_cluster(self.0.request, self.0.options)
@@ -835,7 +835,7 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for [BigtableInstanceAdmin::get_cluster][super::super::client::BigtableInstanceAdmin::get_cluster] calls.
+    /// The request builder for [BigtableInstanceAdmin::get_cluster][crate::client::BigtableInstanceAdmin::get_cluster] calls.
     ///
     /// # Example
     /// ```no_run
@@ -898,7 +898,7 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for [BigtableInstanceAdmin::list_clusters][super::super::client::BigtableInstanceAdmin::list_clusters] calls.
+    /// The request builder for [BigtableInstanceAdmin::list_clusters][crate::client::BigtableInstanceAdmin::list_clusters] calls.
     ///
     /// # Example
     /// ```no_run
@@ -967,7 +967,7 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for [BigtableInstanceAdmin::update_cluster][super::super::client::BigtableInstanceAdmin::update_cluster] calls.
+    /// The request builder for [BigtableInstanceAdmin::update_cluster][crate::client::BigtableInstanceAdmin::update_cluster] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1012,7 +1012,7 @@ pub mod bigtable_instance_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_cluster][super::super::client::BigtableInstanceAdmin::update_cluster].
+        /// on [update_cluster][crate::client::BigtableInstanceAdmin::update_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_cluster(self.0.request, self.0.options)
@@ -1147,7 +1147,7 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for [BigtableInstanceAdmin::partial_update_cluster][super::super::client::BigtableInstanceAdmin::partial_update_cluster] calls.
+    /// The request builder for [BigtableInstanceAdmin::partial_update_cluster][crate::client::BigtableInstanceAdmin::partial_update_cluster] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1195,7 +1195,7 @@ pub mod bigtable_instance_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [partial_update_cluster][super::super::client::BigtableInstanceAdmin::partial_update_cluster].
+        /// on [partial_update_cluster][crate::client::BigtableInstanceAdmin::partial_update_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .partial_update_cluster(self.0.request, self.0.options)
@@ -1291,7 +1291,7 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for [BigtableInstanceAdmin::delete_cluster][super::super::client::BigtableInstanceAdmin::delete_cluster] calls.
+    /// The request builder for [BigtableInstanceAdmin::delete_cluster][crate::client::BigtableInstanceAdmin::delete_cluster] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1354,7 +1354,7 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for [BigtableInstanceAdmin::create_app_profile][super::super::client::BigtableInstanceAdmin::create_app_profile] calls.
+    /// The request builder for [BigtableInstanceAdmin::create_app_profile][crate::client::BigtableInstanceAdmin::create_app_profile] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1456,7 +1456,7 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for [BigtableInstanceAdmin::get_app_profile][super::super::client::BigtableInstanceAdmin::get_app_profile] calls.
+    /// The request builder for [BigtableInstanceAdmin::get_app_profile][crate::client::BigtableInstanceAdmin::get_app_profile] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1519,7 +1519,7 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for [BigtableInstanceAdmin::list_app_profiles][super::super::client::BigtableInstanceAdmin::list_app_profiles] calls.
+    /// The request builder for [BigtableInstanceAdmin::list_app_profiles][crate::client::BigtableInstanceAdmin::list_app_profiles] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1622,7 +1622,7 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for [BigtableInstanceAdmin::update_app_profile][super::super::client::BigtableInstanceAdmin::update_app_profile] calls.
+    /// The request builder for [BigtableInstanceAdmin::update_app_profile][crate::client::BigtableInstanceAdmin::update_app_profile] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1670,7 +1670,7 @@ pub mod bigtable_instance_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_app_profile][super::super::client::BigtableInstanceAdmin::update_app_profile].
+        /// on [update_app_profile][crate::client::BigtableInstanceAdmin::update_app_profile].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_app_profile(self.0.request, self.0.options)
@@ -1772,7 +1772,7 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for [BigtableInstanceAdmin::delete_app_profile][super::super::client::BigtableInstanceAdmin::delete_app_profile] calls.
+    /// The request builder for [BigtableInstanceAdmin::delete_app_profile][crate::client::BigtableInstanceAdmin::delete_app_profile] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1846,7 +1846,7 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for [BigtableInstanceAdmin::get_iam_policy][super::super::client::BigtableInstanceAdmin::get_iam_policy] calls.
+    /// The request builder for [BigtableInstanceAdmin::get_iam_policy][crate::client::BigtableInstanceAdmin::get_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1927,7 +1927,7 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for [BigtableInstanceAdmin::set_iam_policy][super::super::client::BigtableInstanceAdmin::set_iam_policy] calls.
+    /// The request builder for [BigtableInstanceAdmin::set_iam_policy][crate::client::BigtableInstanceAdmin::set_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2030,7 +2030,7 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for [BigtableInstanceAdmin::test_iam_permissions][super::super::client::BigtableInstanceAdmin::test_iam_permissions] calls.
+    /// The request builder for [BigtableInstanceAdmin::test_iam_permissions][crate::client::BigtableInstanceAdmin::test_iam_permissions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2109,7 +2109,7 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for [BigtableInstanceAdmin::list_hot_tablets][super::super::client::BigtableInstanceAdmin::list_hot_tablets] calls.
+    /// The request builder for [BigtableInstanceAdmin::list_hot_tablets][crate::client::BigtableInstanceAdmin::list_hot_tablets] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2248,7 +2248,7 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for [BigtableInstanceAdmin::create_logical_view][super::super::client::BigtableInstanceAdmin::create_logical_view] calls.
+    /// The request builder for [BigtableInstanceAdmin::create_logical_view][crate::client::BigtableInstanceAdmin::create_logical_view] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2296,7 +2296,7 @@ pub mod bigtable_instance_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_logical_view][super::super::client::BigtableInstanceAdmin::create_logical_view].
+        /// on [create_logical_view][crate::client::BigtableInstanceAdmin::create_logical_view].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_logical_view(self.0.request, self.0.options)
@@ -2386,7 +2386,7 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for [BigtableInstanceAdmin::get_logical_view][super::super::client::BigtableInstanceAdmin::get_logical_view] calls.
+    /// The request builder for [BigtableInstanceAdmin::get_logical_view][crate::client::BigtableInstanceAdmin::get_logical_view] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2449,7 +2449,7 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for [BigtableInstanceAdmin::list_logical_views][super::super::client::BigtableInstanceAdmin::list_logical_views] calls.
+    /// The request builder for [BigtableInstanceAdmin::list_logical_views][crate::client::BigtableInstanceAdmin::list_logical_views] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2555,7 +2555,7 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for [BigtableInstanceAdmin::update_logical_view][super::super::client::BigtableInstanceAdmin::update_logical_view] calls.
+    /// The request builder for [BigtableInstanceAdmin::update_logical_view][crate::client::BigtableInstanceAdmin::update_logical_view] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2603,7 +2603,7 @@ pub mod bigtable_instance_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_logical_view][super::super::client::BigtableInstanceAdmin::update_logical_view].
+        /// on [update_logical_view][crate::client::BigtableInstanceAdmin::update_logical_view].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_logical_view(self.0.request, self.0.options)
@@ -2695,7 +2695,7 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for [BigtableInstanceAdmin::delete_logical_view][super::super::client::BigtableInstanceAdmin::delete_logical_view] calls.
+    /// The request builder for [BigtableInstanceAdmin::delete_logical_view][crate::client::BigtableInstanceAdmin::delete_logical_view] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2767,7 +2767,7 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for [BigtableInstanceAdmin::create_materialized_view][super::super::client::BigtableInstanceAdmin::create_materialized_view] calls.
+    /// The request builder for [BigtableInstanceAdmin::create_materialized_view][crate::client::BigtableInstanceAdmin::create_materialized_view] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2815,7 +2815,7 @@ pub mod bigtable_instance_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_materialized_view][super::super::client::BigtableInstanceAdmin::create_materialized_view].
+        /// on [create_materialized_view][crate::client::BigtableInstanceAdmin::create_materialized_view].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_materialized_view(self.0.request, self.0.options)
@@ -2905,7 +2905,7 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for [BigtableInstanceAdmin::get_materialized_view][super::super::client::BigtableInstanceAdmin::get_materialized_view] calls.
+    /// The request builder for [BigtableInstanceAdmin::get_materialized_view][crate::client::BigtableInstanceAdmin::get_materialized_view] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2971,7 +2971,7 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for [BigtableInstanceAdmin::list_materialized_views][super::super::client::BigtableInstanceAdmin::list_materialized_views] calls.
+    /// The request builder for [BigtableInstanceAdmin::list_materialized_views][crate::client::BigtableInstanceAdmin::list_materialized_views] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3079,7 +3079,7 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for [BigtableInstanceAdmin::update_materialized_view][super::super::client::BigtableInstanceAdmin::update_materialized_view] calls.
+    /// The request builder for [BigtableInstanceAdmin::update_materialized_view][crate::client::BigtableInstanceAdmin::update_materialized_view] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3127,7 +3127,7 @@ pub mod bigtable_instance_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_materialized_view][super::super::client::BigtableInstanceAdmin::update_materialized_view].
+        /// on [update_materialized_view][crate::client::BigtableInstanceAdmin::update_materialized_view].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_materialized_view(self.0.request, self.0.options)
@@ -3219,7 +3219,7 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for [BigtableInstanceAdmin::delete_materialized_view][super::super::client::BigtableInstanceAdmin::delete_materialized_view] calls.
+    /// The request builder for [BigtableInstanceAdmin::delete_materialized_view][crate::client::BigtableInstanceAdmin::delete_materialized_view] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3291,7 +3291,7 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for [BigtableInstanceAdmin::list_operations][super::super::client::BigtableInstanceAdmin::list_operations] calls.
+    /// The request builder for [BigtableInstanceAdmin::list_operations][crate::client::BigtableInstanceAdmin::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3403,7 +3403,7 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for [BigtableInstanceAdmin::get_operation][super::super::client::BigtableInstanceAdmin::get_operation] calls.
+    /// The request builder for [BigtableInstanceAdmin::get_operation][crate::client::BigtableInstanceAdmin::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3467,7 +3467,7 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for [BigtableInstanceAdmin::delete_operation][super::super::client::BigtableInstanceAdmin::delete_operation] calls.
+    /// The request builder for [BigtableInstanceAdmin::delete_operation][crate::client::BigtableInstanceAdmin::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3531,7 +3531,7 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for [BigtableInstanceAdmin::cancel_operation][super::super::client::BigtableInstanceAdmin::cancel_operation] calls.
+    /// The request builder for [BigtableInstanceAdmin::cancel_operation][crate::client::BigtableInstanceAdmin::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3599,7 +3599,7 @@ pub mod bigtable_instance_admin {
 pub mod bigtable_table_admin {
     use crate::Result;
 
-    /// A builder for [BigtableTableAdmin][super::super::client::BigtableTableAdmin].
+    /// A builder for [BigtableTableAdmin][crate::client::BigtableTableAdmin].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -3627,7 +3627,7 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// Common implementation for [super::super::client::BigtableTableAdmin] request builders.
+    /// Common implementation for [crate::client::BigtableTableAdmin] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
@@ -3650,7 +3650,7 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for [BigtableTableAdmin::create_table][super::super::client::BigtableTableAdmin::create_table] calls.
+    /// The request builder for [BigtableTableAdmin::create_table][crate::client::BigtableTableAdmin::create_table] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3754,7 +3754,7 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for [BigtableTableAdmin::create_table_from_snapshot][super::super::client::BigtableTableAdmin::create_table_from_snapshot] calls.
+    /// The request builder for [BigtableTableAdmin::create_table_from_snapshot][crate::client::BigtableTableAdmin::create_table_from_snapshot] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3804,7 +3804,7 @@ pub mod bigtable_table_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_table_from_snapshot][super::super::client::BigtableTableAdmin::create_table_from_snapshot].
+        /// on [create_table_from_snapshot][crate::client::BigtableTableAdmin::create_table_from_snapshot].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_table_from_snapshot(self.0.request, self.0.options)
@@ -3880,7 +3880,7 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for [BigtableTableAdmin::list_tables][super::super::client::BigtableTableAdmin::list_tables] calls.
+    /// The request builder for [BigtableTableAdmin::list_tables][crate::client::BigtableTableAdmin::list_tables] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3989,7 +3989,7 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for [BigtableTableAdmin::get_table][super::super::client::BigtableTableAdmin::get_table] calls.
+    /// The request builder for [BigtableTableAdmin::get_table][crate::client::BigtableTableAdmin::get_table] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4058,7 +4058,7 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for [BigtableTableAdmin::update_table][super::super::client::BigtableTableAdmin::update_table] calls.
+    /// The request builder for [BigtableTableAdmin::update_table][crate::client::BigtableTableAdmin::update_table] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4103,7 +4103,7 @@ pub mod bigtable_table_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_table][super::super::client::BigtableTableAdmin::update_table].
+        /// on [update_table][crate::client::BigtableTableAdmin::update_table].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_table(self.0.request, self.0.options)
@@ -4202,7 +4202,7 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for [BigtableTableAdmin::delete_table][super::super::client::BigtableTableAdmin::delete_table] calls.
+    /// The request builder for [BigtableTableAdmin::delete_table][crate::client::BigtableTableAdmin::delete_table] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4265,7 +4265,7 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for [BigtableTableAdmin::undelete_table][super::super::client::BigtableTableAdmin::undelete_table] calls.
+    /// The request builder for [BigtableTableAdmin::undelete_table][crate::client::BigtableTableAdmin::undelete_table] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4310,7 +4310,7 @@ pub mod bigtable_table_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [undelete_table][super::super::client::BigtableTableAdmin::undelete_table].
+        /// on [undelete_table][crate::client::BigtableTableAdmin::undelete_table].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .undelete_table(self.0.request, self.0.options)
@@ -4367,7 +4367,7 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for [BigtableTableAdmin::create_authorized_view][super::super::client::BigtableTableAdmin::create_authorized_view] calls.
+    /// The request builder for [BigtableTableAdmin::create_authorized_view][crate::client::BigtableTableAdmin::create_authorized_view] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4415,7 +4415,7 @@ pub mod bigtable_table_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_authorized_view][super::super::client::BigtableTableAdmin::create_authorized_view].
+        /// on [create_authorized_view][crate::client::BigtableTableAdmin::create_authorized_view].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_authorized_view(self.0.request, self.0.options)
@@ -4505,7 +4505,7 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for [BigtableTableAdmin::list_authorized_views][super::super::client::BigtableTableAdmin::list_authorized_views] calls.
+    /// The request builder for [BigtableTableAdmin::list_authorized_views][crate::client::BigtableTableAdmin::list_authorized_views] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4622,7 +4622,7 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for [BigtableTableAdmin::get_authorized_view][super::super::client::BigtableTableAdmin::get_authorized_view] calls.
+    /// The request builder for [BigtableTableAdmin::get_authorized_view][crate::client::BigtableTableAdmin::get_authorized_view] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4697,7 +4697,7 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for [BigtableTableAdmin::update_authorized_view][super::super::client::BigtableTableAdmin::update_authorized_view] calls.
+    /// The request builder for [BigtableTableAdmin::update_authorized_view][crate::client::BigtableTableAdmin::update_authorized_view] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4745,7 +4745,7 @@ pub mod bigtable_table_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_authorized_view][super::super::client::BigtableTableAdmin::update_authorized_view].
+        /// on [update_authorized_view][crate::client::BigtableTableAdmin::update_authorized_view].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_authorized_view(self.0.request, self.0.options)
@@ -4843,7 +4843,7 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for [BigtableTableAdmin::delete_authorized_view][super::super::client::BigtableTableAdmin::delete_authorized_view] calls.
+    /// The request builder for [BigtableTableAdmin::delete_authorized_view][crate::client::BigtableTableAdmin::delete_authorized_view] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4915,7 +4915,7 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for [BigtableTableAdmin::modify_column_families][super::super::client::BigtableTableAdmin::modify_column_families] calls.
+    /// The request builder for [BigtableTableAdmin::modify_column_families][crate::client::BigtableTableAdmin::modify_column_families] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5000,7 +5000,7 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for [BigtableTableAdmin::drop_row_range][super::super::client::BigtableTableAdmin::drop_row_range] calls.
+    /// The request builder for [BigtableTableAdmin::drop_row_range][crate::client::BigtableTableAdmin::drop_row_range] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5095,7 +5095,7 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for [BigtableTableAdmin::generate_consistency_token][super::super::client::BigtableTableAdmin::generate_consistency_token] calls.
+    /// The request builder for [BigtableTableAdmin::generate_consistency_token][crate::client::BigtableTableAdmin::generate_consistency_token] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5163,7 +5163,7 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for [BigtableTableAdmin::check_consistency][super::super::client::BigtableTableAdmin::check_consistency] calls.
+    /// The request builder for [BigtableTableAdmin::check_consistency][crate::client::BigtableTableAdmin::check_consistency] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5279,7 +5279,7 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for [BigtableTableAdmin::snapshot_table][super::super::client::BigtableTableAdmin::snapshot_table] calls.
+    /// The request builder for [BigtableTableAdmin::snapshot_table][crate::client::BigtableTableAdmin::snapshot_table] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5324,7 +5324,7 @@ pub mod bigtable_table_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [snapshot_table][super::super::client::BigtableTableAdmin::snapshot_table].
+        /// on [snapshot_table][crate::client::BigtableTableAdmin::snapshot_table].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .snapshot_table(self.0.request, self.0.options)
@@ -5423,7 +5423,7 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for [BigtableTableAdmin::get_snapshot][super::super::client::BigtableTableAdmin::get_snapshot] calls.
+    /// The request builder for [BigtableTableAdmin::get_snapshot][crate::client::BigtableTableAdmin::get_snapshot] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5486,7 +5486,7 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for [BigtableTableAdmin::list_snapshots][super::super::client::BigtableTableAdmin::list_snapshots] calls.
+    /// The request builder for [BigtableTableAdmin::list_snapshots][crate::client::BigtableTableAdmin::list_snapshots] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5589,7 +5589,7 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for [BigtableTableAdmin::delete_snapshot][super::super::client::BigtableTableAdmin::delete_snapshot] calls.
+    /// The request builder for [BigtableTableAdmin::delete_snapshot][crate::client::BigtableTableAdmin::delete_snapshot] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5652,7 +5652,7 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for [BigtableTableAdmin::create_backup][super::super::client::BigtableTableAdmin::create_backup] calls.
+    /// The request builder for [BigtableTableAdmin::create_backup][crate::client::BigtableTableAdmin::create_backup] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5697,7 +5697,7 @@ pub mod bigtable_table_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_backup][super::super::client::BigtableTableAdmin::create_backup].
+        /// on [create_backup][crate::client::BigtableTableAdmin::create_backup].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_backup(self.0.request, self.0.options)
@@ -5784,7 +5784,7 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for [BigtableTableAdmin::get_backup][super::super::client::BigtableTableAdmin::get_backup] calls.
+    /// The request builder for [BigtableTableAdmin::get_backup][crate::client::BigtableTableAdmin::get_backup] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5847,7 +5847,7 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for [BigtableTableAdmin::update_backup][super::super::client::BigtableTableAdmin::update_backup] calls.
+    /// The request builder for [BigtableTableAdmin::update_backup][crate::client::BigtableTableAdmin::update_backup] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5946,7 +5946,7 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for [BigtableTableAdmin::delete_backup][super::super::client::BigtableTableAdmin::delete_backup] calls.
+    /// The request builder for [BigtableTableAdmin::delete_backup][crate::client::BigtableTableAdmin::delete_backup] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6009,7 +6009,7 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for [BigtableTableAdmin::list_backups][super::super::client::BigtableTableAdmin::list_backups] calls.
+    /// The request builder for [BigtableTableAdmin::list_backups][crate::client::BigtableTableAdmin::list_backups] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6124,7 +6124,7 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for [BigtableTableAdmin::restore_table][super::super::client::BigtableTableAdmin::restore_table] calls.
+    /// The request builder for [BigtableTableAdmin::restore_table][crate::client::BigtableTableAdmin::restore_table] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6169,7 +6169,7 @@ pub mod bigtable_table_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [restore_table][super::super::client::BigtableTableAdmin::restore_table].
+        /// on [restore_table][crate::client::BigtableTableAdmin::restore_table].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .restore_table(self.0.request, self.0.options)
@@ -6256,7 +6256,7 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for [BigtableTableAdmin::copy_backup][super::super::client::BigtableTableAdmin::copy_backup] calls.
+    /// The request builder for [BigtableTableAdmin::copy_backup][crate::client::BigtableTableAdmin::copy_backup] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6301,7 +6301,7 @@ pub mod bigtable_table_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [copy_backup][super::super::client::BigtableTableAdmin::copy_backup].
+        /// on [copy_backup][crate::client::BigtableTableAdmin::copy_backup].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .copy_backup(self.0.request, self.0.options)
@@ -6396,7 +6396,7 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for [BigtableTableAdmin::get_iam_policy][super::super::client::BigtableTableAdmin::get_iam_policy] calls.
+    /// The request builder for [BigtableTableAdmin::get_iam_policy][crate::client::BigtableTableAdmin::get_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6477,7 +6477,7 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for [BigtableTableAdmin::set_iam_policy][super::super::client::BigtableTableAdmin::set_iam_policy] calls.
+    /// The request builder for [BigtableTableAdmin::set_iam_policy][crate::client::BigtableTableAdmin::set_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6580,7 +6580,7 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for [BigtableTableAdmin::test_iam_permissions][super::super::client::BigtableTableAdmin::test_iam_permissions] calls.
+    /// The request builder for [BigtableTableAdmin::test_iam_permissions][crate::client::BigtableTableAdmin::test_iam_permissions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6659,7 +6659,7 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for [BigtableTableAdmin::list_operations][super::super::client::BigtableTableAdmin::list_operations] calls.
+    /// The request builder for [BigtableTableAdmin::list_operations][crate::client::BigtableTableAdmin::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6771,7 +6771,7 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for [BigtableTableAdmin::get_operation][super::super::client::BigtableTableAdmin::get_operation] calls.
+    /// The request builder for [BigtableTableAdmin::get_operation][crate::client::BigtableTableAdmin::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6835,7 +6835,7 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for [BigtableTableAdmin::delete_operation][super::super::client::BigtableTableAdmin::delete_operation] calls.
+    /// The request builder for [BigtableTableAdmin::delete_operation][crate::client::BigtableTableAdmin::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6899,7 +6899,7 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for [BigtableTableAdmin::cancel_operation][super::super::client::BigtableTableAdmin::cancel_operation] calls.
+    /// The request builder for [BigtableTableAdmin::cancel_operation][crate::client::BigtableTableAdmin::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run

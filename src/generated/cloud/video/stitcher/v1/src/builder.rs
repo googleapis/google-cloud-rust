@@ -17,7 +17,7 @@
 pub mod video_stitcher_service {
     use crate::Result;
 
-    /// A builder for [VideoStitcherService][super::super::client::VideoStitcherService].
+    /// A builder for [VideoStitcherService][crate::client::VideoStitcherService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// Common implementation for [super::super::client::VideoStitcherService] request builders.
+    /// Common implementation for [crate::client::VideoStitcherService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
@@ -68,7 +68,7 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for [VideoStitcherService::create_cdn_key][super::super::client::VideoStitcherService::create_cdn_key] calls.
+    /// The request builder for [VideoStitcherService::create_cdn_key][crate::client::VideoStitcherService::create_cdn_key] calls.
     ///
     /// # Example
     /// ```no_run
@@ -113,7 +113,7 @@ pub mod video_stitcher_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_cdn_key][super::super::client::VideoStitcherService::create_cdn_key].
+        /// on [create_cdn_key][crate::client::VideoStitcherService::create_cdn_key].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_cdn_key(self.0.request, self.0.options)
@@ -200,7 +200,7 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for [VideoStitcherService::list_cdn_keys][super::super::client::VideoStitcherService::list_cdn_keys] calls.
+    /// The request builder for [VideoStitcherService::list_cdn_keys][crate::client::VideoStitcherService::list_cdn_keys] calls.
     ///
     /// # Example
     /// ```no_run
@@ -315,7 +315,7 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for [VideoStitcherService::get_cdn_key][super::super::client::VideoStitcherService::get_cdn_key] calls.
+    /// The request builder for [VideoStitcherService::get_cdn_key][crate::client::VideoStitcherService::get_cdn_key] calls.
     ///
     /// # Example
     /// ```no_run
@@ -378,7 +378,7 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for [VideoStitcherService::delete_cdn_key][super::super::client::VideoStitcherService::delete_cdn_key] calls.
+    /// The request builder for [VideoStitcherService::delete_cdn_key][crate::client::VideoStitcherService::delete_cdn_key] calls.
     ///
     /// # Example
     /// ```no_run
@@ -423,7 +423,7 @@ pub mod video_stitcher_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_cdn_key][super::super::client::VideoStitcherService::delete_cdn_key].
+        /// on [delete_cdn_key][crate::client::VideoStitcherService::delete_cdn_key].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_cdn_key(self.0.request, self.0.options)
@@ -482,7 +482,7 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for [VideoStitcherService::update_cdn_key][super::super::client::VideoStitcherService::update_cdn_key] calls.
+    /// The request builder for [VideoStitcherService::update_cdn_key][crate::client::VideoStitcherService::update_cdn_key] calls.
     ///
     /// # Example
     /// ```no_run
@@ -527,7 +527,7 @@ pub mod video_stitcher_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_cdn_key][super::super::client::VideoStitcherService::update_cdn_key].
+        /// on [update_cdn_key][crate::client::VideoStitcherService::update_cdn_key].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_cdn_key(self.0.request, self.0.options)
@@ -620,7 +620,7 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for [VideoStitcherService::create_vod_session][super::super::client::VideoStitcherService::create_vod_session] calls.
+    /// The request builder for [VideoStitcherService::create_vod_session][crate::client::VideoStitcherService::create_vod_session] calls.
     ///
     /// # Example
     /// ```no_run
@@ -708,7 +708,7 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for [VideoStitcherService::get_vod_session][super::super::client::VideoStitcherService::get_vod_session] calls.
+    /// The request builder for [VideoStitcherService::get_vod_session][crate::client::VideoStitcherService::get_vod_session] calls.
     ///
     /// # Example
     /// ```no_run
@@ -771,7 +771,7 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for [VideoStitcherService::list_vod_stitch_details][super::super::client::VideoStitcherService::list_vod_stitch_details] calls.
+    /// The request builder for [VideoStitcherService::list_vod_stitch_details][crate::client::VideoStitcherService::list_vod_stitch_details] calls.
     ///
     /// # Example
     /// ```no_run
@@ -879,7 +879,7 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for [VideoStitcherService::get_vod_stitch_detail][super::super::client::VideoStitcherService::get_vod_stitch_detail] calls.
+    /// The request builder for [VideoStitcherService::get_vod_stitch_detail][crate::client::VideoStitcherService::get_vod_stitch_detail] calls.
     ///
     /// # Example
     /// ```no_run
@@ -945,7 +945,7 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for [VideoStitcherService::list_vod_ad_tag_details][super::super::client::VideoStitcherService::list_vod_ad_tag_details] calls.
+    /// The request builder for [VideoStitcherService::list_vod_ad_tag_details][crate::client::VideoStitcherService::list_vod_ad_tag_details] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1053,7 +1053,7 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for [VideoStitcherService::get_vod_ad_tag_detail][super::super::client::VideoStitcherService::get_vod_ad_tag_detail] calls.
+    /// The request builder for [VideoStitcherService::get_vod_ad_tag_detail][crate::client::VideoStitcherService::get_vod_ad_tag_detail] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1119,7 +1119,7 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for [VideoStitcherService::list_live_ad_tag_details][super::super::client::VideoStitcherService::list_live_ad_tag_details] calls.
+    /// The request builder for [VideoStitcherService::list_live_ad_tag_details][crate::client::VideoStitcherService::list_live_ad_tag_details] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1227,7 +1227,7 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for [VideoStitcherService::get_live_ad_tag_detail][super::super::client::VideoStitcherService::get_live_ad_tag_detail] calls.
+    /// The request builder for [VideoStitcherService::get_live_ad_tag_detail][crate::client::VideoStitcherService::get_live_ad_tag_detail] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1293,7 +1293,7 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for [VideoStitcherService::create_slate][super::super::client::VideoStitcherService::create_slate] calls.
+    /// The request builder for [VideoStitcherService::create_slate][crate::client::VideoStitcherService::create_slate] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1338,7 +1338,7 @@ pub mod video_stitcher_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_slate][super::super::client::VideoStitcherService::create_slate].
+        /// on [create_slate][crate::client::VideoStitcherService::create_slate].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_slate(self.0.request, self.0.options)
@@ -1431,7 +1431,7 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for [VideoStitcherService::list_slates][super::super::client::VideoStitcherService::list_slates] calls.
+    /// The request builder for [VideoStitcherService::list_slates][crate::client::VideoStitcherService::list_slates] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1546,7 +1546,7 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for [VideoStitcherService::get_slate][super::super::client::VideoStitcherService::get_slate] calls.
+    /// The request builder for [VideoStitcherService::get_slate][crate::client::VideoStitcherService::get_slate] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1609,7 +1609,7 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for [VideoStitcherService::update_slate][super::super::client::VideoStitcherService::update_slate] calls.
+    /// The request builder for [VideoStitcherService::update_slate][crate::client::VideoStitcherService::update_slate] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1654,7 +1654,7 @@ pub mod video_stitcher_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_slate][super::super::client::VideoStitcherService::update_slate].
+        /// on [update_slate][crate::client::VideoStitcherService::update_slate].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_slate(self.0.request, self.0.options)
@@ -1747,7 +1747,7 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for [VideoStitcherService::delete_slate][super::super::client::VideoStitcherService::delete_slate] calls.
+    /// The request builder for [VideoStitcherService::delete_slate][crate::client::VideoStitcherService::delete_slate] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1792,7 +1792,7 @@ pub mod video_stitcher_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_slate][super::super::client::VideoStitcherService::delete_slate].
+        /// on [delete_slate][crate::client::VideoStitcherService::delete_slate].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_slate(self.0.request, self.0.options)
@@ -1851,7 +1851,7 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for [VideoStitcherService::create_live_session][super::super::client::VideoStitcherService::create_live_session] calls.
+    /// The request builder for [VideoStitcherService::create_live_session][crate::client::VideoStitcherService::create_live_session] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1939,7 +1939,7 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for [VideoStitcherService::get_live_session][super::super::client::VideoStitcherService::get_live_session] calls.
+    /// The request builder for [VideoStitcherService::get_live_session][crate::client::VideoStitcherService::get_live_session] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2002,7 +2002,7 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for [VideoStitcherService::create_live_config][super::super::client::VideoStitcherService::create_live_config] calls.
+    /// The request builder for [VideoStitcherService::create_live_config][crate::client::VideoStitcherService::create_live_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2050,7 +2050,7 @@ pub mod video_stitcher_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_live_config][super::super::client::VideoStitcherService::create_live_config].
+        /// on [create_live_config][crate::client::VideoStitcherService::create_live_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_live_config(self.0.request, self.0.options)
@@ -2143,7 +2143,7 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for [VideoStitcherService::list_live_configs][super::super::client::VideoStitcherService::list_live_configs] calls.
+    /// The request builder for [VideoStitcherService::list_live_configs][crate::client::VideoStitcherService::list_live_configs] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2258,7 +2258,7 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for [VideoStitcherService::get_live_config][super::super::client::VideoStitcherService::get_live_config] calls.
+    /// The request builder for [VideoStitcherService::get_live_config][crate::client::VideoStitcherService::get_live_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2321,7 +2321,7 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for [VideoStitcherService::delete_live_config][super::super::client::VideoStitcherService::delete_live_config] calls.
+    /// The request builder for [VideoStitcherService::delete_live_config][crate::client::VideoStitcherService::delete_live_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2369,7 +2369,7 @@ pub mod video_stitcher_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_live_config][super::super::client::VideoStitcherService::delete_live_config].
+        /// on [delete_live_config][crate::client::VideoStitcherService::delete_live_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_live_config(self.0.request, self.0.options)
@@ -2428,7 +2428,7 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for [VideoStitcherService::update_live_config][super::super::client::VideoStitcherService::update_live_config] calls.
+    /// The request builder for [VideoStitcherService::update_live_config][crate::client::VideoStitcherService::update_live_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2476,7 +2476,7 @@ pub mod video_stitcher_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_live_config][super::super::client::VideoStitcherService::update_live_config].
+        /// on [update_live_config][crate::client::VideoStitcherService::update_live_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_live_config(self.0.request, self.0.options)
@@ -2569,7 +2569,7 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for [VideoStitcherService::create_vod_config][super::super::client::VideoStitcherService::create_vod_config] calls.
+    /// The request builder for [VideoStitcherService::create_vod_config][crate::client::VideoStitcherService::create_vod_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2614,7 +2614,7 @@ pub mod video_stitcher_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_vod_config][super::super::client::VideoStitcherService::create_vod_config].
+        /// on [create_vod_config][crate::client::VideoStitcherService::create_vod_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_vod_config(self.0.request, self.0.options)
@@ -2707,7 +2707,7 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for [VideoStitcherService::list_vod_configs][super::super::client::VideoStitcherService::list_vod_configs] calls.
+    /// The request builder for [VideoStitcherService::list_vod_configs][crate::client::VideoStitcherService::list_vod_configs] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2822,7 +2822,7 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for [VideoStitcherService::get_vod_config][super::super::client::VideoStitcherService::get_vod_config] calls.
+    /// The request builder for [VideoStitcherService::get_vod_config][crate::client::VideoStitcherService::get_vod_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2885,7 +2885,7 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for [VideoStitcherService::delete_vod_config][super::super::client::VideoStitcherService::delete_vod_config] calls.
+    /// The request builder for [VideoStitcherService::delete_vod_config][crate::client::VideoStitcherService::delete_vod_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2930,7 +2930,7 @@ pub mod video_stitcher_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_vod_config][super::super::client::VideoStitcherService::delete_vod_config].
+        /// on [delete_vod_config][crate::client::VideoStitcherService::delete_vod_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_vod_config(self.0.request, self.0.options)
@@ -2989,7 +2989,7 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for [VideoStitcherService::update_vod_config][super::super::client::VideoStitcherService::update_vod_config] calls.
+    /// The request builder for [VideoStitcherService::update_vod_config][crate::client::VideoStitcherService::update_vod_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3034,7 +3034,7 @@ pub mod video_stitcher_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_vod_config][super::super::client::VideoStitcherService::update_vod_config].
+        /// on [update_vod_config][crate::client::VideoStitcherService::update_vod_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_vod_config(self.0.request, self.0.options)
@@ -3127,7 +3127,7 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for [VideoStitcherService::list_operations][super::super::client::VideoStitcherService::list_operations] calls.
+    /// The request builder for [VideoStitcherService::list_operations][crate::client::VideoStitcherService::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3239,7 +3239,7 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for [VideoStitcherService::get_operation][super::super::client::VideoStitcherService::get_operation] calls.
+    /// The request builder for [VideoStitcherService::get_operation][crate::client::VideoStitcherService::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3303,7 +3303,7 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for [VideoStitcherService::delete_operation][super::super::client::VideoStitcherService::delete_operation] calls.
+    /// The request builder for [VideoStitcherService::delete_operation][crate::client::VideoStitcherService::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3367,7 +3367,7 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for [VideoStitcherService::cancel_operation][super::super::client::VideoStitcherService::cancel_operation] calls.
+    /// The request builder for [VideoStitcherService::cancel_operation][crate::client::VideoStitcherService::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run

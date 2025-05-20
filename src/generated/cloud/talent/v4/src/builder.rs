@@ -17,7 +17,7 @@
 pub mod company_service {
     use crate::Result;
 
-    /// A builder for [CompanyService][super::super::client::CompanyService].
+    /// A builder for [CompanyService][crate::client::CompanyService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod company_service {
         }
     }
 
-    /// Common implementation for [super::super::client::CompanyService] request builders.
+    /// Common implementation for [crate::client::CompanyService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::CompanyService>,
@@ -68,7 +68,7 @@ pub mod company_service {
         }
     }
 
-    /// The request builder for [CompanyService::create_company][super::super::client::CompanyService::create_company] calls.
+    /// The request builder for [CompanyService::create_company][crate::client::CompanyService::create_company] calls.
     ///
     /// # Example
     /// ```no_run
@@ -153,7 +153,7 @@ pub mod company_service {
         }
     }
 
-    /// The request builder for [CompanyService::get_company][super::super::client::CompanyService::get_company] calls.
+    /// The request builder for [CompanyService::get_company][crate::client::CompanyService::get_company] calls.
     ///
     /// # Example
     /// ```no_run
@@ -216,7 +216,7 @@ pub mod company_service {
         }
     }
 
-    /// The request builder for [CompanyService::update_company][super::super::client::CompanyService::update_company] calls.
+    /// The request builder for [CompanyService::update_company][crate::client::CompanyService::update_company] calls.
     ///
     /// # Example
     /// ```no_run
@@ -311,7 +311,7 @@ pub mod company_service {
         }
     }
 
-    /// The request builder for [CompanyService::delete_company][super::super::client::CompanyService::delete_company] calls.
+    /// The request builder for [CompanyService::delete_company][crate::client::CompanyService::delete_company] calls.
     ///
     /// # Example
     /// ```no_run
@@ -374,7 +374,7 @@ pub mod company_service {
         }
     }
 
-    /// The request builder for [CompanyService::list_companies][super::super::client::CompanyService::list_companies] calls.
+    /// The request builder for [CompanyService::list_companies][crate::client::CompanyService::list_companies] calls.
     ///
     /// # Example
     /// ```no_run
@@ -483,7 +483,7 @@ pub mod company_service {
         }
     }
 
-    /// The request builder for [CompanyService::get_operation][super::super::client::CompanyService::get_operation] calls.
+    /// The request builder for [CompanyService::get_operation][crate::client::CompanyService::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -551,7 +551,7 @@ pub mod company_service {
 pub mod completion {
     use crate::Result;
 
-    /// A builder for [Completion][super::super::client::Completion].
+    /// A builder for [Completion][crate::client::Completion].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -579,7 +579,7 @@ pub mod completion {
         }
     }
 
-    /// Common implementation for [super::super::client::Completion] request builders.
+    /// Common implementation for [crate::client::Completion] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::Completion>,
@@ -602,7 +602,7 @@ pub mod completion {
         }
     }
 
-    /// The request builder for [Completion::complete_query][super::super::client::Completion::complete_query] calls.
+    /// The request builder for [Completion::complete_query][crate::client::Completion::complete_query] calls.
     ///
     /// # Example
     /// ```no_run
@@ -716,7 +716,7 @@ pub mod completion {
         }
     }
 
-    /// The request builder for [Completion::get_operation][super::super::client::Completion::get_operation] calls.
+    /// The request builder for [Completion::get_operation][crate::client::Completion::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -784,7 +784,7 @@ pub mod completion {
 pub mod event_service {
     use crate::Result;
 
-    /// A builder for [EventService][super::super::client::EventService].
+    /// A builder for [EventService][crate::client::EventService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -812,7 +812,7 @@ pub mod event_service {
         }
     }
 
-    /// Common implementation for [super::super::client::EventService] request builders.
+    /// Common implementation for [crate::client::EventService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::EventService>,
@@ -835,7 +835,7 @@ pub mod event_service {
         }
     }
 
-    /// The request builder for [EventService::create_client_event][super::super::client::EventService::create_client_event] calls.
+    /// The request builder for [EventService::create_client_event][crate::client::EventService::create_client_event] calls.
     ///
     /// # Example
     /// ```no_run
@@ -923,7 +923,7 @@ pub mod event_service {
         }
     }
 
-    /// The request builder for [EventService::get_operation][super::super::client::EventService::get_operation] calls.
+    /// The request builder for [EventService::get_operation][crate::client::EventService::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -991,7 +991,7 @@ pub mod event_service {
 pub mod job_service {
     use crate::Result;
 
-    /// A builder for [JobService][super::super::client::JobService].
+    /// A builder for [JobService][crate::client::JobService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -1019,7 +1019,7 @@ pub mod job_service {
         }
     }
 
-    /// Common implementation for [super::super::client::JobService] request builders.
+    /// Common implementation for [crate::client::JobService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::JobService>,
@@ -1042,7 +1042,7 @@ pub mod job_service {
         }
     }
 
-    /// The request builder for [JobService::create_job][super::super::client::JobService::create_job] calls.
+    /// The request builder for [JobService::create_job][crate::client::JobService::create_job] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1127,7 +1127,7 @@ pub mod job_service {
         }
     }
 
-    /// The request builder for [JobService::batch_create_jobs][super::super::client::JobService::batch_create_jobs] calls.
+    /// The request builder for [JobService::batch_create_jobs][crate::client::JobService::batch_create_jobs] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1172,7 +1172,7 @@ pub mod job_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [batch_create_jobs][super::super::client::JobService::batch_create_jobs].
+        /// on [batch_create_jobs][crate::client::JobService::batch_create_jobs].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .batch_create_jobs(self.0.request, self.0.options)
@@ -1245,7 +1245,7 @@ pub mod job_service {
         }
     }
 
-    /// The request builder for [JobService::get_job][super::super::client::JobService::get_job] calls.
+    /// The request builder for [JobService::get_job][crate::client::JobService::get_job] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1308,7 +1308,7 @@ pub mod job_service {
         }
     }
 
-    /// The request builder for [JobService::update_job][super::super::client::JobService::update_job] calls.
+    /// The request builder for [JobService::update_job][crate::client::JobService::update_job] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1403,7 +1403,7 @@ pub mod job_service {
         }
     }
 
-    /// The request builder for [JobService::batch_update_jobs][super::super::client::JobService::batch_update_jobs] calls.
+    /// The request builder for [JobService::batch_update_jobs][crate::client::JobService::batch_update_jobs] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1448,7 +1448,7 @@ pub mod job_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [batch_update_jobs][super::super::client::JobService::batch_update_jobs].
+        /// on [batch_update_jobs][crate::client::JobService::batch_update_jobs].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .batch_update_jobs(self.0.request, self.0.options)
@@ -1539,7 +1539,7 @@ pub mod job_service {
         }
     }
 
-    /// The request builder for [JobService::delete_job][super::super::client::JobService::delete_job] calls.
+    /// The request builder for [JobService::delete_job][crate::client::JobService::delete_job] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1602,7 +1602,7 @@ pub mod job_service {
         }
     }
 
-    /// The request builder for [JobService::batch_delete_jobs][super::super::client::JobService::batch_delete_jobs] calls.
+    /// The request builder for [JobService::batch_delete_jobs][crate::client::JobService::batch_delete_jobs] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1647,7 +1647,7 @@ pub mod job_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [batch_delete_jobs][super::super::client::JobService::batch_delete_jobs].
+        /// on [batch_delete_jobs][crate::client::JobService::batch_delete_jobs].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .batch_delete_jobs(self.0.request, self.0.options)
@@ -1718,7 +1718,7 @@ pub mod job_service {
         }
     }
 
-    /// The request builder for [JobService::list_jobs][super::super::client::JobService::list_jobs] calls.
+    /// The request builder for [JobService::list_jobs][crate::client::JobService::list_jobs] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1835,7 +1835,7 @@ pub mod job_service {
         }
     }
 
-    /// The request builder for [JobService::search_jobs][super::super::client::JobService::search_jobs] calls.
+    /// The request builder for [JobService::search_jobs][crate::client::JobService::search_jobs] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2052,7 +2052,7 @@ pub mod job_service {
         }
     }
 
-    /// The request builder for [JobService::search_jobs_for_alert][super::super::client::JobService::search_jobs_for_alert] calls.
+    /// The request builder for [JobService::search_jobs_for_alert][crate::client::JobService::search_jobs_for_alert] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2269,7 +2269,7 @@ pub mod job_service {
         }
     }
 
-    /// The request builder for [JobService::get_operation][super::super::client::JobService::get_operation] calls.
+    /// The request builder for [JobService::get_operation][crate::client::JobService::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2337,7 +2337,7 @@ pub mod job_service {
 pub mod tenant_service {
     use crate::Result;
 
-    /// A builder for [TenantService][super::super::client::TenantService].
+    /// A builder for [TenantService][crate::client::TenantService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -2365,7 +2365,7 @@ pub mod tenant_service {
         }
     }
 
-    /// Common implementation for [super::super::client::TenantService] request builders.
+    /// Common implementation for [crate::client::TenantService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::TenantService>,
@@ -2388,7 +2388,7 @@ pub mod tenant_service {
         }
     }
 
-    /// The request builder for [TenantService::create_tenant][super::super::client::TenantService::create_tenant] calls.
+    /// The request builder for [TenantService::create_tenant][crate::client::TenantService::create_tenant] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2473,7 +2473,7 @@ pub mod tenant_service {
         }
     }
 
-    /// The request builder for [TenantService::get_tenant][super::super::client::TenantService::get_tenant] calls.
+    /// The request builder for [TenantService::get_tenant][crate::client::TenantService::get_tenant] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2536,7 +2536,7 @@ pub mod tenant_service {
         }
     }
 
-    /// The request builder for [TenantService::update_tenant][super::super::client::TenantService::update_tenant] calls.
+    /// The request builder for [TenantService::update_tenant][crate::client::TenantService::update_tenant] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2631,7 +2631,7 @@ pub mod tenant_service {
         }
     }
 
-    /// The request builder for [TenantService::delete_tenant][super::super::client::TenantService::delete_tenant] calls.
+    /// The request builder for [TenantService::delete_tenant][crate::client::TenantService::delete_tenant] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2694,7 +2694,7 @@ pub mod tenant_service {
         }
     }
 
-    /// The request builder for [TenantService::list_tenants][super::super::client::TenantService::list_tenants] calls.
+    /// The request builder for [TenantService::list_tenants][crate::client::TenantService::list_tenants] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2797,7 +2797,7 @@ pub mod tenant_service {
         }
     }
 
-    /// The request builder for [TenantService::get_operation][super::super::client::TenantService::get_operation] calls.
+    /// The request builder for [TenantService::get_operation][crate::client::TenantService::get_operation] calls.
     ///
     /// # Example
     /// ```no_run

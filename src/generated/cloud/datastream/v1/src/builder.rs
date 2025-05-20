@@ -17,7 +17,7 @@
 pub mod datastream {
     use crate::Result;
 
-    /// A builder for [Datastream][super::super::client::Datastream].
+    /// A builder for [Datastream][crate::client::Datastream].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod datastream {
         }
     }
 
-    /// Common implementation for [super::super::client::Datastream] request builders.
+    /// Common implementation for [crate::client::Datastream] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
@@ -68,7 +68,7 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for [Datastream::list_connection_profiles][super::super::client::Datastream::list_connection_profiles] calls.
+    /// The request builder for [Datastream::list_connection_profiles][crate::client::Datastream::list_connection_profiles] calls.
     ///
     /// # Example
     /// ```no_run
@@ -190,7 +190,7 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for [Datastream::get_connection_profile][super::super::client::Datastream::get_connection_profile] calls.
+    /// The request builder for [Datastream::get_connection_profile][crate::client::Datastream::get_connection_profile] calls.
     ///
     /// # Example
     /// ```no_run
@@ -256,7 +256,7 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for [Datastream::create_connection_profile][super::super::client::Datastream::create_connection_profile] calls.
+    /// The request builder for [Datastream::create_connection_profile][crate::client::Datastream::create_connection_profile] calls.
     ///
     /// # Example
     /// ```no_run
@@ -306,7 +306,7 @@ pub mod datastream {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_connection_profile][super::super::client::Datastream::create_connection_profile].
+        /// on [create_connection_profile][crate::client::Datastream::create_connection_profile].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_connection_profile(self.0.request, self.0.options)
@@ -414,7 +414,7 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for [Datastream::update_connection_profile][super::super::client::Datastream::update_connection_profile] calls.
+    /// The request builder for [Datastream::update_connection_profile][crate::client::Datastream::update_connection_profile] calls.
     ///
     /// # Example
     /// ```no_run
@@ -464,7 +464,7 @@ pub mod datastream {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_connection_profile][super::super::client::Datastream::update_connection_profile].
+        /// on [update_connection_profile][crate::client::Datastream::update_connection_profile].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_connection_profile(self.0.request, self.0.options)
@@ -574,7 +574,7 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for [Datastream::delete_connection_profile][super::super::client::Datastream::delete_connection_profile] calls.
+    /// The request builder for [Datastream::delete_connection_profile][crate::client::Datastream::delete_connection_profile] calls.
     ///
     /// # Example
     /// ```no_run
@@ -624,7 +624,7 @@ pub mod datastream {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_connection_profile][super::super::client::Datastream::delete_connection_profile].
+        /// on [delete_connection_profile][crate::client::Datastream::delete_connection_profile].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_connection_profile(self.0.request, self.0.options)
@@ -689,7 +689,7 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for [Datastream::discover_connection_profile][super::super::client::Datastream::discover_connection_profile] calls.
+    /// The request builder for [Datastream::discover_connection_profile][crate::client::Datastream::discover_connection_profile] calls.
     ///
     /// # Example
     /// ```no_run
@@ -905,7 +905,7 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for [Datastream::list_streams][super::super::client::Datastream::list_streams] calls.
+    /// The request builder for [Datastream::list_streams][crate::client::Datastream::list_streams] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1020,7 +1020,7 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for [Datastream::get_stream][super::super::client::Datastream::get_stream] calls.
+    /// The request builder for [Datastream::get_stream][crate::client::Datastream::get_stream] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1083,7 +1083,7 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for [Datastream::create_stream][super::super::client::Datastream::create_stream] calls.
+    /// The request builder for [Datastream::create_stream][crate::client::Datastream::create_stream] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1128,7 +1128,7 @@ pub mod datastream {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_stream][super::super::client::Datastream::create_stream].
+        /// on [create_stream][crate::client::Datastream::create_stream].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_stream(self.0.request, self.0.options)
@@ -1233,7 +1233,7 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for [Datastream::update_stream][super::super::client::Datastream::update_stream] calls.
+    /// The request builder for [Datastream::update_stream][crate::client::Datastream::update_stream] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1278,7 +1278,7 @@ pub mod datastream {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_stream][super::super::client::Datastream::update_stream].
+        /// on [update_stream][crate::client::Datastream::update_stream].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_stream(self.0.request, self.0.options)
@@ -1385,7 +1385,7 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for [Datastream::delete_stream][super::super::client::Datastream::delete_stream] calls.
+    /// The request builder for [Datastream::delete_stream][crate::client::Datastream::delete_stream] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1430,7 +1430,7 @@ pub mod datastream {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_stream][super::super::client::Datastream::delete_stream].
+        /// on [delete_stream][crate::client::Datastream::delete_stream].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_stream(self.0.request, self.0.options)
@@ -1495,7 +1495,7 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for [Datastream::run_stream][super::super::client::Datastream::run_stream] calls.
+    /// The request builder for [Datastream::run_stream][crate::client::Datastream::run_stream] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1540,7 +1540,7 @@ pub mod datastream {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [run_stream][super::super::client::Datastream::run_stream].
+        /// on [run_stream][crate::client::Datastream::run_stream].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .run_stream(self.0.request, self.0.options)
@@ -1621,7 +1621,7 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for [Datastream::get_stream_object][super::super::client::Datastream::get_stream_object] calls.
+    /// The request builder for [Datastream::get_stream_object][crate::client::Datastream::get_stream_object] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1684,7 +1684,7 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for [Datastream::lookup_stream_object][super::super::client::Datastream::lookup_stream_object] calls.
+    /// The request builder for [Datastream::lookup_stream_object][crate::client::Datastream::lookup_stream_object] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1772,7 +1772,7 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for [Datastream::list_stream_objects][super::super::client::Datastream::list_stream_objects] calls.
+    /// The request builder for [Datastream::list_stream_objects][crate::client::Datastream::list_stream_objects] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1878,7 +1878,7 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for [Datastream::start_backfill_job][super::super::client::Datastream::start_backfill_job] calls.
+    /// The request builder for [Datastream::start_backfill_job][crate::client::Datastream::start_backfill_job] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1944,7 +1944,7 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for [Datastream::stop_backfill_job][super::super::client::Datastream::stop_backfill_job] calls.
+    /// The request builder for [Datastream::stop_backfill_job][crate::client::Datastream::stop_backfill_job] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2007,7 +2007,7 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for [Datastream::fetch_static_ips][super::super::client::Datastream::fetch_static_ips] calls.
+    /// The request builder for [Datastream::fetch_static_ips][crate::client::Datastream::fetch_static_ips] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2082,7 +2082,7 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for [Datastream::create_private_connection][super::super::client::Datastream::create_private_connection] calls.
+    /// The request builder for [Datastream::create_private_connection][crate::client::Datastream::create_private_connection] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2132,7 +2132,7 @@ pub mod datastream {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_private_connection][super::super::client::Datastream::create_private_connection].
+        /// on [create_private_connection][crate::client::Datastream::create_private_connection].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_private_connection(self.0.request, self.0.options)
@@ -2234,7 +2234,7 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for [Datastream::get_private_connection][super::super::client::Datastream::get_private_connection] calls.
+    /// The request builder for [Datastream::get_private_connection][crate::client::Datastream::get_private_connection] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2300,7 +2300,7 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for [Datastream::list_private_connections][super::super::client::Datastream::list_private_connections] calls.
+    /// The request builder for [Datastream::list_private_connections][crate::client::Datastream::list_private_connections] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2422,7 +2422,7 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for [Datastream::delete_private_connection][super::super::client::Datastream::delete_private_connection] calls.
+    /// The request builder for [Datastream::delete_private_connection][crate::client::Datastream::delete_private_connection] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2472,7 +2472,7 @@ pub mod datastream {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_private_connection][super::super::client::Datastream::delete_private_connection].
+        /// on [delete_private_connection][crate::client::Datastream::delete_private_connection].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_private_connection(self.0.request, self.0.options)
@@ -2543,7 +2543,7 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for [Datastream::create_route][super::super::client::Datastream::create_route] calls.
+    /// The request builder for [Datastream::create_route][crate::client::Datastream::create_route] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2588,7 +2588,7 @@ pub mod datastream {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_route][super::super::client::Datastream::create_route].
+        /// on [create_route][crate::client::Datastream::create_route].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_route(self.0.request, self.0.options)
@@ -2681,7 +2681,7 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for [Datastream::get_route][super::super::client::Datastream::get_route] calls.
+    /// The request builder for [Datastream::get_route][crate::client::Datastream::get_route] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2744,7 +2744,7 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for [Datastream::list_routes][super::super::client::Datastream::list_routes] calls.
+    /// The request builder for [Datastream::list_routes][crate::client::Datastream::list_routes] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2859,7 +2859,7 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for [Datastream::delete_route][super::super::client::Datastream::delete_route] calls.
+    /// The request builder for [Datastream::delete_route][crate::client::Datastream::delete_route] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2904,7 +2904,7 @@ pub mod datastream {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_route][super::super::client::Datastream::delete_route].
+        /// on [delete_route][crate::client::Datastream::delete_route].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_route(self.0.request, self.0.options)
@@ -2969,7 +2969,7 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for [Datastream::list_locations][super::super::client::Datastream::list_locations] calls.
+    /// The request builder for [Datastream::list_locations][crate::client::Datastream::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3079,7 +3079,7 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for [Datastream::get_location][super::super::client::Datastream::get_location] calls.
+    /// The request builder for [Datastream::get_location][crate::client::Datastream::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3140,7 +3140,7 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for [Datastream::list_operations][super::super::client::Datastream::list_operations] calls.
+    /// The request builder for [Datastream::list_operations][crate::client::Datastream::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3252,7 +3252,7 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for [Datastream::get_operation][super::super::client::Datastream::get_operation] calls.
+    /// The request builder for [Datastream::get_operation][crate::client::Datastream::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3316,7 +3316,7 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for [Datastream::delete_operation][super::super::client::Datastream::delete_operation] calls.
+    /// The request builder for [Datastream::delete_operation][crate::client::Datastream::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3380,7 +3380,7 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for [Datastream::cancel_operation][super::super::client::Datastream::cancel_operation] calls.
+    /// The request builder for [Datastream::cancel_operation][crate::client::Datastream::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run

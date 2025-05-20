@@ -17,7 +17,7 @@
 pub mod aml {
     use crate::Result;
 
-    /// A builder for [Aml][super::super::client::Aml].
+    /// A builder for [Aml][crate::client::Aml].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod aml {
         }
     }
 
-    /// Common implementation for [super::super::client::Aml] request builders.
+    /// Common implementation for [crate::client::Aml] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>,
@@ -66,7 +66,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::list_instances][super::super::client::Aml::list_instances] calls.
+    /// The request builder for [Aml::list_instances][crate::client::Aml::list_instances] calls.
     ///
     /// # Example
     /// ```no_run
@@ -179,7 +179,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::get_instance][super::super::client::Aml::get_instance] calls.
+    /// The request builder for [Aml::get_instance][crate::client::Aml::get_instance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -240,7 +240,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::create_instance][super::super::client::Aml::create_instance] calls.
+    /// The request builder for [Aml::create_instance][crate::client::Aml::create_instance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -283,7 +283,7 @@ pub mod aml {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_instance][super::super::client::Aml::create_instance].
+        /// on [create_instance][crate::client::Aml::create_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_instance(self.0.request, self.0.options)
@@ -376,7 +376,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::update_instance][super::super::client::Aml::update_instance] calls.
+    /// The request builder for [Aml::update_instance][crate::client::Aml::update_instance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -419,7 +419,7 @@ pub mod aml {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_instance][super::super::client::Aml::update_instance].
+        /// on [update_instance][crate::client::Aml::update_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_instance(self.0.request, self.0.options)
@@ -514,7 +514,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::delete_instance][super::super::client::Aml::delete_instance] calls.
+    /// The request builder for [Aml::delete_instance][crate::client::Aml::delete_instance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -557,7 +557,7 @@ pub mod aml {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_instance][super::super::client::Aml::delete_instance].
+        /// on [delete_instance][crate::client::Aml::delete_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_instance(self.0.request, self.0.options)
@@ -622,7 +622,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::import_registered_parties][super::super::client::Aml::import_registered_parties] calls.
+    /// The request builder for [Aml::import_registered_parties][crate::client::Aml::import_registered_parties] calls.
     ///
     /// # Example
     /// ```no_run
@@ -670,7 +670,7 @@ pub mod aml {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [import_registered_parties][super::super::client::Aml::import_registered_parties].
+        /// on [import_registered_parties][crate::client::Aml::import_registered_parties].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .import_registered_parties(self.0.request, self.0.options)
@@ -768,7 +768,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::export_registered_parties][super::super::client::Aml::export_registered_parties] calls.
+    /// The request builder for [Aml::export_registered_parties][crate::client::Aml::export_registered_parties] calls.
     ///
     /// # Example
     /// ```no_run
@@ -816,7 +816,7 @@ pub mod aml {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [export_registered_parties][super::super::client::Aml::export_registered_parties].
+        /// on [export_registered_parties][crate::client::Aml::export_registered_parties].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .export_registered_parties(self.0.request, self.0.options)
@@ -908,7 +908,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::list_datasets][super::super::client::Aml::list_datasets] calls.
+    /// The request builder for [Aml::list_datasets][crate::client::Aml::list_datasets] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1021,7 +1021,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::get_dataset][super::super::client::Aml::get_dataset] calls.
+    /// The request builder for [Aml::get_dataset][crate::client::Aml::get_dataset] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1082,7 +1082,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::create_dataset][super::super::client::Aml::create_dataset] calls.
+    /// The request builder for [Aml::create_dataset][crate::client::Aml::create_dataset] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1125,7 +1125,7 @@ pub mod aml {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_dataset][super::super::client::Aml::create_dataset].
+        /// on [create_dataset][crate::client::Aml::create_dataset].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_dataset(self.0.request, self.0.options)
@@ -1218,7 +1218,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::update_dataset][super::super::client::Aml::update_dataset] calls.
+    /// The request builder for [Aml::update_dataset][crate::client::Aml::update_dataset] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1261,7 +1261,7 @@ pub mod aml {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_dataset][super::super::client::Aml::update_dataset].
+        /// on [update_dataset][crate::client::Aml::update_dataset].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_dataset(self.0.request, self.0.options)
@@ -1356,7 +1356,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::delete_dataset][super::super::client::Aml::delete_dataset] calls.
+    /// The request builder for [Aml::delete_dataset][crate::client::Aml::delete_dataset] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1399,7 +1399,7 @@ pub mod aml {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_dataset][super::super::client::Aml::delete_dataset].
+        /// on [delete_dataset][crate::client::Aml::delete_dataset].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_dataset(self.0.request, self.0.options)
@@ -1464,7 +1464,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::list_models][super::super::client::Aml::list_models] calls.
+    /// The request builder for [Aml::list_models][crate::client::Aml::list_models] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1577,7 +1577,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::get_model][super::super::client::Aml::get_model] calls.
+    /// The request builder for [Aml::get_model][crate::client::Aml::get_model] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1638,7 +1638,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::create_model][super::super::client::Aml::create_model] calls.
+    /// The request builder for [Aml::create_model][crate::client::Aml::create_model] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1681,7 +1681,7 @@ pub mod aml {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_model][super::super::client::Aml::create_model].
+        /// on [create_model][crate::client::Aml::create_model].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_model(self.0.request, self.0.options)
@@ -1774,7 +1774,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::update_model][super::super::client::Aml::update_model] calls.
+    /// The request builder for [Aml::update_model][crate::client::Aml::update_model] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1817,7 +1817,7 @@ pub mod aml {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_model][super::super::client::Aml::update_model].
+        /// on [update_model][crate::client::Aml::update_model].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_model(self.0.request, self.0.options)
@@ -1912,7 +1912,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::export_model_metadata][super::super::client::Aml::export_model_metadata] calls.
+    /// The request builder for [Aml::export_model_metadata][crate::client::Aml::export_model_metadata] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1958,7 +1958,7 @@ pub mod aml {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [export_model_metadata][super::super::client::Aml::export_model_metadata].
+        /// on [export_model_metadata][crate::client::Aml::export_model_metadata].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .export_model_metadata(self.0.request, self.0.options)
@@ -2043,7 +2043,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::delete_model][super::super::client::Aml::delete_model] calls.
+    /// The request builder for [Aml::delete_model][crate::client::Aml::delete_model] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2086,7 +2086,7 @@ pub mod aml {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_model][super::super::client::Aml::delete_model].
+        /// on [delete_model][crate::client::Aml::delete_model].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_model(self.0.request, self.0.options)
@@ -2151,7 +2151,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::list_engine_configs][super::super::client::Aml::list_engine_configs] calls.
+    /// The request builder for [Aml::list_engine_configs][crate::client::Aml::list_engine_configs] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2267,7 +2267,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::get_engine_config][super::super::client::Aml::get_engine_config] calls.
+    /// The request builder for [Aml::get_engine_config][crate::client::Aml::get_engine_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2328,7 +2328,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::create_engine_config][super::super::client::Aml::create_engine_config] calls.
+    /// The request builder for [Aml::create_engine_config][crate::client::Aml::create_engine_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2374,7 +2374,7 @@ pub mod aml {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_engine_config][super::super::client::Aml::create_engine_config].
+        /// on [create_engine_config][crate::client::Aml::create_engine_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_engine_config(self.0.request, self.0.options)
@@ -2469,7 +2469,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::update_engine_config][super::super::client::Aml::update_engine_config] calls.
+    /// The request builder for [Aml::update_engine_config][crate::client::Aml::update_engine_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2515,7 +2515,7 @@ pub mod aml {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_engine_config][super::super::client::Aml::update_engine_config].
+        /// on [update_engine_config][crate::client::Aml::update_engine_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_engine_config(self.0.request, self.0.options)
@@ -2612,7 +2612,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::export_engine_config_metadata][super::super::client::Aml::export_engine_config_metadata] calls.
+    /// The request builder for [Aml::export_engine_config_metadata][crate::client::Aml::export_engine_config_metadata] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2660,7 +2660,7 @@ pub mod aml {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [export_engine_config_metadata][super::super::client::Aml::export_engine_config_metadata].
+        /// on [export_engine_config_metadata][crate::client::Aml::export_engine_config_metadata].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .export_engine_config_metadata(self.0.request, self.0.options)
@@ -2747,7 +2747,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::delete_engine_config][super::super::client::Aml::delete_engine_config] calls.
+    /// The request builder for [Aml::delete_engine_config][crate::client::Aml::delete_engine_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2793,7 +2793,7 @@ pub mod aml {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_engine_config][super::super::client::Aml::delete_engine_config].
+        /// on [delete_engine_config][crate::client::Aml::delete_engine_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_engine_config(self.0.request, self.0.options)
@@ -2858,7 +2858,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::get_engine_version][super::super::client::Aml::get_engine_version] calls.
+    /// The request builder for [Aml::get_engine_version][crate::client::Aml::get_engine_version] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2922,7 +2922,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::list_engine_versions][super::super::client::Aml::list_engine_versions] calls.
+    /// The request builder for [Aml::list_engine_versions][crate::client::Aml::list_engine_versions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3040,7 +3040,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::list_prediction_results][super::super::client::Aml::list_prediction_results] calls.
+    /// The request builder for [Aml::list_prediction_results][crate::client::Aml::list_prediction_results] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3158,7 +3158,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::get_prediction_result][super::super::client::Aml::get_prediction_result] calls.
+    /// The request builder for [Aml::get_prediction_result][crate::client::Aml::get_prediction_result] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3222,7 +3222,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::create_prediction_result][super::super::client::Aml::create_prediction_result] calls.
+    /// The request builder for [Aml::create_prediction_result][crate::client::Aml::create_prediction_result] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3268,7 +3268,7 @@ pub mod aml {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_prediction_result][super::super::client::Aml::create_prediction_result].
+        /// on [create_prediction_result][crate::client::Aml::create_prediction_result].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_prediction_result(self.0.request, self.0.options)
@@ -3364,7 +3364,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::update_prediction_result][super::super::client::Aml::update_prediction_result] calls.
+    /// The request builder for [Aml::update_prediction_result][crate::client::Aml::update_prediction_result] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3410,7 +3410,7 @@ pub mod aml {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_prediction_result][super::super::client::Aml::update_prediction_result].
+        /// on [update_prediction_result][crate::client::Aml::update_prediction_result].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_prediction_result(self.0.request, self.0.options)
@@ -3508,7 +3508,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::export_prediction_result_metadata][super::super::client::Aml::export_prediction_result_metadata] calls.
+    /// The request builder for [Aml::export_prediction_result_metadata][crate::client::Aml::export_prediction_result_metadata] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3556,7 +3556,7 @@ pub mod aml {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [export_prediction_result_metadata][super::super::client::Aml::export_prediction_result_metadata].
+        /// on [export_prediction_result_metadata][crate::client::Aml::export_prediction_result_metadata].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .export_prediction_result_metadata(self.0.request, self.0.options)
@@ -3643,7 +3643,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::delete_prediction_result][super::super::client::Aml::delete_prediction_result] calls.
+    /// The request builder for [Aml::delete_prediction_result][crate::client::Aml::delete_prediction_result] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3689,7 +3689,7 @@ pub mod aml {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_prediction_result][super::super::client::Aml::delete_prediction_result].
+        /// on [delete_prediction_result][crate::client::Aml::delete_prediction_result].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_prediction_result(self.0.request, self.0.options)
@@ -3754,7 +3754,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::list_backtest_results][super::super::client::Aml::list_backtest_results] calls.
+    /// The request builder for [Aml::list_backtest_results][crate::client::Aml::list_backtest_results] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3872,7 +3872,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::get_backtest_result][super::super::client::Aml::get_backtest_result] calls.
+    /// The request builder for [Aml::get_backtest_result][crate::client::Aml::get_backtest_result] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3936,7 +3936,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::create_backtest_result][super::super::client::Aml::create_backtest_result] calls.
+    /// The request builder for [Aml::create_backtest_result][crate::client::Aml::create_backtest_result] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3982,7 +3982,7 @@ pub mod aml {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_backtest_result][super::super::client::Aml::create_backtest_result].
+        /// on [create_backtest_result][crate::client::Aml::create_backtest_result].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_backtest_result(self.0.request, self.0.options)
@@ -4078,7 +4078,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::update_backtest_result][super::super::client::Aml::update_backtest_result] calls.
+    /// The request builder for [Aml::update_backtest_result][crate::client::Aml::update_backtest_result] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4124,7 +4124,7 @@ pub mod aml {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_backtest_result][super::super::client::Aml::update_backtest_result].
+        /// on [update_backtest_result][crate::client::Aml::update_backtest_result].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_backtest_result(self.0.request, self.0.options)
@@ -4222,7 +4222,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::export_backtest_result_metadata][super::super::client::Aml::export_backtest_result_metadata] calls.
+    /// The request builder for [Aml::export_backtest_result_metadata][crate::client::Aml::export_backtest_result_metadata] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4270,7 +4270,7 @@ pub mod aml {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [export_backtest_result_metadata][super::super::client::Aml::export_backtest_result_metadata].
+        /// on [export_backtest_result_metadata][crate::client::Aml::export_backtest_result_metadata].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .export_backtest_result_metadata(self.0.request, self.0.options)
@@ -4357,7 +4357,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::delete_backtest_result][super::super::client::Aml::delete_backtest_result] calls.
+    /// The request builder for [Aml::delete_backtest_result][crate::client::Aml::delete_backtest_result] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4403,7 +4403,7 @@ pub mod aml {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_backtest_result][super::super::client::Aml::delete_backtest_result].
+        /// on [delete_backtest_result][crate::client::Aml::delete_backtest_result].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_backtest_result(self.0.request, self.0.options)
@@ -4468,7 +4468,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::list_locations][super::super::client::Aml::list_locations] calls.
+    /// The request builder for [Aml::list_locations][crate::client::Aml::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4576,7 +4576,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::get_location][super::super::client::Aml::get_location] calls.
+    /// The request builder for [Aml::get_location][crate::client::Aml::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4635,7 +4635,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::list_operations][super::super::client::Aml::list_operations] calls.
+    /// The request builder for [Aml::list_operations][crate::client::Aml::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4745,7 +4745,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::get_operation][super::super::client::Aml::get_operation] calls.
+    /// The request builder for [Aml::get_operation][crate::client::Aml::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4807,7 +4807,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::delete_operation][super::super::client::Aml::delete_operation] calls.
+    /// The request builder for [Aml::delete_operation][crate::client::Aml::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4869,7 +4869,7 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::cancel_operation][super::super::client::Aml::cancel_operation] calls.
+    /// The request builder for [Aml::cancel_operation][crate::client::Aml::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run

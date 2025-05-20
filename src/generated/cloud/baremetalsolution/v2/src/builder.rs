@@ -17,7 +17,7 @@
 pub mod bare_metal_solution {
     use crate::Result;
 
-    /// A builder for [BareMetalSolution][super::super::client::BareMetalSolution].
+    /// A builder for [BareMetalSolution][crate::client::BareMetalSolution].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// Common implementation for [super::super::client::BareMetalSolution] request builders.
+    /// Common implementation for [crate::client::BareMetalSolution] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
@@ -68,7 +68,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::list_instances][super::super::client::BareMetalSolution::list_instances] calls.
+    /// The request builder for [BareMetalSolution::list_instances][crate::client::BareMetalSolution::list_instances] calls.
     ///
     /// # Example
     /// ```no_run
@@ -177,7 +177,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::get_instance][super::super::client::BareMetalSolution::get_instance] calls.
+    /// The request builder for [BareMetalSolution::get_instance][crate::client::BareMetalSolution::get_instance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -240,7 +240,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::update_instance][super::super::client::BareMetalSolution::update_instance] calls.
+    /// The request builder for [BareMetalSolution::update_instance][crate::client::BareMetalSolution::update_instance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -285,7 +285,7 @@ pub mod bare_metal_solution {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_instance][super::super::client::BareMetalSolution::update_instance].
+        /// on [update_instance][crate::client::BareMetalSolution::update_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_instance(self.0.request, self.0.options)
@@ -374,7 +374,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::rename_instance][super::super::client::BareMetalSolution::rename_instance] calls.
+    /// The request builder for [BareMetalSolution::rename_instance][crate::client::BareMetalSolution::rename_instance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -445,7 +445,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::reset_instance][super::super::client::BareMetalSolution::reset_instance] calls.
+    /// The request builder for [BareMetalSolution::reset_instance][crate::client::BareMetalSolution::reset_instance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -490,7 +490,7 @@ pub mod bare_metal_solution {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [reset_instance][super::super::client::BareMetalSolution::reset_instance].
+        /// on [reset_instance][crate::client::BareMetalSolution::reset_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .reset_instance(self.0.request, self.0.options)
@@ -550,7 +550,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::start_instance][super::super::client::BareMetalSolution::start_instance] calls.
+    /// The request builder for [BareMetalSolution::start_instance][crate::client::BareMetalSolution::start_instance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -595,7 +595,7 @@ pub mod bare_metal_solution {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [start_instance][super::super::client::BareMetalSolution::start_instance].
+        /// on [start_instance][crate::client::BareMetalSolution::start_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .start_instance(self.0.request, self.0.options)
@@ -655,7 +655,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::stop_instance][super::super::client::BareMetalSolution::stop_instance] calls.
+    /// The request builder for [BareMetalSolution::stop_instance][crate::client::BareMetalSolution::stop_instance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -700,7 +700,7 @@ pub mod bare_metal_solution {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [stop_instance][super::super::client::BareMetalSolution::stop_instance].
+        /// on [stop_instance][crate::client::BareMetalSolution::stop_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .stop_instance(self.0.request, self.0.options)
@@ -760,7 +760,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::enable_interactive_serial_console][super::super::client::BareMetalSolution::enable_interactive_serial_console] calls.
+    /// The request builder for [BareMetalSolution::enable_interactive_serial_console][crate::client::BareMetalSolution::enable_interactive_serial_console] calls.
     ///
     /// # Example
     /// ```no_run
@@ -810,7 +810,7 @@ pub mod bare_metal_solution {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [enable_interactive_serial_console][super::super::client::BareMetalSolution::enable_interactive_serial_console].
+        /// on [enable_interactive_serial_console][crate::client::BareMetalSolution::enable_interactive_serial_console].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .enable_interactive_serial_console(self.0.request, self.0.options)
@@ -872,7 +872,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::disable_interactive_serial_console][super::super::client::BareMetalSolution::disable_interactive_serial_console] calls.
+    /// The request builder for [BareMetalSolution::disable_interactive_serial_console][crate::client::BareMetalSolution::disable_interactive_serial_console] calls.
     ///
     /// # Example
     /// ```no_run
@@ -922,7 +922,7 @@ pub mod bare_metal_solution {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [disable_interactive_serial_console][super::super::client::BareMetalSolution::disable_interactive_serial_console].
+        /// on [disable_interactive_serial_console][crate::client::BareMetalSolution::disable_interactive_serial_console].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .disable_interactive_serial_console(self.0.request, self.0.options)
@@ -984,7 +984,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::detach_lun][super::super::client::BareMetalSolution::detach_lun] calls.
+    /// The request builder for [BareMetalSolution::detach_lun][crate::client::BareMetalSolution::detach_lun] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1029,7 +1029,7 @@ pub mod bare_metal_solution {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [detach_lun][super::super::client::BareMetalSolution::detach_lun].
+        /// on [detach_lun][crate::client::BareMetalSolution::detach_lun].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .detach_lun(self.0.request, self.0.options)
@@ -1100,7 +1100,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::list_ssh_keys][super::super::client::BareMetalSolution::list_ssh_keys] calls.
+    /// The request builder for [BareMetalSolution::list_ssh_keys][crate::client::BareMetalSolution::list_ssh_keys] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1203,7 +1203,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::create_ssh_key][super::super::client::BareMetalSolution::create_ssh_key] calls.
+    /// The request builder for [BareMetalSolution::create_ssh_key][crate::client::BareMetalSolution::create_ssh_key] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1296,7 +1296,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::delete_ssh_key][super::super::client::BareMetalSolution::delete_ssh_key] calls.
+    /// The request builder for [BareMetalSolution::delete_ssh_key][crate::client::BareMetalSolution::delete_ssh_key] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1359,7 +1359,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::list_volumes][super::super::client::BareMetalSolution::list_volumes] calls.
+    /// The request builder for [BareMetalSolution::list_volumes][crate::client::BareMetalSolution::list_volumes] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1468,7 +1468,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::get_volume][super::super::client::BareMetalSolution::get_volume] calls.
+    /// The request builder for [BareMetalSolution::get_volume][crate::client::BareMetalSolution::get_volume] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1531,7 +1531,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::update_volume][super::super::client::BareMetalSolution::update_volume] calls.
+    /// The request builder for [BareMetalSolution::update_volume][crate::client::BareMetalSolution::update_volume] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1576,7 +1576,7 @@ pub mod bare_metal_solution {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_volume][super::super::client::BareMetalSolution::update_volume].
+        /// on [update_volume][crate::client::BareMetalSolution::update_volume].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_volume(self.0.request, self.0.options)
@@ -1665,7 +1665,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::rename_volume][super::super::client::BareMetalSolution::rename_volume] calls.
+    /// The request builder for [BareMetalSolution::rename_volume][crate::client::BareMetalSolution::rename_volume] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1736,7 +1736,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::evict_volume][super::super::client::BareMetalSolution::evict_volume] calls.
+    /// The request builder for [BareMetalSolution::evict_volume][crate::client::BareMetalSolution::evict_volume] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1781,7 +1781,7 @@ pub mod bare_metal_solution {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [evict_volume][super::super::client::BareMetalSolution::evict_volume].
+        /// on [evict_volume][crate::client::BareMetalSolution::evict_volume].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .evict_volume(self.0.request, self.0.options)
@@ -1840,7 +1840,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::resize_volume][super::super::client::BareMetalSolution::resize_volume] calls.
+    /// The request builder for [BareMetalSolution::resize_volume][crate::client::BareMetalSolution::resize_volume] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1885,7 +1885,7 @@ pub mod bare_metal_solution {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [resize_volume][super::super::client::BareMetalSolution::resize_volume].
+        /// on [resize_volume][crate::client::BareMetalSolution::resize_volume].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .resize_volume(self.0.request, self.0.options)
@@ -1948,7 +1948,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::list_networks][super::super::client::BareMetalSolution::list_networks] calls.
+    /// The request builder for [BareMetalSolution::list_networks][crate::client::BareMetalSolution::list_networks] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2057,7 +2057,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::list_network_usage][super::super::client::BareMetalSolution::list_network_usage] calls.
+    /// The request builder for [BareMetalSolution::list_network_usage][crate::client::BareMetalSolution::list_network_usage] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2123,7 +2123,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::get_network][super::super::client::BareMetalSolution::get_network] calls.
+    /// The request builder for [BareMetalSolution::get_network][crate::client::BareMetalSolution::get_network] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2186,7 +2186,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::update_network][super::super::client::BareMetalSolution::update_network] calls.
+    /// The request builder for [BareMetalSolution::update_network][crate::client::BareMetalSolution::update_network] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2231,7 +2231,7 @@ pub mod bare_metal_solution {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_network][super::super::client::BareMetalSolution::update_network].
+        /// on [update_network][crate::client::BareMetalSolution::update_network].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_network(self.0.request, self.0.options)
@@ -2320,7 +2320,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::create_volume_snapshot][super::super::client::BareMetalSolution::create_volume_snapshot] calls.
+    /// The request builder for [BareMetalSolution::create_volume_snapshot][crate::client::BareMetalSolution::create_volume_snapshot] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2408,7 +2408,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::restore_volume_snapshot][super::super::client::BareMetalSolution::restore_volume_snapshot] calls.
+    /// The request builder for [BareMetalSolution::restore_volume_snapshot][crate::client::BareMetalSolution::restore_volume_snapshot] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2456,7 +2456,7 @@ pub mod bare_metal_solution {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [restore_volume_snapshot][super::super::client::BareMetalSolution::restore_volume_snapshot].
+        /// on [restore_volume_snapshot][crate::client::BareMetalSolution::restore_volume_snapshot].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .restore_volume_snapshot(self.0.request, self.0.options)
@@ -2516,7 +2516,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::delete_volume_snapshot][super::super::client::BareMetalSolution::delete_volume_snapshot] calls.
+    /// The request builder for [BareMetalSolution::delete_volume_snapshot][crate::client::BareMetalSolution::delete_volume_snapshot] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2582,7 +2582,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::get_volume_snapshot][super::super::client::BareMetalSolution::get_volume_snapshot] calls.
+    /// The request builder for [BareMetalSolution::get_volume_snapshot][crate::client::BareMetalSolution::get_volume_snapshot] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2648,7 +2648,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::list_volume_snapshots][super::super::client::BareMetalSolution::list_volume_snapshots] calls.
+    /// The request builder for [BareMetalSolution::list_volume_snapshots][crate::client::BareMetalSolution::list_volume_snapshots] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2756,7 +2756,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::get_lun][super::super::client::BareMetalSolution::get_lun] calls.
+    /// The request builder for [BareMetalSolution::get_lun][crate::client::BareMetalSolution::get_lun] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2819,7 +2819,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::list_luns][super::super::client::BareMetalSolution::list_luns] calls.
+    /// The request builder for [BareMetalSolution::list_luns][crate::client::BareMetalSolution::list_luns] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2922,7 +2922,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::evict_lun][super::super::client::BareMetalSolution::evict_lun] calls.
+    /// The request builder for [BareMetalSolution::evict_lun][crate::client::BareMetalSolution::evict_lun] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2967,7 +2967,7 @@ pub mod bare_metal_solution {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [evict_lun][super::super::client::BareMetalSolution::evict_lun].
+        /// on [evict_lun][crate::client::BareMetalSolution::evict_lun].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .evict_lun(self.0.request, self.0.options)
@@ -3026,7 +3026,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::get_nfs_share][super::super::client::BareMetalSolution::get_nfs_share] calls.
+    /// The request builder for [BareMetalSolution::get_nfs_share][crate::client::BareMetalSolution::get_nfs_share] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3089,7 +3089,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::list_nfs_shares][super::super::client::BareMetalSolution::list_nfs_shares] calls.
+    /// The request builder for [BareMetalSolution::list_nfs_shares][crate::client::BareMetalSolution::list_nfs_shares] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3198,7 +3198,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::update_nfs_share][super::super::client::BareMetalSolution::update_nfs_share] calls.
+    /// The request builder for [BareMetalSolution::update_nfs_share][crate::client::BareMetalSolution::update_nfs_share] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3243,7 +3243,7 @@ pub mod bare_metal_solution {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_nfs_share][super::super::client::BareMetalSolution::update_nfs_share].
+        /// on [update_nfs_share][crate::client::BareMetalSolution::update_nfs_share].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_nfs_share(self.0.request, self.0.options)
@@ -3332,7 +3332,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::create_nfs_share][super::super::client::BareMetalSolution::create_nfs_share] calls.
+    /// The request builder for [BareMetalSolution::create_nfs_share][crate::client::BareMetalSolution::create_nfs_share] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3377,7 +3377,7 @@ pub mod bare_metal_solution {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_nfs_share][super::super::client::BareMetalSolution::create_nfs_share].
+        /// on [create_nfs_share][crate::client::BareMetalSolution::create_nfs_share].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_nfs_share(self.0.request, self.0.options)
@@ -3456,7 +3456,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::rename_nfs_share][super::super::client::BareMetalSolution::rename_nfs_share] calls.
+    /// The request builder for [BareMetalSolution::rename_nfs_share][crate::client::BareMetalSolution::rename_nfs_share] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3527,7 +3527,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::delete_nfs_share][super::super::client::BareMetalSolution::delete_nfs_share] calls.
+    /// The request builder for [BareMetalSolution::delete_nfs_share][crate::client::BareMetalSolution::delete_nfs_share] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3572,7 +3572,7 @@ pub mod bare_metal_solution {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_nfs_share][super::super::client::BareMetalSolution::delete_nfs_share].
+        /// on [delete_nfs_share][crate::client::BareMetalSolution::delete_nfs_share].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_nfs_share(self.0.request, self.0.options)
@@ -3631,7 +3631,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::list_provisioning_quotas][super::super::client::BareMetalSolution::list_provisioning_quotas] calls.
+    /// The request builder for [BareMetalSolution::list_provisioning_quotas][crate::client::BareMetalSolution::list_provisioning_quotas] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3741,7 +3741,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::submit_provisioning_config][super::super::client::BareMetalSolution::submit_provisioning_config] calls.
+    /// The request builder for [BareMetalSolution::submit_provisioning_config][crate::client::BareMetalSolution::submit_provisioning_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3837,7 +3837,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::get_provisioning_config][super::super::client::BareMetalSolution::get_provisioning_config] calls.
+    /// The request builder for [BareMetalSolution::get_provisioning_config][crate::client::BareMetalSolution::get_provisioning_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3903,7 +3903,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::create_provisioning_config][super::super::client::BareMetalSolution::create_provisioning_config] calls.
+    /// The request builder for [BareMetalSolution::create_provisioning_config][crate::client::BareMetalSolution::create_provisioning_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3999,7 +3999,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::update_provisioning_config][super::super::client::BareMetalSolution::update_provisioning_config] calls.
+    /// The request builder for [BareMetalSolution::update_provisioning_config][crate::client::BareMetalSolution::update_provisioning_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4109,7 +4109,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::rename_network][super::super::client::BareMetalSolution::rename_network] calls.
+    /// The request builder for [BareMetalSolution::rename_network][crate::client::BareMetalSolution::rename_network] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4180,7 +4180,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::list_os_images][super::super::client::BareMetalSolution::list_os_images] calls.
+    /// The request builder for [BareMetalSolution::list_os_images][crate::client::BareMetalSolution::list_os_images] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4283,7 +4283,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::list_locations][super::super::client::BareMetalSolution::list_locations] calls.
+    /// The request builder for [BareMetalSolution::list_locations][crate::client::BareMetalSolution::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4393,7 +4393,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::get_location][super::super::client::BareMetalSolution::get_location] calls.
+    /// The request builder for [BareMetalSolution::get_location][crate::client::BareMetalSolution::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4454,7 +4454,7 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::get_operation][super::super::client::BareMetalSolution::get_operation] calls.
+    /// The request builder for [BareMetalSolution::get_operation][crate::client::BareMetalSolution::get_operation] calls.
     ///
     /// # Example
     /// ```no_run

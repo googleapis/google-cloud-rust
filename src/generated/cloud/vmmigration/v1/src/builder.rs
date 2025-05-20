@@ -17,7 +17,7 @@
 pub mod vm_migration {
     use crate::Result;
 
-    /// A builder for [VmMigration][super::super::client::VmMigration].
+    /// A builder for [VmMigration][crate::client::VmMigration].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod vm_migration {
         }
     }
 
-    /// Common implementation for [super::super::client::VmMigration] request builders.
+    /// Common implementation for [crate::client::VmMigration] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
@@ -68,7 +68,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::list_sources][super::super::client::VmMigration::list_sources] calls.
+    /// The request builder for [VmMigration::list_sources][crate::client::VmMigration::list_sources] calls.
     ///
     /// # Example
     /// ```no_run
@@ -185,7 +185,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::get_source][super::super::client::VmMigration::get_source] calls.
+    /// The request builder for [VmMigration::get_source][crate::client::VmMigration::get_source] calls.
     ///
     /// # Example
     /// ```no_run
@@ -248,7 +248,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::create_source][super::super::client::VmMigration::create_source] calls.
+    /// The request builder for [VmMigration::create_source][crate::client::VmMigration::create_source] calls.
     ///
     /// # Example
     /// ```no_run
@@ -293,7 +293,7 @@ pub mod vm_migration {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_source][super::super::client::VmMigration::create_source].
+        /// on [create_source][crate::client::VmMigration::create_source].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_source(self.0.request, self.0.options)
@@ -386,7 +386,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::update_source][super::super::client::VmMigration::update_source] calls.
+    /// The request builder for [VmMigration::update_source][crate::client::VmMigration::update_source] calls.
     ///
     /// # Example
     /// ```no_run
@@ -431,7 +431,7 @@ pub mod vm_migration {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_source][super::super::client::VmMigration::update_source].
+        /// on [update_source][crate::client::VmMigration::update_source].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_source(self.0.request, self.0.options)
@@ -526,7 +526,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::delete_source][super::super::client::VmMigration::delete_source] calls.
+    /// The request builder for [VmMigration::delete_source][crate::client::VmMigration::delete_source] calls.
     ///
     /// # Example
     /// ```no_run
@@ -571,7 +571,7 @@ pub mod vm_migration {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_source][super::super::client::VmMigration::delete_source].
+        /// on [delete_source][crate::client::VmMigration::delete_source].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_source(self.0.request, self.0.options)
@@ -636,7 +636,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::fetch_inventory][super::super::client::VmMigration::fetch_inventory] calls.
+    /// The request builder for [VmMigration::fetch_inventory][crate::client::VmMigration::fetch_inventory] calls.
     ///
     /// # Example
     /// ```no_run
@@ -705,7 +705,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::list_utilization_reports][super::super::client::VmMigration::list_utilization_reports] calls.
+    /// The request builder for [VmMigration::list_utilization_reports][crate::client::VmMigration::list_utilization_reports] calls.
     ///
     /// # Example
     /// ```no_run
@@ -835,7 +835,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::get_utilization_report][super::super::client::VmMigration::get_utilization_report] calls.
+    /// The request builder for [VmMigration::get_utilization_report][crate::client::VmMigration::get_utilization_report] calls.
     ///
     /// # Example
     /// ```no_run
@@ -907,7 +907,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::create_utilization_report][super::super::client::VmMigration::create_utilization_report] calls.
+    /// The request builder for [VmMigration::create_utilization_report][crate::client::VmMigration::create_utilization_report] calls.
     ///
     /// # Example
     /// ```no_run
@@ -957,7 +957,7 @@ pub mod vm_migration {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_utilization_report][super::super::client::VmMigration::create_utilization_report].
+        /// on [create_utilization_report][crate::client::VmMigration::create_utilization_report].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_utilization_report(self.0.request, self.0.options)
@@ -1053,7 +1053,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::delete_utilization_report][super::super::client::VmMigration::delete_utilization_report] calls.
+    /// The request builder for [VmMigration::delete_utilization_report][crate::client::VmMigration::delete_utilization_report] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1103,7 +1103,7 @@ pub mod vm_migration {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_utilization_report][super::super::client::VmMigration::delete_utilization_report].
+        /// on [delete_utilization_report][crate::client::VmMigration::delete_utilization_report].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_utilization_report(self.0.request, self.0.options)
@@ -1168,7 +1168,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::list_datacenter_connectors][super::super::client::VmMigration::list_datacenter_connectors] calls.
+    /// The request builder for [VmMigration::list_datacenter_connectors][crate::client::VmMigration::list_datacenter_connectors] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1294,7 +1294,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::get_datacenter_connector][super::super::client::VmMigration::get_datacenter_connector] calls.
+    /// The request builder for [VmMigration::get_datacenter_connector][crate::client::VmMigration::get_datacenter_connector] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1360,7 +1360,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::create_datacenter_connector][super::super::client::VmMigration::create_datacenter_connector] calls.
+    /// The request builder for [VmMigration::create_datacenter_connector][crate::client::VmMigration::create_datacenter_connector] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1410,7 +1410,7 @@ pub mod vm_migration {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_datacenter_connector][super::super::client::VmMigration::create_datacenter_connector].
+        /// on [create_datacenter_connector][crate::client::VmMigration::create_datacenter_connector].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_datacenter_connector(self.0.request, self.0.options)
@@ -1506,7 +1506,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::delete_datacenter_connector][super::super::client::VmMigration::delete_datacenter_connector] calls.
+    /// The request builder for [VmMigration::delete_datacenter_connector][crate::client::VmMigration::delete_datacenter_connector] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1556,7 +1556,7 @@ pub mod vm_migration {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_datacenter_connector][super::super::client::VmMigration::delete_datacenter_connector].
+        /// on [delete_datacenter_connector][crate::client::VmMigration::delete_datacenter_connector].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_datacenter_connector(self.0.request, self.0.options)
@@ -1621,7 +1621,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::upgrade_appliance][super::super::client::VmMigration::upgrade_appliance] calls.
+    /// The request builder for [VmMigration::upgrade_appliance][crate::client::VmMigration::upgrade_appliance] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1669,7 +1669,7 @@ pub mod vm_migration {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [upgrade_appliance][super::super::client::VmMigration::upgrade_appliance].
+        /// on [upgrade_appliance][crate::client::VmMigration::upgrade_appliance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .upgrade_appliance(self.0.request, self.0.options)
@@ -1735,7 +1735,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::create_migrating_vm][super::super::client::VmMigration::create_migrating_vm] calls.
+    /// The request builder for [VmMigration::create_migrating_vm][crate::client::VmMigration::create_migrating_vm] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1783,7 +1783,7 @@ pub mod vm_migration {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_migrating_vm][super::super::client::VmMigration::create_migrating_vm].
+        /// on [create_migrating_vm][crate::client::VmMigration::create_migrating_vm].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_migrating_vm(self.0.request, self.0.options)
@@ -1878,7 +1878,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::list_migrating_vms][super::super::client::VmMigration::list_migrating_vms] calls.
+    /// The request builder for [VmMigration::list_migrating_vms][crate::client::VmMigration::list_migrating_vms] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2004,7 +2004,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::get_migrating_vm][super::super::client::VmMigration::get_migrating_vm] calls.
+    /// The request builder for [VmMigration::get_migrating_vm][crate::client::VmMigration::get_migrating_vm] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2073,7 +2073,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::update_migrating_vm][super::super::client::VmMigration::update_migrating_vm] calls.
+    /// The request builder for [VmMigration::update_migrating_vm][crate::client::VmMigration::update_migrating_vm] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2121,7 +2121,7 @@ pub mod vm_migration {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_migrating_vm][super::super::client::VmMigration::update_migrating_vm].
+        /// on [update_migrating_vm][crate::client::VmMigration::update_migrating_vm].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_migrating_vm(self.0.request, self.0.options)
@@ -2218,7 +2218,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::delete_migrating_vm][super::super::client::VmMigration::delete_migrating_vm] calls.
+    /// The request builder for [VmMigration::delete_migrating_vm][crate::client::VmMigration::delete_migrating_vm] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2266,7 +2266,7 @@ pub mod vm_migration {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_migrating_vm][super::super::client::VmMigration::delete_migrating_vm].
+        /// on [delete_migrating_vm][crate::client::VmMigration::delete_migrating_vm].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_migrating_vm(self.0.request, self.0.options)
@@ -2325,7 +2325,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::start_migration][super::super::client::VmMigration::start_migration] calls.
+    /// The request builder for [VmMigration::start_migration][crate::client::VmMigration::start_migration] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2370,7 +2370,7 @@ pub mod vm_migration {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [start_migration][super::super::client::VmMigration::start_migration].
+        /// on [start_migration][crate::client::VmMigration::start_migration].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .start_migration(self.0.request, self.0.options)
@@ -2430,7 +2430,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::resume_migration][super::super::client::VmMigration::resume_migration] calls.
+    /// The request builder for [VmMigration::resume_migration][crate::client::VmMigration::resume_migration] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2475,7 +2475,7 @@ pub mod vm_migration {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [resume_migration][super::super::client::VmMigration::resume_migration].
+        /// on [resume_migration][crate::client::VmMigration::resume_migration].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .resume_migration(self.0.request, self.0.options)
@@ -2535,7 +2535,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::pause_migration][super::super::client::VmMigration::pause_migration] calls.
+    /// The request builder for [VmMigration::pause_migration][crate::client::VmMigration::pause_migration] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2580,7 +2580,7 @@ pub mod vm_migration {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [pause_migration][super::super::client::VmMigration::pause_migration].
+        /// on [pause_migration][crate::client::VmMigration::pause_migration].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .pause_migration(self.0.request, self.0.options)
@@ -2640,7 +2640,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::finalize_migration][super::super::client::VmMigration::finalize_migration] calls.
+    /// The request builder for [VmMigration::finalize_migration][crate::client::VmMigration::finalize_migration] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2688,7 +2688,7 @@ pub mod vm_migration {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [finalize_migration][super::super::client::VmMigration::finalize_migration].
+        /// on [finalize_migration][crate::client::VmMigration::finalize_migration].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .finalize_migration(self.0.request, self.0.options)
@@ -2748,7 +2748,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::create_clone_job][super::super::client::VmMigration::create_clone_job] calls.
+    /// The request builder for [VmMigration::create_clone_job][crate::client::VmMigration::create_clone_job] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2793,7 +2793,7 @@ pub mod vm_migration {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_clone_job][super::super::client::VmMigration::create_clone_job].
+        /// on [create_clone_job][crate::client::VmMigration::create_clone_job].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_clone_job(self.0.request, self.0.options)
@@ -2886,7 +2886,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::cancel_clone_job][super::super::client::VmMigration::cancel_clone_job] calls.
+    /// The request builder for [VmMigration::cancel_clone_job][crate::client::VmMigration::cancel_clone_job] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2931,7 +2931,7 @@ pub mod vm_migration {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [cancel_clone_job][super::super::client::VmMigration::cancel_clone_job].
+        /// on [cancel_clone_job][crate::client::VmMigration::cancel_clone_job].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .cancel_clone_job(self.0.request, self.0.options)
@@ -2991,7 +2991,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::list_clone_jobs][super::super::client::VmMigration::list_clone_jobs] calls.
+    /// The request builder for [VmMigration::list_clone_jobs][crate::client::VmMigration::list_clone_jobs] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3108,7 +3108,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::get_clone_job][super::super::client::VmMigration::get_clone_job] calls.
+    /// The request builder for [VmMigration::get_clone_job][crate::client::VmMigration::get_clone_job] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3171,7 +3171,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::create_cutover_job][super::super::client::VmMigration::create_cutover_job] calls.
+    /// The request builder for [VmMigration::create_cutover_job][crate::client::VmMigration::create_cutover_job] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3219,7 +3219,7 @@ pub mod vm_migration {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_cutover_job][super::super::client::VmMigration::create_cutover_job].
+        /// on [create_cutover_job][crate::client::VmMigration::create_cutover_job].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_cutover_job(self.0.request, self.0.options)
@@ -3312,7 +3312,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::cancel_cutover_job][super::super::client::VmMigration::cancel_cutover_job] calls.
+    /// The request builder for [VmMigration::cancel_cutover_job][crate::client::VmMigration::cancel_cutover_job] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3360,7 +3360,7 @@ pub mod vm_migration {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [cancel_cutover_job][super::super::client::VmMigration::cancel_cutover_job].
+        /// on [cancel_cutover_job][crate::client::VmMigration::cancel_cutover_job].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .cancel_cutover_job(self.0.request, self.0.options)
@@ -3420,7 +3420,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::list_cutover_jobs][super::super::client::VmMigration::list_cutover_jobs] calls.
+    /// The request builder for [VmMigration::list_cutover_jobs][crate::client::VmMigration::list_cutover_jobs] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3537,7 +3537,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::get_cutover_job][super::super::client::VmMigration::get_cutover_job] calls.
+    /// The request builder for [VmMigration::get_cutover_job][crate::client::VmMigration::get_cutover_job] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3600,7 +3600,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::list_groups][super::super::client::VmMigration::list_groups] calls.
+    /// The request builder for [VmMigration::list_groups][crate::client::VmMigration::list_groups] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3717,7 +3717,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::get_group][super::super::client::VmMigration::get_group] calls.
+    /// The request builder for [VmMigration::get_group][crate::client::VmMigration::get_group] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3780,7 +3780,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::create_group][super::super::client::VmMigration::create_group] calls.
+    /// The request builder for [VmMigration::create_group][crate::client::VmMigration::create_group] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3825,7 +3825,7 @@ pub mod vm_migration {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_group][super::super::client::VmMigration::create_group].
+        /// on [create_group][crate::client::VmMigration::create_group].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_group(self.0.request, self.0.options)
@@ -3918,7 +3918,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::update_group][super::super::client::VmMigration::update_group] calls.
+    /// The request builder for [VmMigration::update_group][crate::client::VmMigration::update_group] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3963,7 +3963,7 @@ pub mod vm_migration {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_group][super::super::client::VmMigration::update_group].
+        /// on [update_group][crate::client::VmMigration::update_group].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_group(self.0.request, self.0.options)
@@ -4058,7 +4058,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::delete_group][super::super::client::VmMigration::delete_group] calls.
+    /// The request builder for [VmMigration::delete_group][crate::client::VmMigration::delete_group] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4103,7 +4103,7 @@ pub mod vm_migration {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_group][super::super::client::VmMigration::delete_group].
+        /// on [delete_group][crate::client::VmMigration::delete_group].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_group(self.0.request, self.0.options)
@@ -4168,7 +4168,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::add_group_migration][super::super::client::VmMigration::add_group_migration] calls.
+    /// The request builder for [VmMigration::add_group_migration][crate::client::VmMigration::add_group_migration] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4216,7 +4216,7 @@ pub mod vm_migration {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [add_group_migration][super::super::client::VmMigration::add_group_migration].
+        /// on [add_group_migration][crate::client::VmMigration::add_group_migration].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .add_group_migration(self.0.request, self.0.options)
@@ -4282,7 +4282,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::remove_group_migration][super::super::client::VmMigration::remove_group_migration] calls.
+    /// The request builder for [VmMigration::remove_group_migration][crate::client::VmMigration::remove_group_migration] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4330,7 +4330,7 @@ pub mod vm_migration {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [remove_group_migration][super::super::client::VmMigration::remove_group_migration].
+        /// on [remove_group_migration][crate::client::VmMigration::remove_group_migration].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .remove_group_migration(self.0.request, self.0.options)
@@ -4396,7 +4396,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::list_target_projects][super::super::client::VmMigration::list_target_projects] calls.
+    /// The request builder for [VmMigration::list_target_projects][crate::client::VmMigration::list_target_projects] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4518,7 +4518,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::get_target_project][super::super::client::VmMigration::get_target_project] calls.
+    /// The request builder for [VmMigration::get_target_project][crate::client::VmMigration::get_target_project] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4584,7 +4584,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::create_target_project][super::super::client::VmMigration::create_target_project] calls.
+    /// The request builder for [VmMigration::create_target_project][crate::client::VmMigration::create_target_project] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4632,7 +4632,7 @@ pub mod vm_migration {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_target_project][super::super::client::VmMigration::create_target_project].
+        /// on [create_target_project][crate::client::VmMigration::create_target_project].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_target_project(self.0.request, self.0.options)
@@ -4728,7 +4728,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::update_target_project][super::super::client::VmMigration::update_target_project] calls.
+    /// The request builder for [VmMigration::update_target_project][crate::client::VmMigration::update_target_project] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4776,7 +4776,7 @@ pub mod vm_migration {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_target_project][super::super::client::VmMigration::update_target_project].
+        /// on [update_target_project][crate::client::VmMigration::update_target_project].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_target_project(self.0.request, self.0.options)
@@ -4874,7 +4874,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::delete_target_project][super::super::client::VmMigration::delete_target_project] calls.
+    /// The request builder for [VmMigration::delete_target_project][crate::client::VmMigration::delete_target_project] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4922,7 +4922,7 @@ pub mod vm_migration {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_target_project][super::super::client::VmMigration::delete_target_project].
+        /// on [delete_target_project][crate::client::VmMigration::delete_target_project].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_target_project(self.0.request, self.0.options)
@@ -4987,7 +4987,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::list_replication_cycles][super::super::client::VmMigration::list_replication_cycles] calls.
+    /// The request builder for [VmMigration::list_replication_cycles][crate::client::VmMigration::list_replication_cycles] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5109,7 +5109,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::get_replication_cycle][super::super::client::VmMigration::get_replication_cycle] calls.
+    /// The request builder for [VmMigration::get_replication_cycle][crate::client::VmMigration::get_replication_cycle] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5175,7 +5175,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::list_locations][super::super::client::VmMigration::list_locations] calls.
+    /// The request builder for [VmMigration::list_locations][crate::client::VmMigration::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5285,7 +5285,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::get_location][super::super::client::VmMigration::get_location] calls.
+    /// The request builder for [VmMigration::get_location][crate::client::VmMigration::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5346,7 +5346,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::list_operations][super::super::client::VmMigration::list_operations] calls.
+    /// The request builder for [VmMigration::list_operations][crate::client::VmMigration::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5458,7 +5458,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::get_operation][super::super::client::VmMigration::get_operation] calls.
+    /// The request builder for [VmMigration::get_operation][crate::client::VmMigration::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5522,7 +5522,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::delete_operation][super::super::client::VmMigration::delete_operation] calls.
+    /// The request builder for [VmMigration::delete_operation][crate::client::VmMigration::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5586,7 +5586,7 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::cancel_operation][super::super::client::VmMigration::cancel_operation] calls.
+    /// The request builder for [VmMigration::cancel_operation][crate::client::VmMigration::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run

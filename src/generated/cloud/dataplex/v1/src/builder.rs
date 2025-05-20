@@ -17,7 +17,7 @@
 pub mod catalog_service {
     use crate::Result;
 
-    /// A builder for [CatalogService][super::super::client::CatalogService].
+    /// A builder for [CatalogService][crate::client::CatalogService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -45,7 +45,7 @@ pub mod catalog_service {
         }
     }
 
-    /// Common implementation for [super::super::client::CatalogService] request builders.
+    /// Common implementation for [crate::client::CatalogService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::CatalogService>,
@@ -68,7 +68,7 @@ pub mod catalog_service {
         }
     }
 
-    /// The request builder for [CatalogService::create_entry_type][super::super::client::CatalogService::create_entry_type] calls.
+    /// The request builder for [CatalogService::create_entry_type][crate::client::CatalogService::create_entry_type] calls.
     ///
     /// # Example
     /// ```no_run
@@ -113,7 +113,7 @@ pub mod catalog_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_entry_type][super::super::client::CatalogService::create_entry_type].
+        /// on [create_entry_type][crate::client::CatalogService::create_entry_type].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_entry_type(self.0.request, self.0.options)
@@ -206,7 +206,7 @@ pub mod catalog_service {
         }
     }
 
-    /// The request builder for [CatalogService::update_entry_type][super::super::client::CatalogService::update_entry_type] calls.
+    /// The request builder for [CatalogService::update_entry_type][crate::client::CatalogService::update_entry_type] calls.
     ///
     /// # Example
     /// ```no_run
@@ -251,7 +251,7 @@ pub mod catalog_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_entry_type][super::super::client::CatalogService::update_entry_type].
+        /// on [update_entry_type][crate::client::CatalogService::update_entry_type].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_entry_type(self.0.request, self.0.options)
@@ -350,7 +350,7 @@ pub mod catalog_service {
         }
     }
 
-    /// The request builder for [CatalogService::delete_entry_type][super::super::client::CatalogService::delete_entry_type] calls.
+    /// The request builder for [CatalogService::delete_entry_type][crate::client::CatalogService::delete_entry_type] calls.
     ///
     /// # Example
     /// ```no_run
@@ -395,7 +395,7 @@ pub mod catalog_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_entry_type][super::super::client::CatalogService::delete_entry_type].
+        /// on [delete_entry_type][crate::client::CatalogService::delete_entry_type].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_entry_type(self.0.request, self.0.options)
@@ -460,7 +460,7 @@ pub mod catalog_service {
         }
     }
 
-    /// The request builder for [CatalogService::list_entry_types][super::super::client::CatalogService::list_entry_types] calls.
+    /// The request builder for [CatalogService::list_entry_types][crate::client::CatalogService::list_entry_types] calls.
     ///
     /// # Example
     /// ```no_run
@@ -575,7 +575,7 @@ pub mod catalog_service {
         }
     }
 
-    /// The request builder for [CatalogService::get_entry_type][super::super::client::CatalogService::get_entry_type] calls.
+    /// The request builder for [CatalogService::get_entry_type][crate::client::CatalogService::get_entry_type] calls.
     ///
     /// # Example
     /// ```no_run
@@ -638,7 +638,7 @@ pub mod catalog_service {
         }
     }
 
-    /// The request builder for [CatalogService::create_aspect_type][super::super::client::CatalogService::create_aspect_type] calls.
+    /// The request builder for [CatalogService::create_aspect_type][crate::client::CatalogService::create_aspect_type] calls.
     ///
     /// # Example
     /// ```no_run
@@ -686,7 +686,7 @@ pub mod catalog_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_aspect_type][super::super::client::CatalogService::create_aspect_type].
+        /// on [create_aspect_type][crate::client::CatalogService::create_aspect_type].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_aspect_type(self.0.request, self.0.options)
@@ -779,7 +779,7 @@ pub mod catalog_service {
         }
     }
 
-    /// The request builder for [CatalogService::update_aspect_type][super::super::client::CatalogService::update_aspect_type] calls.
+    /// The request builder for [CatalogService::update_aspect_type][crate::client::CatalogService::update_aspect_type] calls.
     ///
     /// # Example
     /// ```no_run
@@ -827,7 +827,7 @@ pub mod catalog_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_aspect_type][super::super::client::CatalogService::update_aspect_type].
+        /// on [update_aspect_type][crate::client::CatalogService::update_aspect_type].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_aspect_type(self.0.request, self.0.options)
@@ -926,7 +926,7 @@ pub mod catalog_service {
         }
     }
 
-    /// The request builder for [CatalogService::delete_aspect_type][super::super::client::CatalogService::delete_aspect_type] calls.
+    /// The request builder for [CatalogService::delete_aspect_type][crate::client::CatalogService::delete_aspect_type] calls.
     ///
     /// # Example
     /// ```no_run
@@ -974,7 +974,7 @@ pub mod catalog_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_aspect_type][super::super::client::CatalogService::delete_aspect_type].
+        /// on [delete_aspect_type][crate::client::CatalogService::delete_aspect_type].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_aspect_type(self.0.request, self.0.options)
@@ -1039,7 +1039,7 @@ pub mod catalog_service {
         }
     }
 
-    /// The request builder for [CatalogService::list_aspect_types][super::super::client::CatalogService::list_aspect_types] calls.
+    /// The request builder for [CatalogService::list_aspect_types][crate::client::CatalogService::list_aspect_types] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1154,7 +1154,7 @@ pub mod catalog_service {
         }
     }
 
-    /// The request builder for [CatalogService::get_aspect_type][super::super::client::CatalogService::get_aspect_type] calls.
+    /// The request builder for [CatalogService::get_aspect_type][crate::client::CatalogService::get_aspect_type] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1217,7 +1217,7 @@ pub mod catalog_service {
         }
     }
 
-    /// The request builder for [CatalogService::create_entry_group][super::super::client::CatalogService::create_entry_group] calls.
+    /// The request builder for [CatalogService::create_entry_group][crate::client::CatalogService::create_entry_group] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1265,7 +1265,7 @@ pub mod catalog_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_entry_group][super::super::client::CatalogService::create_entry_group].
+        /// on [create_entry_group][crate::client::CatalogService::create_entry_group].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_entry_group(self.0.request, self.0.options)
@@ -1358,7 +1358,7 @@ pub mod catalog_service {
         }
     }
 
-    /// The request builder for [CatalogService::update_entry_group][super::super::client::CatalogService::update_entry_group] calls.
+    /// The request builder for [CatalogService::update_entry_group][crate::client::CatalogService::update_entry_group] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1406,7 +1406,7 @@ pub mod catalog_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_entry_group][super::super::client::CatalogService::update_entry_group].
+        /// on [update_entry_group][crate::client::CatalogService::update_entry_group].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_entry_group(self.0.request, self.0.options)
@@ -1505,7 +1505,7 @@ pub mod catalog_service {
         }
     }
 
-    /// The request builder for [CatalogService::delete_entry_group][super::super::client::CatalogService::delete_entry_group] calls.
+    /// The request builder for [CatalogService::delete_entry_group][crate::client::CatalogService::delete_entry_group] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1553,7 +1553,7 @@ pub mod catalog_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_entry_group][super::super::client::CatalogService::delete_entry_group].
+        /// on [delete_entry_group][crate::client::CatalogService::delete_entry_group].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_entry_group(self.0.request, self.0.options)
@@ -1618,7 +1618,7 @@ pub mod catalog_service {
         }
     }
 
-    /// The request builder for [CatalogService::list_entry_groups][super::super::client::CatalogService::list_entry_groups] calls.
+    /// The request builder for [CatalogService::list_entry_groups][crate::client::CatalogService::list_entry_groups] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1733,7 +1733,7 @@ pub mod catalog_service {
         }
     }
 
-    /// The request builder for [CatalogService::get_entry_group][super::super::client::CatalogService::get_entry_group] calls.
+    /// The request builder for [CatalogService::get_entry_group][crate::client::CatalogService::get_entry_group] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1796,7 +1796,7 @@ pub mod catalog_service {
         }
     }
 
-    /// The request builder for [CatalogService::create_entry][super::super::client::CatalogService::create_entry] calls.
+    /// The request builder for [CatalogService::create_entry][crate::client::CatalogService::create_entry] calls.
     ///
     /// # Example
     /// ```no_run
@@ -1889,7 +1889,7 @@ pub mod catalog_service {
         }
     }
 
-    /// The request builder for [CatalogService::update_entry][super::super::client::CatalogService::update_entry] calls.
+    /// The request builder for [CatalogService::update_entry][crate::client::CatalogService::update_entry] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2007,7 +2007,7 @@ pub mod catalog_service {
         }
     }
 
-    /// The request builder for [CatalogService::delete_entry][super::super::client::CatalogService::delete_entry] calls.
+    /// The request builder for [CatalogService::delete_entry][crate::client::CatalogService::delete_entry] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2070,7 +2070,7 @@ pub mod catalog_service {
         }
     }
 
-    /// The request builder for [CatalogService::list_entries][super::super::client::CatalogService::list_entries] calls.
+    /// The request builder for [CatalogService::list_entries][crate::client::CatalogService::list_entries] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2179,7 +2179,7 @@ pub mod catalog_service {
         }
     }
 
-    /// The request builder for [CatalogService::get_entry][super::super::client::CatalogService::get_entry] calls.
+    /// The request builder for [CatalogService::get_entry][crate::client::CatalogService::get_entry] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2270,7 +2270,7 @@ pub mod catalog_service {
         }
     }
 
-    /// The request builder for [CatalogService::lookup_entry][super::super::client::CatalogService::lookup_entry] calls.
+    /// The request builder for [CatalogService::lookup_entry][crate::client::CatalogService::lookup_entry] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2369,7 +2369,7 @@ pub mod catalog_service {
         }
     }
 
-    /// The request builder for [CatalogService::search_entries][super::super::client::CatalogService::search_entries] calls.
+    /// The request builder for [CatalogService::search_entries][crate::client::CatalogService::search_entries] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2492,7 +2492,7 @@ pub mod catalog_service {
         }
     }
 
-    /// The request builder for [CatalogService::create_metadata_job][super::super::client::CatalogService::create_metadata_job] calls.
+    /// The request builder for [CatalogService::create_metadata_job][crate::client::CatalogService::create_metadata_job] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2540,7 +2540,7 @@ pub mod catalog_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_metadata_job][super::super::client::CatalogService::create_metadata_job].
+        /// on [create_metadata_job][crate::client::CatalogService::create_metadata_job].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_metadata_job(self.0.request, self.0.options)
@@ -2633,7 +2633,7 @@ pub mod catalog_service {
         }
     }
 
-    /// The request builder for [CatalogService::get_metadata_job][super::super::client::CatalogService::get_metadata_job] calls.
+    /// The request builder for [CatalogService::get_metadata_job][crate::client::CatalogService::get_metadata_job] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2696,7 +2696,7 @@ pub mod catalog_service {
         }
     }
 
-    /// The request builder for [CatalogService::list_metadata_jobs][super::super::client::CatalogService::list_metadata_jobs] calls.
+    /// The request builder for [CatalogService::list_metadata_jobs][crate::client::CatalogService::list_metadata_jobs] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2814,7 +2814,7 @@ pub mod catalog_service {
         }
     }
 
-    /// The request builder for [CatalogService::cancel_metadata_job][super::super::client::CatalogService::cancel_metadata_job] calls.
+    /// The request builder for [CatalogService::cancel_metadata_job][crate::client::CatalogService::cancel_metadata_job] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2880,7 +2880,7 @@ pub mod catalog_service {
         }
     }
 
-    /// The request builder for [CatalogService::list_locations][super::super::client::CatalogService::list_locations] calls.
+    /// The request builder for [CatalogService::list_locations][crate::client::CatalogService::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -2990,7 +2990,7 @@ pub mod catalog_service {
         }
     }
 
-    /// The request builder for [CatalogService::get_location][super::super::client::CatalogService::get_location] calls.
+    /// The request builder for [CatalogService::get_location][crate::client::CatalogService::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3051,7 +3051,7 @@ pub mod catalog_service {
         }
     }
 
-    /// The request builder for [CatalogService::set_iam_policy][super::super::client::CatalogService::set_iam_policy] calls.
+    /// The request builder for [CatalogService::set_iam_policy][crate::client::CatalogService::set_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3154,7 +3154,7 @@ pub mod catalog_service {
         }
     }
 
-    /// The request builder for [CatalogService::get_iam_policy][super::super::client::CatalogService::get_iam_policy] calls.
+    /// The request builder for [CatalogService::get_iam_policy][crate::client::CatalogService::get_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3235,7 +3235,7 @@ pub mod catalog_service {
         }
     }
 
-    /// The request builder for [CatalogService::test_iam_permissions][super::super::client::CatalogService::test_iam_permissions] calls.
+    /// The request builder for [CatalogService::test_iam_permissions][crate::client::CatalogService::test_iam_permissions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3314,7 +3314,7 @@ pub mod catalog_service {
         }
     }
 
-    /// The request builder for [CatalogService::list_operations][super::super::client::CatalogService::list_operations] calls.
+    /// The request builder for [CatalogService::list_operations][crate::client::CatalogService::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3426,7 +3426,7 @@ pub mod catalog_service {
         }
     }
 
-    /// The request builder for [CatalogService::get_operation][super::super::client::CatalogService::get_operation] calls.
+    /// The request builder for [CatalogService::get_operation][crate::client::CatalogService::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3490,7 +3490,7 @@ pub mod catalog_service {
         }
     }
 
-    /// The request builder for [CatalogService::delete_operation][super::super::client::CatalogService::delete_operation] calls.
+    /// The request builder for [CatalogService::delete_operation][crate::client::CatalogService::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3554,7 +3554,7 @@ pub mod catalog_service {
         }
     }
 
-    /// The request builder for [CatalogService::cancel_operation][super::super::client::CatalogService::cancel_operation] calls.
+    /// The request builder for [CatalogService::cancel_operation][crate::client::CatalogService::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3622,7 +3622,7 @@ pub mod catalog_service {
 pub mod cmek_service {
     use crate::Result;
 
-    /// A builder for [CmekService][super::super::client::CmekService].
+    /// A builder for [CmekService][crate::client::CmekService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -3650,7 +3650,7 @@ pub mod cmek_service {
         }
     }
 
-    /// Common implementation for [super::super::client::CmekService] request builders.
+    /// Common implementation for [crate::client::CmekService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::CmekService>,
@@ -3673,7 +3673,7 @@ pub mod cmek_service {
         }
     }
 
-    /// The request builder for [CmekService::create_encryption_config][super::super::client::CmekService::create_encryption_config] calls.
+    /// The request builder for [CmekService::create_encryption_config][crate::client::CmekService::create_encryption_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3721,7 +3721,7 @@ pub mod cmek_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_encryption_config][super::super::client::CmekService::create_encryption_config].
+        /// on [create_encryption_config][crate::client::CmekService::create_encryption_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_encryption_config(self.0.request, self.0.options)
@@ -3811,7 +3811,7 @@ pub mod cmek_service {
         }
     }
 
-    /// The request builder for [CmekService::update_encryption_config][super::super::client::CmekService::update_encryption_config] calls.
+    /// The request builder for [CmekService::update_encryption_config][crate::client::CmekService::update_encryption_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3859,7 +3859,7 @@ pub mod cmek_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_encryption_config][super::super::client::CmekService::update_encryption_config].
+        /// on [update_encryption_config][crate::client::CmekService::update_encryption_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_encryption_config(self.0.request, self.0.options)
@@ -3951,7 +3951,7 @@ pub mod cmek_service {
         }
     }
 
-    /// The request builder for [CmekService::delete_encryption_config][super::super::client::CmekService::delete_encryption_config] calls.
+    /// The request builder for [CmekService::delete_encryption_config][crate::client::CmekService::delete_encryption_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -3999,7 +3999,7 @@ pub mod cmek_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_encryption_config][super::super::client::CmekService::delete_encryption_config].
+        /// on [delete_encryption_config][crate::client::CmekService::delete_encryption_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_encryption_config(self.0.request, self.0.options)
@@ -4064,7 +4064,7 @@ pub mod cmek_service {
         }
     }
 
-    /// The request builder for [CmekService::list_encryption_configs][super::super::client::CmekService::list_encryption_configs] calls.
+    /// The request builder for [CmekService::list_encryption_configs][crate::client::CmekService::list_encryption_configs] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4184,7 +4184,7 @@ pub mod cmek_service {
         }
     }
 
-    /// The request builder for [CmekService::get_encryption_config][super::super::client::CmekService::get_encryption_config] calls.
+    /// The request builder for [CmekService::get_encryption_config][crate::client::CmekService::get_encryption_config] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4250,7 +4250,7 @@ pub mod cmek_service {
         }
     }
 
-    /// The request builder for [CmekService::list_locations][super::super::client::CmekService::list_locations] calls.
+    /// The request builder for [CmekService::list_locations][crate::client::CmekService::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4360,7 +4360,7 @@ pub mod cmek_service {
         }
     }
 
-    /// The request builder for [CmekService::get_location][super::super::client::CmekService::get_location] calls.
+    /// The request builder for [CmekService::get_location][crate::client::CmekService::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4421,7 +4421,7 @@ pub mod cmek_service {
         }
     }
 
-    /// The request builder for [CmekService::set_iam_policy][super::super::client::CmekService::set_iam_policy] calls.
+    /// The request builder for [CmekService::set_iam_policy][crate::client::CmekService::set_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4524,7 +4524,7 @@ pub mod cmek_service {
         }
     }
 
-    /// The request builder for [CmekService::get_iam_policy][super::super::client::CmekService::get_iam_policy] calls.
+    /// The request builder for [CmekService::get_iam_policy][crate::client::CmekService::get_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4605,7 +4605,7 @@ pub mod cmek_service {
         }
     }
 
-    /// The request builder for [CmekService::test_iam_permissions][super::super::client::CmekService::test_iam_permissions] calls.
+    /// The request builder for [CmekService::test_iam_permissions][crate::client::CmekService::test_iam_permissions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4684,7 +4684,7 @@ pub mod cmek_service {
         }
     }
 
-    /// The request builder for [CmekService::list_operations][super::super::client::CmekService::list_operations] calls.
+    /// The request builder for [CmekService::list_operations][crate::client::CmekService::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4796,7 +4796,7 @@ pub mod cmek_service {
         }
     }
 
-    /// The request builder for [CmekService::get_operation][super::super::client::CmekService::get_operation] calls.
+    /// The request builder for [CmekService::get_operation][crate::client::CmekService::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4860,7 +4860,7 @@ pub mod cmek_service {
         }
     }
 
-    /// The request builder for [CmekService::delete_operation][super::super::client::CmekService::delete_operation] calls.
+    /// The request builder for [CmekService::delete_operation][crate::client::CmekService::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4924,7 +4924,7 @@ pub mod cmek_service {
         }
     }
 
-    /// The request builder for [CmekService::cancel_operation][super::super::client::CmekService::cancel_operation] calls.
+    /// The request builder for [CmekService::cancel_operation][crate::client::CmekService::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -4992,7 +4992,7 @@ pub mod cmek_service {
 pub mod content_service {
     use crate::Result;
 
-    /// A builder for [ContentService][super::super::client::ContentService].
+    /// A builder for [ContentService][crate::client::ContentService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -5020,7 +5020,7 @@ pub mod content_service {
         }
     }
 
-    /// Common implementation for [super::super::client::ContentService] request builders.
+    /// Common implementation for [crate::client::ContentService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::ContentService>,
@@ -5043,7 +5043,7 @@ pub mod content_service {
         }
     }
 
-    /// The request builder for [ContentService::create_content][super::super::client::ContentService::create_content] calls.
+    /// The request builder for [ContentService::create_content][crate::client::ContentService::create_content] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5134,7 +5134,7 @@ pub mod content_service {
         }
     }
 
-    /// The request builder for [ContentService::update_content][super::super::client::ContentService::update_content] calls.
+    /// The request builder for [ContentService::update_content][crate::client::ContentService::update_content] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5239,7 +5239,7 @@ pub mod content_service {
         }
     }
 
-    /// The request builder for [ContentService::delete_content][super::super::client::ContentService::delete_content] calls.
+    /// The request builder for [ContentService::delete_content][crate::client::ContentService::delete_content] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5302,7 +5302,7 @@ pub mod content_service {
         }
     }
 
-    /// The request builder for [ContentService::get_content][super::super::client::ContentService::get_content] calls.
+    /// The request builder for [ContentService::get_content][crate::client::ContentService::get_content] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5374,7 +5374,7 @@ pub mod content_service {
         }
     }
 
-    /// The request builder for [ContentService::get_iam_policy][super::super::client::ContentService::get_iam_policy] calls.
+    /// The request builder for [ContentService::get_iam_policy][crate::client::ContentService::get_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5455,7 +5455,7 @@ pub mod content_service {
         }
     }
 
-    /// The request builder for [ContentService::set_iam_policy][super::super::client::ContentService::set_iam_policy] calls.
+    /// The request builder for [ContentService::set_iam_policy][crate::client::ContentService::set_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5558,7 +5558,7 @@ pub mod content_service {
         }
     }
 
-    /// The request builder for [ContentService::test_iam_permissions][super::super::client::ContentService::test_iam_permissions] calls.
+    /// The request builder for [ContentService::test_iam_permissions][crate::client::ContentService::test_iam_permissions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5637,7 +5637,7 @@ pub mod content_service {
         }
     }
 
-    /// The request builder for [ContentService::list_content][super::super::client::ContentService::list_content] calls.
+    /// The request builder for [ContentService::list_content][crate::client::ContentService::list_content] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5746,7 +5746,7 @@ pub mod content_service {
         }
     }
 
-    /// The request builder for [ContentService::list_locations][super::super::client::ContentService::list_locations] calls.
+    /// The request builder for [ContentService::list_locations][crate::client::ContentService::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5856,7 +5856,7 @@ pub mod content_service {
         }
     }
 
-    /// The request builder for [ContentService::get_location][super::super::client::ContentService::get_location] calls.
+    /// The request builder for [ContentService::get_location][crate::client::ContentService::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -5917,7 +5917,7 @@ pub mod content_service {
         }
     }
 
-    /// The request builder for [ContentService::list_operations][super::super::client::ContentService::list_operations] calls.
+    /// The request builder for [ContentService::list_operations][crate::client::ContentService::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6029,7 +6029,7 @@ pub mod content_service {
         }
     }
 
-    /// The request builder for [ContentService::get_operation][super::super::client::ContentService::get_operation] calls.
+    /// The request builder for [ContentService::get_operation][crate::client::ContentService::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6093,7 +6093,7 @@ pub mod content_service {
         }
     }
 
-    /// The request builder for [ContentService::delete_operation][super::super::client::ContentService::delete_operation] calls.
+    /// The request builder for [ContentService::delete_operation][crate::client::ContentService::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6157,7 +6157,7 @@ pub mod content_service {
         }
     }
 
-    /// The request builder for [ContentService::cancel_operation][super::super::client::ContentService::cancel_operation] calls.
+    /// The request builder for [ContentService::cancel_operation][crate::client::ContentService::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6225,7 +6225,7 @@ pub mod content_service {
 pub mod data_taxonomy_service {
     use crate::Result;
 
-    /// A builder for [DataTaxonomyService][super::super::client::DataTaxonomyService].
+    /// A builder for [DataTaxonomyService][crate::client::DataTaxonomyService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -6253,7 +6253,7 @@ pub mod data_taxonomy_service {
         }
     }
 
-    /// Common implementation for [super::super::client::DataTaxonomyService] request builders.
+    /// Common implementation for [crate::client::DataTaxonomyService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTaxonomyService>,
@@ -6276,7 +6276,7 @@ pub mod data_taxonomy_service {
         }
     }
 
-    /// The request builder for [DataTaxonomyService::create_data_taxonomy][super::super::client::DataTaxonomyService::create_data_taxonomy] calls.
+    /// The request builder for [DataTaxonomyService::create_data_taxonomy][crate::client::DataTaxonomyService::create_data_taxonomy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6324,7 +6324,7 @@ pub mod data_taxonomy_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_data_taxonomy][super::super::client::DataTaxonomyService::create_data_taxonomy].
+        /// on [create_data_taxonomy][crate::client::DataTaxonomyService::create_data_taxonomy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_data_taxonomy(self.0.request, self.0.options)
@@ -6419,7 +6419,7 @@ pub mod data_taxonomy_service {
         }
     }
 
-    /// The request builder for [DataTaxonomyService::update_data_taxonomy][super::super::client::DataTaxonomyService::update_data_taxonomy] calls.
+    /// The request builder for [DataTaxonomyService::update_data_taxonomy][crate::client::DataTaxonomyService::update_data_taxonomy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6467,7 +6467,7 @@ pub mod data_taxonomy_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_data_taxonomy][super::super::client::DataTaxonomyService::update_data_taxonomy].
+        /// on [update_data_taxonomy][crate::client::DataTaxonomyService::update_data_taxonomy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_data_taxonomy(self.0.request, self.0.options)
@@ -6568,7 +6568,7 @@ pub mod data_taxonomy_service {
         }
     }
 
-    /// The request builder for [DataTaxonomyService::delete_data_taxonomy][super::super::client::DataTaxonomyService::delete_data_taxonomy] calls.
+    /// The request builder for [DataTaxonomyService::delete_data_taxonomy][crate::client::DataTaxonomyService::delete_data_taxonomy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6616,7 +6616,7 @@ pub mod data_taxonomy_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_data_taxonomy][super::super::client::DataTaxonomyService::delete_data_taxonomy].
+        /// on [delete_data_taxonomy][crate::client::DataTaxonomyService::delete_data_taxonomy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_data_taxonomy(self.0.request, self.0.options)
@@ -6681,7 +6681,7 @@ pub mod data_taxonomy_service {
         }
     }
 
-    /// The request builder for [DataTaxonomyService::list_data_taxonomies][super::super::client::DataTaxonomyService::list_data_taxonomies] calls.
+    /// The request builder for [DataTaxonomyService::list_data_taxonomies][crate::client::DataTaxonomyService::list_data_taxonomies] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6801,7 +6801,7 @@ pub mod data_taxonomy_service {
         }
     }
 
-    /// The request builder for [DataTaxonomyService::get_data_taxonomy][super::super::client::DataTaxonomyService::get_data_taxonomy] calls.
+    /// The request builder for [DataTaxonomyService::get_data_taxonomy][crate::client::DataTaxonomyService::get_data_taxonomy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6864,7 +6864,7 @@ pub mod data_taxonomy_service {
         }
     }
 
-    /// The request builder for [DataTaxonomyService::create_data_attribute_binding][super::super::client::DataTaxonomyService::create_data_attribute_binding] calls.
+    /// The request builder for [DataTaxonomyService::create_data_attribute_binding][crate::client::DataTaxonomyService::create_data_attribute_binding] calls.
     ///
     /// # Example
     /// ```no_run
@@ -6914,7 +6914,7 @@ pub mod data_taxonomy_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_data_attribute_binding][super::super::client::DataTaxonomyService::create_data_attribute_binding].
+        /// on [create_data_attribute_binding][crate::client::DataTaxonomyService::create_data_attribute_binding].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_data_attribute_binding(self.0.request, self.0.options)
@@ -7010,7 +7010,7 @@ pub mod data_taxonomy_service {
         }
     }
 
-    /// The request builder for [DataTaxonomyService::update_data_attribute_binding][super::super::client::DataTaxonomyService::update_data_attribute_binding] calls.
+    /// The request builder for [DataTaxonomyService::update_data_attribute_binding][crate::client::DataTaxonomyService::update_data_attribute_binding] calls.
     ///
     /// # Example
     /// ```no_run
@@ -7060,7 +7060,7 @@ pub mod data_taxonomy_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_data_attribute_binding][super::super::client::DataTaxonomyService::update_data_attribute_binding].
+        /// on [update_data_attribute_binding][crate::client::DataTaxonomyService::update_data_attribute_binding].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_data_attribute_binding(self.0.request, self.0.options)
@@ -7162,7 +7162,7 @@ pub mod data_taxonomy_service {
         }
     }
 
-    /// The request builder for [DataTaxonomyService::delete_data_attribute_binding][super::super::client::DataTaxonomyService::delete_data_attribute_binding] calls.
+    /// The request builder for [DataTaxonomyService::delete_data_attribute_binding][crate::client::DataTaxonomyService::delete_data_attribute_binding] calls.
     ///
     /// # Example
     /// ```no_run
@@ -7212,7 +7212,7 @@ pub mod data_taxonomy_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_data_attribute_binding][super::super::client::DataTaxonomyService::delete_data_attribute_binding].
+        /// on [delete_data_attribute_binding][crate::client::DataTaxonomyService::delete_data_attribute_binding].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_data_attribute_binding(self.0.request, self.0.options)
@@ -7279,7 +7279,7 @@ pub mod data_taxonomy_service {
         }
     }
 
-    /// The request builder for [DataTaxonomyService::list_data_attribute_bindings][super::super::client::DataTaxonomyService::list_data_attribute_bindings] calls.
+    /// The request builder for [DataTaxonomyService::list_data_attribute_bindings][crate::client::DataTaxonomyService::list_data_attribute_bindings] calls.
     ///
     /// # Example
     /// ```no_run
@@ -7403,7 +7403,7 @@ pub mod data_taxonomy_service {
         }
     }
 
-    /// The request builder for [DataTaxonomyService::get_data_attribute_binding][super::super::client::DataTaxonomyService::get_data_attribute_binding] calls.
+    /// The request builder for [DataTaxonomyService::get_data_attribute_binding][crate::client::DataTaxonomyService::get_data_attribute_binding] calls.
     ///
     /// # Example
     /// ```no_run
@@ -7471,7 +7471,7 @@ pub mod data_taxonomy_service {
         }
     }
 
-    /// The request builder for [DataTaxonomyService::create_data_attribute][super::super::client::DataTaxonomyService::create_data_attribute] calls.
+    /// The request builder for [DataTaxonomyService::create_data_attribute][crate::client::DataTaxonomyService::create_data_attribute] calls.
     ///
     /// # Example
     /// ```no_run
@@ -7519,7 +7519,7 @@ pub mod data_taxonomy_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_data_attribute][super::super::client::DataTaxonomyService::create_data_attribute].
+        /// on [create_data_attribute][crate::client::DataTaxonomyService::create_data_attribute].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_data_attribute(self.0.request, self.0.options)
@@ -7615,7 +7615,7 @@ pub mod data_taxonomy_service {
         }
     }
 
-    /// The request builder for [DataTaxonomyService::update_data_attribute][super::super::client::DataTaxonomyService::update_data_attribute] calls.
+    /// The request builder for [DataTaxonomyService::update_data_attribute][crate::client::DataTaxonomyService::update_data_attribute] calls.
     ///
     /// # Example
     /// ```no_run
@@ -7663,7 +7663,7 @@ pub mod data_taxonomy_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_data_attribute][super::super::client::DataTaxonomyService::update_data_attribute].
+        /// on [update_data_attribute][crate::client::DataTaxonomyService::update_data_attribute].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_data_attribute(self.0.request, self.0.options)
@@ -7765,7 +7765,7 @@ pub mod data_taxonomy_service {
         }
     }
 
-    /// The request builder for [DataTaxonomyService::delete_data_attribute][super::super::client::DataTaxonomyService::delete_data_attribute] calls.
+    /// The request builder for [DataTaxonomyService::delete_data_attribute][crate::client::DataTaxonomyService::delete_data_attribute] calls.
     ///
     /// # Example
     /// ```no_run
@@ -7813,7 +7813,7 @@ pub mod data_taxonomy_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_data_attribute][super::super::client::DataTaxonomyService::delete_data_attribute].
+        /// on [delete_data_attribute][crate::client::DataTaxonomyService::delete_data_attribute].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_data_attribute(self.0.request, self.0.options)
@@ -7878,7 +7878,7 @@ pub mod data_taxonomy_service {
         }
     }
 
-    /// The request builder for [DataTaxonomyService::list_data_attributes][super::super::client::DataTaxonomyService::list_data_attributes] calls.
+    /// The request builder for [DataTaxonomyService::list_data_attributes][crate::client::DataTaxonomyService::list_data_attributes] calls.
     ///
     /// # Example
     /// ```no_run
@@ -7998,7 +7998,7 @@ pub mod data_taxonomy_service {
         }
     }
 
-    /// The request builder for [DataTaxonomyService::get_data_attribute][super::super::client::DataTaxonomyService::get_data_attribute] calls.
+    /// The request builder for [DataTaxonomyService::get_data_attribute][crate::client::DataTaxonomyService::get_data_attribute] calls.
     ///
     /// # Example
     /// ```no_run
@@ -8064,7 +8064,7 @@ pub mod data_taxonomy_service {
         }
     }
 
-    /// The request builder for [DataTaxonomyService::list_locations][super::super::client::DataTaxonomyService::list_locations] calls.
+    /// The request builder for [DataTaxonomyService::list_locations][crate::client::DataTaxonomyService::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -8174,7 +8174,7 @@ pub mod data_taxonomy_service {
         }
     }
 
-    /// The request builder for [DataTaxonomyService::get_location][super::super::client::DataTaxonomyService::get_location] calls.
+    /// The request builder for [DataTaxonomyService::get_location][crate::client::DataTaxonomyService::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -8235,7 +8235,7 @@ pub mod data_taxonomy_service {
         }
     }
 
-    /// The request builder for [DataTaxonomyService::set_iam_policy][super::super::client::DataTaxonomyService::set_iam_policy] calls.
+    /// The request builder for [DataTaxonomyService::set_iam_policy][crate::client::DataTaxonomyService::set_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -8338,7 +8338,7 @@ pub mod data_taxonomy_service {
         }
     }
 
-    /// The request builder for [DataTaxonomyService::get_iam_policy][super::super::client::DataTaxonomyService::get_iam_policy] calls.
+    /// The request builder for [DataTaxonomyService::get_iam_policy][crate::client::DataTaxonomyService::get_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -8419,7 +8419,7 @@ pub mod data_taxonomy_service {
         }
     }
 
-    /// The request builder for [DataTaxonomyService::test_iam_permissions][super::super::client::DataTaxonomyService::test_iam_permissions] calls.
+    /// The request builder for [DataTaxonomyService::test_iam_permissions][crate::client::DataTaxonomyService::test_iam_permissions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -8498,7 +8498,7 @@ pub mod data_taxonomy_service {
         }
     }
 
-    /// The request builder for [DataTaxonomyService::list_operations][super::super::client::DataTaxonomyService::list_operations] calls.
+    /// The request builder for [DataTaxonomyService::list_operations][crate::client::DataTaxonomyService::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -8610,7 +8610,7 @@ pub mod data_taxonomy_service {
         }
     }
 
-    /// The request builder for [DataTaxonomyService::get_operation][super::super::client::DataTaxonomyService::get_operation] calls.
+    /// The request builder for [DataTaxonomyService::get_operation][crate::client::DataTaxonomyService::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -8674,7 +8674,7 @@ pub mod data_taxonomy_service {
         }
     }
 
-    /// The request builder for [DataTaxonomyService::delete_operation][super::super::client::DataTaxonomyService::delete_operation] calls.
+    /// The request builder for [DataTaxonomyService::delete_operation][crate::client::DataTaxonomyService::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -8738,7 +8738,7 @@ pub mod data_taxonomy_service {
         }
     }
 
-    /// The request builder for [DataTaxonomyService::cancel_operation][super::super::client::DataTaxonomyService::cancel_operation] calls.
+    /// The request builder for [DataTaxonomyService::cancel_operation][crate::client::DataTaxonomyService::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -8806,7 +8806,7 @@ pub mod data_taxonomy_service {
 pub mod data_scan_service {
     use crate::Result;
 
-    /// A builder for [DataScanService][super::super::client::DataScanService].
+    /// A builder for [DataScanService][crate::client::DataScanService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -8834,7 +8834,7 @@ pub mod data_scan_service {
         }
     }
 
-    /// Common implementation for [super::super::client::DataScanService] request builders.
+    /// Common implementation for [crate::client::DataScanService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::DataScanService>,
@@ -8857,7 +8857,7 @@ pub mod data_scan_service {
         }
     }
 
-    /// The request builder for [DataScanService::create_data_scan][super::super::client::DataScanService::create_data_scan] calls.
+    /// The request builder for [DataScanService::create_data_scan][crate::client::DataScanService::create_data_scan] calls.
     ///
     /// # Example
     /// ```no_run
@@ -8902,7 +8902,7 @@ pub mod data_scan_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_data_scan][super::super::client::DataScanService::create_data_scan].
+        /// on [create_data_scan][crate::client::DataScanService::create_data_scan].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_data_scan(self.0.request, self.0.options)
@@ -8995,7 +8995,7 @@ pub mod data_scan_service {
         }
     }
 
-    /// The request builder for [DataScanService::update_data_scan][super::super::client::DataScanService::update_data_scan] calls.
+    /// The request builder for [DataScanService::update_data_scan][crate::client::DataScanService::update_data_scan] calls.
     ///
     /// # Example
     /// ```no_run
@@ -9040,7 +9040,7 @@ pub mod data_scan_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_data_scan][super::super::client::DataScanService::update_data_scan].
+        /// on [update_data_scan][crate::client::DataScanService::update_data_scan].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_data_scan(self.0.request, self.0.options)
@@ -9135,7 +9135,7 @@ pub mod data_scan_service {
         }
     }
 
-    /// The request builder for [DataScanService::delete_data_scan][super::super::client::DataScanService::delete_data_scan] calls.
+    /// The request builder for [DataScanService::delete_data_scan][crate::client::DataScanService::delete_data_scan] calls.
     ///
     /// # Example
     /// ```no_run
@@ -9180,7 +9180,7 @@ pub mod data_scan_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_data_scan][super::super::client::DataScanService::delete_data_scan].
+        /// on [delete_data_scan][crate::client::DataScanService::delete_data_scan].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_data_scan(self.0.request, self.0.options)
@@ -9245,7 +9245,7 @@ pub mod data_scan_service {
         }
     }
 
-    /// The request builder for [DataScanService::get_data_scan][super::super::client::DataScanService::get_data_scan] calls.
+    /// The request builder for [DataScanService::get_data_scan][crate::client::DataScanService::get_data_scan] calls.
     ///
     /// # Example
     /// ```no_run
@@ -9317,7 +9317,7 @@ pub mod data_scan_service {
         }
     }
 
-    /// The request builder for [DataScanService::list_data_scans][super::super::client::DataScanService::list_data_scans] calls.
+    /// The request builder for [DataScanService::list_data_scans][crate::client::DataScanService::list_data_scans] calls.
     ///
     /// # Example
     /// ```no_run
@@ -9432,7 +9432,7 @@ pub mod data_scan_service {
         }
     }
 
-    /// The request builder for [DataScanService::run_data_scan][super::super::client::DataScanService::run_data_scan] calls.
+    /// The request builder for [DataScanService::run_data_scan][crate::client::DataScanService::run_data_scan] calls.
     ///
     /// # Example
     /// ```no_run
@@ -9495,7 +9495,7 @@ pub mod data_scan_service {
         }
     }
 
-    /// The request builder for [DataScanService::get_data_scan_job][super::super::client::DataScanService::get_data_scan_job] calls.
+    /// The request builder for [DataScanService::get_data_scan_job][crate::client::DataScanService::get_data_scan_job] calls.
     ///
     /// # Example
     /// ```no_run
@@ -9567,7 +9567,7 @@ pub mod data_scan_service {
         }
     }
 
-    /// The request builder for [DataScanService::list_data_scan_jobs][super::super::client::DataScanService::list_data_scan_jobs] calls.
+    /// The request builder for [DataScanService::list_data_scan_jobs][crate::client::DataScanService::list_data_scan_jobs] calls.
     ///
     /// # Example
     /// ```no_run
@@ -9679,7 +9679,7 @@ pub mod data_scan_service {
         }
     }
 
-    /// The request builder for [DataScanService::generate_data_quality_rules][super::super::client::DataScanService::generate_data_quality_rules] calls.
+    /// The request builder for [DataScanService::generate_data_quality_rules][crate::client::DataScanService::generate_data_quality_rules] calls.
     ///
     /// # Example
     /// ```no_run
@@ -9747,7 +9747,7 @@ pub mod data_scan_service {
         }
     }
 
-    /// The request builder for [DataScanService::list_locations][super::super::client::DataScanService::list_locations] calls.
+    /// The request builder for [DataScanService::list_locations][crate::client::DataScanService::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -9857,7 +9857,7 @@ pub mod data_scan_service {
         }
     }
 
-    /// The request builder for [DataScanService::get_location][super::super::client::DataScanService::get_location] calls.
+    /// The request builder for [DataScanService::get_location][crate::client::DataScanService::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -9918,7 +9918,7 @@ pub mod data_scan_service {
         }
     }
 
-    /// The request builder for [DataScanService::set_iam_policy][super::super::client::DataScanService::set_iam_policy] calls.
+    /// The request builder for [DataScanService::set_iam_policy][crate::client::DataScanService::set_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -10021,7 +10021,7 @@ pub mod data_scan_service {
         }
     }
 
-    /// The request builder for [DataScanService::get_iam_policy][super::super::client::DataScanService::get_iam_policy] calls.
+    /// The request builder for [DataScanService::get_iam_policy][crate::client::DataScanService::get_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -10102,7 +10102,7 @@ pub mod data_scan_service {
         }
     }
 
-    /// The request builder for [DataScanService::test_iam_permissions][super::super::client::DataScanService::test_iam_permissions] calls.
+    /// The request builder for [DataScanService::test_iam_permissions][crate::client::DataScanService::test_iam_permissions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -10181,7 +10181,7 @@ pub mod data_scan_service {
         }
     }
 
-    /// The request builder for [DataScanService::list_operations][super::super::client::DataScanService::list_operations] calls.
+    /// The request builder for [DataScanService::list_operations][crate::client::DataScanService::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -10293,7 +10293,7 @@ pub mod data_scan_service {
         }
     }
 
-    /// The request builder for [DataScanService::get_operation][super::super::client::DataScanService::get_operation] calls.
+    /// The request builder for [DataScanService::get_operation][crate::client::DataScanService::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -10357,7 +10357,7 @@ pub mod data_scan_service {
         }
     }
 
-    /// The request builder for [DataScanService::delete_operation][super::super::client::DataScanService::delete_operation] calls.
+    /// The request builder for [DataScanService::delete_operation][crate::client::DataScanService::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -10421,7 +10421,7 @@ pub mod data_scan_service {
         }
     }
 
-    /// The request builder for [DataScanService::cancel_operation][super::super::client::DataScanService::cancel_operation] calls.
+    /// The request builder for [DataScanService::cancel_operation][crate::client::DataScanService::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -10489,7 +10489,7 @@ pub mod data_scan_service {
 pub mod metadata_service {
     use crate::Result;
 
-    /// A builder for [MetadataService][super::super::client::MetadataService].
+    /// A builder for [MetadataService][crate::client::MetadataService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -10517,7 +10517,7 @@ pub mod metadata_service {
         }
     }
 
-    /// Common implementation for [super::super::client::MetadataService] request builders.
+    /// Common implementation for [crate::client::MetadataService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::MetadataService>,
@@ -10540,7 +10540,7 @@ pub mod metadata_service {
         }
     }
 
-    /// The request builder for [MetadataService::create_entity][super::super::client::MetadataService::create_entity] calls.
+    /// The request builder for [MetadataService::create_entity][crate::client::MetadataService::create_entity] calls.
     ///
     /// # Example
     /// ```no_run
@@ -10631,7 +10631,7 @@ pub mod metadata_service {
         }
     }
 
-    /// The request builder for [MetadataService::update_entity][super::super::client::MetadataService::update_entity] calls.
+    /// The request builder for [MetadataService::update_entity][crate::client::MetadataService::update_entity] calls.
     ///
     /// # Example
     /// ```no_run
@@ -10714,7 +10714,7 @@ pub mod metadata_service {
         }
     }
 
-    /// The request builder for [MetadataService::delete_entity][super::super::client::MetadataService::delete_entity] calls.
+    /// The request builder for [MetadataService::delete_entity][crate::client::MetadataService::delete_entity] calls.
     ///
     /// # Example
     /// ```no_run
@@ -10785,7 +10785,7 @@ pub mod metadata_service {
         }
     }
 
-    /// The request builder for [MetadataService::get_entity][super::super::client::MetadataService::get_entity] calls.
+    /// The request builder for [MetadataService::get_entity][crate::client::MetadataService::get_entity] calls.
     ///
     /// # Example
     /// ```no_run
@@ -10857,7 +10857,7 @@ pub mod metadata_service {
         }
     }
 
-    /// The request builder for [MetadataService::list_entities][super::super::client::MetadataService::list_entities] calls.
+    /// The request builder for [MetadataService::list_entities][crate::client::MetadataService::list_entities] calls.
     ///
     /// # Example
     /// ```no_run
@@ -10977,7 +10977,7 @@ pub mod metadata_service {
         }
     }
 
-    /// The request builder for [MetadataService::create_partition][super::super::client::MetadataService::create_partition] calls.
+    /// The request builder for [MetadataService::create_partition][crate::client::MetadataService::create_partition] calls.
     ///
     /// # Example
     /// ```no_run
@@ -11068,7 +11068,7 @@ pub mod metadata_service {
         }
     }
 
-    /// The request builder for [MetadataService::delete_partition][super::super::client::MetadataService::delete_partition] calls.
+    /// The request builder for [MetadataService::delete_partition][crate::client::MetadataService::delete_partition] calls.
     ///
     /// # Example
     /// ```no_run
@@ -11138,7 +11138,7 @@ pub mod metadata_service {
         }
     }
 
-    /// The request builder for [MetadataService::get_partition][super::super::client::MetadataService::get_partition] calls.
+    /// The request builder for [MetadataService::get_partition][crate::client::MetadataService::get_partition] calls.
     ///
     /// # Example
     /// ```no_run
@@ -11201,7 +11201,7 @@ pub mod metadata_service {
         }
     }
 
-    /// The request builder for [MetadataService::list_partitions][super::super::client::MetadataService::list_partitions] calls.
+    /// The request builder for [MetadataService::list_partitions][crate::client::MetadataService::list_partitions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -11310,7 +11310,7 @@ pub mod metadata_service {
         }
     }
 
-    /// The request builder for [MetadataService::list_locations][super::super::client::MetadataService::list_locations] calls.
+    /// The request builder for [MetadataService::list_locations][crate::client::MetadataService::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -11420,7 +11420,7 @@ pub mod metadata_service {
         }
     }
 
-    /// The request builder for [MetadataService::get_location][super::super::client::MetadataService::get_location] calls.
+    /// The request builder for [MetadataService::get_location][crate::client::MetadataService::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -11481,7 +11481,7 @@ pub mod metadata_service {
         }
     }
 
-    /// The request builder for [MetadataService::set_iam_policy][super::super::client::MetadataService::set_iam_policy] calls.
+    /// The request builder for [MetadataService::set_iam_policy][crate::client::MetadataService::set_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -11584,7 +11584,7 @@ pub mod metadata_service {
         }
     }
 
-    /// The request builder for [MetadataService::get_iam_policy][super::super::client::MetadataService::get_iam_policy] calls.
+    /// The request builder for [MetadataService::get_iam_policy][crate::client::MetadataService::get_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -11665,7 +11665,7 @@ pub mod metadata_service {
         }
     }
 
-    /// The request builder for [MetadataService::test_iam_permissions][super::super::client::MetadataService::test_iam_permissions] calls.
+    /// The request builder for [MetadataService::test_iam_permissions][crate::client::MetadataService::test_iam_permissions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -11744,7 +11744,7 @@ pub mod metadata_service {
         }
     }
 
-    /// The request builder for [MetadataService::list_operations][super::super::client::MetadataService::list_operations] calls.
+    /// The request builder for [MetadataService::list_operations][crate::client::MetadataService::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -11856,7 +11856,7 @@ pub mod metadata_service {
         }
     }
 
-    /// The request builder for [MetadataService::get_operation][super::super::client::MetadataService::get_operation] calls.
+    /// The request builder for [MetadataService::get_operation][crate::client::MetadataService::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -11920,7 +11920,7 @@ pub mod metadata_service {
         }
     }
 
-    /// The request builder for [MetadataService::delete_operation][super::super::client::MetadataService::delete_operation] calls.
+    /// The request builder for [MetadataService::delete_operation][crate::client::MetadataService::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -11984,7 +11984,7 @@ pub mod metadata_service {
         }
     }
 
-    /// The request builder for [MetadataService::cancel_operation][super::super::client::MetadataService::cancel_operation] calls.
+    /// The request builder for [MetadataService::cancel_operation][crate::client::MetadataService::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -12052,7 +12052,7 @@ pub mod metadata_service {
 pub mod dataplex_service {
     use crate::Result;
 
-    /// A builder for [DataplexService][super::super::client::DataplexService].
+    /// A builder for [DataplexService][crate::client::DataplexService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -12080,7 +12080,7 @@ pub mod dataplex_service {
         }
     }
 
-    /// Common implementation for [super::super::client::DataplexService] request builders.
+    /// Common implementation for [crate::client::DataplexService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::DataplexService>,
@@ -12103,7 +12103,7 @@ pub mod dataplex_service {
         }
     }
 
-    /// The request builder for [DataplexService::create_lake][super::super::client::DataplexService::create_lake] calls.
+    /// The request builder for [DataplexService::create_lake][crate::client::DataplexService::create_lake] calls.
     ///
     /// # Example
     /// ```no_run
@@ -12148,7 +12148,7 @@ pub mod dataplex_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_lake][super::super::client::DataplexService::create_lake].
+        /// on [create_lake][crate::client::DataplexService::create_lake].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_lake(self.0.request, self.0.options)
@@ -12241,7 +12241,7 @@ pub mod dataplex_service {
         }
     }
 
-    /// The request builder for [DataplexService::update_lake][super::super::client::DataplexService::update_lake] calls.
+    /// The request builder for [DataplexService::update_lake][crate::client::DataplexService::update_lake] calls.
     ///
     /// # Example
     /// ```no_run
@@ -12286,7 +12286,7 @@ pub mod dataplex_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_lake][super::super::client::DataplexService::update_lake].
+        /// on [update_lake][crate::client::DataplexService::update_lake].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_lake(self.0.request, self.0.options)
@@ -12385,7 +12385,7 @@ pub mod dataplex_service {
         }
     }
 
-    /// The request builder for [DataplexService::delete_lake][super::super::client::DataplexService::delete_lake] calls.
+    /// The request builder for [DataplexService::delete_lake][crate::client::DataplexService::delete_lake] calls.
     ///
     /// # Example
     /// ```no_run
@@ -12430,7 +12430,7 @@ pub mod dataplex_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_lake][super::super::client::DataplexService::delete_lake].
+        /// on [delete_lake][crate::client::DataplexService::delete_lake].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_lake(self.0.request, self.0.options)
@@ -12489,7 +12489,7 @@ pub mod dataplex_service {
         }
     }
 
-    /// The request builder for [DataplexService::list_lakes][super::super::client::DataplexService::list_lakes] calls.
+    /// The request builder for [DataplexService::list_lakes][crate::client::DataplexService::list_lakes] calls.
     ///
     /// # Example
     /// ```no_run
@@ -12604,7 +12604,7 @@ pub mod dataplex_service {
         }
     }
 
-    /// The request builder for [DataplexService::get_lake][super::super::client::DataplexService::get_lake] calls.
+    /// The request builder for [DataplexService::get_lake][crate::client::DataplexService::get_lake] calls.
     ///
     /// # Example
     /// ```no_run
@@ -12667,7 +12667,7 @@ pub mod dataplex_service {
         }
     }
 
-    /// The request builder for [DataplexService::list_lake_actions][super::super::client::DataplexService::list_lake_actions] calls.
+    /// The request builder for [DataplexService::list_lake_actions][crate::client::DataplexService::list_lake_actions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -12770,7 +12770,7 @@ pub mod dataplex_service {
         }
     }
 
-    /// The request builder for [DataplexService::create_zone][super::super::client::DataplexService::create_zone] calls.
+    /// The request builder for [DataplexService::create_zone][crate::client::DataplexService::create_zone] calls.
     ///
     /// # Example
     /// ```no_run
@@ -12815,7 +12815,7 @@ pub mod dataplex_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_zone][super::super::client::DataplexService::create_zone].
+        /// on [create_zone][crate::client::DataplexService::create_zone].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_zone(self.0.request, self.0.options)
@@ -12908,7 +12908,7 @@ pub mod dataplex_service {
         }
     }
 
-    /// The request builder for [DataplexService::update_zone][super::super::client::DataplexService::update_zone] calls.
+    /// The request builder for [DataplexService::update_zone][crate::client::DataplexService::update_zone] calls.
     ///
     /// # Example
     /// ```no_run
@@ -12953,7 +12953,7 @@ pub mod dataplex_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_zone][super::super::client::DataplexService::update_zone].
+        /// on [update_zone][crate::client::DataplexService::update_zone].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_zone(self.0.request, self.0.options)
@@ -13052,7 +13052,7 @@ pub mod dataplex_service {
         }
     }
 
-    /// The request builder for [DataplexService::delete_zone][super::super::client::DataplexService::delete_zone] calls.
+    /// The request builder for [DataplexService::delete_zone][crate::client::DataplexService::delete_zone] calls.
     ///
     /// # Example
     /// ```no_run
@@ -13097,7 +13097,7 @@ pub mod dataplex_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_zone][super::super::client::DataplexService::delete_zone].
+        /// on [delete_zone][crate::client::DataplexService::delete_zone].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_zone(self.0.request, self.0.options)
@@ -13156,7 +13156,7 @@ pub mod dataplex_service {
         }
     }
 
-    /// The request builder for [DataplexService::list_zones][super::super::client::DataplexService::list_zones] calls.
+    /// The request builder for [DataplexService::list_zones][crate::client::DataplexService::list_zones] calls.
     ///
     /// # Example
     /// ```no_run
@@ -13271,7 +13271,7 @@ pub mod dataplex_service {
         }
     }
 
-    /// The request builder for [DataplexService::get_zone][super::super::client::DataplexService::get_zone] calls.
+    /// The request builder for [DataplexService::get_zone][crate::client::DataplexService::get_zone] calls.
     ///
     /// # Example
     /// ```no_run
@@ -13334,7 +13334,7 @@ pub mod dataplex_service {
         }
     }
 
-    /// The request builder for [DataplexService::list_zone_actions][super::super::client::DataplexService::list_zone_actions] calls.
+    /// The request builder for [DataplexService::list_zone_actions][crate::client::DataplexService::list_zone_actions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -13437,7 +13437,7 @@ pub mod dataplex_service {
         }
     }
 
-    /// The request builder for [DataplexService::create_asset][super::super::client::DataplexService::create_asset] calls.
+    /// The request builder for [DataplexService::create_asset][crate::client::DataplexService::create_asset] calls.
     ///
     /// # Example
     /// ```no_run
@@ -13482,7 +13482,7 @@ pub mod dataplex_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_asset][super::super::client::DataplexService::create_asset].
+        /// on [create_asset][crate::client::DataplexService::create_asset].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_asset(self.0.request, self.0.options)
@@ -13575,7 +13575,7 @@ pub mod dataplex_service {
         }
     }
 
-    /// The request builder for [DataplexService::update_asset][super::super::client::DataplexService::update_asset] calls.
+    /// The request builder for [DataplexService::update_asset][crate::client::DataplexService::update_asset] calls.
     ///
     /// # Example
     /// ```no_run
@@ -13620,7 +13620,7 @@ pub mod dataplex_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_asset][super::super::client::DataplexService::update_asset].
+        /// on [update_asset][crate::client::DataplexService::update_asset].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_asset(self.0.request, self.0.options)
@@ -13719,7 +13719,7 @@ pub mod dataplex_service {
         }
     }
 
-    /// The request builder for [DataplexService::delete_asset][super::super::client::DataplexService::delete_asset] calls.
+    /// The request builder for [DataplexService::delete_asset][crate::client::DataplexService::delete_asset] calls.
     ///
     /// # Example
     /// ```no_run
@@ -13764,7 +13764,7 @@ pub mod dataplex_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_asset][super::super::client::DataplexService::delete_asset].
+        /// on [delete_asset][crate::client::DataplexService::delete_asset].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_asset(self.0.request, self.0.options)
@@ -13823,7 +13823,7 @@ pub mod dataplex_service {
         }
     }
 
-    /// The request builder for [DataplexService::list_assets][super::super::client::DataplexService::list_assets] calls.
+    /// The request builder for [DataplexService::list_assets][crate::client::DataplexService::list_assets] calls.
     ///
     /// # Example
     /// ```no_run
@@ -13938,7 +13938,7 @@ pub mod dataplex_service {
         }
     }
 
-    /// The request builder for [DataplexService::get_asset][super::super::client::DataplexService::get_asset] calls.
+    /// The request builder for [DataplexService::get_asset][crate::client::DataplexService::get_asset] calls.
     ///
     /// # Example
     /// ```no_run
@@ -14001,7 +14001,7 @@ pub mod dataplex_service {
         }
     }
 
-    /// The request builder for [DataplexService::list_asset_actions][super::super::client::DataplexService::list_asset_actions] calls.
+    /// The request builder for [DataplexService::list_asset_actions][crate::client::DataplexService::list_asset_actions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -14107,7 +14107,7 @@ pub mod dataplex_service {
         }
     }
 
-    /// The request builder for [DataplexService::create_task][super::super::client::DataplexService::create_task] calls.
+    /// The request builder for [DataplexService::create_task][crate::client::DataplexService::create_task] calls.
     ///
     /// # Example
     /// ```no_run
@@ -14152,7 +14152,7 @@ pub mod dataplex_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_task][super::super::client::DataplexService::create_task].
+        /// on [create_task][crate::client::DataplexService::create_task].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_task(self.0.request, self.0.options)
@@ -14245,7 +14245,7 @@ pub mod dataplex_service {
         }
     }
 
-    /// The request builder for [DataplexService::update_task][super::super::client::DataplexService::update_task] calls.
+    /// The request builder for [DataplexService::update_task][crate::client::DataplexService::update_task] calls.
     ///
     /// # Example
     /// ```no_run
@@ -14290,7 +14290,7 @@ pub mod dataplex_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_task][super::super::client::DataplexService::update_task].
+        /// on [update_task][crate::client::DataplexService::update_task].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_task(self.0.request, self.0.options)
@@ -14389,7 +14389,7 @@ pub mod dataplex_service {
         }
     }
 
-    /// The request builder for [DataplexService::delete_task][super::super::client::DataplexService::delete_task] calls.
+    /// The request builder for [DataplexService::delete_task][crate::client::DataplexService::delete_task] calls.
     ///
     /// # Example
     /// ```no_run
@@ -14434,7 +14434,7 @@ pub mod dataplex_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_task][super::super::client::DataplexService::delete_task].
+        /// on [delete_task][crate::client::DataplexService::delete_task].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_task(self.0.request, self.0.options)
@@ -14493,7 +14493,7 @@ pub mod dataplex_service {
         }
     }
 
-    /// The request builder for [DataplexService::list_tasks][super::super::client::DataplexService::list_tasks] calls.
+    /// The request builder for [DataplexService::list_tasks][crate::client::DataplexService::list_tasks] calls.
     ///
     /// # Example
     /// ```no_run
@@ -14608,7 +14608,7 @@ pub mod dataplex_service {
         }
     }
 
-    /// The request builder for [DataplexService::get_task][super::super::client::DataplexService::get_task] calls.
+    /// The request builder for [DataplexService::get_task][crate::client::DataplexService::get_task] calls.
     ///
     /// # Example
     /// ```no_run
@@ -14671,7 +14671,7 @@ pub mod dataplex_service {
         }
     }
 
-    /// The request builder for [DataplexService::list_jobs][super::super::client::DataplexService::list_jobs] calls.
+    /// The request builder for [DataplexService::list_jobs][crate::client::DataplexService::list_jobs] calls.
     ///
     /// # Example
     /// ```no_run
@@ -14774,7 +14774,7 @@ pub mod dataplex_service {
         }
     }
 
-    /// The request builder for [DataplexService::run_task][super::super::client::DataplexService::run_task] calls.
+    /// The request builder for [DataplexService::run_task][crate::client::DataplexService::run_task] calls.
     ///
     /// # Example
     /// ```no_run
@@ -14859,7 +14859,7 @@ pub mod dataplex_service {
         }
     }
 
-    /// The request builder for [DataplexService::get_job][super::super::client::DataplexService::get_job] calls.
+    /// The request builder for [DataplexService::get_job][crate::client::DataplexService::get_job] calls.
     ///
     /// # Example
     /// ```no_run
@@ -14922,7 +14922,7 @@ pub mod dataplex_service {
         }
     }
 
-    /// The request builder for [DataplexService::cancel_job][super::super::client::DataplexService::cancel_job] calls.
+    /// The request builder for [DataplexService::cancel_job][crate::client::DataplexService::cancel_job] calls.
     ///
     /// # Example
     /// ```no_run
@@ -14985,7 +14985,7 @@ pub mod dataplex_service {
         }
     }
 
-    /// The request builder for [DataplexService::create_environment][super::super::client::DataplexService::create_environment] calls.
+    /// The request builder for [DataplexService::create_environment][crate::client::DataplexService::create_environment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -15033,7 +15033,7 @@ pub mod dataplex_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_environment][super::super::client::DataplexService::create_environment].
+        /// on [create_environment][crate::client::DataplexService::create_environment].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_environment(self.0.request, self.0.options)
@@ -15128,7 +15128,7 @@ pub mod dataplex_service {
         }
     }
 
-    /// The request builder for [DataplexService::update_environment][super::super::client::DataplexService::update_environment] calls.
+    /// The request builder for [DataplexService::update_environment][crate::client::DataplexService::update_environment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -15176,7 +15176,7 @@ pub mod dataplex_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_environment][super::super::client::DataplexService::update_environment].
+        /// on [update_environment][crate::client::DataplexService::update_environment].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_environment(self.0.request, self.0.options)
@@ -15277,7 +15277,7 @@ pub mod dataplex_service {
         }
     }
 
-    /// The request builder for [DataplexService::delete_environment][super::super::client::DataplexService::delete_environment] calls.
+    /// The request builder for [DataplexService::delete_environment][crate::client::DataplexService::delete_environment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -15325,7 +15325,7 @@ pub mod dataplex_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_environment][super::super::client::DataplexService::delete_environment].
+        /// on [delete_environment][crate::client::DataplexService::delete_environment].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_environment(self.0.request, self.0.options)
@@ -15384,7 +15384,7 @@ pub mod dataplex_service {
         }
     }
 
-    /// The request builder for [DataplexService::list_environments][super::super::client::DataplexService::list_environments] calls.
+    /// The request builder for [DataplexService::list_environments][crate::client::DataplexService::list_environments] calls.
     ///
     /// # Example
     /// ```no_run
@@ -15502,7 +15502,7 @@ pub mod dataplex_service {
         }
     }
 
-    /// The request builder for [DataplexService::get_environment][super::super::client::DataplexService::get_environment] calls.
+    /// The request builder for [DataplexService::get_environment][crate::client::DataplexService::get_environment] calls.
     ///
     /// # Example
     /// ```no_run
@@ -15565,7 +15565,7 @@ pub mod dataplex_service {
         }
     }
 
-    /// The request builder for [DataplexService::list_sessions][super::super::client::DataplexService::list_sessions] calls.
+    /// The request builder for [DataplexService::list_sessions][crate::client::DataplexService::list_sessions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -15674,7 +15674,7 @@ pub mod dataplex_service {
         }
     }
 
-    /// The request builder for [DataplexService::list_locations][super::super::client::DataplexService::list_locations] calls.
+    /// The request builder for [DataplexService::list_locations][crate::client::DataplexService::list_locations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -15784,7 +15784,7 @@ pub mod dataplex_service {
         }
     }
 
-    /// The request builder for [DataplexService::get_location][super::super::client::DataplexService::get_location] calls.
+    /// The request builder for [DataplexService::get_location][crate::client::DataplexService::get_location] calls.
     ///
     /// # Example
     /// ```no_run
@@ -15845,7 +15845,7 @@ pub mod dataplex_service {
         }
     }
 
-    /// The request builder for [DataplexService::set_iam_policy][super::super::client::DataplexService::set_iam_policy] calls.
+    /// The request builder for [DataplexService::set_iam_policy][crate::client::DataplexService::set_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -15948,7 +15948,7 @@ pub mod dataplex_service {
         }
     }
 
-    /// The request builder for [DataplexService::get_iam_policy][super::super::client::DataplexService::get_iam_policy] calls.
+    /// The request builder for [DataplexService::get_iam_policy][crate::client::DataplexService::get_iam_policy] calls.
     ///
     /// # Example
     /// ```no_run
@@ -16029,7 +16029,7 @@ pub mod dataplex_service {
         }
     }
 
-    /// The request builder for [DataplexService::test_iam_permissions][super::super::client::DataplexService::test_iam_permissions] calls.
+    /// The request builder for [DataplexService::test_iam_permissions][crate::client::DataplexService::test_iam_permissions] calls.
     ///
     /// # Example
     /// ```no_run
@@ -16108,7 +16108,7 @@ pub mod dataplex_service {
         }
     }
 
-    /// The request builder for [DataplexService::list_operations][super::super::client::DataplexService::list_operations] calls.
+    /// The request builder for [DataplexService::list_operations][crate::client::DataplexService::list_operations] calls.
     ///
     /// # Example
     /// ```no_run
@@ -16220,7 +16220,7 @@ pub mod dataplex_service {
         }
     }
 
-    /// The request builder for [DataplexService::get_operation][super::super::client::DataplexService::get_operation] calls.
+    /// The request builder for [DataplexService::get_operation][crate::client::DataplexService::get_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -16284,7 +16284,7 @@ pub mod dataplex_service {
         }
     }
 
-    /// The request builder for [DataplexService::delete_operation][super::super::client::DataplexService::delete_operation] calls.
+    /// The request builder for [DataplexService::delete_operation][crate::client::DataplexService::delete_operation] calls.
     ///
     /// # Example
     /// ```no_run
@@ -16348,7 +16348,7 @@ pub mod dataplex_service {
         }
     }
 
-    /// The request builder for [DataplexService::cancel_operation][super::super::client::DataplexService::cancel_operation] calls.
+    /// The request builder for [DataplexService::cancel_operation][crate::client::DataplexService::cancel_operation] calls.
     ///
     /// # Example
     /// ```no_run
