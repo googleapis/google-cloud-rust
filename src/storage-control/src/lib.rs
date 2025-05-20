@@ -33,7 +33,7 @@ pub(crate) mod generated;
 
 pub mod builder {
     pub mod storage_control {
-        pub use crate::generated::gapic::builder::storage::*;
+        pub use crate::generated::gapic::builder::storage_control::*;
         pub use crate::generated::gapic_control::builder::storage_control::*;
     }
 }

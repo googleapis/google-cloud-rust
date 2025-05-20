@@ -483,7 +483,7 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
     }
 }
 
-impl<T> crate::generated::gapic::stub::Storage for std::sync::Arc<T>
+impl<T> crate::generated::gapic::stub::StorageControl for std::sync::Arc<T>
 where
     T: StorageControl,
 {
