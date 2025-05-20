@@ -179,59 +179,11 @@ impl StorageControl {
         self.storage.list_buckets()
     }
 
-    /// Permanently deletes an object and its metadata.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_storage_control::client::StorageControl;
-    /// async fn example(client: &StorageControl) -> gax::Result<()> {
-    ///     client.delete_object()
-    ///         .set_bucket("projects/_/buckets/my-bucket")
-    ///         .set_object("my-object")
-    ///         .send()
-    ///         .await?;
-    ///     Ok(())
-    /// }
-    /// ```
-    ///
-    /// Deletions are permanent if versioning is not enabled for the bucket, or
-    /// if the generation parameter is used, or if [soft delete] is not
-    /// enabled for the bucket.
-    ///
-    /// When this method is used to delete an object from a bucket that has soft
-    /// delete policy enabled, the object becomes soft deleted, and the
-    /// `soft_delete_time` and `hard_delete_time` properties are set on the
-    /// object. This method cannot be used to permanently delete soft-deleted
-    /// objects. Soft-deleted objects are permanently deleted according to their
-    /// `hard_delete_time`.
-    ///
-    /// You can use the `restore_object` method to restore soft-deleted objects
-    /// until the soft delete retention period has passed.
-    ///
-    /// [soft delete]: https://cloud.google.com/storage/docs/soft-delete
-    pub fn delete_object(&self) -> super::builder::storage_control::DeleteObject {
-        self.storage.delete_object()
-    }
-
-    /// Retrieves the list of objects for a given bucket.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_storage_control::client::StorageControl;
-    /// async fn example(client: &StorageControl) -> gax::Result<()> {
-    ///     use gax::paginator::{ItemPaginator, Paginator};
-    ///     let mut items = client.list_objects()
-    ///         .set_parent("projects/_/buckets/my-bucket")
-    ///         .by_item();
-    ///     while let Some(object) = items.next().await {
-    ///         let object = object?;
-    ///         println!("  {object:?}");
-    ///     }
-    ///     Ok(())
-    /// }
-    /// ```
-    pub fn list_objects(&self) -> super::builder::storage_control::ListObjects {
-        self.storage.list_objects()
+    /// Locks retention policy on a bucket.
+    pub fn lock_bucket_retention_policy(
+        &self,
+    ) -> super::builder::storage::LockBucketRetentionPolicy {
+        super::builder::storage::LockBucketRetentionPolicy::new(self.inner.clone())
     }
 
     /// Gets the IAM policy for a specified bucket.
@@ -297,6 +249,106 @@ impl StorageControl {
     /// ```
     pub fn test_iam_permissions(&self) -> super::builder::storage_control::TestIamPermissions {
         self.storage.test_iam_permissions()
+    }
+
+    /// Updates a bucket. Equivalent to JSON API's storage.buckets.patch method.
+    pub fn update_bucket(&self) -> super::builder::storage::UpdateBucket {
+        super::builder::storage::UpdateBucket::new(self.inner.clone())
+    }
+
+    /// Concatenates a list of existing objects into a new object in the same
+    /// bucket.
+    pub fn compose_object(&self) -> super::builder::storage::ComposeObject {
+        super::builder::storage::ComposeObject::new(self.inner.clone())
+    }
+
+    /// Permanently deletes an object and its metadata.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage_control::client::StorageControl;
+    /// async fn example(client: &StorageControl) -> gax::Result<()> {
+    ///     client.delete_object()
+    ///         .set_bucket("projects/_/buckets/my-bucket")
+    ///         .set_object("my-object")
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    ///
+    /// Deletions are permanent if versioning is not enabled for the bucket, or
+    /// if the generation parameter is used, or if [soft delete] is not
+    /// enabled for the bucket.
+    ///
+    /// When this method is used to delete an object from a bucket that has soft
+    /// delete policy enabled, the object becomes soft deleted, and the
+    /// `soft_delete_time` and `hard_delete_time` properties are set on the
+    /// object. This method cannot be used to permanently delete soft-deleted
+    /// objects. Soft-deleted objects are permanently deleted according to their
+    /// `hard_delete_time`.
+    ///
+    /// You can use the `restore_object` method to restore soft-deleted objects
+    /// until the soft delete retention period has passed.
+    ///
+    /// [soft delete]: https://cloud.google.com/storage/docs/soft-delete
+    pub fn delete_object(&self) -> super::builder::storage_control::DeleteObject {
+        self.storage.delete_object()
+    }
+
+    /// Restores a soft-deleted object.
+    pub fn restore_object(&self) -> super::builder::storage::RestoreObject {
+        super::builder::storage::RestoreObject::new(self.inner.clone())
+    }
+
+    /// Retrieves object metadata.
+    ///
+    /// **IAM Permissions**:
+    ///
+    /// Requires `storage.objects.get`
+    /// [IAM permission](https://cloud.google.com/iam/docs/overview#permissions) on
+    /// the bucket. To return object ACLs, the authenticated user must also have
+    /// the `storage.objects.getIamPolicy` permission.
+    pub fn get_object(&self) -> super::builder::storage::GetObject {
+        super::builder::storage::GetObject::new(self.inner.clone())
+    }
+
+    /// Updates an object's metadata.
+    /// Equivalent to JSON API's storage.objects.patch.
+    pub fn update_object(&self) -> super::builder::storage::UpdateObject {
+        super::builder::storage::UpdateObject::new(self.inner.clone())
+    }
+
+    /// Retrieves the list of objects for a given bucket.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage_control::client::StorageControl;
+    /// async fn example(client: &StorageControl) -> gax::Result<()> {
+    ///     use gax::paginator::{ItemPaginator, Paginator};
+    ///     let mut items = client.list_objects()
+    ///         .set_parent("projects/_/buckets/my-bucket")
+    ///         .by_item();
+    ///     while let Some(object) = items.next().await {
+    ///         let object = object?;
+    ///         println!("  {object:?}");
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_objects(&self) -> super::builder::storage_control::ListObjects {
+        self.storage.list_objects()
+    }
+
+    /// Rewrites a source object to a destination object. Optionally overrides
+    /// metadata.
+    pub fn rewrite_object(&self) -> super::builder::storage::RewriteObject {
+        super::builder::storage::RewriteObject::new(self.inner.clone())
+    }
+
+    /// Moves the source object to the destination object in the same bucket.
+    pub fn move_object(&self) -> super::builder::storage::MoveObject {
+        super::builder::storage::MoveObject::new(self.inner.clone())
     }
 
     /// Creates a new folder.
