@@ -141,7 +141,6 @@ func TestServiceAnnotations(t *testing.T) {
 		Name:              "ResourceService",
 		PackageModuleName: "test::v1",
 		ModuleName:        "resource_service",
-		HasLROs:           false,
 	}
 	if diff := cmp.Diff(wantService, service.Codec, cmpopts.IgnoreFields(serviceAnnotations{}, "Methods")); diff != "" {
 		t.Errorf("mismatch in service annotations (-want, +got)\n:%s", diff)
@@ -207,8 +206,102 @@ func TestServiceAnnotationsPerServiceFeatures(t *testing.T) {
 		Name:               "ResourceService",
 		PackageModuleName:  "test::v1",
 		ModuleName:         "resource_service",
-		HasLROs:            false,
 		PerServiceFeatures: true,
+	}
+	if diff := cmp.Diff(wantService, service.Codec, cmpopts.IgnoreFields(serviceAnnotations{}, "Methods")); diff != "" {
+		t.Errorf("mismatch in service annotations (-want, +got)\n:%s", diff)
+	}
+}
+
+func TestServiceAnnotationsLROTypes(t *testing.T) {
+	// The default binding we use when services do not have HTTP path
+	// annotations.
+	binding := &api.PathBinding{
+		Verb:            "POST",
+		PathTemplate:    []api.PathSegment{},
+		QueryParameters: map[string]bool{},
+	}
+	pathInfo := &api.PathInfo{
+		BodyFieldPath: "*",
+		Bindings:      []*api.PathBinding{binding},
+	}
+
+	service := &api.Service{
+		Name:    "LroService",
+		ID:      ".test.LroService",
+		Package: "test",
+		Methods: []*api.Method{
+			{
+				Name:         "CreateResource",
+				ID:           ".test.LroService.CreateResource",
+				PathInfo:     pathInfo,
+				InputTypeID:  ".test.CreateResourceRequest",
+				OutputTypeID: ".google.longrunning.Operation",
+				OperationInfo: &api.OperationInfo{
+					MetadataTypeID: ".test.OperationMetadata",
+					ResponseTypeID: ".test.Resource",
+				},
+			},
+			{
+				Name:         "DeleteResource",
+				ID:           ".test.LroService.DeleteResource",
+				PathInfo:     pathInfo,
+				InputTypeID:  ".test.DeleteResourceRequest",
+				OutputTypeID: ".google.longrunning.Operation",
+				OperationInfo: &api.OperationInfo{
+					MetadataTypeID: ".test.OperationMetadata",
+					ResponseTypeID: ".google.protobuf.Empty",
+				},
+			},
+		},
+	}
+	create := &api.Message{
+		Name:    "CreateResourceRequest",
+		ID:      ".test.CreateResourceRequest",
+		Package: "test",
+	}
+	delete := &api.Message{
+		Name:    "DeleteResourceRequest",
+		ID:      ".test.DeleteResourceRequest",
+		Package: "test",
+	}
+	resource := &api.Message{
+		Name:    "Resource",
+		ID:      ".test.Resource",
+		Package: "test",
+	}
+	metadata := &api.Message{
+		Name:    "OperationMetadata",
+		ID:      ".test.OperationMetadata",
+		Package: "test",
+	}
+	empty := &api.Message{
+		Name:    "Empty",
+		ID:      ".google.protobuf.Empty",
+		Package: "google.protobuf",
+	}
+	model := api.NewTestAPI([]*api.Message{create, delete, resource, metadata}, []*api.Enum{}, []*api.Service{service})
+	api.CrossReference(model)
+
+	codec, err := newCodec(true, map[string]string{
+		"include-grpc-only-methods": "true",
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	annotateModel(model, codec)
+	wantService := &serviceAnnotations{
+		Name:              "LroService",
+		PackageModuleName: "test",
+		ModuleName:        "lro_service",
+		LROTypes: []*api.Message{
+			metadata,
+			resource,
+			empty,
+		},
+	}
+	if !wantService.HasLROs() {
+		t.Errorf("HasLRO should be true. The service has several LROs.")
 	}
 	if diff := cmp.Diff(wantService, service.Codec, cmpopts.IgnoreFields(serviceAnnotations{}, "Methods")); diff != "" {
 		t.Errorf("mismatch in service annotations (-want, +got)\n:%s", diff)
