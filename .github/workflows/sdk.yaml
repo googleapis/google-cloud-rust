@@ -28,7 +28,7 @@ jobs:
   build:
     strategy:
       matrix:
-        os: ['macos-14', 'ubuntu-24.04', 'windows-2022']
+        os: ['macos-14', 'ubuntu-24.04', 'windows-2025']
         rust-version: ['rust:current']
         include:
           - os: 'ubuntu-24.04'
