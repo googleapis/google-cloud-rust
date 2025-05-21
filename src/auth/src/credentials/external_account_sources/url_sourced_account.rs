@@ -12,10 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use std::time::Duration;
 use gax::error::CredentialsError;
 use reqwest::Client;
 use serde_json::Value;
+use std::time::Duration;
 
 use crate::{
     Result,

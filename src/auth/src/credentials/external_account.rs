@@ -19,12 +19,12 @@ use crate::headers_util::build_cacheable_headers;
 use crate::token::{CachedTokenProvider, Token, TokenProvider};
 use crate::token_cache::TokenCache;
 
-use std::collections::HashMap;
-use std::sync::Arc;
 use gax::error::CredentialsError;
 use http::{Extensions, HeaderMap};
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
+use std::collections::HashMap;
+use std::sync::Arc;
 use tokio::time::{Duration, Instant};
 
 use super::dynamic::CredentialsProvider;
