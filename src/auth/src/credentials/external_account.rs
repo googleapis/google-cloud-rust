@@ -38,20 +38,20 @@ pub(crate) trait SubjectTokenProvider: std::fmt::Debug + Send + Sync {
     async fn subject_token(&self) -> Result<String>;
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
 pub struct CredentialSourceFormat {
     #[serde(rename = "type")]
     pub format_type: String,
     pub subject_token_field_name: String,
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
 pub struct CredentialSourceHeaders {
     #[serde(flatten)]
     pub headers: HashMap<String, String>,
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
 pub struct ExecutableConfig {
     pub command: String,
     pub timeout_millis: Option<u32>,
@@ -82,6 +82,38 @@ pub enum CredentialSource {
     },
 }
 
+#[async_trait::async_trait]
+impl SubjectTokenProvider for CredentialSource {
+    async fn subject_token(&self) -> Result<String> {
+        match self.clone() {
+            CredentialSource::UrlSourced {
+                url,
+                headers,
+                format,
+            } => {
+                let source = UrlSourcedCredentials {
+                    url,
+                    headers,
+                    format,
+                };
+                source.subject_token().await
+            }
+            CredentialSource::Executable { .. } => Err(CredentialsError::from_str(
+                false,
+                "executable sourced credential not supported yet",
+            )),
+            CredentialSource::File { .. } => Err(CredentialsError::from_str(
+                false,
+                "file sourced credential not supported yet",
+            )),
+            CredentialSource::Aws { .. } => Err(CredentialsError::from_str(
+                false,
+                "AWS sourced credential not supported yet",
+            )),
+        }
+    }
+}
+
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct ExternalAccountConfig {
     pub audience: String,
@@ -93,55 +125,19 @@ pub struct ExternalAccountConfig {
 }
 
 #[derive(Debug)]
-struct ExternalAccountTokenProvider {
-    subject_token_provider: Box<dyn SubjectTokenProvider>,
+struct ExternalAccountTokenProvider<T>
+where
+    T: SubjectTokenProvider,
+{
+    subject_token_provider: T,
     config: ExternalAccountConfig,
-}
-
-impl ExternalAccountTokenProvider {
-    pub fn new(config: ExternalAccountConfig) -> Result<ExternalAccountTokenProvider> {
-        let subject_token_provider = subject_token_provider_from_config(config.clone())?;
-        Ok(Self {
-            subject_token_provider,
-            config,
-        })
-    }
-}
-
-/// Detect which subject token provider implementation to use
-fn subject_token_provider_from_config(
-    config: ExternalAccountConfig,
-) -> Result<Box<dyn SubjectTokenProvider>> {
-    match config.credential_source {
-        CredentialSource::UrlSourced {
-            url,
-            headers,
-            format,
-        } => {
-            let creds = UrlSourcedCredentials {
-                url,
-                headers,
-                format,
-            };
-            Ok(Box::new(creds))
-        }
-        CredentialSource::Executable { .. } => Err(CredentialsError::from_str(
-            false,
-            "executable sourced credential not supported yet",
-        )),
-        CredentialSource::File { .. } => Err(CredentialsError::from_str(
-            false,
-            "file sourced credential not supported yet",
-        )),
-        CredentialSource::Aws { .. } => Err(CredentialsError::from_str(
-            false,
-            "AWS sourced credential not supported yet",
-        )),
-    }
 }
 
 #[async_trait::async_trait]
-impl TokenProvider for ExternalAccountTokenProvider {
+impl<T> TokenProvider for ExternalAccountTokenProvider<T>
+where
+    T: SubjectTokenProvider,
+{
     async fn token(&self) -> Result<Token> {
         let subject_token = self.subject_token_provider.subject_token().await?;
 
@@ -250,33 +246,21 @@ impl Builder {
     ///
     /// [external account config]: https://cloud.google.com/iam/docs/workload-download-cred-and-grant-access#download-configuration
     pub fn build(self) -> Result<Credentials> {
+        let external_account_config: ExternalAccountConfig =
+            serde_json::from_value(self.external_account_config).map_err(errors::non_retryable)?;
+
+        let config = external_account_config.clone();
+
         Ok(Credentials {
             inner: Arc::new(ExternalAccountCredentials {
                 quota_project_id: self.quota_project_id.clone(),
-                token_provider: TokenCache::new(self.build_token_provider()?),
+                token_provider: TokenCache::new(ExternalAccountTokenProvider {
+                    subject_token_provider: external_account_config.credential_source,
+                    config,
+                }),
             }),
         })
     }
-
-    fn build_token_provider(self) -> Result<ExternalAccountTokenProvider> {
-        let external_account_config: ExternalAccountConfig =
-            serde_json::from_value(self.external_account_config).map_err(errors::non_retryable)?;
-        let token_provider = ExternalAccountTokenProvider::new(external_account_config)
-            .map_err(errors::non_retryable)?;
-        Ok(token_provider)
-    }
-}
-
-pub fn new(external_account_options: Value) -> Result<Credentials> {
-    let options: ExternalAccountConfig = serde_json::from_value(external_account_options).unwrap();
-    let token_provider = ExternalAccountTokenProvider::new(options)?;
-    let credentials = ExternalAccountCredentials {
-        token_provider: TokenCache::new(token_provider),
-        quota_project_id: None,
-    };
-    Ok(Credentials {
-        inner: Arc::new(credentials),
-    })
 }
 
 #[async_trait::async_trait]
@@ -332,7 +316,7 @@ mod test {
             "subject_token_type": "urn:ietf:params:oauth:token-type:jwt",
             "token_url": "https://sts.googleapis.com/v1beta/token",
             "credential_source": {
-                "url": "http://169.254.169.254/metadata/identity/oauth2/token?api-version=2018-02-01&resource=https://iam.googleapis.com/projects/<PROJECT_ID>/locations/global/workloadIdentityPools/<WORKLOAD_IDENTITY_POOL>/providers/<WORKLOAD_IDENTITY_PROVIDER_ID>",
+                "url": "http://169.254.169.254/metadata/identity/oauth2/token",
                 "headers": {
                   "Metadata": "True"
                 },
@@ -345,9 +329,35 @@ mod test {
 
         let config: ExternalAccountConfig =
             serde_json::from_value(contents).expect("failed to parse external account config");
-        let provider = subject_token_provider_from_config(config).unwrap();
-        let fmt = format!("{:?}", provider);
-        print!("{:?}", provider);
-        assert!(fmt.contains("UrlSourcedCredentials"));
+        let source = config.credential_source;
+
+        match source {
+            CredentialSource::UrlSourced {
+                url,
+                headers,
+                format,
+            } => {
+                assert_eq!(
+                    url,
+                    "http://169.254.169.254/metadata/identity/oauth2/token".to_string()
+                );
+                assert_eq!(
+                    headers,
+                    Some(CredentialSourceHeaders {
+                        headers: HashMap::from([("Metadata".to_string(), "True".to_string()),]),
+                    })
+                );
+                assert_eq!(
+                    format,
+                    Some(CredentialSourceFormat {
+                        format_type: "json".to_string(),
+                        subject_token_field_name: "access_token".to_string(),
+                    })
+                )
+            }
+            _ => {
+                unreachable!("expected Url Sourced credential")
+            }
+        }
     }
 }
