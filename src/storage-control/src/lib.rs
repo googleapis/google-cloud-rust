@@ -64,6 +64,7 @@ pub(crate) mod google {
     }
     pub mod storage {
         #[allow(deprecated)]
+        #[allow(clippy::large_enum_variant)]
         pub mod v2 {
             include!("generated/protos/storage/google.storage.v2.rs");
             include!("generated/convert/storage/convert.rs");
