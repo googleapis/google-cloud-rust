@@ -13,7 +13,6 @@
 // limitations under the License.
 
 use std::time::Duration;
-
 use gax::error::CredentialsError;
 use reqwest::Client;
 use serde_json::Value;
@@ -48,14 +47,23 @@ impl SubjectTokenProvider for UrlSourcedCredentials {
             }
         }
 
-        let response = request.send().await.unwrap();
+        let response = request.send().await.map_err(|err| {
+            CredentialsError::from_str(false, format!("failed to request subject token: {}", err))
+        })?;
 
         if !response.status().is_success() {
-            // TODO(aviebrantz) handle error
-            return Err(CredentialsError::from_str(false, "failed"));
+            return Err(CredentialsError::from_str(
+                false,
+                "failed to request subject token",
+            ));
         }
 
-        let response_text = response.text().await.unwrap();
+        let response_text = response.text().await.map_err(|err| {
+            CredentialsError::from_str(
+                false,
+                format!("failed to read subject token response: {}", err),
+            )
+        })?;
 
         match &self.format {
             Some(format) => {

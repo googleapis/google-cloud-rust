@@ -12,15 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use std::collections::HashMap;
-use std::sync::Arc;
-
 use crate::credentials::Result;
 use crate::credentials::internal::sts_exchange::ClientAuthentication;
 use crate::errors;
 use crate::headers_util::build_cacheable_headers;
 use crate::token::{CachedTokenProvider, Token, TokenProvider};
 use crate::token_cache::TokenCache;
+
+use std::collections::HashMap;
+use std::sync::Arc;
 use gax::error::CredentialsError;
 use http::{Extensions, HeaderMap};
 use serde::{Deserialize, Serialize};
@@ -123,26 +123,20 @@ fn subject_token_provider_from_config(
                 headers,
                 format,
             };
-            return Ok(Box::new(creds));
+            Ok(Box::new(creds))
         }
-        CredentialSource::Executable { .. } => {
-            return Err(CredentialsError::from_str(
-                false,
-                "executable sourced credential not supported yet",
-            ));
-        }
-        CredentialSource::File { .. } => {
-            return Err(CredentialsError::from_str(
-                false,
-                "file sourced credential not supported yet",
-            ));
-        }
-        CredentialSource::Aws { .. } => {
-            return Err(CredentialsError::from_str(
-                false,
-                "AWS sourced credential not supported yet",
-            ));
-        }
+        CredentialSource::Executable { .. } => Err(CredentialsError::from_str(
+            false,
+            "executable sourced credential not supported yet",
+        )),
+        CredentialSource::File { .. } => Err(CredentialsError::from_str(
+            false,
+            "file sourced credential not supported yet",
+        )),
+        CredentialSource::Aws { .. } => Err(CredentialsError::from_str(
+            false,
+            "AWS sourced credential not supported yet",
+        )),
     }
 }
 
