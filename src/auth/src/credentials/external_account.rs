@@ -183,13 +183,19 @@ where
 /// ```
 /// # use google_cloud_auth::credentials::external_account::{Builder};
 /// # tokio_test::block_on(async {
+/// let project_id : String = project_id();
+/// let workload_identity_pool : String = workload_identity_pool();
+/// let provider_id : String = workload_identity_provider();
+/// let provider_name = format!(concat!("//iam.googleapis.com/projects/{project_id}/locations/global",
+///    "/workloadIdentityPools/{workload_identity_pool_id}/",
+///     "providers/{provider_id}"));
 /// let config = serde_json::json!({
 ///     "type": "external_account",
-///     "audience": "//iam.googleapis.com/projects/<PROJECT_ID>/locations/global/workloadIdentityPools/<WORKLOAD_IDENTITY_POOL>/providers/<WORKLOAD_IDENTITY_PROVIDER_ID>",
+///     "audience": provider_name,
 ///     "subject_token_type": "urn:ietf:params:oauth:token-type:jwt",
 ///     "token_url": "https://sts.googleapis.com/v1beta/token",
 ///     "credential_source": {
-///         "url": "http://169.254.169.254/metadata/identity/oauth2/token?api-version=2018-02-01&resource=https://iam.googleapis.com/projects/<PROJECT_ID>/locations/global/workloadIdentityPools/<WORKLOAD_IDENTITY_POOL>/providers/<WORKLOAD_IDENTITY_PROVIDER_ID>",
+///         "url": format!("http://169.254.169.254/metadata/identity/oauth2/token?api-version=2018-02-01&resource={provider_name}"),
 ///         "headers": {
 ///           "Metadata": "True"
 ///         },
@@ -203,6 +209,15 @@ where
 ///     .with_quota_project_id("quota_project")
 ///     .build();
 /// })
+/// fn project_id() -> String {
+/// # "test-only".to_string()
+/// }
+/// fn workload_identity_pool() -> String {
+/// # "test-only".to_string()
+/// }
+/// fn workload_identity_provider() -> String {
+/// # "test-only".to_string()
+/// }
 /// ```
 pub struct Builder {
     external_account_config: Value,
