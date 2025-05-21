@@ -208,7 +208,8 @@ where
 /// let credentials = Builder::new(config)
 ///     .with_quota_project_id("quota_project")
 ///     .build();
-/// })
+/// });
+/// 
 /// fn project_id() -> String {
 /// # "test-only".to_string()
 /// }
