@@ -537,7 +537,13 @@ fn build_credentials(
                     |b: service_account::Builder, s: Vec<String>| b
                         .with_access_specifier(service_account::AccessSpecifier::from_scopes(s))
                 ),
-                "external_account" => external_account::new(json),
+                "external_account" => {
+                    let builder = external_account::Builder::new(json);
+                    let builder = quota_project_id
+                        .into_iter()
+                        .fold(builder, |b, qp| b.with_quota_project_id(qp));
+                    builder.build()
+                }
                 _ => Err(errors::non_retryable_from_str(format!(
                     "Invalid or unsupported credentials type found in JSON: {cred_type}"
                 ))),
