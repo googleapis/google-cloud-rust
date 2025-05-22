@@ -39,6 +39,7 @@ type BoxError = Box<dyn std::error::Error + Send + Sync>;
 /// use google_cloud_gax::error::Error;
 /// match example_function() {
 ///     Err(e) if e.is_timeout() => { println!("not enough time {e}"); },
+///     Err(e) if e.is_transport() => { println!("transport problems {e}"); },
 ///     Err(e) if e.is_service() => { println!("service error {e}, should have a status={:?}", e.status()); },
 ///     Err(e) => { println!("some other error {e}"); },
 ///     Ok(_) => { println!("success, how boring"); },
@@ -290,6 +291,24 @@ impl Error {
 
     /// Not part of the public API, subject to change without notice.
     ///
+    /// Cannot serialize the request.
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+    pub fn ser<T: Into<BoxError>>(source: T) -> Self {
+        Self {
+            kind: ErrorKind::Serialization(source.into()),
+        }
+    }
+
+    /// Not part of the public API, subject to change without notice.
+    ///
+    /// Could not serialize the request.
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+    pub fn is_serialization(&self) -> bool {
+        matches!(self.kind, ErrorKind::Serialization(_))
+    }
+
+    /// Not part of the public API, subject to change without notice.
+    ///
     /// Cannot create the authentication headers.
     #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
     pub fn authentication(source: CredentialsError) -> Self {
@@ -304,6 +323,42 @@ impl Error {
     #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
     pub fn is_authentication(&self) -> bool {
         matches!(self.kind, ErrorKind::Authentication(_))
+    }
+
+    /// Not part of the public API, subject to change without notice.
+    ///
+    /// Cannot create a connection to send the request.
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+    pub fn connect<T: Into<BoxError>>(source: T) -> Self {
+        Self {
+            kind: ErrorKind::Connect(source.into()),
+        }
+    }
+
+    /// Not part of the public API, subject to change without notice.
+    ///
+    /// Could not create a connection before sending the request.
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+    pub fn is_connect(&self) -> bool {
+        matches!(self.kind, ErrorKind::Connect(_))
+    }
+
+    /// Not part of the public API, subject to change without notice.
+    ///
+    /// A policy (retry or polling) is exhausted.
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+    pub fn exhausted<T: Into<BoxError>>(source: T) -> Self {
+        Self {
+            kind: ErrorKind::Exhausted(source.into()),
+        }
+    }
+
+    /// Not part of the public API, subject to change without notice.
+    ///
+    /// A policy was exhausted while performing the operation.
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+    pub fn is_exhausted(&self) -> bool {
+        matches!(self.kind, ErrorKind::Exhausted(_))
     }
 
     /// Not part of the public API, subject to change without notice.
@@ -344,7 +399,7 @@ impl Error {
     ///
     /// Examples include read or write problems, and broken connections.
     #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
-    pub fn is_io(&self) -> bool {
+    pub(crate) fn is_io(&self) -> bool {
         matches!(
             &self.kind,
             ErrorKind::Transport {
@@ -380,6 +435,24 @@ impl Error {
         matches!(&self.kind, ErrorKind::Transport { .. })
     }
 
+    /// Not part of the public API, subject to change without notice.
+    ///
+    /// A problem deserializing the response.
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+    pub fn deser<T: Into<BoxError>>(source: T) -> Self {
+        Self {
+            kind: ErrorKind::Deserialization(source.into()),
+        }
+    }
+
+    /// Not part of the public API, subject to change without notice.
+    ///
+    /// Could not deserialize the response.
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+    pub fn is_deserialization(&self) -> bool {
+        matches!(self.kind, ErrorKind::Deserialization(_))
+    }
+
     // TODO(#2221) - remove once the migration is completed.
     #[doc(hidden)]
     pub fn serde<T: Into<BoxError>>(source: T) -> Self {
@@ -406,7 +479,11 @@ impl Error {
 
     /// The error was generated before the RPC started and is transient.
     pub(crate) fn is_transient_and_before_rpc(&self) -> bool {
-        matches!(&self.kind, ErrorKind::Authentication(e) if e.is_retryable())
+        match &self.kind {
+            ErrorKind::Connect(_) => true,
+            ErrorKind::Authentication(e) if e.is_retryable() => true,
+            _ => false,
+        }
     }
 }
 
@@ -416,11 +493,18 @@ impl std::fmt::Display for Error {
             ErrorKind::Binding(e) => {
                 write!(f, "cannot find a matching binding to send the request: {e}")
             }
+            ErrorKind::Connect(e) => {
+                write!(f, "cannot connect to the service: {e}")
+            }
             ErrorKind::Serialization(e) => write!(f, "cannot serialize the request: {e}"),
             ErrorKind::Authentication(e) => {
                 write!(f, "cannot create the authentication headers: {e}")
             }
             ErrorKind::Timeout(e) => write!(f, "the request exceeded the request deadline: {e}"),
+            ErrorKind::Exhausted(e) => write!(
+                f,
+                "a policy was exhausted before getting a successful response: {e}"
+            ),
             ErrorKind::Transport {
                 source: None,
                 status_code: Some(code),
@@ -446,6 +530,7 @@ impl std::fmt::Display for Error {
                     status.code, status.message
                 )
             }
+            ErrorKind::Deserialization(e) => write!(f, "cannot deserialize the response: {e}"),
             ErrorKind::Other(e) => write!(f, "an unclassified problem making a request: {e}"),
         }
     }
@@ -455,13 +540,16 @@ impl std::error::Error for Error {
     fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
         match &self.kind {
             ErrorKind::Binding(e) => Some(e.as_ref()),
+            ErrorKind::Connect(e) => Some(e.as_ref()),
             ErrorKind::Serialization(e) => Some(e.as_ref()),
             ErrorKind::Authentication(e) => Some(e),
             ErrorKind::Timeout(e) => Some(e.as_ref()),
+            ErrorKind::Exhausted(e) => Some(e.as_ref()),
             ErrorKind::Transport { source, .. } => source
                 .as_ref()
                 .map(|e| e.as_ref() as &(dyn std::error::Error)),
             ErrorKind::Service { .. } => None,
+            ErrorKind::Deserialization(e) => Some(e.as_ref()),
             ErrorKind::Other(e) => Some(e.as_ref()),
         }
     }
@@ -471,9 +559,11 @@ impl std::error::Error for Error {
 #[derive(Debug)]
 enum ErrorKind {
     Binding(BoxError),
+    Connect(BoxError),
     Serialization(BoxError),
     Authentication(CredentialsError),
     Timeout(BoxError),
+    Exhausted(BoxError),
     Transport {
         status_code: Option<u16>,
         headers: Option<Box<HeaderMap>>,
@@ -485,6 +575,7 @@ enum ErrorKind {
         headers: Option<Box<HeaderMap>>,
         status: Status,
     },
+    Deserialization(BoxError),
     /// A uncategorized error.
     Other(BoxError),
 }
@@ -588,8 +679,8 @@ mod test {
     #[test]
     fn ser() {
         let source = wkt::TimestampError::OutOfRange;
-        let error = Error::serde(source);
-        assert!(error.is_serde(), "{error:?}");
+        let error = Error::ser(source);
+        assert!(error.is_serialization(), "{error:?}");
         assert!(error.source().is_some(), "{error:?}");
         let got = error
             .source()
@@ -628,6 +719,42 @@ mod test {
             .and_then(|e| e.downcast_ref::<CredentialsError>());
         assert!(matches!(got, Some(c) if !c.is_retryable()), "{error:?}");
         assert!(error.to_string().contains("test-message"), "{error}");
+        assert!(!error.is_transient_and_before_rpc(), "{error:?}");
+    }
+
+    #[test]
+    fn connect() {
+        let source = wkt::TimestampError::OutOfRange;
+        let error = Error::connect(source);
+        assert!(error.is_connect(), "{error:?}");
+        assert!(error.source().is_some(), "{error:?}");
+        let got = error
+            .source()
+            .and_then(|e| e.downcast_ref::<wkt::TimestampError>());
+        assert!(
+            matches!(got, Some(wkt::TimestampError::OutOfRange)),
+            "{error:?}"
+        );
+        let source = wkt::TimestampError::OutOfRange;
+        assert!(error.to_string().contains(&source.to_string()), "{error}");
+        assert!(error.is_transient_and_before_rpc(), "{error:?}");
+    }
+
+    #[test]
+    fn exhausted() {
+        let source = wkt::TimestampError::OutOfRange;
+        let error = Error::exhausted(source);
+        assert!(error.is_exhausted(), "{error:?}");
+        assert!(error.source().is_some(), "{error:?}");
+        let got = error
+            .source()
+            .and_then(|e| e.downcast_ref::<wkt::TimestampError>());
+        assert!(
+            matches!(got, Some(wkt::TimestampError::OutOfRange)),
+            "{error:?}"
+        );
+        let source = wkt::TimestampError::OutOfRange;
+        assert!(error.to_string().contains(&source.to_string()), "{error}");
         assert!(!error.is_transient_and_before_rpc(), "{error:?}");
     }
 
@@ -723,6 +850,24 @@ mod test {
         assert!(error.http_status_code().is_none(), "{error:?}");
         assert_eq!(error.http_headers(), Some(&headers));
         assert!(error.http_payload().is_none(), "{error:?}");
+        assert!(!error.is_transient_and_before_rpc(), "{error:?}");
+    }
+
+    #[test]
+    fn deser() {
+        let source = wkt::TimestampError::OutOfRange;
+        let error = Error::deser(source);
+        assert!(error.is_deserialization(), "{error:?}");
+        assert!(error.source().is_some(), "{error:?}");
+        let got = error
+            .source()
+            .and_then(|e| e.downcast_ref::<wkt::TimestampError>());
+        assert!(
+            matches!(got, Some(wkt::TimestampError::OutOfRange)),
+            "{error:?}"
+        );
+        let source = wkt::TimestampError::OutOfRange;
+        assert!(error.to_string().contains(&source.to_string()), "{error}");
         assert!(!error.is_transient_and_before_rpc(), "{error:?}");
     }
 }
