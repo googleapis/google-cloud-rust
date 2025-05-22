@@ -73,8 +73,8 @@ mod test {
             .build()
             .await?;
         let response = send_request(client, "credentials error", "").await;
-        let err = response.err().unwrap();
-        assert_eq!(err.kind(), gax::error::ErrorKind::Authentication, "{err:?}");
+        let err = response.unwrap_err();
+        assert!(err.is_authentication(), "{err:?}");
         Ok(())
     }
 
@@ -121,11 +121,12 @@ mod test {
             .await?;
 
         let response = send_request(client, "", "").await;
-        let err = response.err().unwrap();
-        assert_eq!(err.kind(), gax::error::ErrorKind::Rpc, "{err:?}");
-        let svc = err.as_inner::<gax::error::ServiceError>().unwrap();
-        let status = svc.status().clone();
-        assert_eq!(status.code, gax::error::rpc::Code::InvalidArgument);
+        let err = response.unwrap_err();
+        assert!(err.is_service(), "{err:?}");
+        assert_eq!(
+            err.status().map(|s| s.code),
+            Some(gax::error::rpc::Code::InvalidArgument)
+        );
         Ok(())
     }
 

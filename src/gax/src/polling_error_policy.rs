@@ -119,8 +119,8 @@ pub trait PollingErrorPolicyExt: PollingErrorPolicy + Sized {
     /// let attempt_count = 4;
     /// assert!(policy.on_error(Instant::now(), attempt_count, transient_error()).is_exhausted());
     ///
-    /// use google_cloud_gax::error::{Error, ServiceError, rpc::Code, rpc::Status};
-    /// fn transient_error() -> Error { Error::rpc(ServiceError::from(Status::default().set_code(Code::Unavailable))) }
+    /// use google_cloud_gax::error::{Error, rpc::Code, rpc::Status};
+    /// fn transient_error() -> Error { Error::service(Status::default().set_code(Code::Unavailable)) }
     /// ```
     fn with_time_limit(self, maximum_duration: std::time::Duration) -> LimitedElapsedTime<Self> {
         LimitedElapsedTime::custom(self, maximum_duration)
@@ -150,8 +150,8 @@ pub trait PollingErrorPolicyExt: PollingErrorPolicy + Sized {
     /// assert!(policy.on_error(Instant::now(), 2, transient_error()).is_continue());
     /// assert!(policy.on_error(Instant::now(), 3, transient_error()).is_exhausted());
     ///
-    /// use google_cloud_gax::error::{Error, ServiceError, rpc::Code, rpc::Status};
-    /// fn transient_error() -> Error { Error::rpc(ServiceError::from(Status::default().set_code(Code::Unavailable))) }
+    /// use google_cloud_gax::error::{Error, rpc::Code, rpc::Status};
+    /// fn transient_error() -> Error { Error::service(Status::default().set_code(Code::Unavailable)) }
     /// ```
     fn with_attempt_limit(self, maximum_attempts: u32) -> LimitedAttemptCount<Self> {
         LimitedAttemptCount::custom(self, maximum_attempts)
@@ -177,8 +177,8 @@ impl<T: PollingErrorPolicy> PollingErrorPolicyExt for T {}
 /// let attempt_count = 4;
 /// assert!(policy.on_error(Instant::now(), attempt_count, transient_error()).is_exhausted());
 ///
-/// use google_cloud_gax::error::{Error, ServiceError, rpc::Code, rpc::Status};
-/// fn transient_error() -> Error { Error::rpc(ServiceError::from(Status::default().set_code(Code::Unavailable))) }
+/// use google_cloud_gax::error::{Error, rpc::Code, rpc::Status};
+/// fn transient_error() -> Error { Error::service(Status::default().set_code(Code::Unavailable)) }
 /// ```
 ///
 /// [AIP-194]: https://google.aip.dev/194
@@ -192,32 +192,25 @@ impl PollingErrorPolicy for Aip194Strict {
         _attempt_count: u32,
         error: Error,
     ) -> LoopState {
-        if let Some(svc) = error.as_inner::<crate::error::ServiceError>() {
-            return if svc.status().code == crate::error::rpc::Code::Unavailable {
+        if error.is_transient_and_before_rpc() {
+            return LoopState::Continue(error);
+        }
+        if error.is_io() {
+            return LoopState::Continue(error);
+        }
+        if let Some(status) = error.status() {
+            return if status.code == crate::error::rpc::Code::Unavailable {
                 LoopState::Continue(error)
             } else {
                 LoopState::Permanent(error)
             };
         }
 
-        if let Some(http) = error.as_inner::<crate::error::HttpError>() {
-            return if http.status_code() == http::StatusCode::SERVICE_UNAVAILABLE {
-                LoopState::Continue(error)
-            } else {
-                LoopState::Permanent(error)
-            };
-        }
-        use crate::error::ErrorKind;
-        match error.kind() {
-            ErrorKind::Rpc | ErrorKind::Io => LoopState::Continue(error),
-            ErrorKind::Authentication =>
-            // This indicates the operation never left the client, so it
-            // safe to poll again.
-            {
+        match error.http_status_code() {
+            Some(code) if code == http::StatusCode::SERVICE_UNAVAILABLE.as_u16() => {
                 LoopState::Continue(error)
             }
-            ErrorKind::Serde => LoopState::Permanent(error),
-            ErrorKind::Other => LoopState::Permanent(error),
+            _ => LoopState::Permanent(error),
         }
     }
 }
@@ -237,8 +230,8 @@ impl PollingErrorPolicy for Aip194Strict {
 /// let policy = AlwaysContinue;
 /// assert!(policy.on_error(Instant::now(), 1, permanent_error()).is_continue());
 ///
-/// use google_cloud_gax::error::{Error, ServiceError, rpc::Code, rpc::Status};
-/// fn permanent_error() -> Error { Error::rpc(ServiceError::from(Status::default().set_code(Code::Aborted))) }
+/// use google_cloud_gax::error::{Error, rpc::Code, rpc::Status};
+/// fn permanent_error() -> Error { Error::service(Status::default().set_code(Code::Aborted)) }
 /// ```
 ///
 /// [AIP-194]: https://google.aip.dev/194
@@ -292,8 +285,8 @@ impl LimitedElapsedTime {
     /// let start = Instant::now() - Duration::from_secs(20);
     /// assert!(policy.on_error(start, 1, transient_error()).is_exhausted());
     ///
-    /// use google_cloud_gax::error::{Error, ServiceError, rpc::Code, rpc::Status};
-    /// fn transient_error() -> Error { Error::rpc(ServiceError::from(Status::default().set_code(Code::Unavailable))) }
+    /// use google_cloud_gax::error::{Error, rpc::Code, rpc::Status};
+    /// fn transient_error() -> Error { Error::service(Status::default().set_code(Code::Unavailable)) }
     /// ```
     pub fn new(maximum_duration: std::time::Duration) -> Self {
         Self {
@@ -318,8 +311,8 @@ where
     /// let start = Instant::now() - Duration::from_secs(20);
     /// assert!(policy.on_error(start, 1, permanent_error()).is_exhausted());
     ///
-    /// use google_cloud_gax::error::{Error, ServiceError, rpc::Code, rpc::Status};
-    /// fn permanent_error() -> Error { Error::rpc(ServiceError::from(Status::default().set_code(Code::Aborted))) }
+    /// use google_cloud_gax::error::{Error, rpc::Code, rpc::Status};
+    /// fn permanent_error() -> Error { Error::service(Status::default().set_code(Code::Aborted)) }
     /// ```
     pub fn custom(inner: P, maximum_duration: std::time::Duration) -> Self {
         Self {
@@ -406,8 +399,8 @@ impl LimitedAttemptCount {
     /// let attempt_count = 10;
     /// assert!(policy.on_error(Instant::now(), attempt_count, transient_error()).is_exhausted());
     ///
-    /// use google_cloud_gax::error::{Error, ServiceError, rpc::Code, rpc::Status};
-    /// fn transient_error() -> Error { Error::rpc(ServiceError::from(Status::default().set_code(Code::Unavailable))) }
+    /// use google_cloud_gax::error::{Error, rpc::Code, rpc::Status};
+    /// fn transient_error() -> Error { Error::service(Status::default().set_code(Code::Unavailable)) }
     /// ```
     pub fn new(maximum_attempts: u32) -> Self {
         Self {
@@ -432,8 +425,8 @@ where
     /// assert!(policy.on_error(Instant::now(), 1, permanent_error()).is_continue());
     /// assert!(policy.on_error(Instant::now(), 2, permanent_error()).is_exhausted());
     ///
-    /// use google_cloud_gax::error::{Error, ServiceError, rpc::Code, rpc::Status};
-    /// fn permanent_error() -> Error { Error::rpc(ServiceError::from(Status::default().set_code(Code::Aborted))) }
+    /// use google_cloud_gax::error::{Error, rpc::Code, rpc::Status};
+    /// fn permanent_error() -> Error { Error::service(Status::default().set_code(Code::Aborted)) }
     /// ```
     pub fn custom(inner: P, maximum_attempts: u32) -> Self {
         Self {
@@ -525,7 +518,7 @@ impl std::error::Error for Exhausted {}
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::error::{Error, ServiceError};
+    use crate::error::{CredentialsError, Error};
     use http::HeaderMap;
     use std::time::{Duration, Instant};
 
@@ -565,16 +558,16 @@ mod tests {
         );
 
         assert!(
-            p.on_error(now, 0, Error::authentication("err".to_string()))
-                .is_continue()
+            p.on_error(
+                now,
+                0,
+                Error::authentication(CredentialsError::from_msg(true, "err"))
+            )
+            .is_continue()
         );
 
         assert!(
             p.on_error(now, 0, Error::serde("err".to_string()))
-                .is_permanent()
-        );
-        assert!(
-            p.on_error(now, 0, Error::other("err".to_string()))
                 .is_permanent()
         );
     }
@@ -590,7 +583,7 @@ mod tests {
     }
 
     #[test_case::test_case(Error::io("err"))]
-    #[test_case::test_case(Error::authentication("err"))]
+    #[test_case::test_case(Error::authentication(CredentialsError::from_msg(true, "err")))]
     #[test_case::test_case(Error::serde("err"))]
     #[test_case::test_case(Error::other("err"))]
     fn always_continue_error_kind(error: Error) {
@@ -646,10 +639,8 @@ mod tests {
             "code": code,
             "message": message,
         }});
-        let payload = serde_json::to_string(&error).ok();
-        let payload = payload.map(bytes::Bytes::from_owner);
-        let http = crate::error::HttpError::new(code, HeaderMap::new(), payload);
-        Error::rpc(http)
+        let payload = bytes::Bytes::from_owner(serde_json::to_string(&error).unwrap());
+        Error::http(code, HeaderMap::new(), payload)
     }
 
     fn http_unavailable() -> Error {
@@ -662,18 +653,18 @@ mod tests {
 
     fn unavailable() -> Error {
         use crate::error::rpc::Code;
-        let status = rpc::model::Status::default()
-            .set_code(Code::Unavailable as i32)
+        let status = crate::error::rpc::Status::default()
+            .set_code(Code::Unavailable)
             .set_message("UNAVAILABLE");
-        Error::rpc(ServiceError::from(status))
+        Error::service(status)
     }
 
     fn permission_denied() -> Error {
         use crate::error::rpc::Code;
-        let status = rpc::model::Status::default()
-            .set_code(Code::PermissionDenied as i32)
+        let status = crate::error::rpc::Status::default()
+            .set_code(Code::PermissionDenied)
             .set_message("PERMISSION_DENIED");
-        Error::rpc(ServiceError::from(status))
+        Error::service(status)
     }
 
     #[test]
@@ -705,7 +696,8 @@ mod tests {
                 "test-operation-name",
             )
             .unwrap();
-        let exhausted = err.as_inner::<Exhausted>();
+        use std::error::Error;
+        let exhausted = err.source().and_then(|e| e.downcast_ref::<Exhausted>());
         assert!(exhausted.is_some());
     }
 
@@ -847,7 +839,8 @@ mod tests {
         let err = policy
             .on_in_progress(Instant::now(), 30, "test-operation-name")
             .unwrap();
-        let exhausted = err.as_inner::<Exhausted>();
+        use std::error::Error;
+        let exhausted = err.source().and_then(|e| e.downcast_ref::<Exhausted>());
         assert!(exhausted.is_some());
     }
 
@@ -911,11 +904,10 @@ mod tests {
             .returning(|_, _, e| LoopState::Permanent(e));
         let policy = LimitedAttemptCount::custom(mock, 2);
         let now = std::time::Instant::now();
-
-        let rf = policy.on_error(now, 1, Error::serde("err".to_string()));
+        let rf = policy.on_error(now, 1, Error::serde("err"));
         assert!(rf.is_permanent());
 
-        let rf = policy.on_error(now, 1, Error::serde("err".to_string()));
+        let rf = policy.on_error(now, 1, Error::serde("err"));
         assert!(rf.is_permanent());
     }
 

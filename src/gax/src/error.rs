@@ -16,10 +16,6 @@ mod core_error;
 pub use core_error::*;
 mod credentials;
 pub use credentials::CredentialsError;
-mod http_error;
-pub use http_error::*;
-mod service_error;
-pub use service_error::*;
 
 /// Errors and error details returned by Service RPCs.
 ///
@@ -37,12 +33,10 @@ pub use service_error::*;
 /// # use std::result::Result;
 /// # use google_cloud_gax::error;
 /// use error::Error;
-/// use error::ServiceError;
 /// use error::rpc::Status;
 /// fn handle_error(e: Error) {
-///     if let Some(e) = e.as_inner::<ServiceError>() {
-///         let status : Status = e.status().clone();
-///         println!("{status:?}")
+///     if let Some(status) = e.status() {
+///         println!("the service reported {status:?}")
 ///     }
 /// }
 /// ```
