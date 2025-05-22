@@ -839,7 +839,7 @@ mod test {
         let got = map_polling_result(TestResult::Completed(Ok(wkt::Empty::default())));
         assert!(matches!(got, Completed(Ok(_))));
         let got = map_polling_result(TestResult::Completed(Err(Error::other("abc".to_string()))));
-        assert!(matches!(got, Completed(Err(e)) if e.kind() == gax::error::ErrorKind::Other));
+        assert!(matches!(got, Completed(Err(_))));
         let got = map_polling_result(TestResult::InProgress(None));
         assert!(matches!(got, InProgress(None)));
         let got = map_polling_result(TestResult::InProgress(Some(wkt::Timestamp::clamp(
@@ -847,7 +847,7 @@ mod test {
         ))));
         assert!(matches!(got, InProgress(Some(t)) if t == wkt::Timestamp::clamp(123, 456)));
         let got = map_polling_result(TestResult::PollingError(Error::other("abc".to_string())));
-        assert!(matches!(got, PollingError(e) if e.kind() == gax::error::ErrorKind::Other));
+        assert!(matches!(got, PollingError(_)));
     }
 
     // The other cases are already tested.
@@ -897,13 +897,13 @@ mod test {
         let got = map_polling_metadata(TestResult::Completed(Ok(wkt::Duration::clamp(123, 456))));
         assert!(matches!(got, Completed(Ok(_))));
         let got = map_polling_metadata(TestResult::Completed(Err(Error::other("abc".to_string()))));
-        assert!(matches!(got, Completed(Err(e)) if e.kind() == gax::error::ErrorKind::Other));
+        assert!(matches!(got, Completed(Err(_)) ));
         let got = map_polling_metadata(TestResult::InProgress(None));
         assert!(matches!(got, InProgress(None)));
         let got = map_polling_metadata(TestResult::InProgress(Some(wkt::Empty::default())));
         assert!(matches!(got, InProgress(Some(_))));
         let got = map_polling_metadata(TestResult::PollingError(Error::other("abc".to_string())));
-        assert!(matches!(got, PollingError(e) if e.kind() == gax::error::ErrorKind::Other));
+        assert!(matches!(got, PollingError(_) ));
     }
 
     #[tokio::test(flavor = "multi_thread")]

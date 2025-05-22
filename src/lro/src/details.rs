@@ -152,7 +152,11 @@ where
         return any.to_msg::<R>().map_err(Error::other);
     }
     if let Some(e) = op.error() {
-        return Err(Error::service(None, None, e.clone()));
+        return Err(Error::service(
+            None,
+            None,
+            gax::error::rpc::Status::from(e.clone()),
+        ));
     }
     Err(Error::other("missing result in completed operation"))
 }
@@ -277,7 +281,7 @@ mod test {
         match poll {
             PollingResult::Completed(r) => {
                 let e = r.err().unwrap();
-                assert_eq!(e.kind(), gax::error::ErrorKind::Other, "{e}")
+                assert!(format!("{e}").contains("test-only-error"), "{e}")
             }
             _ => panic!("{poll:?}"),
         };
@@ -356,7 +360,7 @@ mod test {
         assert_eq!(name.as_deref(), Some("test-123"));
         match poll {
             PollingResult::PollingError(e) => {
-                assert_eq!(e.kind(), gax::error::ErrorKind::Other, "{e}")
+                assert!(format!("{e}").contains("test-only-error"), "{e}")
             }
             _ => panic!("{poll:?}"),
         };
@@ -380,7 +384,7 @@ mod test {
             PollingResult::Completed(r) => {
                 assert!(r.is_err(), "{r:?}");
                 let e = r.err().unwrap();
-                assert_eq!(e.kind(), gax::error::ErrorKind::Other, "{e}")
+                assert!(format!("{e}").contains("test-only-error"), "{e}")
             }
             _ => panic!("{poll:?}"),
         };
@@ -457,13 +461,15 @@ mod test {
         type O = super::Operation<R, M>;
         let op = Operation::default().set_result(operation::Result::Error(
             rpc::model::Status::default()
+                .set_code(gax::error::rpc::Code::FailedPrecondition as i32)
                 .set_message("test only")
                 .into(),
         ));
         let op = O::new(op);
         let result = as_result(op);
         let err = result.err().unwrap();
-        assert_eq!(err.kind(), gax::error::ErrorKind::Rpc, "{err}");
+        let want = gax::error::rpc::Status::default().set_code(gax::error::rpc::Code::FailedPrecondition).set_message("test only");
+        assert_eq!(err.status(), Some(&want));
 
         Ok(())
     }
@@ -479,7 +485,6 @@ mod test {
         ));
         let op = O::new(op);
         let err = as_result(op).err().unwrap();
-        assert_eq!(err.kind(), gax::error::ErrorKind::Other, "{err}");
         assert!(
             format!("{err}").contains("/google.protobuf.Timestamp"),
             "{err}"
@@ -496,7 +501,6 @@ mod test {
         let op = longrunning::model::Operation::default();
         let op = O::new(op);
         let err = as_result(op).err().unwrap();
-        assert_eq!(err.kind(), gax::error::ErrorKind::Other, "{err}");
         assert!(format!("{err}").contains("missing result"), "{err}");
 
         Ok(())
