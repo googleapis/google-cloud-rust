@@ -558,8 +558,12 @@ mod tests {
         );
 
         assert!(
-            p.on_error(now, 0, Error::authentication(CredentialsError::from_str(true, "err")))
-                .is_continue()
+            p.on_error(
+                now,
+                0,
+                Error::authentication(CredentialsError::from_str(true, "err"))
+            )
+            .is_continue()
         );
 
         assert!(
@@ -696,7 +700,8 @@ mod tests {
                 "test-operation-name",
             )
             .unwrap();
-        let exhausted = err.as_inner::<Exhausted>();
+        use std::error::Error;
+        let exhausted = err.source().and_then(|e| e.downcast_ref::<Exhausted>());
         assert!(exhausted.is_some());
     }
 
@@ -838,7 +843,8 @@ mod tests {
         let err = policy
             .on_in_progress(Instant::now(), 30, "test-operation-name")
             .unwrap();
-        let exhausted = err.as_inner::<Exhausted>();
+        use std::error::Error;
+        let exhausted = err.source().and_then(|e| e.downcast_ref::<Exhausted>());
         assert!(exhausted.is_some());
     }
 

@@ -27,23 +27,15 @@ pub enum Error {
 }
 
 pub fn missing(name: &str) -> gax::error::Error {
-    gax::error::Error::other(Error::MissingRequiredParameter(name.to_string()))
+    gax::error::Error::binding(Error::MissingRequiredParameter(name.to_string()))
 }
 
 #[cfg(test)]
 mod tests {
-    use super::*;
-
     #[test]
     fn missing() {
         let e = super::missing("abc123");
         let fmt = format!("{e}");
         assert!(fmt.contains("abc123"), "{e:?}");
-        let inner = e.as_inner::<Error>().unwrap();
-        match inner {
-            Error::MissingRequiredParameter(s) => {
-                assert_eq!(s.as_str(), "abc123");
-            }
-        }
     }
 }

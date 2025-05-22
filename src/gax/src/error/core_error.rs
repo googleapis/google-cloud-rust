@@ -178,6 +178,7 @@ impl Error {
     pub(crate) fn is_transient_and_before_rpc(&self) -> bool {
         match &self.kind {
             ErrorKind::Binding(_) => false,
+            ErrorKind::Connect(_) => false,
             ErrorKind::Authentication(e) if e.is_retryable() => true,
             _ => false,
         }
@@ -185,7 +186,7 @@ impl Error {
 
     /// The error was generated after I/O started.
     pub(crate) fn is_io(&self) -> bool {
-        matches!(&self.kind, ErrorKind::Io(_))
+        matches!(&self.kind, ErrorKind::Io(_) | ErrorKind::Timeout(_))
     }
 
     // TODO(#2221) - remove once the migration is completed.
@@ -199,6 +200,11 @@ impl Error {
     #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
     pub fn is_deserialization(&self) -> bool {
         matches!(self.kind, ErrorKind::Deserialization(_))
+    }
+
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+    pub fn is_timeout(&self) -> bool {
+        matches!(self.kind, ErrorKind::Timeout(_))
     }
 
     #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
@@ -285,32 +291,6 @@ impl Error {
         }
     }
 
-    /// Recurses through the source error chain and returns a reference to the
-    /// inner value if it is of type `T`, or `None` if no such inner value is
-    /// found.
-    ///
-    /// # Examples
-    ///
-    /// ```
-    /// # use google_cloud_gax::error::Error;
-    /// # use google_cloud_gax::error::CredentialsError;
-    /// let error = Error::authentication(CredentialsError::from_str(true, "err"));
-    /// if let Some(e) = error.as_inner::<CredentialsError>() {
-    ///     assert!(e.is_retryable());
-    /// }
-    /// ```
-    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
-    pub fn as_inner<T: std::error::Error + Send + Sync + 'static>(&self) -> Option<&T> {
-        use std::error::Error;
-        let mut error = self.source()?;
-        loop {
-            match error.downcast_ref::<T>() {
-                Some(e) => return Some(e),
-                None => error = error.source()?,
-            }
-        }
-    }
-
     fn display_service_error(
         f: &mut std::fmt::Formatter,
         status_code: &Option<u16>,
@@ -320,7 +300,11 @@ impl Error {
         match payload {
             ServiceErrorPayload::Status(s) => {
                 // TODO(#2221) - more complete error messages
-                write!(f, "the service returned an error, {}", s.message)
+                write!(
+                    f,
+                    "the service returned an error: {}, code={}, details={:?}",
+                    s.message, s.code, s.details
+                )
             }
             ServiceErrorPayload::Bytes(b) => {
                 // TODO(#2221) - more complete error messages

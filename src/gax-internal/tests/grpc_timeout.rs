@@ -106,10 +106,7 @@ mod test {
                         r
                     );
                     let err = r.err().unwrap();
-                    assert_eq!(err.kind(), gax::error::ErrorKind::Rpc, "{err:?}");
-                    let svc = err.as_inner::<gax::error::ServiceError>().unwrap();
-                    let status = svc.status().clone();
-                    assert_eq!(status.code, gax::error::rpc::Code::Cancelled);
+                    assert!(err.is_timeout(), "{err:?}");
                     break;
                 },
                 _ = interval.tick() => { },
@@ -178,10 +175,7 @@ mod test {
                         r
                     );
                     let err = r.err().unwrap();
-                    assert_eq!(err.kind(), gax::error::ErrorKind::Rpc, "{err:?}");
-                    let svc = err.as_inner::<gax::error::ServiceError>().unwrap();
-                    let status = svc.status().clone();
-                    assert_eq!(status.code, gax::error::rpc::Code::Cancelled);
+                    assert!(err.is_timeout(), "{err:?}");
                     break;
                 },
                 _ = interval.tick() => { },

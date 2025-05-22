@@ -144,12 +144,20 @@ impl ReqwestClient {
         for (key, value) in auth_headers.iter() {
             builder = builder.header(key, value);
         }
-        let response = builder.send().await.map_err(Error::io)?;
+        let response = builder.send().await.map_err(Self::map_send_error)?;
         if !response.status().is_success() {
             return self::to_http_error(response).await;
         }
 
         self::to_http_response(response).await
+    }
+
+    fn map_send_error(err: reqwest::Error) -> Error {
+        match err {
+            e if e.is_timeout() => Error::timeout(e),
+            e if e.is_connect() => Error::connect(e),
+            e => Error::io(e),
+        }
     }
 
     fn get_retry_policy(
@@ -251,7 +259,6 @@ async fn to_http_response<O: serde::de::DeserializeOwned + Default>(
 
 #[cfg(test)]
 mod test {
-    use super::*;
     use http::{HeaderMap, HeaderValue};
     use test_case::test_case;
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
@@ -280,7 +287,6 @@ mod test {
 
     #[tokio::test]
     async fn client_error_with_status() -> TestResult {
-        use gax::error::ServiceError;
         use gax::error::rpc::{Code, Status, StatusDetails::LocalizedMessage};
         let body = serde_json::json!({"error": {
             "code": 404,
@@ -301,7 +307,6 @@ mod test {
         let response = super::to_http_error::<()>(response).await;
         assert!(response.is_err(), "{response:?}");
         let err = response.err().unwrap();
-        let err = err.as_inner::<ServiceError>().unwrap();
         let want_status = Status::default()
             .set_code(Code::NotFound)
             .set_message("The thing is not there, oh noes!")
@@ -310,11 +315,11 @@ mod test {
                     .set_locale("en-US")
                     .set_message("we searched everywhere, honest"),
             )]);
-        assert_eq!(err.status(), &want_status);
-        assert_eq!(err.http_status_code(), &Some(404_u16));
+        assert_eq!(err.status(), Some(&want_status));
+        assert_eq!(err.http_status_code(), Some(404_u16));
         let mut want = HeaderMap::new();
         want.insert("content-type", HeaderValue::from_static("application/json"));
-        assert_eq!(err.headers(), &Some(want));
+        assert_eq!(err.http_headers(), Some(&want));
         Ok(())
     }
 

@@ -12,17 +12,32 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use gax::error::rpc;
+use gax::error::rpc::{Code, Status};
 
-fn to_gax_status(status: &tonic::Status) -> rpc::Status {
-    let code = rpc::Code::from(status.code() as i32);
+fn to_gax_status(status: &tonic::Status) -> Status {
+    let code = Code::from(status.code() as i32);
     // TODO(#1699) - also convert the details
-    rpc::Status::default()
+    Status::default()
         .set_code(code)
         .set_message(status.message())
 }
 
+fn contains_tonic_timeout(status: &tonic::Status) -> Option<()> {
+    use std::error::Error;
+    let mut e = status.source()?;
+    loop {
+        if e.downcast_ref::<tonic::TimeoutExpired>().is_some() {
+            return Some(());
+        }
+        e = e.source()?;
+    }
+}
+
 pub fn to_gax_error(status: tonic::Status) -> gax::error::Error {
+    if contains_tonic_timeout(&status).is_some() {
+        return gax::error::Error::timeout(status);
+    }
+
     let gax_status = to_gax_status(&status);
     let headers = status.metadata().clone().into_headers();
     gax::error::Error::service(None, Some(headers), gax_status)
@@ -33,24 +48,24 @@ mod test {
     use super::*;
     use test_case::test_case;
 
-    #[test_case(tonic::Code::Ok, rpc::Code::Ok)]
-    #[test_case(tonic::Code::Cancelled, rpc::Code::Cancelled)]
-    #[test_case(tonic::Code::Unknown, rpc::Code::Unknown)]
-    #[test_case(tonic::Code::InvalidArgument, rpc::Code::InvalidArgument)]
-    #[test_case(tonic::Code::DeadlineExceeded, rpc::Code::DeadlineExceeded)]
-    #[test_case(tonic::Code::NotFound, rpc::Code::NotFound)]
-    #[test_case(tonic::Code::AlreadyExists, rpc::Code::AlreadyExists)]
-    #[test_case(tonic::Code::PermissionDenied, rpc::Code::PermissionDenied)]
-    #[test_case(tonic::Code::ResourceExhausted, rpc::Code::ResourceExhausted)]
-    #[test_case(tonic::Code::FailedPrecondition, rpc::Code::FailedPrecondition)]
-    #[test_case(tonic::Code::Aborted, rpc::Code::Aborted)]
-    #[test_case(tonic::Code::OutOfRange, rpc::Code::OutOfRange)]
-    #[test_case(tonic::Code::Unimplemented, rpc::Code::Unimplemented)]
-    #[test_case(tonic::Code::Internal, rpc::Code::Internal)]
-    #[test_case(tonic::Code::Unavailable, rpc::Code::Unavailable)]
-    #[test_case(tonic::Code::DataLoss, rpc::Code::DataLoss)]
-    #[test_case(tonic::Code::Unauthenticated, rpc::Code::Unauthenticated)]
-    fn check_code(input: tonic::Code, want: rpc::Code) {
+    #[test_case(tonic::Code::Ok, Code::Ok)]
+    #[test_case(tonic::Code::Cancelled, Code::Cancelled)]
+    #[test_case(tonic::Code::Unknown, Code::Unknown)]
+    #[test_case(tonic::Code::InvalidArgument, Code::InvalidArgument)]
+    #[test_case(tonic::Code::DeadlineExceeded, Code::DeadlineExceeded)]
+    #[test_case(tonic::Code::NotFound, Code::NotFound)]
+    #[test_case(tonic::Code::AlreadyExists, Code::AlreadyExists)]
+    #[test_case(tonic::Code::PermissionDenied, Code::PermissionDenied)]
+    #[test_case(tonic::Code::ResourceExhausted, Code::ResourceExhausted)]
+    #[test_case(tonic::Code::FailedPrecondition, Code::FailedPrecondition)]
+    #[test_case(tonic::Code::Aborted, Code::Aborted)]
+    #[test_case(tonic::Code::OutOfRange, Code::OutOfRange)]
+    #[test_case(tonic::Code::Unimplemented, Code::Unimplemented)]
+    #[test_case(tonic::Code::Internal, Code::Internal)]
+    #[test_case(tonic::Code::Unavailable, Code::Unavailable)]
+    #[test_case(tonic::Code::DataLoss, Code::DataLoss)]
+    #[test_case(tonic::Code::Unauthenticated, Code::Unauthenticated)]
+    fn check_code(input: tonic::Code, want: Code) {
         let got = to_gax_status(&tonic::Status::new(input, "test-only"));
         assert_eq!(got.code, want);
         assert_eq!(&got.message, "test-only");
@@ -61,7 +76,7 @@ mod test {
         let status = tonic::Status::invalid_argument("test-only");
         let got = to_gax_error(status);
         let status = got.status().unwrap();
-        assert_eq!(status.code, rpc::Code::InvalidArgument);
+        assert_eq!(status.code, Code::InvalidArgument);
         assert_eq!(&status.message, "test-only");
     }
 }

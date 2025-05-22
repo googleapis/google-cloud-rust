@@ -40,9 +40,8 @@ pub use service_error::*;
 /// use error::ServiceError;
 /// use error::rpc::Status;
 /// fn handle_error(e: Error) {
-///     if let Some(e) = e.as_inner::<ServiceError>() {
-///         let status : Status = e.status().clone();
-///         println!("{status:?}")
+///     if let Some(status) = e.status() {
+///         println!("the service reported {status:?}")
 ///     }
 /// }
 /// ```

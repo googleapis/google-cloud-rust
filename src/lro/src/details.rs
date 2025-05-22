@@ -152,7 +152,7 @@ where
         return any.to_msg::<R>().map_err(Error::other);
     }
     if let Some(e) = op.error() {
-        return Err(Error::rpc(gax::error::ServiceError::from(e.clone())));
+        return Err(Error::service(None, None, e.clone()));
     }
     Err(Error::other("missing result in completed operation"))
 }
