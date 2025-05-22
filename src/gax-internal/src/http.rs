@@ -16,7 +16,7 @@ use auth::credentials::CacheableResource;
 use auth::credentials::{Builder as AccessTokenCredentialBuilder, Credentials};
 use gax::Result;
 use gax::backoff_policy::BackoffPolicy;
-use gax::error::{Error, HttpError, ServiceErrorBuilder};
+use gax::error::Error;
 use gax::exponential_backoff::ExponentialBackoff;
 use gax::polling_backoff_policy::PollingBackoffPolicy;
 use gax::polling_error_policy::Aip194Strict;
@@ -220,13 +220,8 @@ pub async fn to_http_error<O>(response: reqwest::Response) -> Result<O> {
         .to_bytes();
 
     let error = match gax::error::rpc::Status::try_from(&body) {
-        Ok(status) => Error::rpc(
-            ServiceErrorBuilder::new(status)
-                .with_headers(parts.headers)
-                .with_http_status_code(status_code)
-                .build(),
-        ),
-        Err(_) => Error::rpc(HttpError::new(status_code, parts.headers, Some(body))),
+        Ok(status) => Error::service(Some(status_code), Some(parts.headers), status),
+        Err(_) => Error::http(status_code, parts.headers, body),
     };
     Err(error)
 }
@@ -272,13 +267,12 @@ mod test {
         let response = super::to_http_error::<()>(response).await;
         assert!(response.is_err(), "{response:?}");
         let err = response.err().unwrap();
-        let err = err.as_inner::<HttpError>().unwrap();
-        assert_eq!(err.status_code(), 400);
+        assert_eq!(err.http_status_code(), Some(400));
         let mut want = HeaderMap::new();
         want.insert("content-type", HeaderValue::from_static("application/json"));
-        assert_eq!(err.headers(), &want);
+        assert_eq!(err.http_headers(), Some(&want));
         assert_eq!(
-            err.payload(),
+            err.http_payload(),
             Some(bytes::Bytes::from(r#"{"error": "bad request"}"#)).as_ref()
         );
         Ok(())

@@ -25,6 +25,96 @@ pub struct Error {
 }
 
 impl Error {
+    /// The [Status] payload associated with this error.
+    /// 
+    /// # Examples
+    /// ```
+    /// use google_cloud_gax::error::{Error, rpc::{Code, Status}};
+    /// let e = search_for_thing("the thing");
+    /// if let Some(status) = e.status() {
+    ///     if status.code == Code::NotFound {
+    ///         println!("cannot find the thing, more details in {:?}", status.details);
+    ///     }
+    /// }
+    /// 
+    /// fn search_for_thing(name: &str) -> Error {
+    ///     # Error::service(None, None, Status::default().set_code(Code::NotFound))
+    /// }
+    /// ```
+    /// 
+    /// Google Cloud services return a detailed `Status` message including a
+    /// numeric code for the error type, a human-readable message, and a
+    /// sequence of details which may include localization messages, or more
+    /// information about what caused the failure.
+    /// 
+    /// See [AIP-193] for background information about the error model in Google
+    /// Cloud services.
+    /// 
+    /// [AIP-193]: https://google.aip.dev/193
+    pub fn status(&self) -> Option<&Status> {
+        match &self.kind {
+            ErrorKind::Service {
+                payload: ServiceErrorPayload::Status(s),
+                ..
+            } => Some(s),
+            _ => None,
+        }
+    }
+
+    /// The HTTP status code, if any, associated with this error.
+    /// 
+    /// # Example
+    /// ```
+    /// use google_cloud_gax::error::{Error, rpc::{Code, Status}};
+    /// let e = search_for_thing("the thing");
+    /// if let Some(code) = e.http_status_code() {
+    ///     println!("cannot find the thing, more details in {e}");
+    /// }
+    /// 
+    /// fn search_for_thing(name: &str) -> Error {
+    ///     # Error::http(400, http::HeaderMap::new(), bytes::Bytes::from_static(b"NOT FOUND"))
+    /// }
+    /// ```
+    /// 
+    /// Sometimes the error is generated before it reaches any Google Cloud
+    /// service. For example, your proxy or the Google load balancers may
+    /// generate errors without the detailed payload described in [AIP-193].
+    /// In such cases the client library returns the status code, headers, and
+    /// http payload.
+    /// 
+    /// Note that `http_status_code()`, `http_headers()`, `http_payload()`, and
+    /// `status()` are represented as different fields, because they may be
+    /// set in some errors but not others.
+    pub fn http_status_code(&self) -> Option<u16> {
+        match &self.kind {
+            ErrorKind::Service {
+                status_code: Some(code),
+                ..
+            } => Some(*code),
+            _ => None,
+        }
+    }
+
+    pub fn http_headers(&self) -> Option<&http::HeaderMap> {
+        match &self.kind {
+            ErrorKind::Service {
+                headers: Some(h),
+                ..
+            } => Some(h),
+            _ => None,
+        }
+    }
+
+    pub fn http_payload(&self) -> Option<&bytes::Bytes> {
+        match &self.kind {
+            ErrorKind::Service {
+                payload: ServiceErrorPayload::Bytes(b),
+                ..
+            } => Some(b),
+            _ => None,
+        }
+    }
+
     /// The error was generated before the RPC started and is transient.
     pub(crate) fn is_transient_and_before_rpc(&self) -> bool {
         match &self.kind {
@@ -39,25 +129,7 @@ impl Error {
         matches!(&self.kind, ErrorKind::Io(_))
     }
 
-    pub(crate) fn status(&self) -> Option<&Status> {
-        match &self.kind {
-            ErrorKind::Service {
-                payload: ServiceErrorPayload::Status(s),
-                ..
-            } => Some(s),
-            _ => None,
-        }
-    }
 
-    pub(crate) fn http_status_code(&self) -> Option<u16> {
-        match &self.kind {
-            ErrorKind::Service {
-                status_code: Some(code),
-                ..
-            } => Some(*code),
-            _ => None,
-        }
-    }
 
     // TODO(#2221) - remove once the migration is completed.
     #[doc(hidden)]

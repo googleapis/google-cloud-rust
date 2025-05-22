@@ -164,7 +164,8 @@ impl Client {
         }
         let codec = tonic::codec::ProstCodec::<Request, Response>::default();
         let mut inner = self.inner.clone();
-        inner.ready().await.map_err(Error::rpc)?;
+        // TODO(#2221) - we should add a `Error::connect` builder
+        inner.ready().await.map_err(Error::io)?;
         inner
             .unary(request, path, codec)
             .await
