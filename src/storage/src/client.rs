@@ -150,26 +150,12 @@ impl Storage {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&self::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let cached_auth_headers = self
-            .cred
-            .headers(Extensions::new())
-            .await
-            .map_err(Error::authentication)?;
 
-        let auth_headers = match cached_auth_headers {
-            CacheableResource::New { data, .. } => Ok(data),
-            CacheableResource::NotModified => {
-                unreachable!("headers are not cached");
-            }
-        };
-
-        let auth_headers = auth_headers?;
-        let builder = auth_headers
-            .iter()
-            .fold(builder, |b, (k, v)| b.header(k, v));
+        let builder = self.apply_auth_headers(builder).await?;
         let builder = builder.body(payload.into());
 
         tracing::info!("builder={builder:?}");
+
         let response = builder.send().await.map_err(Error::io)?;
         if !response.status().is_success() {
             return gaxi::http::to_http_error(response).await;
@@ -221,22 +207,9 @@ impl Storage {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&self::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let cached_auth_headers = self
-            .cred
-            .headers(Extensions::new())
-            .await
-            .map_err(Error::authentication)?;
-        let auth_headers = match cached_auth_headers {
-            CacheableResource::New { data, .. } => Ok(data),
-            CacheableResource::NotModified => {
-                unreachable!("headers are not cached");
-            }
-        };
 
-        let auth_headers = auth_headers?;
-        let builder = auth_headers
-            .iter()
-            .fold(builder, |b, (k, v)| b.header(k, v));
+        let builder = self.apply_auth_headers(builder).await?;
+
         tracing::info!("builder={builder:?}");
 
         let response = builder.send().await.map_err(Error::io)?;
@@ -265,6 +238,32 @@ impl Storage {
             cred,
             endpoint,
         })
+    }
+
+    // Helper method to apply authentication headers to the request builder.
+    async fn apply_auth_headers(
+        &self,
+        builder: reqwest::RequestBuilder,
+    ) -> crate::Result<reqwest::RequestBuilder> {
+        let cached_auth_headers = self
+            .cred
+            .headers(Extensions::new())
+            .await
+            .map_err(Error::authentication)?;
+
+        let auth_headers = match cached_auth_headers {
+            CacheableResource::New { data, .. } => Ok(data),
+            CacheableResource::NotModified => {
+                unreachable!("headers are not cached");
+            }
+        };
+
+        let auth_headers = auth_headers?;
+        let builder = auth_headers
+            .iter()
+            .fold(builder, |b, (k, v)| b.header(k, v));
+
+        Ok(builder)
     }
 }
 
