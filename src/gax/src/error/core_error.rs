@@ -26,7 +26,7 @@ pub struct Error {
 
 impl Error {
     /// The [Status] payload associated with this error.
-    /// 
+    ///
     /// # Examples
     /// ```
     /// use google_cloud_gax::error::{Error, rpc::{Code, Status}};
@@ -36,20 +36,20 @@ impl Error {
     ///         println!("cannot find the thing, more details in {:?}", status.details);
     ///     }
     /// }
-    /// 
+    ///
     /// fn search_for_thing(name: &str) -> Error {
     ///     # Error::service(None, None, Status::default().set_code(Code::NotFound))
     /// }
     /// ```
-    /// 
+    ///
     /// Google Cloud services return a detailed `Status` message including a
     /// numeric code for the error type, a human-readable message, and a
     /// sequence of details which may include localization messages, or more
     /// information about what caused the failure.
-    /// 
+    ///
     /// See [AIP-193] for background information about the error model in Google
     /// Cloud services.
-    /// 
+    ///
     /// [AIP-193]: https://google.aip.dev/193
     pub fn status(&self) -> Option<&Status> {
         match &self.kind {
@@ -62,26 +62,28 @@ impl Error {
     }
 
     /// The HTTP status code, if any, associated with this error.
-    /// 
+    ///
     /// # Example
     /// ```
     /// use google_cloud_gax::error::{Error, rpc::{Code, Status}};
     /// let e = search_for_thing("the thing");
     /// if let Some(code) = e.http_status_code() {
-    ///     println!("cannot find the thing, more details in {e}");
+    ///     if code == 404 {
+    ///         println!("cannot find the thing, more details in {e}");
+    ///     }
     /// }
-    /// 
+    ///
     /// fn search_for_thing(name: &str) -> Error {
     ///     # Error::http(400, http::HeaderMap::new(), bytes::Bytes::from_static(b"NOT FOUND"))
     /// }
     /// ```
-    /// 
+    ///
     /// Sometimes the error is generated before it reaches any Google Cloud
     /// service. For example, your proxy or the Google load balancers may
     /// generate errors without the detailed payload described in [AIP-193].
     /// In such cases the client library returns the status code, headers, and
     /// http payload.
-    /// 
+    ///
     /// Note that `http_status_code()`, `http_headers()`, `http_payload()`, and
     /// `status()` are represented as different fields, because they may be
     /// set in some errors but not others.
@@ -95,16 +97,73 @@ impl Error {
         }
     }
 
+    /// The headers, if any, associated with this error.
+    ///
+    /// # Example
+    /// ```
+    /// use google_cloud_gax::error::{Error, rpc::{Code, Status}};
+    /// let e = search_for_thing("the thing");
+    /// if let Some(headers) = e.http_headers() {
+    ///     if let Some(id) = headers.get("x-guploader-uploadid") {
+    ///         println!("this can speed up troubleshooting the Google Cloud Storage support team {id:?}");
+    ///     }
+    /// }
+    ///
+    /// fn search_for_thing(name: &str) -> Error {
+    ///     # let mut map = http::HeaderMap::new();
+    ///     # map.insert("x-guploader-uploadid", http::HeaderValue::from_static("placeholder"));
+    ///     # Error::http(400, map, bytes::Bytes::from_static(b"NOT FOUND"))
+    /// }
+    /// ```
+    ///
+    /// Sometimes the error may have headers associated with it. Some services
+    /// include information useful for troubleshooting or for the support team
+    /// in the headers. Over gRPC this is called `metadata`, the Google Cloud
+    /// client libraries for Rust normalize this to a [http::HeaderMap].
+    ///
+    /// Many errors do not have this information, e.g. errors detected before
+    /// the request is set, or timeouts. Some RPCs also return "partial"
+    /// errors, which do not include such information.
+    ///
+    /// Note that `http_status_code()`, `http_headers()`, `http_payload()`, and
+    /// `status()` are represented as different fields, because they may be
+    /// set in some errors but not others.
     pub fn http_headers(&self) -> Option<&http::HeaderMap> {
         match &self.kind {
             ErrorKind::Service {
-                headers: Some(h),
-                ..
+                headers: Some(h), ..
             } => Some(h),
             _ => None,
         }
     }
 
+    /// The payload, if any, associated with this error.
+    ///
+    /// # Example
+    /// ```
+    /// use google_cloud_gax::error::{Error, rpc::{Code, Status}};
+    /// let e = search_for_thing("the thing");
+    /// if let Some(payload) = e.http_payload() {
+    ///    println!("the error included some extra payload {payload:?}");
+    /// }
+    ///
+    /// fn search_for_thing(name: &str) -> Error {
+    ///     # Error::http(400, http::HeaderMap::new(), bytes::Bytes::from_static(b"NOT FOUND"))
+    /// }
+    /// ```
+    ///
+    /// Sometimes the error may have headers associated with it. Some services
+    /// include information useful for troubleshooting or for the support team
+    /// in the headers. Over gRPC this is called `metadata`, the Google Cloud
+    /// client libraries for Rust normalize this to a [http::HeaderMap].
+    ///
+    /// Many errors do not have this information, e.g. errors detected before
+    /// the request is set, or timeouts. Some RPCs also return "partial"
+    /// errors, which do not include such information.
+    ///
+    /// Note that `http_status_code()`, `http_headers()`, `http_payload()`, and
+    /// `status()` are represented as different fields, because they may be
+    /// set in some errors but not others.
     pub fn http_payload(&self) -> Option<&bytes::Bytes> {
         match &self.kind {
             ErrorKind::Service {
@@ -124,12 +183,10 @@ impl Error {
         }
     }
 
-    /// The error was generated before the RPC started and is transient.
+    /// The error was generated after I/O started.
     pub(crate) fn is_io(&self) -> bool {
         matches!(&self.kind, ErrorKind::Io(_))
     }
-
-
 
     // TODO(#2221) - remove once the migration is completed.
     #[doc(hidden)]
@@ -166,9 +223,30 @@ impl Error {
     }
 
     #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+    pub fn connect<T: Into<BoxError>>(source: T) -> Self {
+        Self {
+            kind: ErrorKind::Connect(source.into()),
+        }
+    }
+
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
     pub fn io<T: Into<BoxError>>(source: T) -> Self {
         Self {
             kind: ErrorKind::Io(source.into()),
+        }
+    }
+
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+    pub fn timeout<T: Into<BoxError>>(source: T) -> Self {
+        Self {
+            kind: ErrorKind::Timeout(source.into()),
+        }
+    }
+
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+    pub fn exhausted<T: Into<BoxError>>(source: T) -> Self {
+        Self {
+            kind: ErrorKind::Exhausted(source.into()),
         }
     }
 
@@ -258,6 +336,9 @@ impl std::fmt::Display for Error {
             ErrorKind::Binding(e) => {
                 write!(f, "cannot find a matching binding to send the request: {e}")
             }
+            ErrorKind::Connect(e) => {
+                write!(f, "cannot connect to the service: {e}")
+            }
             ErrorKind::Serialization(e) => write!(f, "cannot serialize the request: {e}"),
             ErrorKind::Authentication(e) => {
                 write!(f, "cannot create the authentication headers: {e}")
@@ -265,6 +346,11 @@ impl std::fmt::Display for Error {
             ErrorKind::Io(e) => write!(
                 f,
                 "an I/O problem sending the request or receiving the response: {e}"
+            ),
+            ErrorKind::Timeout(e) => write!(f, "the request exceeded the request deadline: {e}"),
+            ErrorKind::Exhausted(e) => write!(
+                f,
+                "a policy was exhausted before getting a successful response: {e}"
             ),
             ErrorKind::Service {
                 status_code,
@@ -281,9 +367,12 @@ impl std::error::Error for Error {
     fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
         match &self.kind {
             ErrorKind::Binding(e) => Some(e.as_ref()),
+            ErrorKind::Connect(e) => Some(e.as_ref()),
             ErrorKind::Serialization(e) => Some(e.as_ref()),
             ErrorKind::Authentication(e) => Some(e),
             ErrorKind::Io(e) => Some(e.as_ref()),
+            ErrorKind::Timeout(e) => Some(e.as_ref()),
+            ErrorKind::Exhausted(e) => Some(e.as_ref()),
             ErrorKind::Service { .. } => None,
             ErrorKind::Deserialization(e) => Some(e.as_ref()),
             ErrorKind::Other(e) => Some(e.as_ref()),
@@ -301,9 +390,12 @@ enum ServiceErrorPayload {
 #[derive(Debug)]
 enum ErrorKind {
     Binding(BoxError),
+    Connect(BoxError),
     Serialization(BoxError),
     Authentication(CredentialsError),
     Io(BoxError),
+    Timeout(BoxError),
+    Exhausted(BoxError),
     Service {
         status_code: Option<u16>,
         headers: Option<HeaderMap>,
