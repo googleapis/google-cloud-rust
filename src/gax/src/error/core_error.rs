@@ -25,6 +25,26 @@ pub struct Error {
 }
 
 impl Error {
+    /// An error with the information returned by Google Cloud services.
+    /// 
+    /// # Example
+    /// ```
+    /// use google_cloud_gax::error::Error;
+    /// use google_cloud_gax::error::rpc::{Code, Status};
+    /// let error = Error::service(None, None, Status::default().set_code(Code::NotFound).set_message("NOT FOUND"));
+    /// assert!(error.status().is_some());
+    /// assert!(error.http_status_code().is_none());
+    /// assert!(error.http_headers().is_none());
+    /// ```
+    pub fn service(status_code: Option<u16>, headers: Option<HeaderMap>, status: Status) -> Self {
+        let kind = ErrorKind::Service {
+            status_code,
+            headers,
+            payload: ServiceErrorPayload::Status(status),
+        };
+        Self { kind }
+    }
+
     /// The [Status] payload associated with this error.
     ///
     /// # Examples
@@ -254,16 +274,6 @@ impl Error {
         Self {
             kind: ErrorKind::Exhausted(source.into()),
         }
-    }
-
-    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
-    pub fn service(status_code: Option<u16>, headers: Option<HeaderMap>, status: Status) -> Self {
-        let kind = ErrorKind::Service {
-            status_code,
-            headers,
-            payload: ServiceErrorPayload::Status(status),
-        };
-        Self { kind }
     }
 
     #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
