@@ -313,7 +313,7 @@ impl LivestreamService {
     }
 
     /// Deletes the specified clip job resource. This method only deletes the clip
-    /// job and does not delete the VOD clip stored in the GCS.
+    /// job and does not delete the VOD clip stored in Cloud Storage.
     ///
     /// # Long running operations
     ///
@@ -326,6 +326,61 @@ impl LivestreamService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn delete_clip(&self) -> super::builder::livestream_service::DeleteClip {
         super::builder::livestream_service::DeleteClip::new(self.inner.clone())
+    }
+
+    /// Creates a DVR session with the provided unique ID in the specified channel.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn create_dvr_session(&self) -> super::builder::livestream_service::CreateDvrSession {
+        super::builder::livestream_service::CreateDvrSession::new(self.inner.clone())
+    }
+
+    /// Returns a list of all DVR sessions in the specified channel.
+    pub fn list_dvr_sessions(&self) -> super::builder::livestream_service::ListDvrSessions {
+        super::builder::livestream_service::ListDvrSessions::new(self.inner.clone())
+    }
+
+    /// Returns the specified DVR session.
+    pub fn get_dvr_session(&self) -> super::builder::livestream_service::GetDvrSession {
+        super::builder::livestream_service::GetDvrSession::new(self.inner.clone())
+    }
+
+    /// Deletes the specified DVR session.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn delete_dvr_session(&self) -> super::builder::livestream_service::DeleteDvrSession {
+        super::builder::livestream_service::DeleteDvrSession::new(self.inner.clone())
+    }
+
+    /// Updates the specified DVR session.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn update_dvr_session(&self) -> super::builder::livestream_service::UpdateDvrSession {
+        super::builder::livestream_service::UpdateDvrSession::new(self.inner.clone())
     }
 
     /// Creates a Asset with the provided unique ID in the specified

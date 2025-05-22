@@ -965,9 +965,7 @@ pub struct BackupChannel {
     pub name: std::string::String,
 
     /// Required. Immutable. The project where Backups are allowed to be stored.
-    /// The format is `projects/{project}`.
-    /// Currently, {project} can only be the project number. Support for project
-    /// IDs will be added in the future.
+    /// The format is `projects/{projectId}` or `projects/{projectNumber}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub destination_project: std::string::String,
 
@@ -1222,6 +1220,13 @@ pub struct BackupPlan {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub rpo_risk_reason: std::string::String,
 
+    /// Output only. The fully qualified name of the BackupChannel to be used to
+    /// create a backup. This field is set only if the cluster being backed up is
+    /// in a different project.
+    /// `projects/*/locations/*/backupChannels/*`
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub backup_channel: std::string::String,
+
     /// Output only. Completion time of the last successful Backup. This is sourced
     /// from a successful Backup's complete_time field. This field is added to
     /// maintain consistency with BackupPlanBinding to display last successful
@@ -1406,6 +1411,12 @@ impl BackupPlan {
     /// Sets the value of [rpo_risk_reason][crate::model::BackupPlan::rpo_risk_reason].
     pub fn set_rpo_risk_reason<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.rpo_risk_reason = v.into();
+        self
+    }
+
+    /// Sets the value of [backup_channel][crate::model::BackupPlan::backup_channel].
+    pub fn set_backup_channel<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.backup_channel = v.into();
         self
     }
 
@@ -2534,6 +2545,20 @@ pub mod backup_plan_binding {
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub last_successful_backup: std::string::String,
 
+        /// Output only. Contains details about the BackupConfig of Backups created
+        /// via this BackupPlan.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub backup_config_details: std::option::Option<
+            crate::model::backup_plan_binding::backup_plan_details::BackupConfigDetails,
+        >,
+
+        /// Output only. Contains details about the RetentionPolicy of Backups
+        /// created via this BackupPlan.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub retention_policy_details: std::option::Option<
+            crate::model::backup_plan_binding::backup_plan_details::RetentionPolicyDetails,
+        >,
+
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -2616,6 +2641,50 @@ pub mod backup_plan_binding {
             self.last_successful_backup = v.into();
             self
         }
+
+        /// Sets the value of [backup_config_details][crate::model::backup_plan_binding::BackupPlanDetails::backup_config_details].
+        pub fn set_backup_config_details<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<
+                    crate::model::backup_plan_binding::backup_plan_details::BackupConfigDetails,
+                >,
+        {
+            self.backup_config_details = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [backup_config_details][crate::model::backup_plan_binding::BackupPlanDetails::backup_config_details].
+        pub fn set_or_clear_backup_config_details<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<
+                    crate::model::backup_plan_binding::backup_plan_details::BackupConfigDetails,
+                >,
+        {
+            self.backup_config_details = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [retention_policy_details][crate::model::backup_plan_binding::BackupPlanDetails::retention_policy_details].
+        pub fn set_retention_policy_details<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<
+                    crate::model::backup_plan_binding::backup_plan_details::RetentionPolicyDetails,
+                >,
+        {
+            self.retention_policy_details = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [retention_policy_details][crate::model::backup_plan_binding::BackupPlanDetails::retention_policy_details].
+        pub fn set_or_clear_retention_policy_details<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<
+                    crate::model::backup_plan_binding::backup_plan_details::RetentionPolicyDetails,
+                >,
+        {
+            self.retention_policy_details = v.map(|x| x.into());
+            self
+        }
     }
 
     impl wkt::message::Message for BackupPlanDetails {
@@ -2628,6 +2697,268 @@ pub mod backup_plan_binding {
     pub mod backup_plan_details {
         #[allow(unused_imports)]
         use super::*;
+
+        /// BackupConfigDetails defines the configuration of Backups created via this
+        /// BackupPlan.
+        #[serde_with::serde_as]
+        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[serde(default, rename_all = "camelCase")]
+        #[non_exhaustive]
+        pub struct BackupConfigDetails {
+
+            /// Output only. This flag specifies whether volume data should be backed
+            /// up when PVCs are included in the scope of a Backup.
+            ///
+            /// Default: False
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            pub include_volume_data: bool,
+
+            /// Output only. This flag specifies whether Kubernetes Secret resources
+            /// should be included when they fall into the scope of Backups.
+            ///
+            /// Default: False
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            pub include_secrets: bool,
+
+            /// Output only. This defines a customer managed encryption key that will
+            /// be used to encrypt the "config" portion (the Kubernetes resources) of
+            /// Backups created via this plan.
+            ///
+            /// Default (empty): Config backup artifacts will not be encrypted.
+            #[serde(skip_serializing_if = "std::option::Option::is_none")]
+            pub encryption_key: std::option::Option<crate::model::EncryptionKey>,
+
+            /// This defines the "scope" of the Backup - which namespaced
+            /// resources in the cluster will be included in a Backup.
+            /// Exactly one of the fields of backup_scope MUST be specified.
+            #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
+            pub backup_scope: std::option::Option<crate::model::backup_plan_binding::backup_plan_details::backup_config_details::BackupScope>,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl BackupConfigDetails {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [include_volume_data][crate::model::backup_plan_binding::backup_plan_details::BackupConfigDetails::include_volume_data].
+            pub fn set_include_volume_data<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+                self.include_volume_data = v.into();
+                self
+            }
+
+            /// Sets the value of [include_secrets][crate::model::backup_plan_binding::backup_plan_details::BackupConfigDetails::include_secrets].
+            pub fn set_include_secrets<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+                self.include_secrets = v.into();
+                self
+            }
+
+            /// Sets the value of [encryption_key][crate::model::backup_plan_binding::backup_plan_details::BackupConfigDetails::encryption_key].
+            pub fn set_encryption_key<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<crate::model::EncryptionKey>,
+            {
+                self.encryption_key = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [encryption_key][crate::model::backup_plan_binding::backup_plan_details::BackupConfigDetails::encryption_key].
+            pub fn set_or_clear_encryption_key<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<crate::model::EncryptionKey>,
+            {
+                self.encryption_key = v.map(|x| x.into());
+                self
+            }
+
+            /// Sets the value of [backup_scope][crate::model::backup_plan_binding::backup_plan_details::BackupConfigDetails::backup_scope].
+            ///
+            /// Note that all the setters affecting `backup_scope` are mutually
+            /// exclusive.
+            pub fn set_backup_scope<T: std::convert::Into<std::option::Option<crate::model::backup_plan_binding::backup_plan_details::backup_config_details::BackupScope>>>(mut self, v: T) -> Self
+            {
+                self.backup_scope = v.into();
+                self
+            }
+
+            /// The value of [backup_scope][crate::model::backup_plan_binding::backup_plan_details::BackupConfigDetails::backup_scope]
+            /// if it holds a `AllNamespaces`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn all_namespaces(&self) -> std::option::Option<&bool> {
+                #[allow(unreachable_patterns)]
+                self.backup_scope.as_ref().and_then(|v| match v {
+                    crate::model::backup_plan_binding::backup_plan_details::backup_config_details::BackupScope::AllNamespaces(v) => std::option::Option::Some(v),
+                    _ => std::option::Option::None,
+                })
+            }
+
+            /// Sets the value of [backup_scope][crate::model::backup_plan_binding::backup_plan_details::BackupConfigDetails::backup_scope]
+            /// to hold a `AllNamespaces`.
+            ///
+            /// Note that all the setters affecting `backup_scope` are
+            /// mutually exclusive.
+            pub fn set_all_namespaces<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+                self.backup_scope = std::option::Option::Some(
+                    crate::model::backup_plan_binding::backup_plan_details::backup_config_details::BackupScope::AllNamespaces(
+                        v.into()
+                    )
+                );
+                self
+            }
+
+            /// The value of [backup_scope][crate::model::backup_plan_binding::backup_plan_details::BackupConfigDetails::backup_scope]
+            /// if it holds a `SelectedNamespaces`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn selected_namespaces(
+                &self,
+            ) -> std::option::Option<&std::boxed::Box<crate::model::Namespaces>> {
+                #[allow(unreachable_patterns)]
+                self.backup_scope.as_ref().and_then(|v| match v {
+                    crate::model::backup_plan_binding::backup_plan_details::backup_config_details::BackupScope::SelectedNamespaces(v) => std::option::Option::Some(v),
+                    _ => std::option::Option::None,
+                })
+            }
+
+            /// Sets the value of [backup_scope][crate::model::backup_plan_binding::backup_plan_details::BackupConfigDetails::backup_scope]
+            /// to hold a `SelectedNamespaces`.
+            ///
+            /// Note that all the setters affecting `backup_scope` are
+            /// mutually exclusive.
+            pub fn set_selected_namespaces<
+                T: std::convert::Into<std::boxed::Box<crate::model::Namespaces>>,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.backup_scope = std::option::Option::Some(
+                    crate::model::backup_plan_binding::backup_plan_details::backup_config_details::BackupScope::SelectedNamespaces(
+                        v.into()
+                    )
+                );
+                self
+            }
+
+            /// The value of [backup_scope][crate::model::backup_plan_binding::backup_plan_details::BackupConfigDetails::backup_scope]
+            /// if it holds a `SelectedApplications`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn selected_applications(
+                &self,
+            ) -> std::option::Option<&std::boxed::Box<crate::model::NamespacedNames>> {
+                #[allow(unreachable_patterns)]
+                self.backup_scope.as_ref().and_then(|v| match v {
+                    crate::model::backup_plan_binding::backup_plan_details::backup_config_details::BackupScope::SelectedApplications(v) => std::option::Option::Some(v),
+                    _ => std::option::Option::None,
+                })
+            }
+
+            /// Sets the value of [backup_scope][crate::model::backup_plan_binding::backup_plan_details::BackupConfigDetails::backup_scope]
+            /// to hold a `SelectedApplications`.
+            ///
+            /// Note that all the setters affecting `backup_scope` are
+            /// mutually exclusive.
+            pub fn set_selected_applications<
+                T: std::convert::Into<std::boxed::Box<crate::model::NamespacedNames>>,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.backup_scope = std::option::Option::Some(
+                    crate::model::backup_plan_binding::backup_plan_details::backup_config_details::BackupScope::SelectedApplications(
+                        v.into()
+                    )
+                );
+                self
+            }
+        }
+
+        impl wkt::message::Message for BackupConfigDetails {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.gkebackup.v1.BackupPlanBinding.BackupPlanDetails.BackupConfigDetails"
+            }
+        }
+
+        /// Defines additional types related to [BackupConfigDetails].
+        pub mod backup_config_details {
+            #[allow(unused_imports)]
+            use super::*;
+
+            /// This defines the "scope" of the Backup - which namespaced
+            /// resources in the cluster will be included in a Backup.
+            /// Exactly one of the fields of backup_scope MUST be specified.
+            #[serde_with::serde_as]
+            #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+            #[serde(rename_all = "camelCase")]
+            #[non_exhaustive]
+            pub enum BackupScope {
+                /// Output only. If True, include all namespaced resources
+                AllNamespaces(bool),
+                /// Output only. If set, include just the resources in the listed
+                /// namespaces.
+                SelectedNamespaces(std::boxed::Box<crate::model::Namespaces>),
+                /// Output only. If set, include just the resources referenced by the
+                /// listed ProtectedApplications.
+                SelectedApplications(std::boxed::Box<crate::model::NamespacedNames>),
+            }
+        }
+
+        /// RetentionPolicyDetails defines a Backup retention policy for a
+        /// BackupPlan.
+        #[serde_with::serde_as]
+        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[serde(default, rename_all = "camelCase")]
+        #[non_exhaustive]
+        pub struct RetentionPolicyDetails {
+            /// Optional. Minimum age for Backups created via this BackupPlan (in
+            /// days). This field MUST be an integer value between 0-90 (inclusive). A
+            /// Backup created under this BackupPlan will NOT be deletable until it
+            /// reaches Backup's (create_time + backup_delete_lock_days).
+            /// Updating this field of a BackupPlan does NOT affect existing Backups
+            /// under it. Backups created AFTER a successful update will inherit
+            /// the new value.
+            ///
+            /// Default: 0 (no delete blocking)
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            pub backup_delete_lock_days: i32,
+
+            /// Optional. The default maximum age of a Backup created via this
+            /// BackupPlan. This field MUST be an integer value >= 0 and <= 365. If
+            /// specified, a Backup created under this BackupPlan will be automatically
+            /// deleted after its age reaches (create_time + backup_retain_days). If
+            /// not specified, Backups created under this BackupPlan will NOT be
+            /// subject to automatic deletion.
+            /// Default: 0 (no automatic deletion)
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            pub backup_retain_days: i32,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl RetentionPolicyDetails {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [backup_delete_lock_days][crate::model::backup_plan_binding::backup_plan_details::RetentionPolicyDetails::backup_delete_lock_days].
+            pub fn set_backup_delete_lock_days<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+                self.backup_delete_lock_days = v.into();
+                self
+            }
+
+            /// Sets the value of [backup_retain_days][crate::model::backup_plan_binding::backup_plan_details::RetentionPolicyDetails::backup_retain_days].
+            pub fn set_backup_retain_days<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+                self.backup_retain_days = v.into();
+                self
+            }
+        }
+
+        impl wkt::message::Message for RetentionPolicyDetails {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.gkebackup.v1.BackupPlanBinding.BackupPlanDetails.RetentionPolicyDetails"
+            }
+        }
 
         /// State
         ///
@@ -9086,9 +9417,7 @@ pub struct RestoreChannel {
     pub name: std::string::String,
 
     /// Required. Immutable. The project into which the backups will be restored.
-    /// The format is `projects/{project}`.
-    /// Currently, {project} can only be the project number. Support for project
-    /// IDs will be added in the future.
+    /// The format is `projects/{projectId}` or `projects/{projectNumber}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub destination_project: std::string::String,
 
@@ -9318,6 +9647,13 @@ pub struct RestorePlan {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub state_reason: std::string::String,
 
+    /// Output only. The fully qualified name of the RestoreChannel to be used to
+    /// create a RestorePlan. This field is set only if the `backup_plan` is in a
+    /// different project than the RestorePlan. Format:
+    /// `projects/*/locations/*/restoreChannels/*`
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub restore_channel: std::string::String,
+
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -9441,6 +9777,12 @@ impl RestorePlan {
     /// Sets the value of [state_reason][crate::model::RestorePlan::state_reason].
     pub fn set_state_reason<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.state_reason = v.into();
+        self
+    }
+
+    /// Sets the value of [restore_channel][crate::model::RestorePlan::restore_channel].
+    pub fn set_restore_channel<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.restore_channel = v.into();
         self
     }
 }

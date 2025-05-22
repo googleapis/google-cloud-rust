@@ -206,11 +206,13 @@ impl wkt::message::Message for GetBucketRequest {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct CreateBucketRequest {
-    /// Required. The project to which this bucket will belong.
+    /// Required. The project to which this bucket will belong. This field must
+    /// either be empty or `projects/_`. The project ID that owns this bucket
+    /// should be specified in the `bucket.project` field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub parent: std::string::String,
 
-    /// Properties of the new bucket being inserted.
+    /// Optional. Properties of the new bucket being inserted.
     /// The name of the bucket is specified in the `bucket_id` field. Populating
     /// `bucket.name` field will result in an error.
     /// The project of the bucket must be specified in the `bucket.project` field.
@@ -226,14 +228,14 @@ pub struct CreateBucketRequest {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub bucket_id: std::string::String,
 
-    /// Apply a predefined set of access controls to this bucket.
+    /// Optional. Apply a predefined set of access controls to this bucket.
     /// Valid values are "authenticatedRead", "private", "projectPrivate",
     /// "publicRead", or "publicReadWrite".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub predefined_acl: std::string::String,
 
-    /// Apply a predefined set of default object access controls to this bucket.
-    /// Valid values are "authenticatedRead", "bucketOwnerFullControl",
+    /// Optional. Apply a predefined set of default object access controls to this
+    /// bucket. Valid values are "authenticatedRead", "bucketOwnerFullControl",
     /// "bucketOwnerRead", "private", "projectPrivate", or "publicRead".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub predefined_default_object_acl: std::string::String,
@@ -309,19 +311,19 @@ pub struct ListBucketsRequest {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub parent: std::string::String,
 
-    /// Maximum number of buckets to return in a single response. The service will
-    /// use this parameter or 1,000 items, whichever is smaller. If "acl" is
-    /// present in the read_mask, the service will use this parameter of 200 items,
-    /// whichever is smaller.
+    /// Optional. Maximum number of buckets to return in a single response. The
+    /// service will use this parameter or 1,000 items, whichever is smaller. If
+    /// "acl" is present in the read_mask, the service will use this parameter of
+    /// 200 items, whichever is smaller.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
-    /// A previously-returned page token representing part of the larger set of
-    /// results to view.
+    /// Optional. A previously-returned page token representing part of the larger
+    /// set of results to view.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
 
-    /// Filter results to buckets whose names begin with this prefix.
+    /// Optional. Filter results to buckets whose names begin with this prefix.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub prefix: std::string::String,
 
@@ -520,14 +522,14 @@ pub struct UpdateBucketRequest {
     #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
     pub if_metageneration_not_match: std::option::Option<i64>,
 
-    /// Apply a predefined set of access controls to this bucket.
+    /// Optional. Apply a predefined set of access controls to this bucket.
     /// Valid values are "authenticatedRead", "private", "projectPrivate",
     /// "publicRead", or "publicReadWrite".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub predefined_acl: std::string::String,
 
-    /// Apply a predefined set of default object access controls to this bucket.
-    /// Valid values are "authenticatedRead", "bucketOwnerFullControl",
+    /// Optional. Apply a predefined set of default object access controls to this
+    /// bucket. Valid values are "authenticatedRead", "bucketOwnerFullControl",
     /// "bucketOwnerRead", "private", "projectPrivate", or "publicRead".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub predefined_default_object_acl: std::string::String,
@@ -656,12 +658,13 @@ pub struct ComposeObjectRequest {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub destination: std::option::Option<crate::model::Object>,
 
-    /// The list of source objects that will be concatenated into a single object.
+    /// Optional. The list of source objects that will be concatenated into a
+    /// single object.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub source_objects: std::vec::Vec<crate::model::compose_object_request::SourceObject>,
 
-    /// Apply a predefined set of access controls to the destination object.
-    /// Valid values are "authenticatedRead", "bucketOwnerFullControl",
+    /// Optional. Apply a predefined set of access controls to the destination
+    /// object. Valid values are "authenticatedRead", "bucketOwnerFullControl",
     /// "bucketOwnerRead", "private", "projectPrivate", or "publicRead".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub destination_predefined_acl: std::string::String,
@@ -679,19 +682,20 @@ pub struct ComposeObjectRequest {
     #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
     pub if_metageneration_match: std::option::Option<i64>,
 
-    /// Resource name of the Cloud KMS key, of the form
+    /// Optional. Resource name of the Cloud KMS key, of the form
     /// `projects/my-project/locations/my-location/keyRings/my-kr/cryptoKeys/my-key`,
     /// that will be used to encrypt the object. Overrides the object
     /// metadata's `kms_key_name` value, if any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub kms_key: std::string::String,
 
-    /// A set of parameters common to Storage API requests concerning an object.
+    /// Optional. A set of parameters common to Storage API requests concerning an
+    /// object.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub common_object_request_params: std::option::Option<crate::model::CommonObjectRequestParams>,
 
-    /// The checksums of the complete object. This will be validated against the
-    /// combined checksums of the component objects.
+    /// Optional. The checksums of the complete object. This will be validated
+    /// against the combined checksums of the component objects.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub object_checksums: std::option::Option<crate::model::ObjectChecksums>,
 
@@ -843,12 +847,12 @@ pub mod compose_object_request {
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub name: std::string::String,
 
-        /// The generation of this object to use as the source.
+        /// Optional. The generation of this object to use as the source.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub generation: i64,
 
-        /// Conditions that must be met for this operation to execute.
+        /// Optional. Conditions that must be met for this operation to execute.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub object_preconditions: std::option::Option<
             crate::model::compose_object_request::source_object::ObjectPreconditions,
@@ -975,8 +979,8 @@ pub struct DeleteObjectRequest {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub object: std::string::String,
 
-    /// If present, permanently deletes a specific revision of this object (as
-    /// opposed to the latest version, the default).
+    /// Optional. If present, permanently deletes a specific revision of this
+    /// object (as opposed to the latest version, the default).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub generation: i64,
@@ -1008,7 +1012,8 @@ pub struct DeleteObjectRequest {
     #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
     pub if_metageneration_not_match: std::option::Option<i64>,
 
-    /// A set of parameters common to Storage API requests concerning an object.
+    /// Optional. A set of parameters common to Storage API requests concerning an
+    /// object.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub common_object_request_params: std::option::Option<crate::model::CommonObjectRequestParams>,
 
@@ -1197,7 +1202,8 @@ pub struct RestoreObjectRequest {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub copy_source_acl: std::option::Option<bool>,
 
-    /// A set of parameters common to Storage API requests concerning an object.
+    /// Optional. A set of parameters common to Storage API requests concerning an
+    /// object.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub common_object_request_params: std::option::Option<crate::model::CommonObjectRequestParams>,
 
@@ -1397,14 +1403,14 @@ pub struct ReadObjectRequest {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub object: std::string::String,
 
-    /// If present, selects a specific revision of this object (as opposed
-    /// to the latest version, the default).
+    /// Optional. If present, selects a specific revision of this object (as
+    /// opposed to the latest version, the default).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub generation: i64,
 
-    /// The offset for the first byte to return in the read, relative to the start
-    /// of the object.
+    /// Optional. The offset for the first byte to return in the read, relative to
+    /// the start of the object.
     ///
     /// A negative `read_offset` value will be interpreted as the number of bytes
     /// back from the end of the object to be returned. For example, if an object's
@@ -1416,9 +1422,10 @@ pub struct ReadObjectRequest {
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub read_offset: i64,
 
-    /// The maximum number of `data` bytes the server is allowed to return in the
-    /// sum of all `Object` messages. A `read_limit` of zero indicates that there
-    /// is no limit, and a negative `read_limit` will cause an error.
+    /// Optional. The maximum number of `data` bytes the server is allowed to
+    /// return in the sum of all `Object` messages. A `read_limit` of zero
+    /// indicates that there is no limit, and a negative `read_limit` will cause an
+    /// error.
     ///
     /// If the stream returns fewer bytes than allowed by the `read_limit` and no
     /// error occurred, the stream includes all data from the `read_offset` to the
@@ -1454,7 +1461,8 @@ pub struct ReadObjectRequest {
     #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
     pub if_metageneration_not_match: std::option::Option<i64>,
 
-    /// A set of parameters common to Storage API requests concerning an object.
+    /// Optional. A set of parameters common to Storage API requests concerning an
+    /// object.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub common_object_request_params: std::option::Option<crate::model::CommonObjectRequestParams>,
 
@@ -1635,8 +1643,8 @@ pub struct GetObjectRequest {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub object: std::string::String,
 
-    /// If present, selects a specific revision of this object (as opposed to the
-    /// latest version, the default).
+    /// Optional. If present, selects a specific revision of this object (as
+    /// opposed to the latest version, the default).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub generation: i64,
@@ -1672,7 +1680,8 @@ pub struct GetObjectRequest {
     #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
     pub if_metageneration_not_match: std::option::Option<i64>,
 
-    /// A set of parameters common to Storage API requests concerning an object.
+    /// Optional. A set of parameters common to Storage API requests concerning an
+    /// object.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub common_object_request_params: std::option::Option<crate::model::CommonObjectRequestParams>,
 
@@ -1868,7 +1877,7 @@ pub struct WriteObjectSpec {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub resource: std::option::Option<crate::model::Object>,
 
-    /// Apply a predefined set of access controls to this object.
+    /// Optional. Apply a predefined set of access controls to this object.
     /// Valid values are "authenticatedRead", "bucketOwnerFullControl",
     /// "bucketOwnerRead", "private", "projectPrivate", or "publicRead".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
@@ -2075,38 +2084,37 @@ pub struct ListObjectsRequest {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub parent: std::string::String,
 
-    /// Maximum number of `items` plus `prefixes` to return
+    /// Optional. Maximum number of `items` plus `prefixes` to return
     /// in a single page of responses. As duplicate `prefixes` are
     /// omitted, fewer total results may be returned than requested. The service
     /// will use this parameter or 1,000 items, whichever is smaller.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
-    /// A previously-returned page token representing part of the larger set of
-    /// results to view.
+    /// Optional. A previously-returned page token representing part of the larger
+    /// set of results to view.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
 
-    /// If set, returns results in a directory-like mode. `items` will contain
-    /// only objects whose names, aside from the `prefix`, do not
-    /// contain `delimiter`. Objects whose names, aside from the
-    /// `prefix`, contain `delimiter` will have their name,
-    /// truncated after the `delimiter`, returned in
-    /// `prefixes`. Duplicate `prefixes` are omitted.
+    /// Optional. If set, returns results in a directory-like mode. `items` will
+    /// contain only objects whose names, aside from the `prefix`, do not contain
+    /// `delimiter`. Objects whose names, aside from the `prefix`, contain
+    /// `delimiter` will have their name, truncated after the `delimiter`, returned
+    /// in `prefixes`. Duplicate `prefixes` are omitted.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub delimiter: std::string::String,
 
-    /// If true, objects that end in exactly one instance of `delimiter`
+    /// Optional. If true, objects that end in exactly one instance of `delimiter`
     /// will have their metadata included in `items` in addition to
     /// `prefixes`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub include_trailing_delimiter: bool,
 
-    /// Filter results to objects whose names begin with this prefix.
+    /// Optional. Filter results to objects whose names begin with this prefix.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub prefix: std::string::String,
 
-    /// If `true`, lists all versions of an object as distinct results.
+    /// Optional. If `true`, lists all versions of an object as distinct results.
     /// For more information, see
     /// [Object
     /// Versioning](https://cloud.google.com/storage/docs/object-versioning).
@@ -2275,7 +2283,8 @@ pub struct QueryWriteStatusRequest {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub upload_id: std::string::String,
 
-    /// A set of parameters common to Storage API requests concerning an object.
+    /// Optional. A set of parameters common to Storage API requests concerning an
+    /// object.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub common_object_request_params: std::option::Option<crate::model::CommonObjectRequestParams>,
 
@@ -2347,15 +2356,15 @@ pub struct RewriteObjectRequest {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub destination_bucket: std::string::String,
 
-    /// The name of the Cloud KMS key that will be used to encrypt the destination
-    /// object. The Cloud KMS key must be located in same location as the object.
-    /// If the parameter is not specified, the request uses the destination
-    /// bucket's default encryption key, if any, or else the Google-managed
-    /// encryption key.
+    /// Optional. The name of the Cloud KMS key that will be used to encrypt the
+    /// destination object. The Cloud KMS key must be located in same location as
+    /// the object. If the parameter is not specified, the request uses the
+    /// destination bucket's default encryption key, if any, or else the
+    /// Google-managed encryption key.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub destination_kms_key: std::string::String,
 
-    /// Properties of the destination, post-rewrite object.
+    /// Optional. Properties of the destination, post-rewrite object.
     /// The `name`, `bucket` and `kms_key` fields must not be populated (these
     /// values are specified in the `destination_name`, `destination_bucket`, and
     /// `destination_kms_key` fields).
@@ -2373,22 +2382,22 @@ pub struct RewriteObjectRequest {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub source_object: std::string::String,
 
-    /// If present, selects a specific revision of the source object (as opposed to
-    /// the latest version, the default).
+    /// Optional. If present, selects a specific revision of the source object (as
+    /// opposed to the latest version, the default).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub source_generation: i64,
 
-    /// Include this field (from the previous rewrite response) on each rewrite
-    /// request after the first one, until the rewrite response 'done' flag is
-    /// true. Calls that provide a rewriteToken can omit all other request fields,
-    /// but if included those fields must match the values provided in the first
-    /// rewrite request.
+    /// Optional. Include this field (from the previous rewrite response) on each
+    /// rewrite request after the first one, until the rewrite response 'done' flag
+    /// is true. Calls that provide a rewriteToken can omit all other request
+    /// fields, but if included those fields must match the values provided in the
+    /// first rewrite request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub rewrite_token: std::string::String,
 
-    /// Apply a predefined set of access controls to the destination object.
-    /// Valid values are "authenticatedRead", "bucketOwnerFullControl",
+    /// Optional. Apply a predefined set of access controls to the destination
+    /// object. Valid values are "authenticatedRead", "bucketOwnerFullControl",
     /// "bucketOwnerRead", "private", "projectPrivate", or "publicRead".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub destination_predefined_acl: std::string::String,
@@ -2444,43 +2453,43 @@ pub struct RewriteObjectRequest {
     #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
     pub if_source_metageneration_not_match: std::option::Option<i64>,
 
-    /// The maximum number of bytes that will be rewritten per rewrite request.
-    /// Most callers
-    /// shouldn't need to specify this parameter - it is primarily in place to
-    /// support testing. If specified the value must be an integral multiple of
-    /// 1 MiB (1048576). Also, this only applies to requests where the source and
-    /// destination span locations and/or storage classes. Finally, this value must
-    /// not change across rewrite calls else you'll get an error that the
-    /// `rewriteToken` is invalid.
+    /// Optional. The maximum number of bytes that will be rewritten per rewrite
+    /// request. Most callers shouldn't need to specify this parameter - it is
+    /// primarily in place to support testing. If specified the value must be an
+    /// integral multiple of 1 MiB (1048576). Also, this only applies to requests
+    /// where the source and destination span locations and/or storage classes.
+    /// Finally, this value must not change across rewrite calls else you'll get an
+    /// error that the `rewriteToken` is invalid.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub max_bytes_rewritten_per_call: i64,
 
-    /// The algorithm used to encrypt the source object, if any. Used if the source
-    /// object was encrypted with a Customer-Supplied Encryption Key.
+    /// Optional. The algorithm used to encrypt the source object, if any. Used if
+    /// the source object was encrypted with a Customer-Supplied Encryption Key.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub copy_source_encryption_algorithm: std::string::String,
 
-    /// The raw bytes (not base64-encoded) AES-256 encryption key used to encrypt
-    /// the source object, if it was encrypted with a Customer-Supplied Encryption
-    /// Key.
+    /// Optional. The raw bytes (not base64-encoded) AES-256 encryption key used to
+    /// encrypt the source object, if it was encrypted with a Customer-Supplied
+    /// Encryption Key.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
     pub copy_source_encryption_key_bytes: ::bytes::Bytes,
 
-    /// The raw bytes (not base64-encoded) SHA256 hash of the encryption key used
-    /// to encrypt the source object, if it was encrypted with a Customer-Supplied
-    /// Encryption Key.
+    /// Optional. The raw bytes (not base64-encoded) SHA256 hash of the encryption
+    /// key used to encrypt the source object, if it was encrypted with a
+    /// Customer-Supplied Encryption Key.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
     pub copy_source_encryption_key_sha256_bytes: ::bytes::Bytes,
 
-    /// A set of parameters common to Storage API requests concerning an object.
+    /// Optional. A set of parameters common to Storage API requests concerning an
+    /// object.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub common_object_request_params: std::option::Option<crate::model::CommonObjectRequestParams>,
 
-    /// The checksums of the complete object. This will be used to validate the
-    /// destination object after rewriting.
+    /// Optional. The checksums of the complete object. This will be used to
+    /// validate the destination object after rewriting.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub object_checksums: std::option::Option<crate::model::ObjectChecksums>,
 
@@ -3181,13 +3190,14 @@ pub struct StartResumableWriteRequest {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub write_object_spec: std::option::Option<crate::model::WriteObjectSpec>,
 
-    /// A set of parameters common to Storage API requests related to an object.
+    /// Optional. A set of parameters common to Storage API requests related to an
+    /// object.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub common_object_request_params: std::option::Option<crate::model::CommonObjectRequestParams>,
 
-    /// The checksums of the complete object. This is used to validate the
-    /// uploaded object. For each upload, `object_checksums` can be provided when
-    /// initiating a resumable upload with`StartResumableWriteRequest` or when
+    /// Optional. The checksums of the complete object. This is used to validate
+    /// the uploaded object. For each upload, `object_checksums` can be provided
+    /// when initiating a resumable upload with`StartResumableWriteRequest` or when
     /// completing a write with `WriteObjectRequest` with
     /// `finish_write` set to `true`.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -3304,7 +3314,7 @@ pub struct UpdateObjectRequest {
     #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
     pub if_metageneration_not_match: std::option::Option<i64>,
 
-    /// Apply a predefined set of access controls to this object.
+    /// Optional. Apply a predefined set of access controls to this object.
     /// Valid values are "authenticatedRead", "bucketOwnerFullControl",
     /// "bucketOwnerRead", "private", "projectPrivate", or "publicRead".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
@@ -3321,7 +3331,8 @@ pub struct UpdateObjectRequest {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
 
-    /// A set of parameters common to Storage API requests concerning an object.
+    /// Optional. A set of parameters common to Storage API requests concerning an
+    /// object.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub common_object_request_params: std::option::Option<crate::model::CommonObjectRequestParams>,
 
@@ -3479,19 +3490,19 @@ impl wkt::message::Message for UpdateObjectRequest {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct CommonObjectRequestParams {
-    /// Encryption algorithm used with the Customer-Supplied Encryption Keys
-    /// feature.
+    /// Optional. Encryption algorithm used with the Customer-Supplied Encryption
+    /// Keys feature.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub encryption_algorithm: std::string::String,
 
-    /// Encryption key used with the Customer-Supplied Encryption Keys feature.
-    /// In raw bytes format (not base64-encoded).
+    /// Optional. Encryption key used with the Customer-Supplied Encryption Keys
+    /// feature. In raw bytes format (not base64-encoded).
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
     pub encryption_key_bytes: ::bytes::Bytes,
 
-    /// SHA256 hash of encryption key used with the Customer-Supplied Encryption
-    /// Keys feature.
+    /// Optional. SHA256 hash of encryption key used with the Customer-Supplied
+    /// Encryption Keys feature.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
     pub encryption_key_sha256_bytes: ::bytes::Bytes,
@@ -3859,7 +3870,7 @@ pub mod service_constants {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Bucket {
-    /// Immutable. The name of the bucket.
+    /// Identifier. The name of the bucket.
     /// Format: `projects/{project}/buckets/{bucket}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
@@ -3879,6 +3890,7 @@ pub struct Bucket {
     /// Immutable. The project which owns this bucket, in the format of
     /// "projects/{projectIdentifier}".
     /// {projectIdentifier} can be the project ID or project number.
+    /// Output values will always be in project number format.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub project: std::string::String,
 
@@ -3901,8 +3913,8 @@ pub struct Bucket {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub location_type: std::string::String,
 
-    /// The bucket's default storage class, used whenever no storageClass is
-    /// specified for a newly-created object. This defines how objects in the
+    /// Optional. The bucket's default storage class, used whenever no storageClass
+    /// is specified for a newly-created object. This defines how objects in the
     /// bucket are stored and determines the SLA and the cost of storage.
     /// If this value is not specified when the bucket is created, it will default
     /// to `STANDARD`. For more information, see
@@ -3910,28 +3922,28 @@ pub struct Bucket {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub storage_class: std::string::String,
 
-    /// The recovery point objective for cross-region replication of the bucket.
-    /// Applicable only for dual- and multi-region buckets. "DEFAULT" uses default
-    /// replication. "ASYNC_TURBO" enables turbo replication, valid for dual-region
-    /// buckets only. If rpo is not specified when the bucket is created, it
-    /// defaults to "DEFAULT". For more information, see
+    /// Optional. The recovery point objective for cross-region replication of the
+    /// bucket. Applicable only for dual- and multi-region buckets. "DEFAULT" uses
+    /// default replication. "ASYNC_TURBO" enables turbo replication, valid for
+    /// dual-region buckets only. If rpo is not specified when the bucket is
+    /// created, it defaults to "DEFAULT". For more information, see
     /// <https://cloud.google.com/storage/docs/availability-durability#turbo-replication>.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub rpo: std::string::String,
 
-    /// Access controls on the bucket.
+    /// Optional. Access controls on the bucket.
     /// If iam_config.uniform_bucket_level_access is enabled on this bucket,
     /// requests to set, read, or modify acl is an error.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub acl: std::vec::Vec<crate::model::BucketAccessControl>,
 
-    /// Default access controls to apply to new objects when no ACL is provided.
-    /// If iam_config.uniform_bucket_level_access is enabled on this bucket,
-    /// requests to set, read, or modify acl is an error.
+    /// Optional. Default access controls to apply to new objects when no ACL is
+    /// provided. If iam_config.uniform_bucket_level_access is enabled on this
+    /// bucket, requests to set, read, or modify acl is an error.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub default_object_acl: std::vec::Vec<crate::model::ObjectAccessControl>,
 
-    /// The bucket's lifecycle config. See
+    /// Optional. The bucket's lifecycle config. See
     /// [<https://developers.google.com/storage/docs/lifecycle>]Lifecycle Management]
     /// for more information.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -3941,8 +3953,8 @@ pub struct Bucket {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub create_time: std::option::Option<wkt::Timestamp>,
 
-    /// The bucket's [<https://www.w3.org/TR/cors/>][Cross-Origin Resource Sharing]
-    /// (CORS) config.
+    /// Optional. The bucket's [<https://www.w3.org/TR/cors/>][Cross-Origin Resource
+    /// Sharing] (CORS) config.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub cors: std::vec::Vec<crate::model::bucket::Cors>,
 
@@ -3950,38 +3962,38 @@ pub struct Bucket {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_time: std::option::Option<wkt::Timestamp>,
 
-    /// The default value for event-based hold on newly created objects in this
-    /// bucket.  Event-based hold is a way to retain objects indefinitely until an
-    /// event occurs, signified by the
-    /// hold's release. After being released, such objects will be subject to
-    /// bucket-level retention (if any).  One sample use case of this flag is for
-    /// banks to hold loan documents for at least 3 years after loan is paid in
-    /// full. Here, bucket-level retention is 3 years and the event is loan being
-    /// paid in full. In this example, these objects will be held intact for any
-    /// number of years until the event has occurred (event-based hold on the
-    /// object is released) and then 3 more years after that. That means retention
-    /// duration of the objects begins from the moment event-based hold
-    /// transitioned from true to false.  Objects under event-based hold cannot be
-    /// deleted, overwritten or archived until the hold is removed.
+    /// Optional. The default value for event-based hold on newly created objects
+    /// in this bucket.  Event-based hold is a way to retain objects indefinitely
+    /// until an event occurs, signified by the hold's release. After being
+    /// released, such objects will be subject to bucket-level retention (if any).
+    /// One sample use case of this flag is for banks to hold loan documents for at
+    /// least 3 years after loan is paid in full. Here, bucket-level retention is 3
+    /// years and the event is loan being paid in full. In this example, these
+    /// objects will be held intact for any number of years until the event has
+    /// occurred (event-based hold on the object is released) and then 3 more years
+    /// after that. That means retention duration of the objects begins from the
+    /// moment event-based hold transitioned from true to false.  Objects under
+    /// event-based hold cannot be deleted, overwritten or archived until the hold
+    /// is removed.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub default_event_based_hold: bool,
 
-    /// User-provided labels, in key/value pairs.
+    /// Optional. User-provided labels, in key/value pairs.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
-    /// The bucket's website config, controlling how the service behaves
+    /// Optional. The bucket's website config, controlling how the service behaves
     /// when accessing bucket contents as a web site. See the
     /// [<https://cloud.google.com/storage/docs/static-website>][Static Website
     /// Examples] for more information.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub website: std::option::Option<crate::model::bucket::Website>,
 
-    /// The bucket's versioning config.
+    /// Optional. The bucket's versioning config.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub versioning: std::option::Option<crate::model::bucket::Versioning>,
 
-    /// The bucket's logging config, which defines the destination bucket
+    /// Optional. The bucket's logging config, which defines the destination bucket
     /// and name prefix (if any) for the current bucket's logs.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub logging: std::option::Option<crate::model::bucket::Logging>,
@@ -3991,19 +4003,19 @@ pub struct Bucket {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub owner: std::option::Option<crate::model::Owner>,
 
-    /// Encryption config for a bucket.
+    /// Optional. Encryption config for a bucket.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub encryption: std::option::Option<crate::model::bucket::Encryption>,
 
-    /// The bucket's billing config.
+    /// Optional. The bucket's billing config.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub billing: std::option::Option<crate::model::bucket::Billing>,
 
-    /// The bucket's retention policy. The retention policy enforces a minimum
-    /// retention time for all objects contained in the bucket, based on their
-    /// creation time. Any attempt to overwrite or delete objects younger than the
-    /// retention period will result in a PERMISSION_DENIED error.  An unlocked
-    /// retention policy can be modified or removed from the bucket via a
+    /// Optional. The bucket's retention policy. The retention policy enforces a
+    /// minimum retention time for all objects contained in the bucket, based on
+    /// their creation time. Any attempt to overwrite or delete objects younger
+    /// than the retention period will result in a PERMISSION_DENIED error.  An
+    /// unlocked retention policy can be modified or removed from the bucket via a
     /// storage.buckets.update operation. A locked retention policy cannot be
     /// removed or shortened in duration for the lifetime of the bucket.
     /// Attempting to remove or decrease period of a locked retention policy will
@@ -4011,22 +4023,24 @@ pub struct Bucket {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub retention_policy: std::option::Option<crate::model::bucket::RetentionPolicy>,
 
-    /// The bucket's IAM config.
+    /// Optional. The bucket's IAM config.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub iam_config: std::option::Option<crate::model::bucket::IamConfig>,
 
-    /// Reserved for future use.
+    /// Optional. Reserved for future use.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub satisfies_pzs: bool,
 
-    /// Configuration that, if present, specifies the data placement for a
+    /// Optional. Configuration that, if present, specifies the data placement for
+    /// a
     /// [<https://cloud.google.com/storage/docs/locations#location-dr>][configurable
     /// dual-region].
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub custom_placement_config: std::option::Option<crate::model::bucket::CustomPlacementConfig>,
 
-    /// The bucket's Autoclass configuration. If there is no configuration, the
-    /// Autoclass feature will be disabled and have no effect on the bucket.
+    /// Optional. The bucket's Autoclass configuration. If there is no
+    /// configuration, the Autoclass feature will be disabled and have no effect on
+    /// the bucket.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub autoclass: std::option::Option<crate::model::bucket::Autoclass>,
 
@@ -4040,6 +4054,10 @@ pub struct Bucket {
     /// soft-deleted objects from being permanently deleted.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub soft_delete_policy: std::option::Option<crate::model::bucket::SoftDeletePolicy>,
+
+    /// Optional. The bucket's IP filter configuration.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub ip_filter: std::option::Option<crate::model::bucket::IpFilter>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -4430,6 +4448,24 @@ impl Bucket {
         self.soft_delete_policy = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [ip_filter][crate::model::Bucket::ip_filter].
+    pub fn set_ip_filter<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::bucket::IpFilter>,
+    {
+        self.ip_filter = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [ip_filter][crate::model::Bucket::ip_filter].
+    pub fn set_or_clear_ip_filter<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::bucket::IpFilter>,
+    {
+        self.ip_filter = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for Bucket {
@@ -4449,7 +4485,7 @@ pub mod bucket {
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
     pub struct Billing {
-        /// When set to true, Requester Pays is enabled for this bucket.
+        /// Optional. When set to true, Requester Pays is enabled for this bucket.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub requester_pays: bool,
 
@@ -4484,25 +4520,26 @@ pub mod bucket {
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
     pub struct Cors {
-        /// The list of Origins eligible to receive CORS response headers. See
-        /// [<https://tools.ietf.org/html/rfc6454>][RFC 6454] for more on origins.
+        /// Optional. The list of Origins eligible to receive CORS response headers.
+        /// See [<https://tools.ietf.org/html/rfc6454>][RFC 6454] for more on origins.
         /// Note: "*" is permitted in the list of origins, and means "any Origin".
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub origin: std::vec::Vec<std::string::String>,
 
-        /// The list of HTTP methods on which to include CORS response headers,
+        /// Optional. The list of HTTP methods on which to include CORS response
+        /// headers,
         /// (`GET`, `OPTIONS`, `POST`, etc) Note: "*" is permitted in the list of
         /// methods, and means "any method".
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub method: std::vec::Vec<std::string::String>,
 
-        /// The list of HTTP headers other than the
+        /// Optional. The list of HTTP headers other than the
         /// [<https://www.w3.org/TR/cors/#simple-response-header>][simple response
         /// headers] to give permission for the user-agent to share across domains.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub response_header: std::vec::Vec<std::string::String>,
 
-        /// The value, in seconds, to return in the
+        /// Optional. The value, in seconds, to return in the
         /// [<https://www.w3.org/TR/cors/#access-control-max-age-response-header>][Access-Control-Max-Age
         /// header] used in preflight responses.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
@@ -4569,8 +4606,8 @@ pub mod bucket {
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
     pub struct Encryption {
-        /// The name of the Cloud KMS key that will be used to encrypt objects
-        /// inserted into this bucket, if no encryption method is specified.
+        /// Optional. The name of the Cloud KMS key that will be used to encrypt
+        /// objects inserted into this bucket, if no encryption method is specified.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub default_kms_key: std::string::String,
 
@@ -4605,13 +4642,13 @@ pub mod bucket {
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
     pub struct IamConfig {
-        /// Bucket restriction options currently enforced on the bucket.
+        /// Optional. Bucket restriction options currently enforced on the bucket.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub uniform_bucket_level_access:
             std::option::Option<crate::model::bucket::iam_config::UniformBucketLevelAccess>,
 
-        /// Whether IAM will enforce public access prevention. Valid values are
-        /// "enforced" or "inherited".
+        /// Optional. Whether IAM will enforce public access prevention. Valid values
+        /// are "enforced" or "inherited".
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub public_access_prevention: std::string::String,
 
@@ -4673,11 +4710,12 @@ pub mod bucket {
         #[serde(default, rename_all = "camelCase")]
         #[non_exhaustive]
         pub struct UniformBucketLevelAccess {
-            /// If set, access checks only use bucket-level IAM policies or above.
+            /// Optional. If set, access checks only use bucket-level IAM policies or
+            /// above.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub enabled: bool,
 
-            /// The deadline time for changing
+            /// Optional. The deadline time for changing
             /// `iam_config.uniform_bucket_level_access.enabled` from `true` to
             /// `false`. Mutable until the specified deadline is reached, but not
             /// afterward.
@@ -4732,8 +4770,8 @@ pub mod bucket {
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
     pub struct Lifecycle {
-        /// A lifecycle management rule, which is made of an action to take and the
-        /// condition(s) under which the action will be taken.
+        /// Optional. A lifecycle management rule, which is made of an action to take
+        /// and the condition(s) under which the action will be taken.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub rule: std::vec::Vec<crate::model::bucket::lifecycle::Rule>,
 
@@ -4776,11 +4814,11 @@ pub mod bucket {
         #[serde(default, rename_all = "camelCase")]
         #[non_exhaustive]
         pub struct Rule {
-            /// The action to take.
+            /// Optional. The action to take.
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
             pub action: std::option::Option<crate::model::bucket::lifecycle::rule::Action>,
 
-            /// The condition(s) under which the action will be taken.
+            /// Optional. The condition(s) under which the action will be taken.
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
             pub condition: std::option::Option<crate::model::bucket::lifecycle::rule::Condition>,
 
@@ -4847,14 +4885,15 @@ pub mod bucket {
             #[serde(default, rename_all = "camelCase")]
             #[non_exhaustive]
             pub struct Action {
-                /// Type of the action. Currently, only `Delete`, `SetStorageClass`, and
-                /// `AbortIncompleteMultipartUpload` are supported.
+                /// Optional. Type of the action. Currently, only `Delete`,
+                /// `SetStorageClass`, and `AbortIncompleteMultipartUpload` are
+                /// supported.
                 #[serde(rename = "type")]
                 #[serde(skip_serializing_if = "std::string::String::is_empty")]
                 pub r#type: std::string::String,
 
-                /// Target storage class. Required iff the type of the action is
-                /// SetStorageClass.
+                /// Optional. Target storage class. Required iff the type of the action
+                /// is SetStorageClass.
                 #[serde(skip_serializing_if = "std::string::String::is_empty")]
                 pub storage_class: std::string::String,
 
@@ -4905,8 +4944,8 @@ pub mod bucket {
                 #[serde(skip_serializing_if = "std::option::Option::is_none")]
                 pub age_days: std::option::Option<i32>,
 
-                /// This condition is satisfied when an object is created before midnight
-                /// of the specified date in UTC.
+                /// Optional. This condition is satisfied when an object is created
+                /// before midnight of the specified date in UTC.
                 #[serde(skip_serializing_if = "std::option::Option::is_none")]
                 pub created_before: std::option::Option<gtype::model::Date>,
 
@@ -4922,9 +4961,9 @@ pub mod bucket {
                 #[serde(skip_serializing_if = "std::option::Option::is_none")]
                 pub num_newer_versions: std::option::Option<i32>,
 
-                /// Objects having any of the storage classes specified by this condition
-                /// will be matched. Values include `MULTI_REGIONAL`, `REGIONAL`,
-                /// `NEARLINE`, `COLDLINE`, `STANDARD`, and
+                /// Optional. Objects having any of the storage classes specified by this
+                /// condition will be matched. Values include `MULTI_REGIONAL`,
+                /// `REGIONAL`, `NEARLINE`, `COLDLINE`, `STANDARD`, and
                 /// `DURABLE_REDUCED_AVAILABILITY`.
                 #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
                 pub matches_storage_class: std::vec::Vec<std::string::String>,
@@ -4935,8 +4974,8 @@ pub mod bucket {
                 #[serde(skip_serializing_if = "std::option::Option::is_none")]
                 pub days_since_custom_time: std::option::Option<i32>,
 
-                /// An object matches this condition if the custom timestamp set on the
-                /// object is before the specified date in UTC.
+                /// Optional. An object matches this condition if the custom timestamp
+                /// set on the object is before the specified date in UTC.
                 #[serde(skip_serializing_if = "std::option::Option::is_none")]
                 pub custom_time_before: std::option::Option<gtype::model::Date>,
 
@@ -4948,19 +4987,19 @@ pub mod bucket {
                 #[serde(skip_serializing_if = "std::option::Option::is_none")]
                 pub days_since_noncurrent_time: std::option::Option<i32>,
 
-                /// This condition is relevant only for versioned objects. An object
-                /// version satisfies this condition only if it became noncurrent before
-                /// the specified date in UTC.
+                /// Optional. This condition is relevant only for versioned objects. An
+                /// object version satisfies this condition only if it became noncurrent
+                /// before the specified date in UTC.
                 #[serde(skip_serializing_if = "std::option::Option::is_none")]
                 pub noncurrent_time_before: std::option::Option<gtype::model::Date>,
 
-                /// List of object name prefixes. If any prefix exactly matches the
-                /// beginning of the object name, the condition evaluates to true.
+                /// Optional. List of object name prefixes. If any prefix exactly matches
+                /// the beginning of the object name, the condition evaluates to true.
                 #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
                 pub matches_prefix: std::vec::Vec<std::string::String>,
 
-                /// List of object name suffixes. If any suffix exactly matches the
-                /// end of the object name, the condition evaluates to true.
+                /// Optional. List of object name suffixes. If any suffix exactly matches
+                /// the end of the object name, the condition evaluates to true.
                 #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
                 pub matches_suffix: std::vec::Vec<std::string::String>,
 
@@ -5180,12 +5219,12 @@ pub mod bucket {
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
     pub struct Logging {
-        /// The destination bucket where the current bucket's logs should be placed,
-        /// using path format (like `projects/123456/buckets/foo`).
+        /// Optional. The destination bucket where the current bucket's logs should
+        /// be placed, using path format (like `projects/123456/buckets/foo`).
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub log_bucket: std::string::String,
 
-        /// A prefix for log object names.
+        /// Optional. A prefix for log object names.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub log_object_prefix: std::string::String,
 
@@ -5226,20 +5265,20 @@ pub mod bucket {
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
     pub struct RetentionPolicy {
-        /// Server-determined value that indicates the time from which policy was
-        /// enforced and effective.
+        /// Optional. Server-determined value that indicates the time from which
+        /// policy was enforced and effective.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub effective_time: std::option::Option<wkt::Timestamp>,
 
-        /// Once locked, an object retention policy cannot be modified.
+        /// Optional. Once locked, an object retention policy cannot be modified.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub is_locked: bool,
 
-        /// The duration that objects need to be retained. Retention duration must be
-        /// greater than zero and less than 100 years. Note that enforcement of
-        /// retention periods less than a day is not guaranteed. Such periods should
-        /// only be used for testing purposes. Any `nanos` value specified will be
-        /// rounded down to the nearest second.
+        /// Optional. The duration that objects need to be retained. Retention
+        /// duration must be greater than zero and less than 100 years. Note that
+        /// enforcement of retention periods less than a day is not guaranteed. Such
+        /// periods should only be used for testing purposes. Any `nanos` value
+        /// specified will be rounded down to the nearest second.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub retention_duration: std::option::Option<wkt::Duration>,
 
@@ -5377,7 +5416,7 @@ pub mod bucket {
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
     pub struct Versioning {
-        /// While set to true, versioning is fully enabled for this bucket.
+        /// Optional. While set to true, versioning is fully enabled for this bucket.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub enabled: bool,
 
@@ -5411,14 +5450,14 @@ pub mod bucket {
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
     pub struct Website {
-        /// If the requested object path is missing, the service will ensure the path
-        /// has a trailing '/', append this suffix, and attempt to retrieve the
-        /// resulting object. This allows the creation of `index.html`
+        /// Optional. If the requested object path is missing, the service will
+        /// ensure the path has a trailing '/', append this suffix, and attempt to
+        /// retrieve the resulting object. This allows the creation of `index.html`
         /// objects to represent directory pages.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub main_page_suffix: std::string::String,
 
-        /// If the requested object path is missing, and any
+        /// Optional. If the requested object path is missing, and any
         /// `mainPageSuffix` object is missing, if applicable, the service
         /// will return the named object from this bucket as the content for a
         /// [<https://tools.ietf.org/html/rfc7231#section-6.5.4>][404 Not Found]
@@ -5468,7 +5507,7 @@ pub mod bucket {
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
     pub struct CustomPlacementConfig {
-        /// List of locations to use for data placement.
+        /// Optional. List of locations to use for data placement.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub data_locations: std::vec::Vec<std::string::String>,
 
@@ -5505,7 +5544,7 @@ pub mod bucket {
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
     pub struct Autoclass {
-        /// Enables Autoclass.
+        /// Optional. Enables Autoclass.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub enabled: bool,
 
@@ -5606,6 +5645,221 @@ pub mod bucket {
         }
     }
 
+    /// The [bucket IP
+    /// filtering](https://cloud.google.com/storage/docs/ip-filtering-overview)
+    /// configuration. Specifies the network sources that can access the bucket, as
+    /// well as its underlying objects.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct IpFilter {
+        /// The state of the IP filter configuration. Valid values are `Enabled` and
+        /// `Disabled`. When set to `Enabled`, IP filtering rules are applied to a
+        /// bucket and all incoming requests to the bucket are evaluated against
+        /// these rules. When set to `Disabled`, IP filtering rules are not applied
+        /// to a bucket.".
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub mode: std::option::Option<std::string::String>,
+
+        /// Public IPs allowed to operate or access the bucket.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub public_network_source:
+            std::option::Option<crate::model::bucket::ip_filter::PublicNetworkSource>,
+
+        /// Optional. The list of network sources that are allowed to access
+        /// operations on the bucket or the underlying objects.
+        #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        pub vpc_network_sources: std::vec::Vec<crate::model::bucket::ip_filter::VpcNetworkSource>,
+
+        /// Optional. Whether or not to allow VPCs from orgs different than the
+        /// bucket's parent org to access the bucket. When set to true, validations
+        /// on the existence of the VPCs won't be performed. If set to false, each
+        /// VPC network source will be checked to belong to the same org as the
+        /// bucket as well as validated for existence.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        pub allow_cross_org_vpcs: bool,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl IpFilter {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [mode][crate::model::bucket::IpFilter::mode].
+        pub fn set_mode<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.mode = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [mode][crate::model::bucket::IpFilter::mode].
+        pub fn set_or_clear_mode<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.mode = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [public_network_source][crate::model::bucket::IpFilter::public_network_source].
+        pub fn set_public_network_source<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::bucket::ip_filter::PublicNetworkSource>,
+        {
+            self.public_network_source = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [public_network_source][crate::model::bucket::IpFilter::public_network_source].
+        pub fn set_or_clear_public_network_source<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::bucket::ip_filter::PublicNetworkSource>,
+        {
+            self.public_network_source = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [vpc_network_sources][crate::model::bucket::IpFilter::vpc_network_sources].
+        pub fn set_vpc_network_sources<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::bucket::ip_filter::VpcNetworkSource>,
+        {
+            use std::iter::Iterator;
+            self.vpc_network_sources = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [allow_cross_org_vpcs][crate::model::bucket::IpFilter::allow_cross_org_vpcs].
+        pub fn set_allow_cross_org_vpcs<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.allow_cross_org_vpcs = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for IpFilter {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.storage.v2.Bucket.IpFilter"
+        }
+    }
+
+    /// Defines additional types related to [IpFilter].
+    pub mod ip_filter {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// The public network IP address ranges that can access the bucket and its
+        /// data.
+        #[serde_with::serde_as]
+        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[serde(default, rename_all = "camelCase")]
+        #[non_exhaustive]
+        pub struct PublicNetworkSource {
+            /// Optional. The list of IPv4 and IPv6 cidr blocks that are allowed to
+            /// operate or access the bucket and its underlying objects.
+            #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            pub allowed_ip_cidr_ranges: std::vec::Vec<std::string::String>,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl PublicNetworkSource {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [allowed_ip_cidr_ranges][crate::model::bucket::ip_filter::PublicNetworkSource::allowed_ip_cidr_ranges].
+            pub fn set_allowed_ip_cidr_ranges<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<std::string::String>,
+            {
+                use std::iter::Iterator;
+                self.allowed_ip_cidr_ranges = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+        }
+
+        impl wkt::message::Message for PublicNetworkSource {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.storage.v2.Bucket.IpFilter.PublicNetworkSource"
+            }
+        }
+
+        /// The list of VPC networks that can access the bucket.
+        #[serde_with::serde_as]
+        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[serde(default, rename_all = "camelCase")]
+        #[non_exhaustive]
+        pub struct VpcNetworkSource {
+            /// Name of the network.
+            ///
+            /// Format: `projects/PROJECT_ID/global/networks/NETWORK_NAME`
+            #[serde(skip_serializing_if = "std::option::Option::is_none")]
+            pub network: std::option::Option<std::string::String>,
+
+            /// Optional. The list of public or private IPv4 and IPv6 CIDR ranges that
+            /// can access the bucket. In the CIDR IP address block, the specified IP
+            /// address must be properly truncated, meaning all the host bits must be
+            /// zero or else the input is considered malformed. For example,
+            /// `192.0.2.0/24` is accepted but `192.0.2.1/24` is not. Similarly, for
+            /// IPv6, `2001:db8::/32` is accepted whereas `2001:db8::1/32` is not.
+            #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            pub allowed_ip_cidr_ranges: std::vec::Vec<std::string::String>,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl VpcNetworkSource {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [network][crate::model::bucket::ip_filter::VpcNetworkSource::network].
+            pub fn set_network<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.network = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [network][crate::model::bucket::ip_filter::VpcNetworkSource::network].
+            pub fn set_or_clear_network<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<std::string::String>,
+            {
+                self.network = v.map(|x| x.into());
+                self
+            }
+
+            /// Sets the value of [allowed_ip_cidr_ranges][crate::model::bucket::ip_filter::VpcNetworkSource::allowed_ip_cidr_ranges].
+            pub fn set_allowed_ip_cidr_ranges<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<std::string::String>,
+            {
+                use std::iter::Iterator;
+                self.allowed_ip_cidr_ranges = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+        }
+
+        impl wkt::message::Message for VpcNetworkSource {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.storage.v2.Bucket.IpFilter.VpcNetworkSource"
+            }
+        }
+    }
+
     /// Configuration for a bucket's hierarchical namespace feature.
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -5645,15 +5899,15 @@ pub mod bucket {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct BucketAccessControl {
-    /// The access permission for the entity.
+    /// Optional. The access permission for the entity.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub role: std::string::String,
 
-    /// The ID of the access-control entry.
+    /// Optional. The ID of the access-control entry.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub id: std::string::String,
 
-    /// The entity holding the permission, in one of the following forms:
+    /// Optional. The entity holding the permission, in one of the following forms:
     ///
     /// * `user-{userid}`
     /// * `user-{email}`
@@ -5680,26 +5934,26 @@ pub struct BucketAccessControl {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub entity_alt: std::string::String,
 
-    /// The ID for the entity, if any.
+    /// Optional. The ID for the entity, if any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub entity_id: std::string::String,
 
-    /// The etag of the BucketAccessControl.
+    /// Optional. The etag of the BucketAccessControl.
     /// If included in the metadata of an update or delete request message, the
     /// operation operation will only be performed if the etag matches that of the
     /// bucket's BucketAccessControl.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub etag: std::string::String,
 
-    /// The email address associated with the entity, if any.
+    /// Optional. The email address associated with the entity, if any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub email: std::string::String,
 
-    /// The domain associated with the entity, if any.
+    /// Optional. The domain associated with the entity, if any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub domain: std::string::String,
 
-    /// The project team associated with the entity, if any.
+    /// Optional. The project team associated with the entity, if any.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub project_team: std::option::Option<crate::model::ProjectTeam>,
 
@@ -5799,7 +6053,7 @@ pub struct ObjectChecksums {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub crc32c: std::option::Option<u32>,
 
-    /// 128 bit MD5 hash of the object data.
+    /// Optional. 128 bit MD5 hash of the object data.
     /// For more information about using the MD5 hash, see
     /// [<https://cloud.google.com/storage/docs/hashes-etags#json-api>][Hashes and
     /// ETags: Best Practices].
@@ -5857,11 +6111,11 @@ impl wkt::message::Message for ObjectChecksums {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct CustomerEncryption {
-    /// The encryption algorithm.
+    /// Optional. The encryption algorithm.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub encryption_algorithm: std::string::String,
 
-    /// SHA256 hash value of the encryption key.
+    /// Optional. SHA256 hash value of the encryption key.
     /// In raw bytes format (not base64-encoded).
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
@@ -5918,7 +6172,7 @@ pub struct Object {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub bucket: std::string::String,
 
-    /// The etag of the object.
+    /// Optional. The etag of the object.
     /// If included in the metadata of an update or delete request message, the
     /// operation will only be performed if the etag matches that of the live
     /// object.
@@ -5945,7 +6199,7 @@ pub struct Object {
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub metageneration: i64,
 
-    /// Storage class of the object.
+    /// Optional. Storage class of the object.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub storage_class: std::string::String,
 
@@ -5955,30 +6209,30 @@ pub struct Object {
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub size: i64,
 
-    /// Content-Encoding of the object data, matching
+    /// Optional. Content-Encoding of the object data, matching
     /// [<https://tools.ietf.org/html/rfc7231#section-3.1.2.2>][RFC 7231 §3.1.2.2]
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub content_encoding: std::string::String,
 
-    /// Content-Disposition of the object data, matching
+    /// Optional. Content-Disposition of the object data, matching
     /// [<https://tools.ietf.org/html/rfc6266>][RFC 6266].
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub content_disposition: std::string::String,
 
-    /// Cache-Control directive for the object data, matching
+    /// Optional. Cache-Control directive for the object data, matching
     /// [<https://tools.ietf.org/html/rfc7234#section-5.2>"][RFC 7234 §5.2].
     /// If omitted, and the object is accessible to all anonymous users, the
     /// default will be `public, max-age=3600`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub cache_control: std::string::String,
 
-    /// Access controls on the object.
+    /// Optional. Access controls on the object.
     /// If iam_config.uniform_bucket_level_access is enabled on the parent
     /// bucket, requests to set, read, or modify acl is an error.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub acl: std::vec::Vec<crate::model::ObjectAccessControl>,
 
-    /// Content-Language of the object data, matching
+    /// Optional. Content-Language of the object data, matching
     /// [<https://tools.ietf.org/html/rfc7231#section-3.1.3.2>][RFC 7231 §3.1.3.2].
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub content_language: std::string::String,
@@ -5992,7 +6246,7 @@ pub struct Object {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub finalize_time: std::option::Option<wkt::Timestamp>,
 
-    /// Content-Type of the object data, matching
+    /// Optional. Content-Type of the object data, matching
     /// [<https://tools.ietf.org/html/rfc7231#section-3.1.1.5>][RFC 7231 §3.1.1.5].
     /// If an object is stored without a Content-Type, it is served as
     /// `application/octet-stream`.
@@ -6025,8 +6279,8 @@ pub struct Object {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_time: std::option::Option<wkt::Timestamp>,
 
-    /// Cloud KMS Key used to encrypt this object, if the object is encrypted by
-    /// such a key.
+    /// Optional. Cloud KMS Key used to encrypt this object, if the object is
+    /// encrypted by such a key.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub kms_key: std::string::String,
 
@@ -6035,25 +6289,25 @@ pub struct Object {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_storage_class_time: std::option::Option<wkt::Timestamp>,
 
-    /// Whether an object is under temporary hold. While this flag is set to true,
-    /// the object is protected against deletion and overwrites.  A common use case
-    /// of this flag is regulatory investigations where objects need to be retained
-    /// while the investigation is ongoing. Note that unlike event-based hold,
-    /// temporary hold does not impact retention expiration time of an object.
+    /// Optional. Whether an object is under temporary hold. While this flag is set
+    /// to true, the object is protected against deletion and overwrites.  A common
+    /// use case of this flag is regulatory investigations where objects need to be
+    /// retained while the investigation is ongoing. Note that unlike event-based
+    /// hold, temporary hold does not impact retention expiration time of an
+    /// object.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub temporary_hold: bool,
 
-    /// A server-determined value that specifies the earliest time that the
-    /// object's retention period expires.
-    /// Note 1: This field is not provided for objects with an active event-based
-    /// hold, since retention expiration is unknown until the hold is removed.
-    /// Note 2: This value can be provided even when temporary hold is set (so that
-    /// the user can reason about policy without having to first unset the
-    /// temporary hold).
+    /// Optional. A server-determined value that specifies the earliest time that
+    /// the object's retention period expires. Note 1: This field is not provided
+    /// for objects with an active event-based hold, since retention expiration is
+    /// unknown until the hold is removed. Note 2: This value can be provided even
+    /// when temporary hold is set (so that the user can reason about policy
+    /// without having to first unset the temporary hold).
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub retention_expire_time: std::option::Option<wkt::Timestamp>,
 
-    /// User-provided metadata, in key/value pairs.
+    /// Optional. User-provided metadata, in key/value pairs.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
     pub metadata: std::collections::HashMap<std::string::String, std::string::String>,
 
@@ -6076,12 +6330,12 @@ pub struct Object {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub owner: std::option::Option<crate::model::Owner>,
 
-    /// Metadata of Customer-Supplied Encryption Key, if the object is encrypted by
-    /// such a key.
+    /// Optional. Metadata of Customer-Supplied Encryption Key, if the object is
+    /// encrypted by such a key.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub customer_encryption: std::option::Option<crate::model::CustomerEncryption>,
 
-    /// A user-specified timestamp set on an object.
+    /// Optional. A user-specified timestamp set on an object.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub custom_time: std::option::Option<wkt::Timestamp>,
 
@@ -6098,6 +6352,11 @@ pub struct Object {
     /// Otherwise, the object will not be accessible.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub hard_delete_time: std::option::Option<wkt::Timestamp>,
+
+    /// Optional. Retention configuration of this object.
+    /// May only be configured if the bucket has object retention enabled.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub retention: std::option::Option<crate::model::object::Retention>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -6481,11 +6740,238 @@ impl Object {
         self.hard_delete_time = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [retention][crate::model::Object::retention].
+    pub fn set_retention<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::object::Retention>,
+    {
+        self.retention = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [retention][crate::model::Object::retention].
+    pub fn set_or_clear_retention<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::object::Retention>,
+    {
+        self.retention = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for Object {
     fn typename() -> &'static str {
         "type.googleapis.com/google.storage.v2.Object"
+    }
+}
+
+/// Defines additional types related to [Object].
+pub mod object {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Specifies retention parameters of the object. Objects under retention
+    /// cannot be deleted or overwritten until their retention expires.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct Retention {
+        /// Optional. The mode of the Retention.
+        pub mode: crate::model::object::retention::Mode,
+
+        /// Optional. The timestamp that the object needs to be retained until.
+        /// Value cannot be set in the past or more than 100 years in the future.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub retain_until_time: std::option::Option<wkt::Timestamp>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl Retention {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [mode][crate::model::object::Retention::mode].
+        pub fn set_mode<T: std::convert::Into<crate::model::object::retention::Mode>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.mode = v.into();
+            self
+        }
+
+        /// Sets the value of [retain_until_time][crate::model::object::Retention::retain_until_time].
+        pub fn set_retain_until_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.retain_until_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [retain_until_time][crate::model::object::Retention::retain_until_time].
+        pub fn set_or_clear_retain_until_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.retain_until_time = v.map(|x| x.into());
+            self
+        }
+    }
+
+    impl wkt::message::Message for Retention {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.storage.v2.Object.Retention"
+        }
+    }
+
+    /// Defines additional types related to [Retention].
+    pub mod retention {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Retention mode values.
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum Mode {
+            /// No specified mode. Object is not under retention.
+            Unspecified,
+            /// Retention period may be decreased or increased.
+            /// The Retention configuration may be removed.
+            /// The mode may be changed to locked.
+            Unlocked,
+            /// Retention period may be increased.
+            /// The Retention configuration cannot be removed.
+            /// The mode cannot be changed.
+            Locked,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [Mode::value] or
+            /// [Mode::name].
+            UnknownValue(mode::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        pub mod mode {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
+
+        impl Mode {
+            /// Gets the enum value.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::Unlocked => std::option::Option::Some(1),
+                    Self::Locked => std::option::Option::Some(2),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
+            }
+
+            /// Gets the enum value as a string.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some("MODE_UNSPECIFIED"),
+                    Self::Unlocked => std::option::Option::Some("UNLOCKED"),
+                    Self::Locked => std::option::Option::Some("LOCKED"),
+                    Self::UnknownValue(u) => u.0.name(),
+                }
+            }
+        }
+
+        impl std::default::Default for Mode {
+            fn default() -> Self {
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for Mode {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for Mode {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::Unlocked,
+                    2 => Self::Locked,
+                    _ => Self::UnknownValue(mode::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for Mode {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "MODE_UNSPECIFIED" => Self::Unspecified,
+                    "UNLOCKED" => Self::Unlocked,
+                    "LOCKED" => Self::Locked,
+                    _ => Self::UnknownValue(mode::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for Mode {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::Unlocked => serializer.serialize_i32(1),
+                    Self::Locked => serializer.serialize_i32(2),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for Mode {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<Mode>::new(
+                    ".google.storage.v2.Object.Retention.Mode",
+                ))
+            }
+        }
     }
 }
 
@@ -6495,7 +6981,8 @@ impl wkt::message::Message for Object {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct ObjectAccessControl {
-    /// The access permission for the entity. One of the following values:
+    /// Optional. The access permission for the entity. One of the following
+    /// values:
     ///
     /// * `READER`
     /// * `WRITER`
@@ -6503,11 +6990,11 @@ pub struct ObjectAccessControl {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub role: std::string::String,
 
-    /// The ID of the access-control entry.
+    /// Optional. The ID of the access-control entry.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub id: std::string::String,
 
-    /// The entity holding the permission, in one of the following forms:
+    /// Optional. The entity holding the permission, in one of the following forms:
     ///
     /// * `user-{userid}`
     /// * `user-{email}`
@@ -6534,26 +7021,26 @@ pub struct ObjectAccessControl {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub entity_alt: std::string::String,
 
-    /// The ID for the entity, if any.
+    /// Optional. The ID for the entity, if any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub entity_id: std::string::String,
 
-    /// The etag of the ObjectAccessControl.
+    /// Optional. The etag of the ObjectAccessControl.
     /// If included in the metadata of an update or delete request message, the
     /// operation will only be performed if the etag matches that of the live
     /// object's ObjectAccessControl.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub etag: std::string::String,
 
-    /// The email address associated with the entity, if any.
+    /// Optional. The email address associated with the entity, if any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub email: std::string::String,
 
-    /// The domain associated with the entity, if any.
+    /// Optional. The domain associated with the entity, if any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub domain: std::string::String,
 
-    /// The project team associated with the entity, if any.
+    /// Optional. The project team associated with the entity, if any.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub project_team: std::option::Option<crate::model::ProjectTeam>,
 
@@ -6723,11 +7210,11 @@ impl gax::paginator::internal::PageableResponse for ListObjectsResponse {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct ProjectTeam {
-    /// The project number.
+    /// Optional. The project number.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub project_number: std::string::String,
 
-    /// The team.
+    /// Optional. The team.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub team: std::string::String,
 
@@ -6765,11 +7252,11 @@ impl wkt::message::Message for ProjectTeam {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Owner {
-    /// The entity, in the form `user-`*userId*.
+    /// Optional. The entity, in the form `user-`*userId*.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub entity: std::string::String,
 
-    /// The ID for the entity.
+    /// Optional. The ID for the entity.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub entity_id: std::string::String,
 

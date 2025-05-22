@@ -192,6 +192,50 @@ impl StorageControl {
         super::builder::storage_control::ListAnywhereCaches::new(self.inner.clone())
     }
 
+    /// Returns the Project scoped singleton IntelligenceConfig resource.
+    pub fn get_project_intelligence_config(
+        &self,
+    ) -> super::builder::storage_control::GetProjectIntelligenceConfig {
+        super::builder::storage_control::GetProjectIntelligenceConfig::new(self.inner.clone())
+    }
+
+    /// Updates the Project scoped singleton IntelligenceConfig resource.
+    pub fn update_project_intelligence_config(
+        &self,
+    ) -> super::builder::storage_control::UpdateProjectIntelligenceConfig {
+        super::builder::storage_control::UpdateProjectIntelligenceConfig::new(self.inner.clone())
+    }
+
+    /// Returns the Folder scoped singleton IntelligenceConfig resource.
+    pub fn get_folder_intelligence_config(
+        &self,
+    ) -> super::builder::storage_control::GetFolderIntelligenceConfig {
+        super::builder::storage_control::GetFolderIntelligenceConfig::new(self.inner.clone())
+    }
+
+    /// Updates the Folder scoped singleton IntelligenceConfig resource.
+    pub fn update_folder_intelligence_config(
+        &self,
+    ) -> super::builder::storage_control::UpdateFolderIntelligenceConfig {
+        super::builder::storage_control::UpdateFolderIntelligenceConfig::new(self.inner.clone())
+    }
+
+    /// Returns the Organization scoped singleton IntelligenceConfig resource.
+    pub fn get_organization_intelligence_config(
+        &self,
+    ) -> super::builder::storage_control::GetOrganizationIntelligenceConfig {
+        super::builder::storage_control::GetOrganizationIntelligenceConfig::new(self.inner.clone())
+    }
+
+    /// Updates the Organization scoped singleton IntelligenceConfig resource.
+    pub fn update_organization_intelligence_config(
+        &self,
+    ) -> super::builder::storage_control::UpdateOrganizationIntelligenceConfig {
+        super::builder::storage_control::UpdateOrganizationIntelligenceConfig::new(
+            self.inner.clone(),
+        )
+    }
+
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations

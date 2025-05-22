@@ -30,8 +30,9 @@ extern crate std;
 extern crate tracing;
 extern crate wkt;
 
-/// An object containing information about the effective user and
-/// authenticated principal responsible for an action.
+/// An Actor represents an entity that performed an action. For example, an actor
+/// could be a user who posted a comment on a support case, a user who
+/// uploaded an attachment, or a service account that created a support case.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -44,17 +45,27 @@ pub struct Actor {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub display_name: std::string::String,
 
-    /// The email address of the actor. If not provided, it is inferred from
-    /// credentials supplied during case creation. If the authenticated principal
-    /// does not have an email address, one must be provided. When a name is
-    /// provided, an email must also be provided. This will be obfuscated if the
-    /// user is a Google Support agent.
+    /// The email address of the actor. If not provided, it is inferred from the
+    /// credentials supplied during case creation. When a name is provided, an
+    /// email must also be provided. If the user is a Google Support agent, this is
+    /// obfuscated.
+    ///
+    /// This field is deprecated. Use `username` instead.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub email: std::string::String,
 
     /// Output only. Whether the actor is a Google support actor.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub google_support: bool,
+
+    /// Output only. The username of the actor. It may look like an email or other
+    /// format provided by the identity provider. If not provided, it is inferred
+    /// from the credentials supplied. When a name is provided, a username must
+    /// also be provided. If the user is a Google Support agent, this will not be
+    /// set.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub username: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -72,6 +83,7 @@ impl Actor {
     }
 
     /// Sets the value of [email][crate::model::Actor::email].
+    #[deprecated]
     pub fn set_email<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.email = v.into();
         self
@@ -82,6 +94,12 @@ impl Actor {
         self.google_support = v.into();
         self
     }
+
+    /// Sets the value of [username][crate::model::Actor::username].
+    pub fn set_username<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.username = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for Actor {
@@ -90,13 +108,20 @@ impl wkt::message::Message for Actor {
     }
 }
 
-/// Represents a file attached to a support case.
+/// An Attachment contains metadata about a file that was uploaded to a
+/// case - it is NOT a file itself. That being said, the name of an Attachment
+/// object can be used to download its accompanying file through the
+/// `media.download` endpoint.
+///
+/// While attachments can be uploaded in the console at the
+/// same time as a comment, they're associated on a "case" level, not a
+/// "comment" level.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Attachment {
-    /// Output only. The resource name of the attachment.
+    /// Output only. Identifier. The resource name of the attachment.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
 
@@ -204,14 +229,18 @@ impl wkt::message::Message for Attachment {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct ListAttachmentsRequest {
-    /// Required. The resource name of Case object for which attachments should be
-    /// listed.
+    /// Required. The name of the case for which attachments should be listed.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub parent: std::string::String,
 
-    /// The maximum number of attachments fetched with each request. If not
-    /// provided, the default is 10. The maximum page size that will be returned is
-    /// 100.
+    /// The maximum number of attachments fetched with each request.
+    ///
+    /// If not provided, the default is 10. The maximum page size that will be
+    /// returned is 100.
+    ///
+    /// The size of each page can be smaller than the requested page size and can
+    /// include zero. For example, you could request 100 attachments on one page,
+    /// receive 0, and then on the next page, receive 90.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
@@ -260,13 +289,13 @@ impl wkt::message::Message for ListAttachmentsRequest {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct ListAttachmentsResponse {
-    /// The list of attachments associated with the given case.
+    /// The list of attachments associated with a case.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub attachments: std::vec::Vec<crate::model::Attachment>,
 
-    /// A token to retrieve the next page of results. This should be set in the
-    /// `page_token` field of subsequent `cases.attachments.list` requests. If
-    /// unspecified, there are no more results to retrieve.
+    /// A token to retrieve the next page of results. Set this in the `page_token`
+    /// field of subsequent `cases.attachments.list` requests. If unspecified,
+    /// there are no more results to retrieve.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
 
@@ -317,13 +346,39 @@ impl gax::paginator::internal::PageableResponse for ListAttachmentsResponse {
     }
 }
 
-/// A support case.
+/// A Case is an object that contains the details of a support case. It
+/// contains fields for the time it was created, its priority, its
+/// classification, and more. Cases can also have comments and attachments that
+/// get added over time.
+///
+/// A case is parented by a Google Cloud organization or project.
+///
+/// Organizations are identified by a number, so the name of a case parented by
+/// an organization would look like this:
+///
+/// ```norust
+/// organizations/123/cases/456
+/// ```
+///
+/// Projects have two unique identifiers, an ID and a number, and they look like
+/// this:
+///
+/// ```norust
+/// projects/abc/cases/456
+/// ```
+///
+/// ```norust
+/// projects/123/cases/456
+/// ```
+///
+/// You can use either of them when calling the API. To learn more
+/// about project identifiers, see [AIP-2510](https://google.aip.dev/cloud/2510).
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Case {
-    /// The resource name for the case.
+    /// Identifier. The resource name for the case.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
 
@@ -875,7 +930,12 @@ pub mod case {
     }
 }
 
-/// A classification object with a product type and value.
+/// A Case Classification represents the topic that a case is about. It's very
+/// important to use accurate classifications, because they're
+/// used to route your cases to specialists who can help you.
+///
+/// A classification always has an ID that is its unique identifier.
+/// A valid ID is required when creating a case.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -885,10 +945,18 @@ pub struct CaseClassification {
     ///
     /// To retrieve valid classification IDs for case creation, use
     /// `caseClassifications.search`.
+    ///
+    /// Classification IDs returned by `caseClassifications.search` are guaranteed
+    /// to be valid for at least 6 months. If a given classification is
+    /// deactiveated, it will immediately stop being returned. After 6 months,
+    /// `case.create` requests using the classification ID will fail.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub id: std::string::String,
 
-    /// The display name of the classification.
+    /// A display name for the classification.
+    ///
+    /// The display name is not static and can change. To uniquely and consistently
+    /// identify classifications, use the `CaseClassification.id` field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub display_name: std::string::String,
 
@@ -926,7 +994,7 @@ impl wkt::message::Message for CaseClassification {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct GetCaseRequest {
-    /// Required. The fully qualified name of a case to be retrieved.
+    /// Required. The full name of a case to be retrieved.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
 
@@ -958,8 +1026,7 @@ impl wkt::message::Message for GetCaseRequest {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct CreateCaseRequest {
-    /// Required. The name of the Google Cloud Resource under which the case should
-    /// be created.
+    /// Required. The name of the parent under which the case should be created.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub parent: std::string::String,
 
@@ -1013,23 +1080,25 @@ impl wkt::message::Message for CreateCaseRequest {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct ListCasesRequest {
-    /// Required. The fully qualified name of parent resource to list cases under.
+    /// Required. The name of a parent to list cases under.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub parent: std::string::String,
 
-    /// An expression written in filter language. If non-empty, the query returns
-    /// the cases that match the filter. Else, the query doesn't filter the cases.
+    /// An expression used to filter cases.
     ///
-    /// Filter expressions use the following fields with the operators equals (`=`)
-    /// and `AND`:
+    /// If it's an empty string, then no filtering happens. Otherwise, the endpoint
+    /// returns the cases that match the filter.
     ///
-    /// - `state`: The accepted values are `OPEN` or `CLOSED`.
-    /// - `priority`: The accepted values are `P0`, `P1`, `P2`, `P3`, or `P4`. You
+    /// Expressions use the following fields separated by `AND` and specified with
+    /// `=`:
+    ///
+    /// - `state`: Can be `OPEN` or `CLOSED`.
+    /// - `priority`: Can be `P0`, `P1`, `P2`, `P3`, or `P4`. You
     ///   can specify multiple values for priority using the `OR` operator. For
     ///   example, `priority=P1 OR priority=P2`.
     /// - `creator.email`: The email address of the case creator.
     ///
-    /// Examples:
+    /// EXAMPLES:
     ///
     /// - `state=CLOSED`
     /// - `state=OPEN AND creator.email="tester@example.com"`
@@ -1092,14 +1161,14 @@ impl wkt::message::Message for ListCasesRequest {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct ListCasesResponse {
-    /// The list of cases associated with the Google Cloud Resource, after any
+    /// The list of cases associated with the parent after any
     /// filters have been applied.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub cases: std::vec::Vec<crate::model::Case>,
 
-    /// A token to retrieve the next page of results. This should be set in the
-    /// `page_token` field of the subsequent `ListCasesRequest` message that is
-    /// issued. If unspecified, there are no more results to retrieve.
+    /// A token to retrieve the next page of results. Set this in the `page_token`
+    /// field of subsequent `cases.list` requests. If unspecified, there are no
+    /// more results to retrieve.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
 
@@ -1156,25 +1225,23 @@ impl gax::paginator::internal::PageableResponse for ListCasesResponse {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct SearchCasesRequest {
-    /// The fully qualified name of parent resource to search cases under.
+    /// The name of the parent resource to search for cases under.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub parent: std::string::String,
 
-    /// An expression written in filter language.
+    /// An expression used to filter cases.
     ///
-    /// A query uses the following fields with the operators equals (`=`) and
-    /// `AND`:
+    /// Expressions use the following fields separated by `AND` and specified with
+    /// `=`:
     ///
     /// - `organization`: An organization name in the form
     ///   `organizations/<organization_id>`.
     /// - `project`: A project name in the form `projects/<project_id>`.
-    /// - `state`: The accepted values are `OPEN` or `CLOSED`.
-    /// - `priority`: The accepted values are `P0`, `P1`, `P2`, `P3`, or `P4`. You
+    /// - `state`: Can be `OPEN` or `CLOSED`.
+    /// - `priority`: Can be `P0`, `P1`, `P2`, `P3`, or `P4`. You
     ///   can specify multiple values for priority using the `OR` operator. For
     ///   example, `priority=P1 OR priority=P2`.
     /// - `creator.email`: The email address of the case creator.
-    /// - `billingAccount`: A billing account in the form
-    ///   `billingAccounts/<billing_account_id>`
     ///
     /// You must specify either `organization` or `project`.
     ///
@@ -1191,7 +1258,6 @@ pub struct SearchCasesRequest {
     /// - `organization="organizations/123456789"`
     /// - `project="projects/my-project-id"`
     /// - `project="projects/123456789"`
-    /// - `billing_account="billingAccounts/123456-A0B0C0-CUZ789"`
     /// - `organization="organizations/123456789" AND state=CLOSED`
     /// - `project="projects/my-project-id" AND creator.email="tester@example.com"`
     /// - `project="projects/my-project-id" AND (priority=P0 OR priority=P1)`
@@ -1254,14 +1320,14 @@ impl wkt::message::Message for SearchCasesRequest {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct SearchCasesResponse {
-    /// The list of cases associated with the Google Cloud Resource, after any
+    /// The list of cases associated with the parent after any
     /// filters have been applied.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub cases: std::vec::Vec<crate::model::Case>,
 
-    /// A token to retrieve the next page of results. This should be set in the
-    /// `page_token` field of subsequent `SearchCaseRequest` message that is
-    /// issued. If unspecified, there are no more results to retrieve.
+    /// A token to retrieve the next page of results. Set this in the
+    /// `page_token` field of subsequent `cases.search` requests. If unspecified,
+    /// there are no more results to retrieve.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
 
@@ -1318,11 +1384,11 @@ impl gax::paginator::internal::PageableResponse for SearchCasesResponse {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct EscalateCaseRequest {
-    /// Required. The fully qualified name of the Case resource to be escalated.
+    /// Required. The name of the case to be escalated.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
 
-    /// The escalation object to be sent with the escalation request.
+    /// The escalation information to be sent with the escalation request.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub escalation: std::option::Option<crate::model::Escalation>,
 
@@ -1372,18 +1438,17 @@ impl wkt::message::Message for EscalateCaseRequest {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct UpdateCaseRequest {
-    /// Required. The case object to update.
+    /// Required. The case to update.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub case: std::option::Option<crate::model::Case>,
 
-    /// A list of attributes of the case object that should be updated
-    /// as part of this request. Supported values are `priority`, `display_name`,
-    /// and `subscriber_email_addresses`. If no fields are specified, all supported
-    /// fields are updated.
+    /// A list of attributes of the case that should be updated. Supported values
+    /// are `priority`, `display_name`, and `subscriber_email_addresses`. If no
+    /// fields are specified, all supported fields are updated.
     ///
-    /// WARNING: If you do not provide a field mask, then you might accidentally
-    /// clear some fields. For example, if you leave the field mask empty and do
-    /// not provide a value for `subscriber_email_addresses`, then
+    /// Be careful - if you do not provide a field mask, then you might
+    /// accidentally clear some fields. For example, if you leave the field mask
+    /// empty and do not provide a value for `subscriber_email_addresses`, then
     /// `subscriber_email_addresses` is updated to empty.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
@@ -1446,7 +1511,7 @@ impl wkt::message::Message for UpdateCaseRequest {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct CloseCaseRequest {
-    /// Required. The fully qualified name of the case resource to be closed.
+    /// Required. The name of the case to close.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
 
@@ -1472,19 +1537,20 @@ impl wkt::message::Message for CloseCaseRequest {
     }
 }
 
-/// The request message for SearchCaseClassifications endpoint.
+/// The request message for the SearchCaseClassifications endpoint.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct SearchCaseClassificationsRequest {
-    /// An expression written in the Google Cloud filter language. If non-empty,
-    /// then only cases whose fields match the filter are returned. If empty, then
-    /// no messages are filtered out.
+    /// An expression used to filter case classifications.
+    ///
+    /// If it's an empty string, then no filtering happens. Otherwise, case
+    /// classifications will be returned that match the filter.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub query: std::string::String,
 
-    /// The maximum number of cases fetched with each request.
+    /// The maximum number of classifications fetched with each request.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
@@ -1537,9 +1603,9 @@ pub struct SearchCaseClassificationsResponse {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub case_classifications: std::vec::Vec<crate::model::CaseClassification>,
 
-    /// A token to retrieve the next page of results. This should be set in the
-    /// `page_token` field of subsequent `SearchCaseClassificationsRequest` message
-    /// that is issued. If unspecified, there are no more results to retrieve.
+    /// A token to retrieve the next page of results. Set this in the `page_token`
+    /// field of subsequent `caseClassifications.list` requests. If unspecified,
+    /// there are no more results to retrieve.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
 
@@ -1591,31 +1657,40 @@ impl gax::paginator::internal::PageableResponse for SearchCaseClassificationsRes
 }
 
 /// A comment associated with a support case.
+///
+/// Case comments are the primary way for Google Support to communicate with a
+/// user who has opened a case. When a user responds to Google Support, the
+/// user's responses also appear as comments.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Comment {
-    /// Output only. The resource name for the comment.
+    /// Output only. Identifier. The resource name of the comment.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
 
-    /// Output only. The time when this comment was created.
+    /// Output only. The time when the comment was created.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub create_time: std::option::Option<wkt::Timestamp>,
 
-    /// Output only. The user or Google Support agent created this comment.
+    /// Output only. The user or Google Support agent who created the comment.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub creator: std::option::Option<crate::model::Actor>,
 
-    /// The full comment body. Maximum of 12800 characters. This can contain rich
-    /// text syntax.
+    /// The full comment body.
+    ///
+    /// Maximum of 12800 characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub body: std::string::String,
 
-    /// Output only. DEPRECATED. An automatically generated plain text version of
-    /// body with all rich text syntax stripped.
+    /// Output only. DEPRECATED. DO NOT USE.
+    ///
+    /// A duplicate of the `body` field.
+    ///
+    /// This field is only present for legacy reasons.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub plain_text_body: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1676,6 +1751,7 @@ impl Comment {
     }
 
     /// Sets the value of [plain_text_body][crate::model::Comment::plain_text_body].
+    #[deprecated]
     pub fn set_plain_text_body<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.plain_text_body = v.into();
         self
@@ -1694,17 +1770,16 @@ impl wkt::message::Message for Comment {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct ListCommentsRequest {
-    /// Required. The resource name of Case object for which comments should be
-    /// listed.
+    /// Required. The name of the case for which to list comments.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub parent: std::string::String,
 
-    /// The maximum number of comments fetched with each request. Defaults to 10.
+    /// The maximum number of comments to fetch. Defaults to 10.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A token identifying the page of results to return. If unspecified, the
-    /// first page is retrieved.
+    /// first page is returned.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
 
@@ -1748,13 +1823,13 @@ impl wkt::message::Message for ListCommentsRequest {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct ListCommentsResponse {
-    /// The list of Comments associated with the given Case.
+    /// List of the comments associated with the case.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub comments: std::vec::Vec<crate::model::Comment>,
 
-    /// A token to retrieve the next page of results. This should be set in the
-    /// `page_token` field of subsequent `ListCommentsRequest` message that is
-    /// issued. If unspecified, there are no more results to retrieve.
+    /// A token to retrieve the next page of results. Set this in the `page_token`
+    /// field of subsequent `cases.comments.list` requests. If unspecified, there
+    /// are no more results to retrieve.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
 
@@ -1805,17 +1880,17 @@ impl gax::paginator::internal::PageableResponse for ListCommentsResponse {
     }
 }
 
-/// The request message for CreateComment endpoint.
+/// The request message for the CreateComment endpoint.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct CreateCommentRequest {
-    /// Required. The resource name of Case to which this comment should be added.
+    /// Required. The name of the case to which the comment should be added.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub parent: std::string::String,
 
-    /// Required. The Comment object to be added to this Case.
+    /// Required. The comment to be added.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub comment: std::option::Option<crate::model::Comment>,
 

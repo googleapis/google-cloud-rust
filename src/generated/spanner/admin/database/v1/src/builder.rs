@@ -656,6 +656,12 @@ pub mod database_admin {
             self.0.request.proto_descriptors = v.into();
             self
         }
+
+        /// Sets the value of [throughput_mode][crate::model::UpdateDatabaseDdlRequest::throughput_mode].
+        pub fn set_throughput_mode<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.throughput_mode = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]

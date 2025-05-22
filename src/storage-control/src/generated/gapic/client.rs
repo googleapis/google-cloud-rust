@@ -95,14 +95,18 @@ impl StorageControl {
 
     /// Gets the IAM policy for a specified bucket.
     /// The `resource` field in the request should be
-    /// `projects/_/buckets/{bucket}`.
+    /// `projects/_/buckets/{bucket}` for a bucket, or
+    /// `projects/_/buckets/{bucket}/managedFolders/{managedFolder}`
+    /// for a managed folder.
     pub fn get_iam_policy(&self) -> super::builder::storage_control::GetIamPolicy {
         super::builder::storage_control::GetIamPolicy::new(self.inner.clone())
     }
 
     /// Updates an IAM policy for the specified bucket.
     /// The `resource` field in the request should be
-    /// `projects/_/buckets/{bucket}`.
+    /// `projects/_/buckets/{bucket}` for a bucket, or
+    /// `projects/_/buckets/{bucket}/managedFolders/{managedFolder}`
+    /// for a managed folder.
     pub fn set_iam_policy(&self) -> super::builder::storage_control::SetIamPolicy {
         super::builder::storage_control::SetIamPolicy::new(self.inner.clone())
     }

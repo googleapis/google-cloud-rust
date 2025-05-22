@@ -18,3 +18,7 @@ service-config = 'google/cloud/storageinsights/v1/storageinsights_v1.yaml'
 
 [codec]
 copyright-year = '2025'
+name-overrides    = """\
+.google.cloud.storageinsights.v1.DatasetConfig.cloud_storage_buckets=CloudStorageBucketsOneOf,\
+.google.cloud.storageinsights.v1.DatasetConfig.cloud_storage_locations=CloudStorageLocationsOneOf\
+"""
