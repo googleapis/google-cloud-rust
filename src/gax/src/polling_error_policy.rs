@@ -207,17 +207,12 @@ impl PollingErrorPolicy for Aip194Strict {
                 LoopState::Permanent(error)
             };
         }
-        use crate::error::ErrorKind;
-        match error.kind() {
-            ErrorKind::Rpc | ErrorKind::Io => LoopState::Continue(error),
-            ErrorKind::Authentication =>
+        if error.is_transient_and_before_rpc() {
             // This indicates the operation never left the client, so it
             // safe to poll again.
-            {
-                LoopState::Continue(error)
-            }
-            ErrorKind::Serde => LoopState::Permanent(error),
-            ErrorKind::Other => LoopState::Permanent(error),
+            LoopState::Continue(error)
+        } else {
+            LoopState::Permanent(error)
         }
     }
 }

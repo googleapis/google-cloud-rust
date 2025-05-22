@@ -12,52 +12,94 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use super::CredentialsError;
+use super::rpc::Status;
+use http::HeaderMap;
+
 type BoxError = Box<dyn std::error::Error + Send + Sync>;
 
 /// The core error returned by all client libraries.
 #[derive(Debug)]
 pub struct Error {
     kind: ErrorKind,
-    source: BoxError,
 }
 
 impl Error {
-    /// Creates a new [Error] with the given [ErrorKind] and source error.
-    pub fn new<T: Into<BoxError>>(kind: ErrorKind, source: T) -> Self {
-        Error {
-            kind,
-            source: source.into(),
+    /// The error was generated before the RPC started and is transient.
+    pub(crate) fn is_transient_and_before_rpc(&self) -> bool {
+        match &self.kind {
+            ErrorKind::Authentication(e) if e.is_retryable() => true,
+            _ => false,
         }
     }
 
-    /// A helper to create a new [ErrorKind::Serde] error.
+    // TODO(#2221) - remove once the migration is completed.
+    #[doc(hidden)]
     pub fn serde<T: Into<BoxError>>(source: T) -> Self {
-        Error::new(ErrorKind::Serde, source)
+        Self {
+            kind: ErrorKind::Serialization(source.into()),
+        }
     }
 
-    /// A helper to create a new [ErrorKind::Authentication] error.
-    pub fn authentication<T: Into<BoxError>>(source: T) -> Self {
-        Error::new(ErrorKind::Authentication, source)
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+    pub fn binding<T: Into<BoxError>>(source: T) -> Self {
+        Self {
+            kind: ErrorKind::Binding(source.into()),
+        }
     }
 
-    /// A helper to create a new [ErrorKind::Io] error.
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+    pub fn ser<T: Into<BoxError>>(source: T) -> Self {
+        Self {
+            kind: ErrorKind::Serialization(source.into()),
+        }
+    }
+
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+    pub fn authentication(source: CredentialsError) -> Self {
+        Self {
+            kind: ErrorKind::Authentication(source),
+        }
+    }
+
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
     pub fn io<T: Into<BoxError>>(source: T) -> Self {
-        Error::new(ErrorKind::Io, source)
+        Self { kind: ErrorKind::Io(source.into()) }
     }
 
-    /// A helper to create a new [ErrorKind::Rpc] error.
-    pub fn rpc<T: Into<BoxError>>(source: T) -> Self {
-        Error::new(ErrorKind::Rpc, source)
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+    pub fn service_error(status_code: Option<u16>, headers: Option<HeaderMap>, status: Status) -> Self {
+        let kind = ErrorKind::Service {
+            status_code,
+            headers,
+            payload: ServiceErrorPayload::Status(status),
+        };
+        Self { kind }
     }
 
-    /// A helper to create a new [ErrorKind::Other] error.
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+    pub fn http_error(status_code: u16, headers: HeaderMap, payload: bytes::Bytes) -> Self {
+        let kind = ErrorKind::Service {
+            status_code: Some(status_code),
+            headers: Some(headers),
+            payload: ServiceErrorPayload::Bytes(payload),
+        };
+        Self { kind }
+    }
+
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+    pub fn deser<T: Into<BoxError>>(source: T) -> Self {
+        Self {
+            kind: ErrorKind::Deserialization(source.into()),
+        }
+    }
+
+    // TODO(#2221) - remove once the migration is completed.
+    #[doc(hidden)]
     pub fn other<T: Into<BoxError>>(source: T) -> Self {
-        Error::new(ErrorKind::Other, source)
-    }
-
-    /// Returns the [ErrorKind] associated with this error.
-    pub fn kind(&self) -> ErrorKind {
-        self.kind.clone()
+        Self {
+            kind: ErrorKind::Other(source.into()),
+        }
     }
 
     /// Recurses through the source error chain and returns a reference to the
@@ -75,8 +117,10 @@ impl Error {
     ///     assert_eq!(e.status_code(), 404);
     /// }
     /// ```
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
     pub fn as_inner<T: std::error::Error + Send + Sync + 'static>(&self) -> Option<&T> {
-        let mut error = self.source.as_ref() as &(dyn std::error::Error);
+        use std::error::Error;
+        let mut error = self.source()?;
         loop {
             match error.downcast_ref::<T>() {
                 Some(e) => return Some(e),
@@ -84,49 +128,73 @@ impl Error {
             }
         }
     }
+
+    fn display_service_error(f: &mut std::fmt::Formatter,
+        status_code: &Option<u16>,
+        _headers: &Option<HeaderMap>,
+        payload: &ServiceErrorPayload) -> std::fmt::Result {
+            match payload {
+                ServiceErrorPayload::Status(s) => {
+                    // TODO(#2221) - more complete error messages
+                    write!(f, "the service returned an error, {}", s.message)
+                },
+                ServiceErrorPayload::Bytes(_) => {
+                    // TODO(#2221) - more complete error messages
+                    write!(f, "an HTTP error, code={:?}", status_code)
+                }
+            }
+        }
 }
 
 impl std::fmt::Display for Error {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "{}: {}", self.kind, self.source)
+        match &self.kind {
+            ErrorKind::Binding(e) => write!(f, "cannot find a matching binding to send the request: {e}"),
+            ErrorKind::Serialization(e) => write!(f, "cannot serialize the request: {e}"),
+            ErrorKind::Authentication(e) => write!(f, "cannot create the authentication headers: {e}"),
+            ErrorKind::Io(e) => write!(f, "an I/O problem sending the request or receiving the response: {e}"),
+            ErrorKind::Service { status_code, headers, payload} => Self::display_service_error(f, status_code, headers, payload),
+            ErrorKind::Deserialization(e) => write!(f, "cannot deserialize the response: {e}"),
+            ErrorKind::Other(e) => write!(f, "an unclassified problem making a request: {e}"),
+        }
     }
 }
 
 impl std::error::Error for Error {
     fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
-        Some(self.source.as_ref())
+        match &self.kind {
+            ErrorKind::Binding(e) => Some(e.as_ref()),
+            ErrorKind::Serialization(e) => Some(e.as_ref()),
+            ErrorKind::Authentication(e) => Some(e),
+            ErrorKind::Io(e) => Some(e.as_ref()),
+            ErrorKind::Service { .. } => None,
+            ErrorKind::Deserialization(e) => Some(e.as_ref()),
+            ErrorKind::Other(e) => Some(e.as_ref()),
+        }
     }
+}
+
+#[derive(Debug)]
+enum ServiceErrorPayload {
+    Bytes(bytes::Bytes),
+    Status(super::rpc::Status),
 }
 
 /// The type of error held by an [Error] instance.
-#[derive(Clone, Debug, PartialEq, Default)]
-pub enum ErrorKind {
-    /// A serialization or deserialization error.
-    Serde,
-    /// An authentication error.
-    Authentication,
-    /// An I/O error.
-    Io,
-    /// An error related to making a RPC.
-    Rpc,
+#[derive(Debug)]
+enum ErrorKind {
+    Binding(BoxError),
+    Serialization(BoxError),
+    Authentication(CredentialsError),
+    Io(BoxError),
+    Service {
+        status_code: Option<u16>,
+        headers: Option<HeaderMap>,
+        payload: ServiceErrorPayload,
+    },
+    Deserialization(BoxError),
     /// A uncategorized error.
-    #[default]
-    Other,
-}
-
-impl std::fmt::Display for ErrorKind {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            ErrorKind::Serde => write!(
-                f,
-                "a problem occurred during serialization or deserialization"
-            ),
-            ErrorKind::Authentication => write!(f, "a problem occurred during authentication"),
-            ErrorKind::Io => write!(f, "a problem occurred during I/O"),
-            ErrorKind::Rpc => write!(f, "a problem occurred while making a RPC"),
-            ErrorKind::Other => write!(f, "a problem occurred"),
-        }
-    }
+    Other(BoxError),
 }
 
 #[cfg(test)]
@@ -134,39 +202,5 @@ mod test {
     use super::*;
     use test_case::test_case;
 
-    #[test]
-    fn error_matches_kind() {
-        use std::error::Error as E;
-        let error = Error::serde("source".to_string());
-        assert_eq!(error.kind(), ErrorKind::Serde);
-        assert!(error.source().is_some(), "missing source for {error:?}");
-        let error = Error::authentication("source".to_string());
-        assert_eq!(error.kind(), ErrorKind::Authentication);
-        assert!(error.source().is_some(), "missing source for {error:?}");
-        let error = Error::io("source".to_string());
-        assert_eq!(error.kind(), ErrorKind::Io);
-        assert!(error.source().is_some(), "missing source for {error:?}");
-        let error = Error::rpc("source".to_string());
-        assert_eq!(error.kind(), ErrorKind::Rpc);
-        assert!(error.source().is_some(), "missing source for {error:?}");
-        let error = Error::other("source".to_string());
-        assert_eq!(error.kind(), ErrorKind::Other);
-        assert!(error.source().is_some(), "missing source for {error:?}");
-    }
-
-    #[test_case(ErrorKind::Serde)]
-    #[test_case(ErrorKind::Authentication)]
-    #[test_case(ErrorKind::Io)]
-    #[test_case(ErrorKind::Rpc)]
-    #[test_case(ErrorKind::Other)]
-    fn error_display_includes_kind_and_source(kind: ErrorKind) {
-        let kind_msg = format!("{kind}");
-        let error = Error::new(kind, "test-error-msg".to_string());
-        let msg = format!("{error}");
-        assert!(
-            msg.contains("test-error-msg"),
-            "missing error message in {msg:?}"
-        );
-        assert!(msg.contains(&kind_msg), "missing kind message in {msg:?}");
-    }
+    // TODO(#2221) - add some tests for `Display`
 }
