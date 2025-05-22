@@ -143,11 +143,10 @@ impl Error {
     ///
     /// ```
     /// # use google_cloud_gax::error::Error;
-    /// # use google_cloud_gax::error::HttpError;
-    /// use http::HeaderMap;
-    /// let error = Error::rpc(HttpError::new(404, HeaderMap::new(), None));
-    /// if let Some(e) = error.as_inner::<HttpError>() {
-    ///     assert_eq!(e.status_code(), 404);
+    /// # use google_cloud_gax::error::CredentialsError;
+    /// let error = Error::authentication(CredentialsError::from_str(true, "err"));
+    /// if let Some(e) = error.as_inner::<CredentialsError>() {
+    ///     assert!(e.is_retryable());
     /// }
     /// ```
     #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]

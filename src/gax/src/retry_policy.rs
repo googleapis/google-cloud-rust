@@ -183,8 +183,8 @@ pub trait RetryPolicyExt: RetryPolicy + Sized {
     /// assert!(policy.on_error(Instant::now(), 2, true, transient_error()).is_continue());
     /// assert!(policy.on_error(Instant::now(), 3, true, transient_error()).is_exhausted());
     ///
-    /// use google_cloud_gax::error::{Error, ServiceError, rpc::Code, rpc::Status};
-    /// fn transient_error() -> Error { Error::rpc(ServiceError::from(Status::default().set_code(Code::Unavailable))) }
+    /// use google_cloud_gax::error::{Error, rpc::Code, rpc::Status};
+    /// fn transient_error() -> Error { Error::service(None, None, Status::default().set_code(Code::Unavailable)) }
     /// ```
     fn with_attempt_limit(self, maximum_attempts: u32) -> LimitedAttemptCount<Self> {
         LimitedAttemptCount::custom(self, maximum_attempts)
@@ -210,9 +210,9 @@ impl<T: RetryPolicy> RetryPolicyExt for T {}
 /// assert!(policy.on_error(Instant::now(), 0, true, transient_error()).is_continue());
 /// assert!(policy.on_error(Instant::now(), 0, true, permanent_error()).is_permanent());
 ///
-/// use google_cloud_gax::error::{Error, ServiceError, rpc::Code, rpc::Status};
-/// fn transient_error() -> Error { Error::rpc(ServiceError::from(Status::default().set_code(Code::Unavailable))) }
-/// fn permanent_error() -> Error { Error::rpc(ServiceError::from(Status::default().set_code(Code::PermissionDenied))) }
+/// use google_cloud_gax::error::{Error, rpc::Code, rpc::Status};
+/// fn transient_error() -> Error { Error::service(None, None, Status::default().set_code(Code::Unavailable)) }
+/// fn permanent_error() -> Error { Error::service(None, None, Status::default().set_code(Code::PermissionDenied)) }
 /// ```
 ///
 /// [AIP-194]: https://google.aip.dev/194
@@ -270,8 +270,8 @@ impl RetryPolicy for Aip194Strict {
 /// assert!(policy.on_error(Instant::now(), 0, true, permanent_error()).is_continue());
 ///
 /// use google_cloud_gax::error::{Error, ServiceError, rpc::Code, rpc::Status};
-/// fn transient_error() -> Error { Error::rpc(ServiceError::from(Status::default().set_code(Code::Unavailable))) }
-/// fn permanent_error() -> Error { Error::rpc(ServiceError::from(Status::default().set_code(Code::PermissionDenied))) }
+/// fn transient_error() -> Error { Error::service(None, None, Status::default().set_code(Code::Unavailable)) }
+/// fn permanent_error() -> Error { Error::service(None, None, Status::default().set_code(Code::PermissionDenied)) }
 /// ```
 #[derive(Clone, Debug)]
 pub struct AlwaysRetry;
@@ -301,9 +301,9 @@ impl RetryPolicy for AlwaysRetry {
 /// assert!(policy.on_error(Instant::now(), 0, true, transient_error()).is_exhausted());
 /// assert!(policy.on_error(Instant::now(), 0, true, permanent_error()).is_exhausted());
 ///
-/// use google_cloud_gax::error::{Error, ServiceError, rpc::Code, rpc::Status};
-/// fn transient_error() -> Error { Error::rpc(ServiceError::from(Status::default().set_code(Code::Unavailable))) }
-/// fn permanent_error() -> Error { Error::rpc(ServiceError::from(Status::default().set_code(Code::PermissionDenied))) }
+/// use google_cloud_gax::error::{Error, rpc::Code, rpc::Status};
+/// fn transient_error() -> Error { Error::service(None, None, Status::default().set_code(Code::Unavailable)) }
+/// fn permanent_error() -> Error { Error::service(None, None, Status::default().set_code(Code::PermissionDenied)) }
 /// ```
 #[derive(Clone, Debug)]
 pub struct NeverRetry;
@@ -378,9 +378,9 @@ where
     /// assert!(policy.remaining_time(Instant::now(), 0) <= Some(d));
     /// assert!(policy.on_error(Instant::now(), 1, false, permanent_error()).is_continue());
     ///
-    /// use google_cloud_gax::error::{Error, ServiceError, rpc::Code, rpc::Status};
-    /// fn transient_error() -> Error { Error::rpc(ServiceError::from(Status::default().set_code(Code::Unavailable))) }
-    /// fn permanent_error() -> Error { Error::rpc(ServiceError::from(Status::default().set_code(Code::PermissionDenied))) }
+    /// use google_cloud_gax::error::{Error, rpc::Code, rpc::Status};
+    /// fn transient_error() -> Error { Error::service(None, None, Status::default().set_code(Code::Unavailable)) }
+    /// fn permanent_error() -> Error { Error::service(None, None, Status::default().set_code(Code::PermissionDenied)) }
     /// ```
     pub fn custom(inner: P, maximum_duration: std::time::Duration) -> Self {
         Self {
@@ -500,8 +500,8 @@ where
     /// assert!(policy.on_error(Instant::now(), 1, false, permanent_error()).is_continue());
     /// assert!(policy.on_error(Instant::now(), 2, false, permanent_error()).is_exhausted());
     ///
-    /// use google_cloud_gax::error::{Error, ServiceError, rpc::Code, rpc::Status};
-    /// fn permanent_error() -> Error { Error::rpc(ServiceError::from(Status::default().set_code(Code::PermissionDenied))) }
+    /// use google_cloud_gax::error::{Error, rpc::Code, rpc::Status};
+    /// fn permanent_error() -> Error { Error::service(None, None, Status::default().set_code(Code::PermissionDenied)) }
     /// ```
     pub fn custom(inner: P, maximum_attempts: u32) -> Self {
         Self {
