@@ -46,9 +46,9 @@ feature, and may even need to change the trait implementation.
 We require Rust >= 1.85, as we anticipate this will be at least six months old
 by the time this project is stabilized (GA may be even later).
 
-However, we have not defined a policy on how often we will update this
-minimum version. We do intend to publish our policy before declaring that the
-project is generally available.
+However, we have not defined a policy on how often we will update this minimum
+version. We do intend to publish our policy before declaring that the project is
+generally available.
 
 ## Contributing
 
