@@ -28,8 +28,34 @@ impl Error {
     /// The error was generated before the RPC started and is transient.
     pub(crate) fn is_transient_and_before_rpc(&self) -> bool {
         match &self.kind {
+            ErrorKind::Binding(_) => false,
             ErrorKind::Authentication(e) if e.is_retryable() => true,
             _ => false,
+        }
+    }
+
+    /// The error was generated before the RPC started and is transient.
+    pub(crate) fn is_io(&self) -> bool {
+        matches!(&self.kind, ErrorKind::Io(_))
+    }
+
+    pub(crate) fn status(&self) -> Option<&Status> {
+        match &self.kind {
+            ErrorKind::Service {
+                payload: ServiceErrorPayload::Status(s),
+                ..
+            } => Some(s),
+            _ => None,
+        }
+    }
+
+    pub(crate) fn http_status_code(&self) -> Option<u16> {
+        match &self.kind {
+            ErrorKind::Service {
+                status_code: Some(code),
+                ..
+            } => Some(*code),
+            _ => None,
         }
     }
 
@@ -39,6 +65,11 @@ impl Error {
         Self {
             kind: ErrorKind::Serialization(source.into()),
         }
+    }
+
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+    pub fn is_deserialization(&self) -> bool {
+        matches!(self.kind, ErrorKind::Deserialization(_))
     }
 
     #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
@@ -64,11 +95,13 @@ impl Error {
 
     #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
     pub fn io<T: Into<BoxError>>(source: T) -> Self {
-        Self { kind: ErrorKind::Io(source.into()) }
+        Self {
+            kind: ErrorKind::Io(source.into()),
+        }
     }
 
     #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
-    pub fn service_error(status_code: Option<u16>, headers: Option<HeaderMap>, status: Status) -> Self {
+    pub fn service(status_code: Option<u16>, headers: Option<HeaderMap>, status: Status) -> Self {
         let kind = ErrorKind::Service {
             status_code,
             headers,
@@ -78,7 +111,7 @@ impl Error {
     }
 
     #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
-    pub fn http_error(status_code: u16, headers: HeaderMap, payload: bytes::Bytes) -> Self {
+    pub fn http(status_code: u16, headers: HeaderMap, payload: bytes::Bytes) -> Self {
         let kind = ErrorKind::Service {
             status_code: Some(status_code),
             headers: Some(headers),
@@ -129,31 +162,44 @@ impl Error {
         }
     }
 
-    fn display_service_error(f: &mut std::fmt::Formatter,
+    fn display_service_error(
+        f: &mut std::fmt::Formatter,
         status_code: &Option<u16>,
         _headers: &Option<HeaderMap>,
-        payload: &ServiceErrorPayload) -> std::fmt::Result {
-            match payload {
-                ServiceErrorPayload::Status(s) => {
-                    // TODO(#2221) - more complete error messages
-                    write!(f, "the service returned an error, {}", s.message)
-                },
-                ServiceErrorPayload::Bytes(_) => {
-                    // TODO(#2221) - more complete error messages
-                    write!(f, "an HTTP error, code={:?}", status_code)
-                }
+        payload: &ServiceErrorPayload,
+    ) -> std::fmt::Result {
+        match payload {
+            ServiceErrorPayload::Status(s) => {
+                // TODO(#2221) - more complete error messages
+                write!(f, "the service returned an error, {}", s.message)
+            }
+            ServiceErrorPayload::Bytes(b) => {
+                // TODO(#2221) - more complete error messages
+                write!(f, "an HTTP error, code={:?}, payload={b:?}", status_code)
             }
         }
+    }
 }
 
 impl std::fmt::Display for Error {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match &self.kind {
-            ErrorKind::Binding(e) => write!(f, "cannot find a matching binding to send the request: {e}"),
+            ErrorKind::Binding(e) => {
+                write!(f, "cannot find a matching binding to send the request: {e}")
+            }
             ErrorKind::Serialization(e) => write!(f, "cannot serialize the request: {e}"),
-            ErrorKind::Authentication(e) => write!(f, "cannot create the authentication headers: {e}"),
-            ErrorKind::Io(e) => write!(f, "an I/O problem sending the request or receiving the response: {e}"),
-            ErrorKind::Service { status_code, headers, payload} => Self::display_service_error(f, status_code, headers, payload),
+            ErrorKind::Authentication(e) => {
+                write!(f, "cannot create the authentication headers: {e}")
+            }
+            ErrorKind::Io(e) => write!(
+                f,
+                "an I/O problem sending the request or receiving the response: {e}"
+            ),
+            ErrorKind::Service {
+                status_code,
+                headers,
+                payload,
+            } => Self::display_service_error(f, status_code, headers, payload),
             ErrorKind::Deserialization(e) => write!(f, "cannot deserialize the response: {e}"),
             ErrorKind::Other(e) => write!(f, "an unclassified problem making a request: {e}"),
         }
@@ -199,8 +245,5 @@ enum ErrorKind {
 
 #[cfg(test)]
 mod test {
-    use super::*;
-    use test_case::test_case;
-
     // TODO(#2221) - add some tests for `Display`
 }

@@ -192,27 +192,25 @@ impl PollingErrorPolicy for Aip194Strict {
         _attempt_count: u32,
         error: Error,
     ) -> LoopState {
-        if let Some(svc) = error.as_inner::<crate::error::ServiceError>() {
-            return if svc.status().code == crate::error::rpc::Code::Unavailable {
+        if error.is_transient_and_before_rpc() {
+            return LoopState::Continue(error);
+        }
+        if error.is_io() {
+            return LoopState::Continue(error);
+        }
+        if let Some(status) = error.status() {
+            return if status.code == crate::error::rpc::Code::Unavailable {
                 LoopState::Continue(error)
             } else {
                 LoopState::Permanent(error)
             };
         }
 
-        if let Some(http) = error.as_inner::<crate::error::HttpError>() {
-            return if http.status_code() == http::StatusCode::SERVICE_UNAVAILABLE {
+        match error.http_status_code() {
+            Some(code) if code == http::StatusCode::SERVICE_UNAVAILABLE.as_u16() => {
                 LoopState::Continue(error)
-            } else {
-                LoopState::Permanent(error)
-            };
-        }
-        if error.is_transient_and_before_rpc() {
-            // This indicates the operation never left the client, so it
-            // safe to poll again.
-            LoopState::Continue(error)
-        } else {
-            LoopState::Permanent(error)
+            }
+            _ => LoopState::Permanent(error),
         }
     }
 }
@@ -520,7 +518,7 @@ impl std::error::Error for Exhausted {}
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::error::{Error, ServiceError};
+    use crate::error::{CredentialsError, Error};
     use http::HeaderMap;
     use std::time::{Duration, Instant};
 
@@ -560,7 +558,7 @@ mod tests {
         );
 
         assert!(
-            p.on_error(now, 0, Error::authentication("err".to_string()))
+            p.on_error(now, 0, Error::authentication(CredentialsError::from_str(true, "err")))
                 .is_continue()
         );
 
@@ -585,8 +583,8 @@ mod tests {
     }
 
     #[test_case::test_case(Error::io("err"))]
-    #[test_case::test_case(Error::authentication("err"))]
-    #[test_case::test_case(Error::serde("err"))]
+    #[test_case::test_case(Error::authentication(CredentialsError::from_str(true, "err")))]
+    #[test_case::test_case(Error::ser("err"))]
     #[test_case::test_case(Error::other("err"))]
     fn always_continue_error_kind(error: Error) {
         let p = AlwaysContinue;
@@ -641,10 +639,8 @@ mod tests {
             "code": code,
             "message": message,
         }});
-        let payload = serde_json::to_string(&error).ok();
-        let payload = payload.map(bytes::Bytes::from_owner);
-        let http = crate::error::HttpError::new(code, HeaderMap::new(), payload);
-        Error::rpc(http)
+        let payload = bytes::Bytes::from_owner(serde_json::to_string(&error).unwrap());
+        Error::http(code, HeaderMap::new(), payload)
     }
 
     fn http_unavailable() -> Error {
@@ -657,18 +653,18 @@ mod tests {
 
     fn unavailable() -> Error {
         use crate::error::rpc::Code;
-        let status = rpc::model::Status::default()
-            .set_code(Code::Unavailable as i32)
+        let status = crate::error::rpc::Status::default()
+            .set_code(Code::Unavailable)
             .set_message("UNAVAILABLE");
-        Error::rpc(ServiceError::from(status))
+        Error::service(None, None, status)
     }
 
     fn permission_denied() -> Error {
         use crate::error::rpc::Code;
-        let status = rpc::model::Status::default()
-            .set_code(Code::PermissionDenied as i32)
+        let status = crate::error::rpc::Status::default()
+            .set_code(Code::PermissionDenied)
             .set_message("PERMISSION_DENIED");
-        Error::rpc(ServiceError::from(status))
+        Error::service(None, None, status)
     }
 
     #[test]
