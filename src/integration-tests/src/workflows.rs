@@ -253,10 +253,10 @@ pub async fn manual(
             .ok_or("service error: done with missing result ")
             .map_err(Error::other)?;
         match result {
-            LR::Error(status) => {
-                println!("LRO completed with error {status:?}");
-                let err = gax::error::ServiceError::from(*status);
-                return Err(Error::rpc(err));
+            LR::Error(s) => {
+                println!("LRO completed with error {s:?}");
+                let status = gax::error::rpc::Status::from(*s);
+                return Err(Error::service(status));
             }
             LR::Response(any) => {
                 println!("LRO completed successfully {any:?}");
@@ -288,13 +288,11 @@ pub async fn manual(
         use longrunning::model::operation::Result as LR;
         let result = create
             .result
-            .ok_or("service error: done with missing result ")
-            .map_err(Error::other)?;
+            .ok_or_else(|| Error::serde("service error: done with missing result "))?;
         match result {
             LR::Error(status) => {
                 println!("LRO completed with error {status:?}");
-                let err = gax::error::ServiceError::from(*status);
-                return Err(Error::rpc(err));
+                return Err(Error::service(gax::error::rpc::Status::from(*status)));
             }
             LR::Response(any) => {
                 println!("LRO completed successfully {any:?}");

@@ -786,14 +786,12 @@ mod test {
         assert_eq!(got, want);
 
         let got = Status::try_from(&bytes::Bytes::from_static(b"\"error\": 1234"));
-        assert!(got.is_err());
-        let err = got.err().unwrap();
-        assert_eq!(err.kind(), crate::error::ErrorKind::Serde);
+        let err = got.unwrap_err();
+        assert!(err.is_serde(), "{err:?}");
 
         let got = Status::try_from(&bytes::Bytes::from_static(b"\"missing-error\": 1234"));
-        assert!(got.is_err());
-        let err = got.err().unwrap();
-        assert_eq!(err.kind(), crate::error::ErrorKind::Serde);
+        let err = got.unwrap_err();
+        assert!(err.is_serde(), "{err:?}");
 
         let got = Status::try_from(&bytes::Bytes::from_static(INVALID_CODE_PAYLOAD))?;
         assert_eq!(got.code, Code::Unknown);

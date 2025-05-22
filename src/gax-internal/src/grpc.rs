@@ -164,7 +164,7 @@ impl Client {
         }
         let codec = tonic::codec::ProstCodec::<Request, Response>::default();
         let mut inner = self.inner.clone();
-        inner.ready().await.map_err(Error::rpc)?;
+        inner.ready().await.map_err(Error::io)?;
         inner
             .unary(request, path, codec)
             .await
@@ -175,9 +175,9 @@ impl Client {
         use tonic::transport::{ClientTlsConfig, Endpoint};
         let endpoint =
             Endpoint::from_shared(endpoint.unwrap_or_else(|| default_endpoint.to_string()))
-                .map_err(Error::other)?
+                .map_err(Error::io)?
                 .tls_config(ClientTlsConfig::new().with_enabled_roots())
-                .map_err(Error::other)?;
+                .map_err(Error::io)?;
         let conn = endpoint.connect().await.map_err(Error::io)?;
         Ok(tonic::client::Grpc::new(conn))
     }
@@ -211,7 +211,7 @@ impl Client {
             //
             headers.append(
                 http::header::HeaderName::from_static("x-goog-request-params"),
-                http::header::HeaderValue::from_str(request_params).map_err(Error::other)?,
+                http::header::HeaderValue::from_str(request_params).map_err(Error::serde)?,
             );
         }
         Ok(headers)
@@ -258,6 +258,6 @@ where
     let (metadata, body, _extensions) = response.into_parts();
     Ok(gax::response::Response::from_parts(
         gax::response::Parts::new().set_headers(metadata.into_headers()),
-        body.cnv().map_err(Error::other)?,
+        body.cnv().map_err(Error::serde)?,
     ))
 }

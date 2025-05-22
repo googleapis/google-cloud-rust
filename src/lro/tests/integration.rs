@@ -21,7 +21,6 @@ mod test {
     use super::fake::library::model;
     use super::fake::responses;
     use super::fake::service::*;
-    use gax::error::ServiceError;
     use gax::error::rpc::Code;
     use google_cloud_lro as lro;
     use lro::Poller;
@@ -150,10 +149,7 @@ mod test {
             .until_done()
             .await;
         let error = result.err().unwrap();
-        assert_eq!(
-            error.as_inner::<ServiceError>().map(|e| e.status().code),
-            Some(Code::AlreadyExists)
-        );
+        assert_eq!(error.status().map(|s| s.code), Some(Code::AlreadyExists));
 
         Ok(())
     }
@@ -207,10 +203,7 @@ mod test {
             .until_done()
             .await;
         let error = result.err().unwrap();
-        assert_eq!(
-            error.as_inner::<ServiceError>().map(|e| e.status().code),
-            Some(Code::AlreadyExists)
-        );
+        assert_eq!(error.status().map(|s| s.code), Some(Code::AlreadyExists));
 
         Ok(())
     }
@@ -270,10 +263,7 @@ mod test {
                     panic!("expected a completed polling status with an error {status:?}")
                 }
                 lro::PollingResult::Completed(Err(error)) => {
-                    assert_eq!(
-                        error.as_inner::<ServiceError>().map(|e| e.status().code),
-                        Some(Code::AlreadyExists)
-                    );
+                    assert_eq!(error.status().map(|s| s.code), Some(Code::AlreadyExists));
                 }
             }
         }
@@ -374,10 +364,7 @@ mod test {
             lro::PollingResult::Completed(Err(e)) => e,
             _ => panic!("expected a completed polling result with an error {status:?}"),
         };
-        assert_eq!(
-            error.as_inner::<ServiceError>().map(|e| e.status().code),
-            Some(Code::AlreadyExists)
-        );
+        assert_eq!(error.status().map(|s| s.code), Some(Code::AlreadyExists));
 
         let status = poller.poll().await;
         assert!(status.is_none(), "{status:?}");

@@ -112,11 +112,11 @@ pub enum PollingResult<ResponseType, MetadataType> {
     /// may fail because it was not possible to connect to Google Cloud. Such
     /// transient errors may disappear in the next polling attempt.
     ///
-    /// Other errors will never recover. For example, a [ServiceError] with
-    /// a [NOT_FOUND], [ABORTED], or [PERMISSION_DENIED] code will never
+    /// Other errors will never recover. For example, a [Error] with
+    /// a [NOT_FOUND], [ABORTED], or [PERMISSION_DENIED] status code will never
     /// recover.
     ///
-    /// [ServiceError]: gax::error::ServiceError
+    /// [Error]: gax::error::Error
     /// [NOT_FOUND]: rpc::model::Code::NotFound
     /// [ABORTED]: rpc::model::Code::Aborted
     /// [PERMISSION_DENIED]: rpc::model::Code::PermissionDenied
