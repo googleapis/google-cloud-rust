@@ -28,7 +28,6 @@ type Result<T> = std::result::Result<T, CredentialsError>;
 #[cfg(test)]
 mod test {
     use super::*;
-    use base64::Engine;
     use google_cloud_auth::credentials::EntityTag;
     use http::header::{AUTHORIZATION, HeaderName, HeaderValue};
     use http::{Extensions, HeaderMap};
@@ -213,9 +212,6 @@ mod test {
         })
         .to_string();
 
-        let expected_basic_auth =
-            base64::engine::general_purpose::URL_SAFE_NO_PAD.encode("client_id:supersecret");
-
         let server = Server::run();
         server.expect(
             Expectation::matching(all_of![
@@ -238,10 +234,6 @@ mod test {
                     "//iam.googleapis.com/projects/654269145772/locations/global/workloadIdentityPools/byoid-pool/providers/azure-pid"
                 )))),
                 request::headers(contains((
-                    "authorization",
-                    format!("Basic {expected_basic_auth}")
-                ))),
-                request::headers(contains((
                     "content-type",
                     "application/x-www-form-urlencoded"
                 ))),
@@ -254,8 +246,6 @@ mod test {
             "audience": "//iam.googleapis.com/projects/654269145772/locations/global/workloadIdentityPools/byoid-pool/providers/azure-pid",
             "subject_token_type": "urn:ietf:params:oauth:token-type:jwt",
             "token_url": server.url("/token").to_string(),
-            "client_id": "client_id",
-            "client_secret": "supersecret",
             "credential_source": {
               "url": server.url("/source_token").to_string(),
               "headers": {

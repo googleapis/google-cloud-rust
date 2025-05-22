@@ -183,12 +183,12 @@ where
 /// ```
 /// # use google_cloud_auth::credentials::external_account::{Builder};
 /// # tokio_test::block_on(async {
-/// let project_id : String = project_id();
-/// let workload_identity_pool : String = workload_identity_pool();
-/// let provider_id : String = workload_identity_provider();
-/// let provider_name = format!(concat!("//iam.googleapis.com/projects/{project_id}/locations/global",
-///    "/workloadIdentityPools/{workload_identity_pool_id}/",
-///     "providers/{provider_id}"));
+/// let project_id = project_id();
+/// let workload_identity_pool_id = workload_identity_pool();
+/// let provider_id = workload_identity_provider();
+/// let provider_name = format!(
+///     "//iam.googleapis.com/projects/{project_id}/locations/global/workloadIdentityPools/{workload_identity_pool_id}/providers/{provider_id}"
+/// );
 /// let config = serde_json::json!({
 ///     "type": "external_account",
 ///     "audience": provider_name,
@@ -209,15 +209,15 @@ where
 ///     .with_quota_project_id("quota_project")
 ///     .build();
 /// });
-/// 
+///
 /// fn project_id() -> String {
-/// # "test-only".to_string()
+///     "test-only".to_string()
 /// }
 /// fn workload_identity_pool() -> String {
-/// # "test-only".to_string()
+///     "test-only".to_string()
 /// }
 /// fn workload_identity_provider() -> String {
-/// # "test-only".to_string()
+///     "test-only".to_string()
 /// }
 /// ```
 pub struct Builder {
