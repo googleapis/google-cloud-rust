@@ -431,7 +431,7 @@ impl<'a> ReadObject<'a> {
     /// Sends the request.
     pub async fn send(self) -> crate::Result<bytes::Bytes> {
         // TODO(2103): map additional parameters to the JSON request.
-        let bucket: String = self.request.bucket.into();
+        let bucket: String = self.request.bucket;
         let bucket_id = bucket
             .as_str()
             .strip_prefix("projects/_/buckets/")
@@ -440,7 +440,7 @@ impl<'a> ReadObject<'a> {
                     "malformed bucket name, it must start with `projects/_/buckets/`: {bucket}"
                 ))
             })?;
-        let object: String = self.request.object.into();
+        let object: String = self.request.object;
         let builder = self
             .client
             .inner
