@@ -38,5 +38,8 @@ fn main() {
         config.type_name_domain(&["."], "type.googleapis.com");
         config.out_dir(".");
         config.compile_protos(files, includes).expect("error compiling protos");
+        {{#Codec.PostProcessProtos}}
+        {{{.}}}
+        {{/Codec.PostProcessProtos}}
     }
 }
