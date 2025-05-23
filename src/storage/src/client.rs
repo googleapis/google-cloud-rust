@@ -175,7 +175,7 @@ impl Storage {
     ///         .read_object()
     ///         .set_bucket("projects/_/buckets/my-bucket")
     ///         .set_object("my-object")
-    ///         .build()
+    ///         .send()
     ///         .await?;
     ///     println!("object contents={contents:?}");
     ///     Ok(())
