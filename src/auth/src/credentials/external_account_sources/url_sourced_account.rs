@@ -18,21 +18,20 @@ use serde_json::Value;
 use std::time::Duration;
 
 use crate::{
-    Result,
-    credentials::external_account::{
+    credentials::{external_account::{
         CredentialSourceFormat, CredentialSourceHeaders, SubjectTokenProvider,
-    },
+    }, CredentialsProvider}, Result
 };
 
 #[derive(Debug)]
-pub(crate) struct UrlSourcedCredentials {
+pub(crate) struct UrlSourcedSubjectTokenProvider {
     pub url: String,
     pub headers: Option<CredentialSourceHeaders>,
     pub format: Option<CredentialSourceFormat>,
 }
 
 #[async_trait::async_trait]
-impl SubjectTokenProvider for UrlSourcedCredentials {
+impl SubjectTokenProvider for UrlSourcedSubjectTokenProvider {
     async fn subject_token(&self) -> Result<String> {
         let client = Client::builder()
             .timeout(Duration::from_secs(10))
@@ -71,9 +70,18 @@ impl SubjectTokenProvider for UrlSourcedCredentials {
                 let subject_token = json_response
                     .get(&format.subject_token_field_name)
                     .and_then(Value::as_str)
-                    .map(String::from)
-                    .unwrap();
-                Ok(subject_token)
+                    .map(String::from);
+
+                match subject_token {
+                    Some(token) => Ok(token),
+                    None => Err(CredentialsError::from_str(
+                        false,
+                        format!(
+                            "failed to read subject token field `{}` from response: {}",
+                            format.subject_token_field_name, json_response
+                        ),
+                    )),
+                }
             }
             None => Ok(response_text),
         }

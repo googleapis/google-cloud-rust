@@ -18,7 +18,7 @@ pub mod service_account;
 pub mod user_account;
 
 pub mod external_account;
-pub mod external_account_sources;
+pub(crate) mod external_account_sources;
 
 pub(crate) mod internal;
 

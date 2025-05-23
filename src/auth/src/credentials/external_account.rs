@@ -28,7 +28,7 @@ use std::sync::Arc;
 use tokio::time::{Duration, Instant};
 
 use super::dynamic::CredentialsProvider;
-use super::external_account_sources::url_sourced_account::UrlSourcedCredentials;
+use super::external_account_sources::url_sourced_account::UrlSourcedSubjectTokenProvider;
 use super::internal::sts_exchange::{ExchangeTokenRequest, STSHandler};
 use super::{CacheableResource, Credentials};
 
@@ -93,7 +93,7 @@ impl SubjectTokenProvider for CredentialSource {
                 headers,
                 format,
             } => {
-                let source = UrlSourcedCredentials {
+                let source = UrlSourcedSubjectTokenProvider {
                     url,
                     headers,
                     format,
