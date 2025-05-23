@@ -71,44 +71,46 @@ This should produce output similar to:
 
 ```text
 request failed with error Error {
-    kind: Rpc,
-    source: ServiceError {
-        status: Status {
-            code: 400,
-            message: "One of content, or gcs_content_uri must be set.",
-            status: Some(
-                "INVALID_ARGUMENT",
-            ),
-            details: [
-                BadRequest(
-                    BadRequest {
-                        field_violations: [
-                            FieldViolation {
-                                field: "document.content",
-                                description: "Must have some text content to annotate.",
-                                reason: "",
-                                localized_message: None,
-                            },
-                        ],
-                    },
-                ),
-            ],
-        },
-        http_status_code: Some(
+    kind: Service {
+        status_code: Some(
             400,
         ),
         headers: Some(
             {
-                "accept-ranges": "none",
+                "vary": "X-Origin",
+                "vary": "Referer",
+                "vary": "Origin,Accept-Encoding",
+                "content-type": "application/json; charset=UTF-8",
+                "date": "Fri, 23 May 2025 16:39:46 GMT",
+                "server": "scaffolding on HTTPServer2",
                 "x-xss-protection": "0",
                 "x-frame-options": "SAMEORIGIN",
-                "date": "Tue, 01 Apr 2025 22:27:53 GMT",
-                "transfer-encoding": "chunked",
-                "content-type": "application/json; charset=UTF-8",
                 "x-content-type-options": "nosniff",
                 "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
-                "vary": "Origin,Accept-Encoding",
-                "server": "scaffolding on HTTPServer2",
+                "accept-ranges": "none",
+                "transfer-encoding": "chunked",
+            },
+        ),
+        payload: Status(
+            Status {
+                code: InvalidArgument,
+                message: "One of content, or gcs_content_uri must be set.",
+                details: [
+                    BadRequest(
+                        BadRequest {
+                            field_violations: [
+                                FieldViolation {
+                                    field: "document.content",
+                                    description: "Must have some text content to annotate.",
+                                    reason: "",
+                                    localized_message: None,
+                                    _unknown_fields: {},
+                                },
+                            ],
+                            _unknown_fields: {},
+                        },
+                    ),
+                ],
             },
         ),
     },
