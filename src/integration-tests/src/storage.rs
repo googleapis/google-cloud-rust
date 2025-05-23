@@ -55,7 +55,7 @@ pub async fn objects(builder: storage::client::ClientBuilder) -> Result<()> {
         .read_object()
         .set_bucket(&bucket.name)
         .set_object(&insert.name)
-        .build()
+        .send()
         .await?;
     assert_eq!(contents, CONTENTS.as_bytes());
     tracing::info!("success with contents={contents:?}");

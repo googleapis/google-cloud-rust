@@ -416,7 +416,9 @@ impl<'a> ReadObjectRequestBuilder<'a> {
         self
     }
 
-    pub async fn build(self) -> crate::Result<bytes::Bytes> {
+    /// Sends the request.
+    pub async fn send(self) -> crate::Result<bytes::Bytes> {
+        // TODO(2103): map parameters to the JSON request.
         let bucket: String = self.request.bucket;
         let bucket_id = bucket
             .as_str()
