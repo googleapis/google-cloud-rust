@@ -1143,6 +1143,7 @@ dependencies = [
 name = "google-cloud-auth"
 version = "0.21.0"
 dependencies = [
+ "anyhow",
  "async-trait",
  "axum",
  "base64",
@@ -2367,6 +2368,7 @@ dependencies = [
  "serde_json",
  "serial_test",
  "test-case",
+ "thiserror",
  "tokio",
  "tokio-test",
 ]
