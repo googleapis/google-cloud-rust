@@ -236,6 +236,7 @@ where
 pub struct Builder {
     external_account_config: Value,
     quota_project_id: Option<String>,
+    scopes: Option<Vec<String>>,
 }
 
 impl Builder {
@@ -246,6 +247,7 @@ impl Builder {
         Self {
             external_account_config,
             quota_project_id: None,
+            scopes: None,
         }
     }
 
@@ -259,6 +261,18 @@ impl Builder {
     /// [quota project]: https://cloud.google.com/docs/quotas/quota-project
     pub fn with_quota_project_id<S: Into<String>>(mut self, quota_project_id: S) -> Self {
         self.quota_project_id = Some(quota_project_id.into());
+        self
+    }
+
+    /// Overrides the [scopes] for this credentials.
+    ///
+    /// [scopes]: https://developers.google.com/identity/protocols/oauth2/scopes
+    pub fn with_scopes<I, S>(mut self, scopes: I) -> Self
+    where
+        I: IntoIterator<Item = S>,
+        S: Into<String>,
+    {
+        self.scopes = Some(scopes.into_iter().map(|s| s.into()).collect());
         self
     }
 
@@ -278,7 +292,10 @@ impl Builder {
         let external_account_config: ExternalAccountConfig =
             serde_json::from_value(self.external_account_config).map_err(errors::non_retryable)?;
 
-        let config = external_account_config.clone();
+        let mut config = external_account_config.clone();
+        if let Some(scopes) = self.scopes {
+            config.scopes = Some(scopes);
+        }
 
         let token_provider = ExternalAccountTokenProvider {
             subject_token_provider: external_account_config.credential_source,
@@ -331,6 +348,7 @@ mod test {
 
         let creds = Builder::new(contents)
             .with_quota_project_id("test_project")
+            .with_scopes(["a", "b"])
             .build()
             .unwrap();
 
