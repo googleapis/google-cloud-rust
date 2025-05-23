@@ -78,14 +78,14 @@ func newCodec(protobufSource bool, options map[string]string) (*codec, error) {
 		switch {
 		case key == "package-name-override":
 			codec.packageNameOverride = definition
-		case key == "service-name-overrides":
-			codec.serviceNameOverrides = make(map[string]string)
+		case key == "name-overrides":
+			codec.nameOverrides = make(map[string]string)
 			for _, override := range strings.Split(definition, ",") {
 				tokens := strings.Split(override, "=")
 				if len(tokens) != 2 {
 					return nil, fmt.Errorf("cannot parse `service-name-overrides`. Expected input in the form of: 's1=r1,s2=r2': %q", definition)
 				}
-				codec.serviceNameOverrides[tokens[0]] = tokens[1]
+				codec.nameOverrides[tokens[0]] = tokens[1]
 			}
 		case key == "module-path":
 			codec.modulePath = definition
@@ -199,8 +199,12 @@ func parsePackageOption(key, definition string) (*packageOption, error) {
 type codec struct {
 	// Package name override. If not empty, overrides the default package name.
 	packageNameOverride string
-	// Service name override. If not empty, overrides the default service name.
-	serviceNameOverrides map[string]string
+	// Name overrides. Maps IDs to new *unqualified* names, e.g.:
+	//   .google.test.Service: Rename
+	//   .google.test.Message.conflic_name_oneof: ConflictNameOneOf
+	//
+	// TODO(#1173) - this only supports services and oneofs at the moment.
+	nameOverrides map[string]string
 	// The year when the files were first generated.
 	generationYear string
 	// The full path of the generated module within the crate. This defaults to
@@ -1666,11 +1670,18 @@ func PackageName(api *api.API, packageNameOverride string) string {
 	return "google-cloud-" + name
 }
 
-func ServiceName(s *api.Service, serviceNameOverrides map[string]string) string {
-	if override, ok := serviceNameOverrides[s.Name]; ok {
+func (c *codec) ServiceName(service *api.Service) string {
+	if override, ok := c.nameOverrides[service.ID]; ok {
 		return override
 	}
-	return s.Name
+	return service.Name
+}
+
+func (c *codec) OneOfEnumName(oneof *api.OneOf) string {
+	if override, ok := c.nameOverrides[oneof.ID]; ok {
+		return override
+	}
+	return toPascal(oneof.Name)
 }
 
 func (c *codec) generateMethod(m *api.Method) bool {
