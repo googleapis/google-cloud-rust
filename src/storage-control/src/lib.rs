@@ -32,9 +32,8 @@ pub use gax::error::Error;
 pub(crate) mod generated;
 
 pub mod builder {
-    // TODO(#1813) - Consider renaming this to storage_control
-    pub mod storage {
-        pub use crate::generated::gapic::builder::storage::*;
+    pub mod storage_control {
+        pub use crate::generated::gapic::builder::storage_control::*;
         pub use crate::generated::gapic_control::builder::storage_control::*;
     }
 }
@@ -42,7 +41,6 @@ pub mod model {
     pub use crate::generated::gapic::model::*;
     pub use crate::generated::gapic_control::model::*;
 }
-// TODO(#1813) - Consider moving client and stub into a storage_control module
 pub mod client;
 pub mod stub;
 
@@ -66,6 +64,7 @@ pub(crate) mod google {
     }
     pub mod storage {
         #[allow(deprecated)]
+        #[allow(clippy::large_enum_variant)]
         pub mod v2 {
             include!("generated/protos/storage/google.storage.v2.rs");
             include!("generated/convert/storage/convert.rs");

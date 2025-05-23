@@ -19,6 +19,7 @@ use gax::paginator::ItemPaginator as _;
 use gax::retry_policy::RetryPolicyExt;
 use lro::Poller;
 use std::time::Duration;
+use storage_control::client::StorageControl;
 use storage_control::model::Bucket;
 use storage_control::model::bucket::iam_config::UniformBucketLevelAccess;
 use storage_control::model::bucket::{HierarchicalNamespace, IamConfig};
@@ -76,9 +77,9 @@ pub async fn objects(builder: storage::client::ClientBuilder) -> Result<()> {
     Ok(())
 }
 
-pub async fn create_test_bucket() -> gax::Result<(storage_control::client::Storage, Bucket)> {
+pub async fn create_test_bucket() -> gax::Result<(StorageControl, Bucket)> {
     let project_id = crate::project_id()?;
-    let client = storage_control::client::Storage::builder()
+    let client = StorageControl::builder()
         .with_tracing()
         .with_backoff_policy(
             gax::exponential_backoff::ExponentialBackoffBuilder::new()
@@ -190,7 +191,7 @@ pub async fn buckets(builder: storage_control::client::ClientBuilder) -> Result<
     Ok(())
 }
 
-async fn buckets_iam(client: &storage_control::client::Storage, bucket_name: &str) -> Result<()> {
+async fn buckets_iam(client: &StorageControl, bucket_name: &str) -> Result<()> {
     let service_account = crate::service_account_for_iam_tests()?;
 
     println!("\nTesting get_iam_policy()");
@@ -229,7 +230,7 @@ async fn buckets_iam(client: &storage_control::client::Storage, bucket_name: &st
     Ok(())
 }
 
-async fn folders(client: &storage_control::client::Storage, bucket_name: &str) -> Result<()> {
+async fn folders(client: &StorageControl, bucket_name: &str) -> Result<()> {
     let folder_name = format!("{bucket_name}/folders/test-folder/");
     let folder_rename = format!("{bucket_name}/folders/renamed-test-folder/");
 
@@ -282,10 +283,7 @@ async fn folders(client: &storage_control::client::Storage, bucket_name: &str) -
     Ok(())
 }
 
-async fn cleanup_stale_buckets(
-    client: &storage_control::client::Storage,
-    project_id: &str,
-) -> Result<()> {
+async fn cleanup_stale_buckets(client: &StorageControl, project_id: &str) -> Result<()> {
     use std::time::{Duration, SystemTime, UNIX_EPOCH};
     let stale_deadline = SystemTime::now()
         .duration_since(UNIX_EPOCH)
@@ -325,7 +323,7 @@ async fn cleanup_stale_buckets(
     Ok(())
 }
 
-async fn cleanup_bucket(client: storage_control::client::Storage, name: String) -> Result<()> {
+async fn cleanup_bucket(client: StorageControl, name: String) -> Result<()> {
     let mut objects = client
         .list_objects()
         .set_parent(&name)

@@ -39,6 +39,7 @@ pub use generated::gapic::stub;
 pub(crate) mod google {
     pub mod firestore {
         #[allow(clippy::enum_variant_names)]
+        #[allow(clippy::large_enum_variant)]
         pub mod v1 {
             include!("generated/protos/firestore/google.firestore.v1.rs");
             include!("generated/convert/firestore/convert.rs");

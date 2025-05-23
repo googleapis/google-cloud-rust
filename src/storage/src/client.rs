@@ -150,26 +150,12 @@ impl Storage {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&self::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let cached_auth_headers = self
-            .cred
-            .headers(Extensions::new())
-            .await
-            .map_err(Error::authentication)?;
 
-        let auth_headers = match cached_auth_headers {
-            CacheableResource::New { data, .. } => Ok(data),
-            CacheableResource::NotModified => {
-                unreachable!("headers are not cached");
-            }
-        };
-
-        let auth_headers = auth_headers?;
-        let builder = auth_headers
-            .iter()
-            .fold(builder, |b, (k, v)| b.header(k, v));
+        let builder = self.apply_auth_headers(builder).await?;
         let builder = builder.body(payload.into());
 
         tracing::info!("builder={builder:?}");
+
         let response = builder.send().await.map_err(Error::io)?;
         if !response.status().is_success() {
             return gaxi::http::to_http_error(response).await;
@@ -216,6 +202,32 @@ impl Storage {
             cred,
             endpoint,
         })
+    }
+
+    // Helper method to apply authentication headers to the request builder.
+    async fn apply_auth_headers(
+        &self,
+        builder: reqwest::RequestBuilder,
+    ) -> crate::Result<reqwest::RequestBuilder> {
+        let cached_auth_headers = self
+            .cred
+            .headers(Extensions::new())
+            .await
+            .map_err(Error::authentication)?;
+
+        let auth_headers = match cached_auth_headers {
+            CacheableResource::New { data, .. } => Ok(data),
+            CacheableResource::NotModified => {
+                unreachable!("headers are not cached");
+            }
+        };
+
+        let auth_headers = auth_headers?;
+        let builder = auth_headers
+            .iter()
+            .fold(builder, |b, (k, v)| b.header(k, v));
+
+        Ok(builder)
     }
 }
 
@@ -419,7 +431,7 @@ impl<'a> ReadObjectRequestBuilder<'a> {
     /// Sends the request.
     pub async fn send(self) -> crate::Result<bytes::Bytes> {
         // TODO(2103): map parameters to the JSON request.
-        let bucket: String = self.request.bucket;
+        let bucket: String = self.request.bucket.into();
         let bucket_id = bucket
             .as_str()
             .strip_prefix("projects/_/buckets/")
@@ -444,23 +456,9 @@ impl<'a> ReadObjectRequestBuilder<'a> {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&self::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let cached_auth_headers = self
-            .client
-            .cred
-            .headers(Extensions::new())
-            .await
-            .map_err(Error::authentication)?;
-        let auth_headers = match cached_auth_headers {
-            CacheableResource::New { data, .. } => Ok(data),
-            CacheableResource::NotModified => {
-                unreachable!("headers are not cached");
-            }
-        };
 
-        let auth_headers = auth_headers?;
-        let builder = auth_headers
-            .iter()
-            .fold(builder, |b, (k, v)| b.header(k, v));
+        let builder = self.client.apply_auth_headers(builder).await?;
+
         tracing::info!("builder={builder:?}");
 
         let response = builder.send().await.map_err(Error::io)?;
@@ -522,11 +520,15 @@ mod v1 {
         // The following are excluded from the protos, so we don't really need to parse them.
         media_link: String,
         self_link: String,
-        // TODO(#2039) - add all the other fields:
-        //     "retention": {
-        //       "retainUntilTime": "datetime",
-        //       "mode": string
-        //     }
+        // ObjectRetention cannot be configured or reported through the gRPC API.
+        retention: Retention,
+    }
+
+    #[derive(Debug, Default, serde::Deserialize, PartialEq, Clone)]
+    #[serde(default, rename_all = "camelCase")]
+    struct Retention {
+        retain_until_time: wkt::Timestamp,
+        mode: String,
     }
 
     // CRC32c checksum is a unsigned 32-bit int encoded using base64 in big-endian byte order.
@@ -745,6 +747,9 @@ mod v1 {
                 "md5Hash": "N8S4ft/8XRmP9aGFzufuCQ==",
                 // base64 encoded uint32 in BigEndian order field:
                 "crc32c": "/ieOcg==",
+                // unused fields:
+                "mediaLink": "my-link",
+                "retention": { "mode": "my-mode", "retainUntilTime": "2026-05-13T10:30:00Z"}
             });
             let object: Object = serde_json::from_value(json)
                 .expect("json value in object test should be deserializable");
@@ -792,6 +797,12 @@ mod v1 {
                 .into(),
                 // base64 encoded uint32 in BigEndian order field:
                 crc32c: Some(4264005234),
+                // unused in control::model::Object:
+                media_link: "my-link".to_string(),
+                retention: Retention {
+                    retain_until_time: wkt::Timestamp::clamp(1778668200, 0),
+                    mode: "my-mode".to_string(),
+                },
                 ..Default::default()
             };
 
@@ -893,6 +904,7 @@ mod v1 {
             // unused in control::model
             media_link: "my-media-link".to_string(),
             self_link: "my-self-link".to_string(),
+            retention: Retention { retain_until_time: wkt::Timestamp::clamp(1747132200, 10), mode: "mode".to_string() }
         }; "all fields set")]
         // Tests for acl values.
         #[test_case(Object { acl: Vec::new(), ..Default::default()}; "empty acl")]

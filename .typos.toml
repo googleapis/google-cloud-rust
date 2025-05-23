@@ -206,6 +206,8 @@ extend-ignore-re = [
   "\"typ\"",
   "\\Wtyp:",
   "test_typ\"",
+  # src/generated/api/cloudquotas/v1 has types that are better handled in a RE:
+  "DimenisonInfo",
   # src/generated/cloud/aiplatform has a typo in the code. Won't be fixed.
   # Seems too risky to ignore the word, a RE seems cleaner
   "CheckTrialEarlyStoppingStateMetatdata",

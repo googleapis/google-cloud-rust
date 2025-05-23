@@ -38,7 +38,7 @@ implementations of the [futures::stream::Stream] trait.
 
 For crates that offer implementations of the trait, the functionality is gated
 by the `unstable-streams` feature. As the name indicates, this feature is
-unstable. When Rust stabilizes the streams trait we may chose to rename the
+unstable. When Rust stabilizes the streams trait, we may choose to rename the
 feature, and may even need to change the trait implementation.
 
 ## Minimum Supported Rust Version
@@ -46,16 +46,16 @@ feature, and may even need to change the trait implementation.
 We require Rust >= 1.85, as we anticipate this will be at least six months old
 by the time this project is stabilized (GA may be even later).
 
-However, we have not defined a policy as to how often we will update this
-minimum version. We do intend to publish our policy before declaring that the
-project is generally available.
+However, we have not defined a policy on how often we will update this minimum
+version. We do intend to publish our policy before declaring that the project is
+generally available.
 
 ## Contributing
 
 Contributions to this library are always welcome and highly encouraged.
 
 See [CONTRIBUTING] for more information on how to get started. You may also find
-the [Set Up Development Environment] and the [architecture] guides useful.
+the [Set Up Development Environment] and the [Architecture] guides useful.
 
 ## License
 

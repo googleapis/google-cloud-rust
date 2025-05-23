@@ -172,7 +172,7 @@ mod driver {
             .set_name(&version.name)
             .send()
             .await?;
-        let _ = client
+        client
             .delete_secret()
             .set_name(format!("projects/{project_id}/secrets/{secret_id}"))
             .send()
@@ -214,7 +214,7 @@ mod driver {
             .set_name(&version.name)
             .send()
             .await?;
-        let _ = client
+        client
             .delete_secret()
             .set_name(format!("projects/{project_id}/secrets/{secret_id}"))
             .send()
