@@ -238,7 +238,7 @@ to check for both. First check for errors:
 
 The error type is a [Status][rpc::model::status] message type. This does **not**
 implement the standard `Error` interface, you need to manually convert that to a
-valid error. You can use [ServiceError::from] to perform this conversion.
+valid error. You can use [Error::service] to perform this conversion.
 
 Assuming the result is successful, you need to extract the response type. You
 can find this type in the documentation for the LRO method, or by reading the
@@ -329,7 +329,7 @@ You can find the
 [manually polling a long-running operation]: #manually-polling-a-long-running-operation
 [recognizer]: https://cloud.google.com/speech-to-text/v2/docs/recognizers
 [rpc::model::status]: https://docs.rs/google-cloud-rpc/latest/google_cloud_rpc/model/struct.Status.html
-[serviceerror::from]: https://docs.rs/google-cloud-gax/latest/google_cloud_gax/error/struct.ServiceError.html#impl-From%3CStatus%3E-for-ServiceError-1
+[error::service]: https://docs.rs/google-cloud-gax/latest/google_cloud_gax/error/struct.Error.html
 [short model]: https://cloud.google.com/speech-to-text/v2/docs/transcription-model
 [speech-to-text v2]: https://cloud.google.com/speech-to-text/v2
 [transcribe speech to text by using the command line]: https://cloud.google.com/speech-to-text/v2/docs/transcribe-api
