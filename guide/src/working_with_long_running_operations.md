@@ -324,12 +324,12 @@ You can find the
 
 [batch recognize]: https://cloud.google.com/speech-to-text/v2/docs/batch-recognize
 [configuring polling policies]: ./configuring_polling_policies.md
+[error::service]: https://docs.rs/google-cloud-gax/latest/google_cloud_gax/error/struct.Error.html
 [exponential backoff]: https://en.wikipedia.org/wiki/Exponential_backoff
 [longrunning::model::operation]: https://docs.rs/google-cloud-longrunning/latest/google_cloud_longrunning/model/struct.Operation.html
 [manually polling a long-running operation]: #manually-polling-a-long-running-operation
 [recognizer]: https://cloud.google.com/speech-to-text/v2/docs/recognizers
 [rpc::model::status]: https://docs.rs/google-cloud-rpc/latest/google_cloud_rpc/model/struct.Status.html
-[error::service]: https://docs.rs/google-cloud-gax/latest/google_cloud_gax/error/struct.Error.html
 [short model]: https://cloud.google.com/speech-to-text/v2/docs/transcription-model
 [speech-to-text v2]: https://cloud.google.com/speech-to-text/v2
 [transcribe speech to text by using the command line]: https://cloud.google.com/speech-to-text/v2/docs/transcribe-api
