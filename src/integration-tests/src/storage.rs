@@ -51,7 +51,12 @@ pub async fn objects(builder: storage::client::ClientBuilder) -> Result<()> {
     tracing::info!("success with insert={insert:?}");
 
     tracing::info!("testing read_object()");
-    let contents = client.read_object(&bucket.name, &insert.name).await?;
+    let contents = client
+        .read_object()
+        .set_bucket(&bucket.name)
+        .set_object(&insert.name)
+        .build()
+        .await?;
     assert_eq!(contents, CONTENTS.as_bytes());
     tracing::info!("success with contents={contents:?}");
 
