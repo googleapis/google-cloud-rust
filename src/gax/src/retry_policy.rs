@@ -269,7 +269,7 @@ impl RetryPolicy for Aip194Strict {
 /// assert!(policy.on_error(Instant::now(), 0, true, transient_error()).is_continue());
 /// assert!(policy.on_error(Instant::now(), 0, true, permanent_error()).is_continue());
 ///
-/// use google_cloud_gax::error::{Error, ServiceError, rpc::Code, rpc::Status};
+/// use google_cloud_gax::error::{Error, rpc::Code, rpc::Status};
 /// fn transient_error() -> Error { Error::service(None, None, Status::default().set_code(Code::Unavailable)) }
 /// fn permanent_error() -> Error { Error::service(None, None, Status::default().set_code(Code::PermissionDenied)) }
 /// ```
