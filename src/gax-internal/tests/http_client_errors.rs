@@ -39,7 +39,7 @@ mod test {
             Ok(v) => panic!("expected an error got={v:?}"),
             Err(e) => {
                 assert!(e.http_headers().is_some(), "missing headers in {e:?}");
-                let headers = e.http_headers().clone().unwrap();
+                let headers = e.http_headers().unwrap();
                 assert!(!headers.is_empty(), "empty headers in {e:?}");
                 let got = e.status();
                 let want = echo_server::make_status()?;
