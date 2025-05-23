@@ -130,8 +130,8 @@ mod test {
         let mut mock = MockSpeech::new();
         // ANCHOR: expectation-initial
         mock.expect_batch_recognize().return_once(|_, _| {
-            use gax::error::rpc::{Code, Status};
             use gax::error::Error;
+            use gax::error::rpc::{Code, Status};
             let status = Status::default()
                 .set_code(Code::Aborted)
                 .set_message("Resource exhausted");

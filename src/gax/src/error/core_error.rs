@@ -26,7 +26,7 @@ pub struct Error {
 
 impl Error {
     /// An error with the information returned by Google Cloud services.
-    /// 
+    ///
     /// # Example
     /// ```
     /// use google_cloud_gax::error::Error;

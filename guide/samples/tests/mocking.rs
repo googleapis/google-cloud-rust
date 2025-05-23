@@ -93,8 +93,8 @@ mod test {
         // ANCHOR: error
         mock.expect_get_recognizer().return_once(|_, _| {
             // This time, return an error.
-            use gax::error::rpc::{Code, Status};
             use gax::error::Error;
+            use gax::error::rpc::{Code, Status};
             let status = Status::default()
                 .set_code(Code::NotFound)
                 .set_message("Resource not found");

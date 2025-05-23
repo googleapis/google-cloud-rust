@@ -99,7 +99,10 @@ mod test {
         let result = send_request(client, "auth fail").await;
         use std::error::Error;
         let e = result
-            .as_ref().err().and_then(|e| e.source()).and_then(|e| e.downcast_ref::<CredentialsError>());
+            .as_ref()
+            .err()
+            .and_then(|e| e.source())
+            .and_then(|e| e.downcast_ref::<CredentialsError>());
         assert!(matches!(e, Some(e) if e.is_retryable()), "{result:?}");
         Ok(())
     }

@@ -897,13 +897,13 @@ mod test {
         let got = map_polling_metadata(TestResult::Completed(Ok(wkt::Duration::clamp(123, 456))));
         assert!(matches!(got, Completed(Ok(_))));
         let got = map_polling_metadata(TestResult::Completed(Err(Error::other("abc".to_string()))));
-        assert!(matches!(got, Completed(Err(_)) ));
+        assert!(matches!(got, Completed(Err(_))));
         let got = map_polling_metadata(TestResult::InProgress(None));
         assert!(matches!(got, InProgress(None)));
         let got = map_polling_metadata(TestResult::InProgress(Some(wkt::Empty::default())));
         assert!(matches!(got, InProgress(Some(_))));
         let got = map_polling_metadata(TestResult::PollingError(Error::other("abc".to_string())));
-        assert!(matches!(got, PollingError(_) ));
+        assert!(matches!(got, PollingError(_)));
     }
 
     #[tokio::test(flavor = "multi_thread")]

@@ -468,7 +468,9 @@ mod test {
         let op = O::new(op);
         let result = as_result(op);
         let err = result.err().unwrap();
-        let want = gax::error::rpc::Status::default().set_code(gax::error::rpc::Code::FailedPrecondition).set_message("test only");
+        let want = gax::error::rpc::Status::default()
+            .set_code(gax::error::rpc::Code::FailedPrecondition)
+            .set_message("test only");
         assert_eq!(err.status(), Some(&want));
 
         Ok(())

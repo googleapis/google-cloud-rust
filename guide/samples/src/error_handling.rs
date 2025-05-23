@@ -42,7 +42,7 @@ pub async fn update_secret(
                 // ANCHOR_END: update-secret-svc-error
                 // ANCHOR: update-secret-not-found
                 use gax::error::rpc::Code;
-                if status.code ==  Code::NotFound {
+                if status.code == Code::NotFound {
                     // ANCHOR_END: update-secret-not-found
                     // ANCHOR: update-secret-create
                     let _ = create_secret(&client, project_id, secret_id).await?;
