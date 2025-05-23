@@ -18,9 +18,10 @@ use serde_json::Value;
 use std::time::Duration;
 
 use crate::{
-    credentials::{external_account::{
+    Result,
+    credentials::external_account::{
         CredentialSourceFormat, CredentialSourceHeaders, SubjectTokenProvider,
-    }, CredentialsProvider}, Result
+    },
 };
 
 #[derive(Debug)]
