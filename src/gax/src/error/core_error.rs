@@ -39,7 +39,7 @@ impl Error {
     pub fn service(status_code: Option<u16>, headers: Option<HeaderMap>, status: Status) -> Self {
         let kind = ErrorKind::Service {
             status_code,
-            headers,
+            headers: headers.map(|h| Box::new(h)),
             payload: ServiceErrorPayload::Status(status),
         };
         Self { kind }
@@ -280,7 +280,7 @@ impl Error {
     pub fn http(status_code: u16, headers: HeaderMap, payload: bytes::Bytes) -> Self {
         let kind = ErrorKind::Service {
             status_code: Some(status_code),
-            headers: Some(headers),
+            headers: Some(Box::new(headers)),
             payload: ServiceErrorPayload::Bytes(payload),
         };
         Self { kind }
@@ -304,7 +304,7 @@ impl Error {
     fn display_service_error(
         f: &mut std::fmt::Formatter,
         status_code: &Option<u16>,
-        _headers: &Option<HeaderMap>,
+        _headers: &Option<Box<HeaderMap>>,
         payload: &ServiceErrorPayload,
     ) -> std::fmt::Result {
         match payload {
@@ -392,7 +392,7 @@ enum ErrorKind {
     Exhausted(BoxError),
     Service {
         status_code: Option<u16>,
-        headers: Option<HeaderMap>,
+        headers: Option<Box<HeaderMap>>,
         payload: ServiceErrorPayload,
     },
     Deserialization(BoxError),
