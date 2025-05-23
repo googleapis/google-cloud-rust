@@ -290,37 +290,37 @@ impl<'a> ReadObject<'a> {
         }
     }
 
-    /// Sets the value of [bucket][crate::model::ReadObjectRequest::bucket].
+    /// Sets the value of [bucket][control::model::ReadObjectRequest::bucket].
     pub fn set_bucket<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request.bucket = v.into();
         self
     }
 
-    /// Sets the value of [object][crate::model::ReadObjectRequest::object].
+    /// Sets the value of [object][control::model::ReadObjectRequest::object].
     pub fn set_object<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request.object = v.into();
         self
     }
 
-    /// Sets the value of [generation][crate::model::ReadObjectRequest::generation].
+    /// Sets the value of [generation][control::model::ReadObjectRequest::generation].
     pub fn set_generation<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.request.generation = v.into();
         self
     }
 
-    /// Sets the value of [read_offset][crate::model::ReadObjectRequest::read_offset].
+    /// Sets the value of [read_offset][control::model::ReadObjectRequest::read_offset].
     pub fn set_read_offset<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.request.read_offset = v.into();
         self
     }
 
-    /// Sets the value of [read_limit][crate::model::ReadObjectRequest::read_limit].
+    /// Sets the value of [read_limit][control::model::ReadObjectRequest::read_limit].
     pub fn set_read_limit<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.request.read_limit = v.into();
         self
     }
 
-    /// Sets the value of [if_generation_match][crate::model::ReadObjectRequest::if_generation_match].
+    /// Sets the value of [if_generation_match][control::model::ReadObjectRequest::if_generation_match].
     pub fn set_if_generation_match<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -329,7 +329,7 @@ impl<'a> ReadObject<'a> {
         self
     }
 
-    /// Sets or clears the value of [if_generation_match][crate::model::ReadObjectRequest::if_generation_match].
+    /// Sets or clears the value of [if_generation_match][control::model::ReadObjectRequest::if_generation_match].
     pub fn set_or_clear_if_generation_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -338,7 +338,7 @@ impl<'a> ReadObject<'a> {
         self
     }
 
-    /// Sets the value of [if_generation_not_match][crate::model::ReadObjectRequest::if_generation_not_match].
+    /// Sets the value of [if_generation_not_match][control::model::ReadObjectRequest::if_generation_not_match].
     pub fn set_if_generation_not_match<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -347,7 +347,7 @@ impl<'a> ReadObject<'a> {
         self
     }
 
-    /// Sets or clears the value of [if_generation_not_match][crate::model::ReadObjectRequest::if_generation_not_match].
+    /// Sets or clears the value of [if_generation_not_match][control::model::ReadObjectRequest::if_generation_not_match].
     pub fn set_or_clear_if_generation_not_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -356,7 +356,7 @@ impl<'a> ReadObject<'a> {
         self
     }
 
-    /// Sets the value of [if_metageneration_match][crate::model::ReadObjectRequest::if_metageneration_match].
+    /// Sets the value of [if_metageneration_match][control::model::ReadObjectRequest::if_metageneration_match].
     pub fn set_if_metageneration_match<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -365,7 +365,7 @@ impl<'a> ReadObject<'a> {
         self
     }
 
-    /// Sets or clears the value of [if_metageneration_match][crate::model::ReadObjectRequest::if_metageneration_match].
+    /// Sets or clears the value of [if_metageneration_match][control::model::ReadObjectRequest::if_metageneration_match].
     pub fn set_or_clear_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -374,7 +374,7 @@ impl<'a> ReadObject<'a> {
         self
     }
 
-    /// Sets the value of [if_metageneration_not_match][crate::model::ReadObjectRequest::if_metageneration_not_match].
+    /// Sets the value of [if_metageneration_not_match][control::model::ReadObjectRequest::if_metageneration_not_match].
     pub fn set_if_metageneration_not_match<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -383,7 +383,7 @@ impl<'a> ReadObject<'a> {
         self
     }
 
-    /// Sets or clears the value of [if_metageneration_not_match][crate::model::ReadObjectRequest::if_metageneration_not_match].
+    /// Sets or clears the value of [if_metageneration_not_match][control::model::ReadObjectRequest::if_metageneration_not_match].
     pub fn set_or_clear_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -392,7 +392,7 @@ impl<'a> ReadObject<'a> {
         self
     }
 
-    /// Sets the value of [common_object_request_params][crate::model::ReadObjectRequest::common_object_request_params].
+    /// Sets the value of [common_object_request_params][control::model::ReadObjectRequest::common_object_request_params].
     pub fn set_common_object_request_params<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<control::model::CommonObjectRequestParams>,
@@ -401,7 +401,7 @@ impl<'a> ReadObject<'a> {
         self
     }
 
-    /// Sets or clears the value of [common_object_request_params][crate::model::ReadObjectRequest::common_object_request_params].
+    /// Sets or clears the value of [common_object_request_params][control::model::ReadObjectRequest::common_object_request_params].
     pub fn set_or_clear_common_object_request_params<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<control::model::CommonObjectRequestParams>,
@@ -410,7 +410,7 @@ impl<'a> ReadObject<'a> {
         self
     }
 
-    /// Sets the value of [read_mask][crate::model::ReadObjectRequest::read_mask].
+    /// Sets the value of [read_mask][control::model::ReadObjectRequest::read_mask].
     pub fn set_read_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -419,7 +419,7 @@ impl<'a> ReadObject<'a> {
         self
     }
 
-    /// Sets or clears the value of [read_mask][crate::model::ReadObjectRequest::read_mask].
+    /// Sets or clears the value of [read_mask][control::model::ReadObjectRequest::read_mask].
     pub fn set_or_clear_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
