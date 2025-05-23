@@ -181,8 +181,8 @@ impl Storage {
     ///     Ok(())
     /// }
     /// ```
-    pub fn read_object(&self) -> ReadObjectRequestBuilder {
-        ReadObjectRequestBuilder::new(self)
+    pub fn read_object(&self) -> ReadObject {
+        ReadObject::new(self)
     }
 
     pub(crate) async fn new(config: gaxi::options::ClientConfig) -> crate::Result<Self> {
@@ -277,14 +277,14 @@ pub(crate) mod info {
     }
 }
 
-pub struct ReadObjectRequestBuilder<'a> {
+pub struct ReadObject<'a> {
     client: &'a Storage,
     request: control::model::ReadObjectRequest,
 }
 
-impl<'a> ReadObjectRequestBuilder<'a> {
-    pub fn new(client: &'a Storage) -> Self {
-        ReadObjectRequestBuilder {
+impl<'a> ReadObject<'a> {
+    pub(crate) fn new(client: &'a Storage) -> Self {
+        ReadObject {
             client,
             request: control::model::ReadObjectRequest::new(),
         }
@@ -430,7 +430,7 @@ impl<'a> ReadObjectRequestBuilder<'a> {
 
     /// Sends the request.
     pub async fn send(self) -> crate::Result<bytes::Bytes> {
-        // TODO(2103): map parameters to the JSON request.
+        // TODO(2103): map additional parameters to the JSON request.
         let bucket: String = self.request.bucket.into();
         let bucket_id = bucket
             .as_str()
