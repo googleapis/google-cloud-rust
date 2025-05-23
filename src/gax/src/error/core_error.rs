@@ -39,7 +39,7 @@ impl Error {
     pub fn service(status_code: Option<u16>, headers: Option<HeaderMap>, status: Status) -> Self {
         let kind = ErrorKind::Service {
             status_code,
-            headers: headers.map(|h| Box::new(h)),
+            headers: headers.map(Box::new),
             payload: ServiceErrorPayload::Status(status),
         };
         Self { kind }
