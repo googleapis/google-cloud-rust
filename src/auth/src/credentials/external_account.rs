@@ -41,20 +41,20 @@ pub(crate) trait SubjectTokenProvider: std::fmt::Debug + Send + Sync {
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
-pub struct CredentialSourceFormat {
+pub(crate) struct CredentialSourceFormat {
     #[serde(rename = "type")]
     pub format_type: String,
     pub subject_token_field_name: String,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
-pub struct CredentialSourceHeaders {
+pub(crate) struct CredentialSourceHeaders {
     #[serde(flatten)]
     pub headers: HashMap<String, String>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
-pub struct ExecutableConfig {
+pub(crate) struct ExecutableConfig {
     pub command: String,
     pub timeout_millis: Option<u32>,
     pub output_file: Option<String>,
@@ -62,7 +62,7 @@ pub struct ExecutableConfig {
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 #[serde(untagged)]
-pub enum CredentialSource {
+enum CredentialSource {
     UrlSourced {
         url: String,
         headers: Option<CredentialSourceHeaders>,
@@ -117,16 +117,16 @@ impl SubjectTokenProvider for CredentialSource {
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
-pub struct ExternalAccountConfig {
-    pub audience: String,
-    pub subject_token_type: String,
-    pub token_url: String,
-    pub client_id: Option<String>,
-    pub client_secret: Option<String>,
+struct ExternalAccountConfig {
+    audience: String,
+    subject_token_type: String,
+    token_url: String,
+    client_id: Option<String>,
+    client_secret: Option<String>,
     // TODO(#2261): set up impersonation token provider when this attribute is used.
-    pub service_account_impersonation_url: Option<String>,
-    pub scopes: Option<Vec<String>>,
-    pub credential_source: CredentialSource,
+    service_account_impersonation_url: Option<String>,
+    scopes: Option<Vec<String>>,
+    credential_source: CredentialSource,
 }
 
 #[derive(Debug)]
