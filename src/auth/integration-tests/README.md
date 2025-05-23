@@ -13,9 +13,11 @@ env GOOGLE_CLOUD_PROJECT=rust-auth-testing \
 
 ### Workload Identity integration tests
 
-Those integration tests requires more complex set up to run, like running from an Azure/AWS VM and having Workload Identity Pools set up.
-For now we are only run those tests locally and under a feature (`run-byoid-integration-tests`). 
-Some extra environment variables with the workload identity pool configuration are required to run the tests.
+Those integration tests requires more complex set up to run, like running from
+an Azure/AWS VM and having Workload Identity Pools set up. For now we are only
+run those tests locally and under a feature (`run-byoid-integration-tests`).
+Some extra environment variables with the workload identity pool configuration
+are required to run the tests.
 
 ```sh
 env GOOGLE_CLOUD_PROJECT=cloud-sdk-auth-test-project \
