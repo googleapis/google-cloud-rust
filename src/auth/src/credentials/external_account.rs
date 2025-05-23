@@ -32,6 +32,8 @@ use super::external_account_sources::url_sourced_account::UrlSourcedCredentials;
 use super::internal::sts_exchange::{ExchangeTokenRequest, STSHandler};
 use super::{CacheableResource, Credentials};
 
+const CLOUD_PLATFORM_SCOPE: &str = "https://www.googleapis.com/auth/cloud-platform";
+
 #[async_trait::async_trait]
 pub(crate) trait SubjectTokenProvider: std::fmt::Debug + Send + Sync {
     /// Generate subject token that will be used on STS exchange.
@@ -121,6 +123,9 @@ pub struct ExternalAccountConfig {
     pub token_url: String,
     pub client_id: Option<String>,
     pub client_secret: Option<String>,
+    // TODO(#2261): set up impersonation token provider when this attribute is used.
+    pub service_account_impersonation_url: Option<String>,
+    pub scopes: Option<Vec<String>>,
     pub credential_source: CredentialSource,
 }
 
@@ -144,11 +149,19 @@ where
         let audience = self.config.audience.clone();
         let subject_token_type = self.config.subject_token_type.clone();
         let url = self.config.token_url.clone();
+        let mut scope = vec![];
+        if let Some(scopes) = self.config.scopes.clone() {
+            scopes.into_iter().for_each(|v| scope.push(v));
+        }
+        if scope.is_empty() {
+            scope.push(CLOUD_PLATFORM_SCOPE.to_string());
+        }
         let req = ExchangeTokenRequest {
             url,
             audience: Some(audience),
             subject_token,
             subject_token_type,
+            scope,
             authentication: ClientAuthentication {
                 client_id: self.config.client_id.clone(),
                 client_secret: self.config.client_secret.clone(),
@@ -267,13 +280,15 @@ impl Builder {
 
         let config = external_account_config.clone();
 
+        let token_provider = ExternalAccountTokenProvider {
+            subject_token_provider: external_account_config.credential_source,
+            config,
+        };
+
         Ok(Credentials {
             inner: Arc::new(ExternalAccountCredentials {
                 quota_project_id: self.quota_project_id.clone(),
-                token_provider: TokenCache::new(ExternalAccountTokenProvider {
-                    subject_token_provider: external_account_config.credential_source,
-                    config,
-                }),
+                token_provider: TokenCache::new(token_provider),
             }),
         })
     }

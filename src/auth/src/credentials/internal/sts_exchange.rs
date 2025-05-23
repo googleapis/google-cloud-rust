@@ -112,7 +112,7 @@ pub struct TokenResponse {
     pub issued_token_type: String,
     pub token_type: String,
     pub expires_in: u64,
-    pub scope: String,
+    pub scope: Option<String>,
     pub refresh_token: Option<String>,
 }
 
@@ -257,7 +257,7 @@ mod test {
                 issued_token_type: ACCESS_TOKEN_TYPE.to_string(),
                 token_type: "Bearer".to_string(),
                 expires_in: 3600,
-                scope: "https://www.googleapis.com/auth/cloud-platform".to_string(),
+                scope: Some("https://www.googleapis.com/auth/cloud-platform".to_string()),
             }
         );
 
