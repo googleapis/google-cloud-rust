@@ -11,6 +11,19 @@ env GOOGLE_CLOUD_PROJECT=rust-auth-testing \
   cargo test --features run-integration-tests -p auth-integration-tests
 ```
 
+### Workload Identity integration tests
+
+Those integration tests requires more complex set up to run, like running from an Azure/AWS VM and having Workload Identity Pools set up.
+For now we are only run those tests locally and under a feature (`run-byoid-integration-tests`). 
+Some extra enviroment variables with the workload identity pool configuration are required to run the tests.
+
+```sh
+env GOOGLE_CLOUD_PROJECT=cloud-sdk-auth-test-project \
+env GOOGLE_WORKLOAD_IDENTITY_SERVICE_ACCOUNT=<path-to-service-account> \
+env GOOGLE_WORKLOAD_IDENTITY_OIDC_AUDIENCE=//iam.googleapis.com/projects/<PROJECT_ID>/locations/global/workloadIdentityPools/<WORKLOAD_IDENTITY_POOL_ID>/providers/<WORKLOAD_IDENTITY_PROVIDER_ID> \
+  cargo test run_workload_ --features run-integration-tests --features run-byoid-integration-tests -p auth-integration-tests
+```
+
 #### Rotating the service account key
 
 Service account keys expire after 90 days, due to our org policy.
