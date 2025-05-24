@@ -116,7 +116,7 @@ pub fn effective_timeout(
 #[cfg(test)]
 mod test {
     use super::*;
-    use crate::error::{Error, ServiceError, rpc::Code, rpc::Status};
+    use crate::error::{Error, rpc::Code, rpc::Status};
     use std::time::Duration;
     use test_case::test_case;
 
@@ -645,14 +645,14 @@ mod test {
         let status = Status::default()
             .set_code(Code::Unavailable)
             .set_message("try-again");
-        Err(Error::rpc(ServiceError::from(status)))
+        Err(Error::service(status))
     }
 
     fn permanent() -> Result<String> {
         let status = Status::default()
             .set_code(Code::PermissionDenied)
             .set_message("uh-oh");
-        Err(Error::rpc(ServiceError::from(status)))
+        Err(Error::service(status))
     }
 
     fn to_retry_throttler(mock: MockRetryThrottler) -> Arc<Mutex<dyn RetryThrottler>> {

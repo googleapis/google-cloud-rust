@@ -94,10 +94,6 @@ and then only in errors that correspond to a missing secret:
 {{#include ../samples/src/error_handling.rs:update-secret-not-found}}
 ```
 
-```rust,ignore
-{{#include ../samples/src/error_handling.rs:examine-error}}
-```
-
 If this is a "not found" error, we try to create the secret. This will simply
 return on failures:
 

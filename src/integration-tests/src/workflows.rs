@@ -253,10 +253,10 @@ pub async fn manual(
             .ok_or("service error: done with missing result ")
             .map_err(Error::other)?;
         match result {
-            LR::Error(status) => {
-                println!("LRO completed with error {status:?}");
-                let err = gax::error::ServiceError::from(*status);
-                return Err(Error::rpc(err));
+            LR::Error(s) => {
+                println!("LRO completed with error {s:?}");
+                let status = gax::error::rpc::Status::from(*s);
+                return Err(Error::service(status));
             }
             LR::Response(any) => {
                 println!("LRO completed successfully {any:?}");
@@ -293,8 +293,7 @@ pub async fn manual(
         match result {
             LR::Error(status) => {
                 println!("LRO completed with error {status:?}");
-                let err = gax::error::ServiceError::from(*status);
-                return Err(Error::rpc(err));
+                return Err(Error::other(format!("{status:?}")));
             }
             LR::Response(any) => {
                 println!("LRO completed successfully {any:?}");

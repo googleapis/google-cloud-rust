@@ -73,10 +73,10 @@ impl CredentialsError {
     /// ```
     /// # use google_cloud_gax::error::CredentialsError;
     /// # use google_cloud_gax::error::Error;
-    /// let err = CredentialsError::new(
-    ///     false, Error::other("simulated non-retryable error while trying to create credentials"));
-    /// assert!(!err.is_retryable());
-    /// assert!(format!("{err}").contains("simulated non-retryable error"));
+    /// let source = std::io::Error::new(std::io::ErrorKind::ConnectionRefused, "cannot connect");
+    /// let err = CredentialsError::new(true, source);
+    /// assert!(err.is_retryable());
+    /// assert!(format!("{err}").contains("cannot connect"));
     /// ```
     /// # Parameters
     /// * `is_retryable` - A boolean indicating whether the error is retryable.
@@ -124,7 +124,7 @@ impl std::error::Error for CredentialsErrorImpl {
     fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
         match &self {
             CredentialsErrorImpl::SimpleMessage(_) => None,
-            CredentialsErrorImpl::Source(source) => Some(source),
+            CredentialsErrorImpl::Source(arc) => Some(arc.as_ref()),
         }
     }
 }
@@ -166,21 +166,21 @@ impl Display for CredentialsError {
 #[cfg(test)]
 mod test {
     use super::*;
-    use http::HeaderMap;
     use test_case::test_case;
 
     #[test_case(true)]
     #[test_case(false)]
     fn new(retryable: bool) {
-        let source = crate::error::HttpError::new(
-            404,
-            HeaderMap::new(),
-            Some(bytes::Bytes::from_static("test-only".as_bytes())),
-        );
+        let source = wkt::TimestampError::OutOfRange;
         let got = CredentialsError::new(retryable, source);
         assert_eq!(got.is_retryable(), retryable, "{got}");
         assert!(got.source().is_some(), "{got}");
-        assert!(format!("{got}").contains("test-only"), "{got}");
+        assert!(
+            got.source()
+                .and_then(|e| e.downcast_ref::<wkt::TimestampError>())
+                .is_some(),
+            "{got}"
+        );
     }
 
     #[test_case(true)]

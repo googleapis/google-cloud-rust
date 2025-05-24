@@ -168,7 +168,7 @@ mod test {
         let builder = request
             .duration
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .map(|p| serde_json::to_value(p).map_err(Error::ser))
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
@@ -178,7 +178,7 @@ mod test {
         let builder = request
             .field_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .map(|p| serde_json::to_value(p).map_err(Error::ser))
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
@@ -188,14 +188,14 @@ mod test {
         let builder = {
             use gaxi::query_parameter::QueryParameter;
             serde_json::to_value(&request.required_field_mask)
-                .map_err(Error::serde)?
+                .map_err(Error::ser)?
                 .add(builder, "requiredFieldMask")
         };
 
         let builder = request
             .timestamp
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .map(|p| serde_json::to_value(p).map_err(Error::ser))
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
@@ -205,7 +205,7 @@ mod test {
         let builder = request
             .optional_nested
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .map(|p| serde_json::to_value(p).map_err(Error::ser))
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {

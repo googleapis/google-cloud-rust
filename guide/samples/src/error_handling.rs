@@ -38,10 +38,11 @@ pub async fn update_secret(
         // ANCHOR_END: update-secret-success
         // ANCHOR: update-secret-svc-error
         Err(e) => {
-            if let Some(svc) = e.as_inner::<gax::error::ServiceError>() {
+            if let Some(status) = e.status() {
                 // ANCHOR_END: update-secret-svc-error
                 // ANCHOR: update-secret-not-found
-                if is_not_found(svc) {
+                use gax::error::rpc::Code;
+                if status.code == Code::NotFound {
                     // ANCHOR_END: update-secret-not-found
                     // ANCHOR: update-secret-create
                     let _ = create_secret(&client, project_id, secret_id).await?;
@@ -50,7 +51,7 @@ pub async fn update_secret(
                     let version = update_attempt(&client, project_id, secret_id, data).await?;
                     println!("new version is {}", version.name);
                     return Ok(version);
-                    // ANCHOR: update-secret-try-again
+                    // ANCHOR_END: update-secret-try-again
                 }
             }
             Err(e.into())
@@ -58,12 +59,6 @@ pub async fn update_secret(
     }
 }
 // ANCHOR_END: update-secret
-
-// ANCHOR: examine-error
-pub fn is_not_found(error: &gax::error::ServiceError) -> bool {
-    error.status().code == gax::error::rpc::Code::NotFound
-}
-// ANCHOR_END: examine-error
 
 // ANCHOR: update-attempt
 async fn update_attempt(

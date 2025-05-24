@@ -148,7 +148,7 @@ mod test {
             .until_done()
             .await;
         let error = result.err().unwrap();
-        assert_eq!(error.kind(), gax::error::ErrorKind::Other);
+        assert!(error.status().is_some(), "{error}");
 
         Ok(())
     }
@@ -202,7 +202,7 @@ mod test {
             .until_done()
             .await;
         let error = result.err().unwrap();
-        assert_eq!(error.kind(), gax::error::ErrorKind::Other);
+        assert!(error.status().is_some(), "{error}");
 
         Ok(())
     }
@@ -262,7 +262,7 @@ mod test {
                     let response = result;
                     assert!(response.is_err(), "{response:?}");
                     let error = response.err().unwrap();
-                    assert_eq!(error.kind(), gax::error::ErrorKind::Other);
+                    assert!(error.status().is_some());
                 }
             }
         }
@@ -368,7 +368,7 @@ mod test {
             _ => None,
         };
         let error = error.unwrap();
-        assert_eq!(error.kind(), gax::error::ErrorKind::Other);
+        assert!(error.status().is_some());
 
         let status = poller.poll().await;
         assert!(status.is_none(), "{status:?}");
