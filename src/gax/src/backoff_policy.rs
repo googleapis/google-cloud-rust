@@ -38,9 +38,8 @@
 //!
 //! # Example
 //! ```
-//! # use google_cloud_gax::*;
-//! # use google_cloud_gax::backoff_policy::*;
-//! use exponential_backoff::ExponentialBackoffBuilder;
+//! # use google_cloud_gax::exponential_backoff::Error;
+//! # use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
 //! use std::time::Duration;
 //!
 //! let policy = ExponentialBackoffBuilder::new()
@@ -48,7 +47,7 @@
 //!     .with_maximum_delay(Duration::from_secs(5))
 //!     .with_scaling(4.0)
 //!     .build()?;
-//! # Ok::<(), error::Error>(())
+//! # Ok::<(), Error>(())
 //! ```
 //!
 //! [RetryThrottler]: crate::retry_throttler::RetryThrottler

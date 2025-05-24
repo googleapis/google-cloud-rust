@@ -20,9 +20,24 @@
 //! [BackoffPolicy]: crate::backoff_policy::BackoffPolicy
 //! [PollingBackoffPolicy]: crate::polling_backoff_policy::PollingBackoffPolicy
 
-use crate::Result;
-use crate::error::Error;
 use std::time::Duration;
+
+/// The error type for exponential backoff creation.
+#[derive(thiserror::Error, Debug)]
+#[error(transparent)]
+pub struct Error(ErrorKind);
+
+#[derive(thiserror::Error, Debug)]
+enum ErrorKind {
+    #[error("the scaling value ({value}) should be >= 1.0")]
+    Scaling { value: f64 },
+    #[error("the initial delay ({value:?}) should be greater than zero")]
+    InitialDelay { value: Duration },
+    #[error(
+        "the maximum delay ({value:?}) should be greater or equal than the initial delay ({initial:?})"
+    )]
+    MaximumDelay { value: Duration, initial: Duration },
+}
 
 /// Implements truncated exponential backoff with jitter.
 #[derive(Clone, Debug)]
@@ -37,8 +52,8 @@ impl ExponentialBackoffBuilder {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_gax::*;
-    /// # use google_cloud_gax::exponential_backoff::*;
+    /// # use google_cloud_gax::exponential_backoff::Error;
+    /// # use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
     /// use std::time::Duration;
     ///
     /// let policy = ExponentialBackoffBuilder::new()
@@ -46,7 +61,7 @@ impl ExponentialBackoffBuilder {
     ///         .with_maximum_delay(Duration::from_secs(5))
     ///         .with_scaling(4.0)
     ///         .build()?;
-    /// # Ok::<(), error::Error>(())
+    /// # Ok::<(), Error>(())
     /// ```
     pub fn new() -> Self {
         Self {
@@ -78,9 +93,9 @@ impl ExponentialBackoffBuilder {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_gax::*;
-    /// # use exponential_backoff::*;
-    /// # use backoff_policy::BackoffPolicy;
+    /// # use google_cloud_gax::exponential_backoff::Error;
+    /// # use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
+    /// # use google_cloud_gax::backoff_policy::BackoffPolicy;
     /// use std::time::Duration;
     /// use std::time::Instant;
     /// let backoff = ExponentialBackoffBuilder::new()
@@ -92,9 +107,9 @@ impl ExponentialBackoffBuilder {
     /// assert!(p <= Duration::from_secs(5));
     /// let p = backoff.on_failure(Instant::now(), 2);
     /// assert!(p <= Duration::from_secs(10));
-    /// # Ok::<(), error::Error>(())
+    /// # Ok::<(), Error>(())
     /// ```
-    pub fn build(self) -> Result<ExponentialBackoff> {
+    pub fn build(self) -> Result<ExponentialBackoff, Error> {
         if let Some(error) = self.validate() {
             return Err(error);
         }
@@ -124,13 +139,12 @@ impl ExponentialBackoffBuilder {
     /// # Example
     /// ```
     /// # use google_cloud_gax::*;
-    /// # use exponential_backoff::*;
-    /// use backoff_policy::BackoffPolicy;
+    /// # use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
+    /// # use google_cloud_gax::backoff_policy::BackoffPolicy;
     /// use std::time::Duration;
     /// use std::time::Instant;
     /// let mut backoff = ExponentialBackoffBuilder::new().clamp();
     /// assert!(backoff.on_failure(Instant::now(), 1) > Duration::ZERO);
-    /// # Ok::<(), error::Error>(())
     /// ```
     pub fn clamp(self) -> ExponentialBackoff {
         let scaling = self.scaling.clamp(1.0, 32.0);
@@ -149,22 +163,20 @@ impl ExponentialBackoffBuilder {
 
     fn validate(&self) -> Option<Error> {
         if self.scaling < 1.0 {
-            return Some(Error::other(format!(
-                "scaling ({}) must be >= 1.0",
-                self.scaling
-            )));
+            return Some(Error(ErrorKind::Scaling {
+                value: self.scaling,
+            }));
         }
         if self.initial_delay.is_zero() {
-            return Some(Error::other(format!(
-                "initial delay must be greater than zero, got={:?}",
-                self.initial_delay
-            )));
+            return Some(Error(ErrorKind::InitialDelay {
+                value: self.initial_delay,
+            }));
         }
         if self.maximum_delay < self.initial_delay {
-            return Some(Error::other(format!(
-                "maximum delay ({:?} must be greater or equal to the initial delay ({:?})",
-                self.maximum_delay, self.initial_delay
-            )));
+            return Some(Error(ErrorKind::MaximumDelay {
+                value: self.maximum_delay,
+                initial: self.initial_delay,
+            }));
         }
         None
     }
