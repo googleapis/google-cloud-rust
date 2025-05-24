@@ -27,7 +27,7 @@ type BoxError = Box<dyn std::error::Error + Send + Sync>;
 /// attempts have failed, or the library may be unable to format the request due
 /// to invalid or missing application application inputs.
 ///
-/// Most applications will just return the eror or log it, without any further
+/// Most applications will just return the error or log it, without any further
 /// action. However, some applications may need to interrogate the error
 /// details. This type offers a series of predicates to determine the error
 /// kind. The type also offers accessors to query the most common error details.
@@ -77,6 +77,11 @@ impl Error {
         Self { kind }
     }
 
+    /// The error was returned by the service.
+    pub fn is_service(&self) -> bool {
+        matches!(&self.kind, ErrorKind::Service { .. })
+    }
+
     /// Creates an error representing a timeout.
     ///
     /// # Example
@@ -91,6 +96,16 @@ impl Error {
         Self {
             kind: ErrorKind::Timeout(source.into()),
         }
+    }
+
+    /// The request could not be completed before its deadline.
+    ///
+    /// This is always a client-side generated error. Note that the request may
+    /// or may not have started, and it may or may not complete in the service.
+    /// If the request mutates any state in the service, it may or may not be
+    /// safe to attempt the request again.
+    pub fn is_timeout(&self) -> bool {
+        matches!(self.kind, ErrorKind::Timeout(_))
     }
 
     /// The [Status] payload associated with this error.
@@ -239,26 +254,6 @@ impl Error {
         }
     }
 
-    /// The error was returned by the service.
-    pub fn is_service(&self) -> bool {
-        matches!(&self.kind, ErrorKind::Service { .. })
-    }
-
-    /// The request could not be completed before its deadline.
-    ///
-    /// This is always a client-side generated error. Note that the request may
-    /// or may not have started, and it may or may not complete in the service.
-    /// If the request mutates any state in the service, it may or may not be
-    /// safe to attempt the request again.
-    pub fn is_timeout(&self) -> bool {
-        matches!(self.kind, ErrorKind::Timeout(_))
-    }
-
-    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
-    pub fn is_deserialization(&self) -> bool {
-        matches!(self.kind, ErrorKind::Deserialization(_))
-    }
-
     /// Not part of the public API, subject to change without notice.
     ///
     /// Create service errors including transport metadata.
@@ -289,6 +284,11 @@ impl Error {
         }
     }
 
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+    pub fn is_binding(&self) -> bool {
+        matches!(&self.kind, ErrorKind::Binding(_))
+    }
+
     /// Not part of the public API, subject to change without notice.
     ///
     /// Cannot serialize the request.
@@ -297,6 +297,14 @@ impl Error {
         Self {
             kind: ErrorKind::Serialization(source.into()),
         }
+    }
+
+    /// Not part of the public API, subject to change without notice.
+    ///
+    /// Could not serialize the request.
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+    pub fn is_serialization(&self) -> bool {
+        matches!(self.kind, ErrorKind::Serialization(_))
     }
 
     /// Not part of the public API, subject to change without notice.
@@ -311,6 +319,14 @@ impl Error {
 
     /// Not part of the public API, subject to change without notice.
     ///
+    /// Could not create the authentication headers before sending the request.
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+    pub fn is_authentication(&self) -> bool {
+        matches!(self.kind, ErrorKind::Serialization(_))
+    }
+
+    /// Not part of the public API, subject to change without notice.
+    ///
     /// Cannot create a connection to send the request.
     #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
     pub fn connect<T: Into<BoxError>>(source: T) -> Self {
@@ -321,20 +337,10 @@ impl Error {
 
     /// Not part of the public API, subject to change without notice.
     ///
-    /// A problem in the transport layer.
-    ///
-    /// Examples include: a broken connection after the request is sent, or a
-    /// HTTP error that is *not*
+    /// Could not create a connection before sending the request.
     #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
-    pub fn io<T: Into<BoxError>>(source: T) -> Self {
-        Self {
-            kind: ErrorKind::Io(source.into()),
-        }
-    }
-
-    /// The error was generated after I/O started.
-    pub(crate) fn is_io(&self) -> bool {
-        matches!(&self.kind, ErrorKind::Io(_) | ErrorKind::Timeout(_))
+    pub fn is_connect(&self) -> bool {
+        matches!(self.kind, ErrorKind::Serialization(_))
     }
 
     /// Not part of the public API, subject to change without notice.
@@ -363,6 +369,40 @@ impl Error {
 
     /// Not part of the public API, subject to change without notice.
     ///
+    /// A problem in the transport layer without headers a full HTTP response.
+    ///
+    /// Examples include: a broken connection after the request is sent, or a
+    /// HTTP error that is *not*
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+    pub fn io<T: Into<BoxError>>(source: T) -> Self {
+        Self {
+            kind: ErrorKind::Transport {
+                status_code: None,
+                headers: None,
+                payload: None,
+                source: Some(source.into()),
+            },
+        }
+    }
+
+    /// A problem in the transport layer without a full HTTP response.
+    ///
+    /// Examples include read or write problems, and broken connections.
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+    pub(crate) fn is_io(&self) -> bool {
+        matches!(
+            &self.kind,
+            ErrorKind::Transport {
+                status_code: None,
+                headers: None,
+                payload: None,
+                ..
+            }
+        )
+    }
+
+    /// Not part of the public API, subject to change without notice.
+    ///
     /// A problem reported by the transport layer.
     #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
     pub fn transport<T: Into<BoxError>>(
@@ -386,11 +426,22 @@ impl Error {
         matches!(&self.kind, ErrorKind::Transport { .. })
     }
 
+    /// Not part of the public API, subject to change without notice.
+    ///
+    /// A problem deserializing the response.
     #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
     pub fn deser<T: Into<BoxError>>(source: T) -> Self {
         Self {
             kind: ErrorKind::Deserialization(source.into()),
         }
+    }
+
+    /// Not part of the public API, subject to change without notice.
+    ///
+    /// Could not deserialize the response.
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+    pub fn is_deserialization(&self) -> bool {
+        matches!(self.kind, ErrorKind::Deserialization(_))
     }
 
     // TODO(#2221) - remove once the migration is completed.
@@ -433,10 +484,6 @@ impl std::fmt::Display for Error {
             ErrorKind::Authentication(e) => {
                 write!(f, "cannot create the authentication headers: {e}")
             }
-            ErrorKind::Io(e) => write!(
-                f,
-                "an I/O problem sending the request or receiving the response: {e}"
-            ),
             ErrorKind::Timeout(e) => write!(f, "the request exceeded the request deadline: {e}"),
             ErrorKind::Exhausted(e) => write!(
                 f,
@@ -497,7 +544,6 @@ impl std::error::Error for Error {
             ErrorKind::Connect(e) => Some(e.as_ref()),
             ErrorKind::Serialization(e) => Some(e.as_ref()),
             ErrorKind::Authentication(e) => Some(e),
-            ErrorKind::Io(e) => Some(e.as_ref()),
             ErrorKind::Timeout(e) => Some(e.as_ref()),
             ErrorKind::Exhausted(e) => Some(e.as_ref()),
             ErrorKind::Transport { source, .. } => source
@@ -517,7 +563,6 @@ enum ErrorKind {
     Connect(BoxError),
     Serialization(BoxError),
     Authentication(CredentialsError),
-    Io(BoxError),
     Timeout(BoxError),
     Exhausted(BoxError),
     Transport {
@@ -538,5 +583,64 @@ enum ErrorKind {
 
 #[cfg(test)]
 mod test {
-    // TODO(#2221) - add some tests for `Display`
+    use super::*;
+    use crate::error::rpc::Code;
+    use std::error::Error as StdError;
+
+    #[test]
+    fn service() {
+        let status = Status::default()
+            .set_code(Code::NotFound)
+            .set_message("NOT FOUND");
+        let error = Error::service(status.clone());
+        assert!(error.is_service(), "{error:?}");
+        assert_eq!(error.status(), Some(&status));
+        assert!(error.to_string().contains("NOT FOUND"), "{error}");
+        assert!(error.to_string().contains(Code::NotFound.name()), "{error}");
+        assert!(!error.is_transient_and_before_rpc(), "{error:?}");
+    }
+
+    #[test]
+    fn service_with_info() {
+        let status = Status::default()
+            .set_code(Code::NotFound)
+            .set_message("NOT FOUND");
+        let status_code = 404_u16;
+        let headers = {
+            let mut headers = http::HeaderMap::new();
+            headers.insert(
+                "content-type",
+                http::HeaderValue::from_static("application/json"),
+            );
+            headers
+        };
+        let error = Error::service_with_http_metadata(
+            status.clone(),
+            Some(status_code),
+            Some(headers.clone()),
+        );
+        assert!(error.is_service(), "{error:?}");
+        assert_eq!(error.status(), Some(&status));
+        assert!(error.to_string().contains("NOT FOUND"), "{error}");
+        assert!(error.to_string().contains(Code::NotFound.name()), "{error}");
+        assert_eq!(error.http_status_code(), Some(status_code));
+        assert_eq!(error.http_headers(), Some(&headers));
+        assert!(!error.is_transient_and_before_rpc(), "{error:?}");
+    }
+
+    #[test]
+    fn timeout() {
+        let source = wkt::TimestampError::OutOfRange;
+        let error = Error::timeout(source);
+        assert!(error.is_timeout(), "{error:?}");
+        assert!(error.source().is_some(), "{error:?}");
+        let got = error
+            .source()
+            .and_then(|e| e.downcast_ref::<wkt::TimestampError>());
+        assert!(
+            matches!(got, Some(wkt::TimestampError::OutOfRange)),
+            "{error:?}"
+        );
+        assert!(!error.is_transient_and_before_rpc(), "{error:?}");
+    }
 }
