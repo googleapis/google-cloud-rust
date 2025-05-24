@@ -493,53 +493,27 @@ impl std::fmt::Display for Error {
                 "a policy was exhausted before getting a successful response: {e}"
             ),
             ErrorKind::Transport {
-                source: Some(s), ..
+                source: None,
+                status_code: Some(code),
+                headers: Some(_),
+                payload: Some(p),
+            } => {
+                if let Ok(message) = std::str::from_utf8(p.as_ref()) {
+                    write!(f, "the HTTP transport reports a [{code}] error: {message}")
+                } else {
+                    write!(f, "the HTTP transport reports a [{code}] error: {p:?}")
+                }
+            }
+            ErrorKind::Transport {
+                source: Some(s),
+                ..
             } => {
                 write!(f, "the transport reports an error: {s}")
             }
             ErrorKind::Transport {
                 source: None,
-                payload: Some(p),
-                status_code: None,
                 ..
-            } => {
-                if let Ok(message) = std::str::from_utf8(p.as_ref()) {
-                    write!(f, "the transport reports an error: {message}")
-                } else {
-                    write!(f, "the transport reports an error: {p:?}")
-                }
-            }
-            ErrorKind::Transport {
-                source: None,
-                payload: Some(p),
-                status_code: Some(code),
-                ..
-            } => {
-                if let Ok(message) = std::str::from_utf8(p.as_ref()) {
-                    write!(f, "the transport reports a [{code}] error: {message}")
-                } else {
-                    write!(f, "the transport reports a [{code}] error: {p:?}")
-                }
-            }
-            ErrorKind::Transport {
-                source: None,
-                payload: None,
-                status_code: Some(code),
-                ..
-            } => {
-                write!(f, "the transport reports an error with status code: {code}")
-            }
-            ErrorKind::Transport {
-                source: None,
-                payload: None,
-                status_code: None,
-                ..
-            } => {
-                write!(
-                    f,
-                    "the transport reports an error without human readable details"
-                )
-            }
+            } => unreachable!("no constructor allows this"),
             ErrorKind::Service { status, .. } => {
                 write!(
                     f,
@@ -630,6 +604,8 @@ mod test {
             matches!(got, Some(wkt::TimestampError::OutOfRange)),
             "{error:?}"
         );
+        let source = wkt::TimestampError::OutOfRange;
+        assert!(error.to_string().contains(&source.to_string()), "{error}");
         assert!(!error.is_transient_and_before_rpc(), "{error:?}");
     }
 
@@ -658,6 +634,7 @@ mod test {
         assert!(error.to_string().contains(Code::NotFound.name()), "{error}");
         assert_eq!(error.http_status_code(), Some(status_code));
         assert_eq!(error.http_headers(), Some(&headers));
+        assert!(error.http_payload().is_none(), "{error:?}");
         assert!(!error.is_transient_and_before_rpc(), "{error:?}");
     }
 
@@ -674,6 +651,8 @@ mod test {
             matches!(got, Some(wkt::TimestampError::OutOfRange)),
             "{error:?}"
         );
+        let source = wkt::TimestampError::OutOfRange;
+        assert!(error.to_string().contains(&source.to_string()), "{error}");
         assert!(!error.is_transient_and_before_rpc(), "{error:?}");
     }
 
@@ -690,12 +669,14 @@ mod test {
             matches!(got, Some(wkt::TimestampError::OutOfRange)),
             "{error:?}"
         );
+        let source = wkt::TimestampError::OutOfRange;
+        assert!(error.to_string().contains(&source.to_string()), "{error}");
         assert!(!error.is_transient_and_before_rpc(), "{error:?}");
     }
 
     #[test]
     fn auth_transient() {
-        let source = CredentialsError::from_str(true, "message");
+        let source = CredentialsError::from_str(true, "test-message");
         let error = Error::authentication(source);
         assert!(error.is_authentication(), "{error:?}");
         assert!(error.source().is_some(), "{error:?}");
@@ -703,12 +684,13 @@ mod test {
             .source()
             .and_then(|e| e.downcast_ref::<CredentialsError>());
         assert!(matches!(got, Some(c) if c.is_retryable()), "{error:?}");
+        assert!(error.to_string().contains("test-message"), "{error}");
         assert!(error.is_transient_and_before_rpc(), "{error:?}");
     }
 
     #[test]
     fn auth_not_transient() {
-        let source = CredentialsError::from_str(false, "message");
+        let source = CredentialsError::from_str(false, "test-message");
         let error = Error::authentication(source);
         assert!(error.is_authentication(), "{error:?}");
         assert!(error.source().is_some(), "{error:?}");
@@ -716,6 +698,7 @@ mod test {
             .source()
             .and_then(|e| e.downcast_ref::<CredentialsError>());
         assert!(matches!(got, Some(c) if !c.is_retryable()), "{error:?}");
+        assert!(error.to_string().contains("test-message"), "{error}");
         assert!(!error.is_transient_and_before_rpc(), "{error:?}");
     }
 
@@ -732,6 +715,8 @@ mod test {
             matches!(got, Some(wkt::TimestampError::OutOfRange)),
             "{error:?}"
         );
+        let source = wkt::TimestampError::OutOfRange;
+        assert!(error.to_string().contains(&source.to_string()), "{error}");
         assert!(error.is_transient_and_before_rpc(), "{error:?}");
     }
 
@@ -748,6 +733,8 @@ mod test {
             matches!(got, Some(wkt::TimestampError::OutOfRange)),
             "{error:?}"
         );
+        let source = wkt::TimestampError::OutOfRange;
+        assert!(error.to_string().contains(&source.to_string()), "{error}");
         assert!(!error.is_transient_and_before_rpc(), "{error:?}");
     }
 
