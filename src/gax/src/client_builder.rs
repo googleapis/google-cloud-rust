@@ -180,7 +180,6 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     /// ```
     /// # use google_cloud_gax::client_builder::examples;
     /// # use google_cloud_gax as gax;
-    /// # use google_cloud_gax::Result;
     /// # tokio_test::block_on(async {
     /// use examples::Client; // Placeholder for examples
     /// use gax::exponential_backoff::ExponentialBackoffBuilder;
@@ -193,7 +192,7 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     /// let client = Client::builder()
     ///     .with_backoff_policy(policy)
     ///     .build().await?;
-    /// # Result::<()>::Ok(()) });
+    /// # Ok::<(), anyhow::Error>(()) });
     /// ```
     pub fn with_backoff_policy<V: Into<BackoffPolicyArg>>(mut self, v: V) -> Self {
         self.config.backoff_policy = Some(v.into().0);
@@ -214,14 +213,13 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     /// ```
     /// # use google_cloud_gax::client_builder::examples;
     /// # use google_cloud_gax as gax;
-    /// # use google_cloud_gax::Result;
     /// # tokio_test::block_on(async {
     /// use examples::Client; // Placeholder for examples
     /// use gax::retry_throttler::AdaptiveThrottler;
     /// let client = Client::builder()
     ///     .with_retry_throttler(AdaptiveThrottler::new(2.0)?)
     ///     .build().await?;
-    /// # Result::<()>::Ok(()) });
+    /// # Ok::<(), anyhow::Error>(()) });
     /// ```
     pub fn with_retry_throttler<V: Into<RetryThrottlerArg>>(mut self, v: V) -> Self {
         self.config.retry_throttler = v.into().0;
@@ -268,7 +266,6 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     /// ```
     /// # use google_cloud_gax::client_builder::examples;
     /// # use google_cloud_gax as gax;
-    /// # use google_cloud_gax::Result;
     /// # tokio_test::block_on(async {
     /// use examples::Client; // Placeholder for examples
     /// use gax::exponential_backoff::ExponentialBackoffBuilder;
@@ -281,7 +278,7 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     /// let client = Client::builder()
     ///     .with_polling_backoff_policy(policy)
     ///     .build().await?;
-    /// # Result::<()>::Ok(()) });
+    /// # Ok::<(), anyhow::Error>(()) });
     /// ```
     pub fn with_polling_backoff_policy<V: Into<PollingBackoffPolicyArg>>(mut self, v: V) -> Self {
         self.config.polling_backoff_policy = Some(v.into().0);
