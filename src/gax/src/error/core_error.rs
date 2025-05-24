@@ -371,7 +371,7 @@ impl Error {
         source: T,
     ) -> Self {
         let kind = ErrorKind::Transport {
-            status_code: status_code,
+            status_code,
             headers: Some(Box::new(headers)),
             payload: None,
             source: Some(source.into()),
@@ -452,7 +452,7 @@ impl std::fmt::Display for Error {
                 payload: Some(p),
                 ..
             } => {
-                if let Ok(message) = str::from_utf8(p.as_ref()) {
+                if let Ok(message) = std::str::from_utf8(p.as_ref()) {
                     write!(f, "the transport reports an error: {message}")
                 } else {
                     write!(f, "the transport reports an error: {p:?}")
