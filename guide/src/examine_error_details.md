@@ -81,7 +81,7 @@ request failed with error Error {
                 "vary": "Referer",
                 "vary": "Origin,Accept-Encoding",
                 "content-type": "application/json; charset=UTF-8",
-                "date": "Fri, 23 May 2025 16:39:46 GMT",
+                "date": "Sat, 24 May 2025 17:19:49 GMT",
                 "server": "scaffolding on HTTPServer2",
                 "x-xss-protection": "0",
                 "x-frame-options": "SAMEORIGIN",
@@ -91,28 +91,26 @@ request failed with error Error {
                 "transfer-encoding": "chunked",
             },
         ),
-        payload: Status(
-            Status {
-                code: InvalidArgument,
-                message: "One of content, or gcs_content_uri must be set.",
-                details: [
-                    BadRequest(
-                        BadRequest {
-                            field_violations: [
-                                FieldViolation {
-                                    field: "document.content",
-                                    description: "Must have some text content to annotate.",
-                                    reason: "",
-                                    localized_message: None,
-                                    _unknown_fields: {},
-                                },
-                            ],
-                            _unknown_fields: {},
-                        },
-                    ),
-                ],
-            },
-        ),
+        status: Status {
+            code: InvalidArgument,
+            message: "One of content, or gcs_content_uri must be set.",
+            details: [
+                BadRequest(
+                    BadRequest {
+                        field_violations: [
+                            FieldViolation {
+                                field: "document.content",
+                                description: "Must have some text content to annotate.",
+                                reason: "",
+                                localized_message: None,
+                                _unknown_fields: {},
+                            },
+                        ],
+                        _unknown_fields: {},
+                    },
+                ),
+            ],
+        },
     },
 }
 ```
@@ -134,7 +132,7 @@ break down some top-level information about the error:
 And then iterate over all the details:
 
 ```rust,ignore
-{{#include ../samples/src/examine_error_details.rs:examine-error-details-service-error}}
+{{#include ../samples/src/examine_error_details.rs:examine-error-details-iterate}}
 ```
 
 The client libraries return a [`StatusDetails`] enum with the different types of

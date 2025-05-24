@@ -51,7 +51,7 @@ pub async fn update_secret(
                     let version = update_attempt(&client, project_id, secret_id, data).await?;
                     println!("new version is {}", version.name);
                     return Ok(version);
-                    // ANCHOR: update-secret-try-again
+                    // ANCHOR_END: update-secret-try-again
                 }
             }
             Err(e.into())
