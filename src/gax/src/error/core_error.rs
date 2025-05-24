@@ -796,4 +796,22 @@ mod test {
         assert!(error.http_payload().is_none(), "{error:?}");
         assert!(!error.is_transient_and_before_rpc(), "{error:?}");
     }
+
+    #[test]
+    fn deser() {
+        let source = wkt::TimestampError::OutOfRange;
+        let error = Error::deser(source);
+        assert!(error.is_deserialization(), "{error:?}");
+        assert!(error.source().is_some(), "{error:?}");
+        let got = error
+            .source()
+            .and_then(|e| e.downcast_ref::<wkt::TimestampError>());
+        assert!(
+            matches!(got, Some(wkt::TimestampError::OutOfRange)),
+            "{error:?}"
+        );
+        let source = wkt::TimestampError::OutOfRange;
+        assert!(error.to_string().contains(&source.to_string()), "{error}");
+        assert!(!error.is_transient_and_before_rpc(), "{error:?}");
+    }
 }
