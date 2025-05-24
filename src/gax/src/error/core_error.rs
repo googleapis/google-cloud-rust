@@ -19,30 +19,78 @@ use http::HeaderMap;
 type BoxError = Box<dyn std::error::Error + Send + Sync>;
 
 /// The core error returned by all client libraries.
+///
+/// The client libraries report errors from multiple sources. For example, the
+/// service may return an error, the transport may be unable to create the
+/// necessary connection to make a request, the request may timeout before a
+/// response is received, the retry policy may be exhausted, and all request
+/// attempts have failed, or the library may be unable to format the request due
+/// to invalid or missing application application inputs.
+///
+/// Most applications will just return the eror or log it, without any further
+/// action. However, some applications may need to interrogate the error
+/// details. This type offers a series of predicates to determine the error
+/// kind. The type also offers accessors to query the most common error details.
+/// Applications can query the error [source][std::error::Error::source] for
+/// deeper information.
+///
+/// # Example
+/// ```
+/// use google_cloud_gax::error::Error;
+/// match example_function() {
+///     Err(e) if e.is_timeout() => { println!("not enough time {e}"); },
+///     Err(e) if e.is_transport() => { println!("transport problems {e}"); },
+///     Err(e) if e.is_service() => { println!("service error {e}, should have a status={:?}", e.status()); },
+///     Err(e) => { println!("some other error {e}"); },
+///     Ok(_) => { println!("success, how boring"); },
+/// }
+///
+/// fn example_function() -> Result<String, Error> {
+///     // ... details omitted ...
+///     # use google_cloud_gax::error::rpc::{Code, Status};
+///     # Err(Error::service(Status::default().set_code(Code::NotFound).set_message("NOT FOUND")))
+/// }
+/// ```
 #[derive(Debug)]
 pub struct Error {
     kind: ErrorKind,
 }
 
 impl Error {
-    /// An error with the information returned by Google Cloud services.
+    /// Creates an error with the information returned by Google Cloud services.
     ///
     /// # Example
     /// ```
     /// use google_cloud_gax::error::Error;
     /// use google_cloud_gax::error::rpc::{Code, Status};
-    /// let error = Error::service(None, None, Status::default().set_code(Code::NotFound).set_message("NOT FOUND"));
-    /// assert!(error.status().is_some());
-    /// assert!(error.http_status_code().is_none());
-    /// assert!(error.http_headers().is_none());
+    /// let status = Status::default().set_code(Code::NotFound).set_message("NOT FOUND");
+    /// let error = Error::service(status.clone());
+    /// assert!(error.is_service());
+    /// assert_eq!(error.status(), Some(&status));
     /// ```
-    pub fn service(status_code: Option<u16>, headers: Option<HeaderMap>, status: Status) -> Self {
+    pub fn service(status: Status) -> Self {
         let kind = ErrorKind::Service {
-            status_code,
-            headers: headers.map(Box::new),
-            payload: ServiceErrorPayload::Status(status),
+            status,
+            status_code: None,
+            headers: None,
         };
         Self { kind }
+    }
+
+    /// Creates an error representing a timeout.
+    ///
+    /// # Example
+    /// ```
+    /// use std::error::Error as _;
+    /// use google_cloud_gax::error::Error;
+    /// let error = Error::timeout("simulated timeout");
+    /// assert!(error.is_timeout());
+    /// assert!(error.source().is_some());
+    /// ```
+    pub fn timeout<T: Into<BoxError>>(source: T) -> Self {
+        Self {
+            kind: ErrorKind::Timeout(source.into()),
+        }
     }
 
     /// The [Status] payload associated with this error.
@@ -73,10 +121,7 @@ impl Error {
     /// [AIP-193]: https://google.aip.dev/193
     pub fn status(&self) -> Option<&Status> {
         match &self.kind {
-            ErrorKind::Service {
-                payload: ServiceErrorPayload::Status(s),
-                ..
-            } => Some(s),
+            ErrorKind::Service { status, .. } => Some(status),
             _ => None,
         }
     }
@@ -109,6 +154,10 @@ impl Error {
     /// set in some errors but not others.
     pub fn http_status_code(&self) -> Option<u16> {
         match &self.kind {
+            ErrorKind::Transport {
+                status_code: Some(code),
+                ..
+            } => Some(*code),
             ErrorKind::Service {
                 status_code: Some(code),
                 ..
@@ -150,6 +199,9 @@ impl Error {
     /// set in some errors but not others.
     pub fn http_headers(&self) -> Option<&http::HeaderMap> {
         match &self.kind {
+            ErrorKind::Transport {
+                headers: Some(h), ..
+            } => Some(h),
             ErrorKind::Service {
                 headers: Some(h), ..
             } => Some(h),
@@ -186,21 +238,101 @@ impl Error {
     /// set in some errors but not others.
     pub fn http_payload(&self) -> Option<&bytes::Bytes> {
         match &self.kind {
-            ErrorKind::Service {
-                payload: ServiceErrorPayload::Bytes(b),
-                ..
-            } => Some(b),
+            ErrorKind::Transport { payload, .. } => payload.as_ref(),
             _ => None,
         }
     }
 
-    /// The error was generated before the RPC started and is transient.
-    pub(crate) fn is_transient_and_before_rpc(&self) -> bool {
-        match &self.kind {
-            ErrorKind::Binding(_) => false,
-            ErrorKind::Connect(_) => false,
-            ErrorKind::Authentication(e) if e.is_retryable() => true,
-            _ => false,
+    /// The error was returned by the service.
+    pub fn is_service(&self) -> bool {
+        matches!(&self.kind, ErrorKind::Service { .. })
+    }
+
+    /// The request could not be completed before its deadline.
+    ///
+    /// This is always a client-side generated error. Note that the request may
+    /// or may not have started, and it may or may not complete in the service.
+    /// If the request mutates any state in the service, it may or may not be
+    /// safe to attempt the request again.
+    pub fn is_timeout(&self) -> bool {
+        matches!(self.kind, ErrorKind::Timeout(_))
+    }
+
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+    pub fn is_deserialization(&self) -> bool {
+        matches!(self.kind, ErrorKind::Deserialization(_))
+    }
+
+    /// Not part of the public API, subject to change without notice.
+    ///
+    /// Create service errors including transport metadata.
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+    pub fn service_with_http_metadata(
+        status: Status,
+        status_code: Option<u16>,
+        headers: Option<http::HeaderMap>,
+    ) -> Self {
+        let kind = ErrorKind::Service {
+            status_code,
+            headers: headers.map(Box::new),
+            status,
+        };
+        Self { kind }
+    }
+
+    /// Not part of the public API, subject to change without notice.
+    ///
+    /// Cannot find a valid HTTP binding to make the request.
+    ///
+    /// This indicates the request is missing required parameters, or the
+    /// required parameters do not have a valid format.
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+    pub fn binding<T: Into<BoxError>>(source: T) -> Self {
+        Self {
+            kind: ErrorKind::Binding(source.into()),
+        }
+    }
+
+    /// Not part of the public API, subject to change without notice.
+    ///
+    /// Cannot serialize the request.
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+    pub fn ser<T: Into<BoxError>>(source: T) -> Self {
+        Self {
+            kind: ErrorKind::Serialization(source.into()),
+        }
+    }
+
+    /// Not part of the public API, subject to change without notice.
+    ///
+    /// Cannot create the authentication headers.
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+    pub fn authentication(source: CredentialsError) -> Self {
+        Self {
+            kind: ErrorKind::Authentication(source),
+        }
+    }
+
+    /// Not part of the public API, subject to change without notice.
+    ///
+    /// Cannot create a connection to send the request.
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+    pub fn connect<T: Into<BoxError>>(source: T) -> Self {
+        Self {
+            kind: ErrorKind::Connect(source.into()),
+        }
+    }
+
+    /// Not part of the public API, subject to change without notice.
+    ///
+    /// A problem in the transport layer.
+    ///
+    /// Examples include: a broken connection after the request is sent, or a
+    /// HTTP error that is *not*
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+    pub fn io<T: Into<BoxError>>(source: T) -> Self {
+        Self {
+            kind: ErrorKind::Io(source.into()),
         }
     }
 
@@ -209,66 +341,9 @@ impl Error {
         matches!(&self.kind, ErrorKind::Io(_) | ErrorKind::Timeout(_))
     }
 
-    // TODO(#2221) - remove once the migration is completed.
-    #[doc(hidden)]
-    pub fn serde<T: Into<BoxError>>(source: T) -> Self {
-        Self {
-            kind: ErrorKind::Serialization(source.into()),
-        }
-    }
-
-    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
-    pub fn is_deserialization(&self) -> bool {
-        matches!(self.kind, ErrorKind::Deserialization(_))
-    }
-
-    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
-    pub fn is_timeout(&self) -> bool {
-        matches!(self.kind, ErrorKind::Timeout(_))
-    }
-
-    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
-    pub fn binding<T: Into<BoxError>>(source: T) -> Self {
-        Self {
-            kind: ErrorKind::Binding(source.into()),
-        }
-    }
-
-    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
-    pub fn ser<T: Into<BoxError>>(source: T) -> Self {
-        Self {
-            kind: ErrorKind::Serialization(source.into()),
-        }
-    }
-
-    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
-    pub fn authentication(source: CredentialsError) -> Self {
-        Self {
-            kind: ErrorKind::Authentication(source),
-        }
-    }
-
-    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
-    pub fn connect<T: Into<BoxError>>(source: T) -> Self {
-        Self {
-            kind: ErrorKind::Connect(source.into()),
-        }
-    }
-
-    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
-    pub fn io<T: Into<BoxError>>(source: T) -> Self {
-        Self {
-            kind: ErrorKind::Io(source.into()),
-        }
-    }
-
-    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
-    pub fn timeout<T: Into<BoxError>>(source: T) -> Self {
-        Self {
-            kind: ErrorKind::Timeout(source.into()),
-        }
-    }
-
+    /// Not part of the public API, subject to change without notice.
+    ///
+    /// A policy (retry or polling) is exhausted.
     #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
     pub fn exhausted<T: Into<BoxError>>(source: T) -> Self {
         Self {
@@ -276,14 +351,43 @@ impl Error {
         }
     }
 
+    /// Not part of the public API, subject to change without notice.
+    ///
+    /// A problem reported by the transport layer.
     #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
     pub fn http(status_code: u16, headers: HeaderMap, payload: bytes::Bytes) -> Self {
-        let kind = ErrorKind::Service {
+        let kind = ErrorKind::Transport {
             status_code: Some(status_code),
             headers: Some(Box::new(headers)),
-            payload: ServiceErrorPayload::Bytes(payload),
+            payload: Some(payload),
+            source: None,
         };
         Self { kind }
+    }
+
+    /// Not part of the public API, subject to change without notice.
+    ///
+    /// A problem reported by the transport layer.
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+    pub fn transport<T: Into<BoxError>>(
+        status_code: Option<u16>,
+        headers: HeaderMap,
+        source: T,
+    ) -> Self {
+        let kind = ErrorKind::Transport {
+            status_code: status_code,
+            headers: Some(Box::new(headers)),
+            payload: None,
+            source: Some(source.into()),
+        };
+        Self { kind }
+    }
+
+    /// A problem in the transport layer.
+    ///
+    /// Examples include I/O problems, broken connections or streams, etc.
+    pub fn is_transport(&self) -> bool {
+        matches!(&self.kind, ErrorKind::Transport { .. })
     }
 
     #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
@@ -295,31 +399,27 @@ impl Error {
 
     // TODO(#2221) - remove once the migration is completed.
     #[doc(hidden)]
+    pub fn serde<T: Into<BoxError>>(source: T) -> Self {
+        Self {
+            kind: ErrorKind::Serialization(source.into()),
+        }
+    }
+
+    // TODO(#2221) - remove once the migration is completed.
+    #[doc(hidden)]
     pub fn other<T: Into<BoxError>>(source: T) -> Self {
         Self {
             kind: ErrorKind::Other(source.into()),
         }
     }
 
-    fn display_service_error(
-        f: &mut std::fmt::Formatter,
-        status_code: &Option<u16>,
-        _headers: &Option<Box<HeaderMap>>,
-        payload: &ServiceErrorPayload,
-    ) -> std::fmt::Result {
-        match payload {
-            ServiceErrorPayload::Status(s) => {
-                // TODO(#2221) - more complete error messages
-                write!(
-                    f,
-                    "the service returned an error: {}, code={}, details={:?}",
-                    s.message, s.code, s.details
-                )
-            }
-            ServiceErrorPayload::Bytes(b) => {
-                // TODO(#2221) - more complete error messages
-                write!(f, "an HTTP error, code={:?}, payload={b:?}", status_code)
-            }
+    /// The error was generated before the RPC started and is transient.
+    pub(crate) fn is_transient_and_before_rpc(&self) -> bool {
+        match &self.kind {
+            ErrorKind::Binding(_) => false,
+            ErrorKind::Connect(_) => false,
+            ErrorKind::Authentication(e) if e.is_retryable() => true,
+            _ => false,
         }
     }
 }
@@ -346,11 +446,48 @@ impl std::fmt::Display for Error {
                 f,
                 "a policy was exhausted before getting a successful response: {e}"
             ),
-            ErrorKind::Service {
-                status_code,
-                headers,
-                payload,
-            } => Self::display_service_error(f, status_code, headers, payload),
+            ErrorKind::Transport {
+                source: Some(s), ..
+            } => {
+                write!(f, "the transport reports an error: {s}")
+            }
+            ErrorKind::Transport {
+                source: None,
+                payload: Some(p),
+                ..
+            } => {
+                if let Ok(message) = str::from_utf8(p.as_ref()) {
+                    write!(f, "the transport reports an error: {message}")
+                } else {
+                    write!(f, "the transport reports an error: {p:?}")
+                }
+            }
+            ErrorKind::Transport {
+                source: None,
+                payload: None,
+                status_code: Some(code),
+                ..
+            } => {
+                write!(f, "the transport reports an error with status code: {code}")
+            }
+            ErrorKind::Transport {
+                source: None,
+                payload: None,
+                status_code: None,
+                ..
+            } => {
+                write!(
+                    f,
+                    "the transport reports an error without human readable details"
+                )
+            }
+            ErrorKind::Service { status, .. } => {
+                write!(
+                    f,
+                    "the service reports an error with code {} described as: {}",
+                    status.code, status.message
+                )
+            }
             ErrorKind::Deserialization(e) => write!(f, "cannot deserialize the response: {e}"),
             ErrorKind::Other(e) => write!(f, "an unclassified problem making a request: {e}"),
         }
@@ -367,17 +504,14 @@ impl std::error::Error for Error {
             ErrorKind::Io(e) => Some(e.as_ref()),
             ErrorKind::Timeout(e) => Some(e.as_ref()),
             ErrorKind::Exhausted(e) => Some(e.as_ref()),
+            ErrorKind::Transport { source, .. } => source
+                .as_ref()
+                .map(|e| e.as_ref() as &(dyn std::error::Error)),
             ErrorKind::Service { .. } => None,
             ErrorKind::Deserialization(e) => Some(e.as_ref()),
             ErrorKind::Other(e) => Some(e.as_ref()),
         }
     }
-}
-
-#[derive(Debug)]
-enum ServiceErrorPayload {
-    Bytes(bytes::Bytes),
-    Status(super::rpc::Status),
 }
 
 /// The type of error held by an [Error] instance.
@@ -390,10 +524,16 @@ enum ErrorKind {
     Io(BoxError),
     Timeout(BoxError),
     Exhausted(BoxError),
+    Transport {
+        status_code: Option<u16>,
+        headers: Option<Box<HeaderMap>>,
+        payload: Option<bytes::Bytes>,
+        source: Option<BoxError>,
+    },
     Service {
         status_code: Option<u16>,
         headers: Option<Box<HeaderMap>>,
-        payload: ServiceErrorPayload,
+        status: Status,
     },
     Deserialization(BoxError),
     /// A uncategorized error.

@@ -660,7 +660,7 @@ mod tests {
         let status = crate::error::rpc::Status::default()
             .set_code(Code::Unavailable)
             .set_message("UNAVAILABLE");
-        Error::service(None, None, status)
+        Error::service(status)
     }
 
     fn permission_denied() -> Error {
@@ -668,7 +668,7 @@ mod tests {
         let status = crate::error::rpc::Status::default()
             .set_code(Code::PermissionDenied)
             .set_message("PERMISSION_DENIED");
-        Error::service(None, None, status)
+        Error::service(status)
     }
 
     #[test]

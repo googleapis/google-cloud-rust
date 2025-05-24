@@ -645,14 +645,14 @@ mod test {
         let status = Status::default()
             .set_code(Code::Unavailable)
             .set_message("try-again");
-        Err(Error::service(None, None, status))
+        Err(Error::service(status))
     }
 
     fn permanent() -> Result<String> {
         let status = Status::default()
             .set_code(Code::PermissionDenied)
             .set_message("uh-oh");
-        Err(Error::service(None, None, status))
+        Err(Error::service(status))
     }
 
     fn to_retry_throttler(mock: MockRetryThrottler) -> Arc<Mutex<dyn RetryThrottler>> {

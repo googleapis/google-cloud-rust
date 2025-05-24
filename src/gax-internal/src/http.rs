@@ -228,7 +228,9 @@ pub async fn to_http_error<O>(response: reqwest::Response) -> Result<O> {
         .to_bytes();
 
     let error = match gax::error::rpc::Status::try_from(&body) {
-        Ok(status) => Error::service(Some(status_code), Some(parts.headers), status),
+        Ok(status) => {
+            Error::service_with_http_metadata(status, Some(status_code), Some(parts.headers))
+        }
         Err(_) => Error::http(status_code, parts.headers, body),
     };
     Err(error)
