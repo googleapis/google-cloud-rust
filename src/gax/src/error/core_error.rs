@@ -322,7 +322,7 @@ impl Error {
     /// Could not create the authentication headers before sending the request.
     #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
     pub fn is_authentication(&self) -> bool {
-        matches!(self.kind, ErrorKind::Serialization(_))
+        matches!(self.kind, ErrorKind::Authentication(_))
     }
 
     /// Not part of the public API, subject to change without notice.
@@ -340,7 +340,7 @@ impl Error {
     /// Could not create a connection before sending the request.
     #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
     pub fn is_connect(&self) -> bool {
-        matches!(self.kind, ErrorKind::Serialization(_))
+        matches!(self.kind, ErrorKind::Connect(_))
     }
 
     /// Not part of the public API, subject to change without notice.
@@ -351,6 +351,14 @@ impl Error {
         Self {
             kind: ErrorKind::Exhausted(source.into()),
         }
+    }
+
+    /// Not part of the public API, subject to change without notice.
+    ///
+    /// A policy was exhausted while performing the operation.
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+    pub fn is_exhausted(&self) -> bool {
+        matches!(self.kind, ErrorKind::Exhausted(_))
     }
 
     /// Not part of the public API, subject to change without notice.
@@ -405,16 +413,12 @@ impl Error {
     ///
     /// A problem reported by the transport layer.
     #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
-    pub fn transport<T: Into<BoxError>>(
-        status_code: Option<u16>,
-        headers: HeaderMap,
-        source: T,
-    ) -> Self {
+    pub fn transport<T: Into<BoxError>>(headers: HeaderMap, source: T) -> Self {
         let kind = ErrorKind::Transport {
-            status_code,
             headers: Some(Box::new(headers)),
-            payload: None,
             source: Some(source.into()),
+            status_code: None,
+            payload: None,
         };
         Self { kind }
     }
@@ -463,8 +467,7 @@ impl Error {
     /// The error was generated before the RPC started and is transient.
     pub(crate) fn is_transient_and_before_rpc(&self) -> bool {
         match &self.kind {
-            ErrorKind::Binding(_) => false,
-            ErrorKind::Connect(_) => false,
+            ErrorKind::Connect(_) => true,
             ErrorKind::Authentication(e) if e.is_retryable() => true,
             _ => false,
         }
@@ -497,12 +500,25 @@ impl std::fmt::Display for Error {
             ErrorKind::Transport {
                 source: None,
                 payload: Some(p),
+                status_code: None,
                 ..
             } => {
                 if let Ok(message) = std::str::from_utf8(p.as_ref()) {
                     write!(f, "the transport reports an error: {message}")
                 } else {
                     write!(f, "the transport reports an error: {p:?}")
+                }
+            }
+            ErrorKind::Transport {
+                source: None,
+                payload: Some(p),
+                status_code: Some(code),
+                ..
+            } => {
+                if let Ok(message) = std::str::from_utf8(p.as_ref()) {
+                    write!(f, "the transport reports a [{code}] error: {message}")
+                } else {
+                    write!(f, "the transport reports a [{code}] error: {p:?}")
                 }
             }
             ErrorKind::Transport {
@@ -584,6 +600,7 @@ enum ErrorKind {
 #[cfg(test)]
 mod test {
     use super::*;
+    use crate::error::CredentialsError;
     use crate::error::rpc::Code;
     use std::error::Error as StdError;
 
@@ -601,7 +618,23 @@ mod test {
     }
 
     #[test]
-    fn service_with_info() {
+    fn timeout() {
+        let source = wkt::TimestampError::OutOfRange;
+        let error = Error::timeout(source);
+        assert!(error.is_timeout(), "{error:?}");
+        assert!(error.source().is_some(), "{error:?}");
+        let got = error
+            .source()
+            .and_then(|e| e.downcast_ref::<wkt::TimestampError>());
+        assert!(
+            matches!(got, Some(wkt::TimestampError::OutOfRange)),
+            "{error:?}"
+        );
+        assert!(!error.is_transient_and_before_rpc(), "{error:?}");
+    }
+
+    #[test]
+    fn service_with_http_metadata() {
         let status = Status::default()
             .set_code(Code::NotFound)
             .set_message("NOT FOUND");
@@ -629,10 +662,10 @@ mod test {
     }
 
     #[test]
-    fn timeout() {
+    fn binding() {
         let source = wkt::TimestampError::OutOfRange;
-        let error = Error::timeout(source);
-        assert!(error.is_timeout(), "{error:?}");
+        let error = Error::binding(source);
+        assert!(error.is_binding(), "{error:?}");
         assert!(error.source().is_some(), "{error:?}");
         let got = error
             .source()
@@ -641,6 +674,139 @@ mod test {
             matches!(got, Some(wkt::TimestampError::OutOfRange)),
             "{error:?}"
         );
+        assert!(!error.is_transient_and_before_rpc(), "{error:?}");
+    }
+
+    #[test]
+    fn ser() {
+        let source = wkt::TimestampError::OutOfRange;
+        let error = Error::ser(source);
+        assert!(error.is_serialization(), "{error:?}");
+        assert!(error.source().is_some(), "{error:?}");
+        let got = error
+            .source()
+            .and_then(|e| e.downcast_ref::<wkt::TimestampError>());
+        assert!(
+            matches!(got, Some(wkt::TimestampError::OutOfRange)),
+            "{error:?}"
+        );
+        assert!(!error.is_transient_and_before_rpc(), "{error:?}");
+    }
+
+    #[test]
+    fn auth_transient() {
+        let source = CredentialsError::from_str(true, "message");
+        let error = Error::authentication(source);
+        assert!(error.is_authentication(), "{error:?}");
+        assert!(error.source().is_some(), "{error:?}");
+        let got = error
+            .source()
+            .and_then(|e| e.downcast_ref::<CredentialsError>());
+        assert!(matches!(got, Some(c) if c.is_retryable()), "{error:?}");
+        assert!(error.is_transient_and_before_rpc(), "{error:?}");
+    }
+
+    #[test]
+    fn auth_not_transient() {
+        let source = CredentialsError::from_str(false, "message");
+        let error = Error::authentication(source);
+        assert!(error.is_authentication(), "{error:?}");
+        assert!(error.source().is_some(), "{error:?}");
+        let got = error
+            .source()
+            .and_then(|e| e.downcast_ref::<CredentialsError>());
+        assert!(matches!(got, Some(c) if !c.is_retryable()), "{error:?}");
+        assert!(!error.is_transient_and_before_rpc(), "{error:?}");
+    }
+
+    #[test]
+    fn connect() {
+        let source = wkt::TimestampError::OutOfRange;
+        let error = Error::connect(source);
+        assert!(error.is_connect(), "{error:?}");
+        assert!(error.source().is_some(), "{error:?}");
+        let got = error
+            .source()
+            .and_then(|e| e.downcast_ref::<wkt::TimestampError>());
+        assert!(
+            matches!(got, Some(wkt::TimestampError::OutOfRange)),
+            "{error:?}"
+        );
+        assert!(error.is_transient_and_before_rpc(), "{error:?}");
+    }
+
+    #[test]
+    fn exhausted() {
+        let source = wkt::TimestampError::OutOfRange;
+        let error = Error::exhausted(source);
+        assert!(error.is_exhausted(), "{error:?}");
+        assert!(error.source().is_some(), "{error:?}");
+        let got = error
+            .source()
+            .and_then(|e| e.downcast_ref::<wkt::TimestampError>());
+        assert!(
+            matches!(got, Some(wkt::TimestampError::OutOfRange)),
+            "{error:?}"
+        );
+        assert!(!error.is_transient_and_before_rpc(), "{error:?}");
+    }
+
+    #[test]
+    fn http() {
+        let status_code = 404_u16;
+        let headers = {
+            let mut headers = http::HeaderMap::new();
+            headers.insert(
+                "content-type",
+                http::HeaderValue::from_static("application/json"),
+            );
+            headers
+        };
+        let payload = bytes::Bytes::from_static(b"NOT FOUND");
+        let error = Error::http(status_code, headers.clone(), payload.clone());
+        assert!(error.is_transport(), "{error:?}");
+        assert!(!error.is_io(), "{error:?}");
+        assert!(error.status().is_none(), "{error:?}");
+        assert!(error.to_string().contains("NOT FOUND"), "{error}");
+        assert!(error.to_string().contains("404"), "{error}");
+        assert_eq!(error.http_status_code(), Some(status_code));
+        assert_eq!(error.http_headers(), Some(&headers));
+        assert_eq!(error.http_payload(), Some(&payload));
+        assert!(!error.is_transient_and_before_rpc(), "{error:?}");
+    }
+
+    #[test]
+    fn io() {
+        let source = wkt::TimestampError::OutOfRange;
+        let error = Error::io(source);
+        assert!(error.is_transport(), "{error:?}");
+        assert!(error.is_io(), "{error:?}");
+        assert!(error.status().is_none(), "{error:?}");
+        let source = wkt::TimestampError::OutOfRange;
+        assert!(error.to_string().contains(&source.to_string()), "{error}");
+        assert!(!error.is_transient_and_before_rpc(), "{error:?}");
+    }
+
+    #[test]
+    fn transport() {
+        let headers = {
+            let mut headers = http::HeaderMap::new();
+            headers.insert(
+                "content-type",
+                http::HeaderValue::from_static("application/json"),
+            );
+            headers
+        };
+        let source = wkt::TimestampError::OutOfRange;
+        let error = Error::transport(headers.clone(), source);
+        assert!(error.is_transport(), "{error:?}");
+        assert!(!error.is_io(), "{error:?}");
+        assert!(error.status().is_none(), "{error:?}");
+        let source = wkt::TimestampError::OutOfRange;
+        assert!(error.to_string().contains(&source.to_string()), "{error}");
+        assert!(error.http_status_code().is_none(), "{error:?}");
+        assert_eq!(error.http_headers(), Some(&headers));
+        assert!(error.http_payload().is_none(), "{error:?}");
         assert!(!error.is_transient_and_before_rpc(), "{error:?}");
     }
 }

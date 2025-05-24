@@ -50,7 +50,7 @@ pub fn to_gax_error(status: tonic::Status) -> Error {
     }
     let headers = status.metadata().clone().into_headers();
     if contains_tonic_transport(&status).is_some() {
-        return Error::transport(None, headers, status);
+        return Error::transport(headers, status);
     }
 
     let gax_status = to_gax_status(&status);
