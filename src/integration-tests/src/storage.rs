@@ -85,7 +85,8 @@ pub async fn create_test_bucket() -> Result<(StorageControl, Bucket)> {
             gax::exponential_backoff::ExponentialBackoffBuilder::new()
                 .with_initial_delay(Duration::from_secs(2))
                 .with_maximum_delay(Duration::from_secs(8))
-                .build()?,
+                .build()
+                .unwrap(),
         )
         .with_retry_policy(
             gax::retry_policy::AlwaysRetry

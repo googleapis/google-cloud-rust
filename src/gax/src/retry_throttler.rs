@@ -45,28 +45,37 @@
 //!
 //! Stochastically reject calls based on observed failure rates:
 //! ```
-//! # use google_cloud_gax::*;
 //! # use google_cloud_gax::retry_throttler::*;
 //! let throttler = AdaptiveThrottler::new(2.0)?;
-//! # Ok::<(), error::Error>(())
+//! # Ok::<(), Error>(())
 //! ```
 //!
 //! Reject calls if the success rate is too low:
 //! ```
-//! # use google_cloud_gax::*;
 //! # use google_cloud_gax::retry_throttler::*;
 //! let tokens = 1000;
 //! let min_tokens = 250;
 //! let error_cost = 10;
 //! let throttler = CircuitBreaker::new(tokens, min_tokens, error_cost)?;
-//! # Ok::<(), error::Error>(())
+//! # Ok::<(), Error>(())
 //! ```
 //!
 //! [idempotent]: https://en.wikipedia.org/wiki/Idempotence
 
-use crate::Result;
-use crate::{error::Error, loop_state::LoopState};
+use crate::loop_state::LoopState;
 use std::sync::{Arc, Mutex};
+
+/// The error type for throttler policy creation.
+#[derive(thiserror::Error, Debug)]
+#[non_exhaustive]
+pub enum Error {
+    #[error("the scaling factor ({value}) must be greater or equal than 0.0")]
+    ScalingOutOfRange { value: f64 },
+    #[error(
+        "the minimum tokens ({min}) must be less than or equal to the initial token ({initial}) count"
+    )]
+    TooFewMinTokens { min: u64, initial: u64 },
+}
 
 /// Implementations of this trait prevent a client from sending too many retries.
 ///
@@ -151,10 +160,9 @@ impl From<SharedRetryThrottler> for RetryThrottlerArg {
 ///
 /// # Example
 /// ```
-/// # use google_cloud_gax::*;
 /// # use google_cloud_gax::retry_throttler::*;
 /// let throttler = AdaptiveThrottler::new(2.0)?;
-/// # Ok::<(), error::Error>(())
+/// # Ok::<(), Error>(())
 /// ```
 ///
 /// [Site Reliability Engineering]: https://sre.google/sre-book/table-of-contents/
@@ -176,14 +184,13 @@ impl AdaptiveThrottler {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_gax::*;
     /// # use google_cloud_gax::retry_throttler::*;
     /// let throttler = AdaptiveThrottler::new(2.0)?;
-    /// # Ok::<(), error::Error>(())
+    /// # Ok::<(), Error>(())
     /// ```
-    pub fn new(factor: f64) -> Result<Self> {
+    pub fn new(factor: f64) -> Result<Self, Error> {
         if factor < 0.0 {
-            return Err(Error::other(format!("factor ({factor}must be >= 0.0")));
+            return Err(Error::ScalingOutOfRange { value: factor });
         }
         let factor = if factor < 0.0 { 0.0 } else { factor };
         Ok(Self::clamp(factor))
@@ -198,7 +205,6 @@ impl AdaptiveThrottler {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_gax::*;
     /// # use google_cloud_gax::retry_throttler::*;
     /// let throttler = AdaptiveThrottler::clamp(2.0);
     /// ```
@@ -229,7 +235,6 @@ impl std::default::Default for AdaptiveThrottler {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_gax::*;
     /// # use google_cloud_gax::retry_throttler::*;
     /// let throttler = AdaptiveThrottler::default();
     /// ```
@@ -277,13 +282,12 @@ impl RetryThrottler for AdaptiveThrottler {
 ///
 /// # Examples
 /// ```
-/// # use google_cloud_gax::*;
 /// # use google_cloud_gax::retry_throttler::*;
 /// let tokens = 1000;
 /// let min_tokens = 250;
 /// let error_cost = 10;
 /// let throttler = CircuitBreaker::new(tokens, min_tokens, error_cost)?;
-/// # Ok::<(), error::Error>(())
+/// # Ok::<(), Error>(())
 /// ```
 ///
 /// [ClientBuilder::with_retry_throttler]: crate::client_builder::ClientBuilder::with_retry_throttler
@@ -310,16 +314,16 @@ impl CircuitBreaker {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_gax::*;
     /// # use google_cloud_gax::retry_throttler::*;
     /// let throttler = CircuitBreaker::new(1000, 250, 10)?;
-    /// # Ok::<(), error::Error>(())
+    /// # Ok::<(), Error>(())
     /// ```
-    pub fn new(tokens: u64, min_tokens: u64, error_cost: u64) -> Result<Self> {
+    pub fn new(tokens: u64, min_tokens: u64, error_cost: u64) -> Result<Self, Error> {
         if min_tokens > tokens {
-            return Err(Error::other(format!(
-                "min_tokens ({min_tokens}) must be less than or equal to the initial token count ({tokens})"
-            )));
+            return Err(Error::TooFewMinTokens {
+                min: min_tokens,
+                initial: tokens,
+            });
         }
         Ok(Self {
             max_tokens: tokens,
@@ -342,7 +346,6 @@ impl CircuitBreaker {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_gax::*;
     /// # use google_cloud_gax::retry_throttler::*;
     /// let throttler = CircuitBreaker::clamp(1000, 250, 10);
     /// ```
@@ -361,7 +364,6 @@ impl std::default::Default for CircuitBreaker {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_gax::*;
     /// # use google_cloud_gax::retry_throttler::*;
     /// let throttler = CircuitBreaker::default();
     /// ```
@@ -392,7 +394,7 @@ impl RetryThrottler for CircuitBreaker {
 }
 
 #[cfg(test)]
-mod tests {
+mod test {
     use super::*;
     use rand::Rng;
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
@@ -411,14 +413,17 @@ mod tests {
     #[test]
     fn adaptive_construction() {
         let throttler = AdaptiveThrottler::new(-2.0);
-        assert!(throttler.is_err());
+        assert!(
+            matches!(throttler, Err(Error::ScalingOutOfRange { .. })),
+            "{throttler:?}"
+        );
 
         let throttler = AdaptiveThrottler::new(0.0);
-        assert!(throttler.is_ok());
+        assert!(throttler.is_ok(), "{throttler:?}");
     }
 
-    fn test_error() -> Error {
-        Error::other("test only".to_string())
+    fn test_error() -> crate::error::Error {
+        crate::error::Error::other("test only".to_string())
     }
 
     #[test]
@@ -474,7 +479,10 @@ mod tests {
     #[test]
     fn circuit_breaker_validation() {
         let throttler = CircuitBreaker::new(100, 200, 1);
-        assert!(throttler.is_err());
+        assert!(
+            matches!(throttler, Err(Error::TooFewMinTokens { .. })),
+            "{throttler:?}"
+        );
     }
 
     #[test]
