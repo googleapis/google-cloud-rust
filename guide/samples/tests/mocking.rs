@@ -98,7 +98,7 @@ mod test {
             let status = Status::default()
                 .set_code(Code::NotFound)
                 .set_message("Resource not found");
-            Err(Error::service(None, None, status))
+            Err(Error::service(status))
         });
         // ANCHOR_END: error
 

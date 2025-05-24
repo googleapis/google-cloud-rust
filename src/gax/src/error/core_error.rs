@@ -98,15 +98,11 @@ impl Error {
     /// # Examples
     /// ```
     /// use google_cloud_gax::error::{Error, rpc::{Code, Status}};
-    /// let e = search_for_thing("the thing");
-    /// if let Some(status) = e.status() {
+    /// let error = Error::service(Status::default().set_code(Code::NotFound));
+    /// if let Some(status) = error.status() {
     ///     if status.code == Code::NotFound {
     ///         println!("cannot find the thing, more details in {:?}", status.details);
     ///     }
-    /// }
-    ///
-    /// fn search_for_thing(name: &str) -> Error {
-    ///     # Error::service(None, None, Status::default().set_code(Code::NotFound))
     /// }
     /// ```
     ///

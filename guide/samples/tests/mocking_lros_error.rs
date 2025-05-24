@@ -135,7 +135,7 @@ mod test {
             let status = Status::default()
                 .set_code(Code::Aborted)
                 .set_message("Resource exhausted");
-            Err(Error::service(None, None, status))
+            Err(Error::service(status))
         });
         // ANCHOR_END: expectation-initial
 
@@ -212,7 +212,7 @@ mod test {
                 let status = Status::default()
                     .set_code(Code::Aborted)
                     .set_message("Operation was aborted");
-                Err(Error::service(None, None, status))
+                Err(Error::service(status))
             });
         // ANCHOR_END: expectation-polling-error
 
