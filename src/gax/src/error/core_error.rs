@@ -781,7 +781,10 @@ mod test {
         assert!(!error.is_io(), "{error:?}");
         assert!(error.source().is_none(), "{error:?}");
         assert!(error.status().is_none(), "{error:?}");
-        assert!(error.to_string().contains(&format!{"{payload:?}"}), "{error}");
+        assert!(
+            error.to_string().contains(&format! {"{payload:?}"}),
+            "{error}"
+        );
         assert!(error.to_string().contains("404"), "{error}");
         assert_eq!(error.http_status_code(), Some(status_code));
         assert_eq!(error.http_headers(), Some(&headers));

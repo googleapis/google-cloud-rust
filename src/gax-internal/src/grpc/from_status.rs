@@ -24,7 +24,10 @@ fn to_gax_status(status: &tonic::Status) -> Status {
         .set_message(status.message())
 }
 
-fn as_inner<T>(status: &tonic::Status) -> Option<&T> where T: std::error::Error + 'static {
+fn as_inner<T>(status: &tonic::Status) -> Option<&T>
+where
+    T: std::error::Error + 'static,
+{
     let mut e = status.source()?;
     loop {
         if let Some(value) = e.downcast_ref::<T>() {
