@@ -163,6 +163,8 @@ impl Error {
     /// Note that `http_status_code()`, `http_headers()`, `http_payload()`, and
     /// `status()` are represented as different fields, because they may be
     /// set in some errors but not others.
+    ///
+    /// [AIP-193]: https://google.aip.dev/193
     pub fn http_status_code(&self) -> Option<u16> {
         match &self.kind {
             ErrorKind::Transport {
@@ -197,9 +199,9 @@ impl Error {
     /// ```
     ///
     /// Sometimes the error may have headers associated with it. Some services
-    /// include information useful for troubleshooting or for the support team
-    /// in the headers. Over gRPC this is called `metadata`, the Google Cloud
-    /// client libraries for Rust normalize this to a [http::HeaderMap].
+    /// include information useful for troubleshooting in the response headers.
+    /// Over gRPC this is called `metadata`, the Google Cloud client libraries
+    /// for Rust normalize this to a [http::HeaderMap].
     ///
     /// Many errors do not have this information, e.g. errors detected before
     /// the request is set, or timeouts. Some RPCs also return "partial"
@@ -235,14 +237,8 @@ impl Error {
     /// }
     /// ```
     ///
-    /// Sometimes the error may have headers associated with it. Some services
-    /// include information useful for troubleshooting or for the support team
-    /// in the headers. Over gRPC this is called `metadata`, the Google Cloud
-    /// client libraries for Rust normalize this to a [http::HeaderMap].
-    ///
-    /// Many errors do not have this information, e.g. errors detected before
-    /// the request is set, or timeouts. Some RPCs also return "partial"
-    /// errors, which do not include such information.
+    /// Sometimes the error may contain a payload that is useful for
+    /// troubleshooting.
     ///
     /// Note that `http_status_code()`, `http_headers()`, `http_payload()`, and
     /// `status()` are represented as different fields, because they may be
@@ -423,9 +419,12 @@ impl Error {
         Self { kind }
     }
 
+    /// Not part of the public API, subject to change without notice.
+    ///
     /// A problem in the transport layer.
     ///
     /// Examples include I/O problems, broken connections or streams, etc.
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
     pub fn is_transport(&self) -> bool {
         matches!(&self.kind, ErrorKind::Transport { .. })
     }
