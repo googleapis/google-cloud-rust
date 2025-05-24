@@ -505,15 +505,11 @@ impl std::fmt::Display for Error {
                 }
             }
             ErrorKind::Transport {
-                source: Some(s),
-                ..
+                source: Some(s), ..
             } => {
                 write!(f, "the transport reports an error: {s}")
             }
-            ErrorKind::Transport {
-                source: None,
-                ..
-            } => unreachable!("no constructor allows this"),
+            ErrorKind::Transport { source: None, .. } => unreachable!("no constructor allows this"),
             ErrorKind::Service { status, .. } => {
                 write!(
                     f,
