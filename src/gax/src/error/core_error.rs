@@ -580,6 +580,7 @@ mod test {
             .set_message("NOT FOUND");
         let error = Error::service(status.clone());
         assert!(error.is_service(), "{error:?}");
+        assert!(error.source().is_none(), "{error:?}");
         assert_eq!(error.status(), Some(&status));
         assert!(error.to_string().contains("NOT FOUND"), "{error}");
         assert!(error.to_string().contains(Code::NotFound.name()), "{error}");
@@ -602,6 +603,11 @@ mod test {
         let source = wkt::TimestampError::OutOfRange;
         assert!(error.to_string().contains(&source.to_string()), "{error}");
         assert!(!error.is_transient_and_before_rpc(), "{error:?}");
+
+        assert!(error.http_headers().is_none(), "{error:?}");
+        assert!(error.http_status_code().is_none(), "{error:?}");
+        assert!(error.http_payload().is_none(), "{error:?}");
+        assert!(error.status().is_none(), "{error:?}");
     }
 
     #[test]
@@ -748,8 +754,34 @@ mod test {
         let error = Error::http(status_code, headers.clone(), payload.clone());
         assert!(error.is_transport(), "{error:?}");
         assert!(!error.is_io(), "{error:?}");
+        assert!(error.source().is_none(), "{error:?}");
         assert!(error.status().is_none(), "{error:?}");
         assert!(error.to_string().contains("NOT FOUND"), "{error}");
+        assert!(error.to_string().contains("404"), "{error}");
+        assert_eq!(error.http_status_code(), Some(status_code));
+        assert_eq!(error.http_headers(), Some(&headers));
+        assert_eq!(error.http_payload(), Some(&payload));
+        assert!(!error.is_transient_and_before_rpc(), "{error:?}");
+    }
+
+    #[test]
+    fn http_binary() {
+        let status_code = 404_u16;
+        let headers = {
+            let mut headers = http::HeaderMap::new();
+            headers.insert(
+                "content-type",
+                http::HeaderValue::from_static("application/json"),
+            );
+            headers
+        };
+        let payload = bytes::Bytes::from_static(&[0xFF, 0xFF]);
+        let error = Error::http(status_code, headers.clone(), payload.clone());
+        assert!(error.is_transport(), "{error:?}");
+        assert!(!error.is_io(), "{error:?}");
+        assert!(error.source().is_none(), "{error:?}");
+        assert!(error.status().is_none(), "{error:?}");
+        assert!(error.to_string().contains(&format!{"{payload:?}"}), "{error}");
         assert!(error.to_string().contains("404"), "{error}");
         assert_eq!(error.http_status_code(), Some(status_code));
         assert_eq!(error.http_headers(), Some(&headers));
@@ -764,6 +796,13 @@ mod test {
         assert!(error.is_transport(), "{error:?}");
         assert!(error.is_io(), "{error:?}");
         assert!(error.status().is_none(), "{error:?}");
+        let got = error
+            .source()
+            .and_then(|e| e.downcast_ref::<wkt::TimestampError>());
+        assert!(
+            matches!(got, Some(wkt::TimestampError::OutOfRange)),
+            "{error:?}"
+        );
         let source = wkt::TimestampError::OutOfRange;
         assert!(error.to_string().contains(&source.to_string()), "{error}");
         assert!(!error.is_transient_and_before_rpc(), "{error:?}");

@@ -24,32 +24,22 @@ fn to_gax_status(status: &tonic::Status) -> Status {
         .set_message(status.message())
 }
 
-fn contains_tonic_timeout(status: &tonic::Status) -> Option<()> {
+fn as_inner<T>(status: &tonic::Status) -> Option<&T> where T: std::error::Error + 'static {
     let mut e = status.source()?;
     loop {
-        if e.downcast_ref::<tonic::TimeoutExpired>().is_some() {
-            return Some(());
-        }
-        e = e.source()?;
-    }
-}
-
-fn contains_tonic_transport(status: &tonic::Status) -> Option<()> {
-    let mut e = status.source()?;
-    loop {
-        if e.downcast_ref::<tonic::transport::Error>().is_some() {
-            return Some(());
+        if let Some(value) = e.downcast_ref::<T>() {
+            return Some(value);
         }
         e = e.source()?;
     }
 }
 
 pub fn to_gax_error(status: tonic::Status) -> Error {
-    if contains_tonic_timeout(&status).is_some() {
+    if as_inner::<tonic::TimeoutExpired>(&status).is_some() {
         return Error::timeout(status);
     }
     let headers = status.metadata().clone().into_headers();
-    if contains_tonic_transport(&status).is_some() {
+    if as_inner::<tonic::transport::Error>(&status).is_some() {
         return Error::transport(headers, status);
     }
 
