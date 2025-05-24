@@ -73,10 +73,10 @@ impl CredentialsError {
     /// ```
     /// # use google_cloud_gax::error::CredentialsError;
     /// # use google_cloud_gax::error::Error;
-    /// let err = CredentialsError::new(
-    ///     false, Error::other("simulated non-retryable error while trying to create credentials"));
-    /// assert!(!err.is_retryable());
-    /// assert!(format!("{err}").contains("simulated non-retryable error"));
+    /// let source = std::io::Error::new(std::io::ErrorKind::ConnectionRefused, "cannot connect");
+    /// let err = CredentialsError::new(true, source);
+    /// assert!(err.is_retryable());
+    /// assert!(format!("{err}").contains("cannot connect"));
     /// ```
     /// # Parameters
     /// * `is_retryable` - A boolean indicating whether the error is retryable.

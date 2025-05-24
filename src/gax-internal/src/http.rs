@@ -78,7 +78,7 @@ impl ReqwestClient {
         if let Some(user_agent) = options.user_agent() {
             builder = builder.header(
                 reqwest::header::USER_AGENT,
-                reqwest::header::HeaderValue::from_str(user_agent).map_err(Error::other)?,
+                reqwest::header::HeaderValue::from_str(user_agent).map_err(Error::ser)?,
             );
         }
         if let Some(body) = body {
@@ -103,7 +103,7 @@ impl ReqwestClient {
         let inner = async move |d| {
             let builder = builder
                 .try_clone()
-                .ok_or_else(|| Error::other("cannot clone builder in retry loop".to_string()))?;
+                .ok_or_else(|| Error::connect("cannot clone builder in retry loop"))?;
             this.request_attempt(builder, &options, d).await
         };
         let sleep = async |d| tokio::time::sleep(d).await;
@@ -250,7 +250,7 @@ async fn to_http_response<O: serde::de::DeserializeOwned + Default>(
 
     let response = match body.to_bytes() {
         content if (content.is_empty() && no_content_status) => O::default(),
-        content => serde_json::from_slice::<O>(&content).map_err(Error::serde)?,
+        content => serde_json::from_slice::<O>(&content).map_err(Error::deser)?,
     };
 
     Ok(Response::from_parts(
