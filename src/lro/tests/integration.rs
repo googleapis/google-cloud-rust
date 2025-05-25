@@ -21,6 +21,8 @@ mod test {
     use super::fake::library::model;
     use super::fake::responses;
     use super::fake::service::*;
+    use gax::error::ServiceError;
+    use gax::error::rpc::Code;
     use google_cloud_lro as lro;
     use lro::Poller;
 
@@ -148,7 +150,10 @@ mod test {
             .until_done()
             .await;
         let error = result.err().unwrap();
-        assert_eq!(error.kind(), gax::error::ErrorKind::Other);
+        assert_eq!(
+            error.as_inner::<ServiceError>().map(|e| e.status().code),
+            Some(Code::AlreadyExists)
+        );
 
         Ok(())
     }
@@ -202,7 +207,10 @@ mod test {
             .until_done()
             .await;
         let error = result.err().unwrap();
-        assert_eq!(error.kind(), gax::error::ErrorKind::Other);
+        assert_eq!(
+            error.as_inner::<ServiceError>().map(|e| e.status().code),
+            Some(Code::AlreadyExists)
+        );
 
         Ok(())
     }
@@ -258,11 +266,14 @@ mod test {
                     panic!("unexpected InProgress {status:?}")
                 }
                 lro::PollingResult::PollingError(_) => { /* ignored */ }
-                lro::PollingResult::Completed(result) => {
-                    let response = result;
-                    assert!(response.is_err(), "{response:?}");
-                    let error = response.err().unwrap();
-                    assert_eq!(error.kind(), gax::error::ErrorKind::Other);
+                lro::PollingResult::Completed(Ok(_)) => {
+                    panic!("expected a completed polling status with an error {status:?}")
+                }
+                lro::PollingResult::Completed(Err(error)) => {
+                    assert_eq!(
+                        error.as_inner::<ServiceError>().map(|e| e.status().code),
+                        Some(Code::AlreadyExists)
+                    );
                 }
             }
         }
@@ -359,16 +370,14 @@ mod test {
         );
 
         let status = poller.poll().await.unwrap();
-        assert!(
-            matches!(&status, lro::PollingResult::Completed(_)),
-            "{status:?}"
-        );
         let error = match status {
-            lro::PollingResult::Completed(r) => r.err(),
-            _ => None,
+            lro::PollingResult::Completed(Err(e)) => e,
+            _ => panic!("expected a completed polling result with an error {status:?}"),
         };
-        let error = error.unwrap();
-        assert_eq!(error.kind(), gax::error::ErrorKind::Other);
+        assert_eq!(
+            error.as_inner::<ServiceError>().map(|e| e.status().code),
+            Some(Code::AlreadyExists)
+        );
 
         let status = poller.poll().await;
         assert!(status.is_none(), "{status:?}");
