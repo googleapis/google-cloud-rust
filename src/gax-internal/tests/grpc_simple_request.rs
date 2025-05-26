@@ -96,7 +96,7 @@ mod test {
             .build()
             .await;
         let err = client.unwrap_err();
-        assert!(err.is_transport(), "{err:?}");
+        assert!(err.is_connect(), "{err:?}");
         Ok(())
     }
 
