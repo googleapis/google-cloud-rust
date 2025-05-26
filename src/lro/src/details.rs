@@ -373,7 +373,7 @@ mod test {
         assert_eq!(name.as_deref(), Some("test-123"));
         match poll {
             PollingResult::PollingError(e) => {
-                assert!(e.is_io(), "{e:?}");
+                assert!(e.is_transport(), "{e:?}");
                 assert!(format!("{e}").contains("test-only-error"), "{e}")
             }
             _ => panic!("{poll:?}"),

@@ -850,7 +850,7 @@ mod test {
         ))));
         assert!(matches!(got, InProgress(Some(t)) if t == wkt::Timestamp::clamp(123, 456)));
         let got = map_polling_result(TestResult::PollingError(polling_error()));
-        assert!(matches!(&got, PollingError(e) if e.is_io()), "{got:?}");
+        assert!(matches!(&got, PollingError(e) if e.is_transport()), "{got:?}");
     }
 
     // The other cases are already tested.
@@ -909,7 +909,7 @@ mod test {
         let got = map_polling_metadata(TestResult::InProgress(Some(wkt::Empty::default())));
         assert!(matches!(got, InProgress(Some(_))), "{got:?}");
         let got = map_polling_metadata(TestResult::PollingError(polling_error()));
-        assert!(matches!(&got, PollingError(e) if e.is_io()), "{got:?}");
+        assert!(matches!(&got, PollingError(e) if e.is_transport()), "{got:?}");
     }
 
     #[tokio::test(flavor = "multi_thread")]
