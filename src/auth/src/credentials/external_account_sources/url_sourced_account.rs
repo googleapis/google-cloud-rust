@@ -88,3 +88,109 @@ impl SubjectTokenProvider for UrlSourcedSubjectTokenProvider {
         }
     }
 }
+
+#[cfg(test)]
+mod test {
+    use super::*;
+    use httptest::{Expectation, Server, matchers::*, responders::*};
+    use serde_json::json;
+    use std::collections::HashMap;
+    use tokio_test::assert_err;
+
+    type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
+
+    #[tokio::test]
+    async fn get_json_token() -> TestResult {
+        let response_body = json!({
+            "access_token":"an_example_token",
+        })
+        .to_string();
+
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("GET", "/token"),
+                request::headers(contains(("metadata", "True"))),
+            ])
+            .respond_with(status_code(200).body(response_body)),
+        );
+
+        let url = server.url("/token").to_string();
+        let token_provider = UrlSourcedSubjectTokenProvider {
+            url,
+            format: Some(CredentialSourceFormat {
+                format_type: "json".to_string(),
+                subject_token_field_name: "access_token".to_string(),
+            }),
+            headers: Some(CredentialSourceHeaders {
+                headers: HashMap::from([("Metadata".to_string(), "True".to_string())]),
+            }),
+        };
+        let resp = token_provider.subject_token().await?;
+
+        assert_eq!(resp, "an_example_token".to_string());
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn get_text_token() -> TestResult {
+        let response_body = "an_example_token".to_string();
+
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(all_of![request::method_path("GET", "/token"),])
+                .respond_with(status_code(200).body(response_body)),
+        );
+
+        let url = server.url("/token").to_string();
+        let token_provider = UrlSourcedSubjectTokenProvider {
+            url,
+            format: None,
+            headers: None,
+        };
+        let resp = token_provider.subject_token().await?;
+
+        assert_eq!(resp, "an_example_token".to_string());
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn get_json_token_missing_field() -> TestResult {
+        let response_body = json!({
+            "wrong_field":"an_example_token",
+        })
+        .to_string();
+
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("GET", "/token"),
+                request::headers(contains(("metadata", "True"))),
+            ])
+            .respond_with(status_code(200).body(response_body)),
+        );
+
+        let url = server.url("/token").to_string();
+        let token_provider = UrlSourcedSubjectTokenProvider {
+            url,
+            format: Some(CredentialSourceFormat {
+                format_type: "json".to_string(),
+                subject_token_field_name: "access_token".to_string(),
+            }),
+            headers: Some(CredentialSourceHeaders {
+                headers: HashMap::from([("Metadata".to_string(), "True".to_string())]),
+            }),
+        };
+        let err = assert_err!(token_provider.subject_token().await);
+
+        let expected_err = crate::errors::CredentialsError::from_str(
+            false,
+            "failed to read subject token field `access_token` from response: {\"wrong_field\":\"an_example_token\"}",
+        );
+        assert_eq!(err.to_string(), expected_err.to_string());
+
+        Ok(())
+    }
+}
