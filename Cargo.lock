@@ -2367,6 +2367,7 @@ dependencies = [
  "serde_json",
  "serial_test",
  "test-case",
+ "thiserror",
  "tokio",
  "tokio-test",
 ]
