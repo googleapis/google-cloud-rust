@@ -23,7 +23,9 @@ type Result<T> = std::result::Result<T, CredentialsError>;
 pub const TOKEN_EXCHANGE_GRANT_TYPE: &str = "urn:ietf:params:oauth:grant-type:token-exchange";
 /// TokenType for a sts exchange.
 pub const ACCESS_TOKEN_TYPE: &str = "urn:ietf:params:oauth:token-type:access_token";
+
 /// JWT TokenType for a sts exchange.
+#[allow(dead_code)]
 pub const JWT_TOKEN_TYPE: &str = "urn:ietf:params:oauth:token-type:jwt";
 
 /// Handles OAuth2 Secure Token Service (STS) exchange.
@@ -157,15 +159,6 @@ pub struct ExchangeTokenRequest {
     pub actor_token: Option<String>,
     pub actor_token_type: Option<String>,
     pub extra_options: Option<HashMap<String, String>>,
-}
-
-/// Information required to perform the token exchange using a refresh token flow.
-#[derive(Default)]
-pub struct RefreshAccessTokenRequest {
-    pub url: String,
-    pub authentication: ClientAuthentication,
-    pub headers: http::HeaderMap,
-    pub refresh_token: String,
 }
 
 #[cfg(test)]
