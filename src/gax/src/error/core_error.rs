@@ -38,6 +38,7 @@ type BoxError = Box<dyn std::error::Error + Send + Sync>;
 /// ```
 /// use google_cloud_gax::error::Error;
 /// match example_function() {
+///     Err(e) if e.is_timeout() => { println!("not enough time {e}"); },
 ///     Err(e) if e.is_service() => { println!("service error {e}, should have a status={:?}", e.status()); },
 ///     Err(e) => { println!("some other error {e}"); },
 ///     Ok(_) => { println!("success, how boring"); },
@@ -78,6 +79,32 @@ impl Error {
     /// The error was returned by the service.
     pub fn is_service(&self) -> bool {
         matches!(&self.kind, ErrorKind::Service { .. })
+    }
+
+    /// Creates an error representing a timeout.
+    ///
+    /// # Example
+    /// ```
+    /// use std::error::Error as _;
+    /// use google_cloud_gax::error::Error;
+    /// let error = Error::timeout("simulated timeout");
+    /// assert!(error.is_timeout());
+    /// assert!(error.source().is_some());
+    /// ```
+    pub fn timeout<T: Into<BoxError>>(source: T) -> Self {
+        Self {
+            kind: ErrorKind::Timeout(source.into()),
+        }
+    }
+
+    /// The request could not be completed before its deadline.
+    ///
+    /// This is always a client-side generated error. Note that the request may
+    /// or may not have started, and it may or may not complete in the service.
+    /// If the request mutates any state in the service, it may or may not be
+    /// safe to attempt the request again.
+    pub fn is_timeout(&self) -> bool {
+        matches!(self.kind, ErrorKind::Timeout(_))
     }
 
     /// The [Status] payload associated with this error.
@@ -393,6 +420,7 @@ impl std::fmt::Display for Error {
             ErrorKind::Authentication(e) => {
                 write!(f, "cannot create the authentication headers: {e}")
             }
+            ErrorKind::Timeout(e) => write!(f, "the request exceeded the request deadline: {e}"),
             ErrorKind::Transport {
                 source: None,
                 status_code: Some(code),
@@ -429,6 +457,7 @@ impl std::error::Error for Error {
             ErrorKind::Binding(e) => Some(e.as_ref()),
             ErrorKind::Serialization(e) => Some(e.as_ref()),
             ErrorKind::Authentication(e) => Some(e),
+            ErrorKind::Timeout(e) => Some(e.as_ref()),
             ErrorKind::Transport { source, .. } => source
                 .as_ref()
                 .map(|e| e.as_ref() as &(dyn std::error::Error)),
@@ -444,6 +473,7 @@ enum ErrorKind {
     Binding(BoxError),
     Serialization(BoxError),
     Authentication(CredentialsError),
+    Timeout(BoxError),
     Transport {
         status_code: Option<u16>,
         headers: Option<Box<HeaderMap>>,
@@ -478,6 +508,29 @@ mod test {
         assert!(error.to_string().contains("NOT FOUND"), "{error}");
         assert!(error.to_string().contains(Code::NotFound.name()), "{error}");
         assert!(!error.is_transient_and_before_rpc(), "{error:?}");
+    }
+
+    #[test]
+    fn timeout() {
+        let source = wkt::TimestampError::OutOfRange;
+        let error = Error::timeout(source);
+        assert!(error.is_timeout(), "{error:?}");
+        assert!(error.source().is_some(), "{error:?}");
+        let got = error
+            .source()
+            .and_then(|e| e.downcast_ref::<wkt::TimestampError>());
+        assert!(
+            matches!(got, Some(wkt::TimestampError::OutOfRange)),
+            "{error:?}"
+        );
+        let source = wkt::TimestampError::OutOfRange;
+        assert!(error.to_string().contains(&source.to_string()), "{error}");
+        assert!(!error.is_transient_and_before_rpc(), "{error:?}");
+
+        assert!(error.http_headers().is_none(), "{error:?}");
+        assert!(error.http_status_code().is_none(), "{error:?}");
+        assert!(error.http_payload().is_none(), "{error:?}");
+        assert!(error.status().is_none(), "{error:?}");
     }
 
     #[test]
