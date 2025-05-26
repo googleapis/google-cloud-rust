@@ -14,6 +14,7 @@
 
 use gax::error::Error;
 use gax::error::rpc::{Code, Status};
+use std::error::Error as _;
 
 fn to_gax_status(status: &tonic::Status) -> Status {
     let code = Code::from(status.code() as i32);
@@ -23,8 +24,28 @@ fn to_gax_status(status: &tonic::Status) -> Status {
         .set_message(status.message())
 }
 
+fn as_inner<T>(status: &tonic::Status) -> Option<&T>
+where
+    T: std::error::Error + 'static,
+{
+    let mut e = status.source()?;
+    loop {
+        if let Some(value) = e.downcast_ref::<T>() {
+            return Some(value);
+        }
+        e = e.source()?;
+    }
+}
+
 pub fn to_gax_error(status: tonic::Status) -> Error {
+    if as_inner::<tonic::TimeoutExpired>(&status).is_some() {
+        return Error::timeout(status);
+    }
     let headers = status.metadata().clone().into_headers();
+    if as_inner::<tonic::transport::Error>(&status).is_some() {
+        return Error::transport(headers, status);
+    }
+
     let gax_status = to_gax_status(&status);
     gax::error::Error::service_with_http_metadata(gax_status, None, Some(headers))
 }
