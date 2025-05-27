@@ -27,7 +27,7 @@
 //!
 //! ```
 //! # use google_cloud_gax::client_builder::examples;
-//! # use google_cloud_gax::Result;
+//! # use google_cloud_gax::client_builder::Result;
 //! # tokio_test::block_on(async {
 //! pub use examples::Client; // Placeholder for examples
 //! let client = Client::builder().build().await?;
@@ -38,7 +38,7 @@
 //!
 //! ```
 //! # use google_cloud_gax::client_builder::examples;
-//! # use google_cloud_gax::Result;
+//! # use google_cloud_gax::client_builder::Result;
 //! # tokio_test::block_on(async {
 //! pub use examples::Client; // Placeholder for examples
 //! let client = Client::builder()
@@ -47,7 +47,6 @@
 //! # Result::<()>::Ok(()) });
 //! ```
 
-use crate::Result;
 use crate::backoff_policy::{BackoffPolicy, BackoffPolicyArg};
 use crate::polling_backoff_policy::{PollingBackoffPolicy, PollingBackoffPolicyArg};
 use crate::polling_error_policy::{PollingErrorPolicy, PollingErrorPolicyArg};
@@ -55,6 +54,114 @@ use crate::retry_policy::{RetryPolicy, RetryPolicyArg};
 use crate::retry_throttler::{RetryThrottlerArg, SharedRetryThrottler};
 use std::sync::Arc;
 
+// TODO(#2221) - change this to Result<T, Error>, but first change the generated code
+/// The result type for this module.
+pub type Result<T> = std::result::Result<T, crate::error::Error>;
+
+/// Indicates a problem while constructing a client.
+///
+/// # Examples
+/// ```no_run
+/// # use google_cloud_gax::client_builder::examples;
+/// use google_cloud_gax::client_builder::Error as Error;
+/// use examples::Client; // Placeholder for examples
+/// # tokio_test::block_on(async {
+/// let client = match placeholder() {
+///     Ok(c) => c,
+///     Err(e) if e.is_default_credentials() => {
+///         println!("error during client initialization: {e}");
+///         println!("troubleshoot using https://cloud.google.com/docs/authentication/client-libraries");
+///         return Err(e);
+///     }
+///     Err(e) => {
+///         println!("error during client initialization {e}");
+///         return Err(e);
+///     }
+/// };
+/// 
+/// fn placeholder() -> std::result::Result<Client, Error> {
+///   # panic!();
+/// }
+/// # Ok::<(), Error>(()) });
+/// ```
+#[derive(thiserror::Error, Debug)]
+#[error(transparent)]
+pub struct Error(ErrorKind);
+
+impl Error {
+    /// If true, the client could not initialize the default credentials.
+    pub fn is_default_credentials(&self) -> bool {
+        matches!(&self.0, ErrorKind::DefaultCredentials(_))
+    }
+
+    /// If true, the client could not initialize the transport client.
+    pub fn is_transport(&self) -> bool {
+        matches!(&self.0, ErrorKind::Transport(_))
+    }
+
+    /// Not part of the public API, subject to change without notice.
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+    pub fn cred<T: Into<BoxError>>(source: T) -> Self {
+        Self(ErrorKind::DefaultCredentials(source.into()))
+    }
+
+    /// Not part of the public API, subject to change without notice.
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+    pub fn transport<T: Into<BoxError>>(source: T) -> Self {
+        Self(ErrorKind::Transport(source.into()))
+    }
+}
+
+#[derive(thiserror::Error, Debug)]
+enum ErrorKind {
+    #[error("could not create default credentials")]
+    DefaultCredentials(#[source] BoxError),
+    #[error("could not initialize transport client")]
+    Transport(#[source] BoxError),
+}
+
+type BoxError = Box<dyn std::error::Error + Send + Sync + 'static>;
+
+/// A generic builder for clients.
+///
+/// In the Google Cloud client libraries for Rust a "client" represents a
+/// connection to a specific service. Each client library defines one or more
+/// client types. All the clients are initialized using a `ClientBuilder`.
+///
+/// Applications obtain a builder with the correct generic types using the
+/// `builder()` method on each client:
+/// ```
+/// # use google_cloud_gax::client_builder::examples;
+/// # use google_cloud_gax::client_builder::Result;
+/// # tokio_test::block_on(async {
+/// use examples::Client; // Placeholder for examples
+/// let builder = Client::builder();
+/// # Result::<()>::Ok(()) });
+/// ```
+///
+/// To create a client with the default configuration just invoke the
+/// `.build()` method:
+/// ```
+/// # use google_cloud_gax::client_builder::examples;
+/// # use google_cloud_gax::client_builder::Result;
+/// # tokio_test::block_on(async {
+/// use examples::Client; // Placeholder for examples
+/// let client = Client::builder().build().await?;
+/// # Result::<()>::Ok(()) });
+/// ```
+///
+/// As usual, the builder offers several method to configure the client, and a
+/// `.build()` method to construct the client:
+/// ```
+/// # use google_cloud_gax::client_builder::examples;
+/// # use google_cloud_gax::client_builder::Result;
+/// # tokio_test::block_on(async {
+/// use examples::Client; // Placeholder for examples
+/// let client = Client::builder()
+///     .with_endpoint("http://private.googleapis.com")
+///     .build().await?;
+/// # Result::<()>::Ok(()) });
+/// ```
 #[derive(Clone, Debug)]
 pub struct ClientBuilder<F, Cr> {
     config: internal::ClientConfig<Cr>,
@@ -66,7 +173,7 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     ///
     /// ```
     /// # use google_cloud_gax::client_builder::examples;
-    /// # use google_cloud_gax::Result;
+    /// # use google_cloud_gax::client_builder::Result;
     /// # tokio_test::block_on(async {
     /// use examples::Client; // Placeholder for examples
     /// let client = Client::builder()
@@ -84,7 +191,7 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     ///
     /// ```
     /// # use google_cloud_gax::client_builder::examples;
-    /// # use google_cloud_gax::Result;
+    /// # use google_cloud_gax::client_builder::Result;
     /// # tokio_test::block_on(async {
     /// use examples::Client; // Placeholder for examples
     /// let client = Client::builder()
@@ -104,7 +211,7 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     ///
     /// ```
     /// # use google_cloud_gax::client_builder::examples;
-    /// # use google_cloud_gax::Result;
+    /// # use google_cloud_gax::client_builder::Result;
     /// # tokio_test::block_on(async {
     /// use examples::Client; // Placeholder for examples
     /// let client = Client::builder()
@@ -128,7 +235,7 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     ///
     /// ```
     /// # use google_cloud_gax::client_builder::examples;
-    /// # use google_cloud_gax::Result;
+    /// # use google_cloud_gax::client_builder::Result;
     /// # tokio_test::block_on(async {
     /// use examples::Client; // Placeholder for examples
     /// // Placeholder, normally use google_cloud_auth::credentials
@@ -157,7 +264,7 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     /// ```
     /// # use google_cloud_gax::client_builder::examples;
     /// # use google_cloud_gax as gax;
-    /// # use google_cloud_gax::Result;
+    /// # use google_cloud_gax::client_builder::Result;
     /// # tokio_test::block_on(async {
     /// use examples::Client; // Placeholder for examples
     /// use gax::retry_policy;
@@ -180,7 +287,7 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     /// ```
     /// # use google_cloud_gax::client_builder::examples;
     /// # use google_cloud_gax as gax;
-    /// # use google_cloud_gax::Result;
+    /// # use google_cloud_gax::client_builder::Result;
     /// # tokio_test::block_on(async {
     /// use examples::Client; // Placeholder for examples
     /// use gax::exponential_backoff::ExponentialBackoffBuilder;
@@ -189,7 +296,7 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     ///     .with_initial_delay(Duration::from_millis(100))
     ///     .with_maximum_delay(Duration::from_secs(5))
     ///     .with_scaling(4.0)
-    ///     .build()?;
+    ///     .build().expect("well-known policy values should succeed");
     /// let client = Client::builder()
     ///     .with_backoff_policy(policy)
     ///     .build().await?;
@@ -214,12 +321,13 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     /// ```
     /// # use google_cloud_gax::client_builder::examples;
     /// # use google_cloud_gax as gax;
-    /// # use google_cloud_gax::Result;
+    /// # use google_cloud_gax::client_builder::Result;
     /// # tokio_test::block_on(async {
     /// use examples::Client; // Placeholder for examples
     /// use gax::retry_throttler::AdaptiveThrottler;
     /// let client = Client::builder()
-    ///     .with_retry_throttler(AdaptiveThrottler::new(2.0)?)
+    ///     .with_retry_throttler(AdaptiveThrottler::new(2.0)
+    ///         .expect("well-known policy values should succeed"))
     ///     .build().await?;
     /// # Result::<()>::Ok(()) });
     /// ```
@@ -240,7 +348,7 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     /// ```
     /// # use google_cloud_gax::client_builder::examples;
     /// # use google_cloud_gax as gax;
-    /// # use google_cloud_gax::Result;
+    /// # use google_cloud_gax::client_builder::Result;
     /// # tokio_test::block_on(async {
     /// use examples::Client; // Placeholder for examples
     /// use gax::polling_error_policy::Aip194Strict;
@@ -268,7 +376,7 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     /// ```
     /// # use google_cloud_gax::client_builder::examples;
     /// # use google_cloud_gax as gax;
-    /// # use google_cloud_gax::Result;
+    /// # use google_cloud_gax::client_builder::Result;
     /// # tokio_test::block_on(async {
     /// use examples::Client; // Placeholder for examples
     /// use gax::exponential_backoff::ExponentialBackoffBuilder;
@@ -277,7 +385,7 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     ///     .with_initial_delay(Duration::from_millis(100))
     ///     .with_maximum_delay(Duration::from_secs(5))
     ///     .with_scaling(4.0)
-    ///     .build()?;
+    ///     .build().expect("well-known policy values should succeed");
     /// let client = Client::builder()
     ///     .with_polling_backoff_policy(policy)
     ///     .build().await?;
@@ -383,7 +491,7 @@ pub mod examples {
             async fn build(
                 self,
                 config: crate::client_builder::internal::ClientConfig<Self::Credentials>,
-            ) -> crate::Result<Self::Client> {
+            ) -> super::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -537,5 +645,41 @@ pub mod examples {
             let config = client.0;
             assert!(config.polling_backoff_policy.is_some(), "{config:?}");
         }
+    }
+}
+
+#[cfg(test)]
+mod test {
+    use super::*;
+    use std::error::Error as _;
+
+    #[test]
+    fn error_credentials() {
+        let source = wkt::TimestampError::OutOfRange;
+        let error = Error::cred(source);
+        assert!(error.is_default_credentials(), "{error:?}");
+        assert!(error.to_string().contains("default credentials"), "{error}");
+        let got = error
+            .source()
+            .and_then(|e| e.downcast_ref::<wkt::TimestampError>());
+        assert!(
+            matches!(got, Some(wkt::TimestampError::OutOfRange)),
+            "{error:?}"
+        );
+    }
+
+    #[test]
+    fn transport() {
+        let source = wkt::TimestampError::OutOfRange;
+        let error = Error::transport(source);
+        assert!(error.is_transport(), "{error:?}");
+        assert!(error.to_string().contains("transport client"), "{error}");
+        let got = error
+            .source()
+            .and_then(|e| e.downcast_ref::<wkt::TimestampError>());
+        assert!(
+            matches!(got, Some(wkt::TimestampError::OutOfRange)),
+            "{error:?}"
+        );
     }
 }
