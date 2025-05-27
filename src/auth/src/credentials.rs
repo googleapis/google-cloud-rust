@@ -532,9 +532,9 @@ fn path_not_found(path: String) -> BuilderError {
     BuilderError::loading(format!(
         "{path}. {}",
         concat!(
-            "This file was found via the `GOOGLE_APPLICATION_CREDENTIALS` ",
-            "environment variable. Verify this environment variable ",
-            "points to a valid file."
+            "This file name was found in the `GOOGLE_APPLICATION_CREDENTIALS` ",
+            "environment variable. Verify this environment variable points to ",
+            "a valid file."
         )
     ))
 }
