@@ -504,11 +504,11 @@ func (c *codec) annotateMessage(m *api.Message, state *api.APIState, sourceSpeci
 	for _, o := range m.OneOfs {
 		c.annotateOneOf(o, m, state, sourceSpecificationPackageName)
 	}
-	for _, child := range m.Messages {
-		c.annotateMessage(child, state, sourceSpecificationPackageName)
-	}
 	for _, e := range m.Enums {
 		c.annotateEnum(e, state, sourceSpecificationPackageName)
+	}
+	for _, child := range m.Messages {
+		c.annotateMessage(child, state, sourceSpecificationPackageName)
 	}
 	hasSyntheticFields := false
 	for _, f := range m.Fields {
