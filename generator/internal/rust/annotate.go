@@ -498,17 +498,17 @@ func (c *codec) annotateService(s *api.Service, model *api.API) {
 // annotateMessage annotates the message, its fields, its nested
 // messages, and its nested enums.
 func (c *codec) annotateMessage(m *api.Message, state *api.APIState, sourceSpecificationPackageName string) {
-	for _, child := range m.Messages {
-		c.annotateMessage(child, state, sourceSpecificationPackageName)
-	}
-	for _, e := range m.Enums {
-		c.annotateEnum(e, state, sourceSpecificationPackageName)
-	}
 	for _, f := range m.Fields {
 		c.annotateField(f, m, state, sourceSpecificationPackageName)
 	}
 	for _, o := range m.OneOfs {
 		c.annotateOneOf(o, m, state, sourceSpecificationPackageName)
+	}
+	for _, child := range m.Messages {
+		c.annotateMessage(child, state, sourceSpecificationPackageName)
+	}
+	for _, e := range m.Enums {
+		c.annotateEnum(e, state, sourceSpecificationPackageName)
 	}
 	hasSyntheticFields := false
 	for _, f := range m.Fields {
@@ -522,7 +522,7 @@ func (c *codec) annotateMessage(m *api.Message, state *api.APIState, sourceSpeci
 	})
 	qualifiedName := fullyQualifiedMessageName(m, c.modulePath, sourceSpecificationPackageName, c.packageMapping)
 	relativeName := strings.TrimPrefix(qualifiedName, c.modulePath+"::")
-	ann := &messageAnnotation{
+	m.Codec = &messageAnnotation{
 		Name:               toPascal(m.Name),
 		ModuleName:         toSnake(m.Name),
 		QualifiedName:      qualifiedName,
@@ -535,7 +535,6 @@ func (c *codec) annotateMessage(m *api.Message, state *api.APIState, sourceSpeci
 		BasicFields:        basicFields,
 		HasSyntheticFields: hasSyntheticFields,
 	}
-	m.Codec = ann
 }
 
 func (c *codec) annotateMethod(m *api.Method, s *api.Service, state *api.APIState, sourceSpecificationPackageName string, packageNamespace string) {
@@ -736,7 +735,7 @@ func (c *codec) annotateEnum(e *api.Enum, state *api.APIState, sourceSpecificati
 
 	qualifiedName := fullyQualifiedEnumName(e, c.modulePath, sourceSpecificationPackageName, c.packageMapping)
 	relativeName := strings.TrimPrefix(qualifiedName, c.modulePath+"::")
-	ann := &enumAnnotation{
+	e.Codec = &enumAnnotation{
 		Name:          enumName(e),
 		ModuleName:    toSnake(enumName(e)),
 		DocLines:      c.formatDocComments(e.Documentation, e.ID, state, e.Scopes()),
@@ -744,7 +743,6 @@ func (c *codec) annotateEnum(e *api.Enum, state *api.APIState, sourceSpecificati
 		QualifiedName: qualifiedName,
 		RelativeName:  relativeName,
 	}
-	e.Codec = ann
 }
 
 func (c *codec) annotateEnumValue(ev *api.EnumValue, e *api.Enum, state *api.APIState) {
