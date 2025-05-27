@@ -320,7 +320,7 @@ func TestServiceAnnotationsNameOverrides(t *testing.T) {
 	}
 
 	codec, err := newCodec(true, map[string]string{
-		"service-name-overrides": "ResourceService=Renamed",
+		"name-overrides": ".test.v1.ResourceService=Renamed",
 	})
 	if err != nil {
 		t.Fatal(err)
@@ -519,6 +519,61 @@ func TestOneOfAnnotations(t *testing.T) {
 		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
 	}
 
+}
+
+func TestOneOfConflictAnnotations(t *testing.T) {
+	singular := &api.Field{
+		Name:     "oneof_field",
+		JSONName: "oneofField",
+		ID:       ".test.Message.oneof_field",
+		Typez:    api.STRING_TYPE,
+		IsOneOf:  true,
+	}
+	group := &api.OneOf{
+		Name:          "nested_thing",
+		ID:            ".test.Message.nested_thing",
+		Documentation: "Say something clever about this oneof.",
+		Fields:        []*api.Field{singular},
+	}
+	child := &api.Message{
+		Name:    "NestedThing",
+		ID:      ".test.Message.NestedThing",
+		Package: "test",
+	}
+	message := &api.Message{
+		Name:     "Message",
+		ID:       ".test.Message",
+		Package:  "test",
+		Fields:   []*api.Field{singular},
+		OneOfs:   []*api.OneOf{group},
+		Messages: []*api.Message{child},
+	}
+	model := api.NewTestAPI([]*api.Message{message}, []*api.Enum{}, []*api.Service{})
+	api.CrossReference(model)
+	codec, err := newCodec(true, map[string]string{
+		"name-overrides": ".test.Message.nested_thing=NestedThingOneOf",
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	annotateModel(model, codec)
+
+	// Stops the recursion when comparing fields.
+	ignore := cmpopts.IgnoreFields(api.Field{}, "Group")
+
+	want := &oneOfAnnotation{
+		FieldName:           "nested_thing",
+		SetterName:          "nested_thing",
+		EnumName:            "NestedThingOneOf",
+		QualifiedName:       "crate::model::message::NestedThingOneOf",
+		RelativeName:        "message::NestedThingOneOf",
+		StructQualifiedName: "crate::model::Message",
+		FieldType:           "crate::model::message::NestedThingOneOf",
+		DocLines:            []string{"/// Say something clever about this oneof."},
+	}
+	if diff := cmp.Diff(want, group.Codec, ignore); diff != "" {
+		t.Errorf("mismatch in oneof annotations (-want, +got)\n:%s", diff)
+	}
 }
 
 func TestEnumAnnotations(t *testing.T) {
