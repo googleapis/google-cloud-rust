@@ -45,14 +45,7 @@ impl Error {
 
     /// Create an error representing problems loading or reading a credentials
     /// file.
-    ///
-    /// # Example
-    /// ```
-    /// use google_cloud_auth::build_errors::Error;
-    /// let error = Error::loading("test message");
-    /// assert!(error.is_loading(), "{error:?}");
-    /// ```
-    pub fn loading<T>(source: T) -> Error
+    pub(crate) fn loading<T>(source: T) -> Error
     where
         T: Into<BoxError>,
     {
@@ -60,14 +53,7 @@ impl Error {
     }
 
     /// A problem parsing a credentials specification.
-    ///
-    /// # Example
-    /// ```
-    /// use google_cloud_auth::build_errors::Error;
-    /// let error = Error::parsing("test message");
-    /// assert!(error.is_parsing(), "{error:?}");
-    /// ```
-    pub fn parsing<T>(source: T) -> Error
+    pub(crate) fn parsing<T>(source: T) -> Error
     where
         T: Into<BoxError>,
     {
@@ -75,14 +61,7 @@ impl Error {
     }
 
     /// The credential type is unknown or invalid.
-    ///
-    /// # Example
-    /// ```
-    /// use google_cloud_auth::build_errors::Error;
-    /// let error = Error::unknown_type("test message");
-    /// assert!(error.is_unknown_type(), "{error:?}");
-    /// ```
-    pub fn unknown_type<T>(source: T) -> Error
+    pub(crate) fn unknown_type<T>(source: T) -> Error
     where
         T: Into<BoxError>,
     {
