@@ -83,7 +83,7 @@ func newCodec(protobufSource bool, options map[string]string) (*codec, error) {
 			for _, override := range strings.Split(definition, ",") {
 				tokens := strings.Split(override, "=")
 				if len(tokens) != 2 {
-					return nil, fmt.Errorf("cannot parse `service-name-overrides`. Expected input in the form of: 's1=r1,s2=r2': %q", definition)
+					return nil, fmt.Errorf("cannot parse `name-overrides`. Expected input in the form of: 'n1=r1,n2=r2': %q", definition)
 				}
 				codec.nameOverrides[tokens[0]] = tokens[1]
 			}
@@ -201,7 +201,7 @@ type codec struct {
 	packageNameOverride string
 	// Name overrides. Maps IDs to new *unqualified* names, e.g.:
 	//   .google.test.Service: Rename
-	//   .google.test.Message.conflic_name_oneof: ConflictNameOneOf
+	//   .google.test.Message.conflict_name_oneof: ConflictNameOneOf
 	//
 	// TODO(#1173) - this only supports services and oneofs at the moment.
 	nameOverrides map[string]string
