@@ -172,53 +172,17 @@ impl Storage {
     /// # use google_cloud_storage::client::Storage;
     /// async fn example(client: &Storage) -> gax::Result<()> {
     ///     let contents = client
-    ///         .read_object(
-    ///             "projects/_/buckets/my-bucket",
-    ///             "my-object",
-    ///         )
+    ///         .read_object()
+    ///         .set_bucket("projects/_/buckets/my-bucket")
+    ///         .set_object("my-object")
+    ///         .send()
     ///         .await?;
     ///     println!("object contents={contents:?}");
     ///     Ok(())
     /// }
     /// ```
-    pub async fn read_object<B, O>(&self, bucket: B, object: O) -> crate::Result<bytes::Bytes>
-    where
-        B: Into<String>,
-        O: Into<String>,
-    {
-        let bucket: String = bucket.into();
-        let bucket_id = bucket
-            .as_str()
-            .strip_prefix("projects/_/buckets/")
-            .ok_or_else(|| {
-                Error::other(format!(
-                    "malformed bucket name, it must start with `projects/_/buckets/`: {bucket}"
-                ))
-            })?;
-        let object: String = object.into();
-        let builder = self
-            .inner
-            .request(
-                reqwest::Method::GET,
-                format!("{}storage/v1/b/{bucket_id}/o/{object}", &self.endpoint),
-            )
-            .query(&[("alt", "media")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&self::info::X_GOOG_API_CLIENT_HEADER),
-            );
-
-        let builder = self.apply_auth_headers(builder).await?;
-
-        tracing::info!("builder={builder:?}");
-
-        let response = builder.send().await.map_err(Error::io)?;
-        if !response.status().is_success() {
-            return gaxi::http::to_http_error(response).await;
-        }
-        let response = response.bytes().await.map_err(Error::io)?;
-
-        Ok(response)
+    pub fn read_object(&self) -> ReadObject {
+        ReadObject::new(self)
     }
 
     pub(crate) async fn new(config: gaxi::options::ClientConfig) -> crate::Result<Self> {
@@ -310,6 +274,201 @@ pub(crate) mod info {
             };
             ac.grpc_header_value()
         };
+    }
+}
+
+/// The request builder for [Storage::read_object][crate::client::Storage::read_object] calls.
+pub struct ReadObject<'a> {
+    client: &'a Storage,
+    request: control::model::ReadObjectRequest,
+}
+
+impl<'a> ReadObject<'a> {
+    pub(crate) fn new(client: &'a Storage) -> Self {
+        ReadObject {
+            client,
+            request: control::model::ReadObjectRequest::new(),
+        }
+    }
+
+    /// Sets the value of [bucket][control::model::ReadObjectRequest::bucket].
+    pub fn set_bucket<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request.bucket = v.into();
+        self
+    }
+
+    /// Sets the value of [object][control::model::ReadObjectRequest::object].
+    pub fn set_object<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request.object = v.into();
+        self
+    }
+
+    /// Sets the value of [generation][control::model::ReadObjectRequest::generation].
+    pub fn set_generation<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.request.generation = v.into();
+        self
+    }
+
+    /// Sets the value of [read_offset][control::model::ReadObjectRequest::read_offset].
+    pub fn set_read_offset<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.request.read_offset = v.into();
+        self
+    }
+
+    /// Sets the value of [read_limit][control::model::ReadObjectRequest::read_limit].
+    pub fn set_read_limit<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.request.read_limit = v.into();
+        self
+    }
+
+    /// Sets the value of [if_generation_match][control::model::ReadObjectRequest::if_generation_match].
+    pub fn set_if_generation_match<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.request.if_generation_match = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [if_generation_match][control::model::ReadObjectRequest::if_generation_match].
+    pub fn set_or_clear_if_generation_match<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.request.if_generation_match = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [if_generation_not_match][control::model::ReadObjectRequest::if_generation_not_match].
+    pub fn set_if_generation_not_match<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.request.if_generation_not_match = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [if_generation_not_match][control::model::ReadObjectRequest::if_generation_not_match].
+    pub fn set_or_clear_if_generation_not_match<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.request.if_generation_not_match = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [if_metageneration_match][control::model::ReadObjectRequest::if_metageneration_match].
+    pub fn set_if_metageneration_match<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.request.if_metageneration_match = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [if_metageneration_match][control::model::ReadObjectRequest::if_metageneration_match].
+    pub fn set_or_clear_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.request.if_metageneration_match = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [if_metageneration_not_match][control::model::ReadObjectRequest::if_metageneration_not_match].
+    pub fn set_if_metageneration_not_match<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.request.if_metageneration_not_match = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [if_metageneration_not_match][control::model::ReadObjectRequest::if_metageneration_not_match].
+    pub fn set_or_clear_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.request.if_metageneration_not_match = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [common_object_request_params][control::model::ReadObjectRequest::common_object_request_params].
+    pub fn set_common_object_request_params<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<control::model::CommonObjectRequestParams>,
+    {
+        self.request.common_object_request_params = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [common_object_request_params][control::model::ReadObjectRequest::common_object_request_params].
+    pub fn set_or_clear_common_object_request_params<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<control::model::CommonObjectRequestParams>,
+    {
+        self.request.common_object_request_params = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [read_mask][control::model::ReadObjectRequest::read_mask].
+    pub fn set_read_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.request.read_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [read_mask][control::model::ReadObjectRequest::read_mask].
+    pub fn set_or_clear_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.request.read_mask = v.map(|x| x.into());
+        self
+    }
+
+    /// Sends the request.
+    pub async fn send(self) -> crate::Result<bytes::Bytes> {
+        // TODO(2103): map additional parameters to the JSON request.
+        let bucket: String = self.request.bucket;
+        let bucket_id = bucket
+            .as_str()
+            .strip_prefix("projects/_/buckets/")
+            .ok_or_else(|| {
+                Error::other(format!(
+                    "malformed bucket name, it must start with `projects/_/buckets/`: {bucket}"
+                ))
+            })?;
+        let object: String = self.request.object;
+        let builder = self
+            .client
+            .inner
+            .request(
+                reqwest::Method::GET,
+                format!(
+                    "{}storage/v1/b/{bucket_id}/o/{object}",
+                    &self.client.endpoint
+                ),
+            )
+            .query(&[("alt", "media")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&self::info::X_GOOG_API_CLIENT_HEADER),
+            );
+
+        let builder = self.client.apply_auth_headers(builder).await?;
+
+        tracing::info!("builder={builder:?}");
+
+        let response = builder.send().await.map_err(Error::io)?;
+        if !response.status().is_success() {
+            return gaxi::http::to_http_error(response).await;
+        }
+        let response = response.bytes().await.map_err(Error::io)?;
+
+        Ok(response)
     }
 }
 
