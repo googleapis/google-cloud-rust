@@ -17,6 +17,7 @@ pub use crate::Result;
 use auth::credentials::CacheableResource;
 pub use control::model::Object;
 use http::Extensions;
+use std::sync::Arc;
 
 /// Implements a client for the Cloud Storage API.
 ///
@@ -81,7 +82,7 @@ use http::Extensions;
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 #[derive(Clone, Debug)]
 pub struct Storage {
-    inner: std::sync::Arc<StorageInner>,
+    inner: Arc<StorageInner>,
 }
 
 #[derive(Clone, Debug)]
@@ -204,7 +205,7 @@ impl Storage {
             .endpoint
             .unwrap_or_else(|| self::DEFAULT_HOST.to_string());
         Ok(Self {
-            inner: std::sync::Arc::new(StorageInner {
+            inner: Arc::new(StorageInner {
                 client,
                 cred,
                 endpoint,
@@ -306,12 +307,12 @@ pub(crate) mod info {
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 pub struct ReadObject {
-    client: std::sync::Arc<StorageInner>,
+    client: Arc<StorageInner>,
     request: control::model::ReadObjectRequest,
 }
 
 impl ReadObject {
-    fn new(client: std::sync::Arc<StorageInner>) -> Self {
+    fn new(client: Arc<StorageInner>) -> Self {
         ReadObject {
             client,
             request: control::model::ReadObjectRequest::new(),
@@ -1106,5 +1107,85 @@ mod v1 {
             Crc32c::deserialize_as(serde_json::json!(input))
                 .expect_err("expected error deserializing string");
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    // Test the request setters for ReadObject.
+    #[tokio::test]
+    async fn test_read_object() {
+        let client = Storage::builder()
+            .build()
+            .await
+            .expect("creation should succeed");
+        let object = client.read_object();
+
+        // bucket:
+        let got = object.set_bucket("my-bucket");
+        assert_eq!(got.request.bucket, "my-bucket");
+
+        // object:
+        let got = got.set_object("my-object");
+        assert_eq!(got.request.object, "my-object");
+
+        // generation:
+        let got = got.set_generation(123);
+        assert_eq!(got.request.generation, 123);
+
+        // read_offset:
+        let got = got.set_read_offset(456);
+        assert_eq!(got.request.read_offset, 456);
+
+        // read_limit:
+        let got = got.set_read_limit(123);
+        assert_eq!(got.request.read_limit, 123);
+
+        // if_generation_match:
+        let got = got.set_if_generation_match(123);
+        assert_eq!(got.request.if_generation_match, Some(123));
+        let got = got.set_or_clear_if_generation_match::<i64>(None);
+        assert_eq!(got.request.if_generation_match, None);
+
+        // if_generation_not_match:
+        let got = got.set_if_generation_not_match(456);
+        assert_eq!(got.request.if_generation_not_match, Some(456));
+        let got = got.set_or_clear_if_generation_not_match::<i64>(None);
+        assert_eq!(got.request.if_generation_not_match, None);
+
+        // if_metageneration_match:
+        let got = got.set_if_metageneration_match(123);
+        assert_eq!(got.request.if_metageneration_match, Some(123));
+        let got = got.set_or_clear_if_metageneration_match::<i64>(None);
+        assert_eq!(got.request.if_metageneration_match, None);
+        let got = got.set_if_metageneration_not_match(123);
+
+        // if_metageneration_not_match:
+        assert_eq!(got.request.if_metageneration_not_match, Some(123));
+        let got = got.set_or_clear_if_metageneration_not_match::<i64>(None);
+        assert_eq!(got.request.if_metageneration_not_match, None);
+
+        // common_object_request_params:
+        use control::model::CommonObjectRequestParams;
+        let got = got.set_common_object_request_params(
+            CommonObjectRequestParams::new().set_encryption_algorithm("encryption algorithm"),
+        );
+        assert_eq!(
+            got.request.common_object_request_params,
+            Some(CommonObjectRequestParams::new().set_encryption_algorithm("encryption algorithm"))
+        );
+        let got = got.set_or_clear_common_object_request_params::<CommonObjectRequestParams>(None);
+        assert_eq!(got.request.common_object_request_params, None);
+
+        // read_mask:
+        let got = got.set_read_mask(wkt::FieldMask::default().set_paths(["abc", "xyz"]));
+        assert_eq!(
+            got.request.read_mask,
+            Some(wkt::FieldMask::default().set_paths(["abc", "xyz"]))
+        );
+        let got = got.set_or_clear_read_mask::<wkt::FieldMask>(None);
+        assert_eq!(got.request.read_mask, None);
     }
 }
