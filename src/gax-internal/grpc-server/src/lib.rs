@@ -74,7 +74,10 @@ pub struct Factory(String);
 impl gax::client_builder::internal::ClientFactory for Factory {
     type Client = gaxi::grpc::Client;
     type Credentials = auth::credentials::Credentials;
-    async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+    async fn build(
+        self,
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self::Client> {
         Self::Client::new(config, &self.0).await
     }
 }

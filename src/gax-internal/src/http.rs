@@ -13,9 +13,10 @@
 // limitations under the License.
 
 use auth::credentials::CacheableResource;
-use auth::credentials::{Builder as AccessTokenCredentialBuilder, Credentials};
+use auth::credentials::Credentials;
 use gax::Result;
 use gax::backoff_policy::BackoffPolicy;
+use gax::client_builder::Error as BuilderError;
 use gax::error::{Error, HttpError, ServiceErrorBuilder};
 use gax::exponential_backoff::ExponentialBackoff;
 use gax::polling_backoff_policy::PollingBackoffPolicy;
@@ -40,15 +41,12 @@ pub struct ReqwestClient {
 }
 
 impl ReqwestClient {
-    pub async fn new(config: crate::options::ClientConfig, default_endpoint: &str) -> Result<Self> {
+    pub async fn new(
+        config: crate::options::ClientConfig,
+        default_endpoint: &str,
+    ) -> gax::client_builder::Result<Self> {
+        let cred = Self::make_credentials(&config).await?;
         let inner = reqwest::Client::new();
-        let cred = if let Some(c) = config.cred.clone() {
-            c
-        } else {
-            AccessTokenCredentialBuilder::default()
-                .build()
-                .map_err(Error::authentication)?
-        };
         let endpoint = config
             .endpoint
             .unwrap_or_else(|| default_endpoint.to_string());
@@ -88,6 +86,17 @@ impl ReqwestClient {
             None => self.request_attempt::<O>(builder, &options, None).await,
             Some(policy) => self.retry_loop::<O>(builder, options, policy).await,
         }
+    }
+
+    async fn make_credentials(
+        config: &crate::options::ClientConfig,
+    ) -> gax::client_builder::Result<auth::credentials::Credentials> {
+        if let Some(c) = config.cred.clone() {
+            return Ok(c);
+        }
+        auth::credentials::Builder::default()
+            .build()
+            .map_err(BuilderError::cred)
     }
 
     async fn retry_loop<O: serde::de::DeserializeOwned + Default>(
