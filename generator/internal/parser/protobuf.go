@@ -293,7 +293,7 @@ func makeAPIForProtobuf(serviceConfig *serviceconfig.Service, req *pluginpb.Code
 		result.Services = append(result.Services, fileServices...)
 	}
 
-	// Add the mixing methods to the existing services.
+	// Add the mixin methods to the existing services.
 	for _, service := range result.Services {
 		for _, f := range mixinFileDesc {
 			fFQN := "." + f.GetPackage()
