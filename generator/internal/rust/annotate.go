@@ -497,23 +497,18 @@ func (c *codec) annotateService(s *api.Service, model *api.API) {
 
 // annotateMessage annotates the message, its fields, its nested
 // messages, and its nested enums.
-func (c *codec) annotateMessage(m *api.Message, state *api.APIState, sourceSpecificationPackageName string) *messageAnnotation {
-	// Annotate child messages and enums first. We need their annotations in the
-	// `annotateOneOf`.
-	usedNames := map[string]bool{}
+func (c *codec) annotateMessage(m *api.Message, state *api.APIState, sourceSpecificationPackageName string) {
 	for _, child := range m.Messages {
-		ann := c.annotateMessage(child, state, sourceSpecificationPackageName)
-		usedNames[ann.Name] = true
+		c.annotateMessage(child, state, sourceSpecificationPackageName)
 	}
 	for _, e := range m.Enums {
-		ann := c.annotateEnum(e, state, sourceSpecificationPackageName)
-		usedNames[ann.Name] = true
+		c.annotateEnum(e, state, sourceSpecificationPackageName)
 	}
 	for _, f := range m.Fields {
 		c.annotateField(f, m, state, sourceSpecificationPackageName)
 	}
 	for _, o := range m.OneOfs {
-		c.annotateOneOf(o, m, state, sourceSpecificationPackageName, usedNames)
+		c.annotateOneOf(o, m, state, sourceSpecificationPackageName)
 	}
 	hasSyntheticFields := false
 	for _, f := range m.Fields {
@@ -541,7 +536,6 @@ func (c *codec) annotateMessage(m *api.Message, state *api.APIState, sourceSpeci
 		HasSyntheticFields: hasSyntheticFields,
 	}
 	m.Codec = ann
-	return ann
 }
 
 func (c *codec) annotateMethod(m *api.Method, s *api.Service, state *api.APIState, sourceSpecificationPackageName string, packageNamespace string) {
@@ -666,7 +660,7 @@ func annotateSegments(segments []string) []string {
 	return ann
 }
 
-func (c *codec) annotateOneOf(oneof *api.OneOf, message *api.Message, state *api.APIState, sourceSpecificationPackageName string, usedNames map[string]bool) {
+func (c *codec) annotateOneOf(oneof *api.OneOf, message *api.Message, state *api.APIState, sourceSpecificationPackageName string) {
 	scope := messageScopeName(message, "", c.modulePath, sourceSpecificationPackageName, c.packageMapping)
 	enumName := c.OneOfEnumName(oneof)
 	qualifiedName := fmt.Sprintf("%s::%s", scope, enumName)
@@ -713,7 +707,7 @@ func (c *codec) annotateField(field *api.Field, message *api.Message, state *api
 	ann.ValueType = mapType(mapMessage.Fields[1], state, c.modulePath, sourceSpecificationPackageName, c.packageMapping)
 }
 
-func (c *codec) annotateEnum(e *api.Enum, state *api.APIState, sourceSpecificationPackageName string) *enumAnnotation {
+func (c *codec) annotateEnum(e *api.Enum, state *api.APIState, sourceSpecificationPackageName string) {
 	for _, ev := range e.Values {
 		c.annotateEnumValue(ev, e, state)
 	}
@@ -751,7 +745,6 @@ func (c *codec) annotateEnum(e *api.Enum, state *api.APIState, sourceSpecificati
 		RelativeName:  relativeName,
 	}
 	e.Codec = ann
-	return ann
 }
 
 func (c *codec) annotateEnumValue(ev *api.EnumValue, e *api.Enum, state *api.APIState) {

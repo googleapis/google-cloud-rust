@@ -320,7 +320,7 @@ func TestServiceAnnotationsNameOverrides(t *testing.T) {
 	}
 
 	codec, err := newCodec(true, map[string]string{
-		"service-name-overrides": "ResourceService=Renamed",
+		"name-overrides": ".test.v1.ResourceService=Renamed",
 	})
 	if err != nil {
 		t.Fatal(err)
