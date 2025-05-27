@@ -80,10 +80,15 @@ use http::Extensions;
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 #[derive(Clone, Debug)]
-pub struct Storage {
+struct StorageInner {
     inner: reqwest::Client,
     cred: auth::credentials::Credentials,
     endpoint: String,
+}
+
+#[derive(Clone, Debug)]
+pub struct Storage {
+    inner: std::sync::Arc<StorageInner>,
 }
 
 impl Storage {
@@ -139,9 +144,10 @@ impl Storage {
         let object: String = object.into();
         let builder = self
             .inner
+            .inner
             .request(
                 reqwest::Method::POST,
-                format!("{}upload/storage/v1/b/{bucket_id}/o", &self.endpoint),
+                format!("{}upload/storage/v1/b/{bucket_id}/o", &self.inner.endpoint),
             )
             .query(&[("uploadType", "media")])
             .query(&[("name", &object)])
@@ -151,7 +157,7 @@ impl Storage {
                 reqwest::header::HeaderValue::from_static(&self::info::X_GOOG_API_CLIENT_HEADER),
             );
 
-        let builder = self.apply_auth_headers(builder).await?;
+        let builder = self.inner.apply_auth_headers(builder).await?;
         let builder = builder.body(payload.into());
 
         tracing::info!("builder={builder:?}");
@@ -182,7 +188,7 @@ impl Storage {
     /// }
     /// ```
     pub fn read_object(&self) -> ReadObject {
-        ReadObject::new(self)
+        ReadObject::new(self.inner.clone())
     }
 
     pub(crate) async fn new(config: gaxi::options::ClientConfig) -> crate::Result<Self> {
@@ -198,12 +204,16 @@ impl Storage {
             .endpoint
             .unwrap_or_else(|| self::DEFAULT_HOST.to_string());
         Ok(Self {
-            inner,
-            cred,
-            endpoint,
+            inner: std::sync::Arc::new(StorageInner {
+                inner,
+                cred,
+                endpoint,
+            }),
         })
     }
+}
 
+impl StorageInner {
     // Helper method to apply authentication headers to the request builder.
     async fn apply_auth_headers(
         &self,
@@ -278,13 +288,13 @@ pub(crate) mod info {
 }
 
 /// The request builder for [Storage::read_object][crate::client::Storage::read_object] calls.
-pub struct ReadObject<'a> {
-    client: &'a Storage,
+pub struct ReadObject {
+    client: std::sync::Arc<StorageInner>,
     request: control::model::ReadObjectRequest,
 }
 
-impl<'a> ReadObject<'a> {
-    pub(crate) fn new(client: &'a Storage) -> Self {
+impl ReadObject {
+    fn new(client: std::sync::Arc<StorageInner>) -> Self {
         ReadObject {
             client,
             request: control::model::ReadObjectRequest::new(),
