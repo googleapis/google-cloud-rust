@@ -80,15 +80,15 @@ use http::Extensions;
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 #[derive(Clone, Debug)]
-struct StorageInner {
-    inner: reqwest::Client,
-    cred: auth::credentials::Credentials,
-    endpoint: String,
+pub struct Storage {
+    inner: std::sync::Arc<StorageInner>,
 }
 
 #[derive(Clone, Debug)]
-pub struct Storage {
-    inner: std::sync::Arc<StorageInner>,
+struct StorageInner {
+    client: reqwest::Client,
+    cred: auth::credentials::Credentials,
+    endpoint: String,
 }
 
 impl Storage {
@@ -144,7 +144,7 @@ impl Storage {
         let object: String = object.into();
         let builder = self
             .inner
-            .inner
+            .client
             .request(
                 reqwest::Method::POST,
                 format!("{}upload/storage/v1/b/{bucket_id}/o", &self.inner.endpoint),
@@ -192,7 +192,7 @@ impl Storage {
     }
 
     pub(crate) async fn new(config: gaxi::options::ClientConfig) -> crate::Result<Self> {
-        let inner = reqwest::Client::new();
+        let client = reqwest::Client::new();
         let cred = if let Some(c) = config.cred.clone() {
             c
         } else {
@@ -205,7 +205,7 @@ impl Storage {
             .unwrap_or_else(|| self::DEFAULT_HOST.to_string());
         Ok(Self {
             inner: std::sync::Arc::new(StorageInner {
-                inner,
+                client,
                 cred,
                 endpoint,
             }),
@@ -471,7 +471,7 @@ impl ReadObject {
         let object: String = self.request.object;
         let builder = self
             .client
-            .inner
+            .client
             .request(
                 reqwest::Method::GET,
                 format!(
