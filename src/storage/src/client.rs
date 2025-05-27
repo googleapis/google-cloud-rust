@@ -278,6 +278,22 @@ pub(crate) mod info {
 }
 
 /// The request builder for [Storage::read_object][crate::client::Storage::read_object] calls.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_storage::client::Storage;
+/// use google_cloud_storage::client::ReadObject;
+/// # let client = Storage::builder()
+/// #   .with_endpoint("https://storage.googleapis.com")
+/// #    .build().await?;
+/// let builder: ReadObject = client
+///         .read_object()
+///         .set_bucket("projects/_/buckets/my-bucket")
+///         .set_object("my-object");
+/// let response = builder.send().await?;
+/// # gax::Result::<()>::Ok(()) });
+/// ```
 pub struct ReadObject<'a> {
     client: &'a Storage,
     request: control::model::ReadObjectRequest,
