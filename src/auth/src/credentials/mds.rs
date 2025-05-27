@@ -34,12 +34,10 @@
 //! using the types defined in this module. You may want to use said types directly
 //! to customize some of the properties of these credentials.
 //!
-//! Example usage:
-//!
+//! # Example
 //! ```
 //! # use google_cloud_auth::credentials::mds::Builder;
 //! # use google_cloud_auth::credentials::Credentials;
-//! # use google_cloud_auth::errors::CredentialsError;
 //! # use http::Extensions;
 //! # tokio_test::block_on(async {
 //! let credentials: Credentials = Builder::default()
@@ -47,7 +45,7 @@
 //!     .build()?;
 //! let headers = credentials.headers(Extensions::new()).await?;
 //! println!("Headers: {headers:?}");
-//! # Ok::<(), CredentialsError>(())
+//! # Ok::<(), anyhow::Error>(())
 //! # });
 //! ```
 //!
@@ -58,11 +56,12 @@
 //! [Metadata Service]: https://cloud.google.com/compute/docs/metadata/overview
 
 use crate::credentials::dynamic::CredentialsProvider;
-use crate::credentials::{CacheableResource, Credentials, DEFAULT_UNIVERSE_DOMAIN, Result};
+use crate::credentials::{CacheableResource, Credentials, DEFAULT_UNIVERSE_DOMAIN};
 use crate::errors::{CredentialsError, is_retryable};
 use crate::headers_util::build_cacheable_headers;
 use crate::token::{CachedTokenProvider, Token, TokenProvider};
 use crate::token_cache::TokenCache;
+use crate::{BuildResult, Result};
 use async_trait::async_trait;
 use bon::Builder;
 use http::{Extensions, HeaderMap, HeaderValue};
@@ -213,7 +212,7 @@ impl Builder {
     }
 
     /// Returns a [Credentials] instance with the configured settings.
-    pub fn build(self) -> Result<Credentials> {
+    pub fn build(self) -> BuildResult<Credentials> {
         let mdsc = MDSCredentials {
             quota_project_id: self.quota_project_id.clone(),
             universe_domain: self.universe_domain.clone(),

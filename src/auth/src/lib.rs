@@ -34,7 +34,11 @@
 //! [Tokens]: https://cloud.google.com/docs/authentication#token
 //! [Credentials]: https://cloud.google.com/docs/authentication#credentials
 
+pub mod build_errors;
 pub mod errors;
+
+/// A `Result` alias where the `Err` case is [BuildCredentialsError].
+pub(crate) type BuildResult<T> = std::result::Result<T, build_errors::Error>;
 
 /// Types and functions to work with Google Cloud authentication [Credentials].
 ///
@@ -49,9 +53,8 @@ pub mod token;
 /// The token cache
 pub(crate) mod token_cache;
 
-/// A `Result` alias where the `Err` case is
-/// `google_cloud_auth::errors::CredentialsError`.
-pub(crate) type Result<T> = std::result::Result<T, crate::errors::CredentialsError>;
+/// A `Result` alias where the `Err` case is [CredentialsError][errors::CredentialsError].
+pub(crate) type Result<T> = std::result::Result<T, errors::CredentialsError>;
 
 /// Headers utility functions to work with Google Cloud authentication [Credentials].
 ///
