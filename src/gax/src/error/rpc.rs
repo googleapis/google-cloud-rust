@@ -414,6 +414,7 @@ pub enum StatusDetails {
     ResourceInfo(rpc::model::ResourceInfo),
     #[serde(rename = "type.googleapis.com/google.rpc.RetryInfo")]
     RetryInfo(rpc::model::RetryInfo),
+    #[serde(untagged)]
     Other(wkt::Any),
 }
 
@@ -673,6 +674,52 @@ mod test {
                     RetryInfo::default().set_retry_delay(wkt::Duration::clamp(1, 0)),
                 ),
             ],
+        };
+        assert_eq!(got, want);
+    }
+
+    #[test]
+    fn serialization_other() {
+        const TIME: &str = "2025-05-27T10:00:00Z";
+        let timestamp =
+            wkt::Timestamp::try_from(TIME).expect("hardcoded value is expected to convert");
+        let any =
+            wkt::Any::from_msg(&timestamp).expect("good timestamp value should encode into Any");
+        let input = Status {
+            code: Code::Unknown,
+            message: "test".to_string(),
+            details: vec![StatusDetails::Other(any)],
+        };
+        let got = serde_json::to_value(&input).expect("serialization succeeds");
+        let want = json!({
+            "code": Code::Unknown as i32,
+            "message": "test",
+            "details": [
+                {"@type": "type.googleapis.com/google.protobuf.Timestamp", "value": TIME},
+            ]
+        });
+        assert_eq!(got, want);
+    }
+
+    #[test]
+    fn deserialization_other() {
+        const TIME: &str = "2025-05-27T10:00:00Z";
+        let json = json!({
+            "code": Code::Unknown as i32,
+            "message": "test",
+            "details": [
+                {"@type": "type.googleapis.com/google.protobuf.Timestamp", "value": TIME},
+            ]
+        });
+        let timestamp =
+            wkt::Timestamp::try_from(TIME).expect("hardcoded value is expected to convert");
+        let any =
+            wkt::Any::from_msg(&timestamp).expect("good timestamp value should encode into Any");
+        let got: Status = serde_json::from_value(json).unwrap();
+        let want = Status {
+            code: Code::Unknown,
+            message: "test".to_string(),
+            details: vec![StatusDetails::Other(any)],
         };
         assert_eq!(got, want);
     }
