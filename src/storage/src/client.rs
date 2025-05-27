@@ -291,7 +291,8 @@ pub(crate) mod info {
 ///         .read_object()
 ///         .set_bucket("projects/_/buckets/my-bucket")
 ///         .set_object("my-object");
-/// let response = builder.send().await?;
+/// let contents = builder.send().await?;
+/// println!("object contents={contents:?}");
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 pub struct ReadObject<'a> {
