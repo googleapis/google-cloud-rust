@@ -277,6 +277,7 @@ pub(crate) mod info {
     }
 }
 
+/// The request builder for [Storage::read_object][crate::client::Storage::read_object] calls.
 pub struct ReadObject<'a> {
     client: &'a Storage,
     request: control::model::ReadObjectRequest,
