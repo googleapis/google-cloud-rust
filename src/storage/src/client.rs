@@ -611,7 +611,7 @@ mod v1 {
         team: String,
     }
 
-    impl std::convert::From<ObjectAccessControl> for control::model::ObjectAccessControl {
+    impl From<ObjectAccessControl> for control::model::ObjectAccessControl {
         fn from(value: ObjectAccessControl) -> Self {
             Self::new()
                 .set_id(value.id)
@@ -627,7 +627,7 @@ mod v1 {
         }
     }
 
-    impl std::convert::From<ProjectTeam> for control::model::ProjectTeam {
+    impl From<ProjectTeam> for control::model::ProjectTeam {
         fn from(p: ProjectTeam) -> Self {
             control::model::ProjectTeam::new()
                 .set_project_number(p.project_number)
@@ -643,7 +643,7 @@ mod v1 {
         entity_id: String,
     }
 
-    impl std::convert::From<Owner> for control::model::Owner {
+    impl From<Owner> for control::model::Owner {
         fn from(value: Owner) -> Self {
             Self::new()
                 .set_entity(value.entity)
@@ -660,7 +660,7 @@ mod v1 {
         key_sha256: bytes::Bytes,
     }
 
-    impl std::convert::From<CustomerEncryption> for control::model::CustomerEncryption {
+    impl From<CustomerEncryption> for control::model::CustomerEncryption {
         fn from(value: CustomerEncryption) -> Self {
             Self::new()
                 .set_encryption_algorithm(value.encryption_algorithm)
@@ -668,7 +668,7 @@ mod v1 {
         }
     }
 
-    impl std::convert::From<Object> for control::model::Object {
+    impl From<Object> for control::model::Object {
         fn from(value: Object) -> Self {
             Self::new()
                 .set_name(value.name)
