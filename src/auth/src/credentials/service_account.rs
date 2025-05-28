@@ -458,6 +458,7 @@ mod test {
     use rsa::pkcs8::LineEnding;
     use rustls_pemfile::Item;
     use serde_json::json;
+    use std::error::Error as _;
     use std::time::Duration;
 
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
@@ -693,8 +694,10 @@ mod test {
         let cred = Builder::new(service_account_key).build()?;
 
         let token = cred.headers(Extensions::new()).await;
-        let expected_error_message = "failed to parse private key";
-        assert!(token.is_err_and(|e| e.to_string().contains(expected_error_message)));
+        let err = token.unwrap_err();
+        assert!(!err.is_transient(), "{err:?}");
+        let source = err.source().and_then(|e| e.downcast_ref::<rustls::Error>());
+        assert!(matches!(source, Some(rustls::Error::General(_))), "{err:?}");
         Ok(())
     }
 
