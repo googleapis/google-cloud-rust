@@ -74,7 +74,6 @@ mod test {
             )
             .await;
         let err = response.unwrap_err();
-        assert!(err.is_service(), "{err:?}");
         assert_eq!(err.http_status_code(), Some(permanent().0.as_u16()));
         Ok(())
     }

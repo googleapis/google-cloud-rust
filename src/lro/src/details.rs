@@ -284,7 +284,7 @@ mod test {
         assert_eq!(name, None);
         match poll {
             PollingResult::Completed(Err(e)) => {
-                assert!(e.is_service(), "{e:?}");
+                assert!(e.status().is_some(), "{e:?}");
                 assert_eq!(e.status(), starting_error().status());
             }
             _ => panic!("{poll:?}"),
@@ -405,7 +405,7 @@ mod test {
         assert_eq!(name, None);
         match poll {
             PollingResult::Completed(Err(e)) => {
-                assert!(e.is_service(), "{e:?}");
+                assert!(e.status().is_some(), "{e:?}");
                 assert_eq!(e.status(), stopping_error().status());
             }
             _ => panic!("{poll:?}"),
@@ -489,7 +489,7 @@ mod test {
         let op = O::new(op);
         let result = as_result(op);
         let err = result.unwrap_err();
-        assert!(err.is_service(), "{err:?}");
+        assert!(err.status().is_some(), "{err:?}");
         let want = gax::error::rpc::Status::default()
             .set_code(gax::error::rpc::Code::FailedPrecondition)
             .set_message("test only");

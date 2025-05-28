@@ -38,7 +38,9 @@ type BoxError = Box<dyn std::error::Error + Send + Sync>;
 /// ```
 /// use google_cloud_gax::error::Error;
 /// match example_function() {
-///     Err(e) if e.is_service() => { println!("service error {e}, should have a status={:?}", e.status()); },
+///     Err(e) if matches!(e.status(), Some(_)) => {
+///         println!("service error {e}, should have a status={:?}", e.status());
+///     },
 ///     Err(e) => { println!("some other error {e}"); },
 ///     Ok(_) => { println!("success, how boring"); },
 /// }
@@ -63,7 +65,6 @@ impl Error {
     /// use google_cloud_gax::error::rpc::{Code, Status};
     /// let status = Status::default().set_code(Code::NotFound).set_message("NOT FOUND");
     /// let error = Error::service(status.clone());
-    /// assert!(error.is_service());
     /// assert_eq!(error.status(), Some(&status));
     /// ```
     pub fn service(status: Status) -> Self {
@@ -73,13 +74,6 @@ impl Error {
             headers: None,
         };
         Self { kind }
-    }
-
-    /// The error was returned by the service.
-    ///
-    /// This type always guarantees `e.is_service() == e.status().is_some()`.
-    pub fn is_service(&self) -> bool {
-        matches!(&self.kind, ErrorKind::Service { .. })
     }
 
     /// The [Status] payload associated with this error.
@@ -102,8 +96,6 @@ impl Error {
     ///
     /// See [AIP-193] for background information about the error model in Google
     /// Cloud services.
-    ///
-    /// This type always guarantees `e.is_service() == e.status().is_some()`.
     ///
     /// [AIP-193]: https://google.aip.dev/193
     pub fn status(&self) -> Option<&Status> {
@@ -477,7 +469,6 @@ mod test {
             .set_code(Code::NotFound)
             .set_message("NOT FOUND");
         let error = Error::service(status.clone());
-        assert!(error.is_service(), "{error:?}");
         assert!(error.source().is_none(), "{error:?}");
         assert_eq!(error.status(), Some(&status));
         assert!(error.to_string().contains("NOT FOUND"), "{error}");
@@ -504,7 +495,6 @@ mod test {
             Some(status_code),
             Some(headers.clone()),
         );
-        assert!(error.is_service(), "{error:?}");
         assert_eq!(error.status(), Some(&status));
         assert!(error.to_string().contains("NOT FOUND"), "{error}");
         assert!(error.to_string().contains(Code::NotFound.name()), "{error}");

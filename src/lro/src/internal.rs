@@ -840,7 +840,7 @@ mod test {
         assert!(matches!(got, Completed(Ok(_))), "{got:?}");
         let got = map_polling_result(TestResult::Completed(Err(service_error())));
         assert!(
-            matches!(&got, Completed(Err(e)) if e.is_service() && e.status() == service_error().status()),
+            matches!(&got, Completed(Err(e)) if e.status() == service_error().status()),
             "{got:?}"
         );
         let got = map_polling_result(TestResult::InProgress(None));
@@ -901,7 +901,7 @@ mod test {
         assert!(matches!(got, Completed(Ok(_))), "{got:?}");
         let got = map_polling_metadata(TestResult::Completed(Err(service_error())));
         assert!(
-            matches!(&got, Completed(Err(e)) if e.is_service() && e.status() == service_error().status()),
+            matches!(&got, Completed(Err(e)) if e.status() == service_error().status()),
             "{got:?}"
         );
         let got = map_polling_metadata(TestResult::InProgress(None));

@@ -106,7 +106,6 @@ mod test {
                         r
                     );
                     let err = r.unwrap_err();
-                    assert!(err.is_service(), "{err:?}");
                     assert_eq!(err.status().map(|s| s.code), Some(gax::error::rpc::Code::Cancelled));
                     break;
                 },
@@ -176,7 +175,6 @@ mod test {
                         r
                     );
                     let err = r.unwrap_err();
-                    assert!(err.is_service(), "{err:?}");
                     assert_eq!(err.status().map(|s| s.code), Some(gax::error::rpc::Code::Cancelled));
                     break;
                 },

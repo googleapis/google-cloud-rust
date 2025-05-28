@@ -122,7 +122,6 @@ mod test {
 
         let response = send_request(client, "", "").await;
         let err = response.unwrap_err();
-        assert!(err.is_service(), "{err:?}");
         assert_eq!(
             err.status().map(|s| s.code),
             Some(gax::error::rpc::Code::InvalidArgument)
