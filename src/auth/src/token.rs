@@ -12,6 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+//! Types and functions to work with auth [Tokens].
+//!
+//! [Tokens]: https://cloud.google.com/docs/authentication#token
+
 use crate::Result;
 use crate::credentials::CacheableResource;
 use http::Extensions;
@@ -20,7 +24,7 @@ use tokio::time::Instant;
 
 /// Represents an auth token.
 #[derive(Clone, PartialEq)]
-pub(crate) struct Token {
+pub struct Token {
     /// The actual token string.
     ///
     /// This is the value used in `Authorization:` header.
