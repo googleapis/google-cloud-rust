@@ -16,8 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-
 /// Implements a client for the Cloud Logging API.
 ///
 /// # Example
@@ -26,7 +24,7 @@ use crate::Result;
 /// # use google_cloud_logging_v2::client::LoggingServiceV2;
 /// let client = LoggingServiceV2::builder().build().await?;
 /// // use `client` to make requests to the Cloud Logging API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -71,7 +69,7 @@ impl LoggingServiceV2 {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_logging_v2::client::LoggingServiceV2;
     /// let client = LoggingServiceV2::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::logging_service_v_2::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -92,14 +90,17 @@ impl LoggingServiceV2 {
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::LoggingServiceV2>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::LoggingServiceV2>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -108,13 +109,13 @@ impl LoggingServiceV2 {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::LoggingServiceV2> {
+    ) -> gax::client_builder::Result<impl super::stub::LoggingServiceV2> {
         super::transport::LoggingServiceV2::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::LoggingServiceV2> {
+    ) -> gax::client_builder::Result<impl super::stub::LoggingServiceV2> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::LoggingServiceV2::new)
@@ -192,7 +193,7 @@ impl LoggingServiceV2 {
 /// # use google_cloud_logging_v2::client::ConfigServiceV2;
 /// let client = ConfigServiceV2::builder().build().await?;
 /// // use `client` to make requests to the Cloud Logging API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -237,7 +238,7 @@ impl ConfigServiceV2 {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_logging_v2::client::ConfigServiceV2;
     /// let client = ConfigServiceV2::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::config_service_v_2::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -258,14 +259,17 @@ impl ConfigServiceV2 {
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::ConfigServiceV2>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ConfigServiceV2>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -274,13 +278,13 @@ impl ConfigServiceV2 {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::ConfigServiceV2> {
+    ) -> gax::client_builder::Result<impl super::stub::ConfigServiceV2> {
         super::transport::ConfigServiceV2::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::ConfigServiceV2> {
+    ) -> gax::client_builder::Result<impl super::stub::ConfigServiceV2> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ConfigServiceV2::new)
@@ -617,7 +621,7 @@ impl ConfigServiceV2 {
 /// # use google_cloud_logging_v2::client::MetricsServiceV2;
 /// let client = MetricsServiceV2::builder().build().await?;
 /// // use `client` to make requests to the Cloud Logging API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -662,7 +666,7 @@ impl MetricsServiceV2 {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_logging_v2::client::MetricsServiceV2;
     /// let client = MetricsServiceV2::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::metrics_service_v_2::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -683,14 +687,17 @@ impl MetricsServiceV2 {
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::MetricsServiceV2>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::MetricsServiceV2>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -699,13 +706,13 @@ impl MetricsServiceV2 {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::MetricsServiceV2> {
+    ) -> gax::client_builder::Result<impl super::stub::MetricsServiceV2> {
         super::transport::MetricsServiceV2::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::MetricsServiceV2> {
+    ) -> gax::client_builder::Result<impl super::stub::MetricsServiceV2> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::MetricsServiceV2::new)

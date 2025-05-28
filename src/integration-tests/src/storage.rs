@@ -19,6 +19,7 @@ use gax::paginator::ItemPaginator as _;
 use gax::retry_policy::RetryPolicyExt;
 use lro::Poller;
 use std::time::Duration;
+use storage_control::client::StorageControl;
 use storage_control::model::Bucket;
 use storage_control::model::bucket::iam_config::UniformBucketLevelAccess;
 use storage_control::model::bucket::{HierarchicalNamespace, IamConfig};
@@ -51,7 +52,12 @@ pub async fn objects(builder: storage::client::ClientBuilder) -> Result<()> {
     tracing::info!("success with insert={insert:?}");
 
     tracing::info!("testing read_object()");
-    let contents = client.read_object(&bucket.name, &insert.name).await?;
+    let contents = client
+        .read_object()
+        .set_bucket(&bucket.name)
+        .set_object(&insert.name)
+        .send()
+        .await?;
     assert_eq!(contents, CONTENTS.as_bytes());
     tracing::info!("success with contents={contents:?}");
 
@@ -71,15 +77,16 @@ pub async fn objects(builder: storage::client::ClientBuilder) -> Result<()> {
     Ok(())
 }
 
-pub async fn create_test_bucket() -> gax::Result<(storage_control::client::Storage, Bucket)> {
+pub async fn create_test_bucket() -> Result<(StorageControl, Bucket)> {
     let project_id = crate::project_id()?;
-    let client = storage_control::client::Storage::builder()
+    let client = StorageControl::builder()
         .with_tracing()
         .with_backoff_policy(
             gax::exponential_backoff::ExponentialBackoffBuilder::new()
                 .with_initial_delay(Duration::from_secs(2))
                 .with_maximum_delay(Duration::from_secs(8))
-                .build()?,
+                .build()
+                .unwrap(),
         )
         .with_retry_policy(
             gax::retry_policy::AlwaysRetry
@@ -185,7 +192,7 @@ pub async fn buckets(builder: storage_control::client::ClientBuilder) -> Result<
     Ok(())
 }
 
-async fn buckets_iam(client: &storage_control::client::Storage, bucket_name: &str) -> Result<()> {
+async fn buckets_iam(client: &StorageControl, bucket_name: &str) -> Result<()> {
     let service_account = crate::service_account_for_iam_tests()?;
 
     println!("\nTesting get_iam_policy()");
@@ -224,7 +231,7 @@ async fn buckets_iam(client: &storage_control::client::Storage, bucket_name: &st
     Ok(())
 }
 
-async fn folders(client: &storage_control::client::Storage, bucket_name: &str) -> Result<()> {
+async fn folders(client: &StorageControl, bucket_name: &str) -> Result<()> {
     let folder_name = format!("{bucket_name}/folders/test-folder/");
     let folder_rename = format!("{bucket_name}/folders/renamed-test-folder/");
 
@@ -277,14 +284,9 @@ async fn folders(client: &storage_control::client::Storage, bucket_name: &str) -
     Ok(())
 }
 
-async fn cleanup_stale_buckets(
-    client: &storage_control::client::Storage,
-    project_id: &str,
-) -> Result<()> {
+async fn cleanup_stale_buckets(client: &StorageControl, project_id: &str) -> Result<()> {
     use std::time::{Duration, SystemTime, UNIX_EPOCH};
-    let stale_deadline = SystemTime::now()
-        .duration_since(UNIX_EPOCH)
-        .map_err(Error::other)?;
+    let stale_deadline = SystemTime::now().duration_since(UNIX_EPOCH)?;
     let stale_deadline = stale_deadline - Duration::from_secs(48 * 60 * 60);
     let stale_deadline = wkt::Timestamp::clamp(stale_deadline.as_secs() as i64, 0);
 
@@ -312,7 +314,7 @@ async fn cleanup_stale_buckets(
         .await
         .into_iter()
         .collect();
-    r.map_err(Error::other)?
+    r.map_err(Error::from)?
         .into_iter()
         .zip(names)
         .for_each(|(r, name)| println!("deleting bucket {name} resulted in {r:?}"));
@@ -320,7 +322,7 @@ async fn cleanup_stale_buckets(
     Ok(())
 }
 
-async fn cleanup_bucket(client: storage_control::client::Storage, name: String) -> Result<()> {
+async fn cleanup_bucket(client: StorageControl, name: String) -> Result<()> {
     let mut objects = client
         .list_objects()
         .set_parent(&name)
@@ -339,7 +341,8 @@ async fn cleanup_bucket(client: storage_control::client::Storage, name: String) 
         );
     }
     let _ = futures::future::join_all(pending).await;
-    client.delete_bucket().set_name(&name).send().await
+    client.delete_bucket().set_name(&name).send().await?;
+    Ok(())
 }
 
 fn test_backoff() -> ExponentialBackoff {

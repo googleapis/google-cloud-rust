@@ -28,7 +28,7 @@ pub mod database_admin {
     /// let client = builder
     ///     .with_endpoint("https://spanner.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -39,7 +39,10 @@ pub mod database_admin {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = DatabaseAdmin;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -654,6 +657,12 @@ pub mod database_admin {
         /// Sets the value of [proto_descriptors][crate::model::UpdateDatabaseDdlRequest::proto_descriptors].
         pub fn set_proto_descriptors<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request.proto_descriptors = v.into();
+            self
+        }
+
+        /// Sets the value of [throughput_mode][crate::model::UpdateDatabaseDdlRequest::throughput_mode].
+        pub fn set_throughput_mode<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.throughput_mode = v.into();
             self
         }
     }

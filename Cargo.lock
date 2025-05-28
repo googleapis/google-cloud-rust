@@ -96,6 +96,7 @@ checksum = "1505bd5d3d116872e7271a6d4e16d81d0c8570876c8de68093a09ac269d8aac0"
 name = "auth-integration-tests"
 version = "0.0.0"
 dependencies = [
+ "anyhow",
  "google-cloud-auth",
  "google-cloud-bigquery-v2",
  "google-cloud-gax",
@@ -761,6 +762,24 @@ dependencies = [
 ]
 
 [[package]]
+name = "google-cloud-api-cloudquotas-v1"
+version = "0.4.0"
+dependencies = [
+ "async-trait",
+ "bytes",
+ "google-cloud-gax",
+ "google-cloud-gax-internal",
+ "google-cloud-wkt",
+ "lazy_static",
+ "reqwest",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tokio-test",
+ "tracing",
+]
+
+[[package]]
 name = "google-cloud-api-servicecontrol-v1"
 version = "0.4.0"
 dependencies = [
@@ -1130,6 +1149,7 @@ dependencies = [
 name = "google-cloud-auth"
 version = "0.21.0"
 dependencies = [
+ "anyhow",
  "async-trait",
  "axum",
  "base64",
@@ -2354,6 +2374,7 @@ dependencies = [
  "serde_json",
  "serial_test",
  "test-case",
+ "thiserror",
  "tokio",
  "tokio-test",
 ]
@@ -2871,6 +2892,7 @@ dependencies = [
 name = "google-cloud-lro"
 version = "0.3.0"
 dependencies = [
+ "anyhow",
  "axum",
  "futures",
  "google-cloud-auth",
@@ -4077,6 +4099,7 @@ dependencies = [
 name = "google-cloud-storage"
 version = "0.0.0"
 dependencies = [
+ "anyhow",
  "base64",
  "bytes",
  "google-cloud-auth",
@@ -4157,6 +4180,7 @@ dependencies = [
  "google-cloud-gax-internal",
  "google-cloud-location",
  "google-cloud-longrunning",
+ "google-cloud-lro",
  "google-cloud-rpc",
  "google-cloud-type",
  "google-cloud-wkt",
@@ -6287,9 +6311,9 @@ checksum = "1f3ccbac311fea05f86f61904b462b55fb3df8837a366dfc601a0161d0532f20"
 
 [[package]]
 name = "tokio"
-version = "1.45.0"
+version = "1.45.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2513ca694ef9ede0fb23fe71a4ee4107cb102b9dc1930f6d0fd77aae068ae165"
+checksum = "75ef51a33ef1da925cea3e4eb122833cb377c61439ca401b770f54902b806779"
 dependencies = [
  "backtrace",
  "bytes",

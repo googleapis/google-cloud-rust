@@ -25,6 +25,7 @@ extern crate gtype;
 extern crate lazy_static;
 extern crate location;
 extern crate longrunning;
+extern crate lro;
 extern crate reqwest;
 extern crate rpc;
 extern crate serde;
@@ -34,7 +35,10 @@ extern crate std;
 extern crate tracing;
 extern crate wkt;
 
-/// Message for requesting list of ReportConfigs
+/// Request message for
+/// [`ListReportConfigs`][google.cloud.storageinsights.v1.StorageInsights.ListReportConfigs]
+///
+/// [google.cloud.storageinsights.v1.StorageInsights.ListReportConfigs]: crate::client::StorageInsights::list_report_configs
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -1792,5 +1796,2335 @@ pub mod report_config {
     pub enum ReportKind {
         /// Report for exporting object metadata.
         ObjectMetadataReportOptions(std::boxed::Box<crate::model::ObjectMetadataReportOptions>),
+    }
+}
+
+/// Identity lets the user provide the type of identity to use, and outputs
+/// the identity string that can be used for IAM policy changes.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct Identity {
+    /// Output only. Name of the identity.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    /// Type of identity to use for the datasetConfig.
+    #[serde(rename = "type")]
+    pub r#type: crate::model::identity::IdentityType,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl Identity {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::Identity::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [r#type][crate::model::Identity::type].
+    pub fn set_type<T: std::convert::Into<crate::model::identity::IdentityType>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.r#type = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for Identity {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.storageinsights.v1.Identity"
+    }
+}
+
+/// Defines additional types related to [Identity].
+pub mod identity {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Type of service account to use for the dataset configuration.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum IdentityType {
+        /// Default is unspecified and should not be used.
+        Unspecified,
+        /// Google managed service account per resource.
+        PerConfig,
+        /// Google managed service account per project.
+        PerProject,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [IdentityType::value] or
+        /// [IdentityType::name].
+        UnknownValue(identity_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod identity_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl IdentityType {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::PerConfig => std::option::Option::Some(1),
+                Self::PerProject => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("IDENTITY_TYPE_UNSPECIFIED"),
+                Self::PerConfig => std::option::Option::Some("IDENTITY_TYPE_PER_CONFIG"),
+                Self::PerProject => std::option::Option::Some("IDENTITY_TYPE_PER_PROJECT"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for IdentityType {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for IdentityType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for IdentityType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::PerConfig,
+                2 => Self::PerProject,
+                _ => Self::UnknownValue(identity_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for IdentityType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "IDENTITY_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "IDENTITY_TYPE_PER_CONFIG" => Self::PerConfig,
+                "IDENTITY_TYPE_PER_PROJECT" => Self::PerProject,
+                _ => Self::UnknownValue(identity_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for IdentityType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::PerConfig => serializer.serialize_i32(1),
+                Self::PerProject => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for IdentityType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<IdentityType>::new(
+                ".google.cloud.storageinsights.v1.Identity.IdentityType",
+            ))
+        }
+    }
+}
+
+/// Message describing the dataset configuration properties. For more
+/// information, see [Dataset configuration
+/// properties](https://cloud.google.com/storage/docs/insights/datasets#dataset-config).
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct DatasetConfig {
+    /// Identifier. name of resource
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    /// Output only. The UTC time at which the dataset configuration was created.
+    /// This is auto-populated.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The UTC time at which the dataset configuration was last
+    /// updated. This is auto-populated.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Labels as key value pairs
+    #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// Output only. System generated unique identifier for the resource.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub uid: std::string::String,
+
+    /// Optional. Organization resource ID that the source projects should belong
+    /// to. Projects that do not belong to the provided organization are not
+    /// considered when creating the dataset.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DisplayFromStr")]
+    pub organization_number: i64,
+
+    /// If set to `true`, the request includes all the newly created buckets in the
+    /// dataset that meet the inclusion and exclusion rules.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    pub include_newly_created_buckets: bool,
+
+    /// Optional. If set to `false`, then all the permission checks must be
+    /// successful before the system can start ingesting data. This field can only
+    /// be updated before the system ingests data for the first time. Any attempt
+    /// to modify the field after data ingestion starts results in an error.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[deprecated]
+    pub skip_verification_and_ingest: bool,
+
+    /// Number of days of history that must be retained.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    pub retention_period_days: i32,
+
+    /// Details of the linked dataset.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub link: std::option::Option<crate::model::dataset_config::Link>,
+
+    /// Identity used by this `datasetConfig`.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub identity: std::option::Option<crate::model::Identity>,
+
+    /// Output only. Status of the `datasetConfig`.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub status: std::option::Option<rpc::model::Status>,
+
+    /// Output only. State of the `datasetConfig`.
+    pub dataset_config_state: crate::model::dataset_config::ConfigState,
+
+    /// Optional. A user-provided description for the dataset configuration.
+    ///
+    /// Maximum length: 256 characters.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub description: std::string::String,
+
+    /// Defines the options for providing source identifiers for the dataset.
+    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
+    pub source_options: std::option::Option<crate::model::dataset_config::SourceOptions>,
+
+    /// Cloud Storage locations to include or exclude.
+    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
+    pub cloud_storage_locations:
+        std::option::Option<crate::model::dataset_config::CloudStorageLocationsOneOf>,
+
+    /// Cloud Storage buckets to include or exclude.
+    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
+    pub cloud_storage_buckets:
+        std::option::Option<crate::model::dataset_config::CloudStorageBucketsOneOf>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DatasetConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DatasetConfig::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::DatasetConfig::create_time].
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::DatasetConfig::create_time].
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::DatasetConfig::update_time].
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::DatasetConfig::update_time].
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::DatasetConfig::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [uid][crate::model::DatasetConfig::uid].
+    pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.uid = v.into();
+        self
+    }
+
+    /// Sets the value of [organization_number][crate::model::DatasetConfig::organization_number].
+    pub fn set_organization_number<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.organization_number = v.into();
+        self
+    }
+
+    /// Sets the value of [include_newly_created_buckets][crate::model::DatasetConfig::include_newly_created_buckets].
+    pub fn set_include_newly_created_buckets<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.include_newly_created_buckets = v.into();
+        self
+    }
+
+    /// Sets the value of [skip_verification_and_ingest][crate::model::DatasetConfig::skip_verification_and_ingest].
+    #[deprecated]
+    pub fn set_skip_verification_and_ingest<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.skip_verification_and_ingest = v.into();
+        self
+    }
+
+    /// Sets the value of [retention_period_days][crate::model::DatasetConfig::retention_period_days].
+    pub fn set_retention_period_days<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.retention_period_days = v.into();
+        self
+    }
+
+    /// Sets the value of [link][crate::model::DatasetConfig::link].
+    pub fn set_link<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::dataset_config::Link>,
+    {
+        self.link = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [link][crate::model::DatasetConfig::link].
+    pub fn set_or_clear_link<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::dataset_config::Link>,
+    {
+        self.link = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [identity][crate::model::DatasetConfig::identity].
+    pub fn set_identity<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Identity>,
+    {
+        self.identity = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [identity][crate::model::DatasetConfig::identity].
+    pub fn set_or_clear_identity<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Identity>,
+    {
+        self.identity = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [status][crate::model::DatasetConfig::status].
+    pub fn set_status<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<rpc::model::Status>,
+    {
+        self.status = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [status][crate::model::DatasetConfig::status].
+    pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<rpc::model::Status>,
+    {
+        self.status = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [dataset_config_state][crate::model::DatasetConfig::dataset_config_state].
+    pub fn set_dataset_config_state<
+        T: std::convert::Into<crate::model::dataset_config::ConfigState>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.dataset_config_state = v.into();
+        self
+    }
+
+    /// Sets the value of [description][crate::model::DatasetConfig::description].
+    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.description = v.into();
+        self
+    }
+
+    /// Sets the value of [source_options][crate::model::DatasetConfig::source_options].
+    ///
+    /// Note that all the setters affecting `source_options` are mutually
+    /// exclusive.
+    pub fn set_source_options<
+        T: std::convert::Into<std::option::Option<crate::model::dataset_config::SourceOptions>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.source_options = v.into();
+        self
+    }
+
+    /// The value of [source_options][crate::model::DatasetConfig::source_options]
+    /// if it holds a `SourceProjects`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn source_projects(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::dataset_config::SourceProjects>> {
+        #[allow(unreachable_patterns)]
+        self.source_options.as_ref().and_then(|v| match v {
+            crate::model::dataset_config::SourceOptions::SourceProjects(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [source_options][crate::model::DatasetConfig::source_options]
+    /// to hold a `SourceProjects`.
+    ///
+    /// Note that all the setters affecting `source_options` are
+    /// mutually exclusive.
+    pub fn set_source_projects<
+        T: std::convert::Into<std::boxed::Box<crate::model::dataset_config::SourceProjects>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.source_options = std::option::Option::Some(
+            crate::model::dataset_config::SourceOptions::SourceProjects(v.into()),
+        );
+        self
+    }
+
+    /// The value of [source_options][crate::model::DatasetConfig::source_options]
+    /// if it holds a `SourceFolders`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn source_folders(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::dataset_config::SourceFolders>> {
+        #[allow(unreachable_patterns)]
+        self.source_options.as_ref().and_then(|v| match v {
+            crate::model::dataset_config::SourceOptions::SourceFolders(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [source_options][crate::model::DatasetConfig::source_options]
+    /// to hold a `SourceFolders`.
+    ///
+    /// Note that all the setters affecting `source_options` are
+    /// mutually exclusive.
+    pub fn set_source_folders<
+        T: std::convert::Into<std::boxed::Box<crate::model::dataset_config::SourceFolders>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.source_options = std::option::Option::Some(
+            crate::model::dataset_config::SourceOptions::SourceFolders(v.into()),
+        );
+        self
+    }
+
+    /// The value of [source_options][crate::model::DatasetConfig::source_options]
+    /// if it holds a `OrganizationScope`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn organization_scope(&self) -> std::option::Option<&bool> {
+        #[allow(unreachable_patterns)]
+        self.source_options.as_ref().and_then(|v| match v {
+            crate::model::dataset_config::SourceOptions::OrganizationScope(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [source_options][crate::model::DatasetConfig::source_options]
+    /// to hold a `OrganizationScope`.
+    ///
+    /// Note that all the setters affecting `source_options` are
+    /// mutually exclusive.
+    pub fn set_organization_scope<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.source_options = std::option::Option::Some(
+            crate::model::dataset_config::SourceOptions::OrganizationScope(v.into()),
+        );
+        self
+    }
+
+    /// The value of [source_options][crate::model::DatasetConfig::source_options]
+    /// if it holds a `CloudStorageObjectPath`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn cloud_storage_object_path(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.source_options.as_ref().and_then(|v| match v {
+            crate::model::dataset_config::SourceOptions::CloudStorageObjectPath(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [source_options][crate::model::DatasetConfig::source_options]
+    /// to hold a `CloudStorageObjectPath`.
+    ///
+    /// Note that all the setters affecting `source_options` are
+    /// mutually exclusive.
+    pub fn set_cloud_storage_object_path<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.source_options = std::option::Option::Some(
+            crate::model::dataset_config::SourceOptions::CloudStorageObjectPath(v.into()),
+        );
+        self
+    }
+
+    /// Sets the value of [cloud_storage_locations][crate::model::DatasetConfig::cloud_storage_locations].
+    ///
+    /// Note that all the setters affecting `cloud_storage_locations` are mutually
+    /// exclusive.
+    pub fn set_cloud_storage_locations<
+        T: std::convert::Into<
+                std::option::Option<crate::model::dataset_config::CloudStorageLocationsOneOf>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.cloud_storage_locations = v.into();
+        self
+    }
+
+    /// The value of [cloud_storage_locations][crate::model::DatasetConfig::cloud_storage_locations]
+    /// if it holds a `IncludeCloudStorageLocations`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn include_cloud_storage_locations(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::dataset_config::CloudStorageLocations>>
+    {
+        #[allow(unreachable_patterns)]
+        self.cloud_storage_locations.as_ref().and_then(|v| match v {
+            crate::model::dataset_config::CloudStorageLocationsOneOf::IncludeCloudStorageLocations(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [cloud_storage_locations][crate::model::DatasetConfig::cloud_storage_locations]
+    /// to hold a `IncludeCloudStorageLocations`.
+    ///
+    /// Note that all the setters affecting `cloud_storage_locations` are
+    /// mutually exclusive.
+    pub fn set_include_cloud_storage_locations<
+        T: std::convert::Into<std::boxed::Box<crate::model::dataset_config::CloudStorageLocations>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.cloud_storage_locations = std::option::Option::Some(
+            crate::model::dataset_config::CloudStorageLocationsOneOf::IncludeCloudStorageLocations(
+                v.into(),
+            ),
+        );
+        self
+    }
+
+    /// The value of [cloud_storage_locations][crate::model::DatasetConfig::cloud_storage_locations]
+    /// if it holds a `ExcludeCloudStorageLocations`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn exclude_cloud_storage_locations(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::dataset_config::CloudStorageLocations>>
+    {
+        #[allow(unreachable_patterns)]
+        self.cloud_storage_locations.as_ref().and_then(|v| match v {
+            crate::model::dataset_config::CloudStorageLocationsOneOf::ExcludeCloudStorageLocations(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [cloud_storage_locations][crate::model::DatasetConfig::cloud_storage_locations]
+    /// to hold a `ExcludeCloudStorageLocations`.
+    ///
+    /// Note that all the setters affecting `cloud_storage_locations` are
+    /// mutually exclusive.
+    pub fn set_exclude_cloud_storage_locations<
+        T: std::convert::Into<std::boxed::Box<crate::model::dataset_config::CloudStorageLocations>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.cloud_storage_locations = std::option::Option::Some(
+            crate::model::dataset_config::CloudStorageLocationsOneOf::ExcludeCloudStorageLocations(
+                v.into(),
+            ),
+        );
+        self
+    }
+
+    /// Sets the value of [cloud_storage_buckets][crate::model::DatasetConfig::cloud_storage_buckets].
+    ///
+    /// Note that all the setters affecting `cloud_storage_buckets` are mutually
+    /// exclusive.
+    pub fn set_cloud_storage_buckets<
+        T: std::convert::Into<
+                std::option::Option<crate::model::dataset_config::CloudStorageBucketsOneOf>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.cloud_storage_buckets = v.into();
+        self
+    }
+
+    /// The value of [cloud_storage_buckets][crate::model::DatasetConfig::cloud_storage_buckets]
+    /// if it holds a `IncludeCloudStorageBuckets`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn include_cloud_storage_buckets(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::dataset_config::CloudStorageBuckets>>
+    {
+        #[allow(unreachable_patterns)]
+        self.cloud_storage_buckets.as_ref().and_then(|v| match v {
+            crate::model::dataset_config::CloudStorageBucketsOneOf::IncludeCloudStorageBuckets(
+                v,
+            ) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [cloud_storage_buckets][crate::model::DatasetConfig::cloud_storage_buckets]
+    /// to hold a `IncludeCloudStorageBuckets`.
+    ///
+    /// Note that all the setters affecting `cloud_storage_buckets` are
+    /// mutually exclusive.
+    pub fn set_include_cloud_storage_buckets<
+        T: std::convert::Into<std::boxed::Box<crate::model::dataset_config::CloudStorageBuckets>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.cloud_storage_buckets = std::option::Option::Some(
+            crate::model::dataset_config::CloudStorageBucketsOneOf::IncludeCloudStorageBuckets(
+                v.into(),
+            ),
+        );
+        self
+    }
+
+    /// The value of [cloud_storage_buckets][crate::model::DatasetConfig::cloud_storage_buckets]
+    /// if it holds a `ExcludeCloudStorageBuckets`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn exclude_cloud_storage_buckets(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::dataset_config::CloudStorageBuckets>>
+    {
+        #[allow(unreachable_patterns)]
+        self.cloud_storage_buckets.as_ref().and_then(|v| match v {
+            crate::model::dataset_config::CloudStorageBucketsOneOf::ExcludeCloudStorageBuckets(
+                v,
+            ) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [cloud_storage_buckets][crate::model::DatasetConfig::cloud_storage_buckets]
+    /// to hold a `ExcludeCloudStorageBuckets`.
+    ///
+    /// Note that all the setters affecting `cloud_storage_buckets` are
+    /// mutually exclusive.
+    pub fn set_exclude_cloud_storage_buckets<
+        T: std::convert::Into<std::boxed::Box<crate::model::dataset_config::CloudStorageBuckets>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.cloud_storage_buckets = std::option::Option::Some(
+            crate::model::dataset_config::CloudStorageBucketsOneOf::ExcludeCloudStorageBuckets(
+                v.into(),
+            ),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for DatasetConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.storageinsights.v1.DatasetConfig"
+    }
+}
+
+/// Defines additional types related to [DatasetConfig].
+pub mod dataset_config {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Collection of project numbers
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct SourceProjects {
+        #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "std::vec::Vec<serde_with::DisplayFromStr>")]
+        pub project_numbers: std::vec::Vec<i64>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl SourceProjects {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [project_numbers][crate::model::dataset_config::SourceProjects::project_numbers].
+        pub fn set_project_numbers<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<i64>,
+        {
+            use std::iter::Iterator;
+            self.project_numbers = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for SourceProjects {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.storageinsights.v1.DatasetConfig.SourceProjects"
+        }
+    }
+
+    /// Specifies a set of folders to include in the dataset
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct SourceFolders {
+        /// Optional. The list of folder numbers to include in the dataset.
+        #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "std::vec::Vec<serde_with::DisplayFromStr>")]
+        pub folder_numbers: std::vec::Vec<i64>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl SourceFolders {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [folder_numbers][crate::model::dataset_config::SourceFolders::folder_numbers].
+        pub fn set_folder_numbers<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<i64>,
+        {
+            use std::iter::Iterator;
+            self.folder_numbers = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for SourceFolders {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.storageinsights.v1.DatasetConfig.SourceFolders"
+        }
+    }
+
+    /// Collection of Cloud Storage locations.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct CloudStorageLocations {
+        #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        pub locations: std::vec::Vec<std::string::String>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl CloudStorageLocations {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [locations][crate::model::dataset_config::CloudStorageLocations::locations].
+        pub fn set_locations<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.locations = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for CloudStorageLocations {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.storageinsights.v1.DatasetConfig.CloudStorageLocations"
+        }
+    }
+
+    /// Collection of Cloud Storage buckets.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct CloudStorageBuckets {
+        #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        pub cloud_storage_buckets:
+            std::vec::Vec<crate::model::dataset_config::cloud_storage_buckets::CloudStorageBucket>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl CloudStorageBuckets {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [cloud_storage_buckets][crate::model::dataset_config::CloudStorageBuckets::cloud_storage_buckets].
+        pub fn set_cloud_storage_buckets<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<
+                    crate::model::dataset_config::cloud_storage_buckets::CloudStorageBucket,
+                >,
+        {
+            use std::iter::Iterator;
+            self.cloud_storage_buckets = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for CloudStorageBuckets {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.storageinsights.v1.DatasetConfig.CloudStorageBuckets"
+        }
+    }
+
+    /// Defines additional types related to [CloudStorageBuckets].
+    pub mod cloud_storage_buckets {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Defines the bucket by its name or a regex pattern to match buckets.
+        #[serde_with::serde_as]
+        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[serde(default, rename_all = "camelCase")]
+        #[non_exhaustive]
+        pub struct CloudStorageBucket {
+
+            #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
+            pub cloud_storage_bucket: std::option::Option<crate::model::dataset_config::cloud_storage_buckets::cloud_storage_bucket::CloudStorageBucket>,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl CloudStorageBucket {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [cloud_storage_bucket][crate::model::dataset_config::cloud_storage_buckets::CloudStorageBucket::cloud_storage_bucket].
+            ///
+            /// Note that all the setters affecting `cloud_storage_bucket` are mutually
+            /// exclusive.
+            pub fn set_cloud_storage_bucket<T: std::convert::Into<std::option::Option<crate::model::dataset_config::cloud_storage_buckets::cloud_storage_bucket::CloudStorageBucket>>>(mut self, v: T) -> Self
+            {
+                self.cloud_storage_bucket = v.into();
+                self
+            }
+
+            /// The value of [cloud_storage_bucket][crate::model::dataset_config::cloud_storage_buckets::CloudStorageBucket::cloud_storage_bucket]
+            /// if it holds a `BucketName`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn bucket_name(&self) -> std::option::Option<&std::string::String> {
+                #[allow(unreachable_patterns)]
+                self.cloud_storage_bucket.as_ref().and_then(|v| match v {
+                    crate::model::dataset_config::cloud_storage_buckets::cloud_storage_bucket::CloudStorageBucket::BucketName(v) => std::option::Option::Some(v),
+                    _ => std::option::Option::None,
+                })
+            }
+
+            /// Sets the value of [cloud_storage_bucket][crate::model::dataset_config::cloud_storage_buckets::CloudStorageBucket::cloud_storage_bucket]
+            /// to hold a `BucketName`.
+            ///
+            /// Note that all the setters affecting `cloud_storage_bucket` are
+            /// mutually exclusive.
+            pub fn set_bucket_name<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.cloud_storage_bucket = std::option::Option::Some(
+                    crate::model::dataset_config::cloud_storage_buckets::cloud_storage_bucket::CloudStorageBucket::BucketName(
+                        v.into()
+                    )
+                );
+                self
+            }
+
+            /// The value of [cloud_storage_bucket][crate::model::dataset_config::cloud_storage_buckets::CloudStorageBucket::cloud_storage_bucket]
+            /// if it holds a `BucketPrefixRegex`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn bucket_prefix_regex(&self) -> std::option::Option<&std::string::String> {
+                #[allow(unreachable_patterns)]
+                self.cloud_storage_bucket.as_ref().and_then(|v| match v {
+                    crate::model::dataset_config::cloud_storage_buckets::cloud_storage_bucket::CloudStorageBucket::BucketPrefixRegex(v) => std::option::Option::Some(v),
+                    _ => std::option::Option::None,
+                })
+            }
+
+            /// Sets the value of [cloud_storage_bucket][crate::model::dataset_config::cloud_storage_buckets::CloudStorageBucket::cloud_storage_bucket]
+            /// to hold a `BucketPrefixRegex`.
+            ///
+            /// Note that all the setters affecting `cloud_storage_bucket` are
+            /// mutually exclusive.
+            pub fn set_bucket_prefix_regex<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.cloud_storage_bucket = std::option::Option::Some(
+                    crate::model::dataset_config::cloud_storage_buckets::cloud_storage_bucket::CloudStorageBucket::BucketPrefixRegex(
+                        v.into()
+                    )
+                );
+                self
+            }
+        }
+
+        impl wkt::message::Message for CloudStorageBucket {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.storageinsights.v1.DatasetConfig.CloudStorageBuckets.CloudStorageBucket"
+            }
+        }
+
+        /// Defines additional types related to [CloudStorageBucket].
+        pub mod cloud_storage_bucket {
+            #[allow(unused_imports)]
+            use super::*;
+
+            #[serde_with::serde_as]
+            #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+            #[serde(rename_all = "camelCase")]
+            #[non_exhaustive]
+            pub enum CloudStorageBucket {
+                /// Cloud Storage bucket name.
+                BucketName(std::string::String),
+                /// A regex pattern for bucket names matching the regex. Regex should
+                /// follow the syntax specified in `google/re2` on GitHub.
+                BucketPrefixRegex(std::string::String),
+            }
+        }
+    }
+
+    /// Defines the details about the linked dataset.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct Link {
+        /// Output only. Dataset name for linked dataset.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub dataset: std::string::String,
+
+        /// Output only. State of the linked dataset.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        pub linked: bool,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl Link {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [dataset][crate::model::dataset_config::Link::dataset].
+        pub fn set_dataset<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.dataset = v.into();
+            self
+        }
+
+        /// Sets the value of [linked][crate::model::dataset_config::Link::linked].
+        pub fn set_linked<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.linked = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for Link {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.storageinsights.v1.DatasetConfig.Link"
+        }
+    }
+
+    /// Provides a summary of the bucket level error statistics.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct BucketErrors {
+        /// Optional. Count of successfully validated buckets.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DisplayFromStr")]
+        pub validated_count: i64,
+
+        /// Optional. Count of buckets with permission denied errors.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DisplayFromStr")]
+        pub permission_denied_count: i64,
+
+        /// Optional. Subset of bucket names that have permission denied.
+        #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        pub permission_denied_bucket_ids: std::vec::Vec<std::string::String>,
+
+        /// Optional. Count of buckets that are not subscribed to Storage
+        /// Intelligence.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[deprecated]
+        pub non_management_hub_entitled_count: i64,
+
+        /// Optional. Number of buckets that encountered internal errors during the
+        /// validation process. These buckets are automatically retried in subsequent
+        /// validation attempts.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DisplayFromStr")]
+        pub internal_error_count: i64,
+
+        /// Optional. Count of buckets that are not subscribed to Storage
+        /// Intelligence.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DisplayFromStr")]
+        pub non_storage_intelligence_entitled_count: i64,
+
+        /// Optional. Subset of bucket names that are not subscribed to Storage
+        /// Intelligence.
+        #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        pub non_storage_intelligence_entitled_bucket_ids: std::vec::Vec<std::string::String>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl BucketErrors {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [validated_count][crate::model::dataset_config::BucketErrors::validated_count].
+        pub fn set_validated_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+            self.validated_count = v.into();
+            self
+        }
+
+        /// Sets the value of [permission_denied_count][crate::model::dataset_config::BucketErrors::permission_denied_count].
+        pub fn set_permission_denied_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+            self.permission_denied_count = v.into();
+            self
+        }
+
+        /// Sets the value of [permission_denied_bucket_ids][crate::model::dataset_config::BucketErrors::permission_denied_bucket_ids].
+        pub fn set_permission_denied_bucket_ids<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.permission_denied_bucket_ids = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [non_management_hub_entitled_count][crate::model::dataset_config::BucketErrors::non_management_hub_entitled_count].
+        #[deprecated]
+        pub fn set_non_management_hub_entitled_count<T: std::convert::Into<i64>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.non_management_hub_entitled_count = v.into();
+            self
+        }
+
+        /// Sets the value of [internal_error_count][crate::model::dataset_config::BucketErrors::internal_error_count].
+        pub fn set_internal_error_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+            self.internal_error_count = v.into();
+            self
+        }
+
+        /// Sets the value of [non_storage_intelligence_entitled_count][crate::model::dataset_config::BucketErrors::non_storage_intelligence_entitled_count].
+        pub fn set_non_storage_intelligence_entitled_count<T: std::convert::Into<i64>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.non_storage_intelligence_entitled_count = v.into();
+            self
+        }
+
+        /// Sets the value of [non_storage_intelligence_entitled_bucket_ids][crate::model::dataset_config::BucketErrors::non_storage_intelligence_entitled_bucket_ids].
+        pub fn set_non_storage_intelligence_entitled_bucket_ids<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.non_storage_intelligence_entitled_bucket_ids =
+                v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for BucketErrors {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.storageinsights.v1.DatasetConfig.BucketErrors"
+        }
+    }
+
+    /// Provides a summary of the project level error statistics.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct ProjectErrors {
+        /// Optional. Count of successfully validated projects.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+        pub validated_count: std::option::Option<i64>,
+
+        /// Optional. Count of projects which are not in the same organization.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+        pub outside_org_error_count: std::option::Option<i64>,
+
+        /// Optional. Subset of project numbers which are not in the same
+        /// organization.
+        #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "std::vec::Vec<serde_with::DisplayFromStr>")]
+        pub outside_org_project_numbers: std::vec::Vec<i64>,
+
+        /// Optional. Count of projects that are not subscribed to Storage
+        /// Intelligence.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+        #[deprecated]
+        pub non_management_hub_entitled_error_count: std::option::Option<i64>,
+
+        /// Optional. Subset of project numbers that are not subscribed to Storage
+        /// Intelligence.
+        #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "std::vec::Vec<serde_with::DisplayFromStr>")]
+        #[deprecated]
+        pub non_management_hub_entitled_project_numbers: std::vec::Vec<i64>,
+
+        /// Optional. Count of projects that are not subscribed to Storage
+        /// Intelligence.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+        pub non_storage_intelligence_entitled_error_count: std::option::Option<i64>,
+
+        /// Optional. Subset of project numbers that are not subscribed to Storage
+        /// Intelligence.
+        #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "std::vec::Vec<serde_with::DisplayFromStr>")]
+        pub non_storage_intelligence_entitled_project_numbers: std::vec::Vec<i64>,
+
+        /// Optional. Number of projects that encountered internal errors during
+        /// validation and are automatically retried.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+        pub internal_error_count: std::option::Option<i64>,
+
+        /// The destination project check result. It indicates whether the project
+        /// is in the correct organization or if an internal error occurred during
+        /// the check.
+        #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
+        pub destination_project_check_result: std::option::Option<
+            crate::model::dataset_config::project_errors::DestinationProjectCheckResult,
+        >,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl ProjectErrors {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [validated_count][crate::model::dataset_config::ProjectErrors::validated_count].
+        pub fn set_validated_count<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.validated_count = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [validated_count][crate::model::dataset_config::ProjectErrors::validated_count].
+        pub fn set_or_clear_validated_count<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.validated_count = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [outside_org_error_count][crate::model::dataset_config::ProjectErrors::outside_org_error_count].
+        pub fn set_outside_org_error_count<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.outside_org_error_count = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [outside_org_error_count][crate::model::dataset_config::ProjectErrors::outside_org_error_count].
+        pub fn set_or_clear_outside_org_error_count<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.outside_org_error_count = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [outside_org_project_numbers][crate::model::dataset_config::ProjectErrors::outside_org_project_numbers].
+        pub fn set_outside_org_project_numbers<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<i64>,
+        {
+            use std::iter::Iterator;
+            self.outside_org_project_numbers = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [non_management_hub_entitled_error_count][crate::model::dataset_config::ProjectErrors::non_management_hub_entitled_error_count].
+        #[deprecated]
+        pub fn set_non_management_hub_entitled_error_count<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.non_management_hub_entitled_error_count = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [non_management_hub_entitled_error_count][crate::model::dataset_config::ProjectErrors::non_management_hub_entitled_error_count].
+        #[deprecated]
+        pub fn set_or_clear_non_management_hub_entitled_error_count<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.non_management_hub_entitled_error_count = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [non_management_hub_entitled_project_numbers][crate::model::dataset_config::ProjectErrors::non_management_hub_entitled_project_numbers].
+        #[deprecated]
+        pub fn set_non_management_hub_entitled_project_numbers<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<i64>,
+        {
+            use std::iter::Iterator;
+            self.non_management_hub_entitled_project_numbers =
+                v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [non_storage_intelligence_entitled_error_count][crate::model::dataset_config::ProjectErrors::non_storage_intelligence_entitled_error_count].
+        pub fn set_non_storage_intelligence_entitled_error_count<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.non_storage_intelligence_entitled_error_count =
+                std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [non_storage_intelligence_entitled_error_count][crate::model::dataset_config::ProjectErrors::non_storage_intelligence_entitled_error_count].
+        pub fn set_or_clear_non_storage_intelligence_entitled_error_count<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.non_storage_intelligence_entitled_error_count = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [non_storage_intelligence_entitled_project_numbers][crate::model::dataset_config::ProjectErrors::non_storage_intelligence_entitled_project_numbers].
+        pub fn set_non_storage_intelligence_entitled_project_numbers<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<i64>,
+        {
+            use std::iter::Iterator;
+            self.non_storage_intelligence_entitled_project_numbers =
+                v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [internal_error_count][crate::model::dataset_config::ProjectErrors::internal_error_count].
+        pub fn set_internal_error_count<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.internal_error_count = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [internal_error_count][crate::model::dataset_config::ProjectErrors::internal_error_count].
+        pub fn set_or_clear_internal_error_count<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i64>,
+        {
+            self.internal_error_count = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [destination_project_check_result][crate::model::dataset_config::ProjectErrors::destination_project_check_result].
+        ///
+        /// Note that all the setters affecting `destination_project_check_result` are mutually
+        /// exclusive.
+        pub fn set_destination_project_check_result<
+            T: std::convert::Into<
+                    std::option::Option<
+                        crate::model::dataset_config::project_errors::DestinationProjectCheckResult,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.destination_project_check_result = v.into();
+            self
+        }
+
+        /// The value of [destination_project_check_result][crate::model::dataset_config::ProjectErrors::destination_project_check_result]
+        /// if it holds a `DestinationProjectOrgError`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn destination_project_org_error(&self) -> std::option::Option<&bool> {
+            #[allow(unreachable_patterns)]
+            self.destination_project_check_result.as_ref().and_then(|v| match v {
+                crate::model::dataset_config::project_errors::DestinationProjectCheckResult::DestinationProjectOrgError(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [destination_project_check_result][crate::model::dataset_config::ProjectErrors::destination_project_check_result]
+        /// to hold a `DestinationProjectOrgError`.
+        ///
+        /// Note that all the setters affecting `destination_project_check_result` are
+        /// mutually exclusive.
+        pub fn set_destination_project_org_error<T: std::convert::Into<bool>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.destination_project_check_result = std::option::Option::Some(
+                crate::model::dataset_config::project_errors::DestinationProjectCheckResult::DestinationProjectOrgError(
+                    v.into()
+                )
+            );
+            self
+        }
+
+        /// The value of [destination_project_check_result][crate::model::dataset_config::ProjectErrors::destination_project_check_result]
+        /// if it holds a `DestinationProjectCheckHasInternalError`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn destination_project_check_has_internal_error(&self) -> std::option::Option<&bool> {
+            #[allow(unreachable_patterns)]
+            self.destination_project_check_result.as_ref().and_then(|v| match v {
+                crate::model::dataset_config::project_errors::DestinationProjectCheckResult::DestinationProjectCheckHasInternalError(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [destination_project_check_result][crate::model::dataset_config::ProjectErrors::destination_project_check_result]
+        /// to hold a `DestinationProjectCheckHasInternalError`.
+        ///
+        /// Note that all the setters affecting `destination_project_check_result` are
+        /// mutually exclusive.
+        pub fn set_destination_project_check_has_internal_error<T: std::convert::Into<bool>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.destination_project_check_result = std::option::Option::Some(
+                crate::model::dataset_config::project_errors::DestinationProjectCheckResult::DestinationProjectCheckHasInternalError(
+                    v.into()
+                )
+            );
+            self
+        }
+    }
+
+    impl wkt::message::Message for ProjectErrors {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.storageinsights.v1.DatasetConfig.ProjectErrors"
+        }
+    }
+
+    /// Defines additional types related to [ProjectErrors].
+    pub mod project_errors {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// The destination project check result. It indicates whether the project
+        /// is in the correct organization or if an internal error occurred during
+        /// the check.
+        #[serde_with::serde_as]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[serde(rename_all = "camelCase")]
+        #[non_exhaustive]
+        pub enum DestinationProjectCheckResult {
+            /// Optional. Indicates if the destination project resides within the same
+            /// organization as the source project.
+            DestinationProjectOrgError(bool),
+            /// Optional. Indicates whether the destination project check failed due to
+            /// an internal error. If `true`, the system automatically retries the
+            /// check.
+            DestinationProjectCheckHasInternalError(bool),
+        }
+    }
+
+    /// Summary of validation errors that occurred during the verification phase.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct ValidationErrorsBeforeIngestion {
+        /// Optional. Provides a summary of the bucket level error stats.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub bucket_errors: std::option::Option<crate::model::dataset_config::BucketErrors>,
+
+        /// Optional. Provides a summary of the project level error stats.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub project_errors: std::option::Option<crate::model::dataset_config::ProjectErrors>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl ValidationErrorsBeforeIngestion {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [bucket_errors][crate::model::dataset_config::ValidationErrorsBeforeIngestion::bucket_errors].
+        pub fn set_bucket_errors<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::dataset_config::BucketErrors>,
+        {
+            self.bucket_errors = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [bucket_errors][crate::model::dataset_config::ValidationErrorsBeforeIngestion::bucket_errors].
+        pub fn set_or_clear_bucket_errors<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::dataset_config::BucketErrors>,
+        {
+            self.bucket_errors = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [project_errors][crate::model::dataset_config::ValidationErrorsBeforeIngestion::project_errors].
+        pub fn set_project_errors<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::dataset_config::ProjectErrors>,
+        {
+            self.project_errors = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [project_errors][crate::model::dataset_config::ValidationErrorsBeforeIngestion::project_errors].
+        pub fn set_or_clear_project_errors<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::dataset_config::ProjectErrors>,
+        {
+            self.project_errors = v.map(|x| x.into());
+            self
+        }
+    }
+
+    impl wkt::message::Message for ValidationErrorsBeforeIngestion {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.storageinsights.v1.DatasetConfig.ValidationErrorsBeforeIngestion"
+        }
+    }
+
+    /// State of the configuration.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum ConfigState {
+        /// Unspecified state.
+        Unspecified,
+        /// Active configuration indicates that the configuration is
+        /// actively ingesting data.
+        Active,
+        /// In this state, the configuration is being verified for various
+        /// permissions.
+        VerificationInProgress,
+        /// Configuration is created and further processing needs to happen.
+        Created,
+        /// Configuration is under processing
+        Processing,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [ConfigState::value] or
+        /// [ConfigState::name].
+        UnknownValue(config_state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod config_state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl ConfigState {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Active => std::option::Option::Some(1),
+                Self::VerificationInProgress => std::option::Option::Some(2),
+                Self::Created => std::option::Option::Some(3),
+                Self::Processing => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("CONFIG_STATE_UNSPECIFIED"),
+                Self::Active => std::option::Option::Some("CONFIG_STATE_ACTIVE"),
+                Self::VerificationInProgress => {
+                    std::option::Option::Some("CONFIG_STATE_VERIFICATION_IN_PROGRESS")
+                }
+                Self::Created => std::option::Option::Some("CONFIG_STATE_CREATED"),
+                Self::Processing => std::option::Option::Some("CONFIG_STATE_PROCESSING"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for ConfigState {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for ConfigState {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for ConfigState {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Active,
+                2 => Self::VerificationInProgress,
+                3 => Self::Created,
+                4 => Self::Processing,
+                _ => Self::UnknownValue(config_state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for ConfigState {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "CONFIG_STATE_UNSPECIFIED" => Self::Unspecified,
+                "CONFIG_STATE_ACTIVE" => Self::Active,
+                "CONFIG_STATE_VERIFICATION_IN_PROGRESS" => Self::VerificationInProgress,
+                "CONFIG_STATE_CREATED" => Self::Created,
+                "CONFIG_STATE_PROCESSING" => Self::Processing,
+                _ => Self::UnknownValue(config_state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for ConfigState {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Active => serializer.serialize_i32(1),
+                Self::VerificationInProgress => serializer.serialize_i32(2),
+                Self::Created => serializer.serialize_i32(3),
+                Self::Processing => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ConfigState {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<ConfigState>::new(
+                ".google.cloud.storageinsights.v1.DatasetConfig.ConfigState",
+            ))
+        }
+    }
+
+    /// Defines the options for providing source identifiers for the dataset.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub enum SourceOptions {
+        /// Defines the options for providing source projects for the dataset.
+        SourceProjects(std::boxed::Box<crate::model::dataset_config::SourceProjects>),
+        /// Defines the options for providing source folders for the dataset.
+        SourceFolders(std::boxed::Box<crate::model::dataset_config::SourceFolders>),
+        /// Defines the options for providing a source organization for the dataset.
+        OrganizationScope(bool),
+        /// Input only. Cloud Storage object path containing a list of
+        /// project or folder numbers to include in the dataset;
+        /// it cannot contain a mix of project and folders.
+        ///
+        /// The object must be a text file where each line has one of the following
+        /// entries:
+        ///
+        /// - Project number, formatted as `projects/{project_number}`, for example,
+        ///   `projects/1234567890`.
+        /// - Folder identifier, formatted as `folders/{folder_number}`, for example,
+        ///   `folders/9876543210`.
+        ///   Path must be in the format `gs://{bucket_name}/{object_name}`.
+        CloudStorageObjectPath(std::string::String),
+    }
+
+    /// Cloud Storage locations to include or exclude.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub enum CloudStorageLocationsOneOf {
+        IncludeCloudStorageLocations(
+            std::boxed::Box<crate::model::dataset_config::CloudStorageLocations>,
+        ),
+        ExcludeCloudStorageLocations(
+            std::boxed::Box<crate::model::dataset_config::CloudStorageLocations>,
+        ),
+    }
+
+    /// Cloud Storage buckets to include or exclude.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub enum CloudStorageBucketsOneOf {
+        IncludeCloudStorageBuckets(
+            std::boxed::Box<crate::model::dataset_config::CloudStorageBuckets>,
+        ),
+        ExcludeCloudStorageBuckets(
+            std::boxed::Box<crate::model::dataset_config::CloudStorageBuckets>,
+        ),
+    }
+}
+
+/// Request message for
+/// [`ListDatasetConfigs`][google.cloud.storageinsights.v1.StorageInsights.ListDatasetConfigs]
+///
+/// [google.cloud.storageinsights.v1.StorageInsights.ListDatasetConfigs]: crate::client::StorageInsights::list_dataset_configs
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ListDatasetConfigsRequest {
+    /// Required. Parent value for ListDatasetConfigsRequest
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub parent: std::string::String,
+
+    /// Requested page size. Server might return fewer items than requested.
+    /// If unspecified, server picks an appropriate default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    pub page_size: i32,
+
+    /// A token identifying a page of results the server should return.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub page_token: std::string::String,
+
+    /// Filtering results
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub filter: std::string::String,
+
+    /// Hint for how to order the results
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListDatasetConfigsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListDatasetConfigsRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListDatasetConfigsRequest::page_size].
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListDatasetConfigsRequest::page_token].
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::ListDatasetConfigsRequest::filter].
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+
+    /// Sets the value of [order_by][crate::model::ListDatasetConfigsRequest::order_by].
+    pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.order_by = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListDatasetConfigsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.storageinsights.v1.ListDatasetConfigsRequest"
+    }
+}
+
+/// Response message for
+/// [`ListDatasetConfigs`][google.cloud.storageinsights.v1.StorageInsights.ListDatasetConfigs]
+///
+/// [google.cloud.storageinsights.v1.StorageInsights.ListDatasetConfigs]: crate::client::StorageInsights::list_dataset_configs
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ListDatasetConfigsResponse {
+    /// The list of `DatasetConfigs`
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub dataset_configs: std::vec::Vec<crate::model::DatasetConfig>,
+
+    /// A token identifying a page of results the server should return.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub next_page_token: std::string::String,
+
+    /// Locations that could not be reached.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListDatasetConfigsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [dataset_configs][crate::model::ListDatasetConfigsResponse::dataset_configs].
+    pub fn set_dataset_configs<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::DatasetConfig>,
+    {
+        use std::iter::Iterator;
+        self.dataset_configs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListDatasetConfigsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListDatasetConfigsResponse::unreachable].
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ListDatasetConfigsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.storageinsights.v1.ListDatasetConfigsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListDatasetConfigsResponse {
+    type PageItem = crate::model::DatasetConfig;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.dataset_configs
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Request message for
+/// [`GetDatasetConfig`][google.cloud.storageinsights.v1.StorageInsights.GetDatasetConfig]
+///
+/// [google.cloud.storageinsights.v1.StorageInsights.GetDatasetConfig]: crate::client::StorageInsights::get_dataset_config
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct GetDatasetConfigRequest {
+    /// Required. Name of the resource
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetDatasetConfigRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetDatasetConfigRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetDatasetConfigRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.storageinsights.v1.GetDatasetConfigRequest"
+    }
+}
+
+/// Request message for
+/// [`CreateDatasetConfig`][google.cloud.storageinsights.v1.StorageInsights.CreateDatasetConfig]
+///
+/// [google.cloud.storageinsights.v1.StorageInsights.CreateDatasetConfig]: crate::client::StorageInsights::create_dataset_config
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct CreateDatasetConfigRequest {
+    /// Required. Value for parent.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub parent: std::string::String,
+
+    /// Required. ID of the requesting object.
+    /// If auto-generating ID is enabled on the server-side, remove this field and
+    /// `dataset_config_id` from the method_signature of Create RPC
+    /// Note: The value should not contain any hyphens.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub dataset_config_id: std::string::String,
+
+    /// Required. The resource being created
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub dataset_config: std::option::Option<crate::model::DatasetConfig>,
+
+    /// Optional. A unique identifier for your request.
+    /// Specify the request ID if you need to retry the request.
+    /// If you retry the request with the same ID within 60 minutes, the server
+    /// ignores the request if it has already completed the original request.
+    ///
+    /// For example, if your initial request times out and you retry the request
+    /// using the same request ID, the server recognizes the original request and
+    /// does not process the new request.
+    ///
+    /// The request ID must be a valid UUID and cannot be a zero UUID
+    /// (00000000-0000-0000-0000-000000000000).
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateDatasetConfigRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateDatasetConfigRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [dataset_config_id][crate::model::CreateDatasetConfigRequest::dataset_config_id].
+    pub fn set_dataset_config_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.dataset_config_id = v.into();
+        self
+    }
+
+    /// Sets the value of [dataset_config][crate::model::CreateDatasetConfigRequest::dataset_config].
+    pub fn set_dataset_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DatasetConfig>,
+    {
+        self.dataset_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [dataset_config][crate::model::CreateDatasetConfigRequest::dataset_config].
+    pub fn set_or_clear_dataset_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DatasetConfig>,
+    {
+        self.dataset_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::CreateDatasetConfigRequest::request_id].
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CreateDatasetConfigRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.storageinsights.v1.CreateDatasetConfigRequest"
+    }
+}
+
+/// Request message for
+/// [`UpdateDatasetConfig`][google.cloud.storageinsights.v1.StorageInsights.UpdateDatasetConfig]
+///
+/// [google.cloud.storageinsights.v1.StorageInsights.UpdateDatasetConfig]: crate::client::StorageInsights::update_dataset_config
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct UpdateDatasetConfigRequest {
+    /// Required. Field mask is used to specify the fields to be overwritten in the
+    /// `DatasetConfig` resource by the update.
+    /// The fields specified in the `update_mask` are relative to the resource, not
+    /// the full request. A field is overwritten if it is in the mask. If the
+    /// user does not provide a mask then it returns an "Invalid Argument" error.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    /// Required. The resource being updated
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub dataset_config: std::option::Option<crate::model::DatasetConfig>,
+
+    /// Optional. A unique identifier for your request.
+    /// Specify the request ID if you need to retry the request.
+    /// If you retry the request with the same ID within 60 minutes, the server
+    /// ignores the request if it has already completed the original request.
+    ///
+    /// For example, if your initial request times out and you retry the request
+    /// using the same request ID, the server recognizes the original request and
+    /// does not process the new request.
+    ///
+    /// The request ID must be a valid UUID and cannot be a zero UUID
+    /// (00000000-0000-0000-0000-000000000000).
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateDatasetConfigRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateDatasetConfigRequest::update_mask].
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateDatasetConfigRequest::update_mask].
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [dataset_config][crate::model::UpdateDatasetConfigRequest::dataset_config].
+    pub fn set_dataset_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DatasetConfig>,
+    {
+        self.dataset_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [dataset_config][crate::model::UpdateDatasetConfigRequest::dataset_config].
+    pub fn set_or_clear_dataset_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DatasetConfig>,
+    {
+        self.dataset_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::UpdateDatasetConfigRequest::request_id].
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateDatasetConfigRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.storageinsights.v1.UpdateDatasetConfigRequest"
+    }
+}
+
+/// Request message for
+/// [`DeleteDatasetConfig`][google.cloud.storageinsights.v1.StorageInsights.DeleteDatasetConfig]
+///
+/// [google.cloud.storageinsights.v1.StorageInsights.DeleteDatasetConfig]: crate::client::StorageInsights::delete_dataset_config
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct DeleteDatasetConfigRequest {
+    /// Required. Name of the resource
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    /// Optional. A unique identifier for your request.
+    /// Specify the request ID if you need to retry the request.
+    /// If you retry the request with the same ID within 60 minutes, the server
+    /// ignores the request if it has already completed the original request.
+    ///
+    /// For example, if your initial request times out and you retry the request
+    /// using the same request ID, the server recognizes the original request and
+    /// does not process the new request.
+    ///
+    /// The request ID must be a valid UUID and cannot be a zero UUID
+    /// (00000000-0000-0000-0000-000000000000).
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteDatasetConfigRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteDatasetConfigRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::DeleteDatasetConfigRequest::request_id].
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteDatasetConfigRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.storageinsights.v1.DeleteDatasetConfigRequest"
+    }
+}
+
+/// Request message for
+/// [`LinkDataset`][google.cloud.storageinsights.v1.StorageInsights.LinkDataset]
+///
+/// [google.cloud.storageinsights.v1.StorageInsights.LinkDataset]: crate::client::StorageInsights::link_dataset
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct LinkDatasetRequest {
+    /// Required. Name of the resource
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl LinkDatasetRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::LinkDatasetRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for LinkDatasetRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.storageinsights.v1.LinkDatasetRequest"
+    }
+}
+
+/// Response message for
+/// [`LinkDataset`][google.cloud.storageinsights.v1.StorageInsights.LinkDataset]
+///
+/// [google.cloud.storageinsights.v1.StorageInsights.LinkDataset]: crate::client::StorageInsights::link_dataset
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct LinkDatasetResponse {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl LinkDatasetResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
+
+impl wkt::message::Message for LinkDatasetResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.storageinsights.v1.LinkDatasetResponse"
+    }
+}
+
+/// Request message for
+/// [`UnlinkDataset`][google.cloud.storageinsights.v1.StorageInsights.UnlinkDataset]
+///
+/// [google.cloud.storageinsights.v1.StorageInsights.UnlinkDataset]: crate::client::StorageInsights::unlink_dataset
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct UnlinkDatasetRequest {
+    /// Required. Name of the resource
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UnlinkDatasetRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::UnlinkDatasetRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for UnlinkDatasetRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.storageinsights.v1.UnlinkDatasetRequest"
+    }
+}
+
+/// Metadata that helps discover which resources are available in a location.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct LocationMetadata {
+    /// If true, `storageinsights.googleapis.com/ReportConfig` resource is
+    /// available at the location.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    pub report_config_available: bool,
+
+    /// If true, `storageinsights.googleapis.com/DatasetConfig` resource is
+    /// available at the location.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    pub dataset_config_available: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl LocationMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [report_config_available][crate::model::LocationMetadata::report_config_available].
+    pub fn set_report_config_available<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.report_config_available = v.into();
+        self
+    }
+
+    /// Sets the value of [dataset_config_available][crate::model::LocationMetadata::dataset_config_available].
+    pub fn set_dataset_config_available<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.dataset_config_available = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for LocationMetadata {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.storageinsights.v1.LocationMetadata"
     }
 }

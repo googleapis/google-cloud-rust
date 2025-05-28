@@ -17,6 +17,7 @@
 use auth::credentials::Credentials;
 use gax::Result;
 use gax::backoff_policy::BackoffPolicy;
+use gax::client_builder::Error as BuilderError;
 use gax::error::Error;
 mod from_status;
 use auth::credentials::CacheableResource;
@@ -41,7 +42,10 @@ pub struct Client {
 
 impl Client {
     /// Create a new client.
-    pub async fn new(config: crate::options::ClientConfig, default_endpoint: &str) -> Result<Self> {
+    pub async fn new(
+        config: crate::options::ClientConfig,
+        default_endpoint: &str,
+    ) -> gax::client_builder::Result<Self> {
         let credentials = Self::make_credentials(&config).await?;
         let inner = Self::make_inner(config.endpoint, default_endpoint).await?;
         Ok(Self {
@@ -171,26 +175,29 @@ impl Client {
             .map_err(to_gax_error)
     }
 
-    async fn make_inner(endpoint: Option<String>, default_endpoint: &str) -> Result<InnerClient> {
+    async fn make_inner(
+        endpoint: Option<String>,
+        default_endpoint: &str,
+    ) -> gax::client_builder::Result<InnerClient> {
         use tonic::transport::{ClientTlsConfig, Endpoint};
         let endpoint =
             Endpoint::from_shared(endpoint.unwrap_or_else(|| default_endpoint.to_string()))
-                .map_err(Error::other)?
+                .map_err(BuilderError::transport)?
                 .tls_config(ClientTlsConfig::new().with_enabled_roots())
-                .map_err(Error::other)?;
-        let conn = endpoint.connect().await.map_err(Error::io)?;
+                .map_err(BuilderError::transport)?;
+        let conn = endpoint.connect().await.map_err(BuilderError::transport)?;
         Ok(tonic::client::Grpc::new(conn))
     }
 
     async fn make_credentials(
         config: &crate::options::ClientConfig,
-    ) -> Result<auth::credentials::Credentials> {
+    ) -> gax::client_builder::Result<auth::credentials::Credentials> {
         if let Some(c) = config.cred.clone() {
             return Ok(c);
         }
         auth::credentials::Builder::default()
             .build()
-            .map_err(Error::authentication)
+            .map_err(BuilderError::cred)
     }
 
     async fn make_headers(

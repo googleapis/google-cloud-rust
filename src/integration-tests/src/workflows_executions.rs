@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::Result;
+use anyhow::Result;
 use gax::exponential_backoff::{ExponentialBackoff, ExponentialBackoffBuilder};
 use gax::options::RequestOptionsBuilder;
 use gax::paginator::ItemPaginator as _;
@@ -127,14 +127,15 @@ main:
 }
 
 async fn workflow_client() -> Result<wf::client::Workflows> {
-    wf::client::Workflows::builder()
+    let client = wf::client::Workflows::builder()
         .with_retry_policy(
             AlwaysRetry
                 .with_time_limit(Duration::from_secs(15))
                 .with_attempt_limit(5),
         )
         .build()
-        .await
+        .await?;
+    Ok(client)
 }
 
 fn test_backoff() -> ExponentialBackoff {

@@ -84,8 +84,8 @@ mod test {
             .with_credentials(test_credentials())
             .build()
             .await;
-        let err = client.err().unwrap();
-        assert_eq!(err.kind(), gax::error::ErrorKind::Io, "{err:?}");
+        let err = client.unwrap_err();
+        assert!(err.is_transport(), "{err:?}");
         Ok(())
     }
 
@@ -95,8 +95,19 @@ mod test {
             .with_credentials(test_credentials())
             .build()
             .await;
-        let err = client.err().unwrap();
-        assert_eq!(err.kind(), gax::error::ErrorKind::Other, "{err:?}");
+        let err = client.unwrap_err();
+        assert!(err.is_transport(), "{err:?}");
+        Ok(())
+    }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    async fn uds_and_tls() -> anyhow::Result<()> {
+        let client = builder("uds://invalid")
+            .with_credentials(test_credentials())
+            .build()
+            .await;
+        let err = client.unwrap_err();
+        assert!(err.is_transport(), "{err:?}");
         Ok(())
     }
 

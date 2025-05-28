@@ -26,7 +26,7 @@ use http::Extensions;
 /// # use google_cloud_storage::client::Storage;
 /// let client = Storage::builder().build().await?;
 /// // use `client` to make requests to Cloud Storage.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Configuration
@@ -81,7 +81,12 @@ use http::Extensions;
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 #[derive(Clone, Debug)]
 pub struct Storage {
-    inner: reqwest::Client,
+    inner: std::sync::Arc<StorageInner>,
+}
+
+#[derive(Clone, Debug)]
+struct StorageInner {
+    client: reqwest::Client,
     cred: auth::credentials::Credentials,
     endpoint: String,
 }
@@ -93,7 +98,7 @@ impl Storage {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_storage::client::Storage;
     /// let client = Storage::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> ClientBuilder {
         gax::client_builder::internal::new_builder(client_builder::Factory)
@@ -139,9 +144,10 @@ impl Storage {
         let object: String = object.into();
         let builder = self
             .inner
+            .client
             .request(
                 reqwest::Method::POST,
-                format!("{}upload/storage/v1/b/{bucket_id}/o", &self.endpoint),
+                format!("{}upload/storage/v1/b/{bucket_id}/o", &self.inner.endpoint),
             )
             .query(&[("uploadType", "media")])
             .query(&[("name", &object)])
@@ -150,26 +156,12 @@ impl Storage {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&self::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let cached_auth_headers = self
-            .cred
-            .headers(Extensions::new())
-            .await
-            .map_err(Error::authentication)?;
 
-        let auth_headers = match cached_auth_headers {
-            CacheableResource::New { data, .. } => Ok(data),
-            CacheableResource::NotModified => {
-                unreachable!("headers are not cached");
-            }
-        };
-
-        let auth_headers = auth_headers?;
-        let builder = auth_headers
-            .iter()
-            .fold(builder, |b, (k, v)| b.header(k, v));
+        let builder = self.inner.apply_auth_headers(builder).await?;
         let builder = builder.body(payload.into());
 
         tracing::info!("builder={builder:?}");
+
         let response = builder.send().await.map_err(Error::io)?;
         if !response.status().is_success() {
             return gaxi::http::to_http_error(response).await;
@@ -186,46 +178,56 @@ impl Storage {
     /// # use google_cloud_storage::client::Storage;
     /// async fn example(client: &Storage) -> gax::Result<()> {
     ///     let contents = client
-    ///         .read_object(
-    ///             "projects/_/buckets/my-bucket",
-    ///             "my-object",
-    ///         )
+    ///         .read_object()
+    ///         .set_bucket("projects/_/buckets/my-bucket")
+    ///         .set_object("my-object")
+    ///         .send()
     ///         .await?;
     ///     println!("object contents={contents:?}");
     ///     Ok(())
     /// }
     /// ```
-    pub async fn read_object<B, O>(&self, bucket: B, object: O) -> crate::Result<bytes::Bytes>
-    where
-        B: Into<String>,
-        O: Into<String>,
-    {
-        let bucket: String = bucket.into();
-        let bucket_id = bucket
-            .as_str()
-            .strip_prefix("projects/_/buckets/")
-            .ok_or_else(|| {
-                Error::other(format!(
-                    "malformed bucket name, it must start with `projects/_/buckets/`: {bucket}"
-                ))
-            })?;
-        let object: String = object.into();
-        let builder = self
-            .inner
-            .request(
-                reqwest::Method::GET,
-                format!("{}storage/v1/b/{bucket_id}/o/{object}", &self.endpoint),
-            )
-            .query(&[("alt", "media")])
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&self::info::X_GOOG_API_CLIENT_HEADER),
-            );
+    pub fn read_object(&self) -> ReadObject {
+        ReadObject::new(self.inner.clone())
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
+        use gax::client_builder::Error;
+        let client = reqwest::Client::new();
+        let cred = if let Some(c) = config.cred.clone() {
+            c
+        } else {
+            auth::credentials::Builder::default()
+                .build()
+                .map_err(Error::cred)?
+        };
+        let endpoint = config
+            .endpoint
+            .unwrap_or_else(|| self::DEFAULT_HOST.to_string());
+        Ok(Self {
+            inner: std::sync::Arc::new(StorageInner {
+                client,
+                cred,
+                endpoint,
+            }),
+        })
+    }
+}
+
+impl StorageInner {
+    // Helper method to apply authentication headers to the request builder.
+    async fn apply_auth_headers(
+        &self,
+        builder: reqwest::RequestBuilder,
+    ) -> crate::Result<reqwest::RequestBuilder> {
         let cached_auth_headers = self
             .cred
             .headers(Extensions::new())
             .await
             .map_err(Error::authentication)?;
+
         let auth_headers = match cached_auth_headers {
             CacheableResource::New { data, .. } => Ok(data),
             CacheableResource::NotModified => {
@@ -237,34 +239,8 @@ impl Storage {
         let builder = auth_headers
             .iter()
             .fold(builder, |b, (k, v)| b.header(k, v));
-        tracing::info!("builder={builder:?}");
 
-        let response = builder.send().await.map_err(Error::io)?;
-        if !response.status().is_success() {
-            return gaxi::http::to_http_error(response).await;
-        }
-        let response = response.bytes().await.map_err(Error::io)?;
-
-        Ok(response)
-    }
-
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> crate::Result<Self> {
-        let inner = reqwest::Client::new();
-        let cred = if let Some(c) = config.cred.clone() {
-            c
-        } else {
-            auth::credentials::Builder::default()
-                .build()
-                .map_err(Error::authentication)?
-        };
-        let endpoint = config
-            .endpoint
-            .unwrap_or_else(|| self::DEFAULT_HOST.to_string());
-        Ok(Self {
-            inner,
-            cred,
-            endpoint,
-        })
+        Ok(builder)
     }
 }
 
@@ -279,7 +255,7 @@ impl Storage {
 /// let client = builder
 ///     .with_endpoint("https://storage.googleapis.com")
 ///     .build().await?;
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 pub type ClientBuilder =
     gax::client_builder::ClientBuilder<client_builder::Factory, gaxi::options::Credentials>;
@@ -290,7 +266,10 @@ pub(crate) mod client_builder {
     impl gax::client_builder::internal::ClientFactory for Factory {
         type Client = Storage;
         type Credentials = gaxi::options::Credentials;
-        async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+        async fn build(
+            self,
+            config: gaxi::options::ClientConfig,
+        ) -> gax::client_builder::Result<Self::Client> {
             Self::Client::new(config).await
         }
     }
@@ -311,6 +290,218 @@ pub(crate) mod info {
             };
             ac.grpc_header_value()
         };
+    }
+}
+
+/// The request builder for [Storage::read_object][crate::client::Storage::read_object] calls.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_storage::client::Storage;
+/// use google_cloud_storage::client::ReadObject;
+/// # let client = Storage::builder()
+/// #   .with_endpoint("https://storage.googleapis.com")
+/// #    .build().await?;
+/// let builder: ReadObject = client
+///         .read_object()
+///         .set_bucket("projects/_/buckets/my-bucket")
+///         .set_object("my-object");
+/// let contents = builder.send().await?;
+/// println!("object contents={contents:?}");
+/// # Ok::<(), anyhow::Error>(()) });
+/// ```
+pub struct ReadObject {
+    client: std::sync::Arc<StorageInner>,
+    request: control::model::ReadObjectRequest,
+}
+
+impl ReadObject {
+    fn new(client: std::sync::Arc<StorageInner>) -> Self {
+        ReadObject {
+            client,
+            request: control::model::ReadObjectRequest::new(),
+        }
+    }
+
+    /// Sets the value of [bucket][control::model::ReadObjectRequest::bucket].
+    pub fn set_bucket<T: Into<String>>(mut self, v: T) -> Self {
+        self.request.bucket = v.into();
+        self
+    }
+
+    /// Sets the value of [object][control::model::ReadObjectRequest::object].
+    pub fn set_object<T: Into<String>>(mut self, v: T) -> Self {
+        self.request.object = v.into();
+        self
+    }
+
+    /// Sets the value of [generation][control::model::ReadObjectRequest::generation].
+    pub fn set_generation<T: Into<i64>>(mut self, v: T) -> Self {
+        self.request.generation = v.into();
+        self
+    }
+
+    /// Sets the value of [read_offset][control::model::ReadObjectRequest::read_offset].
+    pub fn set_read_offset<T: Into<i64>>(mut self, v: T) -> Self {
+        self.request.read_offset = v.into();
+        self
+    }
+
+    /// Sets the value of [read_limit][control::model::ReadObjectRequest::read_limit].
+    pub fn set_read_limit<T: Into<i64>>(mut self, v: T) -> Self {
+        self.request.read_limit = v.into();
+        self
+    }
+
+    /// Sets the value of [if_generation_match][control::model::ReadObjectRequest::if_generation_match].
+    pub fn set_if_generation_match<T>(mut self, v: T) -> Self
+    where
+        T: Into<i64>,
+    {
+        self.request.if_generation_match = Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [if_generation_match][control::model::ReadObjectRequest::if_generation_match].
+    pub fn set_or_clear_if_generation_match<T>(mut self, v: Option<T>) -> Self
+    where
+        T: Into<i64>,
+    {
+        self.request.if_generation_match = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [if_generation_not_match][control::model::ReadObjectRequest::if_generation_not_match].
+    pub fn set_if_generation_not_match<T>(mut self, v: T) -> Self
+    where
+        T: Into<i64>,
+    {
+        self.request.if_generation_not_match = Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [if_generation_not_match][control::model::ReadObjectRequest::if_generation_not_match].
+    pub fn set_or_clear_if_generation_not_match<T>(mut self, v: Option<T>) -> Self
+    where
+        T: Into<i64>,
+    {
+        self.request.if_generation_not_match = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [if_metageneration_match][control::model::ReadObjectRequest::if_metageneration_match].
+    pub fn set_if_metageneration_match<T>(mut self, v: T) -> Self
+    where
+        T: Into<i64>,
+    {
+        self.request.if_metageneration_match = Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [if_metageneration_match][control::model::ReadObjectRequest::if_metageneration_match].
+    pub fn set_or_clear_if_metageneration_match<T>(mut self, v: Option<T>) -> Self
+    where
+        T: Into<i64>,
+    {
+        self.request.if_metageneration_match = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [if_metageneration_not_match][control::model::ReadObjectRequest::if_metageneration_not_match].
+    pub fn set_if_metageneration_not_match<T>(mut self, v: T) -> Self
+    where
+        T: Into<i64>,
+    {
+        self.request.if_metageneration_not_match = Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [if_metageneration_not_match][control::model::ReadObjectRequest::if_metageneration_not_match].
+    pub fn set_or_clear_if_metageneration_not_match<T>(mut self, v: Option<T>) -> Self
+    where
+        T: Into<i64>,
+    {
+        self.request.if_metageneration_not_match = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [common_object_request_params][control::model::ReadObjectRequest::common_object_request_params].
+    pub fn set_common_object_request_params<T>(mut self, v: T) -> Self
+    where
+        T: Into<control::model::CommonObjectRequestParams>,
+    {
+        self.request.common_object_request_params = Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [common_object_request_params][control::model::ReadObjectRequest::common_object_request_params].
+    pub fn set_or_clear_common_object_request_params<T>(mut self, v: Option<T>) -> Self
+    where
+        T: Into<control::model::CommonObjectRequestParams>,
+    {
+        self.request.common_object_request_params = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [read_mask][control::model::ReadObjectRequest::read_mask].
+    pub fn set_read_mask<T>(mut self, v: T) -> Self
+    where
+        T: Into<wkt::FieldMask>,
+    {
+        self.request.read_mask = Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [read_mask][control::model::ReadObjectRequest::read_mask].
+    pub fn set_or_clear_read_mask<T>(mut self, v: Option<T>) -> Self
+    where
+        T: Into<wkt::FieldMask>,
+    {
+        self.request.read_mask = v.map(|x| x.into());
+        self
+    }
+
+    /// Sends the request.
+    pub async fn send(self) -> crate::Result<bytes::Bytes> {
+        // TODO(2103): map additional parameters to the JSON request.
+        let bucket: String = self.request.bucket;
+        let bucket_id = bucket
+            .as_str()
+            .strip_prefix("projects/_/buckets/")
+            .ok_or_else(|| {
+                Error::other(format!(
+                    "malformed bucket name, it must start with `projects/_/buckets/`: {bucket}"
+                ))
+            })?;
+        let object: String = self.request.object;
+        let builder = self
+            .client
+            .client
+            .request(
+                reqwest::Method::GET,
+                format!(
+                    "{}storage/v1/b/{bucket_id}/o/{object}",
+                    &self.client.endpoint
+                ),
+            )
+            .query(&[("alt", "media")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&self::info::X_GOOG_API_CLIENT_HEADER),
+            );
+
+        let builder = self.client.apply_auth_headers(builder).await?;
+
+        tracing::info!("builder={builder:?}");
+
+        let response = builder.send().await.map_err(Error::io)?;
+        if !response.status().is_success() {
+            return gaxi::http::to_http_error(response).await;
+        }
+        let response = response.bytes().await.map_err(Error::io)?;
+
+        Ok(response)
     }
 }
 
@@ -355,7 +546,7 @@ mod v1 {
         acl: Vec<ObjectAccessControl>,
         owner: Option<Owner>,
         customer_encryption: Option<CustomerEncryption>,
-        metadata: std::collections::HashMap<std::string::String, std::string::String>,
+        metadata: std::collections::HashMap<String, String>,
         #[serde_as(as = "Option<Crc32c>")]
         crc32c: Option<u32>,
         #[serde_as(as = "serde_with::base64::Base64")]
@@ -453,7 +644,7 @@ mod v1 {
         team: String,
     }
 
-    impl std::convert::From<ObjectAccessControl> for control::model::ObjectAccessControl {
+    impl From<ObjectAccessControl> for control::model::ObjectAccessControl {
         fn from(value: ObjectAccessControl) -> Self {
             Self::new()
                 .set_id(value.id)
@@ -469,7 +660,7 @@ mod v1 {
         }
     }
 
-    impl std::convert::From<ProjectTeam> for control::model::ProjectTeam {
+    impl From<ProjectTeam> for control::model::ProjectTeam {
         fn from(p: ProjectTeam) -> Self {
             control::model::ProjectTeam::new()
                 .set_project_number(p.project_number)
@@ -485,7 +676,7 @@ mod v1 {
         entity_id: String,
     }
 
-    impl std::convert::From<Owner> for control::model::Owner {
+    impl From<Owner> for control::model::Owner {
         fn from(value: Owner) -> Self {
             Self::new()
                 .set_entity(value.entity)
@@ -502,7 +693,7 @@ mod v1 {
         key_sha256: bytes::Bytes,
     }
 
-    impl std::convert::From<CustomerEncryption> for control::model::CustomerEncryption {
+    impl From<CustomerEncryption> for control::model::CustomerEncryption {
         fn from(value: CustomerEncryption) -> Self {
             Self::new()
                 .set_encryption_algorithm(value.encryption_algorithm)
@@ -510,7 +701,7 @@ mod v1 {
         }
     }
 
-    impl std::convert::From<Object> for control::model::Object {
+    impl From<Object> for control::model::Object {
         fn from(value: Object) -> Self {
             Self::new()
                 .set_name(value.name)

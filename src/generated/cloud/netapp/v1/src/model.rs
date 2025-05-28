@@ -924,6 +924,10 @@ pub struct Backup {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub backup_region: std::string::String,
 
+    /// Output only. The time until which the backup is not deletable.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub enforced_retention_end_time: std::option::Option<wkt::Timestamp>,
+
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -1047,6 +1051,24 @@ impl Backup {
     /// Sets the value of [backup_region][crate::model::Backup::backup_region].
     pub fn set_backup_region<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.backup_region = v.into();
+        self
+    }
+
+    /// Sets the value of [enforced_retention_end_time][crate::model::Backup::enforced_retention_end_time].
+    pub fn set_enforced_retention_end_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.enforced_retention_end_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [enforced_retention_end_time][crate::model::Backup::enforced_retention_end_time].
+    pub fn set_or_clear_enforced_retention_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.enforced_retention_end_time = v.map(|x| x.into());
         self
     }
 }
@@ -2516,6 +2538,11 @@ pub struct BackupVault {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub destination_backup_vault: std::string::String,
 
+    /// Optional. Backup retention policy defining the retenton of backups.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub backup_retention_policy:
+        std::option::Option<crate::model::backup_vault::BackupRetentionPolicy>,
+
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -2616,6 +2643,24 @@ impl BackupVault {
         self.destination_backup_vault = v.into();
         self
     }
+
+    /// Sets the value of [backup_retention_policy][crate::model::BackupVault::backup_retention_policy].
+    pub fn set_backup_retention_policy<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::backup_vault::BackupRetentionPolicy>,
+    {
+        self.backup_retention_policy = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [backup_retention_policy][crate::model::BackupVault::backup_retention_policy].
+    pub fn set_or_clear_backup_retention_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::backup_vault::BackupRetentionPolicy>,
+    {
+        self.backup_retention_policy = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for BackupVault {
@@ -2628,6 +2673,90 @@ impl wkt::message::Message for BackupVault {
 pub mod backup_vault {
     #[allow(unused_imports)]
     use super::*;
+
+    /// Retention policy for backups in the backup vault
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct BackupRetentionPolicy {
+        /// Required. Minimum retention duration in days for backups in the backup
+        /// vault.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        pub backup_minimum_enforced_retention_days: i32,
+
+        /// Optional. Indicates if the daily backups are immutable.
+        /// Atleast one of daily_backup_immutable, weekly_backup_immutable,
+        /// monthly_backup_immutable and manual_backup_immutable must be true.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        pub daily_backup_immutable: bool,
+
+        /// Optional. Indicates if the weekly backups are immutable.
+        /// Atleast one of daily_backup_immutable, weekly_backup_immutable,
+        /// monthly_backup_immutable and manual_backup_immutable must be true.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        pub weekly_backup_immutable: bool,
+
+        /// Optional. Indicates if the monthly backups are immutable.
+        /// Atleast one of daily_backup_immutable, weekly_backup_immutable,
+        /// monthly_backup_immutable and manual_backup_immutable must be true.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        pub monthly_backup_immutable: bool,
+
+        /// Optional. Indicates if the manual backups are immutable.
+        /// Atleast one of daily_backup_immutable, weekly_backup_immutable,
+        /// monthly_backup_immutable and manual_backup_immutable must be true.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        pub manual_backup_immutable: bool,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl BackupRetentionPolicy {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [backup_minimum_enforced_retention_days][crate::model::backup_vault::BackupRetentionPolicy::backup_minimum_enforced_retention_days].
+        pub fn set_backup_minimum_enforced_retention_days<T: std::convert::Into<i32>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.backup_minimum_enforced_retention_days = v.into();
+            self
+        }
+
+        /// Sets the value of [daily_backup_immutable][crate::model::backup_vault::BackupRetentionPolicy::daily_backup_immutable].
+        pub fn set_daily_backup_immutable<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.daily_backup_immutable = v.into();
+            self
+        }
+
+        /// Sets the value of [weekly_backup_immutable][crate::model::backup_vault::BackupRetentionPolicy::weekly_backup_immutable].
+        pub fn set_weekly_backup_immutable<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.weekly_backup_immutable = v.into();
+            self
+        }
+
+        /// Sets the value of [monthly_backup_immutable][crate::model::backup_vault::BackupRetentionPolicy::monthly_backup_immutable].
+        pub fn set_monthly_backup_immutable<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.monthly_backup_immutable = v.into();
+            self
+        }
+
+        /// Sets the value of [manual_backup_immutable][crate::model::backup_vault::BackupRetentionPolicy::manual_backup_immutable].
+        pub fn set_manual_backup_immutable<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.manual_backup_immutable = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for BackupRetentionPolicy {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.netapp.v1.BackupVault.BackupRetentionPolicy"
+        }
+    }
 
     /// The Backup Vault States
     ///
@@ -5053,7 +5182,7 @@ pub mod quota_rule {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct TransferStats {
-    /// Cumulative bytes trasferred so far for the replication relatinonship.
+    /// Cumulative bytes transferred so far for the replication relationship.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
     pub transfer_bytes: std::option::Option<i64>,
@@ -8221,6 +8350,22 @@ pub struct StoragePool {
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub satisfies_pzi: bool,
 
+    /// Optional. True if using Independent Scaling of capacity and performance
+    /// (Hyperdisk) By default set to false
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    pub custom_performance_enabled: bool,
+
+    /// Optional. Custom Performance Total Throughput of the pool (in MiB/s)
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DisplayFromStr")]
+    pub total_throughput_mibps: i64,
+
+    /// Optional. Custom Performance Total IOPS of the pool
+    /// If not provided, it will be calculated based on the total_throughput_mibps
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DisplayFromStr")]
+    pub total_iops: i64,
+
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -8403,6 +8548,24 @@ impl StoragePool {
     /// Sets the value of [satisfies_pzi][crate::model::StoragePool::satisfies_pzi].
     pub fn set_satisfies_pzi<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.satisfies_pzi = v.into();
+        self
+    }
+
+    /// Sets the value of [custom_performance_enabled][crate::model::StoragePool::custom_performance_enabled].
+    pub fn set_custom_performance_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.custom_performance_enabled = v.into();
+        self
+    }
+
+    /// Sets the value of [total_throughput_mibps][crate::model::StoragePool::total_throughput_mibps].
+    pub fn set_total_throughput_mibps<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.total_throughput_mibps = v.into();
+        self
+    }
+
+    /// Sets the value of [total_iops][crate::model::StoragePool::total_iops].
+    pub fn set_total_iops<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.total_iops = v.into();
         self
     }
 }

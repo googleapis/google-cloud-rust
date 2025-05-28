@@ -22,13 +22,13 @@ on:
   release:
     types: [published]
 env:
-  GHA_RUST_VERSIONS: '{ "rust:msrv": "1.85", "rust:current": "1.86" }'
+  GHA_RUST_VERSIONS: '{ "rust:msrv": "1.85", "rust:current": "1.87" }'
   GHA_GO_VERSIONS: '{ "go:current": "1.23.8" }'
 jobs:
   build:
     strategy:
       matrix:
-        os: ['macos-14', 'ubuntu-24.04', 'windows-2022']
+        os: ['macos-14', 'ubuntu-24.04', 'windows-2025']
         rust-version: ['rust:current']
         include:
           - os: 'ubuntu-24.04'

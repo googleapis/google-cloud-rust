@@ -58,6 +58,7 @@ members = [
   "src/gax",
   "src/gax-internal",
   "src/generated/api/apikeys/v2",
+  "src/generated/api/cloudquotas/v1",
   "src/generated/api/servicecontrol/v1",
   "src/generated/api/servicecontrol/v2",
   "src/generated/api/servicemanagement/v1",

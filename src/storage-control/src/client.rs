@@ -12,23 +12,23 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//! Contains the Storage client and related types.
+//! Contains the StorageControl client and related types.
 
 /// Implements a client for the Cloud Storage API.
 ///
 /// # Example
 /// ```
 /// # tokio_test::block_on(async {
-/// # use google_cloud_storage_control::client::Storage;
-/// let client = Storage::builder().build().await?;
+/// # use google_cloud_storage_control::client::StorageControl;
+/// let client = StorageControl::builder().build().await?;
 /// // use `client` to make requests to Cloud Storage.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Configuration
 ///
-/// To configure `Storage` use the `with_*` methods in the type returned
-/// by [builder()][Storage::builder]. The default configuration should
+/// To configure `StorageControl` use the `with_*` methods in the type returned
+/// by [builder()][StorageControl::builder]. The default configuration should
 /// work for most applications. Common configuration changes include
 ///
 /// * [with_endpoint()]: by default this client uses the global default endpoint
@@ -42,8 +42,8 @@
 ///
 /// # Pooling and Cloning
 ///
-/// `Storage` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `Storage` in
+/// `StorageControl` holds a connection pool internally, it is advised to
+/// create one and the reuse it.  You do not need to wrap `StorageControl` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 ///
@@ -80,19 +80,19 @@
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 #[derive(Clone, Debug)]
-pub struct Storage {
-    storage: super::generated::gapic::client::Storage,
+pub struct StorageControl {
+    storage: super::generated::gapic::client::StorageControl,
     control: super::generated::gapic_control::client::StorageControl,
 }
 
-impl Storage {
-    /// Returns a builder for [Storage].
+impl StorageControl {
+    /// Returns a builder for [StorageControl].
     ///
     /// ```no_run
     /// # tokio_test::block_on(async {
-    /// # use google_cloud_storage_control::client::Storage;
-    /// let client = Storage::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # use google_cloud_storage_control::client::StorageControl;
+    /// let client = StorageControl::builder().build().await?;
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> ClientBuilder {
         gax::client_builder::internal::new_builder(client_builder::Factory)
@@ -106,8 +106,8 @@ impl Storage {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_storage_control::client::Storage;
-    /// async fn example(client: &Storage) -> gax::Result<()> {
+    /// # use google_cloud_storage_control::client::StorageControl;
+    /// async fn example(client: &StorageControl) -> gax::Result<()> {
     ///     client.delete_bucket()
     ///         .set_name("projects/_/buckets/my-bucket")
     ///         .send()
@@ -115,7 +115,7 @@ impl Storage {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_bucket(&self) -> super::builder::storage::DeleteBucket {
+    pub fn delete_bucket(&self) -> super::builder::storage_control::DeleteBucket {
         self.storage.delete_bucket()
     }
 
@@ -123,8 +123,8 @@ impl Storage {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_storage_control::client::Storage;
-    /// async fn example(client: &Storage) -> gax::Result<()> {
+    /// # use google_cloud_storage_control::client::StorageControl;
+    /// async fn example(client: &StorageControl) -> gax::Result<()> {
     ///     let bucket = client.get_bucket()
     ///         .set_name("projects/_/buckets/my-bucket")
     ///         .send()
@@ -134,7 +134,7 @@ impl Storage {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_bucket(&self) -> super::builder::storage::GetBucket {
+    pub fn get_bucket(&self) -> super::builder::storage_control::GetBucket {
         self.storage.get_bucket()
     }
 
@@ -142,8 +142,8 @@ impl Storage {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_storage_control::client::Storage;
-    /// async fn example(client: &Storage) -> gax::Result<()> {
+    /// # use google_cloud_storage_control::client::StorageControl;
+    /// async fn example(client: &StorageControl) -> gax::Result<()> {
     ///     let bucket = client.create_bucket()
     ///         .set_parent("projects/my-project")
     ///         .set_bucket_id("my-bucket")
@@ -154,7 +154,7 @@ impl Storage {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_bucket(&self) -> super::builder::storage::CreateBucket {
+    pub fn create_bucket(&self) -> super::builder::storage_control::CreateBucket {
         self.storage.create_bucket()
     }
 
@@ -162,8 +162,8 @@ impl Storage {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_storage_control::client::Storage;
-    /// async fn example(client: &Storage) -> gax::Result<()> {
+    /// # use google_cloud_storage_control::client::StorageControl;
+    /// async fn example(client: &StorageControl) -> gax::Result<()> {
     ///     use gax::paginator::{ItemPaginator, Paginator};
     ///     let mut items = client.list_buckets()
     ///         .set_parent("projects/my-project")
@@ -175,16 +175,99 @@ impl Storage {
     ///     Ok(())
     /// }
     /// ```
-    pub fn list_buckets(&self) -> super::builder::storage::ListBuckets {
+    pub fn list_buckets(&self) -> super::builder::storage_control::ListBuckets {
         self.storage.list_buckets()
+    }
+
+    /// Locks retention policy on a bucket.
+    pub fn lock_bucket_retention_policy(
+        &self,
+    ) -> super::builder::storage_control::LockBucketRetentionPolicy {
+        self.storage.lock_bucket_retention_policy()
+    }
+
+    /// Gets the IAM policy for a specified bucket.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage_control::client::StorageControl;
+    /// async fn example(client: &StorageControl) -> gax::Result<()> {
+    ///     let policy = client.get_iam_policy()
+    ///         .set_resource("projects/_/buckets/my-bucket")
+    ///         .send()
+    ///         .await?;
+    ///     println!("policy details={policy:?}");
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_iam_policy(&self) -> super::builder::storage_control::GetIamPolicy {
+        self.storage.get_iam_policy()
+    }
+
+    /// Updates the IAM policy for a specified bucket.
+    ///
+    /// This is not an update. The supplied policy will overwrite any existing
+    /// IAM Policy. You should first get the current IAM policy with
+    /// `get_iam_policy()` and then modify that policy before supplying it to
+    /// `set_iam_policy()`.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_storage_control::client::StorageControl;
+    /// # use iam_v1::model::Policy;
+    /// async fn example(client: &StorageControl, updated_policy: Policy) -> gax::Result<()> {
+    ///     let policy = client.set_iam_policy()
+    ///         .set_resource("projects/_/buckets/my-bucket")
+    ///         .set_update_mask(wkt::FieldMask::default().set_paths(["bindings"]))
+    ///         .set_policy(updated_policy)
+    ///         .send()
+    ///         .await?;
+    ///     println!("policy details={policy:?}");
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn set_iam_policy(&self) -> super::builder::storage_control::SetIamPolicy {
+        self.storage.set_iam_policy()
+    }
+
+    /// Tests a set of permissions on the given bucket, object, or managed folder
+    /// to see which, if any, are held by the caller.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage_control::client::StorageControl;
+    /// async fn example(client: &StorageControl) -> gax::Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         .set_resource("projects/_/buckets/my-bucket")
+    ///         .set_permissions(["storage.buckets.get"])
+    ///         .send()
+    ///         .await?;
+    ///     println!("response details={response:?}");
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn test_iam_permissions(&self) -> super::builder::storage_control::TestIamPermissions {
+        self.storage.test_iam_permissions()
+    }
+
+    /// Updates a bucket. Equivalent to JSON API's storage.buckets.patch method.
+    pub fn update_bucket(&self) -> super::builder::storage_control::UpdateBucket {
+        self.storage.update_bucket()
+    }
+
+    /// Concatenates a list of existing objects into a new object in the same
+    /// bucket.
+    pub fn compose_object(&self) -> super::builder::storage_control::ComposeObject {
+        self.storage.compose_object()
     }
 
     /// Permanently deletes an object and its metadata.
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_storage_control::client::Storage;
-    /// async fn example(client: &Storage) -> gax::Result<()> {
+    /// # use google_cloud_storage_control::client::StorageControl;
+    /// async fn example(client: &StorageControl) -> gax::Result<()> {
     ///     client.delete_object()
     ///         .set_bucket("projects/_/buckets/my-bucket")
     ///         .set_object("my-object")
@@ -209,16 +292,39 @@ impl Storage {
     /// until the soft delete retention period has passed.
     ///
     /// [soft delete]: https://cloud.google.com/storage/docs/soft-delete
-    pub fn delete_object(&self) -> super::builder::storage::DeleteObject {
+    pub fn delete_object(&self) -> super::builder::storage_control::DeleteObject {
         self.storage.delete_object()
+    }
+
+    /// Restores a soft-deleted object.
+    pub fn restore_object(&self) -> super::builder::storage_control::RestoreObject {
+        self.storage.restore_object()
+    }
+
+    /// Retrieves object metadata.
+    ///
+    /// **IAM Permissions**:
+    ///
+    /// Requires `storage.objects.get`
+    /// [IAM permission](https://cloud.google.com/iam/docs/overview#permissions) on
+    /// the bucket. To return object ACLs, the authenticated user must also have
+    /// the `storage.objects.getIamPolicy` permission.
+    pub fn get_object(&self) -> super::builder::storage_control::GetObject {
+        self.storage.get_object()
+    }
+
+    /// Updates an object's metadata.
+    /// Equivalent to JSON API's storage.objects.patch.
+    pub fn update_object(&self) -> super::builder::storage_control::UpdateObject {
+        self.storage.update_object()
     }
 
     /// Retrieves the list of objects for a given bucket.
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_storage_control::client::Storage;
-    /// async fn example(client: &Storage) -> gax::Result<()> {
+    /// # use google_cloud_storage_control::client::StorageControl;
+    /// async fn example(client: &StorageControl) -> gax::Result<()> {
     ///     use gax::paginator::{ItemPaginator, Paginator};
     ///     let mut items = client.list_objects()
     ///         .set_parent("projects/_/buckets/my-bucket")
@@ -230,73 +336,19 @@ impl Storage {
     ///     Ok(())
     /// }
     /// ```
-    pub fn list_objects(&self) -> super::builder::storage::ListObjects {
+    pub fn list_objects(&self) -> super::builder::storage_control::ListObjects {
         self.storage.list_objects()
     }
 
-    /// Gets the IAM policy for a specified bucket.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_storage_control::client::Storage;
-    /// async fn example(client: &Storage) -> gax::Result<()> {
-    ///     let policy = client.get_iam_policy()
-    ///         .set_resource("projects/_/buckets/my-bucket")
-    ///         .send()
-    ///         .await?;
-    ///     println!("policy details={policy:?}");
-    ///     Ok(())
-    /// }
-    /// ```
-    pub fn get_iam_policy(&self) -> super::builder::storage::GetIamPolicy {
-        self.storage.get_iam_policy()
+    /// Rewrites a source object to a destination object. Optionally overrides
+    /// metadata.
+    pub fn rewrite_object(&self) -> super::builder::storage_control::RewriteObject {
+        self.storage.rewrite_object()
     }
 
-    /// Updates the IAM policy for a specified bucket.
-    ///
-    /// This is not an update. The supplied policy will overwrite any existing
-    /// IAM Policy. You should first get the current IAM policy with
-    /// `get_iam_policy()` and then modify that policy before supplying it to
-    /// `set_iam_policy()`.
-    ///
-    /// # Example
-    ///
-    /// ```
-    /// # use google_cloud_storage_control::client::Storage;
-    /// # use iam_v1::model::Policy;
-    /// async fn example(client: &Storage, updated_policy: Policy) -> gax::Result<()> {
-    ///     let policy = client.set_iam_policy()
-    ///         .set_resource("projects/_/buckets/my-bucket")
-    ///         .set_update_mask(wkt::FieldMask::default().set_paths(["bindings"]))
-    ///         .set_policy(updated_policy)
-    ///         .send()
-    ///         .await?;
-    ///     println!("policy details={policy:?}");
-    ///     Ok(())
-    /// }
-    /// ```
-    pub fn set_iam_policy(&self) -> super::builder::storage::SetIamPolicy {
-        self.storage.set_iam_policy()
-    }
-
-    /// Tests a set of permissions on the given bucket, object, or managed folder
-    /// to see which, if any, are held by the caller.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_storage_control::client::Storage;
-    /// async fn example(client: &Storage) -> gax::Result<()> {
-    ///     let response = client.test_iam_permissions()
-    ///         .set_resource("projects/_/buckets/my-bucket")
-    ///         .set_permissions(["storage.buckets.get"])
-    ///         .send()
-    ///         .await?;
-    ///     println!("response details={response:?}");
-    ///     Ok(())
-    /// }
-    /// ```
-    pub fn test_iam_permissions(&self) -> super::builder::storage::TestIamPermissions {
-        self.storage.test_iam_permissions()
+    /// Moves the source object to the destination object in the same bucket.
+    pub fn move_object(&self) -> super::builder::storage_control::MoveObject {
+        self.storage.move_object()
     }
 
     /// Creates a new folder.
@@ -306,8 +358,8 @@ impl Storage {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_storage_control::client::Storage;
-    /// async fn example(client: &Storage) -> gax::Result<()> {
+    /// # use google_cloud_storage_control::client::StorageControl;
+    /// async fn example(client: &StorageControl) -> gax::Result<()> {
     ///     let folder = client.create_folder()
     ///         .set_parent("projects/my-project/buckets/my-bucket")
     ///         .set_folder_id("my-folder/my-subfolder/")
@@ -317,29 +369,8 @@ impl Storage {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_folder(&self) -> super::builder::storage::CreateFolder {
+    pub fn create_folder(&self) -> super::builder::storage_control::CreateFolder {
         self.control.create_folder()
-    }
-
-    /// Returns metadata for the specified folder.
-    ///
-    /// This operation is only applicable to a hierarchical namespace enabled
-    /// bucket.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_storage_control::client::Storage;
-    /// async fn example(client: &Storage) -> gax::Result<()> {
-    ///     let folder = client.get_folder()
-    ///         .set_name("projects/_/buckets/my-bucket/folders/my-folder/my-subfolder/")
-    ///         .send()
-    ///         .await?;
-    ///     println!("folder details={folder:?}");
-    ///     Ok(())
-    /// }
-    /// ```
-    pub fn get_folder(&self) -> super::builder::storage::GetFolder {
-        self.control.get_folder()
     }
 
     /// Permanently deletes an empty folder.
@@ -349,8 +380,8 @@ impl Storage {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_storage_control::client::Storage;
-    /// async fn example(client: &Storage) -> gax::Result<()> {
+    /// # use google_cloud_storage_control::client::StorageControl;
+    /// async fn example(client: &StorageControl) -> gax::Result<()> {
     ///     client.delete_folder()
     ///         .set_name("projects/_/buckets/my-bucket/folders/my-folder/my-subfolder/")
     ///         .send()
@@ -358,8 +389,29 @@ impl Storage {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_folder(&self) -> super::builder::storage::DeleteFolder {
+    pub fn delete_folder(&self) -> super::builder::storage_control::DeleteFolder {
         self.control.delete_folder()
+    }
+
+    /// Returns metadata for the specified folder.
+    ///
+    /// This operation is only applicable to a hierarchical namespace enabled
+    /// bucket.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage_control::client::StorageControl;
+    /// async fn example(client: &StorageControl) -> gax::Result<()> {
+    ///     let folder = client.get_folder()
+    ///         .set_name("projects/_/buckets/my-bucket/folders/my-folder/my-subfolder/")
+    ///         .send()
+    ///         .await?;
+    ///     println!("folder details={folder:?}");
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_folder(&self) -> super::builder::storage_control::GetFolder {
+        self.control.get_folder()
     }
 
     /// Retrieves a list of folders.
@@ -369,8 +421,8 @@ impl Storage {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_storage_control::client::Storage;
-    /// async fn example(client: &Storage) -> gax::Result<()> {
+    /// # use google_cloud_storage_control::client::StorageControl;
+    /// async fn example(client: &StorageControl) -> gax::Result<()> {
     ///     use gax::paginator::ItemPaginator as _;
     ///     let mut folders = client.list_folders()
     ///         .set_parent("projects/_/buckets/my-bucket")
@@ -382,7 +434,7 @@ impl Storage {
     ///     Ok(())
     /// }
     /// ```
-    pub fn list_folders(&self) -> super::builder::storage::ListFolders {
+    pub fn list_folders(&self) -> super::builder::storage_control::ListFolders {
         self.control.list_folders()
     }
 
@@ -396,8 +448,8 @@ impl Storage {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_storage_control::client::Storage;
-    /// async fn example(client: &Storage) -> gax::Result<()> {
+    /// # use google_cloud_storage_control::client::StorageControl;
+    /// async fn example(client: &StorageControl) -> gax::Result<()> {
     ///     use lro::Poller as _;
     ///     let folder = client.rename_folder()
     ///         .set_name("projects/_/buckets/my-bucket/folders/my-folder/my-subfolder/")
@@ -419,8 +471,99 @@ impl Storage {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn rename_folder(&self) -> super::builder::storage::RenameFolder {
+    pub fn rename_folder(&self) -> super::builder::storage_control::RenameFolder {
         self.control.rename_folder()
+    }
+
+    /// Returns the storage layout configuration for a given bucket.
+    pub fn get_storage_layout(&self) -> super::builder::storage_control::GetStorageLayout {
+        self.control.get_storage_layout()
+    }
+
+    /// Creates a new managed folder.
+    pub fn create_managed_folder(&self) -> super::builder::storage_control::CreateManagedFolder {
+        self.control.create_managed_folder()
+    }
+
+    /// Permanently deletes an empty managed folder.
+    pub fn delete_managed_folder(&self) -> super::builder::storage_control::DeleteManagedFolder {
+        self.control.delete_managed_folder()
+    }
+
+    /// Returns metadata for the specified managed folder.
+    pub fn get_managed_folder(&self) -> super::builder::storage_control::GetManagedFolder {
+        self.control.get_managed_folder()
+    }
+
+    /// Retrieves a list of managed folders for a given bucket.
+    pub fn list_managed_folders(&self) -> super::builder::storage_control::ListManagedFolders {
+        self.control.list_managed_folders()
+    }
+
+    /// Creates an Anywhere Cache instance.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn create_anywhere_cache(&self) -> super::builder::storage_control::CreateAnywhereCache {
+        self.control.create_anywhere_cache()
+    }
+
+    /// Updates an Anywhere Cache instance. Mutable fields include `ttl` and
+    /// `admission_policy`.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn update_anywhere_cache(&self) -> super::builder::storage_control::UpdateAnywhereCache {
+        self.control.update_anywhere_cache()
+    }
+
+    /// Disables an Anywhere Cache instance. A disabled instance is read-only. The
+    /// disablement could be revoked by calling ResumeAnywhereCache. The cache
+    /// instance will be deleted automatically if it remains in the disabled state
+    /// for at least one hour.
+    pub fn disable_anywhere_cache(&self) -> super::builder::storage_control::DisableAnywhereCache {
+        self.control.disable_anywhere_cache()
+    }
+
+    /// Pauses an Anywhere Cache instance.
+    pub fn pause_anywhere_cache(&self) -> super::builder::storage_control::PauseAnywhereCache {
+        self.control.pause_anywhere_cache()
+    }
+
+    /// Resumes a disabled or paused Anywhere Cache instance.
+    pub fn resume_anywhere_cache(&self) -> super::builder::storage_control::ResumeAnywhereCache {
+        self.control.resume_anywhere_cache()
+    }
+
+    /// Gets an Anywhere Cache instance.
+    pub fn get_anywhere_cache(&self) -> super::builder::storage_control::GetAnywhereCache {
+        self.control.get_anywhere_cache()
+    }
+
+    /// Lists Anywhere Cache instances for a given bucket.
+    pub fn list_anywhere_caches(&self) -> super::builder::storage_control::ListAnywhereCaches {
+        self.control.list_anywhere_caches()
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn get_operation(&self) -> super::builder::storage_control::GetOperation {
+        self.control.get_operation()
     }
 
     /// Creates a new client from the provided stub.
@@ -429,45 +572,50 @@ impl Storage {
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: super::stub::Storage + 'static,
+        T: super::stub::StorageControl + 'static,
     {
         let stub = std::sync::Arc::new(stub);
         Self {
-            storage: super::generated::gapic::client::Storage::from_stub(stub.clone()),
+            storage: super::generated::gapic::client::StorageControl::from_stub(stub.clone()),
             control: super::generated::gapic_control::client::StorageControl::from_stub(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> crate::Result<Self> {
-        let storage = super::generated::gapic::client::Storage::new(config.clone()).await?;
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
+        let storage = super::generated::gapic::client::StorageControl::new(config.clone()).await?;
         let control = super::generated::gapic_control::client::StorageControl::new(config).await?;
         Ok(Self { storage, control })
     }
 }
 
-/// A builder for [Storage].
+/// A builder for [StorageControl].
 ///
 /// ```
 /// # tokio_test::block_on(async {
 /// # use google_cloud_storage_control::*;
 /// # use client::ClientBuilder;
-/// # use client::Storage;
-/// let builder : ClientBuilder = Storage::builder();
+/// # use client::StorageControl;
+/// let builder : ClientBuilder = StorageControl::builder();
 /// let client = builder
 ///     .with_endpoint("https://storage.googleapis.com")
 ///     .build().await?;
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 pub type ClientBuilder =
     gax::client_builder::ClientBuilder<client_builder::Factory, gaxi::options::Credentials>;
 
 pub(crate) mod client_builder {
-    use super::Storage;
+    use super::StorageControl;
     pub struct Factory;
     impl gax::client_builder::internal::ClientFactory for Factory {
-        type Client = Storage;
+        type Client = StorageControl;
         type Credentials = gaxi::options::Credentials;
-        async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+        async fn build(
+            self,
+            config: gaxi::options::ClientConfig,
+        ) -> gax::client_builder::Result<Self::Client> {
             Self::Client::new(config).await
         }
     }

@@ -25,7 +25,7 @@ impl Client {
         gax::client_builder::internal::new_builder(Factory)
     }
 
-    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = ReqwestClient::new(config, "http://127.0.0.1:1").await?;
         Ok(Self { inner })
     }
@@ -51,7 +51,10 @@ pub struct Factory;
 impl gax::client_builder::internal::ClientFactory for Factory {
     type Client = Client;
     type Credentials = auth::credentials::Credentials;
-    async fn build(self, config: gaxi::options::ClientConfig) -> Result<Self::Client> {
+    async fn build(
+        self,
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self::Client> {
         Self::Client::new(config).await
     }
 }

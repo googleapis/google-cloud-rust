@@ -12,12 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::credentials::Result;
+use crate::build_errors::Error as BuilderError;
 use crate::credentials::internal::sts_exchange::ClientAuthentication;
-use crate::errors;
 use crate::headers_util::build_cacheable_headers;
 use crate::token::{CachedTokenProvider, Token, TokenProvider};
 use crate::token_cache::TokenCache;
+use crate::{BuildResult, Result};
 use gax::error::CredentialsError;
 use http::{Extensions, HeaderMap};
 use serde::{Deserialize, Serialize};
@@ -287,9 +287,9 @@ impl Builder {
     /// [external_account_credentials] guide.
     ///
     /// [external_account_credentials]: https://google.aip.dev/auth/4117#configuration-file-generation-and-usage
-    pub fn build(self) -> Result<Credentials> {
+    pub fn build(self) -> BuildResult<Credentials> {
         let external_account_config: ExternalAccountConfig =
-            serde_json::from_value(self.external_account_config).map_err(errors::non_retryable)?;
+            serde_json::from_value(self.external_account_config).map_err(BuilderError::parsing)?;
 
         let mut config = external_account_config.clone();
         if let Some(scopes) = self.scopes {

@@ -128,8 +128,6 @@ throuh    = "throuh"
 forwareded = "forwareded"
 # src/generated/cloud/notebooks/v2 has a typo, it needs to be fixed upstream.
 maxmium = "maxmium"
-# src/generated/cloud/netapp/v1 has a typo, it needs to be fixed upstream.
-trasferred = "trasferred"
 # src/generated/cloud/optimization/v1 has a false positive. Both "preemptible"
 # and "preemptable" are common spellings, but `typos` only accepts the former.
 preemptable = "preemptable"
@@ -206,6 +204,8 @@ extend-ignore-re = [
   "\"typ\"",
   "\\Wtyp:",
   "test_typ\"",
+  # src/generated/api/cloudquotas/v1 has types that are better handled in a RE:
+  "DimenisonInfo",
   # src/generated/cloud/aiplatform has a typo in the code. Won't be fixed.
   # Seems too risky to ignore the word, a RE seems cleaner
   "CheckTrialEarlyStoppingStateMetatdata",

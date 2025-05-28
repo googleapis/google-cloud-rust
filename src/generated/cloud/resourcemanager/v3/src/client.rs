@@ -16,8 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-
 /// Implements a client for the Cloud Resource Manager API.
 ///
 /// # Example
@@ -26,7 +24,7 @@ use crate::Result;
 /// # use google_cloud_resourcemanager_v3::client::Folders;
 /// let client = Folders::builder().build().await?;
 /// // use `client` to make requests to the Cloud Resource Manager API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -73,7 +71,7 @@ impl Folders {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_resourcemanager_v3::client::Folders;
     /// let client = Folders::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::folders::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::folders::client::Factory)
@@ -92,14 +90,16 @@ impl Folders {
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::Folders>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Folders>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -108,13 +108,13 @@ impl Folders {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Folders> {
+    ) -> gax::client_builder::Result<impl super::stub::Folders> {
         super::transport::Folders::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Folders> {
+    ) -> gax::client_builder::Result<impl super::stub::Folders> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Folders::new)
@@ -356,7 +356,7 @@ impl Folders {
 /// # use google_cloud_resourcemanager_v3::client::Organizations;
 /// let client = Organizations::builder().build().await?;
 /// // use `client` to make requests to the Cloud Resource Manager API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -401,7 +401,7 @@ impl Organizations {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_resourcemanager_v3::client::Organizations;
     /// let client = Organizations::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::organizations::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::organizations::client::Factory)
@@ -420,14 +420,16 @@ impl Organizations {
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::Organizations>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Organizations>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -436,13 +438,13 @@ impl Organizations {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Organizations> {
+    ) -> gax::client_builder::Result<impl super::stub::Organizations> {
         super::transport::Organizations::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Organizations> {
+    ) -> gax::client_builder::Result<impl super::stub::Organizations> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Organizations::new)
@@ -509,7 +511,7 @@ impl Organizations {
 /// # use google_cloud_resourcemanager_v3::client::Projects;
 /// let client = Projects::builder().build().await?;
 /// // use `client` to make requests to the Cloud Resource Manager API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -554,7 +556,7 @@ impl Projects {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_resourcemanager_v3::client::Projects;
     /// let client = Projects::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::projects::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::projects::client::Factory)
@@ -573,14 +575,16 @@ impl Projects {
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::Projects>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Projects>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -589,13 +593,13 @@ impl Projects {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Projects> {
+    ) -> gax::client_builder::Result<impl super::stub::Projects> {
         super::transport::Projects::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Projects> {
+    ) -> gax::client_builder::Result<impl super::stub::Projects> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Projects::new)
@@ -852,7 +856,7 @@ impl Projects {
 /// # use google_cloud_resourcemanager_v3::client::TagBindings;
 /// let client = TagBindings::builder().build().await?;
 /// // use `client` to make requests to the Cloud Resource Manager API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -898,7 +902,7 @@ impl TagBindings {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_resourcemanager_v3::client::TagBindings;
     /// let client = TagBindings::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::tag_bindings::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::tag_bindings::client::Factory)
@@ -917,14 +921,16 @@ impl TagBindings {
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::TagBindings>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::TagBindings>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -933,13 +939,13 @@ impl TagBindings {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::TagBindings> {
+    ) -> gax::client_builder::Result<impl super::stub::TagBindings> {
         super::transport::TagBindings::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::TagBindings> {
+    ) -> gax::client_builder::Result<impl super::stub::TagBindings> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::TagBindings::new)
@@ -1006,7 +1012,7 @@ impl TagBindings {
 /// # use google_cloud_resourcemanager_v3::client::TagHolds;
 /// let client = TagHolds::builder().build().await?;
 /// // use `client` to make requests to the Cloud Resource Manager API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -1055,7 +1061,7 @@ impl TagHolds {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_resourcemanager_v3::client::TagHolds;
     /// let client = TagHolds::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::tag_holds::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::tag_holds::client::Factory)
@@ -1074,14 +1080,16 @@ impl TagHolds {
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::TagHolds>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::TagHolds>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -1090,13 +1098,13 @@ impl TagHolds {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::TagHolds> {
+    ) -> gax::client_builder::Result<impl super::stub::TagHolds> {
         super::transport::TagHolds::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::TagHolds> {
+    ) -> gax::client_builder::Result<impl super::stub::TagHolds> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::TagHolds::new)
@@ -1154,7 +1162,7 @@ impl TagHolds {
 /// # use google_cloud_resourcemanager_v3::client::TagKeys;
 /// let client = TagKeys::builder().build().await?;
 /// // use `client` to make requests to the Cloud Resource Manager API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -1199,7 +1207,7 @@ impl TagKeys {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_resourcemanager_v3::client::TagKeys;
     /// let client = TagKeys::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::tag_keys::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::tag_keys::client::Factory)
@@ -1218,14 +1226,16 @@ impl TagKeys {
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::TagKeys>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::TagKeys>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -1234,13 +1244,13 @@ impl TagKeys {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::TagKeys> {
+    ) -> gax::client_builder::Result<impl super::stub::TagKeys> {
         super::transport::TagKeys::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::TagKeys> {
+    ) -> gax::client_builder::Result<impl super::stub::TagKeys> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::TagKeys::new)
@@ -1357,7 +1367,7 @@ impl TagKeys {
 /// # use google_cloud_resourcemanager_v3::client::TagValues;
 /// let client = TagValues::builder().build().await?;
 /// // use `client` to make requests to the Cloud Resource Manager API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -1402,7 +1412,7 @@ impl TagValues {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_resourcemanager_v3::client::TagValues;
     /// let client = TagValues::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::tag_values::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::tag_values::client::Factory)
@@ -1421,14 +1431,16 @@ impl TagValues {
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::TagValues>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::TagValues>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -1437,13 +1449,13 @@ impl TagValues {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::TagValues> {
+    ) -> gax::client_builder::Result<impl super::stub::TagValues> {
         super::transport::TagValues::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::TagValues> {
+    ) -> gax::client_builder::Result<impl super::stub::TagValues> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::TagValues::new)

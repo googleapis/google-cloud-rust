@@ -12,28 +12,25 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use google_cloud_auth::credentials::mds::Builder as MdsBuilder;
-use google_cloud_auth::credentials::service_account::Builder as ServiceAccountBuilder;
-use google_cloud_auth::credentials::testing::test_credentials;
-use google_cloud_auth::credentials::user_account::Builder as UserAccountCredentialBuilder;
-use google_cloud_auth::credentials::{
-    Builder as AccessTokenCredentialBuilder, CacheableResource, Credentials, CredentialsProvider,
-    api_key_credentials::Builder as ApiKeyCredentialsBuilder,
-};
-use google_cloud_auth::errors::CredentialsError;
-use serde_json::json;
-
-type Result<T> = std::result::Result<T, CredentialsError>;
-
 #[cfg(test)]
 mod test {
-    use super::*;
     use google_cloud_auth::credentials::EntityTag;
+    use google_cloud_auth::credentials::mds::Builder as MdsBuilder;
+    use google_cloud_auth::credentials::service_account::Builder as ServiceAccountBuilder;
+    use google_cloud_auth::credentials::testing::test_credentials;
+    use google_cloud_auth::credentials::user_account::Builder as UserAccountCredentialBuilder;
+    use google_cloud_auth::credentials::{
+        Builder as AccessTokenCredentialBuilder, CacheableResource, Credentials,
+        CredentialsProvider, api_key_credentials::Builder as ApiKeyCredentialsBuilder,
+    };
+    use google_cloud_auth::errors::CredentialsError;
     use http::header::{AUTHORIZATION, HeaderName, HeaderValue};
     use http::{Extensions, HeaderMap};
     use httptest::{Expectation, Server, matchers::*, responders::*};
     use scoped_env::ScopedEnv;
-    use std::error::Error;
+    use serde_json::json;
+
+    type Result<T> = anyhow::Result<T>;
 
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
 
@@ -53,12 +50,9 @@ mod test {
     #[serial_test::serial]
     async fn create_access_token_credentials_errors_if_adc_env_is_not_a_file() {
         let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", "file-does-not-exist.json");
-        let err = AccessTokenCredentialBuilder::default()
-            .build()
-            .err()
-            .unwrap();
-        let msg = err.source().unwrap().to_string();
-        assert!(msg.contains("Failed to load Application Default Credentials"));
+        let err = AccessTokenCredentialBuilder::default().build().unwrap_err();
+        assert!(err.is_loading(), "{err:?}");
+        let msg = err.to_string();
         assert!(msg.contains("file-does-not-exist.json"));
         assert!(msg.contains("GOOGLE_APPLICATION_CREDENTIALS"));
     }
@@ -72,13 +66,9 @@ mod test {
             std::fs::write(&path, contents).expect("Unable to write to temporary file.");
             let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
 
-            let err = AccessTokenCredentialBuilder::default()
-                .build()
-                .err()
-                .unwrap();
-            let msg = err.source().unwrap().to_string();
-            assert!(msg.contains("Failed to parse"));
-            assert!(msg.contains("`type` field"));
+            let err = AccessTokenCredentialBuilder::default().build().unwrap_err();
+            assert!(err.is_parsing(), "{err:?}");
+            assert!(err.to_string().contains("`type` field"), "{err}");
         }
     }
 
@@ -94,13 +84,12 @@ mod test {
         std::fs::write(&path, contents).expect("Unable to write to temporary file.");
         let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
 
-        let err = AccessTokenCredentialBuilder::default()
-            .build()
-            .err()
-            .unwrap();
-        let msg = err.source().unwrap().to_string();
-        assert!(msg.contains("Invalid or unsupported"));
-        assert!(msg.contains("some_unknown_credential_type"));
+        let err = AccessTokenCredentialBuilder::default().build().unwrap_err();
+        assert!(err.is_unknown_type(), "{err:?}");
+        assert!(
+            err.to_string().contains("some_unknown_credential_type"),
+            "{err}"
+        );
     }
 
     #[tokio::test]
@@ -290,7 +279,7 @@ mod test {
         Credentials {}
 
         impl CredentialsProvider for Credentials {
-            async fn headers(&self, extensions: Extensions) -> Result<CacheableResource<HeaderMap>>;
+            async fn headers(&self, extensions: Extensions) -> std::result::Result<CacheableResource<HeaderMap>, CredentialsError>;
             async fn universe_domain(&self) -> Option<String>;
         }
     }

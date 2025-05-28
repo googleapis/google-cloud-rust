@@ -16,8 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-
 /// Implements a client for the Cloud Billing API.
 ///
 /// # Example
@@ -26,7 +24,7 @@ use crate::Result;
 /// # use google_cloud_billing_v1::client::CloudBilling;
 /// let client = CloudBilling::builder().build().await?;
 /// // use `client` to make requests to the Cloud Billing API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -72,7 +70,7 @@ impl CloudBilling {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_billing_v1::client::CloudBilling;
     /// let client = CloudBilling::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::cloud_billing::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::cloud_billing::client::Factory)
@@ -91,14 +89,16 @@ impl CloudBilling {
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::CloudBilling>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::CloudBilling>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -107,13 +107,13 @@ impl CloudBilling {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::CloudBilling> {
+    ) -> gax::client_builder::Result<impl super::stub::CloudBilling> {
         super::transport::CloudBilling::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::CloudBilling> {
+    ) -> gax::client_builder::Result<impl super::stub::CloudBilling> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::CloudBilling::new)
@@ -257,7 +257,7 @@ impl CloudBilling {
 /// # use google_cloud_billing_v1::client::CloudCatalog;
 /// let client = CloudCatalog::builder().build().await?;
 /// // use `client` to make requests to the Cloud Billing API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -304,7 +304,7 @@ impl CloudCatalog {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_billing_v1::client::CloudCatalog;
     /// let client = CloudCatalog::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::cloud_catalog::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::cloud_catalog::client::Factory)
@@ -323,14 +323,16 @@ impl CloudCatalog {
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::CloudCatalog>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::CloudCatalog>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -339,13 +341,13 @@ impl CloudCatalog {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::CloudCatalog> {
+    ) -> gax::client_builder::Result<impl super::stub::CloudCatalog> {
         super::transport::CloudCatalog::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::CloudCatalog> {
+    ) -> gax::client_builder::Result<impl super::stub::CloudCatalog> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::CloudCatalog::new)

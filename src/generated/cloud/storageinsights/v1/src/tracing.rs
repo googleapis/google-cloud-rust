@@ -101,6 +101,69 @@ where
     }
 
     #[tracing::instrument(ret)]
+    async fn list_dataset_configs(
+        &self,
+        req: crate::model::ListDatasetConfigsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListDatasetConfigsResponse>> {
+        self.inner.list_dataset_configs(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_dataset_config(
+        &self,
+        req: crate::model::GetDatasetConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::DatasetConfig>> {
+        self.inner.get_dataset_config(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn create_dataset_config(
+        &self,
+        req: crate::model::CreateDatasetConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.create_dataset_config(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn update_dataset_config(
+        &self,
+        req: crate::model::UpdateDatasetConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.update_dataset_config(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn delete_dataset_config(
+        &self,
+        req: crate::model::DeleteDatasetConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.delete_dataset_config(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn link_dataset(
+        &self,
+        req: crate::model::LinkDatasetRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.link_dataset(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn unlink_dataset(
+        &self,
+        req: crate::model::UnlinkDatasetRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.unlink_dataset(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,
@@ -152,5 +215,19 @@ where
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         self.inner.cancel_operation(req, options).await
+    }
+
+    fn get_polling_error_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        self.inner.get_polling_backoff_policy(options)
     }
 }

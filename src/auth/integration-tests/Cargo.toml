@@ -24,6 +24,7 @@ run-integration-tests       = []
 run-byoid-integration-tests = []
 
 [dependencies]
+anyhow.workspace     = true
 scoped-env.workspace = true
 tempfile.workspace   = true
 http.workspace       = true

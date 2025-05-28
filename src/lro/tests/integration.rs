@@ -21,21 +21,23 @@ mod test {
     use super::fake::library::model;
     use super::fake::responses;
     use super::fake::service::*;
+    use anyhow::Result;
+    use gax::error::ServiceError;
+    use gax::error::rpc::Code;
     use google_cloud_lro as lro;
     use lro::Poller;
 
-    type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
-
-    async fn new_client(endpoint: String) -> gax::Result<client::Client> {
-        client::Client::builder()
+    async fn new_client(endpoint: String) -> Result<client::Client> {
+        let client = client::Client::builder()
             .with_credentials(auth::credentials::testing::test_credentials())
             .with_endpoint(endpoint)
             .build()
-            .await
+            .await?;
+        Ok(client)
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-    async fn until_done_is_send() -> TestResult {
+    async fn until_done_is_send() -> Result<()> {
         let create = vec![responses::success("op/001", "p/test-p/r/r-001")?];
         let poll = vec![];
         let (endpoint, _server) = start(ServerState {
@@ -44,7 +46,7 @@ mod test {
         })
         .await?;
 
-        async fn task(client: client::Client) -> gax::Result<()> {
+        async fn task(client: client::Client) -> Result<()> {
             let response = client
                 .create_resource("test-p", "r-001")
                 .poller()
@@ -67,7 +69,7 @@ mod test {
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-    async fn poller_is_send() -> TestResult {
+    async fn poller_is_send() -> Result<()> {
         let create = vec![responses::success("op/001", "p/test-p/r/r-001")?];
         let poll = vec![];
         let (endpoint, _server) = start(ServerState {
@@ -106,7 +108,7 @@ mod test {
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-    async fn until_done_immediate_success() -> TestResult {
+    async fn until_done_immediate_success() -> Result<()> {
         let create = vec![responses::success("op/001", "p/test-p/r/r-001")?];
         let poll = vec![];
         let (endpoint, _server) = start(ServerState {
@@ -132,7 +134,7 @@ mod test {
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-    async fn until_done_immediate_error() -> TestResult {
+    async fn until_done_immediate_error() -> Result<()> {
         let create = vec![responses::operation_error("op/001")?];
         let poll = vec![];
         let (endpoint, _server) = start(ServerState {
@@ -148,13 +150,16 @@ mod test {
             .until_done()
             .await;
         let error = result.err().unwrap();
-        assert_eq!(error.kind(), gax::error::ErrorKind::Other);
+        assert_eq!(
+            error.as_inner::<ServiceError>().map(|e| e.status().code),
+            Some(Code::AlreadyExists)
+        );
 
         Ok(())
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-    async fn until_done_success() -> TestResult {
+    async fn until_done_success() -> Result<()> {
         let create = vec![responses::pending("op/001", 25)?];
         let poll = vec![
             responses::pending("op/001", 75)?,
@@ -183,7 +188,7 @@ mod test {
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-    async fn until_done_error() -> TestResult {
+    async fn until_done_error() -> Result<()> {
         let create = vec![responses::pending("op/001", 25)?];
         let poll = vec![
             responses::pending("op/001", 75)?,
@@ -202,13 +207,16 @@ mod test {
             .until_done()
             .await;
         let error = result.err().unwrap();
-        assert_eq!(error.kind(), gax::error::ErrorKind::Other);
+        assert_eq!(
+            error.as_inner::<ServiceError>().map(|e| e.status().code),
+            Some(Code::AlreadyExists)
+        );
 
         Ok(())
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-    async fn poller_immediate_success() -> TestResult {
+    async fn poller_immediate_success() -> Result<()> {
         let create = vec![responses::success("op/001", "p/test-p/r/r-001")?];
         let poll = vec![];
         let (endpoint, _server) = start(ServerState {
@@ -241,7 +249,7 @@ mod test {
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-    async fn poller_immediate_error() -> TestResult {
+    async fn poller_immediate_error() -> Result<()> {
         let create = vec![responses::operation_error("op/001")?];
         let poll = vec![];
         let (endpoint, _server) = start(ServerState {
@@ -258,11 +266,14 @@ mod test {
                     panic!("unexpected InProgress {status:?}")
                 }
                 lro::PollingResult::PollingError(_) => { /* ignored */ }
-                lro::PollingResult::Completed(result) => {
-                    let response = result;
-                    assert!(response.is_err(), "{response:?}");
-                    let error = response.err().unwrap();
-                    assert_eq!(error.kind(), gax::error::ErrorKind::Other);
+                lro::PollingResult::Completed(Ok(_)) => {
+                    panic!("expected a completed polling status with an error {status:?}")
+                }
+                lro::PollingResult::Completed(Err(error)) => {
+                    assert_eq!(
+                        error.as_inner::<ServiceError>().map(|e| e.status().code),
+                        Some(Code::AlreadyExists)
+                    );
                 }
             }
         }
@@ -271,7 +282,7 @@ mod test {
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-    async fn poller_success() -> TestResult {
+    async fn poller_success() -> Result<()> {
         let create = vec![responses::pending("op/001", 25)?];
         let poll = vec![
             responses::pending("op/001", 75)?,
@@ -326,7 +337,7 @@ mod test {
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-    async fn poller_error() -> TestResult {
+    async fn poller_error() -> Result<()> {
         let create = vec![responses::pending("op/001", 25)?];
         let poll = vec![
             responses::pending("op/001", 75)?,
@@ -359,16 +370,14 @@ mod test {
         );
 
         let status = poller.poll().await.unwrap();
-        assert!(
-            matches!(&status, lro::PollingResult::Completed(_)),
-            "{status:?}"
-        );
         let error = match status {
-            lro::PollingResult::Completed(r) => r.err(),
-            _ => None,
+            lro::PollingResult::Completed(Err(e)) => e,
+            _ => panic!("expected a completed polling result with an error {status:?}"),
         };
-        let error = error.unwrap();
-        assert_eq!(error.kind(), gax::error::ErrorKind::Other);
+        assert_eq!(
+            error.as_inner::<ServiceError>().map(|e| e.status().code),
+            Some(Code::AlreadyExists)
+        );
 
         let status = poller.poll().await;
         assert!(status.is_none(), "{status:?}");
@@ -378,7 +387,7 @@ mod test {
 
     // The manual tests are here to validate all the test infrastructure.
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-    async fn manual_immediate_success() -> TestResult {
+    async fn manual_immediate_success() -> Result<()> {
         let create = vec![responses::success("op/001", "p/test-p/r/r-001")?];
         let poll = vec![];
         let (endpoint, _server) = start(ServerState {
@@ -420,7 +429,7 @@ mod test {
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-    async fn manual_success() -> TestResult {
+    async fn manual_success() -> Result<()> {
         let create = vec![responses::pending("op/001", 25)?];
         let poll = vec![
             responses::pending("op/001", 50)?,

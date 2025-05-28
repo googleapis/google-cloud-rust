@@ -16,8 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-
 /// Implements a client for the Cloud Dataplex API.
 ///
 /// # Example
@@ -26,7 +24,7 @@ use crate::Result;
 /// # use google_cloud_dataplex_v1::client::CatalogService;
 /// let client = CatalogService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Dataplex API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -75,7 +73,7 @@ impl CatalogService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_dataplex_v1::client::CatalogService;
     /// let client = CatalogService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::catalog_service::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::catalog_service::client::Factory)
@@ -94,14 +92,16 @@ impl CatalogService {
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::CatalogService>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::CatalogService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -110,13 +110,13 @@ impl CatalogService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::CatalogService> {
+    ) -> gax::client_builder::Result<impl super::stub::CatalogService> {
         super::transport::CatalogService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::CatalogService> {
+    ) -> gax::client_builder::Result<impl super::stub::CatalogService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::CatalogService::new)
@@ -431,7 +431,7 @@ impl CatalogService {
 /// # use google_cloud_dataplex_v1::client::CmekService;
 /// let client = CmekService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Dataplex API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -476,7 +476,7 @@ impl CmekService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_dataplex_v1::client::CmekService;
     /// let client = CmekService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::cmek_service::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::cmek_service::client::Factory)
@@ -495,14 +495,16 @@ impl CmekService {
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::CmekService>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::CmekService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -511,13 +513,13 @@ impl CmekService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::CmekService> {
+    ) -> gax::client_builder::Result<impl super::stub::CmekService> {
         super::transport::CmekService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::CmekService> {
+    ) -> gax::client_builder::Result<impl super::stub::CmekService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::CmekService::new)
@@ -651,7 +653,7 @@ impl CmekService {
 /// # use google_cloud_dataplex_v1::client::ContentService;
 /// let client = ContentService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Dataplex API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -696,7 +698,7 @@ impl ContentService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_dataplex_v1::client::ContentService;
     /// let client = ContentService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::content_service::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::content_service::client::Factory)
@@ -715,14 +717,16 @@ impl ContentService {
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::ContentService>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ContentService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -731,13 +735,13 @@ impl ContentService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::ContentService> {
+    ) -> gax::client_builder::Result<impl super::stub::ContentService> {
         super::transport::ContentService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::ContentService> {
+    ) -> gax::client_builder::Result<impl super::stub::ContentService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ContentService::new)
@@ -848,7 +852,7 @@ impl ContentService {
 /// # use google_cloud_dataplex_v1::client::DataTaxonomyService;
 /// let client = DataTaxonomyService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Dataplex API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -895,7 +899,7 @@ impl DataTaxonomyService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_dataplex_v1::client::DataTaxonomyService;
     /// let client = DataTaxonomyService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::data_taxonomy_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -916,14 +920,17 @@ impl DataTaxonomyService {
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::DataTaxonomyService>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::DataTaxonomyService>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -932,13 +939,13 @@ impl DataTaxonomyService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::DataTaxonomyService> {
+    ) -> gax::client_builder::Result<impl super::stub::DataTaxonomyService> {
         super::transport::DataTaxonomyService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::DataTaxonomyService> {
+    ) -> gax::client_builder::Result<impl super::stub::DataTaxonomyService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::DataTaxonomyService::new)
@@ -1228,7 +1235,7 @@ impl DataTaxonomyService {
 /// # use google_cloud_dataplex_v1::client::DataScanService;
 /// let client = DataScanService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Dataplex API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -1275,7 +1282,7 @@ impl DataScanService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_dataplex_v1::client::DataScanService;
     /// let client = DataScanService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::data_scan_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -1296,14 +1303,17 @@ impl DataScanService {
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::DataScanService>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::DataScanService>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -1312,13 +1322,13 @@ impl DataScanService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::DataScanService> {
+    ) -> gax::client_builder::Result<impl super::stub::DataScanService> {
         super::transport::DataScanService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::DataScanService> {
+    ) -> gax::client_builder::Result<impl super::stub::DataScanService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::DataScanService::new)
@@ -1477,7 +1487,7 @@ impl DataScanService {
 /// # use google_cloud_dataplex_v1::client::MetadataService;
 /// let client = MetadataService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Dataplex API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -1523,7 +1533,7 @@ impl MetadataService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_dataplex_v1::client::MetadataService;
     /// let client = MetadataService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::metadata_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -1544,14 +1554,17 @@ impl MetadataService {
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::MetadataService>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::MetadataService>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -1560,13 +1573,13 @@ impl MetadataService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::MetadataService> {
+    ) -> gax::client_builder::Result<impl super::stub::MetadataService> {
         super::transport::MetadataService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::MetadataService> {
+    ) -> gax::client_builder::Result<impl super::stub::MetadataService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::MetadataService::new)
@@ -1690,7 +1703,7 @@ impl MetadataService {
 /// # use google_cloud_dataplex_v1::client::DataplexService;
 /// let client = DataplexService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Dataplex API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -1739,7 +1752,7 @@ impl DataplexService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_dataplex_v1::client::DataplexService;
     /// let client = DataplexService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::dataplex_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -1760,14 +1773,17 @@ impl DataplexService {
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::DataplexService>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::DataplexService>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -1776,13 +1792,13 @@ impl DataplexService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::DataplexService> {
+    ) -> gax::client_builder::Result<impl super::stub::DataplexService> {
         super::transport::DataplexService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::DataplexService> {
+    ) -> gax::client_builder::Result<impl super::stub::DataplexService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::DataplexService::new)

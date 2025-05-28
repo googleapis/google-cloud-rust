@@ -27,9 +27,7 @@ use scoped_env::ScopedEnv;
 use secretmanager::client::SecretManagerService;
 use std::collections::HashMap;
 
-pub type Result<T> = std::result::Result<T, gax::error::Error>;
-
-pub async fn service_account() -> Result<()> {
+pub async fn service_account() -> anyhow::Result<()> {
     let project = std::env::var("GOOGLE_CLOUD_PROJECT").expect("GOOGLE_CLOUD_PROJECT not set");
 
     // Create a SecretManager client. When running on GCB, this loads MDS
@@ -86,7 +84,7 @@ pub async fn service_account() -> Result<()> {
     Ok(())
 }
 
-pub async fn api_key() -> Result<()> {
+pub async fn api_key() -> anyhow::Result<()> {
     let project = std::env::var("GOOGLE_CLOUD_PROJECT").expect("GOOGLE_CLOUD_PROJECT not set");
 
     // Create a SecretManager client. When running on GCB, this loads MDS
@@ -126,7 +124,7 @@ pub async fn api_key() -> Result<()> {
     Ok(())
 }
 
-pub async fn workload_identity_provider_url_sourced() -> Result<()> {
+pub async fn workload_identity_provider_url_sourced() -> anyhow::Result<()> {
     let project = std::env::var("GOOGLE_CLOUD_PROJECT").expect("GOOGLE_CLOUD_PROJECT not set");
     let audience = get_oidc_audience();
     let service_account = get_byoid_service_account();
@@ -201,7 +199,7 @@ async fn generate_id_token(
     audience: String,
     client_email: String,
     service_account: serde_json::Value,
-) -> Result<String> {
+) -> anyhow::Result<String> {
     let creds = AccessTokenCredentialBuilder::new(service_account.clone())
         .with_scopes(["https://www.googleapis.com/auth/cloud-platform"])
         .build()

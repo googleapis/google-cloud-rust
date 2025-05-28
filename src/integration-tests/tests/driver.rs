@@ -14,6 +14,8 @@
 
 #[cfg(all(test, feature = "run-integration-tests"))]
 mod driver {
+    use storage::client::Storage;
+    use storage_control::client::StorageControl;
     use test_case::test_case;
 
     fn retry_policy() -> impl gax::retry_policy::RetryPolicy {
@@ -102,8 +104,8 @@ mod driver {
             .map_err(integration_tests::report_error)
     }
 
-    #[test_case(storage_control::client::Storage::builder().with_tracing().with_retry_policy(retry_policy()); "with tracing and retry enabled")]
-    #[test_case(storage_control::client::Storage::builder().with_retry_policy(retry_policy()); "with retry enabled")]
+    #[test_case(StorageControl::builder().with_tracing().with_retry_policy(retry_policy()); "with tracing and retry enabled")]
+    #[test_case(StorageControl::builder().with_retry_policy(retry_policy()); "with retry enabled")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_storage_control_buckets(
         builder: storage_control::client::ClientBuilder,
@@ -113,7 +115,7 @@ mod driver {
             .map_err(integration_tests::report_error)
     }
 
-    #[test_case(storage::client::Storage::builder().with_tracing().with_retry_policy(retry_policy()); "with tracing and retry enabled")]
+    #[test_case(Storage::builder().with_tracing().with_retry_policy(retry_policy()); "with tracing and retry enabled")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_storage_objects(
         builder: storage::client::ClientBuilder,
@@ -143,7 +145,7 @@ mod driver {
             .map_err(integration_tests::report_error)
     }
 
-    #[test_case(storage_control::client::Storage::builder().with_tracing(); "with tracing enabled")]
+    #[test_case(StorageControl::builder().with_tracing(); "with tracing enabled")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_check_code_for_grpc(
         builder: storage_control::client::ClientBuilder,

@@ -5531,6 +5531,10 @@ pub struct CodeCompilationConfig {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub table_prefix: std::string::String,
 
+    /// Optional. The prefix to prepend to built-in assertion names.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub builtin_assertion_name_prefix: std::string::String,
+
     /// Optional. The default notebook runtime options.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub default_notebook_runtime_options: std::option::Option<crate::model::NotebookRuntimeOptions>,
@@ -5607,6 +5611,15 @@ impl CodeCompilationConfig {
         self
     }
 
+    /// Sets the value of [builtin_assertion_name_prefix][crate::model::CodeCompilationConfig::builtin_assertion_name_prefix].
+    pub fn set_builtin_assertion_name_prefix<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.builtin_assertion_name_prefix = v.into();
+        self
+    }
+
     /// Sets the value of [default_notebook_runtime_options][crate::model::CodeCompilationConfig::default_notebook_runtime_options].
     pub fn set_default_notebook_runtime_options<T>(mut self, v: T) -> Self
     where
@@ -5641,6 +5654,13 @@ impl wkt::message::Message for CodeCompilationConfig {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct NotebookRuntimeOptions {
+    /// Optional. The resource name of the [Colab runtime template]
+    /// (<https://cloud.google.com/colab/docs/runtimes>), from which a runtime is
+    /// created for notebook executions. If not specified, a runtime is created
+    /// with Colab's default specifications.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub ai_platform_notebook_runtime_template: std::string::String,
+
     /// The location to store the notebook execution result.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub execution_sink: std::option::Option<crate::model::notebook_runtime_options::ExecutionSink>,
@@ -5652,6 +5672,15 @@ pub struct NotebookRuntimeOptions {
 impl NotebookRuntimeOptions {
     pub fn new() -> Self {
         std::default::Default::default()
+    }
+
+    /// Sets the value of [ai_platform_notebook_runtime_template][crate::model::NotebookRuntimeOptions::ai_platform_notebook_runtime_template].
+    pub fn set_ai_platform_notebook_runtime_template<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.ai_platform_notebook_runtime_template = v.into();
+        self
     }
 
     /// Sets the value of [execution_sink][crate::model::NotebookRuntimeOptions::execution_sink].
@@ -6430,6 +6459,42 @@ impl CompilationResultAction {
     ) -> Self {
         self.compiled_object = std::option::Option::Some(
             crate::model::compilation_result_action::CompiledObject::Notebook(v.into()),
+        );
+        self
+    }
+
+    /// The value of [compiled_object][crate::model::CompilationResultAction::compiled_object]
+    /// if it holds a `DataPreparation`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn data_preparation(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::compilation_result_action::DataPreparation>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.compiled_object.as_ref().and_then(|v| match v {
+            crate::model::compilation_result_action::CompiledObject::DataPreparation(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [compiled_object][crate::model::CompilationResultAction::compiled_object]
+    /// to hold a `DataPreparation`.
+    ///
+    /// Note that all the setters affecting `compiled_object` are
+    /// mutually exclusive.
+    pub fn set_data_preparation<
+        T: std::convert::Into<
+                std::boxed::Box<crate::model::compilation_result_action::DataPreparation>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.compiled_object = std::option::Option::Some(
+            crate::model::compilation_result_action::CompiledObject::DataPreparation(v.into()),
         );
         self
     }
@@ -7302,6 +7367,586 @@ pub mod compilation_result_action {
         }
     }
 
+    /// Defines a compiled Data Preparation entity
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct DataPreparation {
+        /// A list of actions that this action depends on.
+        #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        pub dependency_targets: std::vec::Vec<crate::model::Target>,
+
+        /// Whether this action is disabled (i.e. should not be run).
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        pub disabled: bool,
+
+        /// Arbitrary, user-defined tags on this action.
+        #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        pub tags: std::vec::Vec<std::string::String>,
+
+        /// The definition for the data preparation.
+        #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
+        pub definition: std::option::Option<
+            crate::model::compilation_result_action::data_preparation::Definition,
+        >,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl DataPreparation {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [dependency_targets][crate::model::compilation_result_action::DataPreparation::dependency_targets].
+        pub fn set_dependency_targets<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::Target>,
+        {
+            use std::iter::Iterator;
+            self.dependency_targets = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [disabled][crate::model::compilation_result_action::DataPreparation::disabled].
+        pub fn set_disabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.disabled = v.into();
+            self
+        }
+
+        /// Sets the value of [tags][crate::model::compilation_result_action::DataPreparation::tags].
+        pub fn set_tags<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.tags = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [definition][crate::model::compilation_result_action::DataPreparation::definition].
+        ///
+        /// Note that all the setters affecting `definition` are mutually
+        /// exclusive.
+        pub fn set_definition<
+            T: std::convert::Into<
+                    std::option::Option<
+                        crate::model::compilation_result_action::data_preparation::Definition,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.definition = v.into();
+            self
+        }
+
+        /// The value of [definition][crate::model::compilation_result_action::DataPreparation::definition]
+        /// if it holds a `ContentsYaml`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn contents_yaml(&self) -> std::option::Option<&std::string::String> {
+            #[allow(unreachable_patterns)]
+            self.definition.as_ref().and_then(|v| match v {
+                crate::model::compilation_result_action::data_preparation::Definition::ContentsYaml(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [definition][crate::model::compilation_result_action::DataPreparation::definition]
+        /// to hold a `ContentsYaml`.
+        ///
+        /// Note that all the setters affecting `definition` are
+        /// mutually exclusive.
+        pub fn set_contents_yaml<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.definition = std::option::Option::Some(
+                crate::model::compilation_result_action::data_preparation::Definition::ContentsYaml(
+                    v.into(),
+                ),
+            );
+            self
+        }
+
+        /// The value of [definition][crate::model::compilation_result_action::DataPreparation::definition]
+        /// if it holds a `ContentsSql`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn contents_sql(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<
+                crate::model::compilation_result_action::data_preparation::SqlDefinition,
+            >,
+        > {
+            #[allow(unreachable_patterns)]
+            self.definition.as_ref().and_then(|v| match v {
+                crate::model::compilation_result_action::data_preparation::Definition::ContentsSql(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [definition][crate::model::compilation_result_action::DataPreparation::definition]
+        /// to hold a `ContentsSql`.
+        ///
+        /// Note that all the setters affecting `definition` are
+        /// mutually exclusive.
+        pub fn set_contents_sql<
+            T: std::convert::Into<
+                    std::boxed::Box<
+                        crate::model::compilation_result_action::data_preparation::SqlDefinition,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.definition = std::option::Option::Some(
+                crate::model::compilation_result_action::data_preparation::Definition::ContentsSql(
+                    v.into(),
+                ),
+            );
+            self
+        }
+    }
+
+    impl wkt::message::Message for DataPreparation {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dataform.v1.CompilationResultAction.DataPreparation"
+        }
+    }
+
+    /// Defines additional types related to [DataPreparation].
+    pub mod data_preparation {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Definition of a SQL Data Preparation
+        #[serde_with::serde_as]
+        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[serde(default, rename_all = "camelCase")]
+        #[non_exhaustive]
+        pub struct SqlDefinition {
+            /// The SQL query representing the data preparation steps. Formatted as a
+            /// Pipe SQL query statement.
+            #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            pub query: std::string::String,
+
+            /// Error table configuration,
+            #[serde(skip_serializing_if = "std::option::Option::is_none")]
+            pub error_table: std::option::Option<
+                crate::model::compilation_result_action::data_preparation::ErrorTable,
+            >,
+
+            /// Load configuration.
+            #[serde(skip_serializing_if = "std::option::Option::is_none")]
+            pub load: std::option::Option<crate::model::compilation_result_action::LoadConfig>,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl SqlDefinition {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [query][crate::model::compilation_result_action::data_preparation::SqlDefinition::query].
+            pub fn set_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                self.query = v.into();
+                self
+            }
+
+            /// Sets the value of [error_table][crate::model::compilation_result_action::data_preparation::SqlDefinition::error_table].
+            pub fn set_error_table<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<
+                        crate::model::compilation_result_action::data_preparation::ErrorTable,
+                    >,
+            {
+                self.error_table = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [error_table][crate::model::compilation_result_action::data_preparation::SqlDefinition::error_table].
+            pub fn set_or_clear_error_table<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<
+                        crate::model::compilation_result_action::data_preparation::ErrorTable,
+                    >,
+            {
+                self.error_table = v.map(|x| x.into());
+                self
+            }
+
+            /// Sets the value of [load][crate::model::compilation_result_action::data_preparation::SqlDefinition::load].
+            pub fn set_load<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<crate::model::compilation_result_action::LoadConfig>,
+            {
+                self.load = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [load][crate::model::compilation_result_action::data_preparation::SqlDefinition::load].
+            pub fn set_or_clear_load<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<crate::model::compilation_result_action::LoadConfig>,
+            {
+                self.load = v.map(|x| x.into());
+                self
+            }
+        }
+
+        impl wkt::message::Message for SqlDefinition {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.dataform.v1.CompilationResultAction.DataPreparation.SqlDefinition"
+            }
+        }
+
+        /// Error table information, used to write error data into a BigQuery
+        /// table.
+        #[serde_with::serde_as]
+        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[serde(default, rename_all = "camelCase")]
+        #[non_exhaustive]
+        pub struct ErrorTable {
+            /// Error Table target.
+            #[serde(skip_serializing_if = "std::option::Option::is_none")]
+            pub target: std::option::Option<crate::model::Target>,
+
+            /// Error table partition expiration in days. Only positive values are
+            /// allowed.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            pub retention_days: i32,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl ErrorTable {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [target][crate::model::compilation_result_action::data_preparation::ErrorTable::target].
+            pub fn set_target<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<crate::model::Target>,
+            {
+                self.target = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [target][crate::model::compilation_result_action::data_preparation::ErrorTable::target].
+            pub fn set_or_clear_target<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<crate::model::Target>,
+            {
+                self.target = v.map(|x| x.into());
+                self
+            }
+
+            /// Sets the value of [retention_days][crate::model::compilation_result_action::data_preparation::ErrorTable::retention_days].
+            pub fn set_retention_days<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+                self.retention_days = v.into();
+                self
+            }
+        }
+
+        impl wkt::message::Message for ErrorTable {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.dataform.v1.CompilationResultAction.DataPreparation.ErrorTable"
+            }
+        }
+
+        /// The definition for the data preparation.
+        #[serde_with::serde_as]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[serde(rename_all = "camelCase")]
+        #[non_exhaustive]
+        pub enum Definition {
+            /// The data preparation definition, stored as a YAML string.
+            ContentsYaml(std::string::String),
+            /// SQL definition for a Data Preparation. Contains a SQL query and
+            /// additional context information.
+            ContentsSql(
+                std::boxed::Box<
+                    crate::model::compilation_result_action::data_preparation::SqlDefinition,
+                >,
+            ),
+        }
+    }
+
+    /// Simplified load configuration for actions
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct LoadConfig {
+        /// Load mode
+        #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
+        pub mode: std::option::Option<crate::model::compilation_result_action::load_config::Mode>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl LoadConfig {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [mode][crate::model::compilation_result_action::LoadConfig::mode].
+        ///
+        /// Note that all the setters affecting `mode` are mutually
+        /// exclusive.
+        pub fn set_mode<
+            T: std::convert::Into<
+                    std::option::Option<crate::model::compilation_result_action::load_config::Mode>,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.mode = v.into();
+            self
+        }
+
+        /// The value of [mode][crate::model::compilation_result_action::LoadConfig::mode]
+        /// if it holds a `Replace`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn replace(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<crate::model::compilation_result_action::SimpleLoadMode>,
+        > {
+            #[allow(unreachable_patterns)]
+            self.mode.as_ref().and_then(|v| match v {
+                crate::model::compilation_result_action::load_config::Mode::Replace(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [mode][crate::model::compilation_result_action::LoadConfig::mode]
+        /// to hold a `Replace`.
+        ///
+        /// Note that all the setters affecting `mode` are
+        /// mutually exclusive.
+        pub fn set_replace<
+            T: std::convert::Into<
+                    std::boxed::Box<crate::model::compilation_result_action::SimpleLoadMode>,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.mode = std::option::Option::Some(
+                crate::model::compilation_result_action::load_config::Mode::Replace(v.into()),
+            );
+            self
+        }
+
+        /// The value of [mode][crate::model::compilation_result_action::LoadConfig::mode]
+        /// if it holds a `Append`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn append(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<crate::model::compilation_result_action::SimpleLoadMode>,
+        > {
+            #[allow(unreachable_patterns)]
+            self.mode.as_ref().and_then(|v| match v {
+                crate::model::compilation_result_action::load_config::Mode::Append(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [mode][crate::model::compilation_result_action::LoadConfig::mode]
+        /// to hold a `Append`.
+        ///
+        /// Note that all the setters affecting `mode` are
+        /// mutually exclusive.
+        pub fn set_append<
+            T: std::convert::Into<
+                    std::boxed::Box<crate::model::compilation_result_action::SimpleLoadMode>,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.mode = std::option::Option::Some(
+                crate::model::compilation_result_action::load_config::Mode::Append(v.into()),
+            );
+            self
+        }
+
+        /// The value of [mode][crate::model::compilation_result_action::LoadConfig::mode]
+        /// if it holds a `Maximum`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn maximum(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<crate::model::compilation_result_action::IncrementalLoadMode>,
+        > {
+            #[allow(unreachable_patterns)]
+            self.mode.as_ref().and_then(|v| match v {
+                crate::model::compilation_result_action::load_config::Mode::Maximum(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [mode][crate::model::compilation_result_action::LoadConfig::mode]
+        /// to hold a `Maximum`.
+        ///
+        /// Note that all the setters affecting `mode` are
+        /// mutually exclusive.
+        pub fn set_maximum<
+            T: std::convert::Into<
+                    std::boxed::Box<crate::model::compilation_result_action::IncrementalLoadMode>,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.mode = std::option::Option::Some(
+                crate::model::compilation_result_action::load_config::Mode::Maximum(v.into()),
+            );
+            self
+        }
+
+        /// The value of [mode][crate::model::compilation_result_action::LoadConfig::mode]
+        /// if it holds a `Unique`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn unique(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<crate::model::compilation_result_action::IncrementalLoadMode>,
+        > {
+            #[allow(unreachable_patterns)]
+            self.mode.as_ref().and_then(|v| match v {
+                crate::model::compilation_result_action::load_config::Mode::Unique(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [mode][crate::model::compilation_result_action::LoadConfig::mode]
+        /// to hold a `Unique`.
+        ///
+        /// Note that all the setters affecting `mode` are
+        /// mutually exclusive.
+        pub fn set_unique<
+            T: std::convert::Into<
+                    std::boxed::Box<crate::model::compilation_result_action::IncrementalLoadMode>,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.mode = std::option::Option::Some(
+                crate::model::compilation_result_action::load_config::Mode::Unique(v.into()),
+            );
+            self
+        }
+    }
+
+    impl wkt::message::Message for LoadConfig {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dataform.v1.CompilationResultAction.LoadConfig"
+        }
+    }
+
+    /// Defines additional types related to [LoadConfig].
+    pub mod load_config {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Load mode
+        #[serde_with::serde_as]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[serde(rename_all = "camelCase")]
+        #[non_exhaustive]
+        pub enum Mode {
+            /// Replace destination table
+            Replace(std::boxed::Box<crate::model::compilation_result_action::SimpleLoadMode>),
+            /// Append into destination table
+            Append(std::boxed::Box<crate::model::compilation_result_action::SimpleLoadMode>),
+            /// Insert records where the value exceeds the previous maximum value for a
+            /// column in the destination table
+            Maximum(std::boxed::Box<crate::model::compilation_result_action::IncrementalLoadMode>),
+            /// Insert records where the value of a column is not already present in
+            /// the destination table
+            Unique(std::boxed::Box<crate::model::compilation_result_action::IncrementalLoadMode>),
+        }
+    }
+
+    /// Simple load definition
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct SimpleLoadMode {
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl SimpleLoadMode {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+    }
+
+    impl wkt::message::Message for SimpleLoadMode {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dataform.v1.CompilationResultAction.SimpleLoadMode"
+        }
+    }
+
+    /// Load definition for incremental load modes
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct IncrementalLoadMode {
+        /// Column name for incremental load modes
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub column: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl IncrementalLoadMode {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [column][crate::model::compilation_result_action::IncrementalLoadMode::column].
+        pub fn set_column<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.column = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for IncrementalLoadMode {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dataform.v1.CompilationResultAction.IncrementalLoadMode"
+        }
+    }
+
     /// The compiled object.
     #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -7318,6 +7963,8 @@ pub mod compilation_result_action {
         Declaration(std::boxed::Box<crate::model::compilation_result_action::Declaration>),
         /// The notebook executed by this action.
         Notebook(std::boxed::Box<crate::model::compilation_result_action::Notebook>),
+        /// The data preparation executed by this action.
+        DataPreparation(std::boxed::Box<crate::model::compilation_result_action::DataPreparation>),
     }
 }
 
@@ -7493,6 +8140,10 @@ pub struct WorkflowConfig {
     pub recent_scheduled_execution_records:
         std::vec::Vec<crate::model::workflow_config::ScheduledExecutionRecord>,
 
+    /// Optional. Disables automatic creation of workflow invocations.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    pub disabled: bool,
+
     /// Output only. The timestamp of when the WorkflowConfig was created.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub create_time: std::option::Option<wkt::Timestamp>,
@@ -7566,6 +8217,12 @@ impl WorkflowConfig {
     {
         use std::iter::Iterator;
         self.recent_scheduled_execution_records = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [disabled][crate::model::WorkflowConfig::disabled].
+    pub fn set_disabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.disabled = v.into();
         self
     }
 
@@ -9175,6 +9832,42 @@ impl WorkflowInvocationAction {
         );
         self
     }
+
+    /// The value of [action][crate::model::WorkflowInvocationAction::action]
+    /// if it holds a `DataPreparationAction`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn data_preparation_action(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::workflow_invocation_action::DataPreparationAction>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.action.as_ref().and_then(|v| match v {
+            crate::model::workflow_invocation_action::Action::DataPreparationAction(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [action][crate::model::WorkflowInvocationAction::action]
+    /// to hold a `DataPreparationAction`.
+    ///
+    /// Note that all the setters affecting `action` are
+    /// mutually exclusive.
+    pub fn set_data_preparation_action<
+        T: std::convert::Into<
+                std::boxed::Box<crate::model::workflow_invocation_action::DataPreparationAction>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.action = std::option::Option::Some(
+            crate::model::workflow_invocation_action::Action::DataPreparationAction(v.into()),
+        );
+        self
+    }
 }
 
 impl wkt::message::Message for WorkflowInvocationAction {
@@ -9272,6 +9965,490 @@ pub mod workflow_invocation_action {
     impl wkt::message::Message for NotebookAction {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.dataform.v1.WorkflowInvocationAction.NotebookAction"
+        }
+    }
+
+    /// Represents a workflow action that will run a Data Preparation.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct DataPreparationAction {
+        /// Output only. The generated BigQuery SQL script that will be executed. For
+        /// reference only.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub generated_sql: std::string::String,
+
+        /// Output only. The ID of the BigQuery job that executed the SQL in
+        /// sql_script. Only set once the job has started to run.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub job_id: std::string::String,
+
+        /// The definition for the data preparation.
+        #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
+        pub definition: std::option::Option<
+            crate::model::workflow_invocation_action::data_preparation_action::Definition,
+        >,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl DataPreparationAction {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [generated_sql][crate::model::workflow_invocation_action::DataPreparationAction::generated_sql].
+        pub fn set_generated_sql<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.generated_sql = v.into();
+            self
+        }
+
+        /// Sets the value of [job_id][crate::model::workflow_invocation_action::DataPreparationAction::job_id].
+        pub fn set_job_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.job_id = v.into();
+            self
+        }
+
+        /// Sets the value of [definition][crate::model::workflow_invocation_action::DataPreparationAction::definition].
+        ///
+        /// Note that all the setters affecting `definition` are mutually
+        /// exclusive.
+        pub fn set_definition<T: std::convert::Into<std::option::Option<crate::model::workflow_invocation_action::data_preparation_action::Definition>>>(mut self, v: T) -> Self
+        {
+            self.definition = v.into();
+            self
+        }
+
+        /// The value of [definition][crate::model::workflow_invocation_action::DataPreparationAction::definition]
+        /// if it holds a `ContentsYaml`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn contents_yaml(&self) -> std::option::Option<&std::string::String> {
+            #[allow(unreachable_patterns)]
+            self.definition.as_ref().and_then(|v| match v {
+                crate::model::workflow_invocation_action::data_preparation_action::Definition::ContentsYaml(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [definition][crate::model::workflow_invocation_action::DataPreparationAction::definition]
+        /// to hold a `ContentsYaml`.
+        ///
+        /// Note that all the setters affecting `definition` are
+        /// mutually exclusive.
+        pub fn set_contents_yaml<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.definition = std::option::Option::Some(
+                crate::model::workflow_invocation_action::data_preparation_action::Definition::ContentsYaml(
+                    v.into()
+                )
+            );
+            self
+        }
+
+        /// The value of [definition][crate::model::workflow_invocation_action::DataPreparationAction::definition]
+        /// if it holds a `ContentsSql`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn contents_sql(&self) -> std::option::Option<&std::boxed::Box<crate::model::workflow_invocation_action::data_preparation_action::ActionSqlDefinition>>{
+            #[allow(unreachable_patterns)]
+            self.definition.as_ref().and_then(|v| match v {
+                crate::model::workflow_invocation_action::data_preparation_action::Definition::ContentsSql(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [definition][crate::model::workflow_invocation_action::DataPreparationAction::definition]
+        /// to hold a `ContentsSql`.
+        ///
+        /// Note that all the setters affecting `definition` are
+        /// mutually exclusive.
+        pub fn set_contents_sql<T: std::convert::Into<std::boxed::Box<crate::model::workflow_invocation_action::data_preparation_action::ActionSqlDefinition>>>(mut self, v: T) -> Self{
+            self.definition = std::option::Option::Some(
+                crate::model::workflow_invocation_action::data_preparation_action::Definition::ContentsSql(
+                    v.into()
+                )
+            );
+            self
+        }
+    }
+
+    impl wkt::message::Message for DataPreparationAction {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dataform.v1.WorkflowInvocationAction.DataPreparationAction"
+        }
+    }
+
+    /// Defines additional types related to [DataPreparationAction].
+    pub mod data_preparation_action {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Definition of a SQL Data Preparation
+        #[serde_with::serde_as]
+        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[serde(default, rename_all = "camelCase")]
+        #[non_exhaustive]
+        pub struct ActionSqlDefinition {
+            /// The SQL query representing the data preparation steps. Formatted as a
+            /// Pipe SQL query statement.
+            #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            pub query: std::string::String,
+
+            /// Error table configuration,
+            #[serde(skip_serializing_if = "std::option::Option::is_none")]
+            pub error_table: std::option::Option<
+                crate::model::workflow_invocation_action::data_preparation_action::ActionErrorTable,
+            >,
+
+            /// Load configuration.
+            #[serde(skip_serializing_if = "std::option::Option::is_none")]
+            pub load_config: std::option::Option<
+                crate::model::workflow_invocation_action::data_preparation_action::ActionLoadConfig,
+            >,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl ActionSqlDefinition {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [query][crate::model::workflow_invocation_action::data_preparation_action::ActionSqlDefinition::query].
+            pub fn set_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                self.query = v.into();
+                self
+            }
+
+            /// Sets the value of [error_table][crate::model::workflow_invocation_action::data_preparation_action::ActionSqlDefinition::error_table].
+            pub fn set_error_table<T>(mut self, v: T) -> Self
+            where T: std::convert::Into<crate::model::workflow_invocation_action::data_preparation_action::ActionErrorTable>
+            {
+                self.error_table = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [error_table][crate::model::workflow_invocation_action::data_preparation_action::ActionSqlDefinition::error_table].
+            pub fn set_or_clear_error_table<T>(mut self, v: std::option::Option<T>) -> Self
+            where T: std::convert::Into<crate::model::workflow_invocation_action::data_preparation_action::ActionErrorTable>
+            {
+                self.error_table = v.map(|x| x.into());
+                self
+            }
+
+            /// Sets the value of [load_config][crate::model::workflow_invocation_action::data_preparation_action::ActionSqlDefinition::load_config].
+            pub fn set_load_config<T>(mut self, v: T) -> Self
+            where T: std::convert::Into<crate::model::workflow_invocation_action::data_preparation_action::ActionLoadConfig>
+            {
+                self.load_config = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [load_config][crate::model::workflow_invocation_action::data_preparation_action::ActionSqlDefinition::load_config].
+            pub fn set_or_clear_load_config<T>(mut self, v: std::option::Option<T>) -> Self
+            where T: std::convert::Into<crate::model::workflow_invocation_action::data_preparation_action::ActionLoadConfig>
+            {
+                self.load_config = v.map(|x| x.into());
+                self
+            }
+        }
+
+        impl wkt::message::Message for ActionSqlDefinition {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.dataform.v1.WorkflowInvocationAction.DataPreparationAction.ActionSqlDefinition"
+            }
+        }
+
+        /// Error table information, used to write error data into a BigQuery
+        /// table.
+        #[serde_with::serde_as]
+        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[serde(default, rename_all = "camelCase")]
+        #[non_exhaustive]
+        pub struct ActionErrorTable {
+            /// Error Table target.
+            #[serde(skip_serializing_if = "std::option::Option::is_none")]
+            pub target: std::option::Option<crate::model::Target>,
+
+            /// Error table partition expiration in days. Only positive values are
+            /// allowed.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            pub retention_days: i32,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl ActionErrorTable {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [target][crate::model::workflow_invocation_action::data_preparation_action::ActionErrorTable::target].
+            pub fn set_target<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<crate::model::Target>,
+            {
+                self.target = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [target][crate::model::workflow_invocation_action::data_preparation_action::ActionErrorTable::target].
+            pub fn set_or_clear_target<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<crate::model::Target>,
+            {
+                self.target = v.map(|x| x.into());
+                self
+            }
+
+            /// Sets the value of [retention_days][crate::model::workflow_invocation_action::data_preparation_action::ActionErrorTable::retention_days].
+            pub fn set_retention_days<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+                self.retention_days = v.into();
+                self
+            }
+        }
+
+        impl wkt::message::Message for ActionErrorTable {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.dataform.v1.WorkflowInvocationAction.DataPreparationAction.ActionErrorTable"
+            }
+        }
+
+        /// Simplified load configuration for actions
+        #[serde_with::serde_as]
+        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[serde(default, rename_all = "camelCase")]
+        #[non_exhaustive]
+        pub struct ActionLoadConfig {
+
+            /// Load mode
+            #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
+            pub mode: std::option::Option<crate::model::workflow_invocation_action::data_preparation_action::action_load_config::Mode>,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl ActionLoadConfig {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [mode][crate::model::workflow_invocation_action::data_preparation_action::ActionLoadConfig::mode].
+            ///
+            /// Note that all the setters affecting `mode` are mutually
+            /// exclusive.
+            pub fn set_mode<T: std::convert::Into<std::option::Option<crate::model::workflow_invocation_action::data_preparation_action::action_load_config::Mode>>>(mut self, v: T) -> Self
+            {
+                self.mode = v.into();
+                self
+            }
+
+            /// The value of [mode][crate::model::workflow_invocation_action::data_preparation_action::ActionLoadConfig::mode]
+            /// if it holds a `Replace`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn replace(&self) -> std::option::Option<&std::boxed::Box<crate::model::workflow_invocation_action::data_preparation_action::ActionSimpleLoadMode>>{
+                #[allow(unreachable_patterns)]
+                self.mode.as_ref().and_then(|v| match v {
+                    crate::model::workflow_invocation_action::data_preparation_action::action_load_config::Mode::Replace(v) => std::option::Option::Some(v),
+                    _ => std::option::Option::None,
+                })
+            }
+
+            /// Sets the value of [mode][crate::model::workflow_invocation_action::data_preparation_action::ActionLoadConfig::mode]
+            /// to hold a `Replace`.
+            ///
+            /// Note that all the setters affecting `mode` are
+            /// mutually exclusive.
+            pub fn set_replace<T: std::convert::Into<std::boxed::Box<crate::model::workflow_invocation_action::data_preparation_action::ActionSimpleLoadMode>>>(mut self, v: T) -> Self{
+                self.mode = std::option::Option::Some(
+                    crate::model::workflow_invocation_action::data_preparation_action::action_load_config::Mode::Replace(
+                        v.into()
+                    )
+                );
+                self
+            }
+
+            /// The value of [mode][crate::model::workflow_invocation_action::data_preparation_action::ActionLoadConfig::mode]
+            /// if it holds a `Append`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn append(&self) -> std::option::Option<&std::boxed::Box<crate::model::workflow_invocation_action::data_preparation_action::ActionSimpleLoadMode>>{
+                #[allow(unreachable_patterns)]
+                self.mode.as_ref().and_then(|v| match v {
+                    crate::model::workflow_invocation_action::data_preparation_action::action_load_config::Mode::Append(v) => std::option::Option::Some(v),
+                    _ => std::option::Option::None,
+                })
+            }
+
+            /// Sets the value of [mode][crate::model::workflow_invocation_action::data_preparation_action::ActionLoadConfig::mode]
+            /// to hold a `Append`.
+            ///
+            /// Note that all the setters affecting `mode` are
+            /// mutually exclusive.
+            pub fn set_append<T: std::convert::Into<std::boxed::Box<crate::model::workflow_invocation_action::data_preparation_action::ActionSimpleLoadMode>>>(mut self, v: T) -> Self{
+                self.mode = std::option::Option::Some(
+                    crate::model::workflow_invocation_action::data_preparation_action::action_load_config::Mode::Append(
+                        v.into()
+                    )
+                );
+                self
+            }
+
+            /// The value of [mode][crate::model::workflow_invocation_action::data_preparation_action::ActionLoadConfig::mode]
+            /// if it holds a `Maximum`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn maximum(&self) -> std::option::Option<&std::boxed::Box<crate::model::workflow_invocation_action::data_preparation_action::ActionIncrementalLoadMode>>{
+                #[allow(unreachable_patterns)]
+                self.mode.as_ref().and_then(|v| match v {
+                    crate::model::workflow_invocation_action::data_preparation_action::action_load_config::Mode::Maximum(v) => std::option::Option::Some(v),
+                    _ => std::option::Option::None,
+                })
+            }
+
+            /// Sets the value of [mode][crate::model::workflow_invocation_action::data_preparation_action::ActionLoadConfig::mode]
+            /// to hold a `Maximum`.
+            ///
+            /// Note that all the setters affecting `mode` are
+            /// mutually exclusive.
+            pub fn set_maximum<T: std::convert::Into<std::boxed::Box<crate::model::workflow_invocation_action::data_preparation_action::ActionIncrementalLoadMode>>>(mut self, v: T) -> Self{
+                self.mode = std::option::Option::Some(
+                    crate::model::workflow_invocation_action::data_preparation_action::action_load_config::Mode::Maximum(
+                        v.into()
+                    )
+                );
+                self
+            }
+
+            /// The value of [mode][crate::model::workflow_invocation_action::data_preparation_action::ActionLoadConfig::mode]
+            /// if it holds a `Unique`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn unique(&self) -> std::option::Option<&std::boxed::Box<crate::model::workflow_invocation_action::data_preparation_action::ActionIncrementalLoadMode>>{
+                #[allow(unreachable_patterns)]
+                self.mode.as_ref().and_then(|v| match v {
+                    crate::model::workflow_invocation_action::data_preparation_action::action_load_config::Mode::Unique(v) => std::option::Option::Some(v),
+                    _ => std::option::Option::None,
+                })
+            }
+
+            /// Sets the value of [mode][crate::model::workflow_invocation_action::data_preparation_action::ActionLoadConfig::mode]
+            /// to hold a `Unique`.
+            ///
+            /// Note that all the setters affecting `mode` are
+            /// mutually exclusive.
+            pub fn set_unique<T: std::convert::Into<std::boxed::Box<crate::model::workflow_invocation_action::data_preparation_action::ActionIncrementalLoadMode>>>(mut self, v: T) -> Self{
+                self.mode = std::option::Option::Some(
+                    crate::model::workflow_invocation_action::data_preparation_action::action_load_config::Mode::Unique(
+                        v.into()
+                    )
+                );
+                self
+            }
+        }
+
+        impl wkt::message::Message for ActionLoadConfig {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.dataform.v1.WorkflowInvocationAction.DataPreparationAction.ActionLoadConfig"
+            }
+        }
+
+        /// Defines additional types related to [ActionLoadConfig].
+        pub mod action_load_config {
+            #[allow(unused_imports)]
+            use super::*;
+
+            /// Load mode
+            #[serde_with::serde_as]
+            #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+            #[serde(rename_all = "camelCase")]
+            #[non_exhaustive]
+            pub enum Mode {
+                /// Replace destination table
+                Replace(std::boxed::Box<crate::model::workflow_invocation_action::data_preparation_action::ActionSimpleLoadMode>),
+                /// Append into destination table
+                Append(std::boxed::Box<crate::model::workflow_invocation_action::data_preparation_action::ActionSimpleLoadMode>),
+                /// Insert records where the value exceeds the previous maximum value for
+                /// a column in the destination table
+                Maximum(std::boxed::Box<crate::model::workflow_invocation_action::data_preparation_action::ActionIncrementalLoadMode>),
+                /// Insert records where the value of a column is not already present in
+                /// the destination table
+                Unique(std::boxed::Box<crate::model::workflow_invocation_action::data_preparation_action::ActionIncrementalLoadMode>),
+            }
+        }
+
+        /// Simple load definition
+        #[serde_with::serde_as]
+        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[serde(default, rename_all = "camelCase")]
+        #[non_exhaustive]
+        pub struct ActionSimpleLoadMode {
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl ActionSimpleLoadMode {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+        }
+
+        impl wkt::message::Message for ActionSimpleLoadMode {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.dataform.v1.WorkflowInvocationAction.DataPreparationAction.ActionSimpleLoadMode"
+            }
+        }
+
+        /// Load definition for incremental load modes
+        #[serde_with::serde_as]
+        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[serde(default, rename_all = "camelCase")]
+        #[non_exhaustive]
+        pub struct ActionIncrementalLoadMode {
+            /// Column name for incremental load modes
+            #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            pub column: std::string::String,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl ActionIncrementalLoadMode {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [column][crate::model::workflow_invocation_action::data_preparation_action::ActionIncrementalLoadMode::column].
+            pub fn set_column<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                self.column = v.into();
+                self
+            }
+        }
+
+        impl wkt::message::Message for ActionIncrementalLoadMode {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.dataform.v1.WorkflowInvocationAction.DataPreparationAction.ActionIncrementalLoadMode"
+            }
+        }
+
+        /// The definition for the data preparation.
+        #[serde_with::serde_as]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[serde(rename_all = "camelCase")]
+        #[non_exhaustive]
+        pub enum Definition {
+            /// Output only. YAML representing the contents of the data preparation.
+            /// Can be used to show the customer what the input was to their workflow.
+            ContentsYaml(std::string::String),
+            /// SQL definition for a Data Preparation. Contains a SQL query and
+            /// additional context information.
+            ContentsSql(std::boxed::Box<crate::model::workflow_invocation_action::data_preparation_action::ActionSqlDefinition>),
         }
     }
 
@@ -9447,6 +10624,10 @@ pub mod workflow_invocation_action {
         BigqueryAction(std::boxed::Box<crate::model::workflow_invocation_action::BigQueryAction>),
         /// Output only. The workflow action's notebook action details.
         NotebookAction(std::boxed::Box<crate::model::workflow_invocation_action::NotebookAction>),
+        /// Output only. The workflow action's data preparation action details.
+        DataPreparationAction(
+            std::boxed::Box<crate::model::workflow_invocation_action::DataPreparationAction>,
+        ),
     }
 }
 
