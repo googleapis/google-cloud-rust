@@ -496,36 +496,6 @@ impl ReadObject {
             })?;
         let object: String = self.request.object;
 
-        // Collect the optional query parameters
-        let mut query: Vec<(String, String)> = vec![("alt".into(), "media".into())];
-        if self.request.generation != 0 {
-            query.push(("generation".into(), format!("{}", self.request.generation)))
-        }
-        if let Some(if_generation_match) = self.request.if_generation_match {
-            query.push((
-                "ifGenerationMatch".into(),
-                format!("{}", if_generation_match),
-            ));
-        }
-        if let Some(if_generation_not_match) = self.request.if_generation_not_match {
-            query.push((
-                "ifGenerationNotMatch".into(),
-                format!("{}", if_generation_not_match),
-            ));
-        }
-        if let Some(if_metageneration_match) = self.request.if_metageneration_match {
-            query.push((
-                "ifMetagenerationMatch".into(),
-                format!("{}", if_metageneration_match),
-            ));
-        }
-        if let Some(if_metageneration_not_match) = self.request.if_metageneration_not_match {
-            query.push((
-                "ifMetagenerationNotMatch".into(),
-                format!("{}", if_metageneration_not_match),
-            ));
-        }
-
         // Build the request.
         let builder = self
             .inner
@@ -537,11 +507,39 @@ impl ReadObject {
                     &self.inner.endpoint
                 ),
             )
-            .query(&query)
+            .query(&[("alt", "media")])
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&self::info::X_GOOG_API_CLIENT_HEADER),
             );
+
+        // Add the optional query parameters.
+        let builder = if self.request.generation != 0 {
+            builder.query(&[("generation", self.request.generation)])
+        } else {
+            builder
+        };
+        let builder = self
+            .request
+            .if_generation_match
+            .iter()
+            .fold(builder, |b, v| b.query(&[("ifGenerationMatch", v)]));
+        let builder = self
+            .request
+            .if_generation_not_match
+            .iter()
+            .fold(builder, |b, v| b.query(&[("ifGenerationNotMatch", v)]));
+        let builder = self
+            .request
+            .if_metageneration_match
+            .iter()
+            .fold(builder, |b, v| b.query(&[("ifMetagenerationMatch", v)]));
+        let builder = self
+            .request
+            .if_metageneration_not_match
+            .iter()
+            .fold(builder, |b, v| b.query(&[("ifMetagenerationNotMatch", v)]));
+
         let builder = self.inner.apply_auth_headers(builder).await?;
         Ok(builder)
     }
