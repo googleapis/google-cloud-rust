@@ -4109,6 +4109,7 @@ dependencies = [
  "serde_json",
  "serde_with",
  "test-case",
+ "tokio",
  "tokio-test",
  "tracing",
 ]

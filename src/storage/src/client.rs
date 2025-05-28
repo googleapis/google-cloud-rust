@@ -147,7 +147,7 @@ impl Storage {
             .client
             .request(
                 reqwest::Method::POST,
-                format!("{}upload/storage/v1/b/{bucket_id}/o", &self.inner.endpoint),
+                format!("{}/upload/storage/v1/b/{bucket_id}/o", &self.inner.endpoint),
             )
             .query(&[("uploadType", "media")])
             .query(&[("name", &object)])
@@ -276,7 +276,7 @@ pub(crate) mod client_builder {
 }
 
 /// The default host used by the service.
-const DEFAULT_HOST: &str = "https://storage.googleapis.com/";
+const DEFAULT_HOST: &str = "https://storage.googleapis.com";
 
 pub(crate) mod info {
     const NAME: &str = env!("CARGO_PKG_NAME");
@@ -312,14 +312,14 @@ pub(crate) mod info {
 /// # Ok::<(), anyhow::Error>(()) });
 /// ```
 pub struct ReadObject {
-    client: std::sync::Arc<StorageInner>,
+    inner: std::sync::Arc<StorageInner>,
     request: control::model::ReadObjectRequest,
 }
 
 impl ReadObject {
-    fn new(client: std::sync::Arc<StorageInner>) -> Self {
+    fn new(inner: std::sync::Arc<StorageInner>) -> Self {
         ReadObject {
-            client,
+            inner,
             request: control::model::ReadObjectRequest::new(),
         }
     }
@@ -464,6 +464,20 @@ impl ReadObject {
 
     /// Sends the request.
     pub async fn send(self) -> crate::Result<bytes::Bytes> {
+        let builder = self.http_request_builder().await?;
+
+        tracing::info!("builder={builder:?}");
+
+        let response = builder.send().await.map_err(Error::io)?;
+        if !response.status().is_success() {
+            return gaxi::http::to_http_error(response).await;
+        }
+        let response = response.bytes().await.map_err(Error::io)?;
+
+        Ok(response)
+    }
+
+    async fn http_request_builder(self) -> Result<reqwest::RequestBuilder> {
         // TODO(2103): map additional parameters to the JSON request.
         let bucket: String = self.request.bucket;
         let bucket_id = bucket
@@ -476,13 +490,13 @@ impl ReadObject {
             })?;
         let object: String = self.request.object;
         let builder = self
-            .client
+            .inner
             .client
             .request(
                 reqwest::Method::GET,
                 format!(
-                    "{}storage/v1/b/{bucket_id}/o/{object}",
-                    &self.client.endpoint
+                    "{}/storage/v1/b/{bucket_id}/o/{object}",
+                    &self.inner.endpoint
                 ),
             )
             .query(&[("alt", "media")])
@@ -490,18 +504,55 @@ impl ReadObject {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&self::info::X_GOOG_API_CLIENT_HEADER),
             );
+        let builder = self.inner.apply_auth_headers(builder).await?;
+        Ok(builder)
+    }
+}
 
-        let builder = self.client.apply_auth_headers(builder).await?;
+#[cfg(test)]
+mod tests {
+    use super::*;
+    type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 
-        tracing::info!("builder={builder:?}");
+    #[tokio::test]
+    async fn test_read_object() -> Result {
+        let client = Storage::builder()
+            .with_endpoint("http://private.googleapis.com")
+            .with_credentials(auth::credentials::testing::test_credentials())
+            .build()
+            .await?;
 
-        let response = builder.send().await.map_err(Error::io)?;
-        if !response.status().is_success() {
-            return gaxi::http::to_http_error(response).await;
-        }
-        let response = response.bytes().await.map_err(Error::io)?;
+        let read_object_builder = client
+            .read_object()
+            .set_bucket("projects/_/buckets/bucket")
+            .set_object("object")
+            .http_request_builder()
+            .await?
+            .build()?;
 
-        Ok(response)
+        assert_eq!(read_object_builder.method(), reqwest::Method::GET);
+        assert_eq!(
+            read_object_builder.url().as_str(),
+            "http://private.googleapis.com/storage/v1/b/bucket/o/object?alt=media"
+        );
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_read_object_bad_bucket() -> Result {
+        let client = Storage::builder()
+            .with_credentials(auth::credentials::testing::test_credentials())
+            .build()
+            .await?;
+
+        client
+            .read_object()
+            .set_bucket("malformed")
+            .set_object("object")
+            .http_request_builder()
+            .await
+            .expect_err("malformed bucket string should error");
+        Ok(())
     }
 }
 

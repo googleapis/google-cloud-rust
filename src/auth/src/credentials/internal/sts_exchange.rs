@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::credentials::errors::CredentialsError;
+use crate::credentials::errors::{self, CredentialsError};
 use base64::Engine;
 use serde::Deserialize;
 use std::collections::HashMap;
@@ -85,24 +85,22 @@ impl STSHandler {
             .headers(headers)
             .send()
             .await
-            .map_err(|err| {
-                CredentialsError::from_str(false, format!("failed to request token: {}", err))
-            })?;
+            .map_err(|e| errors::from_http_error(e, MSG))?;
 
         let status = res.status();
         if !status.is_success() {
-            return Err(CredentialsError::from_str(
-                false,
-                format!("error exchanging token, failed with status {status}"),
-            ));
+            let err = errors::from_http_response(res, MSG).await;
+            return Err(err);
         }
         let token_res = res
             .json::<TokenResponse>()
             .await
-            .map_err(|err| CredentialsError::new(false, err))?;
+            .map_err(|err| CredentialsError::from_source(false, err))?;
         Ok(token_res)
     }
 }
+
+const MSG: &str = "failed to exchange token";
 
 /// TokenResponse is used to decode the remote server response during
 /// an oauth2 token exchange.
@@ -112,7 +110,7 @@ pub struct TokenResponse {
     pub issued_token_type: String,
     pub token_type: String,
     pub expires_in: u64,
-    pub scope: String,
+    pub scope: Option<String>,
     pub refresh_token: Option<String>,
 }
 
@@ -159,21 +157,15 @@ pub struct ExchangeTokenRequest {
     pub extra_options: Option<HashMap<String, String>>,
 }
 
-/// Information required to perform the token exchange using a refresh token flow.
-#[derive(Default)]
-pub struct RefreshAccessTokenRequest {
-    pub url: String,
-    pub authentication: ClientAuthentication,
-    pub headers: http::HeaderMap,
-    pub refresh_token: String,
-}
-
 #[cfg(test)]
 mod test {
     use super::*;
+    use crate::constants::DEFAULT_SCOPE;
+    use http::StatusCode;
     use httptest::{Expectation, Server, matchers::*, responders::*};
     use serde_json::json;
-    use tokio_test::assert_err;
+    use std::error::Error as _;
+
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
 
     #[tokio::test]
@@ -187,7 +179,7 @@ mod test {
             "issued_token_type":"urn:ietf:params:oauth:token-type:access_token",
             "token_type":"Bearer",
             "expires_in":3600,
-            "scope":"https://www.googleapis.com/auth/cloud-platform"
+            "scope":DEFAULT_SCOPE
         })
         .to_string();
 
@@ -215,10 +207,7 @@ mod test {
                     "audience",
                     "32555940559.apps.googleusercontent.com"
                 )))),
-                request::body(url_decoded(contains((
-                    "scope",
-                    "https://www.googleapis.com/auth/cloud-platform"
-                )))),
+                request::body(url_decoded(contains(("scope", DEFAULT_SCOPE)))),
                 request::headers(contains((
                     "authorization",
                     format!("Basic {expected_basic_auth}")
@@ -242,7 +231,7 @@ mod test {
             headers,
             authentication,
             audience: Some("32555940559.apps.googleusercontent.com".to_string()),
-            scope: ["https://www.googleapis.com/auth/cloud-platform".to_string()].to_vec(),
+            scope: [DEFAULT_SCOPE.to_string()].to_vec(),
             subject_token: "an_example_token".to_string(),
             subject_token_type: JWT_TOKEN_TYPE.to_string(),
             ..ExchangeTokenRequest::default()
@@ -257,7 +246,7 @@ mod test {
                 issued_token_type: ACCESS_TOKEN_TYPE.to_string(),
                 token_type: "Bearer".to_string(),
                 expires_in: 3600,
-                scope: "https://www.googleapis.com/auth/cloud-platform".to_string(),
+                scope: Some(DEFAULT_SCOPE.to_string()),
             }
         );
 
@@ -317,13 +306,20 @@ mod test {
             subject_token_type: JWT_TOKEN_TYPE.to_string(),
             ..ExchangeTokenRequest::default()
         };
-        let err = assert_err!(STSHandler::exchange_token(token_req).await);
-
-        let expected_err = crate::errors::CredentialsError::from_str(
-            false,
-            "error exchanging token, failed with status 400 Bad Request",
+        let err = STSHandler::exchange_token(token_req).await.unwrap_err();
+        assert!(!err.is_transient(), "{err:?}");
+        assert!(err.to_string().contains(MSG), "{err}, debug={err:?}");
+        assert!(
+            err.to_string().contains("bad request"),
+            "{err}, debug={err:?}"
         );
-        assert_eq!(err.to_string(), expected_err.to_string());
+        let source = err
+            .source()
+            .and_then(|e| e.downcast_ref::<reqwest::Error>());
+        assert!(
+            matches!(source, Some(e) if e.status() == Some(StatusCode::BAD_REQUEST)),
+            "{err:?}"
+        );
 
         Ok(())
     }

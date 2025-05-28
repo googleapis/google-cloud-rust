@@ -16,6 +16,8 @@ use google_cloud_auth::credentials::*;
 
 #[cfg(test)]
 mod test {
+    use std::error::Error;
+
     use super::*;
     use http::Extensions;
     use rustls::crypto::{CryptoProvider, KeyProvider};
@@ -86,7 +88,12 @@ mod test {
         // Try to use the service account credentials. This calls into the
         // custom crypto provider.
         let creds = test_service_account_credentials().await;
-        let e = creds.headers(Extensions::new()).await.err().unwrap();
-        assert!(e.to_string().contains(CUSTOM_ERROR), "{e}");
+        let err = creds.headers(Extensions::new()).await.unwrap_err();
+        assert!(!err.is_transient(), "{err:?}");
+        let source = err.source().and_then(|e| e.downcast_ref::<rustls::Error>());
+        assert!(
+            matches!(source, Some(rustls::Error::General(m)) if m == CUSTOM_ERROR),
+            "display={err}, debug={err:?}"
+        );
     }
 }

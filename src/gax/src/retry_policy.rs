@@ -259,7 +259,7 @@ impl RetryPolicy for Aip194Strict {
             }
             ErrorKind::Authentication => {
                 if let Some(cred_err) = error.as_inner::<CredentialsError>() {
-                    if cred_err.is_retryable() {
+                    if cred_err.is_transient() {
                         LoopState::Continue(error)
                     } else {
                         LoopState::Permanent(error)
