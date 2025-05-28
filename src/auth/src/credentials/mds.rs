@@ -451,11 +451,11 @@ mod test {
     #[test_case(false, false)]
     #[test_case(false, true)]
     #[test_case(true, true)]
-    fn error_message_without_adc(adc: bool, overriden: bool) {
+    fn error_message_without_adc(adc: bool, overridden: bool) {
         let provider = MDSAccessTokenProvider::builder()
             .endpoint("http://127.0.0.1")
             .created_by_adc(adc)
-            .endpoint_overridden(overriden)
+            .endpoint_overridden(overridden)
             .build();
 
         let not_want = MDS_NOT_FOUND_ERROR;
