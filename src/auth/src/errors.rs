@@ -17,7 +17,7 @@
 use http::StatusCode;
 use std::error::Error;
 
-pub use gax::error::{BuildCredentialsError, CredentialsError};
+pub use gax::error::CredentialsError;
 
 pub(crate) fn from_http_error(err: reqwest::Error, msg: &str) -> CredentialsError {
     let transient = self::is_retryable(&err);

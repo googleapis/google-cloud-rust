@@ -16,27 +16,7 @@ use std::error::Error;
 use std::fmt::{Debug, Display, Formatter, Result};
 use std::sync::Arc;
 
-type BoxError = std::boxed::Box<dyn Error + Send + Sync>;
 type ArcError = Arc<dyn Error + Send + Sync>;
-
-/// Represents an error creating [Credentials].
-///
-/// Applications rarely need to create instances of this error type. The
-/// exception might be when testing application code, where the application is
-/// mocking a client library behavior. Such tests are extremely rare, most
-/// applications should only work with the [Error][crate::error::Error] type.
-///
-/// [Credentials]: https://docs.rs/google-cloud-auth/latest/google_cloud_auth/credentials/struct.Credential.html
-#[derive(thiserror::Error, Debug)]
-#[non_exhaustive]
-pub enum BuildCredentialsError {
-    #[error("could not find or open the credentials file {0}")]
-    Loading(#[source] BoxError),
-    #[error("cannot parse the credentials file {0}")]
-    Parsing(#[source] BoxError),
-    #[error("unknown or invalid credentials type {0}")]
-    UnknownType(#[source] BoxError),
-}
 
 /// Represents an error using [Credentials].
 ///
