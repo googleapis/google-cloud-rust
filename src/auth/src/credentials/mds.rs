@@ -341,10 +341,13 @@ impl TokenProvider for MDSAccessTokenProvider {
                 .map_err(|e| self.build_error_with_request(e, None))?;
             return Err(self.build_error_with_request(err, Some(body.as_str())));
         }
-        let response = response.json::<MDSTokenResponse>().await.map_err(|e| {
-            let retryable = !e.is_decode();
-            CredentialsError::from_source(retryable, e)
-        })?;
+        // Decoding errors are not transient. Typically they indicate a badly
+        // configured MDS endpoint, or DNS redirecting the request to a random
+        // server, e.g., ISPs that redirect unknown services to HTTP.
+        let response = response
+            .json::<MDSTokenResponse>()
+            .await
+            .map_err(|e| self.build_error(!e.is_decode(), e, None))?;
         let token = Token {
             token: response.access_token,
             token_type: response.token_type,

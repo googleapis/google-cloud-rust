@@ -19,29 +19,24 @@ use std::error::Error;
 
 pub use gax::error::{BuildCredentialsError, CredentialsError};
 
-/// A helper to create an error from a failed HTTP request.
-pub(crate) async fn from_http_error(response: reqwest::Response) -> CredentialsError {
-    let transient = is_retryable(response.status());
+pub(crate) fn from_http_error(err: reqwest::Error, msg: &str) -> CredentialsError {
+    let transient = err
+        .status()
+        .map(crate::errors::is_retryable)
+        .unwrap_or(false);
+    CredentialsError::new(transient, msg, err)
+}
+
+pub(crate) async fn from_http_response(response: reqwest::Response, msg: &str) -> CredentialsError {
+    let transient = crate::errors::is_retryable(response.status());
     let err = response
         .error_for_status_ref()
         .expect_err("this function is only called on errors");
     let body = response.text().await;
     match body {
-        Err(e) => CredentialsError::from_source(transient, e),
-        Ok(b) => {
-            CredentialsError::new(transient, format!("Failed to fetch token, body=<{b}>"), err)
-        }
+        Err(e) => CredentialsError::new(transient, format!("{msg}"), e),
+        Ok(b) => CredentialsError::new(transient, format!("{msg}, body=<{b}>"), err),
     }
-}
-
-/// A helper to create a retryable error.
-pub(crate) fn retryable<T: Error + Send + Sync + 'static>(source: T) -> CredentialsError {
-    CredentialsError::from_source(true, source)
-}
-
-#[allow(dead_code)]
-pub(crate) fn retryable_from_str<T: Into<String>>(message: T) -> CredentialsError {
-    CredentialsError::from_msg(true, message)
 }
 
 /// A helper to create a non-retryable error.
@@ -90,23 +85,12 @@ mod test {
 
     #[test]
     fn helpers() {
-        let e = super::retryable_from_str("test-only-err-123");
-        assert!(e.is_transient(), "{e}");
-        assert!(e.source().is_none());
-        let got = format!("{e}");
-        assert!(got.contains("test-only-err-123"), "{got}");
-
-        let input = "NaN".parse::<u32>().unwrap_err();
-        let e = super::retryable(input.clone());
-        assert!(e.is_transient(), "{e:?}");
-        let source = e.source().and_then(|e| e.downcast_ref::<ParseIntError>());
-        assert!(matches!(source, Some(ParseIntError { .. })), "{e:?}");
-
         let e = super::non_retryable_from_str("test-only-err-123");
         assert!(!e.is_transient(), "{e}");
         let got = format!("{e}");
         assert!(got.contains("test-only-err-123"), "{got}");
 
+        let input = "NaN".parse::<u32>().unwrap_err();
         let e = super::non_retryable(input.clone());
         assert!(!e.is_transient(), "{e:?}");
         let source = e.source().and_then(|e| e.downcast_ref::<ParseIntError>());

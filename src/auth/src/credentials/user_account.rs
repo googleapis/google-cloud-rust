@@ -266,11 +266,14 @@ impl TokenProvider for UserTokenProvider {
             .request(Method::POST, self.endpoint.as_str())
             .header(CONTENT_TYPE, header)
             .json(&req);
-        let resp = builder.send().await.map_err(errors::retryable)?;
+        let resp = builder
+            .send()
+            .await
+            .map_err(|e| errors::from_http_error(e, MSG))?;
 
         // Process the response
         if !resp.status().is_success() {
-            let err = errors::from_http_error(resp).await;
+            let err = errors::from_http_response(resp, MSG).await;
             return Err(err);
         }
         let response = resp.json::<Oauth2RefreshResponse>().await.map_err(|e| {
@@ -288,6 +291,8 @@ impl TokenProvider for UserTokenProvider {
         Ok(token)
     }
 }
+
+const MSG: &str = "failed to refresh user access token";
 
 /// Data model for a UserCredentials
 ///
