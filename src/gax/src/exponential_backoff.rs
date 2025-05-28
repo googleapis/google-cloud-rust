@@ -27,11 +27,11 @@ use std::time::Duration;
 #[non_exhaustive]
 pub enum Error {
     #[error("the scaling value ({0}) should be >= 1.0")]
-    ScalingShrinksDelay(f64),
+    InvalidScalingFactor(f64),
     #[error("the initial delay ({0:?}) should be greater than zero")]
     InvalidInitialDelay(Duration),
     #[error(
-        "the maximum delay ({maximum:?}) should be greater or equal than the initial delay ({initial:?})"
+        "the maximum delay ({maximum:?}) should be greater than or equal to the initial delay ({initial:?})"
     )]
     EmptyRange {
         maximum: Duration,
@@ -111,7 +111,7 @@ impl ExponentialBackoffBuilder {
     /// ```
     pub fn build(self) -> Result<ExponentialBackoff, Error> {
         if self.scaling < 1.0 {
-            return Err(Error::ScalingShrinksDelay(self.scaling));
+            return Err(Error::InvalidScalingFactor(self.scaling));
         }
         if self.initial_delay.is_zero() {
             return Err(Error::InvalidInitialDelay(self.initial_delay));
@@ -263,14 +263,20 @@ mod test {
             .with_maximum_delay(Duration::from_secs(60))
             .with_scaling(-1.0)
             .build();
-        assert!(matches!(b, Err(Error::ScalingShrinksDelay { .. })), "{b:?}");
+        assert!(
+            matches!(b, Err(Error::InvalidScalingFactor { .. })),
+            "{b:?}"
+        );
 
         let b = ExponentialBackoffBuilder::new()
             .with_initial_delay(Duration::from_secs(1))
             .with_maximum_delay(Duration::from_secs(60))
             .with_scaling(0.0)
             .build();
-        assert!(matches!(b, Err(Error::ScalingShrinksDelay { .. })), "{b:?}");
+        assert!(
+            matches!(b, Err(Error::InvalidScalingFactor { .. })),
+            "{b:?}"
+        );
 
         let b = ExponentialBackoffBuilder::new()
             .with_initial_delay(Duration::ZERO)

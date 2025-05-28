@@ -69,8 +69,8 @@ use std::sync::{Arc, Mutex};
 #[derive(thiserror::Error, Debug)]
 #[non_exhaustive]
 pub enum Error {
-    #[error("the scaling factor ({value}) must be greater or equal than 0.0")]
-    ScalingOutOfRange { value: f64 },
+    #[error("the scaling factor ({0}) must be greater or equal than 0.0")]
+    ScalingOutOfRange(f64),
     #[error(
         "the minimum tokens ({min}) must be less than or equal to the initial token ({initial}) count"
     )]
@@ -190,7 +190,7 @@ impl AdaptiveThrottler {
     /// ```
     pub fn new(factor: f64) -> Result<Self, Error> {
         if factor < 0.0 {
-            return Err(Error::ScalingOutOfRange { value: factor });
+            return Err(Error::ScalingOutOfRange(factor));
         }
         let factor = if factor < 0.0 { 0.0 } else { factor };
         Ok(Self::clamp(factor))
