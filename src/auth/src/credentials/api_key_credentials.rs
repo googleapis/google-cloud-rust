@@ -12,6 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+//! [API Key] Credentials type.
+//!
+//! An API key is a simple encrypted string that you can use when calling
+//! Google Cloud APIs. When you use API keys in your applications, ensure that
+//! they are kept secure during both storage and transmission.
+//!
+//! [API Key]: https://cloud.google.com/api-keys/docs/overview
+
 use crate::credentials::dynamic::CredentialsProvider;
 use crate::credentials::{CacheableResource, Credentials, Result};
 use crate::headers_util::build_cacheable_api_key_headers;
