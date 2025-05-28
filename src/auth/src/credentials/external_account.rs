@@ -85,19 +85,19 @@ enum CredentialSource {
 impl SubjectTokenProvider for CredentialSource {
     async fn subject_token(&self) -> Result<String> {
         match self.clone() {
-            CredentialSource::UrlSourced { .. } => Err(CredentialsError::from_str(
+            CredentialSource::UrlSourced { .. } => Err(CredentialsError::from_msg(
                 false,
                 "url sourced credential not supported yet",
             )),
-            CredentialSource::Executable { .. } => Err(CredentialsError::from_str(
+            CredentialSource::Executable { .. } => Err(CredentialsError::from_msg(
                 false,
                 "executable sourced credential not supported yet",
             )),
-            CredentialSource::File { .. } => Err(CredentialsError::from_str(
+            CredentialSource::File { .. } => Err(CredentialsError::from_msg(
                 false,
                 "file sourced credential not supported yet",
             )),
-            CredentialSource::Aws { .. } => Err(CredentialsError::from_str(
+            CredentialSource::Aws { .. } => Err(CredentialsError::from_msg(
                 false,
                 "AWS sourced credential not supported yet",
             )),
@@ -183,7 +183,7 @@ where
 ///
 /// # Example
 /// ```
-/// # use google_cloud_auth::credentials::external_account::{Builder};
+/// # use google_cloud_auth::credentials::external_account::Builder;
 /// # tokio_test::block_on(async {
 /// let project_id = project_id();
 /// let workload_identity_pool_id = workload_identity_pool();
@@ -212,15 +212,15 @@ where
 ///     .build();
 /// });
 ///
-/// fn project_id() -> String {
-///     "test-only".to_string()
-/// }
-/// fn workload_identity_pool() -> String {
-///     "test-only".to_string()
-/// }
-/// fn workload_identity_provider() -> String {
-///     "test-only".to_string()
-/// }
+/// # fn project_id() -> String {
+/// #     "test-only".to_string()
+/// # }
+/// # fn workload_identity_pool() -> String {
+/// #     "test-only".to_string()
+/// # }
+/// # fn workload_identity_provider() -> String {
+/// #     "test-only".to_string()
+/// # }
 /// ```
 pub struct Builder {
     external_account_config: Value,
@@ -320,11 +320,11 @@ mod test {
     async fn create_external_account_builder() {
         let contents = json!({
             "type": "external_account",
-            "audience": "//iam.googleapis.com/projects/<PROJECT_ID>/locations/global/workloadIdentityPools/<WORKLOAD_IDENTITY_POOL>/providers/<WORKLOAD_IDENTITY_PROVIDER_ID>",
+            "audience": "audience",
             "subject_token_type": "urn:ietf:params:oauth:token-type:jwt",
             "token_url": "https://sts.googleapis.com/v1beta/token",
             "credential_source": {
-                "url": "http://169.254.169.254/metadata/identity/oauth2/token?api-version=2018-02-01&resource=https://iam.googleapis.com/projects/<PROJECT_ID>/locations/global/workloadIdentityPools/<WORKLOAD_IDENTITY_POOL>/providers/<WORKLOAD_IDENTITY_PROVIDER_ID>",
+                "url": "https://example.com/token",
                 "headers": {
                   "Metadata": "True"
                 },
@@ -350,11 +350,11 @@ mod test {
     async fn create_external_account_detect_url_sourced() {
         let contents = json!({
             "type": "external_account",
-            "audience": "//iam.googleapis.com/projects/<PROJECT_ID>/locations/global/workloadIdentityPools/<WORKLOAD_IDENTITY_POOL>/providers/<WORKLOAD_IDENTITY_PROVIDER_ID>",
+            "audience": "audience",
             "subject_token_type": "urn:ietf:params:oauth:token-type:jwt",
             "token_url": "https://sts.googleapis.com/v1beta/token",
             "credential_source": {
-                "url": "http://169.254.169.254/metadata/identity/oauth2/token",
+                "url": "https://example.com/token",
                 "headers": {
                   "Metadata": "True"
                 },
@@ -375,10 +375,7 @@ mod test {
                 headers,
                 format,
             } => {
-                assert_eq!(
-                    url,
-                    "http://169.254.169.254/metadata/identity/oauth2/token".to_string()
-                );
+                assert_eq!(url, "https://example.com/token".to_string());
                 assert_eq!(
                     headers,
                     Some(CredentialSourceHeaders {
