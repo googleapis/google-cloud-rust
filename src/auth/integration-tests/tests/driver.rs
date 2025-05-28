@@ -14,16 +14,14 @@
 
 #[cfg(all(test, feature = "run-integration-tests"))]
 mod driver {
-    use auth_integration_tests::Result;
-
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     #[serial_test::serial]
-    async fn run_service_account() -> Result<()> {
+    async fn run_service_account() -> anyhow::Result<()> {
         auth_integration_tests::service_account().await
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn run_api_key() -> Result<()> {
+    async fn run_api_key() -> anyhow::Result<()> {
         auth_integration_tests::api_key().await
     }
 }

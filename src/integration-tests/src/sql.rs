@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::{Error, RandomChars, Result};
+use crate::{RandomChars, Result};
 use futures::stream::StreamExt;
 use gax::paginator::ItemPaginator;
 use rand::Rng;
@@ -68,7 +68,7 @@ pub async fn run_sql_instances_service(
     assert_eq!(get.name, name);
     let settings = get
         .settings
-        .ok_or_else(|| Error::other("settings should contain a value".to_string()))?;
+        .ok_or_else(|| anyhow::Error::msg("settings should contain a value"))?;
     assert_eq!(settings.tier, "db-f1-micro");
 
     println!("Testing list sql instances");
@@ -78,7 +78,7 @@ pub async fn run_sql_instances_service(
         .set_filter(format!("name:{name}"))
         .by_item()
         .into_stream();
-    let items = list.collect::<Vec<Result<_>>>().await;
+    let items = list.collect::<Vec<gax::Result<_>>>().await;
     println!("SUCCESS on list sql instance");
     // TODO(#2067) - this assertion checks for <= instead of == 1 because the
     // list may not include the newly inserted instance.
@@ -119,7 +119,7 @@ async fn cleanup_stale_sql_instances(
     use std::time::{Duration, SystemTime, UNIX_EPOCH};
     let stale_deadline = SystemTime::now()
         .duration_since(UNIX_EPOCH)
-        .map_err(Error::other)?;
+        .map_err(anyhow::Error::from)?;
     let stale_deadline = stale_deadline - Duration::from_secs(48 * 60 * 60);
 
     let stale_deadline = wkt::Timestamp::clamp(stale_deadline.as_secs() as i64, 0);
@@ -193,7 +193,7 @@ pub async fn run_sql_tiers_service(
         list.items
             .into_iter()
             .find(|v| v.tier.eq("db-f1-micro"))
-            .ok_or_else(|| Error::other("tiers list should contain db-f1-micro".to_string()))?
+            .ok_or_else(|| anyhow::Error::msg("tiers list should contain db-f1-micro"))?
             .ram,
         0
     );

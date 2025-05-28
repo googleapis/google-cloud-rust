@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::Error;
 use crate::Result;
 use showcase::model::*;
 
@@ -80,11 +79,12 @@ async fn list_users(client: &showcase::client::Identity, user: &User) -> Result<
             return Ok(());
         }
     }
-    Err(Error::other(format!(
+    Err(anyhow::Error::msg(format!(
         "missing user {user:?} in list results"
     )))
 }
 
 async fn delete_user(client: &showcase::client::Identity, user: &User) -> Result<()> {
-    client.delete_user().set_name(&user.name).send().await
+    client.delete_user().set_name(&user.name).send().await?;
+    Ok(())
 }

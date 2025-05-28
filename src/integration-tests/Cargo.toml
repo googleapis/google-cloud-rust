@@ -28,6 +28,7 @@ run-integration-tests = []
 run-showcase-tests = []
 
 [dependencies]
+anyhow.workspace      = true
 bytes.workspace       = true
 crc32c.workspace      = true
 futures.workspace     = true

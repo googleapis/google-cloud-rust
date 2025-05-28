@@ -26,7 +26,7 @@ use http::Extensions;
 /// # use google_cloud_storage::client::Storage;
 /// let client = Storage::builder().build().await?;
 /// // use `client` to make requests to Cloud Storage.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Configuration
@@ -98,7 +98,7 @@ impl Storage {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_storage::client::Storage;
     /// let client = Storage::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> ClientBuilder {
         gax::client_builder::internal::new_builder(client_builder::Factory)
@@ -191,14 +191,17 @@ impl Storage {
         ReadObject::new(self.inner.clone())
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> crate::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
+        use gax::client_builder::Error;
         let client = reqwest::Client::new();
         let cred = if let Some(c) = config.cred.clone() {
             c
         } else {
             auth::credentials::Builder::default()
                 .build()
-                .map_err(Error::authentication)?
+                .map_err(Error::cred)?
         };
         let endpoint = config
             .endpoint
@@ -252,7 +255,7 @@ impl StorageInner {
 /// let client = builder
 ///     .with_endpoint("https://storage.googleapis.com")
 ///     .build().await?;
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 pub type ClientBuilder =
     gax::client_builder::ClientBuilder<client_builder::Factory, gaxi::options::Credentials>;
@@ -263,7 +266,10 @@ pub(crate) mod client_builder {
     impl gax::client_builder::internal::ClientFactory for Factory {
         type Client = Storage;
         type Credentials = gaxi::options::Credentials;
-        async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+        async fn build(
+            self,
+            config: gaxi::options::ClientConfig,
+        ) -> gax::client_builder::Result<Self::Client> {
             Self::Client::new(config).await
         }
     }
@@ -303,7 +309,7 @@ pub(crate) mod info {
 ///         .set_object("my-object");
 /// let contents = builder.send().await?;
 /// println!("object contents={contents:?}");
-/// # gax::Result::<()>::Ok(()) });
+/// # Ok::<(), anyhow::Error>(()) });
 /// ```
 pub struct ReadObject {
     client: std::sync::Arc<StorageInner>,

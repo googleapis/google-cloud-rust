@@ -440,7 +440,7 @@ async fn cleanup_stale_secrets(
             .name
             .ends_with(format!("/secrets/{secret_id}").as_str())
         {
-            return Err(Error::other(
+            return Err(anyhow::Error::msg(
                 "randomly generated secret id already exists {secret_id}",
             ));
         }

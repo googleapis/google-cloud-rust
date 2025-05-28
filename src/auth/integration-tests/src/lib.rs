@@ -22,9 +22,7 @@ use language::model::Document;
 use scoped_env::ScopedEnv;
 use secretmanager::client::SecretManagerService;
 
-pub type Result<T> = std::result::Result<T, gax::error::Error>;
-
-pub async fn service_account() -> Result<()> {
+pub async fn service_account() -> anyhow::Result<()> {
     let project = std::env::var("GOOGLE_CLOUD_PROJECT").expect("GOOGLE_CLOUD_PROJECT not set");
 
     // Create a SecretManager client. When running on GCB, this loads MDS
@@ -81,7 +79,7 @@ pub async fn service_account() -> Result<()> {
     Ok(())
 }
 
-pub async fn api_key() -> Result<()> {
+pub async fn api_key() -> anyhow::Result<()> {
     let project = std::env::var("GOOGLE_CLOUD_PROJECT").expect("GOOGLE_CLOUD_PROJECT not set");
 
     // Create a SecretManager client. When running on GCB, this loads MDS
