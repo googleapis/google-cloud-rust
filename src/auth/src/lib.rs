@@ -45,7 +45,6 @@ pub(crate) type BuildResult<T> = std::result::Result<T, build_errors::Error>;
 /// [Credentials]: https://cloud.google.com/docs/authentication#credentials
 pub mod credentials;
 
-/// Auth constants
 pub(crate) mod constants;
 
 /// Types and functions to work with auth [Tokens].
