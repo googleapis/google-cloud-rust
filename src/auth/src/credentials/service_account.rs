@@ -73,6 +73,7 @@
 mod jws;
 
 use crate::build_errors::Error as BuilderError;
+use crate::constants::DEFAULT_SCOPE;
 use crate::credentials::dynamic::CredentialsProvider;
 use crate::credentials::{CacheableResource, Credentials};
 use crate::errors::{self, CredentialsError};
@@ -90,8 +91,6 @@ use serde_json::Value;
 use std::sync::Arc;
 use time::OffsetDateTime;
 use tokio::time::Instant;
-
-const DEFAULT_SCOPE: &str = "https://www.googleapis.com/auth/cloud-platform";
 
 /// Represents the access specifier for a service account based token,
 /// specifying either OAuth 2.0 [scopes] or a [JWT] audience.
