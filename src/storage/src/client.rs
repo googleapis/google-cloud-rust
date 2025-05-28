@@ -317,9 +317,9 @@ pub struct ReadObject {
 }
 
 impl ReadObject {
-    fn new(client: std::sync::Arc<StorageInner>) -> Self {
+    fn new(inner: std::sync::Arc<StorageInner>) -> Self {
         ReadObject {
-            inner: client,
+            inner,
             request: control::model::ReadObjectRequest::new(),
         }
     }
@@ -510,7 +510,7 @@ impl ReadObject {
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::*;
     type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 
@@ -773,7 +773,7 @@ mod v1 {
     }
 
     #[cfg(test)]
-    mod test {
+    mod tests {
         use super::*;
         use serde_with::DeserializeAs;
         use test_case::test_case;
