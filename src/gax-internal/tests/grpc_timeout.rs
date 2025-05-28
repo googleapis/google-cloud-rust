@@ -105,11 +105,8 @@ mod test {
                         timeout.as_millis(),
                         r
                     );
-                    let err = r.err().unwrap();
-                    assert_eq!(err.kind(), gax::error::ErrorKind::Rpc, "{err:?}");
-                    let svc = err.as_inner::<gax::error::ServiceError>().unwrap();
-                    let status = svc.status().clone();
-                    assert_eq!(status.code, gax::error::rpc::Code::Cancelled);
+                    let err = r.unwrap_err();
+                    assert_eq!(err.status().map(|s| s.code), Some(gax::error::rpc::Code::Cancelled));
                     break;
                 },
                 _ = interval.tick() => { },
@@ -177,11 +174,8 @@ mod test {
                         "expected a timeout error, got={:?}",
                         r
                     );
-                    let err = r.err().unwrap();
-                    assert_eq!(err.kind(), gax::error::ErrorKind::Rpc, "{err:?}");
-                    let svc = err.as_inner::<gax::error::ServiceError>().unwrap();
-                    let status = svc.status().clone();
-                    assert_eq!(status.code, gax::error::rpc::Code::Cancelled);
+                    let err = r.unwrap_err();
+                    assert_eq!(err.status().map(|s| s.code), Some(gax::error::rpc::Code::Cancelled));
                     break;
                 },
                 _ = interval.tick() => { },

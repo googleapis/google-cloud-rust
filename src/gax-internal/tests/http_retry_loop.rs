@@ -73,10 +73,8 @@ mod test {
                 RequestOptions::default(),
             )
             .await;
-        assert!(response.is_err(), "{response:?}");
-        let response = response.err().unwrap();
-        let error = response.as_inner::<gax::error::ServiceError>().unwrap();
-        assert_eq!(error.http_status_code(), &Some(permanent().0.as_u16()));
+        let err = response.unwrap_err();
+        assert_eq!(err.http_status_code(), Some(permanent().0.as_u16()));
         Ok(())
     }
 

@@ -12,23 +12,27 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use gax::error::rpc;
+use gax::error::Error;
+use gax::error::rpc::{Code, Status};
 
-fn to_gax_status(status: tonic::Status) -> rpc::Status {
-    let code = rpc::Code::from(status.code() as i32);
+fn to_gax_status(status: &tonic::Status) -> Status {
+    let code = Code::from(status.code() as i32);
     // TODO(#1699) - also convert the details
-    rpc::Status::default()
+    Status::default()
         .set_code(code)
         .set_message(status.message())
 }
 
-pub fn to_gax_error(status: tonic::Status) -> gax::error::Error {
-    gax::error::Error::rpc(gax::error::ServiceErrorBuilder::new(to_gax_status(status)).build())
+pub fn to_gax_error(status: tonic::Status) -> Error {
+    let headers = status.metadata().clone().into_headers();
+    let gax_status = to_gax_status(&status);
+    gax::error::Error::service_with_http_metadata(gax_status, None, Some(headers))
 }
 
 #[cfg(test)]
 mod test {
     use super::*;
+    use gax::error::rpc;
     use test_case::test_case;
 
     #[test_case(tonic::Code::Ok, rpc::Code::Ok)]
@@ -49,7 +53,7 @@ mod test {
     #[test_case(tonic::Code::DataLoss, rpc::Code::DataLoss)]
     #[test_case(tonic::Code::Unauthenticated, rpc::Code::Unauthenticated)]
     fn check_code(input: tonic::Code, want: rpc::Code) {
-        let got = to_gax_status(tonic::Status::new(input, "test-only"));
+        let got = to_gax_status(&tonic::Status::new(input, "test-only"));
         assert_eq!(got.code, want);
         assert_eq!(&got.message, "test-only");
     }
@@ -58,10 +62,8 @@ mod test {
     fn gax_error() {
         let status = tonic::Status::invalid_argument("test-only");
         let got = to_gax_error(status);
-        assert_eq!(got.kind(), gax::error::ErrorKind::Rpc);
-        let svc = got.as_inner::<gax::error::ServiceError>().unwrap();
-        let got = svc.status().clone();
-        assert_eq!(got.code, rpc::Code::InvalidArgument);
-        assert_eq!(&got.message, "test-only");
+        let status = got.status().unwrap();
+        assert_eq!(status.code, Code::InvalidArgument);
+        assert_eq!(&status.message, "test-only");
     }
 }

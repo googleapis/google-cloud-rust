@@ -149,12 +149,12 @@ where
     R: wkt::message::Message + serde::ser::Serialize + serde::de::DeserializeOwned,
 {
     if let Some(any) = op.response() {
-        return any.to_msg::<R>().map_err(Error::other);
+        return any.to_msg::<R>().map_err(Error::serde);
     }
     if let Some(e) = op.error() {
-        return Err(Error::rpc(gax::error::ServiceError::from(e.clone())));
+        return Err(Error::service(gax::error::rpc::Status::from(e.clone())));
     }
-    Err(Error::other("missing result in completed operation"))
+    Err(Error::serde("missing result in completed operation"))
 }
 
 fn as_metadata<R, M>(op: Operation<R, M>) -> Option<M>
@@ -168,10 +168,10 @@ where
 mod test {
     use super::*;
     use gax::polling_error_policy::*;
+    use std::error::Error as _;
     use wkt::Any;
 
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
-
     type ResponseType = wkt::Duration;
     type MetadataType = wkt::Timestamp;
     type TestOperation = Operation<ResponseType, MetadataType>;
@@ -179,7 +179,7 @@ mod test {
     #[test]
     fn typed_operation_with_metadata() -> Result<()> {
         let any = wkt::Any::from_msg(&wkt::Timestamp::clamp(123, 0))
-            .map_err(|e| Error::other(format!("unexpected error in Any::try_from {e}")))?;
+            .expect("Any::from_msg should succeed");
         let op = longrunning::model::Operation::default()
             .set_name("test-only-name")
             .set_metadata(any);
@@ -268,16 +268,24 @@ mod test {
 
     #[test]
     fn start_error() {
+        fn starting_error() -> gax::error::Error {
+            use gax::error::rpc::{Code, Status};
+            gax::error::Error::service(
+                Status::default()
+                    .set_code(Code::AlreadyExists)
+                    .set_message("thing already there"),
+            )
+        }
         type R = wkt::Duration;
         type M = wkt::Timestamp;
         type O = Operation<R, M>;
-        let result = Err::<O, Error>(Error::other("test-only-error"));
+        let result = Err::<O, Error>(starting_error());
         let (name, poll) = handle_start(result);
         assert_eq!(name, None);
         match poll {
-            PollingResult::Completed(r) => {
-                let e = r.err().unwrap();
-                assert_eq!(e.kind(), gax::error::ErrorKind::Other, "{e}")
+            PollingResult::Completed(Err(e)) => {
+                assert!(e.status().is_some(), "{e:?}");
+                assert_eq!(e.status(), starting_error().status());
             }
             _ => panic!("{poll:?}"),
         };
@@ -331,9 +339,14 @@ mod test {
         );
         assert_eq!(name, None);
         match poll {
-            PollingResult::Completed(r) => {
-                let error = r.err().unwrap();
-                assert!(format!("{error}").contains("exhausted"), "{error}");
+            PollingResult::Completed(Err(error)) => {
+                assert!(
+                    error
+                        .source()
+                        .and_then(|e| e.downcast_ref::<gax::polling_error_policy::Exhausted>())
+                        .is_some(),
+                    "{error:?}"
+                );
             }
             _ => panic!("{poll:?}"),
         };
@@ -342,10 +355,14 @@ mod test {
 
     #[test]
     fn poll_error_continue() {
+        fn continuing_error() -> gax::error::Error {
+            gax::error::Error::io("test-only-error")
+        }
+
         type R = wkt::Duration;
         type M = wkt::Timestamp;
         type O = super::Operation<R, M>;
-        let result = Err::<O, Error>(Error::other("test-only-error"));
+        let result = Err::<O, Error>(continuing_error());
         let (name, poll) = handle_poll(
             Arc::new(AlwaysContinue),
             Instant::now(),
@@ -356,7 +373,8 @@ mod test {
         assert_eq!(name.as_deref(), Some("test-123"));
         match poll {
             PollingResult::PollingError(e) => {
-                assert_eq!(e.kind(), gax::error::ErrorKind::Other, "{e}")
+                assert!(e.is_io(), "{e:?}");
+                assert!(format!("{e}").contains("test-only-error"), "{e}")
             }
             _ => panic!("{poll:?}"),
         };
@@ -364,10 +382,19 @@ mod test {
 
     #[test]
     fn poll_error_finishes() {
+        fn stopping_error() -> gax::error::Error {
+            use gax::error::rpc::{Code, Status};
+            gax::error::Error::service(
+                Status::default()
+                    .set_code(Code::Aborted)
+                    .set_message("operation-aborted"),
+            )
+        }
+
         type R = wkt::Duration;
         type M = wkt::Timestamp;
         type O = super::Operation<R, M>;
-        let result = Err::<O, Error>(Error::other("test-only-error"));
+        let result = Err::<O, Error>(stopping_error());
         let (name, poll) = handle_poll(
             Arc::new(Aip194Strict),
             Instant::now(),
@@ -377,10 +404,9 @@ mod test {
         );
         assert_eq!(name, None);
         match poll {
-            PollingResult::Completed(r) => {
-                assert!(r.is_err(), "{r:?}");
-                let e = r.err().unwrap();
-                assert_eq!(e.kind(), gax::error::ErrorKind::Other, "{e}")
+            PollingResult::Completed(Err(e)) => {
+                assert!(e.status().is_some(), "{e:?}");
+                assert_eq!(e.status(), stopping_error().status());
             }
             _ => panic!("{poll:?}"),
         };
@@ -403,8 +429,7 @@ mod test {
         let (name, polling) = handle_common(op);
         assert_eq!(name, None);
         match polling {
-            PollingResult::Completed(r) => {
-                let response = r?;
+            PollingResult::Completed(Ok(response)) => {
                 assert_eq!(response, wkt::Duration::clamp(234, 0));
             }
             _ => panic!("{polling:?}"),
@@ -457,13 +482,18 @@ mod test {
         type O = super::Operation<R, M>;
         let op = Operation::default().set_result(operation::Result::Error(
             rpc::model::Status::default()
+                .set_code(gax::error::rpc::Code::FailedPrecondition as i32)
                 .set_message("test only")
                 .into(),
         ));
         let op = O::new(op);
         let result = as_result(op);
-        let err = result.err().unwrap();
-        assert_eq!(err.kind(), gax::error::ErrorKind::Rpc, "{err}");
+        let err = result.unwrap_err();
+        assert!(err.status().is_some(), "{err:?}");
+        let want = gax::error::rpc::Status::default()
+            .set_code(gax::error::rpc::Code::FailedPrecondition)
+            .set_message("test only");
+        assert_eq!(err.status(), Some(&want));
 
         Ok(())
     }
@@ -478,11 +508,14 @@ mod test {
             Any::from_msg(&wkt::Timestamp::clamp(123, 0))?.into(),
         ));
         let op = O::new(op);
-        let err = as_result(op).err().unwrap();
-        assert_eq!(err.kind(), gax::error::ErrorKind::Other, "{err}");
+        let err = as_result(op).unwrap_err();
+        assert!(err.is_serde(), "{err:?}");
         assert!(
-            format!("{err}").contains("/google.protobuf.Timestamp"),
-            "{err}"
+            matches!(
+                err.source().and_then(|e| e.downcast_ref::<wkt::AnyError>()),
+                Some(wkt::AnyError::TypeMismatch { .. })
+            ),
+            "{err:?}",
         );
 
         Ok(())
@@ -496,7 +529,7 @@ mod test {
         let op = longrunning::model::Operation::default();
         let op = O::new(op);
         let err = as_result(op).err().unwrap();
-        assert_eq!(err.kind(), gax::error::ErrorKind::Other, "{err}");
+        assert!(err.is_serde(), "{err:?}");
         assert!(format!("{err}").contains("missing result"), "{err}");
 
         Ok(())
