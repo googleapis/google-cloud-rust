@@ -78,7 +78,7 @@ pub type Result<T> = std::result::Result<T, crate::error::Error>;
 ///         return Err(e);
 ///     }
 /// };
-/// 
+///
 /// fn placeholder() -> std::result::Result<Client, Error> {
 ///   # panic!();
 /// }
