@@ -86,7 +86,7 @@ mod test {
         let mut mock = MockCredentials::new();
         mock.expect_headers()
             .times(retry_count..)
-            .returning(|_extensions| Err(CredentialsError::from_str(true, "mock retryable error")));
+            .returning(|_extensions| Err(CredentialsError::from_msg(true, "mock retryable error")));
 
         let retry_policy = Aip194Strict.with_attempt_limit(retry_count as u32);
         let client = builder(endpoint)
@@ -102,7 +102,7 @@ mod test {
         if let Err(e) = result {
             if let Some(cred_err) = e.as_inner::<CredentialsError>() {
                 assert!(
-                    cred_err.is_retryable(),
+                    cred_err.is_transient(),
                     "Expected a retryable CredentialsError, but got non-retryable"
                 );
             } else {
@@ -114,7 +114,7 @@ mod test {
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-    #[test_case::test_case(Err(CredentialsError::from_str(
+    #[test_case::test_case(Err(CredentialsError::from_msg(
         false,
         "mock non-retryable error",
     )); "on_error_response")]
@@ -139,7 +139,7 @@ mod test {
         if let Err(e) = result {
             if let Some(cred_err) = e.as_inner::<CredentialsError>() {
                 assert!(
-                    !cred_err.is_retryable(),
+                    !cred_err.is_transient(),
                     "Expected a non-retryable CredentialsError, but got retryable"
                 );
             } else {

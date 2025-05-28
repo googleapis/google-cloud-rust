@@ -13,8 +13,8 @@
 // limitations under the License.
 
 use super::library::model;
+use anyhow::Result;
 use axum::http::StatusCode;
-type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
 
 pub fn success(
     name: impl Into<String>,

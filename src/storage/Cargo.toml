@@ -44,6 +44,7 @@ gaxi           = { workspace = true, features = ["_internal-common", "_internal-
 wkt.workspace  = true
 
 [dev-dependencies]
+anyhow.workspace     = true
 tokio-test.workspace = true
 tokio.workspace      = true
 test-case.workspace  = true

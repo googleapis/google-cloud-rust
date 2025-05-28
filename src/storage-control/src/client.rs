@@ -22,7 +22,7 @@
 /// # use google_cloud_storage_control::client::StorageControl;
 /// let client = StorageControl::builder().build().await?;
 /// // use `client` to make requests to Cloud Storage.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Configuration
@@ -92,7 +92,7 @@ impl StorageControl {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_storage_control::client::StorageControl;
     /// let client = StorageControl::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> ClientBuilder {
         gax::client_builder::internal::new_builder(client_builder::Factory)
@@ -581,7 +581,9 @@ impl StorageControl {
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> crate::Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let storage = super::generated::gapic::client::StorageControl::new(config.clone()).await?;
         let control = super::generated::gapic_control::client::StorageControl::new(config).await?;
         Ok(Self { storage, control })
@@ -599,7 +601,7 @@ impl StorageControl {
 /// let client = builder
 ///     .with_endpoint("https://storage.googleapis.com")
 ///     .build().await?;
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 pub type ClientBuilder =
     gax::client_builder::ClientBuilder<client_builder::Factory, gaxi::options::Credentials>;
@@ -610,7 +612,10 @@ pub(crate) mod client_builder {
     impl gax::client_builder::internal::ClientFactory for Factory {
         type Client = StorageControl;
         type Credentials = gaxi::options::Credentials;
-        async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+        async fn build(
+            self,
+            config: gaxi::options::ClientConfig,
+        ) -> gax::client_builder::Result<Self::Client> {
             Self::Client::new(config).await
         }
     }

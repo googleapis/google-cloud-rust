@@ -54,9 +54,8 @@ use crate::retry_policy::{RetryPolicy, RetryPolicyArg};
 use crate::retry_throttler::{RetryThrottlerArg, SharedRetryThrottler};
 use std::sync::Arc;
 
-// TODO(#2221) - change this to Result<T, Error>, but first change the generated code
 /// The result type for this module.
-pub type Result<T> = std::result::Result<T, crate::error::Error>;
+pub type Result<T> = std::result::Result<T, Error>;
 
 /// Indicates a problem while constructing a client.
 ///
@@ -66,7 +65,7 @@ pub type Result<T> = std::result::Result<T, crate::error::Error>;
 /// use google_cloud_gax::client_builder::Error as Error;
 /// use examples::Client; // Placeholder for examples
 /// # tokio_test::block_on(async {
-/// let client = match placeholder() {
+/// let client = match Client::builder().build().await {
 ///     Ok(c) => c,
 ///     Err(e) if e.is_default_credentials() => {
 ///         println!("error during client initialization: {e}");
@@ -78,10 +77,6 @@ pub type Result<T> = std::result::Result<T, crate::error::Error>;
 ///         return Err(e);
 ///     }
 /// };
-///
-/// fn placeholder() -> std::result::Result<Client, Error> {
-///   # panic!();
-/// }
 /// # Ok::<(), Error>(()) });
 /// ```
 #[derive(thiserror::Error, Debug)]

@@ -26,15 +26,18 @@ pub(crate) mod internal;
 pub mod mds;
 pub mod service_account;
 pub mod user_account;
-
 pub(crate) const QUOTA_PROJECT_KEY: &str = "x-goog-user-project";
 pub(crate) const DEFAULT_UNIVERSE_DOMAIN: &str = "googleapis.com";
 
-/// Represents an Entity Tag (ETag) for a cacheable resource.
+/// Represents an Entity Tag for a [CacheableResource].
 ///
 /// An `EntityTag` is an opaque token that can be used to determine if a
-/// cached resource has changed. The specific format of the ETag is
-/// determined by its generator.
+/// cached resource has changed. The specific format of this tag is an
+/// implementation detail.
+///
+/// As the name indicates, these are inspired by the ETags prevalent in HTTP
+/// caching protocols. Their implementation is very different, and are only
+/// intended for use within a single program.
 #[derive(Clone, Debug, PartialEq, Default)]
 pub struct EntityTag(u64);
 
@@ -50,7 +53,7 @@ impl EntityTag {
 ///
 /// This enum is used to provide cacheable data to the consumers of the credential provider.
 /// It allows a data provider to return either new data (with an [EntityTag]) or
-/// indicate that the client's cached version (identified by a previously provided [EntityTag])
+/// indicate that the caller's cached version (identified by a previously provided [EntityTag])
 /// is still valid.
 #[derive(Clone, PartialEq, Debug)]
 pub enum CacheableResource<T> {
@@ -646,7 +649,7 @@ pub mod testing {
     #[async_trait::async_trait]
     impl CredentialsProvider for ErrorCredentials {
         async fn headers(&self, _extensions: Extensions) -> Result<CacheableResource<HeaderMap>> {
-            Err(super::CredentialsError::from_str(self.0, "test-only"))
+            Err(super::CredentialsError::from_msg(self.0, "test-only"))
         }
 
         async fn universe_domain(&self) -> Option<String> {
@@ -674,7 +677,7 @@ mod test {
     ) -> Result<HeaderMap> {
         match headers {
             CacheableResource::New { data, .. } => Ok(data),
-            CacheableResource::NotModified => Err(CredentialsError::from_str(
+            CacheableResource::NotModified => Err(CredentialsError::from_msg(
                 false,
                 "Expecting headers to be present",
             )),
@@ -863,9 +866,9 @@ mod test {
             "{credentials:?}"
         );
         let err = credentials.headers(Extensions::new()).await.err().unwrap();
-        assert_eq!(err.is_retryable(), retryable, "{err:?}");
+        assert_eq!(err.is_transient(), retryable, "{err:?}");
         let err = credentials.headers(Extensions::new()).await.err().unwrap();
-        assert_eq!(err.is_retryable(), retryable, "{err:?}");
+        assert_eq!(err.is_transient(), retryable, "{err:?}");
     }
 
     #[tokio::test]

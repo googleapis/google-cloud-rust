@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::Result;
 use firestore::Error;
-use firestore::Result;
 use firestore::client::Firestore;
 use firestore::model;
 use gax::paginator::ItemPaginator as _;

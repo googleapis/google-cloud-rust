@@ -61,7 +61,7 @@ main:
                 .set_service_account(&workflows_runner)
                 .set_source_code(source_code),
         )
-        .with_polling_backoff_policy(test_backoff()?)
+        .with_polling_backoff_policy(test_backoff())
         .poller()
         .until_done()
         .await?;
@@ -136,7 +136,7 @@ main:
             lro::PollingResult::Completed(r) => match r {
                 Err(e) => {
                     println!("    create LRO finished with error={e}\n\n");
-                    return Err(e);
+                    return Err(anyhow::Error::from(e));
                 }
                 Ok(m) => {
                     println!("    create LRO finished with success={m:?}\n\n");
@@ -168,7 +168,7 @@ main:
             }
             lro::PollingResult::Completed(Err(e)) => {
                 println!("    delete LRO finished with an error {e}");
-                return Err(e);
+                return Err(anyhow::Error::from(e));
             }
         }
         tokio::time::sleep(backoff).await;
@@ -178,11 +178,12 @@ main:
     Ok(())
 }
 
-fn test_backoff() -> Result<ExponentialBackoff> {
+fn test_backoff() -> ExponentialBackoff {
     ExponentialBackoffBuilder::new()
         .with_initial_delay(Duration::from_millis(100))
         .with_maximum_delay(Duration::from_secs(1))
         .build()
+        .expect("test policy values should succeed")
 }
 
 async fn cleanup_stale_workflows(
@@ -250,13 +251,12 @@ pub async fn manual(
         use longrunning::model::operation::Result as LR;
         let result = create
             .result
-            .ok_or("service error: done with missing result ")
-            .map_err(Error::other)?;
+            .ok_or_else(|| anyhow::Error::msg("service error: done with missing result "))?;
         match result {
             LR::Error(status) => {
                 println!("LRO completed with error {status:?}");
                 let err = gax::error::ServiceError::from(*status);
-                return Err(Error::rpc(err));
+                return Err(anyhow::Error::from(gax::error::Error::rpc(err)));
             }
             LR::Response(any) => {
                 println!("LRO completed successfully {any:?}");
@@ -288,13 +288,12 @@ pub async fn manual(
         use longrunning::model::operation::Result as LR;
         let result = create
             .result
-            .ok_or("service error: done with missing result ")
-            .map_err(Error::other)?;
+            .ok_or_else(|| anyhow::Error::msg("service error: done with missing result "))?;
         match result {
             LR::Error(status) => {
                 println!("LRO completed with error {status:?}");
                 let err = gax::error::ServiceError::from(*status);
-                return Err(Error::rpc(err));
+                return Err(anyhow::Error::from(gax::error::Error::rpc(err)));
             }
             LR::Response(any) => {
                 println!("LRO completed successfully {any:?}");

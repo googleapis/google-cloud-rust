@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::Error;
 use crate::Result;
+use anyhow::Error;
 use gax::options::RequestOptionsBuilder;
 use gax::retry_policy::RetryPolicyExt;
 use std::path::PathBuf;
@@ -47,7 +47,7 @@ pub async fn run() -> Result<()> {
         .stdin(Stdio::null())
         .kill_on_drop(true)
         .spawn()
-        .map_err(Error::other)?;
+        .map_err(Error::from)?;
     tracing::info!("started showcase server: {child:?}");
     if wait_until_ready().await.is_err() {
         tracing::error!("showcase server is not ready {child:?}");
@@ -68,9 +68,9 @@ async fn install() -> Result<String> {
         .stdin(Stdio::null())
         .output()
         .await
-        .map_err(Error::other)?;
+        .map_err(Error::from)?;
     if !install.status.success() {
-        return Err(Error::other(format!(
+        return Err(Error::msg(format!(
             "error installing showcase: {install:?}"
         )));
     }
@@ -80,16 +80,16 @@ async fn install() -> Result<String> {
         .stdin(Stdio::null())
         .output()
         .await
-        .map_err(Error::other)?;
+        .map_err(Error::from)?;
     if !gopath.status.success() {
-        return Err(Error::other(format!(
+        return Err(Error::msg(format!(
             "error installing showcase: {install:?}"
         )));
     }
     let mut dir = gopath.stdout.clone();
     assert!(!dir.is_empty(), "{gopath:?}");
     dir.truncate(dir.len() - 1);
-    String::from_utf8(dir).map_err(Error::other)
+    String::from_utf8(dir).map_err(Error::from)
 }
 
 async fn wait_until_ready() -> Result<()> {
