@@ -464,7 +464,7 @@ impl ReadObject {
 
     /// Sends the request.
     pub async fn send(self) -> crate::Result<bytes::Bytes> {
-        let builder = self.read_object_builder().await?;
+        let builder = self.http_request_builder().await?;
 
         tracing::info!("builder={builder:?}");
 
@@ -477,7 +477,7 @@ impl ReadObject {
         Ok(response)
     }
 
-    async fn read_object_builder(self) -> Result<reqwest::RequestBuilder> {
+    async fn http_request_builder(self) -> Result<reqwest::RequestBuilder> {
         // TODO(2103): map additional parameters to the JSON request.
         let bucket: String = self.request.bucket;
         let bucket_id = bucket
@@ -526,7 +526,7 @@ mod tests {
             .read_object()
             .set_bucket("projects/_/buckets/bucket")
             .set_object("object")
-            .read_object_builder()
+            .http_request_builder()
             .await?
             .build()?;
 
@@ -535,6 +535,23 @@ mod tests {
             read_object_builder.url().as_str(),
             "http://private.googleapis.com/storage/v1/b/bucket/o/object?alt=media"
         );
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_read_object_bad_bucket() -> Result {
+        let client = Storage::builder()
+            .with_credentials(auth::credentials::testing::test_credentials())
+            .build()
+            .await?;
+
+        client
+            .read_object()
+            .set_bucket("malformed")
+            .set_object("object")
+            .http_request_builder()
+            .await
+            .expect_err("malformed bucket string should error");
         Ok(())
     }
 }
