@@ -479,7 +479,9 @@ impl ReadObject {
 
     async fn http_request_builder(self) -> Result<reqwest::RequestBuilder> {
         // TODO(2103): map additional parameters to the JSON request.
-        // - map relevant parameters to remaining: generation, softDelete, projection, restoreToken
+        // - map relevant parameters to remaining: softDelete, projection, restoreToken
+        // - map request parameters to optional extension headers: X-Goog-Encryption-Algorithm,
+        //   X-Goog-Encryption-Key, X-Goog-Encryption-Key-Sha256
         // - return unimplemented if anything in self.request is set but does not apply
 
         // Collect the required bucket and object parameters.
@@ -496,6 +498,9 @@ impl ReadObject {
 
         // Collect the optional query parameters
         let mut query: Vec<(String, String)> = vec![("alt".into(), "media".into())];
+        if self.request.generation != 0 {
+            query.push(("generation".into(), format!("{}", self.request.generation)))
+        }
         if let Some(if_generation_match) = self.request.if_generation_match {
             query.push((
                 "ifGenerationMatch".into(),
@@ -599,6 +604,7 @@ mod tests {
             .read_object()
             .set_bucket("projects/_/buckets/bucket")
             .set_object("object")
+            .set_generation(5)
             .set_if_generation_match(10)
             .set_if_generation_not_match(20)
             .set_if_metageneration_match(30)
@@ -610,7 +616,7 @@ mod tests {
         assert_eq!(read_object_builder.method(), reqwest::Method::GET);
         assert_eq!(
             read_object_builder.url().as_str(),
-            "https://storage.googleapis.com/storage/v1/b/bucket/o/object?alt=media&ifGenerationMatch=10&ifGenerationNotMatch=20&ifMetagenerationMatch=30&ifMetagenerationNotMatch=40"
+            "https://storage.googleapis.com/storage/v1/b/bucket/o/object?alt=media&generation=5&ifGenerationMatch=10&ifGenerationNotMatch=20&ifMetagenerationMatch=30&ifMetagenerationNotMatch=40"
         );
         Ok(())
     }
