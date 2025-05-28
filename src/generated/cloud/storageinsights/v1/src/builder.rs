@@ -710,6 +710,808 @@ pub mod storage_insights {
         }
     }
 
+    /// The request builder for [StorageInsights::list_dataset_configs][crate::client::StorageInsights::list_dataset_configs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storageinsights_v1::builder;
+    /// use builder::storage_insights::ListDatasetConfigs;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListDatasetConfigs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListDatasetConfigs(RequestBuilder<crate::model::ListDatasetConfigsRequest>);
+
+    impl ListDatasetConfigs {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageInsights>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ListDatasetConfigsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::ListDatasetConfigsResponse> {
+            (*self.0.stub)
+                .list_dataset_configs(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListDatasetConfigsResponse, gax::error::Error>
+        {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListDatasetConfigsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [parent][crate::model::ListDatasetConfigsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][crate::model::ListDatasetConfigsRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::ListDatasetConfigsRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+
+        /// Sets the value of [filter][crate::model::ListDatasetConfigsRequest::filter].
+        pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.filter = v.into();
+            self
+        }
+
+        /// Sets the value of [order_by][crate::model::ListDatasetConfigsRequest::order_by].
+        pub fn set_order_by<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.order_by = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListDatasetConfigs {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [StorageInsights::get_dataset_config][crate::client::StorageInsights::get_dataset_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storageinsights_v1::builder;
+    /// use builder::storage_insights::GetDatasetConfig;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetDatasetConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetDatasetConfig(RequestBuilder<crate::model::GetDatasetConfigRequest>);
+
+    impl GetDatasetConfig {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageInsights>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::GetDatasetConfigRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::DatasetConfig> {
+            (*self.0.stub)
+                .get_dataset_config(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::GetDatasetConfigRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetDatasetConfig {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [StorageInsights::create_dataset_config][crate::client::StorageInsights::create_dataset_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storageinsights_v1::builder;
+    /// use builder::storage_insights::CreateDatasetConfig;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateDatasetConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct CreateDatasetConfig(RequestBuilder<crate::model::CreateDatasetConfigRequest>);
+
+    impl CreateDatasetConfig {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageInsights>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::CreateDatasetConfigRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [create_dataset_config][crate::client::StorageInsights::create_dataset_config].
+        pub async fn send(self) -> Result<longrunning::model::Operation> {
+            (*self.0.stub)
+                .create_dataset_config(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `create_dataset_config`.
+        pub fn poller(
+            self,
+        ) -> impl lro::Poller<crate::model::DatasetConfig, crate::model::OperationMetadata>
+        {
+            type Operation = lro::internal::Operation<
+                crate::model::DatasetConfig,
+                crate::model::OperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+        }
+
+        /// Sets the value of [parent][crate::model::CreateDatasetConfigRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [dataset_config_id][crate::model::CreateDatasetConfigRequest::dataset_config_id].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_dataset_config_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.dataset_config_id = v.into();
+            self
+        }
+
+        /// Sets the value of [dataset_config][crate::model::CreateDatasetConfigRequest::dataset_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_dataset_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DatasetConfig>,
+        {
+            self.0.request.dataset_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [dataset_config][crate::model::CreateDatasetConfigRequest::dataset_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_dataset_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DatasetConfig>,
+        {
+            self.0.request.dataset_config = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::CreateDatasetConfigRequest::request_id].
+        pub fn set_request_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.request_id = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateDatasetConfig {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [StorageInsights::update_dataset_config][crate::client::StorageInsights::update_dataset_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storageinsights_v1::builder;
+    /// use builder::storage_insights::UpdateDatasetConfig;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateDatasetConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct UpdateDatasetConfig(RequestBuilder<crate::model::UpdateDatasetConfigRequest>);
+
+    impl UpdateDatasetConfig {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageInsights>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::UpdateDatasetConfigRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [update_dataset_config][crate::client::StorageInsights::update_dataset_config].
+        pub async fn send(self) -> Result<longrunning::model::Operation> {
+            (*self.0.stub)
+                .update_dataset_config(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `update_dataset_config`.
+        pub fn poller(
+            self,
+        ) -> impl lro::Poller<crate::model::DatasetConfig, crate::model::OperationMetadata>
+        {
+            type Operation = lro::internal::Operation<
+                crate::model::DatasetConfig,
+                crate::model::OperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+        }
+
+        /// Sets the value of [update_mask][crate::model::UpdateDatasetConfigRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateDatasetConfigRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [dataset_config][crate::model::UpdateDatasetConfigRequest::dataset_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_dataset_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DatasetConfig>,
+        {
+            self.0.request.dataset_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [dataset_config][crate::model::UpdateDatasetConfigRequest::dataset_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_dataset_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DatasetConfig>,
+        {
+            self.0.request.dataset_config = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::UpdateDatasetConfigRequest::request_id].
+        pub fn set_request_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.request_id = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateDatasetConfig {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [StorageInsights::delete_dataset_config][crate::client::StorageInsights::delete_dataset_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storageinsights_v1::builder;
+    /// use builder::storage_insights::DeleteDatasetConfig;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteDatasetConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct DeleteDatasetConfig(RequestBuilder<crate::model::DeleteDatasetConfigRequest>);
+
+    impl DeleteDatasetConfig {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageInsights>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::DeleteDatasetConfigRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [delete_dataset_config][crate::client::StorageInsights::delete_dataset_config].
+        pub async fn send(self) -> Result<longrunning::model::Operation> {
+            (*self.0.stub)
+                .delete_dataset_config(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `delete_dataset_config`.
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [name][crate::model::DeleteDatasetConfigRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::DeleteDatasetConfigRequest::request_id].
+        pub fn set_request_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.request_id = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteDatasetConfig {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [StorageInsights::link_dataset][crate::client::StorageInsights::link_dataset] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storageinsights_v1::builder;
+    /// use builder::storage_insights::LinkDataset;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> LinkDataset {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct LinkDataset(RequestBuilder<crate::model::LinkDatasetRequest>);
+
+    impl LinkDataset {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageInsights>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::LinkDatasetRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [link_dataset][crate::client::StorageInsights::link_dataset].
+        pub async fn send(self) -> Result<longrunning::model::Operation> {
+            (*self.0.stub)
+                .link_dataset(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `link_dataset`.
+        pub fn poller(
+            self,
+        ) -> impl lro::Poller<crate::model::LinkDatasetResponse, crate::model::OperationMetadata>
+        {
+            type Operation = lro::internal::Operation<
+                crate::model::LinkDatasetResponse,
+                crate::model::OperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+        }
+
+        /// Sets the value of [name][crate::model::LinkDatasetRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for LinkDataset {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [StorageInsights::unlink_dataset][crate::client::StorageInsights::unlink_dataset] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storageinsights_v1::builder;
+    /// use builder::storage_insights::UnlinkDataset;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UnlinkDataset {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct UnlinkDataset(RequestBuilder<crate::model::UnlinkDatasetRequest>);
+
+    impl UnlinkDataset {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageInsights>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::UnlinkDatasetRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [unlink_dataset][crate::client::StorageInsights::unlink_dataset].
+        pub async fn send(self) -> Result<longrunning::model::Operation> {
+            (*self.0.stub)
+                .unlink_dataset(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `unlink_dataset`.
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [name][crate::model::UnlinkDatasetRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UnlinkDataset {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
     /// The request builder for [StorageInsights::list_locations][crate::client::StorageInsights::list_locations] calls.
     ///
     /// # Example

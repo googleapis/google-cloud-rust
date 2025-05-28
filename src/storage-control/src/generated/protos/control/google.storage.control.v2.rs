@@ -645,3 +645,339 @@ impl ::prost::Name for ListAnywhereCachesResponse {
         "type.googleapis.com/google.storage.control.v2.ListAnywhereCachesResponse".into()
     }
 }
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct IntelligenceConfig {
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+    #[prost(enumeration = "intelligence_config::EditionConfig", tag = "2")]
+    pub edition_config: i32,
+    #[prost(message, optional, tag = "3")]
+    pub update_time: ::core::option::Option<::prost_types::Timestamp>,
+    #[prost(message, optional, tag = "4")]
+    pub filter: ::core::option::Option<intelligence_config::Filter>,
+    #[prost(message, optional, tag = "5")]
+    pub effective_intelligence_config: ::core::option::Option<
+        intelligence_config::EffectiveIntelligenceConfig,
+    >,
+    #[prost(message, optional, tag = "7")]
+    pub trial_config: ::core::option::Option<intelligence_config::TrialConfig>,
+}
+/// Nested message and enum types in `IntelligenceConfig`.
+pub mod intelligence_config {
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct Filter {
+        #[prost(oneof = "filter::CloudStorageLocationsOneOf", tags = "1, 2")]
+        pub cloud_storage_locations: ::core::option::Option<
+            filter::CloudStorageLocationsOneOf,
+        >,
+        #[prost(oneof = "filter::CloudStorageBucketsOneOf", tags = "3, 4")]
+        pub cloud_storage_buckets: ::core::option::Option<filter::CloudStorageBucketsOneOf>,
+    }
+    /// Nested message and enum types in `Filter`.
+    pub mod filter {
+        #[derive(Clone, PartialEq, ::prost::Message)]
+        pub struct CloudStorageLocations {
+            #[prost(string, repeated, tag = "1")]
+            pub locations: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+        }
+        impl ::prost::Name for CloudStorageLocations {
+            const NAME: &'static str = "CloudStorageLocations";
+            const PACKAGE: &'static str = "google.storage.control.v2";
+            fn full_name() -> ::prost::alloc::string::String {
+                "google.storage.control.v2.IntelligenceConfig.Filter.CloudStorageLocations"
+                    .into()
+            }
+            fn type_url() -> ::prost::alloc::string::String {
+                "type.googleapis.com/google.storage.control.v2.IntelligenceConfig.Filter.CloudStorageLocations"
+                    .into()
+            }
+        }
+        #[derive(Clone, PartialEq, ::prost::Message)]
+        pub struct CloudStorageBuckets {
+            #[prost(string, repeated, tag = "1")]
+            pub bucket_id_regexes: ::prost::alloc::vec::Vec<
+                ::prost::alloc::string::String,
+            >,
+        }
+        impl ::prost::Name for CloudStorageBuckets {
+            const NAME: &'static str = "CloudStorageBuckets";
+            const PACKAGE: &'static str = "google.storage.control.v2";
+            fn full_name() -> ::prost::alloc::string::String {
+                "google.storage.control.v2.IntelligenceConfig.Filter.CloudStorageBuckets"
+                    .into()
+            }
+            fn type_url() -> ::prost::alloc::string::String {
+                "type.googleapis.com/google.storage.control.v2.IntelligenceConfig.Filter.CloudStorageBuckets"
+                    .into()
+            }
+        }
+        #[derive(Clone, PartialEq, ::prost::Oneof)]
+        pub enum CloudStorageLocationsOneOf {
+            #[prost(message, tag = "1")]
+            IncludedCloudStorageLocations(CloudStorageLocations),
+            #[prost(message, tag = "2")]
+            ExcludedCloudStorageLocations(CloudStorageLocations),
+        }
+        #[derive(Clone, PartialEq, ::prost::Oneof)]
+        pub enum CloudStorageBucketsOneOf {
+            #[prost(message, tag = "3")]
+            IncludedCloudStorageBuckets(CloudStorageBuckets),
+            #[prost(message, tag = "4")]
+            ExcludedCloudStorageBuckets(CloudStorageBuckets),
+        }
+    }
+    impl ::prost::Name for Filter {
+        const NAME: &'static str = "Filter";
+        const PACKAGE: &'static str = "google.storage.control.v2";
+        fn full_name() -> ::prost::alloc::string::String {
+            "google.storage.control.v2.IntelligenceConfig.Filter".into()
+        }
+        fn type_url() -> ::prost::alloc::string::String {
+            "type.googleapis.com/google.storage.control.v2.IntelligenceConfig.Filter"
+                .into()
+        }
+    }
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct EffectiveIntelligenceConfig {
+        #[prost(
+            enumeration = "effective_intelligence_config::EffectiveEdition",
+            tag = "1"
+        )]
+        pub effective_edition: i32,
+        #[prost(string, tag = "2")]
+        pub intelligence_config: ::prost::alloc::string::String,
+    }
+    /// Nested message and enum types in `EffectiveIntelligenceConfig`.
+    pub mod effective_intelligence_config {
+        #[derive(
+            Clone,
+            Copy,
+            Debug,
+            PartialEq,
+            Eq,
+            Hash,
+            PartialOrd,
+            Ord,
+            ::prost::Enumeration
+        )]
+        #[repr(i32)]
+        pub enum EffectiveEdition {
+            Unspecified = 0,
+            None = 1,
+            Standard = 2,
+        }
+        impl EffectiveEdition {
+            /// String value of the enum field names used in the ProtoBuf definition.
+            ///
+            /// The values are not transformed in any way and thus are considered stable
+            /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+            pub fn as_str_name(&self) -> &'static str {
+                match self {
+                    Self::Unspecified => "EFFECTIVE_EDITION_UNSPECIFIED",
+                    Self::None => "NONE",
+                    Self::Standard => "STANDARD",
+                }
+            }
+            /// Creates an enum from field names used in the ProtoBuf definition.
+            pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+                match value {
+                    "EFFECTIVE_EDITION_UNSPECIFIED" => Some(Self::Unspecified),
+                    "NONE" => Some(Self::None),
+                    "STANDARD" => Some(Self::Standard),
+                    _ => None,
+                }
+            }
+        }
+    }
+    impl ::prost::Name for EffectiveIntelligenceConfig {
+        const NAME: &'static str = "EffectiveIntelligenceConfig";
+        const PACKAGE: &'static str = "google.storage.control.v2";
+        fn full_name() -> ::prost::alloc::string::String {
+            "google.storage.control.v2.IntelligenceConfig.EffectiveIntelligenceConfig"
+                .into()
+        }
+        fn type_url() -> ::prost::alloc::string::String {
+            "type.googleapis.com/google.storage.control.v2.IntelligenceConfig.EffectiveIntelligenceConfig"
+                .into()
+        }
+    }
+    #[derive(Clone, Copy, PartialEq, ::prost::Message)]
+    pub struct TrialConfig {
+        #[prost(message, optional, tag = "3")]
+        pub expire_time: ::core::option::Option<::prost_types::Timestamp>,
+    }
+    impl ::prost::Name for TrialConfig {
+        const NAME: &'static str = "TrialConfig";
+        const PACKAGE: &'static str = "google.storage.control.v2";
+        fn full_name() -> ::prost::alloc::string::String {
+            "google.storage.control.v2.IntelligenceConfig.TrialConfig".into()
+        }
+        fn type_url() -> ::prost::alloc::string::String {
+            "type.googleapis.com/google.storage.control.v2.IntelligenceConfig.TrialConfig"
+                .into()
+        }
+    }
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
+    #[repr(i32)]
+    pub enum EditionConfig {
+        Unspecified = 0,
+        Inherit = 1,
+        Disabled = 2,
+        Standard = 3,
+        Trial = 5,
+    }
+    impl EditionConfig {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                Self::Unspecified => "EDITION_CONFIG_UNSPECIFIED",
+                Self::Inherit => "INHERIT",
+                Self::Disabled => "DISABLED",
+                Self::Standard => "STANDARD",
+                Self::Trial => "TRIAL",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "EDITION_CONFIG_UNSPECIFIED" => Some(Self::Unspecified),
+                "INHERIT" => Some(Self::Inherit),
+                "DISABLED" => Some(Self::Disabled),
+                "STANDARD" => Some(Self::Standard),
+                "TRIAL" => Some(Self::Trial),
+                _ => None,
+            }
+        }
+    }
+}
+impl ::prost::Name for IntelligenceConfig {
+    const NAME: &'static str = "IntelligenceConfig";
+    const PACKAGE: &'static str = "google.storage.control.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.storage.control.v2.IntelligenceConfig".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.storage.control.v2.IntelligenceConfig".into()
+    }
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct UpdateOrganizationIntelligenceConfigRequest {
+    #[prost(message, optional, tag = "1")]
+    pub intelligence_config: ::core::option::Option<IntelligenceConfig>,
+    #[prost(message, optional, tag = "2")]
+    pub update_mask: ::core::option::Option<::prost_types::FieldMask>,
+    #[prost(string, tag = "3")]
+    pub request_id: ::prost::alloc::string::String,
+}
+impl ::prost::Name for UpdateOrganizationIntelligenceConfigRequest {
+    const NAME: &'static str = "UpdateOrganizationIntelligenceConfigRequest";
+    const PACKAGE: &'static str = "google.storage.control.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.storage.control.v2.UpdateOrganizationIntelligenceConfigRequest".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.storage.control.v2.UpdateOrganizationIntelligenceConfigRequest"
+            .into()
+    }
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct UpdateFolderIntelligenceConfigRequest {
+    #[prost(message, optional, tag = "1")]
+    pub intelligence_config: ::core::option::Option<IntelligenceConfig>,
+    #[prost(message, optional, tag = "2")]
+    pub update_mask: ::core::option::Option<::prost_types::FieldMask>,
+    #[prost(string, tag = "3")]
+    pub request_id: ::prost::alloc::string::String,
+}
+impl ::prost::Name for UpdateFolderIntelligenceConfigRequest {
+    const NAME: &'static str = "UpdateFolderIntelligenceConfigRequest";
+    const PACKAGE: &'static str = "google.storage.control.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.storage.control.v2.UpdateFolderIntelligenceConfigRequest".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.storage.control.v2.UpdateFolderIntelligenceConfigRequest"
+            .into()
+    }
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct UpdateProjectIntelligenceConfigRequest {
+    #[prost(message, optional, tag = "1")]
+    pub intelligence_config: ::core::option::Option<IntelligenceConfig>,
+    #[prost(message, optional, tag = "2")]
+    pub update_mask: ::core::option::Option<::prost_types::FieldMask>,
+    #[prost(string, tag = "3")]
+    pub request_id: ::prost::alloc::string::String,
+}
+impl ::prost::Name for UpdateProjectIntelligenceConfigRequest {
+    const NAME: &'static str = "UpdateProjectIntelligenceConfigRequest";
+    const PACKAGE: &'static str = "google.storage.control.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.storage.control.v2.UpdateProjectIntelligenceConfigRequest".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.storage.control.v2.UpdateProjectIntelligenceConfigRequest"
+            .into()
+    }
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetOrganizationIntelligenceConfigRequest {
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+}
+impl ::prost::Name for GetOrganizationIntelligenceConfigRequest {
+    const NAME: &'static str = "GetOrganizationIntelligenceConfigRequest";
+    const PACKAGE: &'static str = "google.storage.control.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.storage.control.v2.GetOrganizationIntelligenceConfigRequest".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.storage.control.v2.GetOrganizationIntelligenceConfigRequest"
+            .into()
+    }
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetFolderIntelligenceConfigRequest {
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+}
+impl ::prost::Name for GetFolderIntelligenceConfigRequest {
+    const NAME: &'static str = "GetFolderIntelligenceConfigRequest";
+    const PACKAGE: &'static str = "google.storage.control.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.storage.control.v2.GetFolderIntelligenceConfigRequest".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.storage.control.v2.GetFolderIntelligenceConfigRequest"
+            .into()
+    }
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetProjectIntelligenceConfigRequest {
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+}
+impl ::prost::Name for GetProjectIntelligenceConfigRequest {
+    const NAME: &'static str = "GetProjectIntelligenceConfigRequest";
+    const PACKAGE: &'static str = "google.storage.control.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.storage.control.v2.GetProjectIntelligenceConfigRequest".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.storage.control.v2.GetProjectIntelligenceConfigRequest"
+            .into()
+    }
+}

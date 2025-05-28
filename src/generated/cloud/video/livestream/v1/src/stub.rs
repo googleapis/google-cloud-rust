@@ -298,6 +298,71 @@ pub trait LivestreamService: std::fmt::Debug + Send + Sync {
         )
     }
 
+    /// Implements [super::client::LivestreamService::create_dvr_session].
+    fn create_dvr_session(
+        &self,
+        _req: crate::model::CreateDvrSessionRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
+    }
+
+    /// Implements [super::client::LivestreamService::list_dvr_sessions].
+    fn list_dvr_sessions(
+        &self,
+        _req: crate::model::ListDvrSessionsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListDvrSessionsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListDvrSessionsResponse>>,
+        >(Err(Error::other("unimplemented")))
+    }
+
+    /// Implements [super::client::LivestreamService::get_dvr_session].
+    fn get_dvr_session(
+        &self,
+        _req: crate::model::GetDvrSessionRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::DvrSession>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::DvrSession>>>(Err(
+            Error::other("unimplemented"),
+        ))
+    }
+
+    /// Implements [super::client::LivestreamService::delete_dvr_session].
+    fn delete_dvr_session(
+        &self,
+        _req: crate::model::DeleteDvrSessionRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
+    }
+
+    /// Implements [super::client::LivestreamService::update_dvr_session].
+    fn update_dvr_session(
+        &self,
+        _req: crate::model::UpdateDvrSessionRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
+    }
+
     /// Implements [super::client::LivestreamService::create_asset].
     fn create_asset(
         &self,

@@ -120,6 +120,9 @@ impl Dataform {
     }
 
     /// Lists Repositories in a given project and location.
+    ///
+    /// **Note:** *This method can return repositories not shown in the [Dataform
+    /// UI](https://console.cloud.google.com/bigquery/dataform)*.
     pub fn list_repositories(&self) -> super::builder::dataform::ListRepositories {
         super::builder::dataform::ListRepositories::new(self.inner.clone())
     }
@@ -136,12 +139,10 @@ impl Dataform {
 
     /// Updates a single Repository.
     ///
-    /// **Note:** *This method does not fully implement*,
-    /// (see [AIP/134](https://google.aip.dev/134), in particular:
-    ///
-    /// - The wildcard entry (**\***) is treated as a bad request
-    /// - When the **field_mask** is omitted, instead of only updating the set
-    ///   fields, the request is treated as a full update on all modifiable fields
+    /// **Note:** *This method does not fully implement
+    /// [AIP/134](https://google.aip.dev/134). The wildcard entry (\*) is treated
+    /// as a bad request, and when the `field_mask` is omitted, the request is
+    /// treated as a full update on all modifiable fields.*
     pub fn update_repository(&self) -> super::builder::dataform::UpdateRepository {
         super::builder::dataform::UpdateRepository::new(self.inner.clone())
     }
@@ -312,12 +313,10 @@ impl Dataform {
 
     /// Updates a single ReleaseConfig.
     ///
-    /// **Note:** *This method does not fully implement*,
-    /// (see [AIP/134](https://google.aip.dev/134), in particular:
-    ///
-    /// - The wildcard entry (**\***) is treated as a bad request
-    /// - When the **field_mask** is omitted, instead of only updating the set
-    ///   fields, the request is treated as a full update on all modifiable fields
+    /// **Note:** *This method does not fully implement
+    /// [AIP/134](https://google.aip.dev/134). The wildcard entry (\*) is treated
+    /// as a bad request, and when the `field_mask` is omitted, the request is
+    /// treated as a full update on all modifiable fields.*
     pub fn update_release_config(&self) -> super::builder::dataform::UpdateReleaseConfig {
         super::builder::dataform::UpdateReleaseConfig::new(self.inner.clone())
     }
@@ -366,12 +365,10 @@ impl Dataform {
 
     /// Updates a single WorkflowConfig.
     ///
-    /// **Note:** *This method does not fully implement*,
-    /// (see [AIP/134](https://google.aip.dev/134), in particular:
-    ///
-    /// - The wildcard entry (**\***) is treated as a bad request
-    /// - When the **field_mask** is omitted, instead of only updating the set
-    ///   fields, the request is treated as a full update on all modifiable fields
+    /// **Note:** *This method does not fully implement
+    /// [AIP/134](https://google.aip.dev/134). The wildcard entry (\*) is treated
+    /// as a bad request, and when the `field_mask` is omitted, the request is
+    /// treated as a full update on all modifiable fields.*
     pub fn update_workflow_config(&self) -> super::builder::dataform::UpdateWorkflowConfig {
         super::builder::dataform::UpdateWorkflowConfig::new(self.inner.clone())
     }
@@ -420,12 +417,10 @@ impl Dataform {
 
     /// Update default config for a given project and location.
     ///
-    /// **Note:** *This method does not fully implement*,
-    /// (see [AIP/134](https://google.aip.dev/134), in particular:
-    ///
-    /// - The wildcard entry (**\***) is treated as a bad request
-    /// - When the **field_mask** is omitted, instead of only updating the set
-    ///   fields, the request is treated as a full update on all modifiable fields
+    /// **Note:** *This method does not fully implement
+    /// [AIP/134](https://google.aip.dev/134). The wildcard entry (\*) is treated
+    /// as a bad request, and when the `field_mask` is omitted, the request is
+    /// treated as a full update on all modifiable fields.*
     pub fn update_config(&self) -> super::builder::dataform::UpdateConfig {
         super::builder::dataform::UpdateConfig::new(self.inner.clone())
     }

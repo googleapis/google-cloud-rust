@@ -248,6 +248,202 @@ impl super::stub::StorageInsights for StorageInsights {
             .await
     }
 
+    async fn list_dataset_configs(
+        &self,
+        req: crate::model::ListDatasetConfigsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListDatasetConfigsResponse>> {
+        let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}/datasetConfigs", {
+            let arg = &req.parent;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("parent"));
+            }
+            arg
+        },);
+        let builder = self
+            .inner
+            .builder(reqwest::Method::GET, path)
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        let builder = builder.query(&[("pageSize", &req.page_size)]);
+        let builder = builder.query(&[("pageToken", &req.page_token)]);
+        let builder = builder.query(&[("filter", &req.filter)]);
+        let builder = builder.query(&[("orderBy", &req.order_by)]);
+        self.inner
+            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .await
+    }
+
+    async fn get_dataset_config(
+        &self,
+        req: crate::model::GetDatasetConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::DatasetConfig>> {
+        let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
+        let builder = self
+            .inner
+            .builder(reqwest::Method::GET, path)
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner
+            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .await
+    }
+
+    async fn create_dataset_config(
+        &self,
+        req: crate::model::CreateDatasetConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v1/{}/datasetConfigs", {
+            let arg = &req.parent;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("parent"));
+            }
+            arg
+        },);
+        let builder = self
+            .inner
+            .builder(reqwest::Method::POST, path)
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        let builder = builder.query(&[("datasetConfigId", &req.dataset_config_id)]);
+        let builder = builder.query(&[("requestId", &req.request_id)]);
+        self.inner
+            .execute(builder, Some(req.dataset_config), options)
+            .await
+    }
+
+    async fn update_dataset_config(
+        &self,
+        req: crate::model::UpdateDatasetConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v1/{}", {
+            let arg = &req
+                .dataset_config
+                .as_ref()
+                .ok_or_else(|| gaxi::path_parameter::missing("dataset_config"))?
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("dataset_config.name"));
+            }
+            arg
+        },);
+        let builder = self
+            .inner
+            .builder(reqwest::Method::PATCH, path)
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        let builder = req
+            .update_mask
+            .as_ref()
+            .iter()
+            .flat_map(|p| p.paths.iter())
+            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
+        let builder = builder.query(&[("requestId", &req.request_id)]);
+        self.inner
+            .execute(builder, Some(req.dataset_config), options)
+            .await
+    }
+
+    async fn delete_dataset_config(
+        &self,
+        req: crate::model::DeleteDatasetConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
+        let builder = self
+            .inner
+            .builder(reqwest::Method::DELETE, path)
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        let builder = builder.query(&[("requestId", &req.request_id)]);
+        self.inner
+            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .await
+    }
+
+    async fn link_dataset(
+        &self,
+        req: crate::model::LinkDatasetRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v1/{}:linkDataset", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
+        let builder = self
+            .inner
+            .builder(reqwest::Method::POST, path)
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner.execute(builder, Some(req), options).await
+    }
+
+    async fn unlink_dataset(
+        &self,
+        req: crate::model::UnlinkDatasetRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v1/{}:unlinkDataset", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
+        let builder = self
+            .inner
+            .builder(reqwest::Method::POST, path)
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner.execute(builder, Some(req), options).await
+    }
+
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,
@@ -415,5 +611,19 @@ impl super::stub::StorageInsights for StorageInsights {
                 gax::response::Response::from_parts(parts, ())
             },
         )
+    }
+
+    fn get_polling_error_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        self.inner.get_polling_backoff_policy(options)
     }
 }

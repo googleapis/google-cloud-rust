@@ -4875,7 +4875,7 @@ pub mod event {
 #[non_exhaustive]
 pub struct Clip {
     /// The resource name of the clip, in the following format:
-    /// `projects/{project}/locations/{location}/channels/{c}/clips/{clipId}`.
+    /// `projects/{project}/locations/{location}/channels/{channelId}/clips/{clipId}`.
     /// `{clipId}` is a user-specified resource id that conforms to the following
     /// criteria:
     ///
@@ -4927,6 +4927,10 @@ pub struct Clip {
     /// allowed.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub clip_manifests: std::vec::Vec<crate::model::clip::ClipManifest>,
+
+    /// Optional. OutputType of the clip. If not specified, the default value is
+    /// MANIFEST.
+    pub output_type: crate::model::clip::OutputType,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -5058,6 +5062,15 @@ impl Clip {
     {
         use std::iter::Iterator;
         self.clip_manifests = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [output_type][crate::model::Clip::output_type].
+    pub fn set_output_type<T: std::convert::Into<crate::model::clip::OutputType>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.output_type = v.into();
         self
     }
 }
@@ -5422,6 +5435,714 @@ pub mod clip {
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
                 ".google.cloud.video.livestream.v1.Clip.State",
+            ))
+        }
+    }
+
+    /// OutputType represents the output type of the clip.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum OutputType {
+        /// OutputType is not specified.
+        Unspecified,
+        /// OutputType is a VOD manifest. This is the default value.
+        Manifest,
+        /// OutputType is an MP4 file.
+        Mp4,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [OutputType::value] or
+        /// [OutputType::name].
+        UnknownValue(output_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod output_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl OutputType {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Manifest => std::option::Option::Some(1),
+                Self::Mp4 => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("OUTPUT_TYPE_UNSPECIFIED"),
+                Self::Manifest => std::option::Option::Some("MANIFEST"),
+                Self::Mp4 => std::option::Option::Some("MP4"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for OutputType {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for OutputType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for OutputType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Manifest,
+                2 => Self::Mp4,
+                _ => Self::UnknownValue(output_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for OutputType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "OUTPUT_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "MANIFEST" => Self::Manifest,
+                "MP4" => Self::Mp4,
+                _ => Self::UnknownValue(output_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for OutputType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Manifest => serializer.serialize_i32(1),
+                Self::Mp4 => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for OutputType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<OutputType>::new(
+                ".google.cloud.video.livestream.v1.Clip.OutputType",
+            ))
+        }
+    }
+}
+
+/// TimeInterval represents a time interval.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct TimeInterval {
+    /// Optional. The start time of the interval.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub start_time: std::option::Option<wkt::Timestamp>,
+
+    /// Optional. The end time of the interval.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub end_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl TimeInterval {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [start_time][crate::model::TimeInterval::start_time].
+    pub fn set_start_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [start_time][crate::model::TimeInterval::start_time].
+    pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [end_time][crate::model::TimeInterval::end_time].
+    pub fn set_end_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [end_time][crate::model::TimeInterval::end_time].
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for TimeInterval {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.video.livestream.v1.TimeInterval"
+    }
+}
+
+/// DvrSession is a sub-resource under channel. Each DvrSession represents a DVR
+/// recording of the live stream for a specific time range.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct DvrSession {
+    /// Identifier. The resource name of the DVR session, in the following format:
+    /// `projects/{project}/locations/{location}/channels/{channelId}/dvrSessions/{dvrSessionId}`.
+    /// `{dvrSessionId}` is a user-specified resource id that conforms to the
+    /// following criteria:
+    ///
+    /// . 1 character minimum, 63 characters maximum
+    /// . Only contains letters, digits, underscores, and hyphens
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    /// Output only. The creation time.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The update time.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Optional. User-defined key/value metadata.
+    #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// Output only. The state of the clip.
+    pub state: crate::model::dvr_session::State,
+
+    /// Output only. An error object that describes the reason for the failure.
+    /// This property only presents when `state` is `FAILED`.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub error: std::option::Option<rpc::model::Status>,
+
+    /// Required. A list of DVR manifests. Currently only one DVR manifest is
+    /// allowed.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub dvr_manifests: std::vec::Vec<crate::model::dvr_session::DvrManifest>,
+
+    /// Required. The specified ranges of segments to generate a DVR recording.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub dvr_windows: std::vec::Vec<crate::model::dvr_session::DvrWindow>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DvrSession {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DvrSession::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::DvrSession::create_time].
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::DvrSession::create_time].
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::DvrSession::update_time].
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::DvrSession::update_time].
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::DvrSession::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [state][crate::model::DvrSession::state].
+    pub fn set_state<T: std::convert::Into<crate::model::dvr_session::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.state = v.into();
+        self
+    }
+
+    /// Sets the value of [error][crate::model::DvrSession::error].
+    pub fn set_error<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<rpc::model::Status>,
+    {
+        self.error = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [error][crate::model::DvrSession::error].
+    pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<rpc::model::Status>,
+    {
+        self.error = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [dvr_manifests][crate::model::DvrSession::dvr_manifests].
+    pub fn set_dvr_manifests<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::dvr_session::DvrManifest>,
+    {
+        use std::iter::Iterator;
+        self.dvr_manifests = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [dvr_windows][crate::model::DvrSession::dvr_windows].
+    pub fn set_dvr_windows<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::dvr_session::DvrWindow>,
+    {
+        use std::iter::Iterator;
+        self.dvr_windows = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for DvrSession {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.video.livestream.v1.DvrSession"
+    }
+}
+
+/// Defines additional types related to [DvrSession].
+pub mod dvr_session {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// DvrManifest identifies a source manifest and specifies a file name for the
+    /// generated DVR manifest.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct DvrManifest {
+        /// Required. A unique key that identifies a manifest config in the parent
+        /// channel. This key is the same as `channel.manifests.key` for the selected
+        /// manifest.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub manifest_key: std::string::String,
+
+        /// Output only. The output URI of the DVR manifest. The DVR output will be
+        /// placed in a directory named `dvr/dvrSessionId/` under the parent
+        /// channel's output uri. Format:
+        /// {channel.output.uri}/dvr/{dvrSessionId}/{channel.manifests.fileName}
+        /// Example: gs://my-bucket/outputs/dvr/my-dvr-session/main.m3u8
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub output_uri: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl DvrManifest {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [manifest_key][crate::model::dvr_session::DvrManifest::manifest_key].
+        pub fn set_manifest_key<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.manifest_key = v.into();
+            self
+        }
+
+        /// Sets the value of [output_uri][crate::model::dvr_session::DvrManifest::output_uri].
+        pub fn set_output_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.output_uri = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for DvrManifest {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.video.livestream.v1.DvrSession.DvrManifest"
+        }
+    }
+
+    /// DvrWindow represents a DVR window.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct DvrWindow {
+        /// The allowlist forms of a DVR window.
+        #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
+        pub kind: std::option::Option<crate::model::dvr_session::dvr_window::Kind>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl DvrWindow {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [kind][crate::model::dvr_session::DvrWindow::kind].
+        ///
+        /// Note that all the setters affecting `kind` are mutually
+        /// exclusive.
+        pub fn set_kind<
+            T: std::convert::Into<std::option::Option<crate::model::dvr_session::dvr_window::Kind>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.kind = v.into();
+            self
+        }
+
+        /// The value of [kind][crate::model::dvr_session::DvrWindow::kind]
+        /// if it holds a `TimeInterval`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn time_interval(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::TimeInterval>> {
+            #[allow(unreachable_patterns)]
+            self.kind.as_ref().and_then(|v| match v {
+                crate::model::dvr_session::dvr_window::Kind::TimeInterval(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [kind][crate::model::dvr_session::DvrWindow::kind]
+        /// to hold a `TimeInterval`.
+        ///
+        /// Note that all the setters affecting `kind` are
+        /// mutually exclusive.
+        pub fn set_time_interval<
+            T: std::convert::Into<std::boxed::Box<crate::model::TimeInterval>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.kind = std::option::Option::Some(
+                crate::model::dvr_session::dvr_window::Kind::TimeInterval(v.into()),
+            );
+            self
+        }
+    }
+
+    impl wkt::message::Message for DvrWindow {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.video.livestream.v1.DvrSession.DvrWindow"
+        }
+    }
+
+    /// Defines additional types related to [DvrWindow].
+    pub mod dvr_window {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// The allowlist forms of a DVR window.
+        #[serde_with::serde_as]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[serde(rename_all = "camelCase")]
+        #[non_exhaustive]
+        pub enum Kind {
+            /// A time interval in the form of a tuple of Unix epoch time.
+            TimeInterval(std::boxed::Box<crate::model::TimeInterval>),
+        }
+    }
+
+    /// State of the DVR session.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// State is not specified.
+        Unspecified,
+        /// The operation is pending to be picked up by the server.
+        Pending,
+        /// The session is being updated.
+        Updating,
+        /// The session is scheduled and waiting for the start time.
+        Scheduled,
+        /// The session is currently in progress and the outputs are available in the
+        /// specified Cloud Storage bucket. For additional information, see the
+        /// `dvr_manifests.output_uri` field.
+        Live,
+        /// Outputs are available in the specified Cloud Storage bucket. For
+        /// additional information, see the `dvr_manifests.output_uri` field.
+        Finished,
+        /// The operation has failed. For additional information, see the `error`
+        /// field.
+        Failed,
+        /// The session is being deleted.
+        Deleting,
+        /// The session is being post processed.
+        PostProcessing,
+        /// The session is in cooldown. The cooldown period lasts for 60 seconds.
+        /// When the DVR session is updated by the user to have a new end time that
+        /// is likely already in the past, the DVR manifest will end as soon as
+        /// possible and the DVR session will move to this state. This is done to
+        /// prevent the players to receive a manifest update that removes a segment
+        /// that has already been played. After the cooldown period ends, a new
+        /// manifest is generated that honors the new end time.
+        Cooldown,
+        /// The session is being stopped. The session will move to STOPPING state, if
+        /// the parent channel is updated.
+        Stopping,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl State {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Pending => std::option::Option::Some(1),
+                Self::Updating => std::option::Option::Some(2),
+                Self::Scheduled => std::option::Option::Some(3),
+                Self::Live => std::option::Option::Some(4),
+                Self::Finished => std::option::Option::Some(5),
+                Self::Failed => std::option::Option::Some(6),
+                Self::Deleting => std::option::Option::Some(7),
+                Self::PostProcessing => std::option::Option::Some(8),
+                Self::Cooldown => std::option::Option::Some(9),
+                Self::Stopping => std::option::Option::Some(10),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Pending => std::option::Option::Some("PENDING"),
+                Self::Updating => std::option::Option::Some("UPDATING"),
+                Self::Scheduled => std::option::Option::Some("SCHEDULED"),
+                Self::Live => std::option::Option::Some("LIVE"),
+                Self::Finished => std::option::Option::Some("FINISHED"),
+                Self::Failed => std::option::Option::Some("FAILED"),
+                Self::Deleting => std::option::Option::Some("DELETING"),
+                Self::PostProcessing => std::option::Option::Some("POST_PROCESSING"),
+                Self::Cooldown => std::option::Option::Some("COOLDOWN"),
+                Self::Stopping => std::option::Option::Some("STOPPING"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Pending,
+                2 => Self::Updating,
+                3 => Self::Scheduled,
+                4 => Self::Live,
+                5 => Self::Finished,
+                6 => Self::Failed,
+                7 => Self::Deleting,
+                8 => Self::PostProcessing,
+                9 => Self::Cooldown,
+                10 => Self::Stopping,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "PENDING" => Self::Pending,
+                "UPDATING" => Self::Updating,
+                "SCHEDULED" => Self::Scheduled,
+                "LIVE" => Self::Live,
+                "FINISHED" => Self::Finished,
+                "FAILED" => Self::Failed,
+                "DELETING" => Self::Deleting,
+                "POST_PROCESSING" => Self::PostProcessing,
+                "COOLDOWN" => Self::Cooldown,
+                "STOPPING" => Self::Stopping,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Pending => serializer.serialize_i32(1),
+                Self::Updating => serializer.serialize_i32(2),
+                Self::Scheduled => serializer.serialize_i32(3),
+                Self::Live => serializer.serialize_i32(4),
+                Self::Finished => serializer.serialize_i32(5),
+                Self::Failed => serializer.serialize_i32(6),
+                Self::Deleting => serializer.serialize_i32(7),
+                Self::PostProcessing => serializer.serialize_i32(8),
+                Self::Cooldown => serializer.serialize_i32(9),
+                Self::Stopping => serializer.serialize_i32(10),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.video.livestream.v1.DvrSession.State",
             ))
         }
     }
@@ -7830,6 +8551,7 @@ pub struct UpdateInputRequest {
     /// Field mask is used to specify the fields to be overwritten in the Input
     /// resource by the update. You can only update the following fields:
     ///
+    /// * [`tier`](https://cloud.google.com/livestream/docs/reference/rest/v1/projects.locations.inputs#Tier)
     /// * [`preprocessingConfig`](https://cloud.google.com/livestream/docs/reference/rest/v1/projects.locations.inputs#PreprocessingConfig)
     /// * [`securityRules`](https://cloud.google.com/livestream/docs/reference/rest/v1/projects.locations.inputs#SecurityRule)
     ///
@@ -8603,6 +9325,428 @@ impl wkt::message::Message for DeleteClipRequest {
     }
 }
 
+/// Request message for "LivestreamService.ListDvrSessions".
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ListDvrSessionsRequest {
+    /// Required. Parent value for ListDvrSessionsRequest
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub parent: std::string::String,
+
+    /// Optional. Requested page size. Server may return fewer items than
+    /// requested. If unspecified, server will pick an appropriate default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    pub page_size: i32,
+
+    /// Optional. A token identifying a page of results the server should return.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub page_token: std::string::String,
+
+    /// Optional. Filtering results
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub filter: std::string::String,
+
+    /// Optional. Hint for how to order the results
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListDvrSessionsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListDvrSessionsRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListDvrSessionsRequest::page_size].
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListDvrSessionsRequest::page_token].
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::ListDvrSessionsRequest::filter].
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+
+    /// Sets the value of [order_by][crate::model::ListDvrSessionsRequest::order_by].
+    pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.order_by = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListDvrSessionsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.video.livestream.v1.ListDvrSessionsRequest"
+    }
+}
+
+/// Response message for "LivestreamService.ListDvrSessions".
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ListDvrSessionsResponse {
+    /// The list of DVR sessions
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub dvr_sessions: std::vec::Vec<crate::model::DvrSession>,
+
+    /// A token identifying a page of results the server should return.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub next_page_token: std::string::String,
+
+    /// Locations that could not be reached.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListDvrSessionsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [dvr_sessions][crate::model::ListDvrSessionsResponse::dvr_sessions].
+    pub fn set_dvr_sessions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::DvrSession>,
+    {
+        use std::iter::Iterator;
+        self.dvr_sessions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListDvrSessionsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListDvrSessionsResponse::unreachable].
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ListDvrSessionsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.video.livestream.v1.ListDvrSessionsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListDvrSessionsResponse {
+    type PageItem = crate::model::DvrSession;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.dvr_sessions
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Request message for "LivestreamService.GetDvrSession".
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct GetDvrSessionRequest {
+    /// Required. Name of the resource, in the following form:
+    /// `projects/{project}/locations/{location}/channels/{channelId}/dvrSessions/{dvrSessionId}`.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetDvrSessionRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetDvrSessionRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetDvrSessionRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.video.livestream.v1.GetDvrSessionRequest"
+    }
+}
+
+/// Request message for "LivestreamService.CreateDvrSession".
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct CreateDvrSessionRequest {
+    /// Required. The parent resource name, in the following form:
+    /// `projects/{project}/locations/{location}/channels/{channelId}`.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub parent: std::string::String,
+
+    /// Required. Id of the requesting object in the following form:
+    ///
+    /// . 1 character minimum, 63 characters maximum
+    /// . Only contains letters, digits, underscores, and hyphens
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub dvr_session_id: std::string::String,
+
+    /// Required. The resource being created
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub dvr_session: std::option::Option<crate::model::DvrSession>,
+
+    /// Optional. An optional request ID to identify requests. Specify a unique
+    /// request ID so that if you must retry your request, the server will know to
+    /// ignore the request if it has already been completed. The server will
+    /// guarantee that for at least 60 minutes since the first request.
+    ///
+    /// For example, consider a situation where you make an initial request and
+    /// the request times out. If you make the request again with the same request
+    /// ID, the server can check if original operation with the same request ID
+    /// was received, and if so, will ignore the second request. This prevents
+    /// clients from accidentally creating duplicate commitments.
+    ///
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported (00000000-0000-0000-0000-000000000000).
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateDvrSessionRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateDvrSessionRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [dvr_session_id][crate::model::CreateDvrSessionRequest::dvr_session_id].
+    pub fn set_dvr_session_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.dvr_session_id = v.into();
+        self
+    }
+
+    /// Sets the value of [dvr_session][crate::model::CreateDvrSessionRequest::dvr_session].
+    pub fn set_dvr_session<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DvrSession>,
+    {
+        self.dvr_session = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [dvr_session][crate::model::CreateDvrSessionRequest::dvr_session].
+    pub fn set_or_clear_dvr_session<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DvrSession>,
+    {
+        self.dvr_session = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::CreateDvrSessionRequest::request_id].
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CreateDvrSessionRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.video.livestream.v1.CreateDvrSessionRequest"
+    }
+}
+
+/// Request message for "LivestreamService.DeleteDvrSession".
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct DeleteDvrSessionRequest {
+    /// Required. The name of the event resource, in the form of:
+    /// `projects/{project}/locations/{location}/channels/{channelId}/dvrSessions/{dvrSessionId}`.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    /// Optional. A request ID to identify requests. Specify a unique request ID
+    /// so that if you must retry your request, the server will know to ignore
+    /// the request if it has already been completed. The server will guarantee
+    /// that for at least 60 minutes since the first request.
+    ///
+    /// For example, consider a situation where you make an initial request and the
+    /// request times out. If you make the request again with the same request ID,
+    /// the server can check if original operation with the same request ID was
+    /// received, and if so, will ignore the second request. This prevents clients
+    /// from accidentally creating duplicate commitments.
+    ///
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported `(00000000-0000-0000-0000-000000000000)`.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteDvrSessionRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteDvrSessionRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::DeleteDvrSessionRequest::request_id].
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteDvrSessionRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.video.livestream.v1.DeleteDvrSessionRequest"
+    }
+}
+
+/// Request message for "LivestreamService.UpdateDvrSession".
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct UpdateDvrSessionRequest {
+    /// Required. Field mask is used to specify the fields to be overwritten in the
+    /// DvrSession resource by the update. You can only update the following
+    /// fields:
+    ///
+    /// * `dvrWindows`
+    ///
+    /// The fields specified in the update_mask are relative to the resource, not
+    /// the full request. A field will be overwritten if it is in the mask.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    /// Required. The DVR session resource to be updated.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub dvr_session: std::option::Option<crate::model::DvrSession>,
+
+    /// Optional. A request ID to identify requests. Specify a unique request ID
+    /// so that if you must retry your request, the server will know to ignore
+    /// the request if it has already been completed. The server will guarantee
+    /// that for at least 60 minutes since the first request.
+    ///
+    /// For example, consider a situation where you make an initial request and the
+    /// request times out. If you make the request again with the same request ID,
+    /// the server can check if original operation with the same request ID was
+    /// received, and if so, will ignore the second request. This prevents clients
+    /// from accidentally creating duplicate commitments.
+    ///
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported `(00000000-0000-0000-0000-000000000000)`.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateDvrSessionRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateDvrSessionRequest::update_mask].
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateDvrSessionRequest::update_mask].
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [dvr_session][crate::model::UpdateDvrSessionRequest::dvr_session].
+    pub fn set_dvr_session<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DvrSession>,
+    {
+        self.dvr_session = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [dvr_session][crate::model::UpdateDvrSessionRequest::dvr_session].
+    pub fn set_or_clear_dvr_session<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DvrSession>,
+    {
+        self.dvr_session = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::UpdateDvrSessionRequest::request_id].
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateDvrSessionRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.video.livestream.v1.UpdateDvrSessionRequest"
+    }
+}
+
 /// Represents the metadata of the long-running operation.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -8627,10 +9771,12 @@ pub struct OperationMetadata {
 
     /// Output only. Identifies whether the user has requested cancellation
     /// of the operation. Operations that have successfully been cancelled
-    /// have [Operation.error][] value with a
-    /// [google.rpc.Status.code][google.rpc.Status.code] of 1, corresponding to
-    /// `Code.CANCELLED`.
+    /// have
+    /// [google.longrunning.Operation.error][google.longrunning.Operation.error]
+    /// value with a [google.rpc.Status.code][google.rpc.Status.code] of 1,
+    /// corresponding to `Code.CANCELLED`.
     ///
+    /// [google.longrunning.Operation.error]: longrunning::model::Operation::result
     /// [google.rpc.Status.code]: rpc::model::Status::code
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub requested_cancellation: bool,

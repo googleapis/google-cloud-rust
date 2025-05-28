@@ -2564,3 +2564,1314 @@ impl gax::paginator::internal::PageableResponse for ListAnywhereCachesResponse {
         self.next_page_token.clone()
     }
 }
+
+/// The `IntelligenceConfig` resource associated with your organization, folder,
+/// or project.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct IntelligenceConfig {
+    /// Identifier. The name of the `IntelligenceConfig` resource associated with
+    /// your organization, folder, or project.
+    ///
+    /// The name format varies based on the GCP resource hierarchy as follows:
+    ///
+    /// * For project:
+    ///   `projects/{project_number}/locations/global/intelligenceConfig`
+    /// * For organization:
+    ///   `organizations/{org_id}/locations/global/intelligenceConfig`
+    /// * For folder: `folders/{folder_id}/locations/global/intelligenceConfig`
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    /// Optional. The edition configuration of the `IntelligenceConfig` resource.
+    pub edition_config: crate::model::intelligence_config::EditionConfig,
+
+    /// Output only. The time at which the `IntelligenceConfig` resource is last
+    /// updated.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Optional. Filter over location and bucket.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub filter: std::option::Option<crate::model::intelligence_config::Filter>,
+
+    /// Output only. The `IntelligenceConfig` resource that is applicable for the
+    /// resource.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub effective_intelligence_config:
+        std::option::Option<crate::model::intelligence_config::EffectiveIntelligenceConfig>,
+
+    /// The trial configuration of the `IntelligenceConfig` resource.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub trial_config: std::option::Option<crate::model::intelligence_config::TrialConfig>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl IntelligenceConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::IntelligenceConfig::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [edition_config][crate::model::IntelligenceConfig::edition_config].
+    pub fn set_edition_config<
+        T: std::convert::Into<crate::model::intelligence_config::EditionConfig>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.edition_config = v.into();
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::IntelligenceConfig::update_time].
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::IntelligenceConfig::update_time].
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::IntelligenceConfig::filter].
+    pub fn set_filter<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::intelligence_config::Filter>,
+    {
+        self.filter = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [filter][crate::model::IntelligenceConfig::filter].
+    pub fn set_or_clear_filter<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::intelligence_config::Filter>,
+    {
+        self.filter = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [effective_intelligence_config][crate::model::IntelligenceConfig::effective_intelligence_config].
+    pub fn set_effective_intelligence_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::intelligence_config::EffectiveIntelligenceConfig>,
+    {
+        self.effective_intelligence_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [effective_intelligence_config][crate::model::IntelligenceConfig::effective_intelligence_config].
+    pub fn set_or_clear_effective_intelligence_config<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::intelligence_config::EffectiveIntelligenceConfig>,
+    {
+        self.effective_intelligence_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [trial_config][crate::model::IntelligenceConfig::trial_config].
+    pub fn set_trial_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::intelligence_config::TrialConfig>,
+    {
+        self.trial_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [trial_config][crate::model::IntelligenceConfig::trial_config].
+    pub fn set_or_clear_trial_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::intelligence_config::TrialConfig>,
+    {
+        self.trial_config = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for IntelligenceConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.storage.control.v2.IntelligenceConfig"
+    }
+}
+
+/// Defines additional types related to [IntelligenceConfig].
+pub mod intelligence_config {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Filter over location and bucket using include or exclude semantics.
+    /// Resources that match the include or exclude filter are exclusively included
+    /// or excluded from the Storage Intelligence plan.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct Filter {
+        /// Bucket locations to include or exclude.
+        #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
+        pub cloud_storage_locations: std::option::Option<
+            crate::model::intelligence_config::filter::CloudStorageLocationsOneOf,
+        >,
+
+        /// Buckets to include or exclude.
+        #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
+        pub cloud_storage_buckets: std::option::Option<
+            crate::model::intelligence_config::filter::CloudStorageBucketsOneOf,
+        >,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl Filter {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [cloud_storage_locations][crate::model::intelligence_config::Filter::cloud_storage_locations].
+        ///
+        /// Note that all the setters affecting `cloud_storage_locations` are mutually
+        /// exclusive.
+        pub fn set_cloud_storage_locations<
+            T: std::convert::Into<
+                    std::option::Option<
+                        crate::model::intelligence_config::filter::CloudStorageLocationsOneOf,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.cloud_storage_locations = v.into();
+            self
+        }
+
+        /// The value of [cloud_storage_locations][crate::model::intelligence_config::Filter::cloud_storage_locations]
+        /// if it holds a `IncludedCloudStorageLocations`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn included_cloud_storage_locations(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<crate::model::intelligence_config::filter::CloudStorageLocations>,
+        > {
+            #[allow(unreachable_patterns)]
+            self.cloud_storage_locations.as_ref().and_then(|v| match v {
+                crate::model::intelligence_config::filter::CloudStorageLocationsOneOf::IncludedCloudStorageLocations(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [cloud_storage_locations][crate::model::intelligence_config::Filter::cloud_storage_locations]
+        /// to hold a `IncludedCloudStorageLocations`.
+        ///
+        /// Note that all the setters affecting `cloud_storage_locations` are
+        /// mutually exclusive.
+        pub fn set_included_cloud_storage_locations<
+            T: std::convert::Into<
+                    std::boxed::Box<
+                        crate::model::intelligence_config::filter::CloudStorageLocations,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.cloud_storage_locations = std::option::Option::Some(
+                crate::model::intelligence_config::filter::CloudStorageLocationsOneOf::IncludedCloudStorageLocations(
+                    v.into()
+                )
+            );
+            self
+        }
+
+        /// The value of [cloud_storage_locations][crate::model::intelligence_config::Filter::cloud_storage_locations]
+        /// if it holds a `ExcludedCloudStorageLocations`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn excluded_cloud_storage_locations(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<crate::model::intelligence_config::filter::CloudStorageLocations>,
+        > {
+            #[allow(unreachable_patterns)]
+            self.cloud_storage_locations.as_ref().and_then(|v| match v {
+                crate::model::intelligence_config::filter::CloudStorageLocationsOneOf::ExcludedCloudStorageLocations(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [cloud_storage_locations][crate::model::intelligence_config::Filter::cloud_storage_locations]
+        /// to hold a `ExcludedCloudStorageLocations`.
+        ///
+        /// Note that all the setters affecting `cloud_storage_locations` are
+        /// mutually exclusive.
+        pub fn set_excluded_cloud_storage_locations<
+            T: std::convert::Into<
+                    std::boxed::Box<
+                        crate::model::intelligence_config::filter::CloudStorageLocations,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.cloud_storage_locations = std::option::Option::Some(
+                crate::model::intelligence_config::filter::CloudStorageLocationsOneOf::ExcludedCloudStorageLocations(
+                    v.into()
+                )
+            );
+            self
+        }
+
+        /// Sets the value of [cloud_storage_buckets][crate::model::intelligence_config::Filter::cloud_storage_buckets].
+        ///
+        /// Note that all the setters affecting `cloud_storage_buckets` are mutually
+        /// exclusive.
+        pub fn set_cloud_storage_buckets<
+            T: std::convert::Into<
+                    std::option::Option<
+                        crate::model::intelligence_config::filter::CloudStorageBucketsOneOf,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.cloud_storage_buckets = v.into();
+            self
+        }
+
+        /// The value of [cloud_storage_buckets][crate::model::intelligence_config::Filter::cloud_storage_buckets]
+        /// if it holds a `IncludedCloudStorageBuckets`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn included_cloud_storage_buckets(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<crate::model::intelligence_config::filter::CloudStorageBuckets>,
+        > {
+            #[allow(unreachable_patterns)]
+            self.cloud_storage_buckets.as_ref().and_then(|v| match v {
+                crate::model::intelligence_config::filter::CloudStorageBucketsOneOf::IncludedCloudStorageBuckets(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [cloud_storage_buckets][crate::model::intelligence_config::Filter::cloud_storage_buckets]
+        /// to hold a `IncludedCloudStorageBuckets`.
+        ///
+        /// Note that all the setters affecting `cloud_storage_buckets` are
+        /// mutually exclusive.
+        pub fn set_included_cloud_storage_buckets<
+            T: std::convert::Into<
+                    std::boxed::Box<crate::model::intelligence_config::filter::CloudStorageBuckets>,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.cloud_storage_buckets = std::option::Option::Some(
+                crate::model::intelligence_config::filter::CloudStorageBucketsOneOf::IncludedCloudStorageBuckets(
+                    v.into()
+                )
+            );
+            self
+        }
+
+        /// The value of [cloud_storage_buckets][crate::model::intelligence_config::Filter::cloud_storage_buckets]
+        /// if it holds a `ExcludedCloudStorageBuckets`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn excluded_cloud_storage_buckets(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<crate::model::intelligence_config::filter::CloudStorageBuckets>,
+        > {
+            #[allow(unreachable_patterns)]
+            self.cloud_storage_buckets.as_ref().and_then(|v| match v {
+                crate::model::intelligence_config::filter::CloudStorageBucketsOneOf::ExcludedCloudStorageBuckets(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [cloud_storage_buckets][crate::model::intelligence_config::Filter::cloud_storage_buckets]
+        /// to hold a `ExcludedCloudStorageBuckets`.
+        ///
+        /// Note that all the setters affecting `cloud_storage_buckets` are
+        /// mutually exclusive.
+        pub fn set_excluded_cloud_storage_buckets<
+            T: std::convert::Into<
+                    std::boxed::Box<crate::model::intelligence_config::filter::CloudStorageBuckets>,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.cloud_storage_buckets = std::option::Option::Some(
+                crate::model::intelligence_config::filter::CloudStorageBucketsOneOf::ExcludedCloudStorageBuckets(
+                    v.into()
+                )
+            );
+            self
+        }
+    }
+
+    impl wkt::message::Message for Filter {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.storage.control.v2.IntelligenceConfig.Filter"
+        }
+    }
+
+    /// Defines additional types related to [Filter].
+    pub mod filter {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Collection of bucket locations.
+        #[serde_with::serde_as]
+        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[serde(default, rename_all = "camelCase")]
+        #[non_exhaustive]
+        pub struct CloudStorageLocations {
+            /// Optional. Bucket locations. Location can be any of the Cloud Storage
+            /// regions specified in lower case format. For example, `us-east1`,
+            /// `us-west1`.
+            #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            pub locations: std::vec::Vec<std::string::String>,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl CloudStorageLocations {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [locations][crate::model::intelligence_config::filter::CloudStorageLocations::locations].
+            pub fn set_locations<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<std::string::String>,
+            {
+                use std::iter::Iterator;
+                self.locations = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+        }
+
+        impl wkt::message::Message for CloudStorageLocations {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.storage.control.v2.IntelligenceConfig.Filter.CloudStorageLocations"
+            }
+        }
+
+        /// Collection of buckets.
+        #[serde_with::serde_as]
+        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[serde(default, rename_all = "camelCase")]
+        #[non_exhaustive]
+        pub struct CloudStorageBuckets {
+            /// Optional. A regex pattern for matching bucket names. Regex should
+            /// follow the syntax specified in
+            /// [google/re2](https://github.com/google/re2). For example,
+            /// `^sample_.*` matches all buckets of the form
+            /// `gs://sample_bucket-1`, `gs://sample_bucket-2`,
+            /// `gs://sample_bucket-n` but not `gs://test_sample_bucket`.
+            /// If you want to match a single bucket, say `gs://sample_bucket`,
+            /// use `sample_bucket`.
+            #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            pub bucket_id_regexes: std::vec::Vec<std::string::String>,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl CloudStorageBuckets {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [bucket_id_regexes][crate::model::intelligence_config::filter::CloudStorageBuckets::bucket_id_regexes].
+            pub fn set_bucket_id_regexes<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<std::string::String>,
+            {
+                use std::iter::Iterator;
+                self.bucket_id_regexes = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+        }
+
+        impl wkt::message::Message for CloudStorageBuckets {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.storage.control.v2.IntelligenceConfig.Filter.CloudStorageBuckets"
+            }
+        }
+
+        /// Bucket locations to include or exclude.
+        #[serde_with::serde_as]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[serde(rename_all = "camelCase")]
+        #[non_exhaustive]
+        pub enum CloudStorageLocationsOneOf {
+            /// Bucket locations to include.
+            IncludedCloudStorageLocations(
+                std::boxed::Box<crate::model::intelligence_config::filter::CloudStorageLocations>,
+            ),
+            /// Bucket locations to exclude.
+            ExcludedCloudStorageLocations(
+                std::boxed::Box<crate::model::intelligence_config::filter::CloudStorageLocations>,
+            ),
+        }
+
+        impl CloudStorageLocationsOneOf {
+            /// Initializes the enum to the [IncludedCloudStorageLocations](Self::IncludedCloudStorageLocations) branch.
+            pub fn from_included_cloud_storage_locations(
+                value: impl std::convert::Into<
+                    std::boxed::Box<
+                        crate::model::intelligence_config::filter::CloudStorageLocations,
+                    >,
+                >,
+            ) -> Self {
+                Self::IncludedCloudStorageLocations(value.into())
+            }
+            /// Initializes the enum to the [ExcludedCloudStorageLocations](Self::ExcludedCloudStorageLocations) branch.
+            pub fn from_excluded_cloud_storage_locations(
+                value: impl std::convert::Into<
+                    std::boxed::Box<
+                        crate::model::intelligence_config::filter::CloudStorageLocations,
+                    >,
+                >,
+            ) -> Self {
+                Self::ExcludedCloudStorageLocations(value.into())
+            }
+        }
+
+        /// Buckets to include or exclude.
+        #[serde_with::serde_as]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[serde(rename_all = "camelCase")]
+        #[non_exhaustive]
+        pub enum CloudStorageBucketsOneOf {
+            /// Buckets to include.
+            IncludedCloudStorageBuckets(
+                std::boxed::Box<crate::model::intelligence_config::filter::CloudStorageBuckets>,
+            ),
+            /// Buckets to exclude.
+            ExcludedCloudStorageBuckets(
+                std::boxed::Box<crate::model::intelligence_config::filter::CloudStorageBuckets>,
+            ),
+        }
+
+        impl CloudStorageBucketsOneOf {
+            /// Initializes the enum to the [IncludedCloudStorageBuckets](Self::IncludedCloudStorageBuckets) branch.
+            pub fn from_included_cloud_storage_buckets(
+                value: impl std::convert::Into<
+                    std::boxed::Box<crate::model::intelligence_config::filter::CloudStorageBuckets>,
+                >,
+            ) -> Self {
+                Self::IncludedCloudStorageBuckets(value.into())
+            }
+            /// Initializes the enum to the [ExcludedCloudStorageBuckets](Self::ExcludedCloudStorageBuckets) branch.
+            pub fn from_excluded_cloud_storage_buckets(
+                value: impl std::convert::Into<
+                    std::boxed::Box<crate::model::intelligence_config::filter::CloudStorageBuckets>,
+                >,
+            ) -> Self {
+                Self::ExcludedCloudStorageBuckets(value.into())
+            }
+        }
+    }
+
+    /// The effective `IntelligenceConfig` for the resource.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct EffectiveIntelligenceConfig {
+        /// Output only. The `IntelligenceConfig` edition that is applicable for the
+        /// resource.
+        pub effective_edition:
+            crate::model::intelligence_config::effective_intelligence_config::EffectiveEdition,
+
+        /// Output only. The `IntelligenceConfig` resource that is applied for the
+        /// target resource. Format:
+        /// `{organizations|folders|projects}/{id}/locations/{location}/intelligenceConfig`
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub intelligence_config: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl EffectiveIntelligenceConfig {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [effective_edition][crate::model::intelligence_config::EffectiveIntelligenceConfig::effective_edition].
+        pub fn set_effective_edition<T: std::convert::Into<crate::model::intelligence_config::effective_intelligence_config::EffectiveEdition>>(mut self, v: T) -> Self{
+            self.effective_edition = v.into();
+            self
+        }
+
+        /// Sets the value of [intelligence_config][crate::model::intelligence_config::EffectiveIntelligenceConfig::intelligence_config].
+        pub fn set_intelligence_config<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.intelligence_config = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for EffectiveIntelligenceConfig {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.storage.control.v2.IntelligenceConfig.EffectiveIntelligenceConfig"
+        }
+    }
+
+    /// Defines additional types related to [EffectiveIntelligenceConfig].
+    pub mod effective_intelligence_config {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// The effective edition of the `IntelligenceConfig` resource.
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum EffectiveEdition {
+            /// This is an unknown edition of the resource.
+            Unspecified,
+            /// No edition.
+            None,
+            /// The `IntelligenceConfig` resource is of STANDARD edition.
+            Standard,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [EffectiveEdition::value] or
+            /// [EffectiveEdition::name].
+            UnknownValue(effective_edition::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        pub mod effective_edition {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
+
+        impl EffectiveEdition {
+            /// Gets the enum value.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::None => std::option::Option::Some(1),
+                    Self::Standard => std::option::Option::Some(2),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
+            }
+
+            /// Gets the enum value as a string.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some("EFFECTIVE_EDITION_UNSPECIFIED"),
+                    Self::None => std::option::Option::Some("NONE"),
+                    Self::Standard => std::option::Option::Some("STANDARD"),
+                    Self::UnknownValue(u) => u.0.name(),
+                }
+            }
+        }
+
+        impl std::default::Default for EffectiveEdition {
+            fn default() -> Self {
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for EffectiveEdition {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for EffectiveEdition {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::None,
+                    2 => Self::Standard,
+                    _ => Self::UnknownValue(effective_edition::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for EffectiveEdition {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "EFFECTIVE_EDITION_UNSPECIFIED" => Self::Unspecified,
+                    "NONE" => Self::None,
+                    "STANDARD" => Self::Standard,
+                    _ => Self::UnknownValue(effective_edition::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for EffectiveEdition {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::None => serializer.serialize_i32(1),
+                    Self::Standard => serializer.serialize_i32(2),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for EffectiveEdition {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<EffectiveEdition>::new(
+                    ".google.storage.control.v2.IntelligenceConfig.EffectiveIntelligenceConfig.EffectiveEdition"))
+            }
+        }
+    }
+
+    /// The trial configuration of the `IntelligenceConfig` resource.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct TrialConfig {
+        /// Output only. The time at which the trial expires.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub expire_time: std::option::Option<wkt::Timestamp>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl TrialConfig {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [expire_time][crate::model::intelligence_config::TrialConfig::expire_time].
+        pub fn set_expire_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.expire_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [expire_time][crate::model::intelligence_config::TrialConfig::expire_time].
+        pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.expire_time = v.map(|x| x.into());
+            self
+        }
+    }
+
+    impl wkt::message::Message for TrialConfig {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.storage.control.v2.IntelligenceConfig.TrialConfig"
+        }
+    }
+
+    /// The edition configuration of the `IntelligenceConfig` resource. This
+    /// signifies the edition used for configuring the `IntelligenceConfig`
+    /// resource and can only take the following values:
+    /// `EDITION_CONFIG_UNSPECIFIED`, `INHERIT`, `DISABLED`, `STANDARD` and
+    /// `TRIAL`.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum EditionConfig {
+        /// This is an unknown edition of the resource.
+        Unspecified,
+        /// The inherited edition from the parent and filters. This is the default
+        /// edition when there is no `IntelligenceConfig` setup for a GCP resource.
+        Inherit,
+        /// The edition configuration is disabled for the `IntelligenceConfig`
+        /// resource and its children. Filters are not applicable.
+        Disabled,
+        /// The `IntelligenceConfig` resource is of STANDARD edition.
+        Standard,
+        /// The `IntelligenceConfig` resource is available in `TRIAL` edition. During
+        /// the trial period, Cloud Storage does not charge for Storage Intelligence
+        /// usage. You can specify the buckets to include in the trial period by
+        /// using filters. At the end of the trial period, the `IntelligenceConfig`
+        /// resource is upgraded to `STANDARD` edition.
+        Trial,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [EditionConfig::value] or
+        /// [EditionConfig::name].
+        UnknownValue(edition_config::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod edition_config {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl EditionConfig {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Inherit => std::option::Option::Some(1),
+                Self::Disabled => std::option::Option::Some(2),
+                Self::Standard => std::option::Option::Some(3),
+                Self::Trial => std::option::Option::Some(5),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("EDITION_CONFIG_UNSPECIFIED"),
+                Self::Inherit => std::option::Option::Some("INHERIT"),
+                Self::Disabled => std::option::Option::Some("DISABLED"),
+                Self::Standard => std::option::Option::Some("STANDARD"),
+                Self::Trial => std::option::Option::Some("TRIAL"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for EditionConfig {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for EditionConfig {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for EditionConfig {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Inherit,
+                2 => Self::Disabled,
+                3 => Self::Standard,
+                5 => Self::Trial,
+                _ => Self::UnknownValue(edition_config::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for EditionConfig {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "EDITION_CONFIG_UNSPECIFIED" => Self::Unspecified,
+                "INHERIT" => Self::Inherit,
+                "DISABLED" => Self::Disabled,
+                "STANDARD" => Self::Standard,
+                "TRIAL" => Self::Trial,
+                _ => Self::UnknownValue(edition_config::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for EditionConfig {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Inherit => serializer.serialize_i32(1),
+                Self::Disabled => serializer.serialize_i32(2),
+                Self::Standard => serializer.serialize_i32(3),
+                Self::Trial => serializer.serialize_i32(5),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for EditionConfig {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<EditionConfig>::new(
+                ".google.storage.control.v2.IntelligenceConfig.EditionConfig",
+            ))
+        }
+    }
+}
+
+/// Request message to update the `IntelligenceConfig` resource associated with
+/// your organization.
+///
+/// **IAM Permissions**:
+///
+/// Requires `storage.intelligenceConfigs.update`
+/// [IAM](https://cloud.google.com/iam/docs/overview#permissions) permission on
+/// the organization.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct UpdateOrganizationIntelligenceConfigRequest {
+    /// Required. The `IntelligenceConfig` resource to be updated.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub intelligence_config: std::option::Option<crate::model::IntelligenceConfig>,
+
+    /// Required. The `update_mask` that specifies the fields within the
+    /// `IntelligenceConfig` resource that should be modified by this update. Only
+    /// the listed fields are updated.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    /// Optional. The ID that uniquely identifies the request, preventing duplicate
+    /// processing.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateOrganizationIntelligenceConfigRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [intelligence_config][crate::model::UpdateOrganizationIntelligenceConfigRequest::intelligence_config].
+    pub fn set_intelligence_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::IntelligenceConfig>,
+    {
+        self.intelligence_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [intelligence_config][crate::model::UpdateOrganizationIntelligenceConfigRequest::intelligence_config].
+    pub fn set_or_clear_intelligence_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::IntelligenceConfig>,
+    {
+        self.intelligence_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateOrganizationIntelligenceConfigRequest::update_mask].
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateOrganizationIntelligenceConfigRequest::update_mask].
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::UpdateOrganizationIntelligenceConfigRequest::request_id].
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateOrganizationIntelligenceConfigRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.storage.control.v2.UpdateOrganizationIntelligenceConfigRequest"
+    }
+}
+
+/// Request message to update the `IntelligenceConfig` resource associated with
+/// your folder.
+///
+/// **IAM Permissions**:
+///
+/// Requires `storage.intelligenceConfigs.update`
+/// [IAM](https://cloud.google.com/iam/docs/overview#permissions) permission on
+/// the folder.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct UpdateFolderIntelligenceConfigRequest {
+    /// Required. The `IntelligenceConfig` resource to be updated.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub intelligence_config: std::option::Option<crate::model::IntelligenceConfig>,
+
+    /// Required. The `update_mask` that specifies the fields within the
+    /// `IntelligenceConfig` resource that should be modified by this update. Only
+    /// the listed fields are updated.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    /// Optional. The ID that uniquely identifies the request, preventing duplicate
+    /// processing.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateFolderIntelligenceConfigRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [intelligence_config][crate::model::UpdateFolderIntelligenceConfigRequest::intelligence_config].
+    pub fn set_intelligence_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::IntelligenceConfig>,
+    {
+        self.intelligence_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [intelligence_config][crate::model::UpdateFolderIntelligenceConfigRequest::intelligence_config].
+    pub fn set_or_clear_intelligence_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::IntelligenceConfig>,
+    {
+        self.intelligence_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateFolderIntelligenceConfigRequest::update_mask].
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateFolderIntelligenceConfigRequest::update_mask].
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::UpdateFolderIntelligenceConfigRequest::request_id].
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateFolderIntelligenceConfigRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.storage.control.v2.UpdateFolderIntelligenceConfigRequest"
+    }
+}
+
+/// Request message to update the `IntelligenceConfig` resource associated with
+/// your project.
+///
+/// **IAM Permissions**:
+///
+/// Requires `storage.intelligenceConfigs.update`
+/// [IAM](https://cloud.google.com/iam/docs/overview#permissions) permission on
+/// the folder.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct UpdateProjectIntelligenceConfigRequest {
+    /// Required. The `IntelligenceConfig` resource to be updated.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub intelligence_config: std::option::Option<crate::model::IntelligenceConfig>,
+
+    /// Required. The `update_mask` that specifies the fields within the
+    /// `IntelligenceConfig` resource that should be modified by this update. Only
+    /// the listed fields are updated.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    /// Optional. The ID that uniquely identifies the request, preventing duplicate
+    /// processing.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateProjectIntelligenceConfigRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [intelligence_config][crate::model::UpdateProjectIntelligenceConfigRequest::intelligence_config].
+    pub fn set_intelligence_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::IntelligenceConfig>,
+    {
+        self.intelligence_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [intelligence_config][crate::model::UpdateProjectIntelligenceConfigRequest::intelligence_config].
+    pub fn set_or_clear_intelligence_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::IntelligenceConfig>,
+    {
+        self.intelligence_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateProjectIntelligenceConfigRequest::update_mask].
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateProjectIntelligenceConfigRequest::update_mask].
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::UpdateProjectIntelligenceConfigRequest::request_id].
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateProjectIntelligenceConfigRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.storage.control.v2.UpdateProjectIntelligenceConfigRequest"
+    }
+}
+
+/// Request message to get the `IntelligenceConfig` resource associated with your
+/// organization.
+///
+/// **IAM Permissions**
+///
+/// Requires `storage.intelligenceConfigs.get`
+/// [IAM](https://cloud.google.com/iam/docs/overview#permissions) permission on
+/// the organization.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct GetOrganizationIntelligenceConfigRequest {
+    /// Required. The name of the `IntelligenceConfig` resource associated with
+    /// your organization.
+    ///
+    /// Format: `organizations/{org_id}/locations/global/intelligenceConfig`
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetOrganizationIntelligenceConfigRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetOrganizationIntelligenceConfigRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetOrganizationIntelligenceConfigRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.storage.control.v2.GetOrganizationIntelligenceConfigRequest"
+    }
+}
+
+/// Request message to get the `IntelligenceConfig` resource associated with your
+/// folder.
+///
+/// **IAM Permissions**
+///
+/// Requires `storage.intelligenceConfigs.get`
+/// [IAM](https://cloud.google.com/iam/docs/overview#permissions) permission on
+/// the folder.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct GetFolderIntelligenceConfigRequest {
+    /// Required. The name of the `IntelligenceConfig` resource associated with
+    /// your folder.
+    ///
+    /// Format: `folders/{id}/locations/global/intelligenceConfig`
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetFolderIntelligenceConfigRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetFolderIntelligenceConfigRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetFolderIntelligenceConfigRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.storage.control.v2.GetFolderIntelligenceConfigRequest"
+    }
+}
+
+/// Request message to get the `IntelligenceConfig` resource associated with your
+/// project.
+///
+/// **IAM Permissions**:
+///
+/// Requires `storage.intelligenceConfigs.get`
+/// [IAM](https://cloud.google.com/iam/docs/overview#permissions) permission
+/// on the project.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct GetProjectIntelligenceConfigRequest {
+    /// Required. The name of the `IntelligenceConfig` resource associated with
+    /// your project.
+    ///
+    /// Format: `projects/{id}/locations/global/intelligenceConfig`
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetProjectIntelligenceConfigRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetProjectIntelligenceConfigRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetProjectIntelligenceConfigRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.storage.control.v2.GetProjectIntelligenceConfigRequest"
+    }
+}

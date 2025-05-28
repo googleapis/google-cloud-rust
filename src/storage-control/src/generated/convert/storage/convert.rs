@@ -981,6 +981,80 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::bucket::Autoclass> f
     }
 }
 
+impl gaxi::prost::ToProto<bucket::ip_filter::PublicNetworkSource> for crate::generated::gapic::model::bucket::ip_filter::PublicNetworkSource {
+    type Output = bucket::ip_filter::PublicNetworkSource;
+    fn to_proto(self) -> std::result::Result<bucket::ip_filter::PublicNetworkSource, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            allowed_ip_cidr_ranges: self.allowed_ip_cidr_ranges
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<crate::generated::gapic::model::bucket::ip_filter::PublicNetworkSource> for bucket::ip_filter::PublicNetworkSource {
+    fn cnv(self) -> std::result::Result<crate::generated::gapic::model::bucket::ip_filter::PublicNetworkSource, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic::model::bucket::ip_filter::PublicNetworkSource::new()
+                .set_allowed_ip_cidr_ranges(self.allowed_ip_cidr_ranges.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+        )
+    }
+}
+
+impl gaxi::prost::ToProto<bucket::ip_filter::VpcNetworkSource> for crate::generated::gapic::model::bucket::ip_filter::VpcNetworkSource {
+    type Output = bucket::ip_filter::VpcNetworkSource;
+    fn to_proto(self) -> std::result::Result<bucket::ip_filter::VpcNetworkSource, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            network: self.network.map(|v| v.to_proto()).transpose()?,
+            allowed_ip_cidr_ranges: self.allowed_ip_cidr_ranges
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<crate::generated::gapic::model::bucket::ip_filter::VpcNetworkSource> for bucket::ip_filter::VpcNetworkSource {
+    fn cnv(self) -> std::result::Result<crate::generated::gapic::model::bucket::ip_filter::VpcNetworkSource, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic::model::bucket::ip_filter::VpcNetworkSource::new()
+                .set_or_clear_network(self.network.map(|v| v.cnv()).transpose()?)
+                .set_allowed_ip_cidr_ranges(self.allowed_ip_cidr_ranges.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+        )
+    }
+}
+
+impl gaxi::prost::ToProto<bucket::IpFilter> for crate::generated::gapic::model::bucket::IpFilter {
+    type Output = bucket::IpFilter;
+    fn to_proto(self) -> std::result::Result<bucket::IpFilter, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            mode: self.mode.map(|v| v.to_proto()).transpose()?,
+            public_network_source: self.public_network_source.map(|v| v.to_proto()).transpose()?,
+            vpc_network_sources: self.vpc_network_sources
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            allow_cross_org_vpcs: self.allow_cross_org_vpcs.to_proto()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<crate::generated::gapic::model::bucket::IpFilter> for bucket::IpFilter {
+    fn cnv(self) -> std::result::Result<crate::generated::gapic::model::bucket::IpFilter, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic::model::bucket::IpFilter::new()
+                .set_or_clear_mode(self.mode.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_public_network_source(self.public_network_source.map(|v| v.cnv()).transpose()?)
+                .set_vpc_network_sources(self.vpc_network_sources.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+                .set_allow_cross_org_vpcs(self.allow_cross_org_vpcs)
+        )
+    }
+}
+
 impl gaxi::prost::ToProto<bucket::HierarchicalNamespace> for crate::generated::gapic::model::bucket::HierarchicalNamespace {
     type Output = bucket::HierarchicalNamespace;
     fn to_proto(self) -> std::result::Result<bucket::HierarchicalNamespace, gaxi::prost::ConvertError> {
@@ -1046,6 +1120,7 @@ impl gaxi::prost::ToProto<Bucket> for crate::generated::gapic::model::Bucket {
             autoclass: self.autoclass.map(|v| v.to_proto()).transpose()?,
             hierarchical_namespace: self.hierarchical_namespace.map(|v| v.to_proto()).transpose()?,
             soft_delete_policy: self.soft_delete_policy.map(|v| v.to_proto()).transpose()?,
+            ip_filter: self.ip_filter.map(|v| v.to_proto()).transpose()?,
         })
     }
 }
@@ -1090,6 +1165,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::Bucket> for Bucket {
                 .set_or_clear_autoclass(self.autoclass.map(|v| v.cnv()).transpose()?)
                 .set_or_clear_hierarchical_namespace(self.hierarchical_namespace.map(|v| v.cnv()).transpose()?)
                 .set_or_clear_soft_delete_policy(self.soft_delete_policy.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_ip_filter(self.ip_filter.map(|v| v.cnv()).transpose()?)
         )
     }
 }
@@ -1168,6 +1244,33 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::CustomerEncryption> 
     }
 }
 
+impl gaxi::prost::ToProto<object::retention::Mode> for crate::generated::gapic::model::object::retention::Mode {
+    type Output = i32;
+    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
+        self.value().ok_or(gaxi::prost::ConvertError::EnumNoIntegerValue("crate::generated::gapic::model::object::retention::Mode"))
+    }
+}
+
+impl gaxi::prost::ToProto<object::Retention> for crate::generated::gapic::model::object::Retention {
+    type Output = object::Retention;
+    fn to_proto(self) -> std::result::Result<object::Retention, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            mode: self.mode.to_proto()?,
+            retain_until_time: self.retain_until_time.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<crate::generated::gapic::model::object::Retention> for object::Retention {
+    fn cnv(self) -> std::result::Result<crate::generated::gapic::model::object::Retention, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic::model::object::Retention::new()
+                .set_mode(self.mode)
+                .set_or_clear_retain_until_time(self.retain_until_time.map(|v| v.cnv()).transpose()?)
+        )
+    }
+}
+
 impl gaxi::prost::ToProto<Object> for crate::generated::gapic::model::Object {
     type Output = Object;
     fn to_proto(self) -> std::result::Result<Object, gaxi::prost::ConvertError> {
@@ -1210,6 +1313,7 @@ impl gaxi::prost::ToProto<Object> for crate::generated::gapic::model::Object {
             custom_time: self.custom_time.map(|v| v.to_proto()).transpose()?,
             soft_delete_time: self.soft_delete_time.map(|v| v.to_proto()).transpose()?,
             hard_delete_time: self.hard_delete_time.map(|v| v.to_proto()).transpose()?,
+            retention: self.retention.map(|v| v.to_proto()).transpose()?,
         })
     }
 }
@@ -1253,6 +1357,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::Object> for Object {
                 .set_or_clear_custom_time(self.custom_time.map(|v| v.cnv()).transpose()?)
                 .set_or_clear_soft_delete_time(self.soft_delete_time.map(|v| v.cnv()).transpose()?)
                 .set_or_clear_hard_delete_time(self.hard_delete_time.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_retention(self.retention.map(|v| v.cnv()).transpose()?)
         )
     }
 }
