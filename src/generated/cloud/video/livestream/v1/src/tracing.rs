@@ -218,6 +218,51 @@ where
     }
 
     #[tracing::instrument(ret)]
+    async fn create_dvr_session(
+        &self,
+        req: crate::model::CreateDvrSessionRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.create_dvr_session(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn list_dvr_sessions(
+        &self,
+        req: crate::model::ListDvrSessionsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListDvrSessionsResponse>> {
+        self.inner.list_dvr_sessions(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_dvr_session(
+        &self,
+        req: crate::model::GetDvrSessionRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::DvrSession>> {
+        self.inner.get_dvr_session(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn delete_dvr_session(
+        &self,
+        req: crate::model::DeleteDvrSessionRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.delete_dvr_session(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn update_dvr_session(
+        &self,
+        req: crate::model::UpdateDvrSessionRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.update_dvr_session(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
     async fn create_asset(
         &self,
         req: crate::model::CreateAssetRequest,

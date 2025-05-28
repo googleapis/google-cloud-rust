@@ -1267,6 +1267,8 @@ pub struct Bucket {
     pub hierarchical_namespace: ::core::option::Option<bucket::HierarchicalNamespace>,
     #[prost(message, optional, tag = "31")]
     pub soft_delete_policy: ::core::option::Option<bucket::SoftDeletePolicy>,
+    #[prost(message, optional, tag = "38")]
+    pub ip_filter: ::core::option::Option<bucket::IpFilter>,
 }
 /// Nested message and enum types in `Bucket`.
 pub mod bucket {
@@ -1590,6 +1592,70 @@ pub mod bucket {
             "type.googleapis.com/google.storage.v2.Bucket.Autoclass".into()
         }
     }
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct IpFilter {
+        #[prost(string, optional, tag = "1")]
+        pub mode: ::core::option::Option<::prost::alloc::string::String>,
+        #[prost(message, optional, tag = "2")]
+        pub public_network_source: ::core::option::Option<
+            ip_filter::PublicNetworkSource,
+        >,
+        #[prost(message, repeated, tag = "3")]
+        pub vpc_network_sources: ::prost::alloc::vec::Vec<ip_filter::VpcNetworkSource>,
+        #[prost(bool, tag = "4")]
+        pub allow_cross_org_vpcs: bool,
+    }
+    /// Nested message and enum types in `IpFilter`.
+    pub mod ip_filter {
+        #[derive(Clone, PartialEq, ::prost::Message)]
+        pub struct PublicNetworkSource {
+            #[prost(string, repeated, tag = "1")]
+            pub allowed_ip_cidr_ranges: ::prost::alloc::vec::Vec<
+                ::prost::alloc::string::String,
+            >,
+        }
+        impl ::prost::Name for PublicNetworkSource {
+            const NAME: &'static str = "PublicNetworkSource";
+            const PACKAGE: &'static str = "google.storage.v2";
+            fn full_name() -> ::prost::alloc::string::String {
+                "google.storage.v2.Bucket.IpFilter.PublicNetworkSource".into()
+            }
+            fn type_url() -> ::prost::alloc::string::String {
+                "type.googleapis.com/google.storage.v2.Bucket.IpFilter.PublicNetworkSource"
+                    .into()
+            }
+        }
+        #[derive(Clone, PartialEq, ::prost::Message)]
+        pub struct VpcNetworkSource {
+            #[prost(string, optional, tag = "1")]
+            pub network: ::core::option::Option<::prost::alloc::string::String>,
+            #[prost(string, repeated, tag = "2")]
+            pub allowed_ip_cidr_ranges: ::prost::alloc::vec::Vec<
+                ::prost::alloc::string::String,
+            >,
+        }
+        impl ::prost::Name for VpcNetworkSource {
+            const NAME: &'static str = "VpcNetworkSource";
+            const PACKAGE: &'static str = "google.storage.v2";
+            fn full_name() -> ::prost::alloc::string::String {
+                "google.storage.v2.Bucket.IpFilter.VpcNetworkSource".into()
+            }
+            fn type_url() -> ::prost::alloc::string::String {
+                "type.googleapis.com/google.storage.v2.Bucket.IpFilter.VpcNetworkSource"
+                    .into()
+            }
+        }
+    }
+    impl ::prost::Name for IpFilter {
+        const NAME: &'static str = "IpFilter";
+        const PACKAGE: &'static str = "google.storage.v2";
+        fn full_name() -> ::prost::alloc::string::String {
+            "google.storage.v2.Bucket.IpFilter".into()
+        }
+        fn type_url() -> ::prost::alloc::string::String {
+            "type.googleapis.com/google.storage.v2.Bucket.IpFilter".into()
+        }
+    }
     #[derive(Clone, Copy, PartialEq, ::prost::Message)]
     pub struct HierarchicalNamespace {
         #[prost(bool, tag = "1")]
@@ -1765,6 +1831,70 @@ pub struct Object {
     pub soft_delete_time: ::core::option::Option<::prost_types::Timestamp>,
     #[prost(message, optional, tag = "29")]
     pub hard_delete_time: ::core::option::Option<::prost_types::Timestamp>,
+    #[prost(message, optional, tag = "30")]
+    pub retention: ::core::option::Option<object::Retention>,
+}
+/// Nested message and enum types in `Object`.
+pub mod object {
+    #[derive(Clone, Copy, PartialEq, ::prost::Message)]
+    pub struct Retention {
+        #[prost(enumeration = "retention::Mode", tag = "1")]
+        pub mode: i32,
+        #[prost(message, optional, tag = "2")]
+        pub retain_until_time: ::core::option::Option<::prost_types::Timestamp>,
+    }
+    /// Nested message and enum types in `Retention`.
+    pub mod retention {
+        #[derive(
+            Clone,
+            Copy,
+            Debug,
+            PartialEq,
+            Eq,
+            Hash,
+            PartialOrd,
+            Ord,
+            ::prost::Enumeration
+        )]
+        #[repr(i32)]
+        pub enum Mode {
+            Unspecified = 0,
+            Unlocked = 1,
+            Locked = 2,
+        }
+        impl Mode {
+            /// String value of the enum field names used in the ProtoBuf definition.
+            ///
+            /// The values are not transformed in any way and thus are considered stable
+            /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+            pub fn as_str_name(&self) -> &'static str {
+                match self {
+                    Self::Unspecified => "MODE_UNSPECIFIED",
+                    Self::Unlocked => "UNLOCKED",
+                    Self::Locked => "LOCKED",
+                }
+            }
+            /// Creates an enum from field names used in the ProtoBuf definition.
+            pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+                match value {
+                    "MODE_UNSPECIFIED" => Some(Self::Unspecified),
+                    "UNLOCKED" => Some(Self::Unlocked),
+                    "LOCKED" => Some(Self::Locked),
+                    _ => None,
+                }
+            }
+        }
+    }
+    impl ::prost::Name for Retention {
+        const NAME: &'static str = "Retention";
+        const PACKAGE: &'static str = "google.storage.v2";
+        fn full_name() -> ::prost::alloc::string::String {
+            "google.storage.v2.Object.Retention".into()
+        }
+        fn type_url() -> ::prost::alloc::string::String {
+            "type.googleapis.com/google.storage.v2.Object.Retention".into()
+        }
+    }
 }
 impl ::prost::Name for Object {
     const NAME: &'static str = "Object";

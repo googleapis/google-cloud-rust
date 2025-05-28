@@ -16,8 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-
 /// Implements a client for the Cloud Storage API.
 #[derive(Clone, Debug)]
 pub struct StorageControl {
@@ -38,14 +36,16 @@ impl StorageControl {
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::StorageControl>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::StorageControl>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -54,13 +54,13 @@ impl StorageControl {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::StorageControl> {
+    ) -> gax::client_builder::Result<impl super::stub::StorageControl> {
         super::transport::StorageControl::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::StorageControl> {
+    ) -> gax::client_builder::Result<impl super::stub::StorageControl> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::StorageControl::new)
@@ -95,14 +95,18 @@ impl StorageControl {
 
     /// Gets the IAM policy for a specified bucket.
     /// The `resource` field in the request should be
-    /// `projects/_/buckets/{bucket}`.
+    /// `projects/_/buckets/{bucket}` for a bucket, or
+    /// `projects/_/buckets/{bucket}/managedFolders/{managedFolder}`
+    /// for a managed folder.
     pub fn get_iam_policy(&self) -> super::builder::storage_control::GetIamPolicy {
         super::builder::storage_control::GetIamPolicy::new(self.inner.clone())
     }
 
     /// Updates an IAM policy for the specified bucket.
     /// The `resource` field in the request should be
-    /// `projects/_/buckets/{bucket}`.
+    /// `projects/_/buckets/{bucket}` for a bucket, or
+    /// `projects/_/buckets/{bucket}/managedFolders/{managedFolder}`
+    /// for a managed folder.
     pub fn set_iam_policy(&self) -> super::builder::storage_control::SetIamPolicy {
         super::builder::storage_control::SetIamPolicy::new(self.inner.clone())
     }

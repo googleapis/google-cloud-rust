@@ -16,8 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-
 /// Implements a client for the Binary Authorization API.
 ///
 /// # Example
@@ -26,7 +24,7 @@ use crate::Result;
 /// # use google_cloud_binaryauthorization_v1::client::BinauthzManagementServiceV1;
 /// let client = BinauthzManagementServiceV1::builder().build().await?;
 /// // use `client` to make requests to the Binary Authorization API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -80,7 +78,7 @@ impl BinauthzManagementServiceV1 {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_binaryauthorization_v1::client::BinauthzManagementServiceV1;
     /// let client = BinauthzManagementServiceV1::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::binauthz_management_service_v_1::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -101,14 +99,18 @@ impl BinauthzManagementServiceV1 {
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::BinauthzManagementServiceV1>> {
+    ) -> gax::client_builder::Result<
+        std::sync::Arc<dyn super::stub::dynamic::BinauthzManagementServiceV1>,
+    > {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -117,13 +119,13 @@ impl BinauthzManagementServiceV1 {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::BinauthzManagementServiceV1> {
+    ) -> gax::client_builder::Result<impl super::stub::BinauthzManagementServiceV1> {
         super::transport::BinauthzManagementServiceV1::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::BinauthzManagementServiceV1> {
+    ) -> gax::client_builder::Result<impl super::stub::BinauthzManagementServiceV1> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::BinauthzManagementServiceV1::new)
@@ -211,7 +213,7 @@ impl BinauthzManagementServiceV1 {
 /// # use google_cloud_binaryauthorization_v1::client::SystemPolicyV1;
 /// let client = SystemPolicyV1::builder().build().await?;
 /// // use `client` to make requests to the Binary Authorization API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -256,7 +258,7 @@ impl SystemPolicyV1 {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_binaryauthorization_v1::client::SystemPolicyV1;
     /// let client = SystemPolicyV1::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::system_policy_v_1::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -277,14 +279,16 @@ impl SystemPolicyV1 {
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::SystemPolicyV1>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::SystemPolicyV1>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -293,13 +297,13 @@ impl SystemPolicyV1 {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::SystemPolicyV1> {
+    ) -> gax::client_builder::Result<impl super::stub::SystemPolicyV1> {
         super::transport::SystemPolicyV1::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::SystemPolicyV1> {
+    ) -> gax::client_builder::Result<impl super::stub::SystemPolicyV1> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::SystemPolicyV1::new)
@@ -319,7 +323,7 @@ impl SystemPolicyV1 {
 /// # use google_cloud_binaryauthorization_v1::client::ValidationHelperV1;
 /// let client = ValidationHelperV1::builder().build().await?;
 /// // use `client` to make requests to the Binary Authorization API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -364,7 +368,7 @@ impl ValidationHelperV1 {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_binaryauthorization_v1::client::ValidationHelperV1;
     /// let client = ValidationHelperV1::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::validation_helper_v_1::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -385,14 +389,17 @@ impl ValidationHelperV1 {
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::ValidationHelperV1>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ValidationHelperV1>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -401,13 +408,13 @@ impl ValidationHelperV1 {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::ValidationHelperV1> {
+    ) -> gax::client_builder::Result<impl super::stub::ValidationHelperV1> {
         super::transport::ValidationHelperV1::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::ValidationHelperV1> {
+    ) -> gax::client_builder::Result<impl super::stub::ValidationHelperV1> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ValidationHelperV1::new)

@@ -202,7 +202,7 @@ mod test {
         Ok(())
     }
 
-    async fn test_client(endpoint: String) -> gax::Result<grpc::Client> {
+    async fn test_client(endpoint: String) -> gax::client_builder::Result<grpc::Client> {
         builder(endpoint)
             .with_credentials(test_credentials())
             .build()

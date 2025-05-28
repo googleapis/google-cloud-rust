@@ -52,7 +52,12 @@ pub async fn objects(builder: storage::client::ClientBuilder) -> Result<()> {
     tracing::info!("success with insert={insert:?}");
 
     tracing::info!("testing read_object()");
-    let contents = client.read_object(&bucket.name, &insert.name).await?;
+    let contents = client
+        .read_object()
+        .set_bucket(&bucket.name)
+        .set_object(&insert.name)
+        .send()
+        .await?;
     assert_eq!(contents, CONTENTS.as_bytes());
     tracing::info!("success with contents={contents:?}");
 
@@ -72,7 +77,7 @@ pub async fn objects(builder: storage::client::ClientBuilder) -> Result<()> {
     Ok(())
 }
 
-pub async fn create_test_bucket() -> gax::Result<(StorageControl, Bucket)> {
+pub async fn create_test_bucket() -> Result<(StorageControl, Bucket)> {
     let project_id = crate::project_id()?;
     let client = StorageControl::builder()
         .with_tracing()
@@ -80,7 +85,8 @@ pub async fn create_test_bucket() -> gax::Result<(StorageControl, Bucket)> {
             gax::exponential_backoff::ExponentialBackoffBuilder::new()
                 .with_initial_delay(Duration::from_secs(2))
                 .with_maximum_delay(Duration::from_secs(8))
-                .build()?,
+                .build()
+                .unwrap(),
         )
         .with_retry_policy(
             gax::retry_policy::AlwaysRetry
@@ -280,9 +286,7 @@ async fn folders(client: &StorageControl, bucket_name: &str) -> Result<()> {
 
 async fn cleanup_stale_buckets(client: &StorageControl, project_id: &str) -> Result<()> {
     use std::time::{Duration, SystemTime, UNIX_EPOCH};
-    let stale_deadline = SystemTime::now()
-        .duration_since(UNIX_EPOCH)
-        .map_err(Error::other)?;
+    let stale_deadline = SystemTime::now().duration_since(UNIX_EPOCH)?;
     let stale_deadline = stale_deadline - Duration::from_secs(48 * 60 * 60);
     let stale_deadline = wkt::Timestamp::clamp(stale_deadline.as_secs() as i64, 0);
 
@@ -310,7 +314,7 @@ async fn cleanup_stale_buckets(client: &StorageControl, project_id: &str) -> Res
         .await
         .into_iter()
         .collect();
-    r.map_err(Error::other)?
+    r.map_err(Error::from)?
         .into_iter()
         .zip(names)
         .for_each(|(r, name)| println!("deleting bucket {name} resulted in {r:?}"));
@@ -337,7 +341,8 @@ async fn cleanup_bucket(client: StorageControl, name: String) -> Result<()> {
         );
     }
     let _ = futures::future::join_all(pending).await;
-    client.delete_bucket().set_name(&name).send().await
+    client.delete_bucket().set_name(&name).send().await?;
+    Ok(())
 }
 
 fn test_backoff() -> ExponentialBackoff {

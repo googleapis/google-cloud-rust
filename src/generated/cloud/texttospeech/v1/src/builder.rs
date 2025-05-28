@@ -28,7 +28,7 @@ pub mod text_to_speech {
     /// let client = builder
     ///     .with_endpoint("https://texttospeech.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -39,7 +39,10 @@ pub mod text_to_speech {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = TextToSpeech;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -462,7 +465,7 @@ pub mod text_to_speech_long_audio_synthesize {
     /// let client = builder
     ///     .with_endpoint("https://texttospeech.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -473,7 +476,10 @@ pub mod text_to_speech_long_audio_synthesize {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = TextToSpeechLongAudioSynthesize;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }

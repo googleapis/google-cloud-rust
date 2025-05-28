@@ -16,8 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-
 /// Implements a client for the Storage Control API.
 #[derive(Clone, Debug)]
 pub struct StorageControl {
@@ -38,14 +36,16 @@ impl StorageControl {
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::StorageControl>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::StorageControl>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -54,13 +54,13 @@ impl StorageControl {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::StorageControl> {
+    ) -> gax::client_builder::Result<impl super::stub::StorageControl> {
         super::transport::StorageControl::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::StorageControl> {
+    ) -> gax::client_builder::Result<impl super::stub::StorageControl> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::StorageControl::new)
@@ -190,6 +190,50 @@ impl StorageControl {
     /// Lists Anywhere Cache instances for a given bucket.
     pub fn list_anywhere_caches(&self) -> super::builder::storage_control::ListAnywhereCaches {
         super::builder::storage_control::ListAnywhereCaches::new(self.inner.clone())
+    }
+
+    /// Returns the Project scoped singleton IntelligenceConfig resource.
+    pub fn get_project_intelligence_config(
+        &self,
+    ) -> super::builder::storage_control::GetProjectIntelligenceConfig {
+        super::builder::storage_control::GetProjectIntelligenceConfig::new(self.inner.clone())
+    }
+
+    /// Updates the Project scoped singleton IntelligenceConfig resource.
+    pub fn update_project_intelligence_config(
+        &self,
+    ) -> super::builder::storage_control::UpdateProjectIntelligenceConfig {
+        super::builder::storage_control::UpdateProjectIntelligenceConfig::new(self.inner.clone())
+    }
+
+    /// Returns the Folder scoped singleton IntelligenceConfig resource.
+    pub fn get_folder_intelligence_config(
+        &self,
+    ) -> super::builder::storage_control::GetFolderIntelligenceConfig {
+        super::builder::storage_control::GetFolderIntelligenceConfig::new(self.inner.clone())
+    }
+
+    /// Updates the Folder scoped singleton IntelligenceConfig resource.
+    pub fn update_folder_intelligence_config(
+        &self,
+    ) -> super::builder::storage_control::UpdateFolderIntelligenceConfig {
+        super::builder::storage_control::UpdateFolderIntelligenceConfig::new(self.inner.clone())
+    }
+
+    /// Returns the Organization scoped singleton IntelligenceConfig resource.
+    pub fn get_organization_intelligence_config(
+        &self,
+    ) -> super::builder::storage_control::GetOrganizationIntelligenceConfig {
+        super::builder::storage_control::GetOrganizationIntelligenceConfig::new(self.inner.clone())
+    }
+
+    /// Updates the Organization scoped singleton IntelligenceConfig resource.
+    pub fn update_organization_intelligence_config(
+        &self,
+    ) -> super::builder::storage_control::UpdateOrganizationIntelligenceConfig {
+        super::builder::storage_control::UpdateOrganizationIntelligenceConfig::new(
+            self.inner.clone(),
+        )
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.

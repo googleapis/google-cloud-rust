@@ -2643,6 +2643,11 @@ pub struct ListFormatDataset {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub location: std::string::String,
 
+    /// Output only. Reference to a read-only external dataset defined in data
+    /// catalogs outside of BigQuery. Filled out when the dataset type is EXTERNAL.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub external_dataset_reference: std::option::Option<crate::model::ExternalDatasetReference>,
+
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -2715,6 +2720,24 @@ impl ListFormatDataset {
     /// Sets the value of [location][crate::model::ListFormatDataset::location].
     pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
+        self
+    }
+
+    /// Sets the value of [external_dataset_reference][crate::model::ListFormatDataset::external_dataset_reference].
+    pub fn set_external_dataset_reference<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ExternalDatasetReference>,
+    {
+        self.external_dataset_reference = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [external_dataset_reference][crate::model::ListFormatDataset::external_dataset_reference].
+    pub fn set_or_clear_external_dataset_reference<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ExternalDatasetReference>,
+    {
+        self.external_dataset_reference = v.map(|x| x.into());
         self
     }
 }

@@ -50,6 +50,6 @@ skipped-ids = """\
 copyright-year            = '2025'
 template-override         = 'templates/grpc-client'
 package-name-override     = 'google-cloud-storage-control'
-service-name-overrides    = 'Storage=StorageControl'
+name-overrides            = '.google.storage.v2.Storage=StorageControl'
 include-grpc-only-methods = 'true'
 has-veneer                = 'true'

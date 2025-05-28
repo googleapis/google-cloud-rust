@@ -257,6 +257,84 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
         >(Err(Error::other("unimplemented")))
     }
 
+    /// Implements [super::client::StorageControl::get_project_intelligence_config].
+    fn get_project_intelligence_config(
+        &self,
+        _req: crate::model::GetProjectIntelligenceConfigRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::IntelligenceConfig>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::IntelligenceConfig>>>(
+            Err(Error::other("unimplemented")),
+        )
+    }
+
+    /// Implements [super::client::StorageControl::update_project_intelligence_config].
+    fn update_project_intelligence_config(
+        &self,
+        _req: crate::model::UpdateProjectIntelligenceConfigRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::IntelligenceConfig>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::IntelligenceConfig>>>(
+            Err(Error::other("unimplemented")),
+        )
+    }
+
+    /// Implements [super::client::StorageControl::get_folder_intelligence_config].
+    fn get_folder_intelligence_config(
+        &self,
+        _req: crate::model::GetFolderIntelligenceConfigRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::IntelligenceConfig>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::IntelligenceConfig>>>(
+            Err(Error::other("unimplemented")),
+        )
+    }
+
+    /// Implements [super::client::StorageControl::update_folder_intelligence_config].
+    fn update_folder_intelligence_config(
+        &self,
+        _req: crate::model::UpdateFolderIntelligenceConfigRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::IntelligenceConfig>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::IntelligenceConfig>>>(
+            Err(Error::other("unimplemented")),
+        )
+    }
+
+    /// Implements [super::client::StorageControl::get_organization_intelligence_config].
+    fn get_organization_intelligence_config(
+        &self,
+        _req: crate::model::GetOrganizationIntelligenceConfigRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::IntelligenceConfig>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::IntelligenceConfig>>>(
+            Err(Error::other("unimplemented")),
+        )
+    }
+
+    /// Implements [super::client::StorageControl::update_organization_intelligence_config].
+    fn update_organization_intelligence_config(
+        &self,
+        _req: crate::model::UpdateOrganizationIntelligenceConfigRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::IntelligenceConfig>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::IntelligenceConfig>>>(
+            Err(Error::other("unimplemented")),
+        )
+    }
+
     /// Implements [super::client::StorageControl::get_operation].
     fn get_operation(
         &self,

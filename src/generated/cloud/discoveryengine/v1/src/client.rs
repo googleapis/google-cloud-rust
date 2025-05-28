@@ -16,8 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-
 /// Implements a client for the Discovery Engine API.
 ///
 /// # Example
@@ -26,7 +24,7 @@ use crate::Result;
 /// # use google_cloud_discoveryengine_v1::client::CompletionService;
 /// let client = CompletionService::builder().build().await?;
 /// // use `client` to make requests to the Discovery Engine API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -71,7 +69,7 @@ impl CompletionService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_discoveryengine_v1::client::CompletionService;
     /// let client = CompletionService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::completion_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -92,14 +90,17 @@ impl CompletionService {
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::CompletionService>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::CompletionService>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -108,13 +109,13 @@ impl CompletionService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::CompletionService> {
+    ) -> gax::client_builder::Result<impl super::stub::CompletionService> {
         super::transport::CompletionService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::CompletionService> {
+    ) -> gax::client_builder::Result<impl super::stub::CompletionService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::CompletionService::new)
@@ -239,7 +240,7 @@ impl CompletionService {
 /// # use google_cloud_discoveryengine_v1::client::ControlService;
 /// let client = ControlService::builder().build().await?;
 /// // use `client` to make requests to the Discovery Engine API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -287,7 +288,7 @@ impl ControlService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_discoveryengine_v1::client::ControlService;
     /// let client = ControlService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::control_service::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::control_service::client::Factory)
@@ -306,14 +307,16 @@ impl ControlService {
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::ControlService>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ControlService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -322,13 +325,13 @@ impl ControlService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::ControlService> {
+    ) -> gax::client_builder::Result<impl super::stub::ControlService> {
         super::transport::ControlService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::ControlService> {
+    ) -> gax::client_builder::Result<impl super::stub::ControlService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ControlService::new)
@@ -410,7 +413,7 @@ impl ControlService {
 /// # use google_cloud_discoveryengine_v1::client::ConversationalSearchService;
 /// let client = ConversationalSearchService::builder().build().await?;
 /// // use `client` to make requests to the Discovery Engine API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -455,7 +458,7 @@ impl ConversationalSearchService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_discoveryengine_v1::client::ConversationalSearchService;
     /// let client = ConversationalSearchService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::conversational_search_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -476,14 +479,18 @@ impl ConversationalSearchService {
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::ConversationalSearchService>> {
+    ) -> gax::client_builder::Result<
+        std::sync::Arc<dyn super::stub::dynamic::ConversationalSearchService>,
+    > {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -492,13 +499,13 @@ impl ConversationalSearchService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::ConversationalSearchService> {
+    ) -> gax::client_builder::Result<impl super::stub::ConversationalSearchService> {
         super::transport::ConversationalSearchService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::ConversationalSearchService> {
+    ) -> gax::client_builder::Result<impl super::stub::ConversationalSearchService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ConversationalSearchService::new)
@@ -652,7 +659,7 @@ impl ConversationalSearchService {
 /// # use google_cloud_discoveryengine_v1::client::DataStoreService;
 /// let client = DataStoreService::builder().build().await?;
 /// // use `client` to make requests to the Discovery Engine API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -700,7 +707,7 @@ impl DataStoreService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_discoveryengine_v1::client::DataStoreService;
     /// let client = DataStoreService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::data_store_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -721,14 +728,17 @@ impl DataStoreService {
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::DataStoreService>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::DataStoreService>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -737,13 +747,13 @@ impl DataStoreService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::DataStoreService> {
+    ) -> gax::client_builder::Result<impl super::stub::DataStoreService> {
         super::transport::DataStoreService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::DataStoreService> {
+    ) -> gax::client_builder::Result<impl super::stub::DataStoreService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::DataStoreService::new)
@@ -843,7 +853,7 @@ impl DataStoreService {
 /// # use google_cloud_discoveryengine_v1::client::DocumentService;
 /// let client = DocumentService::builder().build().await?;
 /// // use `client` to make requests to the Discovery Engine API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -891,7 +901,7 @@ impl DocumentService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_discoveryengine_v1::client::DocumentService;
     /// let client = DocumentService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::document_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -912,14 +922,17 @@ impl DocumentService {
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::DocumentService>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::DocumentService>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -928,13 +941,13 @@ impl DocumentService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::DocumentService> {
+    ) -> gax::client_builder::Result<impl super::stub::DocumentService> {
         super::transport::DocumentService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::DocumentService> {
+    ) -> gax::client_builder::Result<impl super::stub::DocumentService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::DocumentService::new)
@@ -1074,7 +1087,7 @@ impl DocumentService {
 /// # use google_cloud_discoveryengine_v1::client::EngineService;
 /// let client = EngineService::builder().build().await?;
 /// // use `client` to make requests to the Discovery Engine API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -1122,7 +1135,7 @@ impl EngineService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_discoveryengine_v1::client::EngineService;
     /// let client = EngineService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::engine_service::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::engine_service::client::Factory)
@@ -1141,14 +1154,16 @@ impl EngineService {
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::EngineService>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::EngineService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -1157,13 +1172,13 @@ impl EngineService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::EngineService> {
+    ) -> gax::client_builder::Result<impl super::stub::EngineService> {
         super::transport::EngineService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::EngineService> {
+    ) -> gax::client_builder::Result<impl super::stub::EngineService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::EngineService::new)
@@ -1255,7 +1270,7 @@ impl EngineService {
 /// # use google_cloud_discoveryengine_v1::client::GroundedGenerationService;
 /// let client = GroundedGenerationService::builder().build().await?;
 /// // use `client` to make requests to the Discovery Engine API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -1300,7 +1315,7 @@ impl GroundedGenerationService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_discoveryengine_v1::client::GroundedGenerationService;
     /// let client = GroundedGenerationService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::grounded_generation_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -1321,14 +1336,18 @@ impl GroundedGenerationService {
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::GroundedGenerationService>> {
+    ) -> gax::client_builder::Result<
+        std::sync::Arc<dyn super::stub::dynamic::GroundedGenerationService>,
+    > {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -1337,13 +1356,13 @@ impl GroundedGenerationService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::GroundedGenerationService> {
+    ) -> gax::client_builder::Result<impl super::stub::GroundedGenerationService> {
         super::transport::GroundedGenerationService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::GroundedGenerationService> {
+    ) -> gax::client_builder::Result<impl super::stub::GroundedGenerationService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::GroundedGenerationService::new)
@@ -1393,7 +1412,7 @@ impl GroundedGenerationService {
 /// # use google_cloud_discoveryengine_v1::client::ProjectService;
 /// let client = ProjectService::builder().build().await?;
 /// // use `client` to make requests to the Discovery Engine API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -1441,7 +1460,7 @@ impl ProjectService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_discoveryengine_v1::client::ProjectService;
     /// let client = ProjectService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::project_service::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::project_service::client::Factory)
@@ -1460,14 +1479,16 @@ impl ProjectService {
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::ProjectService>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ProjectService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -1476,13 +1497,13 @@ impl ProjectService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::ProjectService> {
+    ) -> gax::client_builder::Result<impl super::stub::ProjectService> {
         super::transport::ProjectService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::ProjectService> {
+    ) -> gax::client_builder::Result<impl super::stub::ProjectService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ProjectService::new)
@@ -1538,7 +1559,7 @@ impl ProjectService {
 /// # use google_cloud_discoveryengine_v1::client::RankService;
 /// let client = RankService::builder().build().await?;
 /// // use `client` to make requests to the Discovery Engine API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -1583,7 +1604,7 @@ impl RankService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_discoveryengine_v1::client::RankService;
     /// let client = RankService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::rank_service::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::rank_service::client::Factory)
@@ -1602,14 +1623,16 @@ impl RankService {
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::RankService>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::RankService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -1618,13 +1641,13 @@ impl RankService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::RankService> {
+    ) -> gax::client_builder::Result<impl super::stub::RankService> {
         super::transport::RankService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::RankService> {
+    ) -> gax::client_builder::Result<impl super::stub::RankService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::RankService::new)
@@ -1665,7 +1688,7 @@ impl RankService {
 /// # use google_cloud_discoveryengine_v1::client::RecommendationService;
 /// let client = RecommendationService::builder().build().await?;
 /// // use `client` to make requests to the Discovery Engine API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -1710,7 +1733,7 @@ impl RecommendationService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_discoveryengine_v1::client::RecommendationService;
     /// let client = RecommendationService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::recommendation_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -1731,14 +1754,17 @@ impl RecommendationService {
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::RecommendationService>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::RecommendationService>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -1747,13 +1773,13 @@ impl RecommendationService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::RecommendationService> {
+    ) -> gax::client_builder::Result<impl super::stub::RecommendationService> {
         super::transport::RecommendationService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::RecommendationService> {
+    ) -> gax::client_builder::Result<impl super::stub::RecommendationService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::RecommendationService::new)
@@ -1794,7 +1820,7 @@ impl RecommendationService {
 /// # use google_cloud_discoveryengine_v1::client::SchemaService;
 /// let client = SchemaService::builder().build().await?;
 /// // use `client` to make requests to the Discovery Engine API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -1841,7 +1867,7 @@ impl SchemaService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_discoveryengine_v1::client::SchemaService;
     /// let client = SchemaService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::schema_service::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::schema_service::client::Factory)
@@ -1860,14 +1886,16 @@ impl SchemaService {
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::SchemaService>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::SchemaService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -1876,13 +1904,13 @@ impl SchemaService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::SchemaService> {
+    ) -> gax::client_builder::Result<impl super::stub::SchemaService> {
         super::transport::SchemaService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::SchemaService> {
+    ) -> gax::client_builder::Result<impl super::stub::SchemaService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::SchemaService::new)
@@ -1983,7 +2011,7 @@ impl SchemaService {
 /// # use google_cloud_discoveryengine_v1::client::SearchService;
 /// let client = SearchService::builder().build().await?;
 /// // use `client` to make requests to the Discovery Engine API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -2028,7 +2056,7 @@ impl SearchService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_discoveryengine_v1::client::SearchService;
     /// let client = SearchService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::search_service::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::search_service::client::Factory)
@@ -2047,14 +2075,16 @@ impl SearchService {
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::SearchService>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::SearchService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -2063,13 +2093,13 @@ impl SearchService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::SearchService> {
+    ) -> gax::client_builder::Result<impl super::stub::SearchService> {
         super::transport::SearchService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::SearchService> {
+    ) -> gax::client_builder::Result<impl super::stub::SearchService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::SearchService::new)
@@ -2129,7 +2159,7 @@ impl SearchService {
 /// # use google_cloud_discoveryengine_v1::client::SearchTuningService;
 /// let client = SearchTuningService::builder().build().await?;
 /// // use `client` to make requests to the Discovery Engine API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -2174,7 +2204,7 @@ impl SearchTuningService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_discoveryengine_v1::client::SearchTuningService;
     /// let client = SearchTuningService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::search_tuning_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -2195,14 +2225,17 @@ impl SearchTuningService {
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::SearchTuningService>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::SearchTuningService>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -2211,13 +2244,13 @@ impl SearchTuningService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::SearchTuningService> {
+    ) -> gax::client_builder::Result<impl super::stub::SearchTuningService> {
         super::transport::SearchTuningService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::SearchTuningService> {
+    ) -> gax::client_builder::Result<impl super::stub::SearchTuningService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::SearchTuningService::new)
@@ -2273,7 +2306,7 @@ impl SearchTuningService {
 /// # use google_cloud_discoveryengine_v1::client::ServingConfigService;
 /// let client = ServingConfigService::builder().build().await?;
 /// // use `client` to make requests to the Discovery Engine API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -2321,7 +2354,7 @@ impl ServingConfigService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_discoveryengine_v1::client::ServingConfigService;
     /// let client = ServingConfigService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::serving_config_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -2342,14 +2375,17 @@ impl ServingConfigService {
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::ServingConfigService>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ServingConfigService>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -2358,13 +2394,13 @@ impl ServingConfigService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::ServingConfigService> {
+    ) -> gax::client_builder::Result<impl super::stub::ServingConfigService> {
         super::transport::ServingConfigService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::ServingConfigService> {
+    ) -> gax::client_builder::Result<impl super::stub::ServingConfigService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ServingConfigService::new)
@@ -2409,7 +2445,7 @@ impl ServingConfigService {
 /// # use google_cloud_discoveryengine_v1::client::SiteSearchEngineService;
 /// let client = SiteSearchEngineService::builder().build().await?;
 /// // use `client` to make requests to the Discovery Engine API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -2454,7 +2490,7 @@ impl SiteSearchEngineService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_discoveryengine_v1::client::SiteSearchEngineService;
     /// let client = SiteSearchEngineService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::site_search_engine_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -2475,14 +2511,18 @@ impl SiteSearchEngineService {
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::SiteSearchEngineService>> {
+    ) -> gax::client_builder::Result<
+        std::sync::Arc<dyn super::stub::dynamic::SiteSearchEngineService>,
+    > {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -2491,13 +2531,13 @@ impl SiteSearchEngineService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::SiteSearchEngineService> {
+    ) -> gax::client_builder::Result<impl super::stub::SiteSearchEngineService> {
         super::transport::SiteSearchEngineService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::SiteSearchEngineService> {
+    ) -> gax::client_builder::Result<impl super::stub::SiteSearchEngineService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::SiteSearchEngineService::new)
@@ -2760,7 +2800,7 @@ impl SiteSearchEngineService {
 /// # use google_cloud_discoveryengine_v1::client::UserEventService;
 /// let client = UserEventService::builder().build().await?;
 /// // use `client` to make requests to the Discovery Engine API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -2805,7 +2845,7 @@ impl UserEventService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_discoveryengine_v1::client::UserEventService;
     /// let client = UserEventService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::user_event_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -2826,14 +2866,17 @@ impl UserEventService {
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::UserEventService>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::UserEventService>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -2842,13 +2885,13 @@ impl UserEventService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::UserEventService> {
+    ) -> gax::client_builder::Result<impl super::stub::UserEventService> {
         super::transport::UserEventService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::UserEventService> {
+    ) -> gax::client_builder::Result<impl super::stub::UserEventService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::UserEventService::new)

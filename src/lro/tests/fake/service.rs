@@ -12,12 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use anyhow::Result;
 use axum::extract::State;
 use axum::http::StatusCode;
 use std::sync::{Arc, Mutex};
 use tokio::task::JoinHandle;
-
-type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
 
 pub struct ServerState {
     pub create: std::collections::VecDeque<(StatusCode, String)>,

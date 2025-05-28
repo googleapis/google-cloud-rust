@@ -16,8 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-
 /// Implements a client for the Live Stream API.
 ///
 /// # Example
@@ -26,7 +24,7 @@ use crate::Result;
 /// # use google_cloud_video_livestream_v1::client::LivestreamService;
 /// let client = LivestreamService::builder().build().await?;
 /// // use `client` to make requests to the Live Stream API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -75,7 +73,7 @@ impl LivestreamService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_video_livestream_v1::client::LivestreamService;
     /// let client = LivestreamService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::livestream_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -96,14 +94,17 @@ impl LivestreamService {
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::LivestreamService>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::LivestreamService>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -112,13 +113,13 @@ impl LivestreamService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::LivestreamService> {
+    ) -> gax::client_builder::Result<impl super::stub::LivestreamService> {
         super::transport::LivestreamService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::LivestreamService> {
+    ) -> gax::client_builder::Result<impl super::stub::LivestreamService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::LivestreamService::new)
@@ -313,7 +314,7 @@ impl LivestreamService {
     }
 
     /// Deletes the specified clip job resource. This method only deletes the clip
-    /// job and does not delete the VOD clip stored in the GCS.
+    /// job and does not delete the VOD clip stored in Cloud Storage.
     ///
     /// # Long running operations
     ///
@@ -326,6 +327,61 @@ impl LivestreamService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn delete_clip(&self) -> super::builder::livestream_service::DeleteClip {
         super::builder::livestream_service::DeleteClip::new(self.inner.clone())
+    }
+
+    /// Creates a DVR session with the provided unique ID in the specified channel.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn create_dvr_session(&self) -> super::builder::livestream_service::CreateDvrSession {
+        super::builder::livestream_service::CreateDvrSession::new(self.inner.clone())
+    }
+
+    /// Returns a list of all DVR sessions in the specified channel.
+    pub fn list_dvr_sessions(&self) -> super::builder::livestream_service::ListDvrSessions {
+        super::builder::livestream_service::ListDvrSessions::new(self.inner.clone())
+    }
+
+    /// Returns the specified DVR session.
+    pub fn get_dvr_session(&self) -> super::builder::livestream_service::GetDvrSession {
+        super::builder::livestream_service::GetDvrSession::new(self.inner.clone())
+    }
+
+    /// Deletes the specified DVR session.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn delete_dvr_session(&self) -> super::builder::livestream_service::DeleteDvrSession {
+        super::builder::livestream_service::DeleteDvrSession::new(self.inner.clone())
+    }
+
+    /// Updates the specified DVR session.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn update_dvr_session(&self) -> super::builder::livestream_service::UpdateDvrSession {
+        super::builder::livestream_service::UpdateDvrSession::new(self.inner.clone())
     }
 
     /// Creates a Asset with the provided unique ID in the specified

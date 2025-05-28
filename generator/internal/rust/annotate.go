@@ -477,7 +477,7 @@ func (c *codec) annotateService(s *api.Service, model *api.API) {
 			}
 		}
 	}
-	serviceName := ServiceName(s, c.serviceNameOverrides)
+	serviceName := c.ServiceName(s)
 	moduleName := toSnake(serviceName)
 	ann := &serviceAnnotations{
 		Name:              toPascal(serviceName),
@@ -565,7 +565,7 @@ func (c *codec) annotateMethod(m *api.Method, s *api.Service, state *api.APIStat
 	if m.ReturnsEmpty {
 		returnType = "()"
 	}
-	serviceName := ServiceName(s, c.serviceNameOverrides)
+	serviceName := c.ServiceName(s)
 	annotation := &methodAnnotation{
 		Name:                strcase.ToSnake(m.Name),
 		BuilderName:         toPascal(m.Name),
@@ -661,7 +661,7 @@ func annotateSegments(segments []string) []string {
 
 func (c *codec) annotateOneOf(oneof *api.OneOf, message *api.Message, state *api.APIState, sourceSpecificationPackageName string) {
 	scope := messageScopeName(message, "", c.modulePath, sourceSpecificationPackageName, c.packageMapping)
-	enumName := toPascal(oneof.Name)
+	enumName := c.OneOfEnumName(oneof)
 	qualifiedName := fmt.Sprintf("%s::%s", scope, enumName)
 	relativeEnumName := strings.TrimPrefix(qualifiedName, c.modulePath+"::")
 	structQualifiedName := fullyQualifiedMessageName(message, c.modulePath, sourceSpecificationPackageName, c.packageMapping)
@@ -672,7 +672,7 @@ func (c *codec) annotateOneOf(oneof *api.OneOf, message *api.Message, state *api
 		QualifiedName:       qualifiedName,
 		RelativeName:        relativeEnumName,
 		StructQualifiedName: structQualifiedName,
-		FieldType:           fmt.Sprintf("%s::%s", scope, toPascal(oneof.Name)),
+		FieldType:           fmt.Sprintf("%s::%s", scope, enumName),
 		DocLines:            c.formatDocComments(oneof.Documentation, oneof.ID, state, message.Scopes()),
 	}
 }

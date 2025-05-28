@@ -70,7 +70,7 @@ impl std::fmt::Debug for DatasetService {
 
 #[cfg(feature = "dataset-service")]
 impl DatasetService {
-    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -1014,7 +1014,7 @@ impl std::fmt::Debug for DeploymentResourcePoolService {
 
 #[cfg(feature = "deployment-resource-pool-service")]
 impl DeploymentResourcePoolService {
-    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -1521,7 +1521,7 @@ impl std::fmt::Debug for EndpointService {
 
 #[cfg(feature = "endpoint-service")]
 impl EndpointService {
-    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -2109,7 +2109,7 @@ impl std::fmt::Debug for EvaluationService {
 
 #[cfg(feature = "evaluation-service")]
 impl EvaluationService {
-    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -2456,7 +2456,7 @@ impl std::fmt::Debug for FeatureOnlineStoreAdminService {
 
 #[cfg(feature = "feature-online-store-admin-service")]
 impl FeatureOnlineStoreAdminService {
-    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -3165,7 +3165,7 @@ impl std::fmt::Debug for FeatureOnlineStoreService {
 
 #[cfg(feature = "feature-online-store-service")]
 impl FeatureOnlineStoreService {
-    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -3536,7 +3536,7 @@ impl std::fmt::Debug for FeatureRegistryService {
 
 #[cfg(feature = "feature-registry-service")]
 impl FeatureRegistryService {
-    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -4195,7 +4195,7 @@ impl std::fmt::Debug for FeaturestoreOnlineServingService {
 
 #[cfg(feature = "featurestore-online-serving-service")]
 impl FeaturestoreOnlineServingService {
-    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -4566,7 +4566,7 @@ impl std::fmt::Debug for FeaturestoreService {
 
 #[cfg(feature = "featurestore-service")]
 impl FeaturestoreService {
-    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -5508,7 +5508,7 @@ impl std::fmt::Debug for GenAiCacheService {
 
 #[cfg(feature = "gen-ai-cache-service")]
 impl GenAiCacheService {
-    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -5977,7 +5977,7 @@ impl std::fmt::Debug for GenAiTuningService {
 
 #[cfg(feature = "gen-ai-tuning-service")]
 impl GenAiTuningService {
-    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -6448,7 +6448,7 @@ impl std::fmt::Debug for IndexEndpointService {
 
 #[cfg(feature = "index-endpoint-service")]
 impl IndexEndpointService {
-    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -7008,7 +7008,7 @@ impl std::fmt::Debug for IndexService {
 
 #[cfg(feature = "index-service")]
 impl IndexService {
-    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -7538,7 +7538,7 @@ impl std::fmt::Debug for JobService {
 
 #[cfg(feature = "job-service")]
 impl JobService {
-    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -8880,7 +8880,7 @@ impl std::fmt::Debug for LlmUtilityService {
 
 #[cfg(feature = "llm-utility-service")]
 impl LlmUtilityService {
-    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -9251,7 +9251,7 @@ impl std::fmt::Debug for MatchService {
 
 #[cfg(feature = "match-service")]
 impl MatchService {
-    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -9622,7 +9622,7 @@ impl std::fmt::Debug for MetadataService {
 
 #[cfg(feature = "metadata-service")]
 impl MetadataService {
-    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -10840,7 +10840,7 @@ impl std::fmt::Debug for MigrationService {
 
 #[cfg(feature = "migration-service")]
 impl MigrationService {
-    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -11225,7 +11225,7 @@ impl std::fmt::Debug for ModelGardenService {
 
 #[cfg(feature = "model-garden-service")]
 impl ModelGardenService {
-    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -11578,7 +11578,7 @@ impl std::fmt::Debug for ModelService {
 
 #[cfg(feature = "model-service")]
 impl ModelService {
-    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -12443,7 +12443,7 @@ impl std::fmt::Debug for NotebookService {
 
 #[cfg(feature = "notebook-service")]
 impl NotebookService {
-    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -13231,7 +13231,7 @@ impl std::fmt::Debug for PersistentResourceService {
 
 #[cfg(feature = "persistent-resource-service")]
 impl PersistentResourceService {
-    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -13735,7 +13735,7 @@ impl std::fmt::Debug for PipelineService {
 
 #[cfg(feature = "pipeline-service")]
 impl PipelineService {
-    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -14406,7 +14406,7 @@ impl std::fmt::Debug for PredictionService {
 
 #[cfg(feature = "prediction-service")]
 impl PredictionService {
-    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -14873,7 +14873,7 @@ impl std::fmt::Debug for ReasoningEngineExecutionService {
 
 #[cfg(feature = "reasoning-engine-execution-service")]
 impl ReasoningEngineExecutionService {
-    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -15220,7 +15220,7 @@ impl std::fmt::Debug for ReasoningEngineService {
 
 #[cfg(feature = "reasoning-engine-service")]
 impl ReasoningEngineService {
-    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -15701,7 +15701,7 @@ impl std::fmt::Debug for ScheduleService {
 
 #[cfg(feature = "schedule-service")]
 impl ScheduleService {
-    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -16240,7 +16240,7 @@ impl std::fmt::Debug for SpecialistPoolService {
 
 #[cfg(feature = "specialist-pool-service")]
 impl SpecialistPoolService {
-    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -16726,7 +16726,7 @@ impl std::fmt::Debug for TensorboardService {
 
 #[cfg(feature = "tensorboard-service")]
 impl TensorboardService {
-    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -17902,7 +17902,7 @@ impl std::fmt::Debug for VertexRagDataService {
 
 #[cfg(feature = "vertex-rag-data-service")]
 impl VertexRagDataService {
-    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -18504,7 +18504,7 @@ impl std::fmt::Debug for VertexRagService {
 
 #[cfg(feature = "vertex-rag-service")]
 impl VertexRagService {
-    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -18899,7 +18899,7 @@ impl std::fmt::Debug for VizierService {
 
 #[cfg(feature = "vizier-service")]
 impl VizierService {
-    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }

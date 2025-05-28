@@ -43,12 +43,10 @@
 //! use these types directly when the service account key is obtained from
 //! Cloud Secret Manager or a similar service.
 //!
-//! Example usage:
-//!
+//! # Example
 //! ```
 //! # use google_cloud_auth::credentials::service_account::Builder;
 //! # use google_cloud_auth::credentials::Credentials;
-//! # use google_cloud_auth::errors::CredentialsError;
 //! # use http::Extensions;
 //! # tokio_test::block_on(async {
 //! let service_account_key = serde_json::json!({
@@ -63,7 +61,7 @@
 //!     .build()?;
 //! let headers = credentials.headers(Extensions::new()).await?;
 //! println!("Headers: {headers:?}");
-//! # Ok::<(), CredentialsError>(())
+//! # Ok::<(), anyhow::Error>(())
 //! # });
 //! ```
 //!
@@ -74,12 +72,14 @@
 
 mod jws;
 
+use crate::build_errors::Error as BuilderError;
 use crate::credentials::dynamic::CredentialsProvider;
-use crate::credentials::{CacheableResource, Credentials, Result};
+use crate::credentials::{CacheableResource, Credentials};
 use crate::errors::{self, CredentialsError};
 use crate::headers_util::build_cacheable_headers;
 use crate::token::{CachedTokenProvider, Token, TokenProvider};
 use crate::token_cache::TokenCache;
+use crate::{BuildResult, Result};
 use async_trait::async_trait;
 use http::{Extensions, HeaderMap};
 use jws::{CLOCK_SKEW_FUDGE, DEFAULT_TOKEN_TIMEOUT, JwsClaims, JwsHeader};
@@ -264,10 +264,10 @@ impl Builder {
         self
     }
 
-    fn build_token_provider(self) -> Result<ServiceAccountTokenProvider> {
+    fn build_token_provider(self) -> BuildResult<ServiceAccountTokenProvider> {
         let service_account_key =
             serde_json::from_value::<ServiceAccountKey>(self.service_account_key)
-                .map_err(errors::non_retryable)?;
+                .map_err(BuilderError::parsing)?;
 
         Ok(ServiceAccountTokenProvider {
             service_account_key,
@@ -287,7 +287,7 @@ impl Builder {
     /// relevant section in the [service account keys] guide.
     ///
     /// [creating service account keys]: https://cloud.google.com/iam/docs/keys-create-delete#creating
-    pub fn build(self) -> Result<Credentials> {
+    pub fn build(self) -> BuildResult<Credentials> {
         Ok(Credentials {
             inner: Arc::new(ServiceAccountCredentials {
                 quota_project_id: self.quota_project_id.clone(),
@@ -701,9 +701,8 @@ mod test {
     #[tokio::test]
     async fn get_service_account_invalid_json_failure() -> TestResult {
         let service_account_key = Value::from(" ");
-        let e = Builder::new(service_account_key).build().err().unwrap();
-
-        assert!(!e.is_retryable());
+        let e = Builder::new(service_account_key).build().unwrap_err();
+        assert!(e.is_parsing(), "{e:?}");
 
         Ok(())
     }

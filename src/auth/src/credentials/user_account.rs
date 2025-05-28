@@ -41,7 +41,6 @@
 //! ```
 //! # use google_cloud_auth::credentials::user_account::Builder;
 //! # use google_cloud_auth::credentials::Credentials;
-//! # use google_cloud_auth::errors::CredentialsError;
 //! # use http::Extensions;
 //! # tokio_test::block_on(async {
 //! let authorized_user = serde_json::json!({
@@ -55,7 +54,7 @@
 //! let credentials: Credentials = Builder::new(authorized_user).build()?;
 //! let headers = credentials.headers(Extensions::new()).await?;
 //! println!("Headers: {headers:?}");
-//! # Ok::<(), CredentialsError>(())
+//! # Ok::<(), anyhow::Error>(())
 //! # });
 //! ```
 //!
@@ -67,12 +66,14 @@
 //! [User Account]: https://cloud.google.com/docs/authentication#user-accounts
 //! [Workforce Identity Federation]: https://cloud.google.com/iam/docs/workforce-identity-federation
 
+use crate::build_errors::Error as BuilderError;
 use crate::credentials::dynamic::CredentialsProvider;
-use crate::credentials::{CacheableResource, Credentials, Result};
+use crate::credentials::{CacheableResource, Credentials};
 use crate::errors::{self, CredentialsError, is_retryable};
 use crate::headers_util::build_cacheable_headers;
 use crate::token::{CachedTokenProvider, Token, TokenProvider};
 use crate::token_cache::TokenCache;
+use crate::{BuildResult, Result};
 use http::header::CONTENT_TYPE;
 use http::{Extensions, HeaderMap, HeaderValue};
 use reqwest::{Client, Method};
@@ -199,9 +200,9 @@ impl Builder {
     /// [application-default credentials] guide.
     ///
     /// [application-default credentials]: https://cloud.google.com/docs/authentication/application-default-credentials
-    pub fn build(self) -> Result<Credentials> {
+    pub fn build(self) -> BuildResult<Credentials> {
         let authorized_user = serde_json::from_value::<AuthorizedUser>(self.authorized_user)
-            .map_err(errors::non_retryable)?;
+            .map_err(BuilderError::parsing)?;
         let endpoint = self
             .token_uri
             .or(authorized_user.token_uri)
@@ -985,7 +986,7 @@ mod test {
         });
 
         let e = Builder::new(authorized_user).build().unwrap_err();
-        assert!(!e.is_retryable(), "{e}");
+        assert!(e.is_parsing(), "{e}");
 
         Ok(())
     }

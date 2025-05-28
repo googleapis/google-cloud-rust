@@ -191,6 +191,72 @@ where
     }
 
     #[tracing::instrument(ret)]
+    async fn get_project_intelligence_config(
+        &self,
+        req: crate::model::GetProjectIntelligenceConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::IntelligenceConfig>> {
+        self.inner
+            .get_project_intelligence_config(req, options)
+            .await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn update_project_intelligence_config(
+        &self,
+        req: crate::model::UpdateProjectIntelligenceConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::IntelligenceConfig>> {
+        self.inner
+            .update_project_intelligence_config(req, options)
+            .await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_folder_intelligence_config(
+        &self,
+        req: crate::model::GetFolderIntelligenceConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::IntelligenceConfig>> {
+        self.inner
+            .get_folder_intelligence_config(req, options)
+            .await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn update_folder_intelligence_config(
+        &self,
+        req: crate::model::UpdateFolderIntelligenceConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::IntelligenceConfig>> {
+        self.inner
+            .update_folder_intelligence_config(req, options)
+            .await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_organization_intelligence_config(
+        &self,
+        req: crate::model::GetOrganizationIntelligenceConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::IntelligenceConfig>> {
+        self.inner
+            .get_organization_intelligence_config(req, options)
+            .await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn update_organization_intelligence_config(
+        &self,
+        req: crate::model::UpdateOrganizationIntelligenceConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::IntelligenceConfig>> {
+        self.inner
+            .update_organization_intelligence_config(req, options)
+            .await
+    }
+
+    #[tracing::instrument(ret)]
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,

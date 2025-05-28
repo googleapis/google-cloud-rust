@@ -221,26 +221,60 @@ func rustPackageNameImpl(t *testing.T, want string, opts map[string]string, api 
 
 func TestServiceName(t *testing.T) {
 	c, err := newCodec(true, map[string]string{
-		"service-name-overrides": "BadName=GoodName,Old=New",
+		"name-overrides": ".google.testing.BadName=GoodName,.google.testing.Old=New",
 	})
 	if err != nil {
 		t.Fatal(err)
 	}
-	serviceNameImpl(t, c, "BadName", "GoodName")
-	serviceNameImpl(t, c, "Old", "New")
-	serviceNameImpl(t, c, "Unchanged", "Unchanged")
+	testServiceNameImpl(t, c, "BadName", "GoodName")
+	testServiceNameImpl(t, c, "Old", "New")
+	testServiceNameImpl(t, c, "Unchanged", "Unchanged")
 
 	c2, err := newCodec(true, map[string]string{})
 	if err != nil {
 		t.Fatal(err)
 	}
-	serviceNameImpl(t, c2, "Unchanged", "Unchanged")
+	testServiceNameImpl(t, c2, "Unchanged", "Unchanged")
 }
 
-func serviceNameImpl(t *testing.T, c *codec, serviceName string, want string) {
+func testServiceNameImpl(t *testing.T, c *codec, serviceName string, want string) {
 	t.Helper()
-	s := &api.Service{Name: serviceName}
-	got := ServiceName(s, c.serviceNameOverrides)
+	s := &api.Service{
+		Name:    serviceName,
+		ID:      fmt.Sprintf(".google.testing.%s", serviceName),
+		Package: "google.testing",
+	}
+	got := c.ServiceName(s)
+	if want != got {
+		t.Errorf("mismatch in service name, want=%s, got=%s", want, got)
+	}
+}
+
+func TestOneOfEnumName(t *testing.T) {
+	c, err := newCodec(true, map[string]string{
+		"name-overrides": ".google.testing.Message.conflict=ConflictOneOf",
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	testOneOfEnumNameImpl(t, c, "conflict", "ConflictOneOf")
+	testOneOfEnumNameImpl(t, c, "basic_case", "BasicCase")
+
+	c2, err := newCodec(true, map[string]string{})
+	if err != nil {
+		t.Fatal(err)
+	}
+	testOneOfEnumNameImpl(t, c2, "conflict", "Conflict")
+	testOneOfEnumNameImpl(t, c2, "basic_case", "BasicCase")
+}
+
+func testOneOfEnumNameImpl(t *testing.T, c *codec, name string, want string) {
+	t.Helper()
+	oneof := &api.OneOf{
+		Name: name,
+		ID:   fmt.Sprintf(".google.testing.Message.%s", name),
+	}
+	got := c.OneOfEnumName(oneof)
 	if want != got {
 		t.Errorf("mismatch in service name, want=%s, got=%s", want, got)
 	}
