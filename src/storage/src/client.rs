@@ -479,6 +479,10 @@ impl ReadObject {
 
     async fn http_request_builder(self) -> Result<reqwest::RequestBuilder> {
         // TODO(2103): map additional parameters to the JSON request.
+        // - map relevant parameters to remaining: generation, softDelete, projection, restoreToken
+        // - return unimplemented if anything in self.request is set but does not apply
+
+        // Collect the required bucket and object parameters.
         let bucket: String = self.request.bucket;
         let bucket_id = bucket
             .as_str()
@@ -489,6 +493,35 @@ impl ReadObject {
                 ))
             })?;
         let object: String = self.request.object;
+
+        // Collect the optional query parameters
+        let mut query: Vec<(String, String)> = vec![("alt".into(), "media".into())];
+        if let Some(if_generation_match) = self.request.if_generation_match {
+            query.push((
+                "ifGenerationMatch".into(),
+                format!("{}", if_generation_match),
+            ));
+        }
+        if let Some(if_generation_not_match) = self.request.if_generation_not_match {
+            query.push((
+                "ifGenerationNotMatch".into(),
+                format!("{}", if_generation_not_match),
+            ));
+        }
+        if let Some(if_metageneration_match) = self.request.if_metageneration_match {
+            query.push((
+                "ifMetagenerationMatch".into(),
+                format!("{}", if_metageneration_match),
+            ));
+        }
+        if let Some(if_metageneration_not_match) = self.request.if_metageneration_not_match {
+            query.push((
+                "ifMetagenerationNotMatch".into(),
+                format!("{}", if_metageneration_not_match),
+            ));
+        }
+
+        // Build the request.
         let builder = self
             .inner
             .client
@@ -499,7 +532,7 @@ impl ReadObject {
                     &self.inner.endpoint
                 ),
             )
-            .query(&[("alt", "media")])
+            .query(&query)
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&self::info::X_GOOG_API_CLIENT_HEADER),
@@ -552,6 +585,33 @@ mod tests {
             .http_request_builder()
             .await
             .expect_err("malformed bucket string should error");
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_read_object_query_params() -> Result {
+        let client = Storage::builder()
+            .with_credentials(auth::credentials::testing::test_credentials())
+            .build()
+            .await?;
+
+        let read_object_builder = client
+            .read_object()
+            .set_bucket("projects/_/buckets/bucket")
+            .set_object("object")
+            .set_if_generation_match(10)
+            .set_if_generation_not_match(20)
+            .set_if_metageneration_match(30)
+            .set_if_metageneration_not_match(40)
+            .http_request_builder()
+            .await?
+            .build()?;
+
+        assert_eq!(read_object_builder.method(), reqwest::Method::GET);
+        assert_eq!(
+            read_object_builder.url().as_str(),
+            "https://storage.googleapis.com/storage/v1/b/bucket/o/object?alt=media&ifGenerationMatch=10&ifGenerationNotMatch=20&ifMetagenerationMatch=30&ifMetagenerationNotMatch=40"
+        );
         Ok(())
     }
 }
