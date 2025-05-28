@@ -160,6 +160,7 @@ pub struct ExchangeTokenRequest {
 #[cfg(test)]
 mod test {
     use super::*;
+    use crate::constants::DEFAULT_SCOPE;
     use http::StatusCode;
     use httptest::{Expectation, Server, matchers::*, responders::*};
     use serde_json::json;
@@ -178,7 +179,7 @@ mod test {
             "issued_token_type":"urn:ietf:params:oauth:token-type:access_token",
             "token_type":"Bearer",
             "expires_in":3600,
-            "scope":"https://www.googleapis.com/auth/cloud-platform"
+            "scope":DEFAULT_SCOPE
         })
         .to_string();
 
@@ -206,10 +207,7 @@ mod test {
                     "audience",
                     "32555940559.apps.googleusercontent.com"
                 )))),
-                request::body(url_decoded(contains((
-                    "scope",
-                    "https://www.googleapis.com/auth/cloud-platform"
-                )))),
+                request::body(url_decoded(contains(("scope", DEFAULT_SCOPE)))),
                 request::headers(contains((
                     "authorization",
                     format!("Basic {expected_basic_auth}")
@@ -233,7 +231,7 @@ mod test {
             headers,
             authentication,
             audience: Some("32555940559.apps.googleusercontent.com".to_string()),
-            scope: ["https://www.googleapis.com/auth/cloud-platform".to_string()].to_vec(),
+            scope: [DEFAULT_SCOPE.to_string()].to_vec(),
             subject_token: "an_example_token".to_string(),
             subject_token_type: JWT_TOKEN_TYPE.to_string(),
             ..ExchangeTokenRequest::default()
@@ -248,7 +246,7 @@ mod test {
                 issued_token_type: ACCESS_TOKEN_TYPE.to_string(),
                 token_type: "Bearer".to_string(),
                 expires_in: 3600,
-                scope: Some("https://www.googleapis.com/auth/cloud-platform".to_string()),
+                scope: Some(DEFAULT_SCOPE.to_string()),
             }
         );
 
