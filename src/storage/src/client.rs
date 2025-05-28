@@ -548,6 +548,7 @@ impl ReadObject {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use std::collections::HashMap;
     type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 
     #[tokio::test]
@@ -612,10 +613,24 @@ mod tests {
             .build()?;
 
         assert_eq!(read_object_builder.method(), reqwest::Method::GET);
-        assert_eq!(
-            read_object_builder.url().as_str(),
-            "https://storage.googleapis.com/storage/v1/b/bucket/o/object?alt=media&generation=5&ifGenerationMatch=10&ifGenerationNotMatch=20&ifMetagenerationMatch=30&ifMetagenerationNotMatch=40"
-        );
+        let want_pairs: HashMap<String, String> = [
+            ("alt", "media"),
+            ("generation", "5"),
+            ("ifGenerationMatch", "10"),
+            ("ifGenerationNotMatch", "20"),
+            ("ifMetagenerationMatch", "30"),
+            ("ifMetagenerationNotMatch", "40"),
+        ]
+        .iter()
+        .map(|(k, v)| (k.to_string(), v.to_string()))
+        .collect();
+        let query_pairs: HashMap<String, String> = read_object_builder
+            .url()
+            .query_pairs()
+            .map(|param| (param.0.to_string(), param.1.to_string()))
+            .collect();
+        assert_eq!(query_pairs.len(), want_pairs.len());
+        assert_eq!(query_pairs, want_pairs);
         Ok(())
     }
 }
