@@ -282,6 +282,7 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     /// ```
     /// # use google_cloud_gax::client_builder::examples;
     /// # use google_cloud_gax as gax;
+    /// # use google_cloud_gax::client_builder::Result;
     /// # tokio_test::block_on(async {
     /// use examples::Client; // Placeholder for examples
     /// use gax::exponential_backoff::ExponentialBackoffBuilder;
@@ -294,7 +295,7 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     /// let client = Client::builder()
     ///     .with_backoff_policy(policy)
     ///     .build().await?;
-    /// # Ok::<(), anyhow::Error>(()) });
+    /// # Result::<()>::Ok(()) });
     /// ```
     pub fn with_backoff_policy<V: Into<BackoffPolicyArg>>(mut self, v: V) -> Self {
         self.config.backoff_policy = Some(v.into().0);
@@ -370,6 +371,7 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     /// ```
     /// # use google_cloud_gax::client_builder::examples;
     /// # use google_cloud_gax as gax;
+    /// # use google_cloud_gax::client_builder::Result;
     /// # tokio_test::block_on(async {
     /// use examples::Client; // Placeholder for examples
     /// use gax::exponential_backoff::ExponentialBackoffBuilder;
@@ -382,7 +384,7 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     /// let client = Client::builder()
     ///     .with_polling_backoff_policy(policy)
     ///     .build().await?;
-    /// # Ok::<(), anyhow::Error>(()) });
+    /// # Result::<()>::Ok(()) });
     /// ```
     pub fn with_polling_backoff_policy<V: Into<PollingBackoffPolicyArg>>(mut self, v: V) -> Self {
         self.config.polling_backoff_policy = Some(v.into().0);
