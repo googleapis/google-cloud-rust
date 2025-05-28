@@ -47,9 +47,6 @@ pub mod credentials;
 
 pub(crate) mod constants;
 
-/// Types and functions to work with auth [Tokens].
-///
-/// [Tokens]: https://cloud.google.com/docs/authentication#token
 pub(crate) mod token;
 
 /// The token cache
