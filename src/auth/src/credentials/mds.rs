@@ -57,7 +57,7 @@
 
 use crate::credentials::dynamic::CredentialsProvider;
 use crate::credentials::{CacheableResource, Credentials, DEFAULT_UNIVERSE_DOMAIN};
-use crate::errors::{CredentialsError, is_retryable};
+use crate::errors::CredentialsError;
 use crate::headers_util::build_cacheable_headers;
 use crate::token::{CachedTokenProvider, Token, TokenProvider};
 use crate::token_cache::TokenCache;
@@ -275,35 +275,16 @@ impl MDSAccessTokenProvider {
     // auth mechanisms available to them.
     // If the endpoint is overridden, even if ADC was used to create the MDS credentials, we do not give a detailed
     // error message because they deliberately wanted to use an MDS.
-    fn build_error(
-        &self,
-        is_transient: bool,
-        error: reqwest::Error,
-        body: Option<&str>,
-    ) -> CredentialsError {
-        CredentialsError::new(is_transient, self.error_message(body), error)
-    }
-
-    fn build_error_with_request(
-        &self,
-        error: reqwest::Error,
-        body: Option<&str>,
-    ) -> CredentialsError {
-        let is_transient = error.status().map(is_retryable).unwrap_or(false);
-        self.build_error(is_transient, error, body)
+    fn error_message(&self) -> &str {
+        if self.use_adc_message() {
+            MDS_NOT_FOUND_ERROR
+        } else {
+            "failed to fetch token"
+        }
     }
 
     fn use_adc_message(&self) -> bool {
         self.created_by_adc && !self.endpoint_overridden
-    }
-
-    fn error_message(&self, body: Option<&str>) -> String {
-        match body {
-            Some(b) if self.use_adc_message() => format!("{MDS_NOT_FOUND_ERROR}, payload=<{b}>"),
-            Some(b) => format!("failed to fetch token, payload=<{b}>"),
-            None if self.use_adc_message() => MDS_NOT_FOUND_ERROR.to_string(),
-            None => "failed to fetch token".to_string(),
-        }
     }
 }
 
@@ -331,23 +312,18 @@ impl TokenProvider for MDSAccessTokenProvider {
         let response = request
             .send()
             .await
-            .map_err(|e| self.build_error(true, e, None))?;
+            .map_err(|e| crate::errors::from_http_error(e, self.error_message()))?;
         // Process the response
         if !response.status().is_success() {
-            let err = response.error_for_status_ref().unwrap_err();
-            let body = response
-                .text()
-                .await
-                .map_err(|e| self.build_error_with_request(e, None))?;
-            return Err(self.build_error_with_request(err, Some(body.as_str())));
+            let err = crate::errors::from_http_response(response, self.error_message()).await;
+            return Err(err);
         }
-        // Decoding errors are not transient. Typically they indicate a badly
-        // configured MDS endpoint, or DNS redirecting the request to a random
-        // server, e.g., ISPs that redirect unknown services to HTTP.
-        let response = response
-            .json::<MDSTokenResponse>()
-            .await
-            .map_err(|e| self.build_error(!e.is_decode(), e, None))?;
+        let response = response.json::<MDSTokenResponse>().await.map_err(|e| {
+            // Decoding errors are not transient. Typically they indicate a badly
+            // configured MDS endpoint, or DNS redirecting the request to a random
+            // server, e.g., ISPs that redirect unknown services to HTTP.
+            CredentialsError::from_source(!e.is_decode(), e)
+        })?;
         let token = Token {
             token: response.access_token,
             token_type: response.token_type,
@@ -468,13 +444,8 @@ mod test {
             .build();
 
         let want = MDS_NOT_FOUND_ERROR;
-        let got = provider.error_message(None);
+        let got = provider.error_message();
         assert!(got.contains(want), "{got}, {provider:?}");
-        assert!(!got.contains("payload=<"), "{got}, {provider:?}");
-
-        let got = provider.error_message(Some("test-body"));
-        assert!(got.contains(want), "{got}, {provider:?}");
-        assert!(got.contains("payload=<test-body>"), "{got}, {provider:?}");
     }
 
     #[test_case(false, false)]
@@ -488,13 +459,11 @@ mod test {
             .build();
 
         let not_want = MDS_NOT_FOUND_ERROR;
-        let got = provider.error_message(None);
+        let got = provider.error_message();
         assert!(!got.contains(not_want), "{got}, {provider:?}");
-        assert!(!got.contains("payload=<"), "{got}, {provider:?}");
 
-        let got = provider.error_message(Some("test-body"));
+        let got = provider.error_message();
         assert!(!got.contains(not_want), "{got}, {provider:?}");
-        assert!(got.contains("payload=<test-body>"), "{got}, {provider:?}");
     }
 
     #[tokio::test]

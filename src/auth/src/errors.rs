@@ -20,10 +20,14 @@ use std::error::Error;
 pub use gax::error::{BuildCredentialsError, CredentialsError};
 
 pub(crate) fn from_http_error(err: reqwest::Error, msg: &str) -> CredentialsError {
-    let transient = err
-        .status()
-        .map(crate::errors::is_retryable)
-        .unwrap_or(false);
+    let transient = if let Some(code) = err.status() {
+        self::is_retryable(code)
+    } else {
+        // Connection errors are transient more often than not. A bad
+        // configuration can point to a non-existing service, but this is what
+        // limiting retry policies and backoff policies handle.
+        err.is_connect()
+    };
     CredentialsError::new(transient, msg, err)
 }
 
@@ -34,7 +38,7 @@ pub(crate) async fn from_http_response(response: reqwest::Response, msg: &str) -
         .expect_err("this function is only called on errors");
     let body = response.text().await;
     match body {
-        Err(e) => CredentialsError::new(transient, format!("{msg}"), e),
+        Err(e) => CredentialsError::new(transient, msg, e),
         Ok(b) => CredentialsError::new(transient, format!("{msg}, body=<{b}>"), err),
     }
 }
@@ -48,7 +52,7 @@ pub(crate) fn non_retryable_from_str<T: Into<String>>(message: T) -> Credentials
     CredentialsError::from_msg(false, message)
 }
 
-pub(crate) fn is_retryable(c: StatusCode) -> bool {
+fn is_retryable(c: StatusCode) -> bool {
     match c {
         // Internal server errors do not indicate that there is anything wrong
         // with our request, so we retry them.
