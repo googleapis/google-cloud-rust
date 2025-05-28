@@ -45,4 +45,5 @@ wkt.workspace  = true
 
 [dev-dependencies]
 tokio-test.workspace = true
+tokio.workspace      = true
 test-case.workspace  = true

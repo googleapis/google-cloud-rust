@@ -147,7 +147,7 @@ impl Storage {
             .client
             .request(
                 reqwest::Method::POST,
-                format!("{}upload/storage/v1/b/{bucket_id}/o", &self.inner.endpoint),
+                format!("{}/upload/storage/v1/b/{bucket_id}/o", &self.inner.endpoint),
             )
             .query(&[("uploadType", "media")])
             .query(&[("name", &object)])
@@ -270,7 +270,7 @@ pub(crate) mod client_builder {
 }
 
 /// The default host used by the service.
-const DEFAULT_HOST: &str = "https://storage.googleapis.com/";
+const DEFAULT_HOST: &str = "https://storage.googleapis.com";
 
 pub(crate) mod info {
     const NAME: &str = env!("CARGO_PKG_NAME");
@@ -306,14 +306,14 @@ pub(crate) mod info {
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 pub struct ReadObject {
-    client: std::sync::Arc<StorageInner>,
+    inner: std::sync::Arc<StorageInner>,
     request: control::model::ReadObjectRequest,
 }
 
 impl ReadObject {
     fn new(client: std::sync::Arc<StorageInner>) -> Self {
         ReadObject {
-            client,
+            inner: client,
             request: control::model::ReadObjectRequest::new(),
         }
     }
@@ -458,7 +458,20 @@ impl ReadObject {
 
     /// Sends the request.
     pub async fn send(self) -> crate::Result<bytes::Bytes> {
-        // TODO(2103): map additional parameters to the JSON request.
+        let builder = self.read_object_builder().await?;
+
+        tracing::info!("builder={builder:?}");
+
+        let response = builder.send().await.map_err(Error::io)?;
+        if !response.status().is_success() {
+            return gaxi::http::to_http_error(response).await;
+        }
+        let response = response.bytes().await.map_err(Error::io)?;
+
+        Ok(response)
+    }
+
+    async fn read_object_builder(self) -> Result<reqwest::RequestBuilder> {
         let bucket: String = self.request.bucket;
         let bucket_id = bucket
             .as_str()
@@ -470,13 +483,13 @@ impl ReadObject {
             })?;
         let object: String = self.request.object;
         let builder = self
-            .client
+            .inner
             .client
             .request(
                 reqwest::Method::GET,
                 format!(
-                    "{}storage/v1/b/{bucket_id}/o/{object}",
-                    &self.client.endpoint
+                    "{}/storage/v1/b/{bucket_id}/o/{object}",
+                    &self.inner.endpoint
                 ),
             )
             .query(&[("alt", "media")])
@@ -484,18 +497,38 @@ impl ReadObject {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&self::info::X_GOOG_API_CLIENT_HEADER),
             );
+        let builder = self.inner.apply_auth_headers(builder).await?;
+        Ok(builder)
+    }
+}
 
-        let builder = self.client.apply_auth_headers(builder).await?;
+#[cfg(test)]
+mod test {
+    use super::*;
+    type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 
-        tracing::info!("builder={builder:?}");
+    #[tokio::test]
+    async fn test_read_object() -> Result {
+        let client = Storage::builder()
+            .with_endpoint("http://private.googleapis.com")
+            .with_credentials(auth::credentials::testing::test_credentials())
+            .build()
+            .await?;
 
-        let response = builder.send().await.map_err(Error::io)?;
-        if !response.status().is_success() {
-            return gaxi::http::to_http_error(response).await;
-        }
-        let response = response.bytes().await.map_err(Error::io)?;
+        let read_object_builder = client
+            .read_object()
+            .set_bucket("projects/_/buckets/bucket")
+            .set_object("object")
+            .read_object_builder()
+            .await?
+            .build()?;
 
-        Ok(response)
+        assert_eq!(read_object_builder.method(), reqwest::Method::GET);
+        assert_eq!(
+            read_object_builder.url().as_str(),
+            "http://private.googleapis.com/storage/v1/b/bucket/o/object?alt=media"
+        );
+        Ok(())
     }
 }
 
@@ -733,7 +766,7 @@ mod v1 {
     }
 
     #[cfg(test)]
-    mod tests {
+    mod test {
         use super::*;
         use serde_with::DeserializeAs;
         use test_case::test_case;
