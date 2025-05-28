@@ -159,7 +159,7 @@ impl Error {
     /// let e = search_for_thing("the thing");
     /// if let Some(headers) = e.http_headers() {
     ///     if let Some(id) = headers.get("x-guploader-uploadid") {
-    ///         println!("this can speed up troubleshooting the Google Cloud Storage support team {id:?}");
+    ///         println!("this can speed up troubleshooting for the Google Cloud Storage support team {id:?}");
     ///     }
     /// }
     ///
@@ -295,10 +295,10 @@ impl Error {
 
     /// Not part of the public API, subject to change without notice.
     ///
-    /// A problem in the transport layer without headers a full HTTP response.
+    /// A problem in the transport layer without a full HTTP response.
     ///
     /// Examples include: a broken connection after the request is sent, or a
-    /// HTTP error that is *not*
+    /// any HTTP error that did not include a status code or other headers.
     #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
     pub fn io<T: Into<BoxError>>(source: T) -> Self {
         Self {
@@ -347,7 +347,8 @@ impl Error {
     ///
     /// A problem in the transport layer.
     ///
-    /// Examples include I/O problems, broken connections or streams, etc.
+    /// Examples include errors in a proxy, load balancer, or other network
+    /// element generated before the service is able to send a full response.
     #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
     pub fn is_transport(&self) -> bool {
         matches!(&self.kind, ErrorKind::Transport { .. })

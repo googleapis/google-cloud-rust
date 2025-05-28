@@ -520,6 +520,7 @@ mod tests {
     use super::*;
     use crate::error::{CredentialsError, Error};
     use http::HeaderMap;
+    use std::error::Error as _;
     use std::time::{Duration, Instant};
 
     mockall::mock! {
@@ -696,7 +697,6 @@ mod tests {
                 "test-operation-name",
             )
             .unwrap();
-        use std::error::Error;
         let exhausted = err.source().and_then(|e| e.downcast_ref::<Exhausted>());
         assert!(exhausted.is_some());
     }
@@ -839,7 +839,6 @@ mod tests {
         let err = policy
             .on_in_progress(Instant::now(), 30, "test-operation-name")
             .unwrap();
-        use std::error::Error;
         let exhausted = err.source().and_then(|e| e.downcast_ref::<Exhausted>());
         assert!(exhausted.is_some());
     }

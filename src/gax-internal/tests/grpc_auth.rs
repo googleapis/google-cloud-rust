@@ -22,6 +22,7 @@ mod test {
     use grpc_server::{builder, google, start_echo_server};
     use http::header::{HeaderName, HeaderValue};
     use http::{Extensions, HeaderMap};
+    use std::error::Error as _;
 
     type AuthResult<T> = std::result::Result<T, CredentialsError>;
     type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
@@ -97,7 +98,6 @@ mod test {
             .await?;
 
         let result = send_request(client, "auth fail").await;
-        use std::error::Error;
         let e = result
             .as_ref()
             .err()
@@ -128,7 +128,6 @@ mod test {
             .await?;
 
         let result = send_request(client, "auth fail").await;
-        use std::error::Error;
         let e = result
             .as_ref()
             .err()

@@ -21,6 +21,7 @@ mod test {
     use http::header::{HeaderName, HeaderValue};
     use http::{Extensions, HeaderMap};
     use serde_json::json;
+    use std::error::Error as _;
 
     type AuthResult<T> = std::result::Result<T, CredentialsError>;
     type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
@@ -105,7 +106,6 @@ mod test {
         let result = client
             .execute::<serde_json::Value, serde_json::Value>(builder, Some(body), options)
             .await;
-        use std::error::Error;
         let e = result
             .as_ref()
             .err()
@@ -146,7 +146,6 @@ mod test {
             )
             .await;
 
-        use std::error::Error;
         let e = result
             .as_ref()
             .err()
