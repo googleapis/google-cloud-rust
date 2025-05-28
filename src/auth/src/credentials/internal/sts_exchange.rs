@@ -86,12 +86,12 @@ impl STSHandler {
             .send()
             .await
             .map_err(|err| {
-                CredentialsError::from_str(false, format!("failed to request token: {}", err))
+                CredentialsError::from_msg(false, format!("failed to request token: {}", err))
             })?;
 
         let status = res.status();
         if !status.is_success() {
-            return Err(CredentialsError::from_str(
+            return Err(CredentialsError::from_msg(
                 false,
                 format!("error exchanging token, failed with status {status}"),
             ));
@@ -99,7 +99,7 @@ impl STSHandler {
         let token_res = res
             .json::<TokenResponse>()
             .await
-            .map_err(|err| CredentialsError::new(false, err))?;
+            .map_err(|err| CredentialsError::from_source(false, err))?;
         Ok(token_res)
     }
 }
@@ -319,7 +319,7 @@ mod test {
         };
         let err = assert_err!(STSHandler::exchange_token(token_req).await);
 
-        let expected_err = crate::errors::CredentialsError::from_str(
+        let expected_err = crate::errors::CredentialsError::from_msg(
             false,
             "error exchanging token, failed with status 400 Bad Request",
         );

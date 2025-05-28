@@ -15,6 +15,7 @@
 mod core_error;
 pub use core_error::*;
 mod credentials;
+pub use credentials::BuildCredentialsError;
 pub use credentials::CredentialsError;
 mod http_error;
 pub use http_error::*;

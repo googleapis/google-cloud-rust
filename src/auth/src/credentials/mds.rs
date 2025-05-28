@@ -268,22 +268,37 @@ struct MDSAccessTokenProvider {
 }
 
 impl MDSAccessTokenProvider {
-    fn build_error<S: Into<String>>(&self, is_retryable: bool, error: S) -> CredentialsError {
-        // During ADC, if no credentials is found in the well-known location and the GOOGLE_APPLICATION_CREDENTIALS
-        // environment variable is not set, we default to MDS credentials without checking if the code is really
-        // running in an environment with MDS. To help users who got to this state because of lack of credentials
-        // setup on their machines, we provide a detailed error message to them talking about local setup and other
-        // auth mechanisms available to them.
-        // If the endpoint is overridden, even if ADC was used to create the MDS credentials, we do not give a detailed
-        // error message because they deliberately wanted to use an MDS.
+    // During ADC, if no credentials are found in the well-known location and the GOOGLE_APPLICATION_CREDENTIALS
+    // environment variable is not set, we default to MDS credentials without checking if the code is really
+    // running in an environment with MDS. To help users who got to this state because of lack of credentials
+    // setup on their machines, we provide a detailed error message to them talking about local setup and other
+    // auth mechanisms available to them.
+    // If the endpoint is overridden, even if ADC was used to create the MDS credentials, we do not give a detailed
+    // error message because they deliberately wanted to use an MDS.
+    fn build_error(&self, is_transient: bool, error: reqwest::Error) -> CredentialsError {
         match self.created_by_adc && !self.endpoint_overridden {
-            true => CredentialsError::from_str(
-                is_retryable,
-                format!("{MDS_NOT_FOUND_ERROR}, error: {}", error.into()),
+            true => CredentialsError::new(is_transient, MDS_NOT_FOUND_ERROR, error),
+            false => CredentialsError::new(is_transient, "failed to fetch token", error),
+        }
+    }
+
+    fn build_error_with_status(&self, error: reqwest::Error) -> CredentialsError {
+        let is_transient = error.status().map(is_retryable).unwrap_or(false);
+        self.build_error(is_transient, error)
+    }
+
+    fn build_error_with_body(&self, error: reqwest::Error, body: String) -> CredentialsError {
+        let is_transient = error.status().map(is_retryable).unwrap_or(false);
+        match self.created_by_adc && !self.endpoint_overridden {
+            true => CredentialsError::new(
+                is_transient,
+                format!("{MDS_NOT_FOUND_ERROR}, payload=<{body}>"),
+                error,
             ),
-            false => CredentialsError::from_str(
-                is_retryable,
-                format!("Failed to fetch token. Error: {}", error.into()),
+            false => CredentialsError::new(
+                is_transient,
+                format!("failed to fetch token, payload=<{body}>"),
+                error,
             ),
         }
     }
@@ -313,19 +328,19 @@ impl TokenProvider for MDSAccessTokenProvider {
         let response = request
             .send()
             .await
-            .map_err(|e| self.build_error(true, e.to_string()))?;
+            .map_err(|e| self.build_error(true, e))?;
         // Process the response
         if !response.status().is_success() {
-            let status = response.status();
+            let err = response.error_for_status_ref().unwrap_err();
             let body = response
                 .text()
                 .await
-                .map_err(|e| self.build_error(is_retryable(status), e.to_string()))?;
-            return Err(self.build_error(is_retryable(status), body));
+                .map_err(|e| self.build_error_with_status(e))?;
+            return Err(self.build_error_with_body(err, body));
         }
         let response = response.json::<MDSTokenResponse>().await.map_err(|e| {
             let retryable = !e.is_decode();
-            CredentialsError::new(retryable, e)
+            CredentialsError::from_source(retryable, e)
         })?;
         let token = Token {
             token: response.access_token,
@@ -440,18 +455,21 @@ mod test {
     #[tokio::test]
     #[serial]
     async fn adc_no_mds() -> TestResult {
-        let e = Builder::from_adc()
+        let err = Builder::from_adc()
             .build_token_provider()
             .token()
             .await
-            .err()
-            .unwrap();
+            .unwrap_err();
 
-        assert!(e.is_retryable(), "{e:?}");
+        assert!(err.is_transient(), "{err:?}");
         assert!(
-            format!("{:?}", e.source()).contains("application-default"),
-            "{e:?}"
+            err.to_string().contains("application-default"),
+            "display={err}, debug={err:?}"
         );
+        let source = err
+            .source()
+            .and_then(|e| e.downcast_ref::<reqwest::Error>());
+        assert!(matches!(source, Some(e) if e.status().is_none()), "{err:?}");
 
         Ok(())
     }
@@ -461,20 +479,23 @@ mod test {
     async fn adc_overridden_mds() -> TestResult {
         let _e = ScopedEnv::set(super::GCE_METADATA_HOST_ENV_VAR, "metadata.overridden");
 
-        let e = Builder::from_adc()
+        let err = Builder::from_adc()
             .build_token_provider()
             .token()
             .await
-            .err()
-            .unwrap();
+            .unwrap_err();
 
         let _e = ScopedEnv::remove(super::GCE_METADATA_HOST_ENV_VAR);
 
-        assert!(e.is_retryable(), "{e:?}");
+        assert!(err.is_transient(), "{err:?}");
         assert!(
-            !format!("{:?}", e.source()).contains("application-default"),
-            "{e:?}"
+            !err.to_string().contains("application-default"),
+            "display={err}, debug={err:?}"
         );
+        let source = err
+            .source()
+            .and_then(|e| e.downcast_ref::<reqwest::Error>());
+        assert!(matches!(source, Some(e) if e.status().is_none()), "{err:?}");
 
         Ok(())
     }
@@ -489,7 +510,7 @@ mod test {
             .err()
             .unwrap();
 
-        assert!(e.is_retryable(), "{e:?}");
+        assert!(e.is_transient(), "{e:?}");
         assert!(
             !format!("{:?}", e.source()).contains("application-default"),
             "{e:?}"
@@ -824,9 +845,16 @@ mod test {
             .with_endpoint(endpoint)
             .with_scopes(scopes)
             .build()?;
-        let e = mdsc.headers(Extensions::new()).await.err().unwrap();
-        assert!(e.is_retryable());
-        assert!(e.source().unwrap().to_string().contains("try again"));
+        let err = mdsc.headers(Extensions::new()).await.unwrap_err();
+        assert!(err.is_transient());
+        assert!(err.to_string().contains("try again"), "{err:?}");
+        let source = err
+            .source()
+            .and_then(|e| e.downcast_ref::<reqwest::Error>());
+        assert!(
+            matches!(source, Some(e) if e.status() == Some(StatusCode::SERVICE_UNAVAILABLE)),
+            "{err:?}"
+        );
 
         Ok(())
     }
@@ -854,9 +882,16 @@ mod test {
             .with_scopes(scopes)
             .build()?;
 
-        let e = mdsc.headers(Extensions::new()).await.err().unwrap();
-        assert!(!e.is_retryable());
-        assert!(e.source().unwrap().to_string().contains("epic fail"));
+        let err = mdsc.headers(Extensions::new()).await.unwrap_err();
+        assert!(!err.is_transient());
+        assert!(err.to_string().contains("epic fail"), "{err:?}");
+        let source = err
+            .source()
+            .and_then(|e| e.downcast_ref::<reqwest::Error>());
+        assert!(
+            matches!(source, Some(e) if e.status() == Some(StatusCode::UNAUTHORIZED)),
+            "{err:?}"
+        );
 
         Ok(())
     }
@@ -885,7 +920,7 @@ mod test {
             .build()?;
 
         let e = mdsc.headers(Extensions::new()).await.err().unwrap();
-        assert!(!e.is_retryable());
+        assert!(!e.is_transient());
 
         Ok(())
     }
