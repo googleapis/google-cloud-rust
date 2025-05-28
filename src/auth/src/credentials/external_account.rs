@@ -85,22 +85,14 @@ enum CredentialSource {
 impl SubjectTokenProvider for CredentialSource {
     async fn subject_token(&self) -> Result<String> {
         match self.clone() {
-            CredentialSource::UrlSourced { .. } => Err(CredentialsError::from_msg(
-                false,
-                "url sourced credential not supported yet",
-            )),
-            CredentialSource::Executable { .. } => Err(CredentialsError::from_msg(
-                false,
-                "executable sourced credential not supported yet",
-            )),
-            CredentialSource::File { .. } => Err(CredentialsError::from_msg(
-                false,
-                "file sourced credential not supported yet",
-            )),
-            CredentialSource::Aws { .. } => Err(CredentialsError::from_msg(
-                false,
-                "AWS sourced credential not supported yet",
-            )),
+            CredentialSource::UrlSourced { .. } => {
+                panic!("url sourced credential not supported yet")
+            }
+            CredentialSource::Executable { .. } => {
+                panic!("executable sourced credential not supported yet")
+            }
+            CredentialSource::File { .. } => panic!("file sourced credential not supported yet"),
+            CredentialSource::Aws { .. } => panic!("AWS sourced credential not supported yet"),
         }
     }
 }
