@@ -18,7 +18,6 @@ use crate::errors;
 use crate::headers_util::build_cacheable_headers;
 use crate::token::{CachedTokenProvider, Token, TokenProvider};
 use crate::token_cache::TokenCache;
-
 use gax::error::CredentialsError;
 use http::{Extensions, HeaderMap};
 use serde::{Deserialize, Serialize};
@@ -190,7 +189,7 @@ where
     quota_project_id: Option<String>,
 }
 
-/// A builder for constructing external account [Credentials] instances.
+/// A builder for external account [Credentials] instances.
 ///
 /// # Example
 /// ```
@@ -240,9 +239,9 @@ pub struct Builder {
 }
 
 impl Builder {
-    /// Creates a new builder using [external_account_config] JSON value.    
+    /// Creates a new builder using [external_account_credentials] JSON value.
     ///
-    /// [external_account_config]: https://cloud.google.com/iam/docs/workload-download-cred-and-grant-access#download-configuration
+    /// [external_account_credentials]: https://google.aip.dev/auth/4117#configuration-file-generation-and-usage
     pub fn new(external_account_config: Value) -> Self {
         Self {
             external_account_config,
@@ -284,10 +283,10 @@ impl Builder {
     /// provided to [`Builder::new`] cannot be successfully deserialized into the
     /// expected format for an external account configuration. This typically happens if the
     /// JSON value is malformed or missing required fields. For more information,
-    /// on the expected format, consult the relevant section in
-    /// the [external account config] guide.
+    /// on the expected format, consult the relevant section in the
+    /// [external_account_credentials] guide.
     ///
-    /// [external account config]: https://cloud.google.com/iam/docs/workload-download-cred-and-grant-access#download-configuration
+    /// [external_account_credentials]: https://google.aip.dev/auth/4117#configuration-file-generation-and-usage
     pub fn build(self) -> Result<Credentials> {
         let external_account_config: ExternalAccountConfig =
             serde_json::from_value(self.external_account_config).map_err(errors::non_retryable)?;
