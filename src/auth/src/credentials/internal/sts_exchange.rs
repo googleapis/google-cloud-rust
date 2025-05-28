@@ -110,7 +110,7 @@ pub struct TokenResponse {
     pub issued_token_type: String,
     pub token_type: String,
     pub expires_in: u64,
-    pub scope: String,
+    pub scope: Option<String>,
     pub refresh_token: Option<String>,
 }
 
@@ -155,15 +155,6 @@ pub struct ExchangeTokenRequest {
     pub actor_token: Option<String>,
     pub actor_token_type: Option<String>,
     pub extra_options: Option<HashMap<String, String>>,
-}
-
-/// Information required to perform the token exchange using a refresh token flow.
-#[derive(Default)]
-pub struct RefreshAccessTokenRequest {
-    pub url: String,
-    pub authentication: ClientAuthentication,
-    pub headers: http::HeaderMap,
-    pub refresh_token: String,
 }
 
 #[cfg(test)]
@@ -257,7 +248,7 @@ mod test {
                 issued_token_type: ACCESS_TOKEN_TYPE.to_string(),
                 token_type: "Bearer".to_string(),
                 expires_in: 3600,
-                scope: "https://www.googleapis.com/auth/cloud-platform".to_string(),
+                scope: Some("https://www.googleapis.com/auth/cloud-platform".to_string()),
             }
         );
 
