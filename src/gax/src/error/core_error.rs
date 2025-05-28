@@ -76,6 +76,8 @@ impl Error {
     }
 
     /// The error was returned by the service.
+    ///
+    /// This type always guarantees `e.is_service() == e.status().is_some()`.
     pub fn is_service(&self) -> bool {
         matches!(&self.kind, ErrorKind::Service { .. })
     }
@@ -100,6 +102,8 @@ impl Error {
     ///
     /// See [AIP-193] for background information about the error model in Google
     /// Cloud services.
+    ///
+    /// This type always guarantees `e.is_service() == e.status().is_some()`.
     ///
     /// [AIP-193]: https://google.aip.dev/193
     pub fn status(&self) -> Option<&Status> {
