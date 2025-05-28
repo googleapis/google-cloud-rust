@@ -22,7 +22,9 @@ pub use gax::error::{BuildCredentialsError, CredentialsError};
 /// A helper to create an error from a failed HTTP request.
 pub(crate) async fn from_http_error(response: reqwest::Response) -> CredentialsError {
     let transient = is_retryable(response.status());
-    let err = response.error_for_status_ref().unwrap_err();
+    let err = response
+        .error_for_status_ref()
+        .expect_err("this function is only called on errors");
     let body = response.text().await;
     match body {
         Err(e) => CredentialsError::from_source(transient, e),

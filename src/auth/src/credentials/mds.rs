@@ -275,31 +275,34 @@ impl MDSAccessTokenProvider {
     // auth mechanisms available to them.
     // If the endpoint is overridden, even if ADC was used to create the MDS credentials, we do not give a detailed
     // error message because they deliberately wanted to use an MDS.
-    fn build_error(&self, is_transient: bool, error: reqwest::Error) -> CredentialsError {
-        match self.created_by_adc && !self.endpoint_overridden {
-            true => CredentialsError::new(is_transient, MDS_NOT_FOUND_ERROR, error),
-            false => CredentialsError::new(is_transient, "failed to fetch token", error),
-        }
+    fn build_error(
+        &self,
+        is_transient: bool,
+        error: reqwest::Error,
+        body: Option<&str>,
+    ) -> CredentialsError {
+        CredentialsError::new(is_transient, self.error_message(body), error)
     }
 
-    fn build_error_with_status(&self, error: reqwest::Error) -> CredentialsError {
+    fn build_error_with_request(
+        &self,
+        error: reqwest::Error,
+        body: Option<&str>,
+    ) -> CredentialsError {
         let is_transient = error.status().map(is_retryable).unwrap_or(false);
-        self.build_error(is_transient, error)
+        self.build_error(is_transient, error, body)
     }
 
-    fn build_error_with_body(&self, error: reqwest::Error, body: String) -> CredentialsError {
-        let is_transient = error.status().map(is_retryable).unwrap_or(false);
-        match self.created_by_adc && !self.endpoint_overridden {
-            true => CredentialsError::new(
-                is_transient,
-                format!("{MDS_NOT_FOUND_ERROR}, payload=<{body}>"),
-                error,
-            ),
-            false => CredentialsError::new(
-                is_transient,
-                format!("failed to fetch token, payload=<{body}>"),
-                error,
-            ),
+    fn use_adc_message(&self) -> bool {
+        self.created_by_adc && !self.endpoint_overridden
+    }
+
+    fn error_message(&self, body: Option<&str>) -> String {
+        match body {
+            Some(b) if self.use_adc_message() => format!("{MDS_NOT_FOUND_ERROR}, payload=<{b}>"),
+            Some(b) => format!("failed to fetch token, payload=<{b}>"),
+            None if self.use_adc_message() => MDS_NOT_FOUND_ERROR.to_string(),
+            None => "failed to fetch token".to_string(),
         }
     }
 }
@@ -328,15 +331,15 @@ impl TokenProvider for MDSAccessTokenProvider {
         let response = request
             .send()
             .await
-            .map_err(|e| self.build_error(true, e))?;
+            .map_err(|e| self.build_error(true, e, None))?;
         // Process the response
         if !response.status().is_success() {
             let err = response.error_for_status_ref().unwrap_err();
             let body = response
                 .text()
                 .await
-                .map_err(|e| self.build_error_with_status(e))?;
-            return Err(self.build_error_with_body(err, body));
+                .map_err(|e| self.build_error_with_request(e, None))?;
+            return Err(self.build_error_with_request(err, Some(body.as_str())));
         }
         let response = response.json::<MDSTokenResponse>().await.map_err(|e| {
             let retryable = !e.is_decode();
@@ -375,6 +378,7 @@ mod test {
     use std::collections::HashMap;
     use std::error::Error;
     use std::sync::Mutex;
+    use test_case::test_case;
     use tokio::task::JoinHandle;
     use url::Url;
 
@@ -450,6 +454,44 @@ mod test {
             token_provider: TokenCache::new(mock),
         };
         assert!(mdsc.headers(Extensions::new()).await.is_err());
+    }
+
+    #[test]
+    fn error_message_with_adc() {
+        let provider = MDSAccessTokenProvider::builder()
+            .endpoint("http://127.0.0.1")
+            .created_by_adc(true)
+            .endpoint_overridden(false)
+            .build();
+
+        let want = MDS_NOT_FOUND_ERROR;
+        let got = provider.error_message(None);
+        assert!(got.contains(want), "{got}, {provider:?}");
+        assert!(!got.contains("payload=<"), "{got}, {provider:?}");
+
+        let got = provider.error_message(Some("test-body"));
+        assert!(got.contains(want), "{got}, {provider:?}");
+        assert!(got.contains("payload=<test-body>"), "{got}, {provider:?}");
+    }
+
+    #[test_case(false, false)]
+    #[test_case(false, true)]
+    #[test_case(true, true)]
+    fn error_message_without_adc(adc: bool, overriden: bool) {
+        let provider = MDSAccessTokenProvider::builder()
+            .endpoint("http://127.0.0.1")
+            .created_by_adc(adc)
+            .endpoint_overridden(overriden)
+            .build();
+
+        let not_want = MDS_NOT_FOUND_ERROR;
+        let got = provider.error_message(None);
+        assert!(!got.contains(not_want), "{got}, {provider:?}");
+        assert!(!got.contains("payload=<"), "{got}, {provider:?}");
+
+        let got = provider.error_message(Some("test-body"));
+        assert!(!got.contains(not_want), "{got}, {provider:?}");
+        assert!(got.contains("payload=<test-body>"), "{got}, {provider:?}");
     }
 
     #[tokio::test]
