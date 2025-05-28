@@ -461,9 +461,6 @@ mod test {
         let not_want = MDS_NOT_FOUND_ERROR;
         let got = provider.error_message();
         assert!(!got.contains(not_want), "{got}, {provider:?}");
-
-        let got = provider.error_message();
-        assert!(!got.contains(not_want), "{got}, {provider:?}");
     }
 
     #[tokio::test]
