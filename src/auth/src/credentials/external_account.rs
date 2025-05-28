@@ -16,20 +16,18 @@ use super::dynamic::CredentialsProvider;
 use super::internal::sts_exchange::{ExchangeTokenRequest, STSHandler};
 use super::{CacheableResource, Credentials};
 use crate::build_errors::Error as BuilderError;
+use crate::constants::DEFAULT_SCOPE;
 use crate::credentials::internal::sts_exchange::ClientAuthentication;
 use crate::headers_util::build_cacheable_headers;
 use crate::token::{CachedTokenProvider, Token, TokenProvider};
 use crate::token_cache::TokenCache;
 use crate::{BuildResult, Result};
-use gax::error::CredentialsError;
 use http::{Extensions, HeaderMap};
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use std::collections::HashMap;
 use std::sync::Arc;
 use tokio::time::{Duration, Instant};
-
-const DEFAULT_SCOPE: &str = "https://www.googleapis.com/auth/cloud-platform";
 
 #[async_trait::async_trait]
 pub(crate) trait SubjectTokenProvider: std::fmt::Debug + Send + Sync {
