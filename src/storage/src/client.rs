@@ -479,6 +479,12 @@ impl ReadObject {
 
     async fn http_request_builder(self) -> Result<reqwest::RequestBuilder> {
         // TODO(2103): map additional parameters to the JSON request.
+        // - map relevant parameters to remaining: softDelete, projection, restoreToken
+        // - map request parameters to optional extension headers: X-Goog-Encryption-Algorithm,
+        //   X-Goog-Encryption-Key, X-Goog-Encryption-Key-Sha256
+        // - return unimplemented if anything in self.request is set but does not apply
+
+        // Collect the required bucket and object parameters.
         let bucket: String = self.request.bucket;
         let bucket_id = bucket
             .as_str()
@@ -489,6 +495,8 @@ impl ReadObject {
                 ))
             })?;
         let object: String = self.request.object;
+
+        // Build the request.
         let builder = self
             .inner
             .client
@@ -504,6 +512,34 @@ impl ReadObject {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&self::info::X_GOOG_API_CLIENT_HEADER),
             );
+
+        // Add the optional query parameters.
+        let builder = if self.request.generation != 0 {
+            builder.query(&[("generation", self.request.generation)])
+        } else {
+            builder
+        };
+        let builder = self
+            .request
+            .if_generation_match
+            .iter()
+            .fold(builder, |b, v| b.query(&[("ifGenerationMatch", v)]));
+        let builder = self
+            .request
+            .if_generation_not_match
+            .iter()
+            .fold(builder, |b, v| b.query(&[("ifGenerationNotMatch", v)]));
+        let builder = self
+            .request
+            .if_metageneration_match
+            .iter()
+            .fold(builder, |b, v| b.query(&[("ifMetagenerationMatch", v)]));
+        let builder = self
+            .request
+            .if_metageneration_not_match
+            .iter()
+            .fold(builder, |b, v| b.query(&[("ifMetagenerationNotMatch", v)]));
+
         let builder = self.inner.apply_auth_headers(builder).await?;
         Ok(builder)
     }
@@ -552,6 +588,34 @@ mod tests {
             .http_request_builder()
             .await
             .expect_err("malformed bucket string should error");
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_read_object_query_params() -> Result {
+        let client = Storage::builder()
+            .with_credentials(auth::credentials::testing::test_credentials())
+            .build()
+            .await?;
+
+        let read_object_builder = client
+            .read_object()
+            .set_bucket("projects/_/buckets/bucket")
+            .set_object("object")
+            .set_generation(5)
+            .set_if_generation_match(10)
+            .set_if_generation_not_match(20)
+            .set_if_metageneration_match(30)
+            .set_if_metageneration_not_match(40)
+            .http_request_builder()
+            .await?
+            .build()?;
+
+        assert_eq!(read_object_builder.method(), reqwest::Method::GET);
+        assert_eq!(
+            read_object_builder.url().as_str(),
+            "https://storage.googleapis.com/storage/v1/b/bucket/o/object?alt=media&generation=5&ifGenerationMatch=10&ifGenerationNotMatch=20&ifMetagenerationMatch=30&ifMetagenerationNotMatch=40"
+        );
         Ok(())
     }
 }
