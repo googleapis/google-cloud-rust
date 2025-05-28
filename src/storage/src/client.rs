@@ -478,6 +478,7 @@ impl ReadObject {
     }
 
     async fn read_object_builder(self) -> Result<reqwest::RequestBuilder> {
+        // TODO(2103): map additional parameters to the JSON request.
         let bucket: String = self.request.bucket;
         let bucket_id = bucket
             .as_str()
