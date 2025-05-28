@@ -16,8 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-
 /// Implements a client for the Google Cloud Data Catalog API.
 ///
 /// # Example
@@ -26,7 +24,7 @@ use crate::Result;
 /// # use google_cloud_datacatalog_v1::client::DataCatalog;
 /// let client = DataCatalog::builder().build().await?;
 /// // use `client` to make requests to the Google Cloud Data Catalog API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -75,7 +73,7 @@ impl DataCatalog {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_datacatalog_v1::client::DataCatalog;
     /// let client = DataCatalog::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::data_catalog::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::data_catalog::client::Factory)
@@ -94,14 +92,16 @@ impl DataCatalog {
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::DataCatalog>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::DataCatalog>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -110,13 +110,13 @@ impl DataCatalog {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::DataCatalog> {
+    ) -> gax::client_builder::Result<impl super::stub::DataCatalog> {
         super::transport::DataCatalog::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::DataCatalog> {
+    ) -> gax::client_builder::Result<impl super::stub::DataCatalog> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::DataCatalog::new)
@@ -664,7 +664,7 @@ impl DataCatalog {
 /// # use google_cloud_datacatalog_v1::client::PolicyTagManager;
 /// let client = PolicyTagManager::builder().build().await?;
 /// // use `client` to make requests to the Google Cloud Data Catalog API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -714,7 +714,7 @@ impl PolicyTagManager {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_datacatalog_v1::client::PolicyTagManager;
     /// let client = PolicyTagManager::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::policy_tag_manager::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -735,14 +735,17 @@ impl PolicyTagManager {
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::PolicyTagManager>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::PolicyTagManager>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -751,13 +754,13 @@ impl PolicyTagManager {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::PolicyTagManager> {
+    ) -> gax::client_builder::Result<impl super::stub::PolicyTagManager> {
         super::transport::PolicyTagManager::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::PolicyTagManager> {
+    ) -> gax::client_builder::Result<impl super::stub::PolicyTagManager> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::PolicyTagManager::new)
@@ -878,7 +881,7 @@ impl PolicyTagManager {
 /// # use google_cloud_datacatalog_v1::client::PolicyTagManagerSerialization;
 /// let client = PolicyTagManagerSerialization::builder().build().await?;
 /// // use `client` to make requests to the Google Cloud Data Catalog API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -926,7 +929,7 @@ impl PolicyTagManagerSerialization {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_datacatalog_v1::client::PolicyTagManagerSerialization;
     /// let client = PolicyTagManagerSerialization::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::policy_tag_manager_serialization::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -947,14 +950,18 @@ impl PolicyTagManagerSerialization {
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::PolicyTagManagerSerialization>> {
+    ) -> gax::client_builder::Result<
+        std::sync::Arc<dyn super::stub::dynamic::PolicyTagManagerSerialization>,
+    > {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -963,13 +970,13 @@ impl PolicyTagManagerSerialization {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::PolicyTagManagerSerialization> {
+    ) -> gax::client_builder::Result<impl super::stub::PolicyTagManagerSerialization> {
         super::transport::PolicyTagManagerSerialization::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::PolicyTagManagerSerialization> {
+    ) -> gax::client_builder::Result<impl super::stub::PolicyTagManagerSerialization> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::PolicyTagManagerSerialization::new)

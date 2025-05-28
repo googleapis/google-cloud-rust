@@ -16,8 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-
 /// Implements a client for the Cloud SQL Admin API.
 ///
 /// # Example
@@ -26,7 +24,7 @@ use crate::Result;
 /// # use google_cloud_sql_v1::client::SqlBackupRunsService;
 /// let client = SqlBackupRunsService::builder().build().await?;
 /// // use `client` to make requests to the Cloud SQL Admin API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -71,7 +69,7 @@ impl SqlBackupRunsService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_sql_v1::client::SqlBackupRunsService;
     /// let client = SqlBackupRunsService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::sql_backup_runs_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -92,14 +90,17 @@ impl SqlBackupRunsService {
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::SqlBackupRunsService>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::SqlBackupRunsService>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -108,13 +109,13 @@ impl SqlBackupRunsService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::SqlBackupRunsService> {
+    ) -> gax::client_builder::Result<impl super::stub::SqlBackupRunsService> {
         super::transport::SqlBackupRunsService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::SqlBackupRunsService> {
+    ) -> gax::client_builder::Result<impl super::stub::SqlBackupRunsService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::SqlBackupRunsService::new)
@@ -151,7 +152,7 @@ impl SqlBackupRunsService {
 /// # use google_cloud_sql_v1::client::SqlConnectService;
 /// let client = SqlConnectService::builder().build().await?;
 /// // use `client` to make requests to the Cloud SQL Admin API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -196,7 +197,7 @@ impl SqlConnectService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_sql_v1::client::SqlConnectService;
     /// let client = SqlConnectService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::sql_connect_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -217,14 +218,17 @@ impl SqlConnectService {
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::SqlConnectService>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::SqlConnectService>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -233,13 +237,13 @@ impl SqlConnectService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::SqlConnectService> {
+    ) -> gax::client_builder::Result<impl super::stub::SqlConnectService> {
         super::transport::SqlConnectService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::SqlConnectService> {
+    ) -> gax::client_builder::Result<impl super::stub::SqlConnectService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::SqlConnectService::new)
@@ -269,7 +273,7 @@ impl SqlConnectService {
 /// # use google_cloud_sql_v1::client::SqlDatabasesService;
 /// let client = SqlDatabasesService::builder().build().await?;
 /// // use `client` to make requests to the Cloud SQL Admin API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -314,7 +318,7 @@ impl SqlDatabasesService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_sql_v1::client::SqlDatabasesService;
     /// let client = SqlDatabasesService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::sql_databases_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -335,14 +339,17 @@ impl SqlDatabasesService {
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::SqlDatabasesService>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::SqlDatabasesService>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -351,13 +358,13 @@ impl SqlDatabasesService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::SqlDatabasesService> {
+    ) -> gax::client_builder::Result<impl super::stub::SqlDatabasesService> {
         super::transport::SqlDatabasesService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::SqlDatabasesService> {
+    ) -> gax::client_builder::Result<impl super::stub::SqlDatabasesService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::SqlDatabasesService::new)
@@ -408,7 +415,7 @@ impl SqlDatabasesService {
 /// # use google_cloud_sql_v1::client::SqlFlagsService;
 /// let client = SqlFlagsService::builder().build().await?;
 /// // use `client` to make requests to the Cloud SQL Admin API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -453,7 +460,7 @@ impl SqlFlagsService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_sql_v1::client::SqlFlagsService;
     /// let client = SqlFlagsService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::sql_flags_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -474,14 +481,17 @@ impl SqlFlagsService {
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::SqlFlagsService>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::SqlFlagsService>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -490,13 +500,13 @@ impl SqlFlagsService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::SqlFlagsService> {
+    ) -> gax::client_builder::Result<impl super::stub::SqlFlagsService> {
         super::transport::SqlFlagsService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::SqlFlagsService> {
+    ) -> gax::client_builder::Result<impl super::stub::SqlFlagsService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::SqlFlagsService::new)
@@ -516,7 +526,7 @@ impl SqlFlagsService {
 /// # use google_cloud_sql_v1::client::SqlInstancesService;
 /// let client = SqlInstancesService::builder().build().await?;
 /// // use `client` to make requests to the Cloud SQL Admin API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -561,7 +571,7 @@ impl SqlInstancesService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_sql_v1::client::SqlInstancesService;
     /// let client = SqlInstancesService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::sql_instances_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -582,14 +592,17 @@ impl SqlInstancesService {
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::SqlInstancesService>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::SqlInstancesService>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -598,13 +611,13 @@ impl SqlInstancesService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::SqlInstancesService> {
+    ) -> gax::client_builder::Result<impl super::stub::SqlInstancesService> {
         super::transport::SqlInstancesService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::SqlInstancesService> {
+    ) -> gax::client_builder::Result<impl super::stub::SqlInstancesService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::SqlInstancesService::new)
@@ -834,7 +847,7 @@ impl SqlInstancesService {
 /// # use google_cloud_sql_v1::client::SqlOperationsService;
 /// let client = SqlOperationsService::builder().build().await?;
 /// // use `client` to make requests to the Cloud SQL Admin API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -879,7 +892,7 @@ impl SqlOperationsService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_sql_v1::client::SqlOperationsService;
     /// let client = SqlOperationsService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::sql_operations_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -900,14 +913,17 @@ impl SqlOperationsService {
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::SqlOperationsService>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::SqlOperationsService>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -916,13 +932,13 @@ impl SqlOperationsService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::SqlOperationsService> {
+    ) -> gax::client_builder::Result<impl super::stub::SqlOperationsService> {
         super::transport::SqlOperationsService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::SqlOperationsService> {
+    ) -> gax::client_builder::Result<impl super::stub::SqlOperationsService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::SqlOperationsService::new)
@@ -953,7 +969,7 @@ impl SqlOperationsService {
 /// # use google_cloud_sql_v1::client::SqlSslCertsService;
 /// let client = SqlSslCertsService::builder().build().await?;
 /// // use `client` to make requests to the Cloud SQL Admin API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -998,7 +1014,7 @@ impl SqlSslCertsService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_sql_v1::client::SqlSslCertsService;
     /// let client = SqlSslCertsService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::sql_ssl_certs_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -1019,14 +1035,17 @@ impl SqlSslCertsService {
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::SqlSslCertsService>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::SqlSslCertsService>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -1035,13 +1054,13 @@ impl SqlSslCertsService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::SqlSslCertsService> {
+    ) -> gax::client_builder::Result<impl super::stub::SqlSslCertsService> {
         super::transport::SqlSslCertsService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::SqlSslCertsService> {
+    ) -> gax::client_builder::Result<impl super::stub::SqlSslCertsService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::SqlSslCertsService::new)
@@ -1081,7 +1100,7 @@ impl SqlSslCertsService {
 /// # use google_cloud_sql_v1::client::SqlTiersService;
 /// let client = SqlTiersService::builder().build().await?;
 /// // use `client` to make requests to the Cloud SQL Admin API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -1126,7 +1145,7 @@ impl SqlTiersService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_sql_v1::client::SqlTiersService;
     /// let client = SqlTiersService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::sql_tiers_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -1147,14 +1166,17 @@ impl SqlTiersService {
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::SqlTiersService>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::SqlTiersService>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -1163,13 +1185,13 @@ impl SqlTiersService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::SqlTiersService> {
+    ) -> gax::client_builder::Result<impl super::stub::SqlTiersService> {
         super::transport::SqlTiersService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::SqlTiersService> {
+    ) -> gax::client_builder::Result<impl super::stub::SqlTiersService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::SqlTiersService::new)
@@ -1191,7 +1213,7 @@ impl SqlTiersService {
 /// # use google_cloud_sql_v1::client::SqlUsersService;
 /// let client = SqlUsersService::builder().build().await?;
 /// // use `client` to make requests to the Cloud SQL Admin API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -1236,7 +1258,7 @@ impl SqlUsersService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_sql_v1::client::SqlUsersService;
     /// let client = SqlUsersService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::sql_users_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -1257,14 +1279,17 @@ impl SqlUsersService {
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::SqlUsersService>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::SqlUsersService>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -1273,13 +1298,13 @@ impl SqlUsersService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::SqlUsersService> {
+    ) -> gax::client_builder::Result<impl super::stub::SqlUsersService> {
         super::transport::SqlUsersService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::SqlUsersService> {
+    ) -> gax::client_builder::Result<impl super::stub::SqlUsersService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::SqlUsersService::new)

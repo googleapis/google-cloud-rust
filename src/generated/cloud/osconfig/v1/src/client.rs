@@ -18,8 +18,6 @@
 #![allow(rustdoc::bare_urls)]
 #![allow(rustdoc::invalid_html_tags)]
 
-use crate::Result;
-
 /// Implements a client for the OS Config API.
 ///
 /// # Example
@@ -28,7 +26,7 @@ use crate::Result;
 /// # use google_cloud_osconfig_v1::client::OsConfigService;
 /// let client = OsConfigService::builder().build().await?;
 /// // use `client` to make requests to the OS Config API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -76,7 +74,7 @@ impl OsConfigService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_osconfig_v1::client::OsConfigService;
     /// let client = OsConfigService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::os_config_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -97,14 +95,17 @@ impl OsConfigService {
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::OsConfigService>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::OsConfigService>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -113,13 +114,13 @@ impl OsConfigService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::OsConfigService> {
+    ) -> gax::client_builder::Result<impl super::stub::OsConfigService> {
         super::transport::OsConfigService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::OsConfigService> {
+    ) -> gax::client_builder::Result<impl super::stub::OsConfigService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::OsConfigService::new)
@@ -226,7 +227,7 @@ impl OsConfigService {
 /// # use google_cloud_osconfig_v1::client::OsConfigZonalService;
 /// let client = OsConfigZonalService::builder().build().await?;
 /// // use `client` to make requests to the OS Config API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -274,7 +275,7 @@ impl OsConfigZonalService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_osconfig_v1::client::OsConfigZonalService;
     /// let client = OsConfigZonalService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::os_config_zonal_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -295,14 +296,17 @@ impl OsConfigZonalService {
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::OsConfigZonalService>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::OsConfigZonalService>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -311,13 +315,13 @@ impl OsConfigZonalService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::OsConfigZonalService> {
+    ) -> gax::client_builder::Result<impl super::stub::OsConfigZonalService> {
         super::transport::OsConfigZonalService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::OsConfigZonalService> {
+    ) -> gax::client_builder::Result<impl super::stub::OsConfigZonalService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::OsConfigZonalService::new)

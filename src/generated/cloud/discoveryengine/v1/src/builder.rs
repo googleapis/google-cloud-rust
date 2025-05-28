@@ -28,7 +28,7 @@ pub mod completion_service {
     /// let client = builder
     ///     .with_endpoint("https://discoveryengine.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -39,7 +39,10 @@ pub mod completion_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = CompletionService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -985,7 +988,7 @@ pub mod control_service {
     /// let client = builder
     ///     .with_endpoint("https://discoveryengine.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -996,7 +999,10 @@ pub mod control_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = ControlService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -1703,7 +1709,7 @@ pub mod conversational_search_service {
     /// let client = builder
     ///     .with_endpoint("https://discoveryengine.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -1714,7 +1720,10 @@ pub mod conversational_search_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = ConversationalSearchService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -3333,7 +3342,7 @@ pub mod data_store_service {
     /// let client = builder
     ///     .with_endpoint("https://discoveryengine.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -3344,7 +3353,10 @@ pub mod data_store_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = DataStoreService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -4147,7 +4159,7 @@ pub mod document_service {
     /// let client = builder
     ///     .with_endpoint("https://discoveryengine.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -4158,7 +4170,10 @@ pub mod document_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = DocumentService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -5451,7 +5466,7 @@ pub mod engine_service {
     /// let client = builder
     ///     .with_endpoint("https://discoveryengine.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -5462,7 +5477,10 @@ pub mod engine_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = EngineService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -6250,7 +6268,7 @@ pub mod grounded_generation_service {
     /// let client = builder
     ///     .with_endpoint("https://discoveryengine.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -6261,7 +6279,10 @@ pub mod grounded_generation_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = GroundedGenerationService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -6798,7 +6819,7 @@ pub mod project_service {
     /// let client = builder
     ///     .with_endpoint("https://discoveryengine.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -6809,7 +6830,10 @@ pub mod project_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = ProjectService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -7217,7 +7241,7 @@ pub mod rank_service {
     /// let client = builder
     ///     .with_endpoint("https://discoveryengine.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -7228,7 +7252,10 @@ pub mod rank_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = RankService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -7623,7 +7650,7 @@ pub mod recommendation_service {
     /// let client = builder
     ///     .with_endpoint("https://discoveryengine.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -7634,7 +7661,10 @@ pub mod recommendation_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = RecommendationService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -8043,7 +8073,7 @@ pub mod schema_service {
     /// let client = builder
     ///     .with_endpoint("https://discoveryengine.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -8054,7 +8084,10 @@ pub mod schema_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = SchemaService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -8863,7 +8896,7 @@ pub mod search_service {
     /// let client = builder
     ///     .with_endpoint("https://discoveryengine.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -8874,7 +8907,10 @@ pub mod search_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = SearchService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -9966,7 +10002,7 @@ pub mod search_tuning_service {
     /// let client = builder
     ///     .with_endpoint("https://discoveryengine.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -9977,7 +10013,10 @@ pub mod search_tuning_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = SearchTuningService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -10498,7 +10537,7 @@ pub mod serving_config_service {
     /// let client = builder
     ///     .with_endpoint("https://discoveryengine.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -10509,7 +10548,10 @@ pub mod serving_config_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = ServingConfigService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -10891,7 +10933,7 @@ pub mod site_search_engine_service {
     /// let client = builder
     ///     .with_endpoint("https://discoveryengine.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -10902,7 +10944,10 @@ pub mod site_search_engine_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = SiteSearchEngineService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -12783,7 +12828,7 @@ pub mod user_event_service {
     /// let client = builder
     ///     .with_endpoint("https://discoveryengine.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -12794,7 +12839,10 @@ pub mod user_event_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = UserEventService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }

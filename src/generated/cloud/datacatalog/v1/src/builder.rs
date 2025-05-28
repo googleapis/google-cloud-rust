@@ -28,7 +28,7 @@ pub mod data_catalog {
     /// let client = builder
     ///     .with_endpoint("https://datacatalog.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -39,7 +39,10 @@ pub mod data_catalog {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = DataCatalog;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -3696,7 +3699,7 @@ pub mod policy_tag_manager {
     /// let client = builder
     ///     .with_endpoint("https://datacatalog.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -3707,7 +3710,10 @@ pub mod policy_tag_manager {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = PolicyTagManager;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -5126,7 +5132,7 @@ pub mod policy_tag_manager_serialization {
     /// let client = builder
     ///     .with_endpoint("https://datacatalog.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -5137,7 +5143,10 @@ pub mod policy_tag_manager_serialization {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = PolicyTagManagerSerialization;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }

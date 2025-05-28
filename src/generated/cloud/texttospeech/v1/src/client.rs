@@ -16,8 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-
 /// Implements a client for the Cloud Text-to-Speech API.
 ///
 /// # Example
@@ -26,7 +24,7 @@ use crate::Result;
 /// # use google_cloud_texttospeech_v1::client::TextToSpeech;
 /// let client = TextToSpeech::builder().build().await?;
 /// // use `client` to make requests to the Cloud Text-to-Speech API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -71,7 +69,7 @@ impl TextToSpeech {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_texttospeech_v1::client::TextToSpeech;
     /// let client = TextToSpeech::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::text_to_speech::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::text_to_speech::client::Factory)
@@ -90,14 +88,16 @@ impl TextToSpeech {
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::TextToSpeech>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::TextToSpeech>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -106,13 +106,13 @@ impl TextToSpeech {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::TextToSpeech> {
+    ) -> gax::client_builder::Result<impl super::stub::TextToSpeech> {
         super::transport::TextToSpeech::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::TextToSpeech> {
+    ) -> gax::client_builder::Result<impl super::stub::TextToSpeech> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::TextToSpeech::new)
@@ -152,7 +152,7 @@ impl TextToSpeech {
 /// # use google_cloud_texttospeech_v1::client::TextToSpeechLongAudioSynthesize;
 /// let client = TextToSpeechLongAudioSynthesize::builder().build().await?;
 /// // use `client` to make requests to the Cloud Text-to-Speech API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -197,7 +197,7 @@ impl TextToSpeechLongAudioSynthesize {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_texttospeech_v1::client::TextToSpeechLongAudioSynthesize;
     /// let client = TextToSpeechLongAudioSynthesize::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::text_to_speech_long_audio_synthesize::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -218,14 +218,18 @@ impl TextToSpeechLongAudioSynthesize {
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::TextToSpeechLongAudioSynthesize>> {
+    ) -> gax::client_builder::Result<
+        std::sync::Arc<dyn super::stub::dynamic::TextToSpeechLongAudioSynthesize>,
+    > {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -234,13 +238,13 @@ impl TextToSpeechLongAudioSynthesize {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::TextToSpeechLongAudioSynthesize> {
+    ) -> gax::client_builder::Result<impl super::stub::TextToSpeechLongAudioSynthesize> {
         super::transport::TextToSpeechLongAudioSynthesize::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::TextToSpeechLongAudioSynthesize> {
+    ) -> gax::client_builder::Result<impl super::stub::TextToSpeechLongAudioSynthesize> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::TextToSpeechLongAudioSynthesize::new)

@@ -16,8 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-
 /// Implements a client for the Access Approval API.
 ///
 /// # Example
@@ -26,7 +24,7 @@ use crate::Result;
 /// # use google_cloud_accessapproval_v1::client::AccessApproval;
 /// let client = AccessApproval::builder().build().await?;
 /// // use `client` to make requests to the Access Approval API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -105,7 +103,7 @@ impl AccessApproval {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_accessapproval_v1::client::AccessApproval;
     /// let client = AccessApproval::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::access_approval::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::access_approval::client::Factory)
@@ -124,14 +122,16 @@ impl AccessApproval {
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::AccessApproval>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::AccessApproval>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -140,13 +140,13 @@ impl AccessApproval {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::AccessApproval> {
+    ) -> gax::client_builder::Result<impl super::stub::AccessApproval> {
         super::transport::AccessApproval::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::AccessApproval> {
+    ) -> gax::client_builder::Result<impl super::stub::AccessApproval> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::AccessApproval::new)

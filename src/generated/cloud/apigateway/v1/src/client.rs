@@ -16,8 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-
 /// Implements a client for the API Gateway API.
 ///
 /// # Example
@@ -26,7 +24,7 @@ use crate::Result;
 /// # use google_cloud_apigateway_v1::client::ApiGatewayService;
 /// let client = ApiGatewayService::builder().build().await?;
 /// // use `client` to make requests to the API Gateway API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -71,7 +69,7 @@ impl ApiGatewayService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_apigateway_v1::client::ApiGatewayService;
     /// let client = ApiGatewayService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::api_gateway_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -92,14 +90,17 @@ impl ApiGatewayService {
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::ApiGatewayService>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ApiGatewayService>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -108,13 +109,13 @@ impl ApiGatewayService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::ApiGatewayService> {
+    ) -> gax::client_builder::Result<impl super::stub::ApiGatewayService> {
         super::transport::ApiGatewayService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::ApiGatewayService> {
+    ) -> gax::client_builder::Result<impl super::stub::ApiGatewayService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ApiGatewayService::new)
