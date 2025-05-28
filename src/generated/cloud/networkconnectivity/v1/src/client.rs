@@ -16,8 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-
 /// Implements a client for the Network Connectivity API.
 ///
 /// # Example
@@ -26,7 +24,7 @@ use crate::Result;
 /// # use google_cloud_networkconnectivity_v1::client::CrossNetworkAutomationService;
 /// let client = CrossNetworkAutomationService::builder().build().await?;
 /// // use `client` to make requests to the Network Connectivity API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -71,7 +69,7 @@ impl CrossNetworkAutomationService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_networkconnectivity_v1::client::CrossNetworkAutomationService;
     /// let client = CrossNetworkAutomationService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::cross_network_automation_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -92,14 +90,18 @@ impl CrossNetworkAutomationService {
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::CrossNetworkAutomationService>> {
+    ) -> gax::client_builder::Result<
+        std::sync::Arc<dyn super::stub::dynamic::CrossNetworkAutomationService>,
+    > {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -108,13 +110,13 @@ impl CrossNetworkAutomationService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::CrossNetworkAutomationService> {
+    ) -> gax::client_builder::Result<impl super::stub::CrossNetworkAutomationService> {
         super::transport::CrossNetworkAutomationService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::CrossNetworkAutomationService> {
+    ) -> gax::client_builder::Result<impl super::stub::CrossNetworkAutomationService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::CrossNetworkAutomationService::new)
@@ -465,7 +467,7 @@ impl CrossNetworkAutomationService {
 /// # use google_cloud_networkconnectivity_v1::client::HubService;
 /// let client = HubService::builder().build().await?;
 /// // use `client` to make requests to the Network Connectivity API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -512,7 +514,7 @@ impl HubService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_networkconnectivity_v1::client::HubService;
     /// let client = HubService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::hub_service::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::hub_service::client::Factory)
@@ -531,14 +533,16 @@ impl HubService {
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::HubService>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::HubService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -547,13 +551,13 @@ impl HubService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::HubService> {
+    ) -> gax::client_builder::Result<impl super::stub::HubService> {
         super::transport::HubService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::HubService> {
+    ) -> gax::client_builder::Result<impl super::stub::HubService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::HubService::new)
@@ -866,7 +870,7 @@ impl HubService {
 /// # use google_cloud_networkconnectivity_v1::client::PolicyBasedRoutingService;
 /// let client = PolicyBasedRoutingService::builder().build().await?;
 /// // use `client` to make requests to the Network Connectivity API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -912,7 +916,7 @@ impl PolicyBasedRoutingService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_networkconnectivity_v1::client::PolicyBasedRoutingService;
     /// let client = PolicyBasedRoutingService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::policy_based_routing_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -933,14 +937,18 @@ impl PolicyBasedRoutingService {
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::PolicyBasedRoutingService>> {
+    ) -> gax::client_builder::Result<
+        std::sync::Arc<dyn super::stub::dynamic::PolicyBasedRoutingService>,
+    > {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -949,13 +957,13 @@ impl PolicyBasedRoutingService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::PolicyBasedRoutingService> {
+    ) -> gax::client_builder::Result<impl super::stub::PolicyBasedRoutingService> {
         super::transport::PolicyBasedRoutingService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::PolicyBasedRoutingService> {
+    ) -> gax::client_builder::Result<impl super::stub::PolicyBasedRoutingService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::PolicyBasedRoutingService::new)

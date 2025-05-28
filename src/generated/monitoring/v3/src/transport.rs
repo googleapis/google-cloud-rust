@@ -33,7 +33,7 @@ impl std::fmt::Debug for AlertPolicyService {
 }
 
 impl AlertPolicyService {
-    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -204,7 +204,7 @@ impl std::fmt::Debug for GroupService {
 }
 
 impl GroupService {
-    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -417,7 +417,7 @@ impl std::fmt::Debug for MetricService {
 }
 
 impl MetricService {
-    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -727,7 +727,7 @@ impl std::fmt::Debug for NotificationChannelService {
 }
 
 impl NotificationChannelService {
-    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -1032,7 +1032,7 @@ impl std::fmt::Debug for QueryService {
 }
 
 impl QueryService {
-    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -1079,7 +1079,7 @@ impl std::fmt::Debug for ServiceMonitoringService {
 }
 
 impl ServiceMonitoringService {
-    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -1403,7 +1403,7 @@ impl std::fmt::Debug for SnoozeService {
 }
 
 impl SnoozeService {
-    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -1539,7 +1539,7 @@ impl std::fmt::Debug for UptimeCheckService {
 }
 
 impl UptimeCheckService {
-    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }

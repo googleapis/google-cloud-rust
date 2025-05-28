@@ -16,8 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-
 /// Implements a client for the Dataproc Metastore API.
 ///
 /// # Example
@@ -26,7 +24,7 @@ use crate::Result;
 /// # use google_cloud_metastore_v1::client::DataprocMetastore;
 /// let client = DataprocMetastore::builder().build().await?;
 /// // use `client` to make requests to the Dataproc Metastore API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -91,7 +89,7 @@ impl DataprocMetastore {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_metastore_v1::client::DataprocMetastore;
     /// let client = DataprocMetastore::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::dataproc_metastore::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -112,14 +110,17 @@ impl DataprocMetastore {
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::DataprocMetastore>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::DataprocMetastore>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -128,13 +129,13 @@ impl DataprocMetastore {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::DataprocMetastore> {
+    ) -> gax::client_builder::Result<impl super::stub::DataprocMetastore> {
         super::transport::DataprocMetastore::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::DataprocMetastore> {
+    ) -> gax::client_builder::Result<impl super::stub::DataprocMetastore> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::DataprocMetastore::new)
@@ -435,7 +436,7 @@ impl DataprocMetastore {
 /// # use google_cloud_metastore_v1::client::DataprocMetastoreFederation;
 /// let client = DataprocMetastoreFederation::builder().build().await?;
 /// // use `client` to make requests to the Dataproc Metastore API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -493,7 +494,7 @@ impl DataprocMetastoreFederation {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_metastore_v1::client::DataprocMetastoreFederation;
     /// let client = DataprocMetastoreFederation::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::dataproc_metastore_federation::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -514,14 +515,18 @@ impl DataprocMetastoreFederation {
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::DataprocMetastoreFederation>> {
+    ) -> gax::client_builder::Result<
+        std::sync::Arc<dyn super::stub::dynamic::DataprocMetastoreFederation>,
+    > {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -530,13 +535,13 @@ impl DataprocMetastoreFederation {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::DataprocMetastoreFederation> {
+    ) -> gax::client_builder::Result<impl super::stub::DataprocMetastoreFederation> {
         super::transport::DataprocMetastoreFederation::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::DataprocMetastoreFederation> {
+    ) -> gax::client_builder::Result<impl super::stub::DataprocMetastoreFederation> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::DataprocMetastoreFederation::new)

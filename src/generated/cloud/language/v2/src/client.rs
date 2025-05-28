@@ -16,8 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-
 /// Implements a client for the Cloud Natural Language API.
 ///
 /// # Example
@@ -26,7 +24,7 @@ use crate::Result;
 /// # use google_cloud_language_v2::client::LanguageService;
 /// let client = LanguageService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Natural Language API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -72,7 +70,7 @@ impl LanguageService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_language_v2::client::LanguageService;
     /// let client = LanguageService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::language_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -93,14 +91,17 @@ impl LanguageService {
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::LanguageService>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::LanguageService>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -109,13 +110,13 @@ impl LanguageService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::LanguageService> {
+    ) -> gax::client_builder::Result<impl super::stub::LanguageService> {
         super::transport::LanguageService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::LanguageService> {
+    ) -> gax::client_builder::Result<impl super::stub::LanguageService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::LanguageService::new)
