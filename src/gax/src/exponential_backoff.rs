@@ -26,14 +26,17 @@ use std::time::Duration;
 #[derive(thiserror::Error, Debug)]
 #[non_exhaustive]
 pub enum Error {
-    #[error("the scaling value ({value}) should be >= 1.0")]
-    Scaling { value: f64 },
-    #[error("the initial delay ({value:?}) should be greater than zero")]
-    InitialDelay { value: Duration },
+    #[error("the scaling value ({0}) should be >= 1.0")]
+    ScalingShrinksDelay(f64),
+    #[error("the initial delay ({0:?}) should be greater than zero")]
+    InvalidInitialDelay(Duration),
     #[error(
-        "the maximum delay ({value:?}) should be greater or equal than the initial delay ({initial:?})"
+        "the maximum delay ({maximum:?}) should be greater or equal than the initial delay ({initial:?})"
     )]
-    MaximumDelay { value: Duration, initial: Duration },
+    EmptyRange {
+        maximum: Duration,
+        initial: Duration,
+    },
 }
 
 /// Implements truncated exponential backoff with jitter.
@@ -107,8 +110,17 @@ impl ExponentialBackoffBuilder {
     /// # Ok::<(), Error>(())
     /// ```
     pub fn build(self) -> Result<ExponentialBackoff, Error> {
-        if let Some(error) = self.validate() {
-            return Err(error);
+        if self.scaling < 1.0 {
+            return Err(Error::ScalingShrinksDelay(self.scaling));
+        }
+        if self.initial_delay.is_zero() {
+            return Err(Error::InvalidInitialDelay(self.initial_delay));
+        }
+        if self.maximum_delay < self.initial_delay {
+            return Err(Error::EmptyRange {
+                maximum: self.maximum_delay,
+                initial: self.initial_delay,
+            });
         }
         Ok(ExponentialBackoff {
             maximum_delay: self.maximum_delay,
@@ -156,26 +168,6 @@ impl ExponentialBackoffBuilder {
             maximum_delay,
             scaling,
         }
-    }
-
-    fn validate(&self) -> Option<Error> {
-        if self.scaling < 1.0 {
-            return Some(Error::Scaling {
-                value: self.scaling,
-            });
-        }
-        if self.initial_delay.is_zero() {
-            return Some(Error::InitialDelay {
-                value: self.initial_delay,
-            });
-        }
-        if self.maximum_delay < self.initial_delay {
-            return Some(Error::MaximumDelay {
-                value: self.maximum_delay,
-                initial: self.initial_delay,
-            });
-        }
-        None
     }
 }
 
@@ -259,31 +251,31 @@ mod test {
             .with_initial_delay(Duration::ZERO)
             .with_maximum_delay(Duration::from_secs(5))
             .build();
-        assert!(matches!(b, Err(Error::InitialDelay { .. })), "{b:?}");
+        assert!(matches!(b, Err(Error::InvalidInitialDelay(_))), "{b:?}");
         let b = ExponentialBackoffBuilder::new()
             .with_initial_delay(Duration::from_secs(10))
             .with_maximum_delay(Duration::from_secs(5))
             .build();
-        assert!(matches!(b, Err(Error::MaximumDelay { .. })), "{b:?}");
+        assert!(matches!(b, Err(Error::EmptyRange { .. })), "{b:?}");
 
         let b = ExponentialBackoffBuilder::new()
             .with_initial_delay(Duration::from_secs(1))
             .with_maximum_delay(Duration::from_secs(60))
             .with_scaling(-1.0)
             .build();
-        assert!(matches!(b, Err(Error::Scaling { .. })), "{b:?}");
+        assert!(matches!(b, Err(Error::ScalingShrinksDelay { .. })), "{b:?}");
 
         let b = ExponentialBackoffBuilder::new()
             .with_initial_delay(Duration::from_secs(1))
             .with_maximum_delay(Duration::from_secs(60))
             .with_scaling(0.0)
             .build();
-        assert!(matches!(b, Err(Error::Scaling { .. })), "{b:?}");
+        assert!(matches!(b, Err(Error::ScalingShrinksDelay { .. })), "{b:?}");
 
         let b = ExponentialBackoffBuilder::new()
             .with_initial_delay(Duration::ZERO)
             .build();
-        assert!(matches!(b, Err(Error::InitialDelay { .. })), "{b:?}");
+        assert!(matches!(b, Err(Error::InvalidInitialDelay { .. })), "{b:?}");
     }
 
     #[test]
