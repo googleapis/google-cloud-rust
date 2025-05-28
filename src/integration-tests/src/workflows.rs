@@ -61,7 +61,7 @@ main:
                 .set_service_account(&workflows_runner)
                 .set_source_code(source_code),
         )
-        .with_polling_backoff_policy(test_backoff()?)
+        .with_polling_backoff_policy(test_backoff())
         .poller()
         .until_done()
         .await?;
@@ -178,12 +178,12 @@ main:
     Ok(())
 }
 
-fn test_backoff() -> Result<ExponentialBackoff> {
-    let policy = ExponentialBackoffBuilder::new()
+fn test_backoff() -> ExponentialBackoff {
+    ExponentialBackoffBuilder::new()
         .with_initial_delay(Duration::from_millis(100))
         .with_maximum_delay(Duration::from_secs(1))
-        .build()?;
-    Ok(policy)
+        .build()
+        .expect("test policy values should succeed")
 }
 
 async fn cleanup_stale_workflows(
