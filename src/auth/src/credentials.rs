@@ -876,8 +876,10 @@ mod test {
     #[tokio::test]
     #[serial_test::serial]
     async fn create_access_token_credentials_fallback_to_mds_with_quota_project() {
-        let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", "file-does-not-exist.json");
-        let _env = ScopedEnv::set("GOOGLE_CLOUD_QUOTA_PROJECT", "env-quota-project");
+        let _e1 = ScopedEnv::remove("GOOGLE_APPLICATION_CREDENTIALS");
+        let _e2 = ScopedEnv::remove("HOME"); // For posix
+        let _e3 = ScopedEnv::remove("APPDATA"); // For windows
+        let _e4 = ScopedEnv::set("GOOGLE_CLOUD_QUOTA_PROJECT", "env-quota-project");
 
         let mds = Builder::default()
             .with_quota_project_id("test-quota-project")
@@ -895,8 +897,10 @@ mod test {
     #[tokio::test]
     #[serial_test::serial]
     async fn create_access_token_credentials_with_quota_project_from_env_variable() {
-        let _env = ScopedEnv::set("GOOGLE_CLOUD_QUOTA_PROJECT", "env-quota-project");
-        let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", "file-does-not-exist.json");
+        let _e1 = ScopedEnv::remove("GOOGLE_APPLICATION_CREDENTIALS");
+        let _e2 = ScopedEnv::remove("HOME"); // For posix
+        let _e3 = ScopedEnv::remove("APPDATA"); // For windows
+        let _e4v = ScopedEnv::set("GOOGLE_CLOUD_QUOTA_PROJECT", "env-quota-project");
 
         let creds = Builder::default().build().unwrap();
         let fmt = format!("{:?}", creds);
