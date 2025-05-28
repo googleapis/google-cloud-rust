@@ -504,7 +504,7 @@ fn build_credentials(
 ) -> BuildResult<Credentials> {
     match json {
         None => config_builder!(
-            mds::Builder::default(),
+            mds::Builder::from_adc(),
             quota_project_id,
             scopes,
             |b: mds::Builder, s: Vec<String>| b.with_scopes(s)
@@ -885,8 +885,11 @@ mod test {
             .unwrap();
         let fmt = format!("{:?}", mds);
         assert!(fmt.contains("MDSCredentials"));
-        assert!(fmt.contains("test-quota-project"), "Expected 'env-quota-project', got: {}",
-            fmt);
+        assert!(
+            fmt.contains("test-quota-project"),
+            "Expected 'env-quota-project', got: {}",
+            fmt
+        );
     }
 
     #[tokio::test]
