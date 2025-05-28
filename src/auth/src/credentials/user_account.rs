@@ -69,7 +69,7 @@
 use crate::build_errors::Error as BuilderError;
 use crate::credentials::dynamic::CredentialsProvider;
 use crate::credentials::{CacheableResource, Credentials};
-use crate::errors::{self, CredentialsError, is_retryable};
+use crate::errors::{self, CredentialsError};
 use crate::headers_util::build_cacheable_headers;
 use crate::token::{CachedTokenProvider, Token, TokenProvider};
 use crate::token_cache::TokenCache;
@@ -266,23 +266,19 @@ impl TokenProvider for UserTokenProvider {
             .request(Method::POST, self.endpoint.as_str())
             .header(CONTENT_TYPE, header)
             .json(&req);
-        let resp = builder.send().await.map_err(errors::retryable)?;
+        let resp = builder
+            .send()
+            .await
+            .map_err(|e| errors::from_http_error(e, MSG))?;
 
         // Process the response
         if !resp.status().is_success() {
-            let status = resp.status();
-            let body = resp
-                .text()
-                .await
-                .map_err(|e| CredentialsError::new(is_retryable(status), e))?;
-            return Err(CredentialsError::from_str(
-                is_retryable(status),
-                format!("Failed to fetch token. {body}"),
-            ));
+            let err = errors::from_http_response(resp, MSG).await;
+            return Err(err);
         }
         let response = resp.json::<Oauth2RefreshResponse>().await.map_err(|e| {
             let retryable = !e.is_decode();
-            CredentialsError::new(retryable, e)
+            CredentialsError::from_source(retryable, e)
         })?;
         let token = Token {
             token: response.access_token,
@@ -295,6 +291,8 @@ impl TokenProvider for UserTokenProvider {
         Ok(token)
     }
 }
+
+const MSG: &str = "failed to refresh user access token";
 
 /// Data model for a UserCredentials
 ///
@@ -921,9 +919,16 @@ mod test {
             "token_uri": endpoint});
 
         let uc = Builder::new(authorized_user).build()?;
-        let e = uc.headers(Extensions::new()).await.err().unwrap();
-        assert!(e.is_retryable(), "{e}");
-        assert!(e.source().unwrap().to_string().contains("try again"), "{e}");
+        let err = uc.headers(Extensions::new()).await.unwrap_err();
+        assert!(err.is_transient(), "{err}");
+        assert!(err.to_string().contains("try again"), "{err:?}");
+        let source = err
+            .source()
+            .and_then(|e| e.downcast_ref::<reqwest::Error>());
+        assert!(
+            matches!(source, Some(e) if e.status() == Some(StatusCode::SERVICE_UNAVAILABLE)),
+            "{err:?}"
+        );
 
         Ok(())
     }
@@ -946,9 +951,16 @@ mod test {
             "token_uri": endpoint});
 
         let uc = Builder::new(authorized_user).build()?;
-        let e = uc.headers(Extensions::new()).await.err().unwrap();
-        assert!(!e.is_retryable(), "{e}");
-        assert!(e.source().unwrap().to_string().contains("epic fail"), "{e}");
+        let err = uc.headers(Extensions::new()).await.unwrap_err();
+        assert!(!err.is_transient(), "{err:?}");
+        assert!(err.to_string().contains("epic fail"), "{err:?}");
+        let source = err
+            .source()
+            .and_then(|e| e.downcast_ref::<reqwest::Error>());
+        assert!(
+            matches!(source, Some(e) if e.status() == Some(StatusCode::UNAUTHORIZED)),
+            "{err:?}"
+        );
 
         Ok(())
     }
@@ -968,11 +980,12 @@ mod test {
             "client_secret": "test-client-secret",
             "refresh_token": "test-refresh-token",
             "type": "authorized_user",
-            "token_uri": endpoint});
+            "token_uri": endpoint
+        });
 
         let uc = Builder::new(authorized_user).build()?;
         let e = uc.headers(Extensions::new()).await.err().unwrap();
-        assert!(!e.is_retryable(), "{e}");
+        assert!(!e.is_transient(), "{e}");
 
         Ok(())
     }
@@ -980,9 +993,9 @@ mod test {
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn builder_malformed_authorized_json_nonretryable() -> TestResult {
         let authorized_user = serde_json::json!({
-        "client_secret": "test-client-secret",
-        "refresh_token": "test-refresh-token",
-        "type": "authorized_user",
+            "client_secret": "test-client-secret",
+            "refresh_token": "test-refresh-token",
+            "type": "authorized_user",
         });
 
         let e = Builder::new(authorized_user).build().unwrap_err();

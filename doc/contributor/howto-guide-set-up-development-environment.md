@@ -126,15 +126,8 @@ cargo install cargo-tarpaulin --features vendored-openssl
 cargo tarpaulin --out xml
 ```
 
-If you prefer to exclude generated code:
-
-```bash
-cargo tarpaulin --out xml \
-  --exclude-files 'generator/**' \
-  --exclude-files 'src/generated/**' \
-  --exclude-files 'src/integration-tests/**' \
-  --exclude-files 'src/wkt/src/generated/**'
-```
+Generated code and test helpers are excluded by default. The configuration is in
+the top level `.tarpaulin.toml`.
 
 ## Integration tests
 

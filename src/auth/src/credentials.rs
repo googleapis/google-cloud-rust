@@ -27,7 +27,6 @@ pub(crate) mod internal;
 pub mod mds;
 pub mod service_account;
 pub mod user_account;
-
 pub(crate) const QUOTA_PROJECT_KEY: &str = "x-goog-user-project";
 pub(crate) const DEFAULT_UNIVERSE_DOMAIN: &str = "googleapis.com";
 
@@ -647,7 +646,7 @@ pub mod testing {
     #[async_trait::async_trait]
     impl CredentialsProvider for ErrorCredentials {
         async fn headers(&self, _extensions: Extensions) -> Result<CacheableResource<HeaderMap>> {
-            Err(super::CredentialsError::from_str(self.0, "test-only"))
+            Err(super::CredentialsError::from_msg(self.0, "test-only"))
         }
 
         async fn universe_domain(&self) -> Option<String> {
@@ -675,7 +674,7 @@ mod test {
     ) -> Result<HeaderMap> {
         match headers {
             CacheableResource::New { data, .. } => Ok(data),
-            CacheableResource::NotModified => Err(CredentialsError::from_str(
+            CacheableResource::NotModified => Err(CredentialsError::from_msg(
                 false,
                 "Expecting headers to be present",
             )),
@@ -864,9 +863,9 @@ mod test {
             "{credentials:?}"
         );
         let err = credentials.headers(Extensions::new()).await.err().unwrap();
-        assert_eq!(err.is_retryable(), retryable, "{err:?}");
+        assert_eq!(err.is_transient(), retryable, "{err:?}");
         let err = credentials.headers(Extensions::new()).await.err().unwrap();
-        assert_eq!(err.is_retryable(), retryable, "{err:?}");
+        assert_eq!(err.is_transient(), retryable, "{err:?}");
     }
 
     #[tokio::test]

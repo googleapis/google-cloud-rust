@@ -106,6 +106,7 @@ fn build_headers(
 mod test {
     use super::*;
     use crate::{credentials::EntityTag, token::Token};
+    use std::error::Error as _;
 
     // Helper to create test tokens
     fn create_test_token(token: &str, token_type: &str) -> Token {
@@ -215,7 +216,14 @@ mod test {
 
         assert!(result.is_err());
         let error = result.unwrap_err();
-        assert!(error.to_string().contains("fail"));
+        assert!(!error.is_transient(), "{error:?}");
+        let source = error
+            .source()
+            .and_then(|e| e.downcast_ref::<http::header::InvalidHeaderValue>());
+        assert!(
+            matches!(source, Some(http::header::InvalidHeaderValue { .. })),
+            "{error:?}"
+        );
     }
 
     #[test]
@@ -294,12 +302,16 @@ mod test {
     #[test]
     fn build_api_key_headers_invalid_token() {
         let token = create_test_token("api_key with \n invalid chars", "Bearer");
-
         let result = build_api_key_headers(&token, &None);
-
-        assert!(result.is_err());
         let error = result.unwrap_err();
-        assert!(error.to_string().contains("fail"));
+        assert!(!error.is_transient(), "{error:?}");
+        let source = error
+            .source()
+            .and_then(|e| e.downcast_ref::<http::header::InvalidHeaderValue>());
+        assert!(
+            matches!(source, Some(http::header::InvalidHeaderValue { .. })),
+            "{error:?}"
+        );
     }
 
     #[test]
@@ -311,6 +323,13 @@ mod test {
 
         assert!(result.is_err());
         let error = result.unwrap_err();
-        assert!(error.to_string().contains("fail"));
+        assert!(!error.is_transient(), "{error:?}");
+        let source = error
+            .source()
+            .and_then(|e| e.downcast_ref::<http::header::InvalidHeaderValue>());
+        assert!(
+            matches!(source, Some(http::header::InvalidHeaderValue { .. })),
+            "{error:?}"
+        );
     }
 }

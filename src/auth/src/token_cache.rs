@@ -157,7 +157,7 @@ mod test {
     fn get_cached_token(cache: CacheableResource<Token>) -> Result<Token> {
         match cache {
             CacheableResource::New { data, .. } => Ok(data),
-            CacheableResource::NotModified => Err(CredentialsError::from_str(
+            CacheableResource::NotModified => Err(CredentialsError::from_msg(
                 false,
                 "Expecting token to be present.",
             )),
