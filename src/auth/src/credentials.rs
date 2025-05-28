@@ -12,20 +12,20 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-pub mod api_key_credentials;
-pub mod mds;
-pub mod service_account;
-pub mod user_account;
-
-pub(crate) mod internal;
-
-use crate::Result;
+use crate::build_errors::Error as BuilderError;
 use crate::errors::{self, CredentialsError};
+use crate::{BuildResult, Result};
 use http::{Extensions, HeaderMap};
 use serde_json::Value;
 use std::future::Future;
 use std::sync::Arc;
 use std::sync::atomic::{AtomicU64, Ordering};
+
+pub mod api_key_credentials;
+pub(crate) mod internal;
+pub mod mds;
+pub mod service_account;
+pub mod user_account;
 
 pub(crate) const QUOTA_PROJECT_KEY: &str = "x-goog-user-project";
 pub(crate) const DEFAULT_UNIVERSE_DOMAIN: &str = "googleapis.com";
@@ -286,12 +286,9 @@ enum CredentialsSource {
 /// * Override the OAuth 2.0 **scopes** being requested for the access token.
 /// * Override the **quota project ID** for billing and quota management.
 ///
-/// Example usage:
-///
-/// Fetching headers using ADC
+/// # Example: fetching headers using ADC
 /// ```
 /// # use google_cloud_auth::credentials::Builder;
-/// # use google_cloud_auth::errors::CredentialsError;
 /// # use http::Extensions;
 /// # tokio_test::block_on(async {
 /// let credentials = Builder::default()
@@ -299,14 +296,13 @@ enum CredentialsSource {
 ///     .build()?;
 /// let headers = credentials.headers(Extensions::new()).await?;
 /// println!("Headers: {headers:?}");
-/// # Ok::<(), CredentialsError>(())
+/// # Ok::<(), anyhow::Error>(())
 /// # });
 /// ```
 ///
-/// Fetching headers using custom JSON
+/// # Example: fetching headers using custom JSON
 /// ```
 /// # use google_cloud_auth::credentials::Builder;
-/// # use google_cloud_auth::errors::CredentialsError;
 /// # use http::Extensions;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_auth::credentials::Builder;
@@ -324,7 +320,7 @@ enum CredentialsSource {
 ///     .build()?;
 /// let headers = creds.headers(Extensions::new()).await?;
 /// println!("Headers: {headers:?}");
-/// # Ok::<(), CredentialsError>(())
+/// # Ok::<(), anyhow::Error>(())
 /// # });
 /// ```
 ///
@@ -441,12 +437,12 @@ impl Builder {
     /// json, consult the relevant section in the [application-default credentials] guide.
     ///
     /// [application-default credentials]: https://cloud.google.com/docs/authentication/application-default-credentials
-    pub fn build(self) -> Result<Credentials> {
+    pub fn build(self) -> BuildResult<Credentials> {
         let json_data = match self.credentials_source {
             CredentialsSource::CredentialsJson(json) => Some(json),
             CredentialsSource::DefaultCredentials => match load_adc()? {
                 AdcContents::Contents(contents) => {
-                    Some(serde_json::from_str(&contents).map_err(errors::non_retryable)?)
+                    Some(serde_json::from_str(&contents).map_err(BuilderError::parsing)?)
                 }
                 AdcContents::FallbackToMds => None,
             },
@@ -467,19 +463,11 @@ enum AdcContents {
     FallbackToMds,
 }
 
-fn extract_credential_type(json: &Value) -> Result<&str> {
+fn extract_credential_type(json: &Value) -> BuildResult<&str> {
     json.get("type")
-        .ok_or_else(|| {
-            errors::non_retryable_from_str(
-                "Failed to parse Credentials JSON. No `type` field found.",
-            )
-        })?
+        .ok_or_else(|| BuilderError::parsing("no `type` field found."))?
         .as_str()
-        .ok_or_else(|| {
-            errors::non_retryable_from_str(
-                "Failed to parse Credentials JSON. `type` field is not a string.",
-            )
-        })
+        .ok_or_else(|| BuilderError::parsing("`type` field is not a string."))
 }
 
 /// Applies common optional configurations (quota project ID, scopes) to a
@@ -508,7 +496,7 @@ fn build_credentials(
     json: Option<Value>,
     quota_project_id: Option<String>,
     scopes: Option<Vec<String>>,
-) -> Result<Credentials> {
+) -> BuildResult<Credentials> {
     match json {
         None => config_builder!(
             mds::Builder::from_adc(),
@@ -534,32 +522,35 @@ fn build_credentials(
                     |b: service_account::Builder, s: Vec<String>| b
                         .with_access_specifier(service_account::AccessSpecifier::from_scopes(s))
                 ),
-                _ => Err(errors::non_retryable_from_str(format!(
-                    "Invalid or unsupported credentials type found in JSON: {cred_type}"
-                ))),
+                _ => Err(BuilderError::unknown_type(cred_type)),
             }
         }
     }
 }
 
-fn path_not_found(path: String) -> CredentialsError {
-    errors::non_retryable_from_str(format!(
-        "Failed to load Application Default Credentials (ADC) from {path}. Check that the `GOOGLE_APPLICATION_CREDENTIALS` environment variable points to a valid file."
+fn path_not_found(path: String) -> BuilderError {
+    BuilderError::loading(format!(
+        "{path}. {}",
+        concat!(
+            "This file name was found in the `GOOGLE_APPLICATION_CREDENTIALS` ",
+            "environment variable. Verify this environment variable points to ",
+            "a valid file."
+        )
     ))
 }
 
-fn load_adc() -> Result<AdcContents> {
+fn load_adc() -> BuildResult<AdcContents> {
     match adc_path() {
         None => Ok(AdcContents::FallbackToMds),
         Some(AdcPath::FromEnv(path)) => match std::fs::read_to_string(&path) {
             Ok(contents) => Ok(AdcContents::Contents(contents)),
             Err(e) if e.kind() == std::io::ErrorKind::NotFound => Err(path_not_found(path)),
-            Err(e) => Err(errors::non_retryable(e)),
+            Err(e) => Err(BuilderError::loading(e)),
         },
         Some(AdcPath::WellKnown(path)) => match std::fs::read_to_string(path) {
             Ok(contents) => Ok(AdcContents::Contents(contents)),
             Err(e) if e.kind() == std::io::ErrorKind::NotFound => Ok(AdcContents::FallbackToMds),
-            Err(e) => Err(errors::non_retryable(e)),
+            Err(e) => Err(BuilderError::loading(e)),
         },
     }
 }
@@ -673,7 +664,6 @@ mod test {
     use rsa::RsaPrivateKey;
     use rsa::pkcs8::{EncodePrivateKey, LineEnding};
     use scoped_env::ScopedEnv;
-    use std::error::Error;
     use std::sync::LazyLock;
     use test_case::test_case;
 
@@ -842,11 +832,11 @@ mod test {
     #[serial_test::serial]
     fn load_adc_no_file_at_env_is_error() {
         let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", "file-does-not-exist.json");
-        let err = load_adc().err().unwrap();
-        let msg = err.source().unwrap().to_string();
-        assert!(msg.contains("Failed to load Application Default Credentials"));
-        assert!(msg.contains("file-does-not-exist.json"));
-        assert!(msg.contains("GOOGLE_APPLICATION_CREDENTIALS"));
+        let err = load_adc().unwrap_err();
+        assert!(err.is_loading(), "{err:?}");
+        let msg = format!("{err:?}");
+        assert!(msg.contains("file-does-not-exist.json"), "{err:?}");
+        assert!(msg.contains("GOOGLE_APPLICATION_CREDENTIALS"), "{err:?}");
     }
 
     #[test]

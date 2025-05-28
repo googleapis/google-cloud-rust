@@ -119,6 +119,42 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::ListAnywhereCachesResponse>>;
 
+    async fn get_project_intelligence_config(
+        &self,
+        req: crate::model::GetProjectIntelligenceConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::IntelligenceConfig>>;
+
+    async fn update_project_intelligence_config(
+        &self,
+        req: crate::model::UpdateProjectIntelligenceConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::IntelligenceConfig>>;
+
+    async fn get_folder_intelligence_config(
+        &self,
+        req: crate::model::GetFolderIntelligenceConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::IntelligenceConfig>>;
+
+    async fn update_folder_intelligence_config(
+        &self,
+        req: crate::model::UpdateFolderIntelligenceConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::IntelligenceConfig>>;
+
+    async fn get_organization_intelligence_config(
+        &self,
+        req: crate::model::GetOrganizationIntelligenceConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::IntelligenceConfig>>;
+
+    async fn update_organization_intelligence_config(
+        &self,
+        req: crate::model::UpdateOrganizationIntelligenceConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::IntelligenceConfig>>;
+
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
@@ -290,6 +326,60 @@ impl<T: super::StorageControl> StorageControl for T {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::ListAnywhereCachesResponse>> {
         T::list_anywhere_caches(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_project_intelligence_config(
+        &self,
+        req: crate::model::GetProjectIntelligenceConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::IntelligenceConfig>> {
+        T::get_project_intelligence_config(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_project_intelligence_config(
+        &self,
+        req: crate::model::UpdateProjectIntelligenceConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::IntelligenceConfig>> {
+        T::update_project_intelligence_config(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_folder_intelligence_config(
+        &self,
+        req: crate::model::GetFolderIntelligenceConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::IntelligenceConfig>> {
+        T::get_folder_intelligence_config(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_folder_intelligence_config(
+        &self,
+        req: crate::model::UpdateFolderIntelligenceConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::IntelligenceConfig>> {
+        T::update_folder_intelligence_config(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_organization_intelligence_config(
+        &self,
+        req: crate::model::GetOrganizationIntelligenceConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::IntelligenceConfig>> {
+        T::get_organization_intelligence_config(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_organization_intelligence_config(
+        &self,
+        req: crate::model::UpdateOrganizationIntelligenceConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::IntelligenceConfig>> {
+        T::update_organization_intelligence_config(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

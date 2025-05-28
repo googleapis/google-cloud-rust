@@ -16,8 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-
 /// Implements a client for the Network Management API.
 ///
 /// # Example
@@ -26,7 +24,7 @@ use crate::Result;
 /// # use google_cloud_networkmanagement_v1::client::ReachabilityService;
 /// let client = ReachabilityService::builder().build().await?;
 /// // use `client` to make requests to the Network Management API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -78,7 +76,7 @@ impl ReachabilityService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_networkmanagement_v1::client::ReachabilityService;
     /// let client = ReachabilityService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::reachability_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -99,14 +97,17 @@ impl ReachabilityService {
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::ReachabilityService>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ReachabilityService>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -115,13 +116,13 @@ impl ReachabilityService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::ReachabilityService> {
+    ) -> gax::client_builder::Result<impl super::stub::ReachabilityService> {
         super::transport::ReachabilityService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::ReachabilityService> {
+    ) -> gax::client_builder::Result<impl super::stub::ReachabilityService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ReachabilityService::new)
@@ -318,7 +319,7 @@ impl ReachabilityService {
 /// # use google_cloud_networkmanagement_v1::client::VpcFlowLogsService;
 /// let client = VpcFlowLogsService::builder().build().await?;
 /// // use `client` to make requests to the Network Management API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -365,7 +366,7 @@ impl VpcFlowLogsService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_networkmanagement_v1::client::VpcFlowLogsService;
     /// let client = VpcFlowLogsService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::vpc_flow_logs_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -386,14 +387,17 @@ impl VpcFlowLogsService {
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::VpcFlowLogsService>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::VpcFlowLogsService>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -402,13 +406,13 @@ impl VpcFlowLogsService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::VpcFlowLogsService> {
+    ) -> gax::client_builder::Result<impl super::stub::VpcFlowLogsService> {
         super::transport::VpcFlowLogsService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::VpcFlowLogsService> {
+    ) -> gax::client_builder::Result<impl super::stub::VpcFlowLogsService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::VpcFlowLogsService::new)

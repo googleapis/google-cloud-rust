@@ -129,6 +129,97 @@ pub trait StorageInsights: std::fmt::Debug + Send + Sync {
         )
     }
 
+    /// Implements [super::client::StorageInsights::list_dataset_configs].
+    fn list_dataset_configs(
+        &self,
+        _req: crate::model::ListDatasetConfigsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListDatasetConfigsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListDatasetConfigsResponse>>,
+        >(Err(Error::other("unimplemented")))
+    }
+
+    /// Implements [super::client::StorageInsights::get_dataset_config].
+    fn get_dataset_config(
+        &self,
+        _req: crate::model::GetDatasetConfigRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::DatasetConfig>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::DatasetConfig>>>(
+            Err(Error::other("unimplemented")),
+        )
+    }
+
+    /// Implements [super::client::StorageInsights::create_dataset_config].
+    fn create_dataset_config(
+        &self,
+        _req: crate::model::CreateDatasetConfigRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
+    }
+
+    /// Implements [super::client::StorageInsights::update_dataset_config].
+    fn update_dataset_config(
+        &self,
+        _req: crate::model::UpdateDatasetConfigRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
+    }
+
+    /// Implements [super::client::StorageInsights::delete_dataset_config].
+    fn delete_dataset_config(
+        &self,
+        _req: crate::model::DeleteDatasetConfigRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
+    }
+
+    /// Implements [super::client::StorageInsights::link_dataset].
+    fn link_dataset(
+        &self,
+        _req: crate::model::LinkDatasetRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
+    }
+
+    /// Implements [super::client::StorageInsights::unlink_dataset].
+    fn unlink_dataset(
+        &self,
+        _req: crate::model::UnlinkDatasetRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
+    }
+
     /// Implements [super::client::StorageInsights::list_locations].
     fn list_locations(
         &self,
@@ -201,5 +292,27 @@ pub trait StorageInsights: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
             "unimplemented",
         )))
+    }
+
+    /// Returns the polling error policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
+    fn get_polling_error_policy(
+        &self,
+        _options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        std::sync::Arc::new(gax::polling_error_policy::Aip194Strict)
+    }
+
+    /// Returns the polling backoff policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
+    fn get_polling_backoff_policy(
+        &self,
+        _options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        std::sync::Arc::new(gax::exponential_backoff::ExponentialBackoff::default())
     }
 }

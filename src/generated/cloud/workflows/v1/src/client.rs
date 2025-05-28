@@ -18,8 +18,6 @@
 #![allow(rustdoc::invalid_html_tags)]
 #![allow(rustdoc::bare_urls)]
 
-use crate::Result;
-
 /// Implements a client for the Workflows API.
 ///
 /// # Example
@@ -28,7 +26,7 @@ use crate::Result;
 /// # use google_cloud_workflows_v1::client::Workflows;
 /// let client = Workflows::builder().build().await?;
 /// // use `client` to make requests to the Workflows API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -75,7 +73,7 @@ impl Workflows {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_workflows_v1::client::Workflows;
     /// let client = Workflows::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::workflows::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::workflows::client::Factory)
@@ -94,14 +92,16 @@ impl Workflows {
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::Workflows>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Workflows>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -110,13 +110,13 @@ impl Workflows {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Workflows> {
+    ) -> gax::client_builder::Result<impl super::stub::Workflows> {
         super::transport::Workflows::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Workflows> {
+    ) -> gax::client_builder::Result<impl super::stub::Workflows> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Workflows::new)

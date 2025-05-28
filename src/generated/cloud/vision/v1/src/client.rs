@@ -16,8 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-
 /// Implements a client for the Cloud Vision API.
 ///
 /// # Example
@@ -26,7 +24,7 @@ use crate::Result;
 /// # use google_cloud_vision_v1::client::ImageAnnotator;
 /// let client = ImageAnnotator::builder().build().await?;
 /// // use `client` to make requests to the Cloud Vision API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -73,7 +71,7 @@ impl ImageAnnotator {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_vision_v1::client::ImageAnnotator;
     /// let client = ImageAnnotator::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::image_annotator::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::image_annotator::client::Factory)
@@ -92,14 +90,16 @@ impl ImageAnnotator {
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::ImageAnnotator>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ImageAnnotator>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -108,13 +108,13 @@ impl ImageAnnotator {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::ImageAnnotator> {
+    ) -> gax::client_builder::Result<impl super::stub::ImageAnnotator> {
         super::transport::ImageAnnotator::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::ImageAnnotator> {
+    ) -> gax::client_builder::Result<impl super::stub::ImageAnnotator> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ImageAnnotator::new)
@@ -199,7 +199,7 @@ impl ImageAnnotator {
 /// # use google_cloud_vision_v1::client::ProductSearch;
 /// let client = ProductSearch::builder().build().await?;
 /// // use `client` to make requests to the Cloud Vision API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -264,7 +264,7 @@ impl ProductSearch {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_vision_v1::client::ProductSearch;
     /// let client = ProductSearch::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::product_search::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::product_search::client::Factory)
@@ -283,14 +283,16 @@ impl ProductSearch {
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::ProductSearch>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ProductSearch>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -299,13 +301,13 @@ impl ProductSearch {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::ProductSearch> {
+    ) -> gax::client_builder::Result<impl super::stub::ProductSearch> {
         super::transport::ProductSearch::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::ProductSearch> {
+    ) -> gax::client_builder::Result<impl super::stub::ProductSearch> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ProductSearch::new)

@@ -4439,6 +4439,12 @@ pub struct UpdateDatabaseDdlRequest {
     #[serde_as(as = "serde_with::base64::Base64")]
     pub proto_descriptors: ::bytes::Bytes,
 
+    /// Optional. This field is exposed to be used by the Spanner Migration Tool.
+    /// For more details, see
+    /// [SMT](https://github.com/GoogleCloudPlatform/spanner-migration-tool).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    pub throughput_mode: bool,
+
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -4474,6 +4480,12 @@ impl UpdateDatabaseDdlRequest {
     /// Sets the value of [proto_descriptors][crate::model::UpdateDatabaseDdlRequest::proto_descriptors].
     pub fn set_proto_descriptors<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.proto_descriptors = v.into();
+        self
+    }
+
+    /// Sets the value of [throughput_mode][crate::model::UpdateDatabaseDdlRequest::throughput_mode].
+    pub fn set_throughput_mode<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.throughput_mode = v.into();
         self
     }
 }

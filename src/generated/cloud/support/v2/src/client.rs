@@ -16,8 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-
 /// Implements a client for the Google Cloud Support API.
 ///
 /// # Example
@@ -26,12 +24,12 @@ use crate::Result;
 /// # use google_cloud_support_v2::client::CaseAttachmentService;
 /// let client = CaseAttachmentService::builder().build().await?;
 /// // use `client` to make requests to the Google Cloud Support API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
 ///
-/// A service to manage file attachment for Google Cloud support cases.
+/// A service to manage file attachments for Google Cloud support cases.
 ///
 /// # Configuration
 ///
@@ -71,7 +69,7 @@ impl CaseAttachmentService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_support_v2::client::CaseAttachmentService;
     /// let client = CaseAttachmentService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::case_attachment_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -92,14 +90,17 @@ impl CaseAttachmentService {
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::CaseAttachmentService>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::CaseAttachmentService>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -108,19 +109,19 @@ impl CaseAttachmentService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::CaseAttachmentService> {
+    ) -> gax::client_builder::Result<impl super::stub::CaseAttachmentService> {
         super::transport::CaseAttachmentService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::CaseAttachmentService> {
+    ) -> gax::client_builder::Result<impl super::stub::CaseAttachmentService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::CaseAttachmentService::new)
     }
 
-    /// Retrieve all attachments associated with a support case.
+    /// List all the attachments associated with a support case.
     pub fn list_attachments(&self) -> super::builder::case_attachment_service::ListAttachments {
         super::builder::case_attachment_service::ListAttachments::new(self.inner.clone())
     }
@@ -134,7 +135,7 @@ impl CaseAttachmentService {
 /// # use google_cloud_support_v2::client::CaseService;
 /// let client = CaseService::builder().build().await?;
 /// // use `client` to make requests to the Google Cloud Support API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -179,7 +180,7 @@ impl CaseService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_support_v2::client::CaseService;
     /// let client = CaseService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::case_service::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::case_service::client::Factory)
@@ -198,14 +199,16 @@ impl CaseService {
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::CaseService>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::CaseService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -214,70 +217,77 @@ impl CaseService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::CaseService> {
+    ) -> gax::client_builder::Result<impl super::stub::CaseService> {
         super::transport::CaseService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::CaseService> {
+    ) -> gax::client_builder::Result<impl super::stub::CaseService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::CaseService::new)
     }
 
-    /// Retrieve the specified case.
+    /// Retrieve a case.
     pub fn get_case(&self) -> super::builder::case_service::GetCase {
         super::builder::case_service::GetCase::new(self.inner.clone())
     }
 
-    /// Retrieve all cases under the specified parent.
+    /// Retrieve all cases under a parent, but not its children.
     ///
-    /// Note: Listing cases under an Organization returns only the cases directly
-    /// parented by that organization. To retrieve all cases under an organization,
-    /// including cases parented by projects under that organization, use
-    /// `cases.search`.
+    /// For example, listing cases under an organization only returns the cases
+    /// that are directly parented by that organization. To retrieve cases
+    /// under an organization and its projects, use `cases.search`.
     pub fn list_cases(&self) -> super::builder::case_service::ListCases {
         super::builder::case_service::ListCases::new(self.inner.clone())
     }
 
-    /// Search cases using the specified query.
+    /// Search for cases using a query.
     pub fn search_cases(&self) -> super::builder::case_service::SearchCases {
         super::builder::case_service::SearchCases::new(self.inner.clone())
     }
 
-    /// Create a new case and associate it with the given Google Cloud Resource.
-    /// The case object must have the following fields set: `display_name`,
-    /// `description`, `classification`, and `priority`.
+    /// Create a new case and associate it with a parent.
+    ///
+    /// It must have the following fields set: `display_name`, `description`,
+    /// `classification`, and `priority`. If you're just testing the API and don't
+    /// want to route your case to an agent, set `testCase=true`.
     pub fn create_case(&self) -> super::builder::case_service::CreateCase {
         super::builder::case_service::CreateCase::new(self.inner.clone())
     }
 
-    /// Update the specified case. Only a subset of fields can be updated.
+    /// Update a case. Only some fields can be updated.
     pub fn update_case(&self) -> super::builder::case_service::UpdateCase {
         super::builder::case_service::UpdateCase::new(self.inner.clone())
     }
 
-    /// Escalate a case. Escalating a case will initiate the Google Cloud Support
-    /// escalation management process.
+    /// Escalate a case, starting the Google Cloud Support escalation management
+    /// process.
     ///
-    /// This operation is only available to certain Customer Care tiers. Go to
+    /// This operation is only available for some support services. Go to
     /// <https://cloud.google.com/support> and look for 'Technical support
-    /// escalations' in the feature list to find out which tiers are able to
-    /// perform escalations.
+    /// escalations' in the feature list to find out which ones let you
+    /// do that.
     pub fn escalate_case(&self) -> super::builder::case_service::EscalateCase {
         super::builder::case_service::EscalateCase::new(self.inner.clone())
     }
 
-    /// Close the specified case.
+    /// Close a case.
     pub fn close_case(&self) -> super::builder::case_service::CloseCase {
         super::builder::case_service::CloseCase::new(self.inner.clone())
     }
 
-    /// Retrieve valid classifications to be used when creating a support case.
-    /// The classications are hierarchical, with each classification containing
-    /// all levels of the hierarchy, separated by " > ". For example "Technical
-    /// Issue > Compute > Compute Engine".
+    /// Retrieve valid classifications to use when creating a support case.
+    ///
+    /// Classifications are hierarchical. Each classification is a string
+    /// containing all levels of the hierarchy separated by `" > "`. For example,
+    /// `"Technical Issue > Compute > Compute Engine"`.
+    ///
+    /// Classification IDs returned by this endpoint are valid for at least six
+    /// months. When a classification is deactivated, this endpoint immediately
+    /// stops returning it. After six months, `case.create` requests using the
+    /// classification will fail.
     pub fn search_case_classifications(
         &self,
     ) -> super::builder::case_service::SearchCaseClassifications {
@@ -293,7 +303,7 @@ impl CaseService {
 /// # use google_cloud_support_v2::client::CommentService;
 /// let client = CommentService::builder().build().await?;
 /// // use `client` to make requests to the Google Cloud Support API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -338,7 +348,7 @@ impl CommentService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_support_v2::client::CommentService;
     /// let client = CommentService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::comment_service::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::comment_service::client::Factory)
@@ -357,14 +367,16 @@ impl CommentService {
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::CommentService>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::CommentService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -373,25 +385,26 @@ impl CommentService {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::CommentService> {
+    ) -> gax::client_builder::Result<impl super::stub::CommentService> {
         super::transport::CommentService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::CommentService> {
+    ) -> gax::client_builder::Result<impl super::stub::CommentService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::CommentService::new)
     }
 
-    /// Retrieve all Comments associated with the Case object.
+    /// List all the comments associated with a case.
     pub fn list_comments(&self) -> super::builder::comment_service::ListComments {
         super::builder::comment_service::ListComments::new(self.inner.clone())
     }
 
-    /// Add a new comment to the specified Case.
-    /// The comment object must have the following fields set: body.
+    /// Add a new comment to a case.
+    ///
+    /// The comment must have the following fields set: `body`.
     pub fn create_comment(&self) -> super::builder::comment_service::CreateComment {
         super::builder::comment_service::CreateComment::new(self.inner.clone())
     }

@@ -28,7 +28,7 @@ pub mod autoscaling_policy_service {
     /// let client = builder
     ///     .with_endpoint("https://dataproc.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -39,7 +39,10 @@ pub mod autoscaling_policy_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = AutoscalingPolicyService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -1068,7 +1071,7 @@ pub mod batch_controller {
     /// let client = builder
     ///     .with_endpoint("https://dataproc.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -1079,7 +1082,10 @@ pub mod batch_controller {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = BatchController;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -2067,7 +2073,7 @@ pub mod cluster_controller {
     /// let client = builder
     ///     .with_endpoint("https://dataproc.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -2078,7 +2084,10 @@ pub mod cluster_controller {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = ClusterController;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -3804,7 +3813,7 @@ pub mod job_controller {
     /// let client = builder
     ///     .with_endpoint("https://dataproc.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -3815,7 +3824,10 @@ pub mod job_controller {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = JobController;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -5152,7 +5164,7 @@ pub mod node_group_controller {
     /// let client = builder
     ///     .with_endpoint("https://dataproc.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -5163,7 +5175,10 @@ pub mod node_group_controller {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = NodeGroupController;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -6116,7 +6131,7 @@ pub mod session_template_controller {
     /// let client = builder
     ///     .with_endpoint("https://dataproc.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -6127,7 +6142,10 @@ pub mod session_template_controller {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = SessionTemplateController;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -7152,7 +7170,7 @@ pub mod session_controller {
     /// let client = builder
     ///     .with_endpoint("https://dataproc.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -7163,7 +7181,10 @@ pub mod session_controller {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = SessionController;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -8312,7 +8333,7 @@ pub mod workflow_template_service {
     /// let client = builder
     ///     .with_endpoint("https://dataproc.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -8323,7 +8344,10 @@ pub mod workflow_template_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = WorkflowTemplateService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }

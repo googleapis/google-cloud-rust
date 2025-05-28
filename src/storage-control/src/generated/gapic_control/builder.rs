@@ -1865,6 +1865,540 @@ pub mod storage_control {
         }
     }
 
+    /// The request builder for [StorageControl::get_project_intelligence_config][crate::client::StorageControl::get_project_intelligence_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storage_control::builder;
+    /// use builder::storage_control::GetProjectIntelligenceConfig;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetProjectIntelligenceConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetProjectIntelligenceConfig(
+        RequestBuilder<crate::model::GetProjectIntelligenceConfigRequest>,
+    );
+
+    impl GetProjectIntelligenceConfig {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::GetProjectIntelligenceConfigRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::IntelligenceConfig> {
+            (*self.0.stub)
+                .get_project_intelligence_config(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::GetProjectIntelligenceConfigRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetProjectIntelligenceConfig {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [StorageControl::update_project_intelligence_config][crate::client::StorageControl::update_project_intelligence_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storage_control::builder;
+    /// use builder::storage_control::UpdateProjectIntelligenceConfig;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateProjectIntelligenceConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct UpdateProjectIntelligenceConfig(
+        RequestBuilder<crate::model::UpdateProjectIntelligenceConfigRequest>,
+    );
+
+    impl UpdateProjectIntelligenceConfig {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::UpdateProjectIntelligenceConfigRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::IntelligenceConfig> {
+            (*self.0.stub)
+                .update_project_intelligence_config(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [intelligence_config][crate::model::UpdateProjectIntelligenceConfigRequest::intelligence_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_intelligence_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::IntelligenceConfig>,
+        {
+            self.0.request.intelligence_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [intelligence_config][crate::model::UpdateProjectIntelligenceConfigRequest::intelligence_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_intelligence_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::IntelligenceConfig>,
+        {
+            self.0.request.intelligence_config = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [update_mask][crate::model::UpdateProjectIntelligenceConfigRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateProjectIntelligenceConfigRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::UpdateProjectIntelligenceConfigRequest::request_id].
+        pub fn set_request_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.request_id = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateProjectIntelligenceConfig {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [StorageControl::get_folder_intelligence_config][crate::client::StorageControl::get_folder_intelligence_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storage_control::builder;
+    /// use builder::storage_control::GetFolderIntelligenceConfig;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetFolderIntelligenceConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetFolderIntelligenceConfig(
+        RequestBuilder<crate::model::GetFolderIntelligenceConfigRequest>,
+    );
+
+    impl GetFolderIntelligenceConfig {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::GetFolderIntelligenceConfigRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::IntelligenceConfig> {
+            (*self.0.stub)
+                .get_folder_intelligence_config(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::GetFolderIntelligenceConfigRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetFolderIntelligenceConfig {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [StorageControl::update_folder_intelligence_config][crate::client::StorageControl::update_folder_intelligence_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storage_control::builder;
+    /// use builder::storage_control::UpdateFolderIntelligenceConfig;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateFolderIntelligenceConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct UpdateFolderIntelligenceConfig(
+        RequestBuilder<crate::model::UpdateFolderIntelligenceConfigRequest>,
+    );
+
+    impl UpdateFolderIntelligenceConfig {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::UpdateFolderIntelligenceConfigRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::IntelligenceConfig> {
+            (*self.0.stub)
+                .update_folder_intelligence_config(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [intelligence_config][crate::model::UpdateFolderIntelligenceConfigRequest::intelligence_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_intelligence_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::IntelligenceConfig>,
+        {
+            self.0.request.intelligence_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [intelligence_config][crate::model::UpdateFolderIntelligenceConfigRequest::intelligence_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_intelligence_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::IntelligenceConfig>,
+        {
+            self.0.request.intelligence_config = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [update_mask][crate::model::UpdateFolderIntelligenceConfigRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateFolderIntelligenceConfigRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::UpdateFolderIntelligenceConfigRequest::request_id].
+        pub fn set_request_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.request_id = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateFolderIntelligenceConfig {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [StorageControl::get_organization_intelligence_config][crate::client::StorageControl::get_organization_intelligence_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storage_control::builder;
+    /// use builder::storage_control::GetOrganizationIntelligenceConfig;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOrganizationIntelligenceConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetOrganizationIntelligenceConfig(
+        RequestBuilder<crate::model::GetOrganizationIntelligenceConfigRequest>,
+    );
+
+    impl GetOrganizationIntelligenceConfig {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::GetOrganizationIntelligenceConfigRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::IntelligenceConfig> {
+            (*self.0.stub)
+                .get_organization_intelligence_config(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::GetOrganizationIntelligenceConfigRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOrganizationIntelligenceConfig {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [StorageControl::update_organization_intelligence_config][crate::client::StorageControl::update_organization_intelligence_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storage_control::builder;
+    /// use builder::storage_control::UpdateOrganizationIntelligenceConfig;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateOrganizationIntelligenceConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct UpdateOrganizationIntelligenceConfig(
+        RequestBuilder<crate::model::UpdateOrganizationIntelligenceConfigRequest>,
+    );
+
+    impl UpdateOrganizationIntelligenceConfig {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::UpdateOrganizationIntelligenceConfigRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::IntelligenceConfig> {
+            (*self.0.stub)
+                .update_organization_intelligence_config(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [intelligence_config][crate::model::UpdateOrganizationIntelligenceConfigRequest::intelligence_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_intelligence_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::IntelligenceConfig>,
+        {
+            self.0.request.intelligence_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [intelligence_config][crate::model::UpdateOrganizationIntelligenceConfigRequest::intelligence_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_intelligence_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::IntelligenceConfig>,
+        {
+            self.0.request.intelligence_config = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [update_mask][crate::model::UpdateOrganizationIntelligenceConfigRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateOrganizationIntelligenceConfigRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::UpdateOrganizationIntelligenceConfigRequest::request_id].
+        pub fn set_request_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.request_id = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateOrganizationIntelligenceConfig {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
     /// The request builder for [StorageControl::get_operation][crate::client::StorageControl::get_operation] calls.
     ///
     /// # Example

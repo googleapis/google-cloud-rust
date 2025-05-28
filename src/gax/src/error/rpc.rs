@@ -414,6 +414,7 @@ pub enum StatusDetails {
     ResourceInfo(rpc::model::ResourceInfo),
     #[serde(rename = "type.googleapis.com/google.rpc.RetryInfo")]
     RetryInfo(rpc::model::RetryInfo),
+    #[serde(untagged)]
     Other(wkt::Any),
 }
 
@@ -449,6 +450,7 @@ impl From<wkt::Any> for StatusDetails {
 #[cfg(test)]
 mod test {
     use super::*;
+    use anyhow::Result;
     use rpc::model::BadRequest;
     use rpc::model::DebugInfo;
     use rpc::model::ErrorInfo;
@@ -461,7 +463,6 @@ mod test {
     use rpc::model::RetryInfo;
     use serde_json::json;
     use test_case::test_case;
-    type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 
     #[test]
     fn status_basic_setters() {
@@ -487,7 +488,7 @@ mod test {
     }
 
     #[test]
-    fn status_detail_setter() -> Result {
+    fn status_detail_setter() -> Result<()> {
         let d0 = StatusDetails::ErrorInfo(rpc::model::ErrorInfo::new().set_reason("test-reason"));
         let d1 = StatusDetails::Help(
             rpc::model::Help::new().set_links([rpc::model::help::Link::new().set_url("test-url")]),
@@ -678,6 +679,50 @@ mod test {
     }
 
     #[test]
+    fn serialization_other() -> Result<()> {
+        const TIME: &str = "2025-05-27T10:00:00Z";
+        let timestamp = wkt::Timestamp::try_from(TIME)?;
+        let any = wkt::Any::from_msg(&timestamp)?;
+        let input = Status {
+            code: Code::Unknown,
+            message: "test".to_string(),
+            details: vec![StatusDetails::Other(any)],
+        };
+        let got = serde_json::to_value(&input)?;
+        let want = json!({
+            "code": Code::Unknown as i32,
+            "message": "test",
+            "details": [
+                {"@type": "type.googleapis.com/google.protobuf.Timestamp", "value": TIME},
+            ]
+        });
+        assert_eq!(got, want);
+        Ok(())
+    }
+
+    #[test]
+    fn deserialization_other() -> Result<()> {
+        const TIME: &str = "2025-05-27T10:00:00Z";
+        let json = json!({
+            "code": Code::Unknown as i32,
+            "message": "test",
+            "details": [
+                {"@type": "type.googleapis.com/google.protobuf.Timestamp", "value": TIME},
+            ]
+        });
+        let timestamp = wkt::Timestamp::try_from(TIME)?;
+        let any = wkt::Any::from_msg(&timestamp)?;
+        let got: Status = serde_json::from_value(json)?;
+        let want = Status {
+            code: Code::Unknown,
+            message: "test".to_string(),
+            details: vec![StatusDetails::Other(any)],
+        };
+        assert_eq!(got, want);
+        Ok(())
+    }
+
+    #[test]
     fn status_from_rpc_no_details() {
         let input = rpc::model::Status::default()
             .set_code(Code::Unavailable as i32)
@@ -780,7 +825,7 @@ mod test {
     }
 
     #[test]
-    fn try_from_bytes() -> Result {
+    fn try_from_bytes() -> Result<()> {
         let got = Status::try_from(&bytes::Bytes::from_static(SAMPLE_PAYLOAD))?;
         let want = sample_status();
         assert_eq!(got, want);
@@ -824,8 +869,8 @@ mod test {
     #[test_case("UNAVAILABLE")]
     #[test_case("DATA_LOSS")]
     #[test_case("UNAUTHENTICATED")]
-    fn code_roundtrip(input: &str) -> Result {
-        let code = Code::try_from(input)?;
+    fn code_roundtrip(input: &str) -> Result<()> {
+        let code = Code::try_from(input).unwrap();
         let output = String::from(code);
         assert_eq!(output.as_str(), input.to_string());
         assert_eq!(&format!("{code}"), input);
@@ -850,7 +895,7 @@ mod test {
     #[test_case("UNAVAILABLE")]
     #[test_case("DATA_LOSS")]
     #[test_case("UNAUTHENTICATED")]
-    fn code_serialize_roundtrip(input: &str) -> Result {
+    fn code_serialize_roundtrip(input: &str) -> Result<()> {
         let want = Code::try_from(input).unwrap();
         let serialized = serde_json::to_value(want)?;
         let got = serde_json::from_value::<Code>(serialized)?;
@@ -875,7 +920,7 @@ mod test {
     }
 
     #[test]
-    fn code_deserialize_unknown() -> Result {
+    fn code_deserialize_unknown() -> Result<()> {
         let input = json!(-17);
         let code = serde_json::from_value::<Code>(input)?;
         assert_eq!(code, Code::Unknown);

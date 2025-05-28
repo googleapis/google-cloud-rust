@@ -21,5 +21,9 @@ service-config       = 'google/storage/control/v2/storage_v2.yaml'
 copyright-year            = '2025'
 template-override         = 'templates/grpc-client'
 package-name-override     = 'google-cloud-storage-control'
+name-overrides            = """\
+.google.storage.control.v2.IntelligenceConfig.Filter.cloud_storage_buckets=CloudStorageBucketsOneOf,\
+.google.storage.control.v2.IntelligenceConfig.Filter.cloud_storage_locations=CloudStorageLocationsOneOf\
+"""
 include-grpc-only-methods = 'true'
 has-veneer                = 'true'

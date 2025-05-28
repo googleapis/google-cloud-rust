@@ -28,7 +28,7 @@ pub mod sql_backup_runs_service {
     /// let client = builder
     ///     .with_endpoint("https://sqladmin.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -39,7 +39,10 @@ pub mod sql_backup_runs_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = SqlBackupRunsService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -433,7 +436,7 @@ pub mod sql_connect_service {
     /// let client = builder
     ///     .with_endpoint("https://sqladmin.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -444,7 +447,10 @@ pub mod sql_connect_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = SqlConnectService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -694,7 +700,7 @@ pub mod sql_databases_service {
     /// let client = builder
     ///     .with_endpoint("https://sqladmin.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -705,7 +711,10 @@ pub mod sql_databases_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = SqlDatabasesService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -1244,7 +1253,7 @@ pub mod sql_flags_service {
     /// let client = builder
     ///     .with_endpoint("https://sqladmin.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -1255,7 +1264,10 @@ pub mod sql_flags_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = SqlFlagsService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -1360,7 +1372,7 @@ pub mod sql_instances_service {
     /// let client = builder
     ///     .with_endpoint("https://sqladmin.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -1371,7 +1383,10 @@ pub mod sql_instances_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = SqlInstancesService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -4340,7 +4355,7 @@ pub mod sql_operations_service {
     /// let client = builder
     ///     .with_endpoint("https://sqladmin.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -4351,7 +4366,10 @@ pub mod sql_operations_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = SqlOperationsService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -4645,7 +4663,7 @@ pub mod sql_ssl_certs_service {
     /// let client = builder
     ///     .with_endpoint("https://sqladmin.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -4656,7 +4674,10 @@ pub mod sql_ssl_certs_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = SqlSslCertsService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -5004,7 +5025,7 @@ pub mod sql_tiers_service {
     /// let client = builder
     ///     .with_endpoint("https://sqladmin.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -5015,7 +5036,10 @@ pub mod sql_tiers_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = SqlTiersService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -5120,7 +5144,7 @@ pub mod sql_users_service {
     /// let client = builder
     ///     .with_endpoint("https://sqladmin.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -5131,7 +5155,10 @@ pub mod sql_users_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = SqlUsersService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }

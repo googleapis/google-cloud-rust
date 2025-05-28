@@ -16,8 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-
 /// Implements a client for the Storage Insights API.
 ///
 /// # Example
@@ -26,7 +24,7 @@ use crate::Result;
 /// # use google_cloud_storageinsights_v1::client::StorageInsights;
 /// let client = StorageInsights::builder().build().await?;
 /// // use `client` to make requests to the Storage Insights API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -71,7 +69,7 @@ impl StorageInsights {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_storageinsights_v1::client::StorageInsights;
     /// let client = StorageInsights::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::storage_insights::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -92,14 +90,17 @@ impl StorageInsights {
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::StorageInsights>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::StorageInsights>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -108,13 +109,13 @@ impl StorageInsights {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::StorageInsights> {
+    ) -> gax::client_builder::Result<impl super::stub::StorageInsights> {
         super::transport::StorageInsights::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::StorageInsights> {
+    ) -> gax::client_builder::Result<impl super::stub::StorageInsights> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::StorageInsights::new)
@@ -153,6 +154,92 @@ impl StorageInsights {
     /// Gets details of a single ReportDetail.
     pub fn get_report_detail(&self) -> super::builder::storage_insights::GetReportDetail {
         super::builder::storage_insights::GetReportDetail::new(self.inner.clone())
+    }
+
+    /// Lists the dataset configurations in a given project for a given location.
+    pub fn list_dataset_configs(&self) -> super::builder::storage_insights::ListDatasetConfigs {
+        super::builder::storage_insights::ListDatasetConfigs::new(self.inner.clone())
+    }
+
+    /// Gets the dataset configuration in a given project for a given location.
+    pub fn get_dataset_config(&self) -> super::builder::storage_insights::GetDatasetConfig {
+        super::builder::storage_insights::GetDatasetConfig::new(self.inner.clone())
+    }
+
+    /// Creates a dataset configuration in a given project for a given location.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn create_dataset_config(&self) -> super::builder::storage_insights::CreateDatasetConfig {
+        super::builder::storage_insights::CreateDatasetConfig::new(self.inner.clone())
+    }
+
+    /// Updates a dataset configuration in a given project for a given location.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn update_dataset_config(&self) -> super::builder::storage_insights::UpdateDatasetConfig {
+        super::builder::storage_insights::UpdateDatasetConfig::new(self.inner.clone())
+    }
+
+    /// Deletes a dataset configuration in a given project for a given location.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn delete_dataset_config(&self) -> super::builder::storage_insights::DeleteDatasetConfig {
+        super::builder::storage_insights::DeleteDatasetConfig::new(self.inner.clone())
+    }
+
+    /// Links a dataset to BigQuery in a given project for a given location.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn link_dataset(&self) -> super::builder::storage_insights::LinkDataset {
+        super::builder::storage_insights::LinkDataset::new(self.inner.clone())
+    }
+
+    /// Unlinks a dataset from BigQuery in a given project
+    /// for a given location.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn unlink_dataset(&self) -> super::builder::storage_insights::UnlinkDataset {
+        super::builder::storage_insights::UnlinkDataset::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.

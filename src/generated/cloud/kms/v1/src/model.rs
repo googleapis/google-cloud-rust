@@ -560,6 +560,13 @@ pub struct AutokeyConfig {
     /// Output only. The state for the AutokeyConfig.
     pub state: crate::model::autokey_config::State,
 
+    /// Optional. A checksum computed by the server based on the value of other
+    /// fields. This may be sent on update requests to ensure that the client has
+    /// an up-to-date value before proceeding. The request will be rejected with an
+    /// ABORTED error on a mismatched etag.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub etag: std::string::String,
+
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -587,6 +594,12 @@ impl AutokeyConfig {
         v: T,
     ) -> Self {
         self.state = v.into();
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::AutokeyConfig::etag].
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
         self
     }
 }
@@ -940,7 +953,12 @@ pub struct ListEkmConnectionsResponse {
     /// The total number of [EkmConnections][google.cloud.kms.v1.EkmConnection]
     /// that matched the query.
     ///
+    /// This field is not populated if
+    /// [ListEkmConnectionsRequest.filter][google.cloud.kms.v1.ListEkmConnectionsRequest.filter]
+    /// is applied.
+    ///
     /// [google.cloud.kms.v1.EkmConnection]: crate::model::EkmConnection
+    /// [google.cloud.kms.v1.ListEkmConnectionsRequest.filter]: crate::model::ListEkmConnectionsRequest::filter
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub total_size: i32,
 
@@ -3461,6 +3479,8 @@ pub mod crypto_key_version {
     /// The suffix following `HMAC_` corresponds to the hash algorithm being used
     /// (eg. SHA256).
     ///
+    /// Algorithms beginning with `PQ_` are post-quantum.
+    ///
     /// For more information, see [Key purposes and algorithms]
     /// (<https://cloud.google.com/kms/docs/algorithms>).
     ///
@@ -3931,7 +3951,7 @@ pub mod crypto_key_version {
         ///
         /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.ENABLED]: crate::model::crypto_key_version::CryptoKeyVersionState::Enabled
         Disabled,
-        /// This version is destroyed, and the key material is no longer stored.
+        /// The key material of this version is destroyed and no longer stored.
         /// This version may only become
         /// [ENABLED][google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.ENABLED]
         /// again if this version is
@@ -5940,7 +5960,12 @@ pub struct ListKeyRingsResponse {
     /// The total number of [KeyRings][google.cloud.kms.v1.KeyRing] that matched
     /// the query.
     ///
+    /// This field is not populated if
+    /// [ListKeyRingsRequest.filter][google.cloud.kms.v1.ListKeyRingsRequest.filter]
+    /// is applied.
+    ///
     /// [google.cloud.kms.v1.KeyRing]: crate::model::KeyRing
+    /// [google.cloud.kms.v1.ListKeyRingsRequest.filter]: crate::model::ListKeyRingsRequest::filter
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub total_size: i32,
 
@@ -6023,7 +6048,12 @@ pub struct ListCryptoKeysResponse {
     /// The total number of [CryptoKeys][google.cloud.kms.v1.CryptoKey] that
     /// matched the query.
     ///
+    /// This field is not populated if
+    /// [ListCryptoKeysRequest.filter][google.cloud.kms.v1.ListCryptoKeysRequest.filter]
+    /// is applied.
+    ///
     /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
+    /// [google.cloud.kms.v1.ListCryptoKeysRequest.filter]: crate::model::ListCryptoKeysRequest::filter
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub total_size: i32,
 
@@ -6107,7 +6137,12 @@ pub struct ListCryptoKeyVersionsResponse {
     /// [CryptoKeyVersions][google.cloud.kms.v1.CryptoKeyVersion] that matched the
     /// query.
     ///
+    /// This field is not populated if
+    /// [ListCryptoKeyVersionsRequest.filter][google.cloud.kms.v1.ListCryptoKeyVersionsRequest.filter]
+    /// is applied.
+    ///
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
+    /// [google.cloud.kms.v1.ListCryptoKeyVersionsRequest.filter]: crate::model::ListCryptoKeyVersionsRequest::filter
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub total_size: i32,
 
@@ -6190,7 +6225,12 @@ pub struct ListImportJobsResponse {
     /// The total number of [ImportJobs][google.cloud.kms.v1.ImportJob] that
     /// matched the query.
     ///
+    /// This field is not populated if
+    /// [ListImportJobsRequest.filter][google.cloud.kms.v1.ListImportJobsRequest.filter]
+    /// is applied.
+    ///
     /// [google.cloud.kms.v1.ImportJob]: crate::model::ImportJob
+    /// [google.cloud.kms.v1.ListImportJobsRequest.filter]: crate::model::ListImportJobsRequest::filter
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub total_size: i32,
 

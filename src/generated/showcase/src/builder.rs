@@ -28,7 +28,7 @@ pub mod compliance {
     /// let client = builder
     ///     .with_endpoint("https://localhost:7469")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -39,7 +39,10 @@ pub mod compliance {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = Compliance;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -2361,7 +2364,7 @@ pub mod echo {
     /// let client = builder
     ///     .with_endpoint("https://localhost:7469")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -2372,7 +2375,10 @@ pub mod echo {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = Echo;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -3951,7 +3957,7 @@ pub mod identity {
     /// let client = builder
     ///     .with_endpoint("https://localhost:7469")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -3962,7 +3968,10 @@ pub mod identity {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = Identity;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -5099,7 +5108,7 @@ pub mod messaging {
     /// let client = builder
     ///     .with_endpoint("https://localhost:7469")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -5110,7 +5119,10 @@ pub mod messaging {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = Messaging;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -6801,7 +6813,7 @@ pub mod sequence_service {
     /// let client = builder
     ///     .with_endpoint("https://localhost:7469")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -6812,7 +6824,10 @@ pub mod sequence_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = SequenceService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -7942,7 +7957,7 @@ pub mod testing {
     /// let client = builder
     ///     .with_endpoint("https://localhost:7469")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -7953,7 +7968,10 @@ pub mod testing {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = Testing;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }

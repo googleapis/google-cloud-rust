@@ -50,7 +50,7 @@ impl std::fmt::Debug for StorageControl {
 }
 
 impl StorageControl {
-    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = gaxi::grpc::Client::new(config, DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -876,6 +876,240 @@ impl super::stub::StorageControl for StorageControl {
             )
             .await
             .and_then(gaxi::grpc::to_gax_response::<TR, crate::model::ListAnywhereCachesResponse>)
+    }
+
+    async fn get_project_intelligence_config(
+        &self,
+        req: crate::model::GetProjectIntelligenceConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::IntelligenceConfig>> {
+        use gaxi::prost::ToProto;
+        let options = gax::options::internal::set_default_idempotency(options, true);
+        let extensions = {
+            let mut e = tonic::Extensions::new();
+            e.insert(tonic::GrpcMethod::new(
+                "google.storage.control.v2.StorageControl",
+                "GetProjectIntelligenceConfig",
+            ));
+            e
+        };
+        let path = http::uri::PathAndQuery::from_static(
+            "/google.storage.control.v2.StorageControl/GetProjectIntelligenceConfig",
+        );
+        let x_goog_request_params = [format!("name={}", req.name)]
+            .into_iter()
+            .fold(String::new(), |b, p| b + "&" + &p);
+
+        type TR = crate::google::storage::control::v2::IntelligenceConfig;
+        self.inner
+            .execute(
+                extensions,
+                path,
+                req.to_proto().map_err(Error::other)?,
+                options,
+                &info::X_GOOG_API_CLIENT_HEADER,
+                &x_goog_request_params,
+            )
+            .await
+            .and_then(gaxi::grpc::to_gax_response::<TR, crate::model::IntelligenceConfig>)
+    }
+
+    async fn update_project_intelligence_config(
+        &self,
+        req: crate::model::UpdateProjectIntelligenceConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::IntelligenceConfig>> {
+        use gaxi::prost::ToProto;
+        let options = gax::options::internal::set_default_idempotency(options, false);
+        let extensions = {
+            let mut e = tonic::Extensions::new();
+            e.insert(tonic::GrpcMethod::new(
+                "google.storage.control.v2.StorageControl",
+                "UpdateProjectIntelligenceConfig",
+            ));
+            e
+        };
+        let path = http::uri::PathAndQuery::from_static(
+            "/google.storage.control.v2.StorageControl/UpdateProjectIntelligenceConfig",
+        );
+        let x_goog_request_params = [format!(
+            "intelligence_config.name={}",
+            req.intelligence_config
+                .as_ref()
+                .ok_or_else(|| gaxi::path_parameter::missing("intelligence_config"))?
+                .name
+        )]
+        .into_iter()
+        .fold(String::new(), |b, p| b + "&" + &p);
+
+        type TR = crate::google::storage::control::v2::IntelligenceConfig;
+        self.inner
+            .execute(
+                extensions,
+                path,
+                req.to_proto().map_err(Error::other)?,
+                options,
+                &info::X_GOOG_API_CLIENT_HEADER,
+                &x_goog_request_params,
+            )
+            .await
+            .and_then(gaxi::grpc::to_gax_response::<TR, crate::model::IntelligenceConfig>)
+    }
+
+    async fn get_folder_intelligence_config(
+        &self,
+        req: crate::model::GetFolderIntelligenceConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::IntelligenceConfig>> {
+        use gaxi::prost::ToProto;
+        let options = gax::options::internal::set_default_idempotency(options, true);
+        let extensions = {
+            let mut e = tonic::Extensions::new();
+            e.insert(tonic::GrpcMethod::new(
+                "google.storage.control.v2.StorageControl",
+                "GetFolderIntelligenceConfig",
+            ));
+            e
+        };
+        let path = http::uri::PathAndQuery::from_static(
+            "/google.storage.control.v2.StorageControl/GetFolderIntelligenceConfig",
+        );
+        let x_goog_request_params = [format!("name={}", req.name)]
+            .into_iter()
+            .fold(String::new(), |b, p| b + "&" + &p);
+
+        type TR = crate::google::storage::control::v2::IntelligenceConfig;
+        self.inner
+            .execute(
+                extensions,
+                path,
+                req.to_proto().map_err(Error::other)?,
+                options,
+                &info::X_GOOG_API_CLIENT_HEADER,
+                &x_goog_request_params,
+            )
+            .await
+            .and_then(gaxi::grpc::to_gax_response::<TR, crate::model::IntelligenceConfig>)
+    }
+
+    async fn update_folder_intelligence_config(
+        &self,
+        req: crate::model::UpdateFolderIntelligenceConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::IntelligenceConfig>> {
+        use gaxi::prost::ToProto;
+        let options = gax::options::internal::set_default_idempotency(options, false);
+        let extensions = {
+            let mut e = tonic::Extensions::new();
+            e.insert(tonic::GrpcMethod::new(
+                "google.storage.control.v2.StorageControl",
+                "UpdateFolderIntelligenceConfig",
+            ));
+            e
+        };
+        let path = http::uri::PathAndQuery::from_static(
+            "/google.storage.control.v2.StorageControl/UpdateFolderIntelligenceConfig",
+        );
+        let x_goog_request_params = [format!(
+            "intelligence_config.name={}",
+            req.intelligence_config
+                .as_ref()
+                .ok_or_else(|| gaxi::path_parameter::missing("intelligence_config"))?
+                .name
+        )]
+        .into_iter()
+        .fold(String::new(), |b, p| b + "&" + &p);
+
+        type TR = crate::google::storage::control::v2::IntelligenceConfig;
+        self.inner
+            .execute(
+                extensions,
+                path,
+                req.to_proto().map_err(Error::other)?,
+                options,
+                &info::X_GOOG_API_CLIENT_HEADER,
+                &x_goog_request_params,
+            )
+            .await
+            .and_then(gaxi::grpc::to_gax_response::<TR, crate::model::IntelligenceConfig>)
+    }
+
+    async fn get_organization_intelligence_config(
+        &self,
+        req: crate::model::GetOrganizationIntelligenceConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::IntelligenceConfig>> {
+        use gaxi::prost::ToProto;
+        let options = gax::options::internal::set_default_idempotency(options, true);
+        let extensions = {
+            let mut e = tonic::Extensions::new();
+            e.insert(tonic::GrpcMethod::new(
+                "google.storage.control.v2.StorageControl",
+                "GetOrganizationIntelligenceConfig",
+            ));
+            e
+        };
+        let path = http::uri::PathAndQuery::from_static(
+            "/google.storage.control.v2.StorageControl/GetOrganizationIntelligenceConfig",
+        );
+        let x_goog_request_params = [format!("name={}", req.name)]
+            .into_iter()
+            .fold(String::new(), |b, p| b + "&" + &p);
+
+        type TR = crate::google::storage::control::v2::IntelligenceConfig;
+        self.inner
+            .execute(
+                extensions,
+                path,
+                req.to_proto().map_err(Error::other)?,
+                options,
+                &info::X_GOOG_API_CLIENT_HEADER,
+                &x_goog_request_params,
+            )
+            .await
+            .and_then(gaxi::grpc::to_gax_response::<TR, crate::model::IntelligenceConfig>)
+    }
+
+    async fn update_organization_intelligence_config(
+        &self,
+        req: crate::model::UpdateOrganizationIntelligenceConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::IntelligenceConfig>> {
+        use gaxi::prost::ToProto;
+        let options = gax::options::internal::set_default_idempotency(options, false);
+        let extensions = {
+            let mut e = tonic::Extensions::new();
+            e.insert(tonic::GrpcMethod::new(
+                "google.storage.control.v2.StorageControl",
+                "UpdateOrganizationIntelligenceConfig",
+            ));
+            e
+        };
+        let path = http::uri::PathAndQuery::from_static(
+            "/google.storage.control.v2.StorageControl/UpdateOrganizationIntelligenceConfig",
+        );
+        let x_goog_request_params = [format!(
+            "intelligence_config.name={}",
+            req.intelligence_config
+                .as_ref()
+                .ok_or_else(|| gaxi::path_parameter::missing("intelligence_config"))?
+                .name
+        )]
+        .into_iter()
+        .fold(String::new(), |b, p| b + "&" + &p);
+
+        type TR = crate::google::storage::control::v2::IntelligenceConfig;
+        self.inner
+            .execute(
+                extensions,
+                path,
+                req.to_proto().map_err(Error::other)?,
+                options,
+                &info::X_GOOG_API_CLIENT_HEADER,
+                &x_goog_request_params,
+            )
+            .await
+            .and_then(gaxi::grpc::to_gax_response::<TR, crate::model::IntelligenceConfig>)
     }
 
     async fn get_operation(

@@ -16,8 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-
 /// Implements a client for the Dataform API.
 ///
 /// # Example
@@ -26,7 +24,7 @@ use crate::Result;
 /// # use google_cloud_dataform_v1::client::Dataform;
 /// let client = Dataform::builder().build().await?;
 /// // use `client` to make requests to the Dataform API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -72,7 +70,7 @@ impl Dataform {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_dataform_v1::client::Dataform;
     /// let client = Dataform::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::dataform::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::dataform::client::Factory)
@@ -91,14 +89,16 @@ impl Dataform {
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<std::sync::Arc<dyn super::stub::dynamic::Dataform>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Dataform>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -107,19 +107,22 @@ impl Dataform {
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Dataform> {
+    ) -> gax::client_builder::Result<impl super::stub::Dataform> {
         super::transport::Dataform::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Dataform> {
+    ) -> gax::client_builder::Result<impl super::stub::Dataform> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Dataform::new)
     }
 
     /// Lists Repositories in a given project and location.
+    ///
+    /// **Note:** *This method can return repositories not shown in the [Dataform
+    /// UI](https://console.cloud.google.com/bigquery/dataform)*.
     pub fn list_repositories(&self) -> super::builder::dataform::ListRepositories {
         super::builder::dataform::ListRepositories::new(self.inner.clone())
     }
@@ -136,12 +139,10 @@ impl Dataform {
 
     /// Updates a single Repository.
     ///
-    /// **Note:** *This method does not fully implement*,
-    /// (see [AIP/134](https://google.aip.dev/134), in particular:
-    ///
-    /// - The wildcard entry (**\***) is treated as a bad request
-    /// - When the **field_mask** is omitted, instead of only updating the set
-    ///   fields, the request is treated as a full update on all modifiable fields
+    /// **Note:** *This method does not fully implement
+    /// [AIP/134](https://google.aip.dev/134). The wildcard entry (\*) is treated
+    /// as a bad request, and when the `field_mask` is omitted, the request is
+    /// treated as a full update on all modifiable fields.*
     pub fn update_repository(&self) -> super::builder::dataform::UpdateRepository {
         super::builder::dataform::UpdateRepository::new(self.inner.clone())
     }
@@ -312,12 +313,10 @@ impl Dataform {
 
     /// Updates a single ReleaseConfig.
     ///
-    /// **Note:** *This method does not fully implement*,
-    /// (see [AIP/134](https://google.aip.dev/134), in particular:
-    ///
-    /// - The wildcard entry (**\***) is treated as a bad request
-    /// - When the **field_mask** is omitted, instead of only updating the set
-    ///   fields, the request is treated as a full update on all modifiable fields
+    /// **Note:** *This method does not fully implement
+    /// [AIP/134](https://google.aip.dev/134). The wildcard entry (\*) is treated
+    /// as a bad request, and when the `field_mask` is omitted, the request is
+    /// treated as a full update on all modifiable fields.*
     pub fn update_release_config(&self) -> super::builder::dataform::UpdateReleaseConfig {
         super::builder::dataform::UpdateReleaseConfig::new(self.inner.clone())
     }
@@ -366,12 +365,10 @@ impl Dataform {
 
     /// Updates a single WorkflowConfig.
     ///
-    /// **Note:** *This method does not fully implement*,
-    /// (see [AIP/134](https://google.aip.dev/134), in particular:
-    ///
-    /// - The wildcard entry (**\***) is treated as a bad request
-    /// - When the **field_mask** is omitted, instead of only updating the set
-    ///   fields, the request is treated as a full update on all modifiable fields
+    /// **Note:** *This method does not fully implement
+    /// [AIP/134](https://google.aip.dev/134). The wildcard entry (\*) is treated
+    /// as a bad request, and when the `field_mask` is omitted, the request is
+    /// treated as a full update on all modifiable fields.*
     pub fn update_workflow_config(&self) -> super::builder::dataform::UpdateWorkflowConfig {
         super::builder::dataform::UpdateWorkflowConfig::new(self.inner.clone())
     }
@@ -420,12 +417,10 @@ impl Dataform {
 
     /// Update default config for a given project and location.
     ///
-    /// **Note:** *This method does not fully implement*,
-    /// (see [AIP/134](https://google.aip.dev/134), in particular:
-    ///
-    /// - The wildcard entry (**\***) is treated as a bad request
-    /// - When the **field_mask** is omitted, instead of only updating the set
-    ///   fields, the request is treated as a full update on all modifiable fields
+    /// **Note:** *This method does not fully implement
+    /// [AIP/134](https://google.aip.dev/134). The wildcard entry (\*) is treated
+    /// as a bad request, and when the `field_mask` is omitted, the request is
+    /// treated as a full update on all modifiable fields.*
     pub fn update_config(&self) -> super::builder::dataform::UpdateConfig {
         super::builder::dataform::UpdateConfig::new(self.inner.clone())
     }
