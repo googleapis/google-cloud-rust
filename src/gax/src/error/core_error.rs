@@ -15,8 +15,9 @@
 use super::CredentialsError;
 use super::rpc::Status;
 use http::HeaderMap;
+use std::error::Error as StdError;
 
-type BoxError = Box<dyn std::error::Error + Send + Sync>;
+type BoxError = Box<dyn StdError + Send + Sync>;
 
 /// The core error returned by all client libraries.
 ///
@@ -412,16 +413,17 @@ impl Error {
 impl std::fmt::Display for Error {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match (&self.kind, &self.source) {
-            (ErrorKind::Binding, _) => {
-                write!(f, "cannot find a matching binding to send the request")
+            (ErrorKind::Binding, Some(e)) => {
+                write!(f, "cannot find a matching binding to send the request {e}")
             }
-            (ErrorKind::Serialization, _) => write!(f, "cannot serialize the request"),
+            (ErrorKind::Serialization, Some(e)) => write!(f, "cannot serialize the request {e}"),
             (ErrorKind::Authentication(e), _) => {
                 write!(f, "cannot create the authentication headers {e}")
             }
-            (ErrorKind::Timeout, _) => write!(f, "the request exceeded the request deadline"),
-            (ErrorKind::Transport(details), Some(s)) => details.display(s, f),
-            (ErrorKind::Transport(_), None) => unreachable!("no constructor allows this"),
+            (ErrorKind::Timeout, Some(e)) => {
+                write!(f, "the request exceeded the request deadline {e}")
+            }
+            (ErrorKind::Transport(details), _) => details.display(self.source(), f),
             (ErrorKind::Service(d), _) => {
                 write!(
                     f,
@@ -432,13 +434,16 @@ impl std::fmt::Display for Error {
             (ErrorKind::Other, Some(e)) => {
                 write!(f, "an unclassified problem making a request: {e}")
             }
-            (ErrorKind::Other, None) => unreachable!("no constructor allows this"),
+            (_, None) => unreachable!("no constructor allows this"),
         }
     }
 }
 
 impl std::error::Error for Error {
     fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
+        if let ErrorKind::Authentication(e) = &self.kind {
+            return Some(e);
+        }
         self.source
             .as_ref()
             .map(|e| e.as_ref() as &(dyn std::error::Error))
@@ -466,22 +471,30 @@ struct TransportDetails {
 }
 
 impl TransportDetails {
-    fn display(&self, source: &BoxError, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match &self {
-            TransportDetails {
-                status_code: Some(code),
-                payload: Some(p),
-                ..
-            } => {
+    fn display(
+        &self,
+        source: Option<&(dyn StdError + 'static)>,
+        f: &mut std::fmt::Formatter<'_>,
+    ) -> std::fmt::Result {
+        match (source, &self) {
+            (
+                _,
+                TransportDetails {
+                    status_code: Some(code),
+                    payload: Some(p),
+                    ..
+                },
+            ) => {
                 if let Ok(message) = std::str::from_utf8(p.as_ref()) {
                     write!(f, "the HTTP transport reports a [{code}] error: {message}")
                 } else {
                     write!(f, "the HTTP transport reports a [{code}] error: {p:?}")
                 }
             }
-            TransportDetails { .. } => {
+            (Some(source), _) => {
                 write!(f, "the transport reports an error: {source}")
             }
+            (None, _) => unreachable!("no Error constructor allows this"),
         }
     }
 }
