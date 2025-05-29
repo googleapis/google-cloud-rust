@@ -153,12 +153,19 @@ impl ReqwestClient {
         for (key, value) in auth_headers.iter() {
             builder = builder.header(key, value);
         }
-        let response = builder.send().await.map_err(Error::io)?;
+        let response = builder.send().await.map_err(Self::map_send_error)?;
         if !response.status().is_success() {
             return self::to_http_error(response).await;
         }
 
         self::to_http_response(response).await
+    }
+
+    fn map_send_error(err: reqwest::Error) -> Error {
+        match err {
+            e if e.is_timeout() => Error::timeout(e),
+            e => Error::io(e),
+        }
     }
 
     fn get_retry_policy(
