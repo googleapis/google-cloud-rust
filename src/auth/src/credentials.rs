@@ -384,8 +384,8 @@ impl Builder {
     /// In some services, you can use an account in one project for authentication
     /// and authorization, and charge the usage to a different project. This requires
     /// that the user has `serviceusage.services.use` permissions on the quota project.
+    /// If not set, the credentials uses the value from `GOOGLE_CLOUD_QUOTA_PROJECT`.
     ///
-    /// If no value is specified, then value provided in env variable `GOOGLE_CLOUD_QUOTA_PROJECT` is used.
     /// # Example
     /// ```
     /// # use google_cloud_auth::credentials::Builder;
@@ -451,10 +451,9 @@ impl Builder {
                 AdcContents::FallbackToMds => None,
             },
         };
-        let mut quota_project_id = self.quota_project_id;
-        if quota_project_id.is_none() {
-            quota_project_id = std::env::var("GOOGLE_CLOUD_QUOTA_PROJECT").ok();
-        }
+        let quota_project_id = self
+            .quota_project_id
+            .or_else(|| std::env::var("GOOGLE_CLOUD_QUOTA_PROJECT").ok());
         build_credentials(json_data, quota_project_id, self.scopes)
     }
 }
@@ -892,7 +891,7 @@ mod test {
         assert!(fmt.contains("MDSCredentials"));
         assert!(
             fmt.contains("test-quota-project"),
-            "Expected 'env-quota-project', got: {}",
+            "Expected 'test-quota-project', got: {}",
             fmt
         );
     }
@@ -903,7 +902,7 @@ mod test {
         let _e1 = ScopedEnv::remove("GOOGLE_APPLICATION_CREDENTIALS");
         let _e2 = ScopedEnv::remove("HOME"); // For posix
         let _e3 = ScopedEnv::remove("APPDATA"); // For windows
-        let _e4v = ScopedEnv::set("GOOGLE_CLOUD_QUOTA_PROJECT", "env-quota-project");
+        let _e4 = ScopedEnv::set("GOOGLE_CLOUD_QUOTA_PROJECT", "env-quota-project");
 
         let creds = Builder::default().build().unwrap();
         let fmt = format!("{:?}", creds);
