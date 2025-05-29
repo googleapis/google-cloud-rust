@@ -482,7 +482,6 @@ impl ReadObject {
         // - map relevant parameters to remaining: softDelete, projection, restoreToken
         // - map request parameters to optional extension headers: X-Goog-Encryption-Algorithm,
         //   X-Goog-Encryption-Key, X-Goog-Encryption-Key-Sha256
-        // - return unimplemented if anything in self.request is set but does not apply
 
         // Collect the required bucket and object parameters.
         let bucket: String = self.request.bucket;
@@ -495,6 +494,23 @@ impl ReadObject {
                 ))
             })?;
         let object: String = self.request.object;
+
+        // Check for unimplemented errors that are set.
+        if let Some(read_mask) = self.request.read_mask {
+            return Err(ReadObject::unimplemented_err("read_mask", read_mask));
+        }
+        if self.request.read_offset != 0 {
+            return Err(ReadObject::unimplemented_err(
+                "read_offset",
+                self.request.read_offset,
+            ));
+        }
+        if self.request.read_limit != 0 {
+            return Err(ReadObject::unimplemented_err(
+                "read_limit",
+                self.request.read_limit,
+            ));
+        }
 
         // Build the request.
         let builder = self
@@ -542,6 +558,13 @@ impl ReadObject {
 
         let builder = self.inner.apply_auth_headers(builder).await?;
         Ok(builder)
+    }
+
+    fn unimplemented_err<T: std::fmt::Debug>(name: &str, value: T) -> Error {
+        Error::other(format!(
+            "unimplemented parameter {} set to {:?}",
+            name, value
+        ))
     }
 }
 
@@ -616,6 +639,40 @@ mod tests {
             read_object_builder.url().as_str(),
             "https://storage.googleapis.com/storage/v1/b/bucket/o/object?alt=media&generation=5&ifGenerationMatch=10&ifGenerationNotMatch=20&ifMetagenerationMatch=30&ifMetagenerationNotMatch=40"
         );
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_read_object_unimplemented() -> Result {
+        let client = Storage::builder()
+            .with_credentials(auth::credentials::testing::test_credentials())
+            .build()
+            .await?;
+
+        let new_builder = || {
+            client
+                .read_object()
+                .set_bucket("projects/_/buckets/bucket")
+                .set_object("object")
+        };
+
+        new_builder()
+            .set_read_limit(5)
+            .http_request_builder()
+            .await
+            .expect_err("unimplemented field should error");
+
+        new_builder()
+            .set_read_offset(5)
+            .http_request_builder()
+            .await
+            .expect_err("unimplemented field should error");
+
+        new_builder()
+            .set_read_mask(wkt::FieldMask::default().set_paths(["abc"]))
+            .http_request_builder()
+            .await
+            .expect_err("unimplemented field should error");
         Ok(())
     }
 }
