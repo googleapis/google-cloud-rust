@@ -82,10 +82,7 @@ async fn echo_error_details(client: &showcase::client::Echo) -> Result<()> {
 }
 
 async fn fail_echo_with_details(client: &showcase::client::Echo) -> Result<()> {
-    use gax::error::{
-        ServiceError,
-        rpc::{Code, StatusDetails},
-    };
+    use gax::error::rpc::{Code, StatusDetails};
     const LINE: &str =
         "It matters not how strait the gate, How charged with punishments the scroll,";
     let result = client
@@ -95,15 +92,14 @@ async fn fail_echo_with_details(client: &showcase::client::Echo) -> Result<()> {
         .await;
     // This request should always fail and return an error with details.
     let err = result.unwrap_err();
-    let service = err
-        .as_inner::<ServiceError>()
+    let status = err
+        .status()
         .expect("the error should include the service payload");
 
     // Prints the detailed error, in debug format, formatted over multiple lines.
     println!("{err:#?}");
 
     // Manually access each error detail.
-    let status = service.status();
     assert_eq!(status.code, Code::Aborted);
     for detail in status.details.iter() {
         match detail {
