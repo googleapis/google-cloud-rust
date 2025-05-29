@@ -13,6 +13,7 @@
 // limitations under the License.
 
 use crate::build_errors::Error as BuilderError;
+use crate::constants::GOOGLE_CLOUD_QUOTA_PROJECT_VAR;
 use crate::errors::{self, CredentialsError};
 use crate::{BuildResult, Result};
 use http::{Extensions, HeaderMap};
@@ -28,7 +29,6 @@ pub mod service_account;
 pub mod user_account;
 pub(crate) const QUOTA_PROJECT_KEY: &str = "x-goog-user-project";
 pub(crate) const DEFAULT_UNIVERSE_DOMAIN: &str = "googleapis.com";
-const GOOGLE_CLOUD_QUOTA_PROJECT_VAR: &str = "GOOGLE_CLOUD_QUOTA_PROJECT";
 
 /// Represents an Entity Tag for a [CacheableResource].
 ///
