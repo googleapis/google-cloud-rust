@@ -288,8 +288,8 @@ impl Error {
     #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
     pub fn authentication(source: CredentialsError) -> Self {
         Self {
-            kind: ErrorKind::Authentication(source),
-            source: None,
+            kind: ErrorKind::Authentication,
+            source: Some(source.into()),
         }
     }
 
@@ -298,7 +298,7 @@ impl Error {
     /// Could not create the authentication headers before sending the request.
     #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
     pub fn is_authentication(&self) -> bool {
-        matches!(self.kind, ErrorKind::Authentication(_))
+        matches!(self.kind, ErrorKind::Authentication)
     }
 
     /// Not part of the public API, subject to change without notice.
@@ -406,7 +406,14 @@ impl Error {
 
     /// The error was generated before the RPC started and is transient.
     pub(crate) fn is_transient_and_before_rpc(&self) -> bool {
-        matches!(&self.kind, ErrorKind::Authentication(e) if e.is_transient())
+        if !matches!(&self.kind, ErrorKind::Authentication) {
+            return false;
+        }
+        self.source
+            .as_ref()
+            .and_then(|e| e.downcast_ref::<CredentialsError>())
+            .map(|e| e.is_transient())
+            .unwrap_or(false)
     }
 }
 
@@ -417,7 +424,7 @@ impl std::fmt::Display for Error {
                 write!(f, "cannot find a matching binding to send the request {e}")
             }
             (ErrorKind::Serialization, Some(e)) => write!(f, "cannot serialize the request {e}"),
-            (ErrorKind::Authentication(e), _) => {
+            (ErrorKind::Authentication, Some(e)) => {
                 write!(f, "cannot create the authentication headers {e}")
             }
             (ErrorKind::Timeout, Some(e)) => {
@@ -441,9 +448,6 @@ impl std::fmt::Display for Error {
 
 impl std::error::Error for Error {
     fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
-        if let ErrorKind::Authentication(e) = &self.kind {
-            return Some(e);
-        }
         self.source
             .as_ref()
             .map(|e| e.as_ref() as &(dyn std::error::Error))
@@ -455,7 +459,7 @@ impl std::error::Error for Error {
 enum ErrorKind {
     Binding,
     Serialization,
-    Authentication(CredentialsError),
+    Authentication,
     Timeout,
     Transport(Box<TransportDetails>),
     Service(Box<ServiceDetails>),
