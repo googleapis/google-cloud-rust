@@ -55,6 +55,7 @@ type BoxError = Box<dyn std::error::Error + Send + Sync>;
 #[derive(Debug)]
 pub struct Error {
     kind: ErrorKind,
+    source: Option<BoxError>,
 }
 
 impl Error {
@@ -69,12 +70,15 @@ impl Error {
     /// assert_eq!(error.status(), Some(&status));
     /// ```
     pub fn service(status: Status) -> Self {
-        let kind = ErrorKind::Service {
+        let details = ServiceDetails {
             status,
             status_code: None,
             headers: None,
         };
-        Self { kind }
+        Self {
+            kind: ErrorKind::Service(Box::new(details)),
+            source: None,
+        }
     }
 
     /// Creates an error representing a timeout.
@@ -89,7 +93,8 @@ impl Error {
     /// ```
     pub fn timeout<T: Into<BoxError>>(source: T) -> Self {
         Self {
-            kind: ErrorKind::Timeout(source.into()),
+            kind: ErrorKind::Timeout,
+            source: Some(source.into()),
         }
     }
 
@@ -100,7 +105,7 @@ impl Error {
     /// If the request mutates any state in the service, it may or may not be
     /// safe to attempt the request again.
     pub fn is_timeout(&self) -> bool {
-        matches!(self.kind, ErrorKind::Timeout(_))
+        matches!(self.kind, ErrorKind::Timeout)
     }
 
     /// The [Status] payload associated with this error.
@@ -127,7 +132,7 @@ impl Error {
     /// [AIP-193]: https://google.aip.dev/193
     pub fn status(&self) -> Option<&Status> {
         match &self.kind {
-            ErrorKind::Service { status, .. } => Some(status),
+            ErrorKind::Service(d) => Some(&d.as_ref().status),
             _ => None,
         }
     }
@@ -162,14 +167,8 @@ impl Error {
     /// [AIP-193]: https://google.aip.dev/193
     pub fn http_status_code(&self) -> Option<u16> {
         match &self.kind {
-            ErrorKind::Transport {
-                status_code: Some(code),
-                ..
-            } => Some(*code),
-            ErrorKind::Service {
-                status_code: Some(code),
-                ..
-            } => Some(*code),
+            ErrorKind::Transport(d) => d.as_ref().status_code,
+            ErrorKind::Service(d) => d.as_ref().status_code,
             _ => None,
         }
     }
@@ -207,12 +206,8 @@ impl Error {
     /// set in some errors but not others.
     pub fn http_headers(&self) -> Option<&http::HeaderMap> {
         match &self.kind {
-            ErrorKind::Transport {
-                headers: Some(h), ..
-            } => Some(h),
-            ErrorKind::Service {
-                headers: Some(h), ..
-            } => Some(h),
+            ErrorKind::Transport(d) => d.as_ref().headers.as_ref(),
+            ErrorKind::Service(d) => d.as_ref().headers.as_ref(),
             _ => None,
         }
     }
@@ -240,7 +235,7 @@ impl Error {
     /// set in some errors but not others.
     pub fn http_payload(&self) -> Option<&bytes::Bytes> {
         match &self.kind {
-            ErrorKind::Transport { payload, .. } => payload.as_ref(),
+            ErrorKind::Transport(d) => d.payload.as_ref(),
             _ => None,
         }
     }
@@ -254,12 +249,13 @@ impl Error {
         status_code: Option<u16>,
         headers: Option<http::HeaderMap>,
     ) -> Self {
-        let kind = ErrorKind::Service {
+        let details = ServiceDetails {
             status_code,
-            headers: headers.map(Box::new),
+            headers,
             status,
         };
-        Self { kind }
+        let kind = ErrorKind::Service(Box::new(details));
+        Self { kind, source: None }
     }
 
     /// Not part of the public API, subject to change without notice.
@@ -271,7 +267,8 @@ impl Error {
     #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
     pub fn binding<T: Into<BoxError>>(source: T) -> Self {
         Self {
-            kind: ErrorKind::Binding(source.into()),
+            kind: ErrorKind::Binding,
+            source: Some(source.into()),
         }
     }
 
@@ -281,7 +278,7 @@ impl Error {
     /// did not match any of the expected formats.
     #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
     pub fn is_binding(&self) -> bool {
-        matches!(&self.kind, ErrorKind::Binding(_))
+        matches!(&self.kind, ErrorKind::Binding)
     }
 
     /// Not part of the public API, subject to change without notice.
@@ -291,6 +288,7 @@ impl Error {
     pub fn authentication(source: CredentialsError) -> Self {
         Self {
             kind: ErrorKind::Authentication(source),
+            source: None,
         }
     }
 
@@ -307,13 +305,13 @@ impl Error {
     /// A problem reported by the transport layer.
     #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
     pub fn http(status_code: u16, headers: HeaderMap, payload: bytes::Bytes) -> Self {
-        let kind = ErrorKind::Transport {
+        let details = TransportDetails {
             status_code: Some(status_code),
-            headers: Some(Box::new(headers)),
+            headers: Some(headers),
             payload: Some(payload),
-            source: None,
         };
-        Self { kind }
+        let kind = ErrorKind::Transport(Box::new(details));
+        Self { kind, source: None }
     }
 
     /// Not part of the public API, subject to change without notice.
@@ -324,13 +322,14 @@ impl Error {
     /// any HTTP error that did not include a status code or other headers.
     #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
     pub fn io<T: Into<BoxError>>(source: T) -> Self {
+        let details = TransportDetails {
+            status_code: None,
+            headers: None,
+            payload: None,
+        };
         Self {
-            kind: ErrorKind::Transport {
-                status_code: None,
-                headers: None,
-                payload: None,
-                source: Some(source.into()),
-            },
+            kind: ErrorKind::Transport(Box::new(details)),
+            source: Some(source.into()),
         }
     }
 
@@ -342,14 +341,13 @@ impl Error {
     #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
     pub fn is_io(&self) -> bool {
         matches!(
-            &self.kind,
-            ErrorKind::Transport {
-                status_code: None,
-                headers: None,
-                payload: None,
-                ..
-            }
-        )
+        &self.kind,
+        ErrorKind::Transport(d) if matches!(**d, TransportDetails {
+            status_code: None,
+            headers: None,
+            payload: None,
+            ..
+        }))
     }
 
     /// Not part of the public API, subject to change without notice.
@@ -357,13 +355,15 @@ impl Error {
     /// A problem reported by the transport layer.
     #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
     pub fn transport<T: Into<BoxError>>(headers: HeaderMap, source: T) -> Self {
-        let kind = ErrorKind::Transport {
-            headers: Some(Box::new(headers)),
-            source: Some(source.into()),
+        let details = TransportDetails {
+            headers: Some(headers),
             status_code: None,
             payload: None,
         };
-        Self { kind }
+        Self {
+            kind: ErrorKind::Transport(Box::new(details)),
+            source: Some(source.into()),
+        }
     }
 
     /// Not part of the public API, subject to change without notice.
@@ -381,7 +381,8 @@ impl Error {
     #[doc(hidden)]
     pub fn serde<T: Into<BoxError>>(source: T) -> Self {
         Self {
-            kind: ErrorKind::Serialization(source.into()),
+            kind: ErrorKind::Serialization,
+            source: Some(source.into()),
         }
     }
 
@@ -390,14 +391,15 @@ impl Error {
     /// A problem in serialization or deserialization.
     #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
     pub fn is_serde(&self) -> bool {
-        matches!(&self.kind, ErrorKind::Serialization(_))
+        matches!(&self.kind, ErrorKind::Serialization)
     }
 
     // TODO(#2221) - remove once the migration is completed.
     #[doc(hidden)]
     pub fn other<T: Into<BoxError>>(source: T) -> Self {
         Self {
-            kind: ErrorKind::Other(source.into()),
+            kind: ErrorKind::Other,
+            source: Some(source.into()),
         }
     }
 
@@ -409,20 +411,67 @@ impl Error {
 
 impl std::fmt::Display for Error {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match &self.kind {
-            ErrorKind::Binding(e) => {
-                write!(f, "cannot find a matching binding to send the request: {e}")
+        match (&self.kind, &self.source) {
+            (ErrorKind::Binding, _) => {
+                write!(f, "cannot find a matching binding to send the request")
             }
-            ErrorKind::Serialization(e) => write!(f, "cannot serialize the request: {e}"),
-            ErrorKind::Authentication(e) => {
-                write!(f, "cannot create the authentication headers: {e}")
+            (ErrorKind::Serialization, _) => write!(f, "cannot serialize the request"),
+            (ErrorKind::Authentication(e), _) => {
+                write!(f, "cannot create the authentication headers {e}")
             }
-            ErrorKind::Timeout(e) => write!(f, "the request exceeded the request deadline: {e}"),
-            ErrorKind::Transport {
-                source: None,
+            (ErrorKind::Timeout, _) => write!(f, "the request exceeded the request deadline"),
+            (ErrorKind::Transport(details), Some(s)) => details.display(s, f),
+            (ErrorKind::Transport(_), None) => unreachable!("no constructor allows this"),
+            (ErrorKind::Service(d), _) => {
+                write!(
+                    f,
+                    "the service reports an error with code {} described as: {}",
+                    d.status.code, d.status.message
+                )
+            }
+            (ErrorKind::Other, Some(e)) => {
+                write!(f, "an unclassified problem making a request: {e}")
+            }
+            (ErrorKind::Other, None) => unreachable!("no constructor allows this"),
+        }
+    }
+}
+
+impl std::error::Error for Error {
+    fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
+        self.source
+            .as_ref()
+            .map(|e| e.as_ref() as &(dyn std::error::Error))
+    }
+}
+
+/// The type of error held by an [Error] instance.
+#[derive(Debug)]
+enum ErrorKind {
+    Binding,
+    Serialization,
+    Authentication(CredentialsError),
+    Timeout,
+    Transport(Box<TransportDetails>),
+    Service(Box<ServiceDetails>),
+    /// A uncategorized error.
+    Other,
+}
+
+#[derive(Debug)]
+struct TransportDetails {
+    status_code: Option<u16>,
+    headers: Option<HeaderMap>,
+    payload: Option<bytes::Bytes>,
+}
+
+impl TransportDetails {
+    fn display(&self, source: &BoxError, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match &self {
+            TransportDetails {
                 status_code: Some(code),
-                headers: Some(_),
                 payload: Some(p),
+                ..
             } => {
                 if let Ok(message) = std::str::from_utf8(p.as_ref()) {
                     write!(f, "the HTTP transport reports a [{code}] error: {message}")
@@ -430,60 +479,18 @@ impl std::fmt::Display for Error {
                     write!(f, "the HTTP transport reports a [{code}] error: {p:?}")
                 }
             }
-            ErrorKind::Transport {
-                source: Some(s), ..
-            } => {
-                write!(f, "the transport reports an error: {s}")
+            TransportDetails { .. } => {
+                write!(f, "the transport reports an error: {source}")
             }
-            ErrorKind::Transport { source: None, .. } => unreachable!("no constructor allows this"),
-            ErrorKind::Service { status, .. } => {
-                write!(
-                    f,
-                    "the service reports an error with code {} described as: {}",
-                    status.code, status.message
-                )
-            }
-            ErrorKind::Other(e) => write!(f, "an unclassified problem making a request: {e}"),
         }
     }
 }
 
-impl std::error::Error for Error {
-    fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
-        match &self.kind {
-            ErrorKind::Binding(e) => Some(e.as_ref()),
-            ErrorKind::Serialization(e) => Some(e.as_ref()),
-            ErrorKind::Authentication(e) => Some(e),
-            ErrorKind::Timeout(e) => Some(e.as_ref()),
-            ErrorKind::Transport { source, .. } => source
-                .as_ref()
-                .map(|e| e.as_ref() as &(dyn std::error::Error)),
-            ErrorKind::Service { .. } => None,
-            ErrorKind::Other(e) => Some(e.as_ref()),
-        }
-    }
-}
-
-/// The type of error held by an [Error] instance.
 #[derive(Debug)]
-enum ErrorKind {
-    Binding(BoxError),
-    Serialization(BoxError),
-    Authentication(CredentialsError),
-    Timeout(BoxError),
-    Transport {
-        status_code: Option<u16>,
-        headers: Option<Box<HeaderMap>>,
-        payload: Option<bytes::Bytes>,
-        source: Option<BoxError>,
-    },
-    Service {
-        status_code: Option<u16>,
-        headers: Option<Box<HeaderMap>>,
-        status: Status,
-    },
-    /// A uncategorized error.
-    Other(BoxError),
+struct ServiceDetails {
+    status_code: Option<u16>,
+    headers: Option<HeaderMap>,
+    status: Status,
 }
 
 #[cfg(test)]
