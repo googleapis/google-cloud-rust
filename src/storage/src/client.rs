@@ -15,6 +15,7 @@
 pub use crate::Error;
 pub use crate::Result;
 use auth::credentials::CacheableResource;
+use base64::Engine;
 pub use control::model::Object;
 use http::Extensions;
 
@@ -555,6 +556,26 @@ impl ReadObject {
             .if_metageneration_not_match
             .iter()
             .fold(builder, |b, v| b.query(&[("ifMetagenerationNotMatch", v)]));
+
+        // TODO: Add some client side verication that all fields are filled and algorithm is AES256.
+        let builder = self
+            .request
+            .common_object_request_params
+            .iter()
+            .fold(builder, |b, v| {
+                b.header(
+                    "x-goog-encryption-algorithm",
+                    v.encryption_algorithm.clone(),
+                )
+                .header(
+                    "x-goog-encryption-key",
+                    base64::prelude::BASE64_STANDARD.encode(v.encryption_key_bytes.clone()),
+                )
+                .header(
+                    "x-goog-encryption-key-sha256",
+                    base64::prelude::BASE64_STANDARD.encode(v.encryption_key_sha256_bytes.clone()),
+                )
+            });
 
         let builder = self.inner.apply_auth_headers(builder).await?;
         Ok(builder)
