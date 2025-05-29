@@ -23,6 +23,8 @@ use std::sync::Arc;
 use std::sync::atomic::{AtomicU64, Ordering};
 
 pub mod api_key_credentials;
+#[doc(hidden)]
+pub mod external_account;
 pub(crate) mod internal;
 pub mod mds;
 pub mod service_account;
