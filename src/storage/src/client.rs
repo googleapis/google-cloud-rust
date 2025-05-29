@@ -588,6 +588,7 @@ mod tests {
             .set_object("object")
             .http_request_builder()
             .await
+            .inspect_err(|e| assert!(e.is_authentication()))
             .expect_err("invalid credentials should err");
         Ok(())
     }
