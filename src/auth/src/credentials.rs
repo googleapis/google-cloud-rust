@@ -535,6 +535,12 @@ fn build_credentials(
                     |b: service_account::Builder, s: Vec<String>| b
                         .with_access_specifier(service_account::AccessSpecifier::from_scopes(s))
                 ),
+                 "external_account" => config_builder!(
+                    external_account::Builder::new(json),
+                    quota_project_id,
+                    scopes,
+                    |b: external_account::Builder, s: Vec<String>| b.with_scopes(s)
+                ),
                 _ => Err(BuilderError::unknown_type(cred_type)),
             }
         }
