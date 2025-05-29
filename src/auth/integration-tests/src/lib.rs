@@ -16,7 +16,6 @@ use auth::credentials::{
     Builder as AccessTokenCredentialBuilder,
     api_key_credentials::Builder as ApiKeyCredentialsBuilder,
 };
-use gax::error::Error;
 use language::client::LanguageService;
 use language::model::Document;
 use scoped_env::ScopedEnv;
@@ -51,9 +50,7 @@ pub async fn service_account() -> anyhow::Result<()> {
 
     // Create credentials for the principal under test.
     let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
-    let creds = AccessTokenCredentialBuilder::default()
-        .build()
-        .map_err(Error::authentication)?;
+    let creds = AccessTokenCredentialBuilder::default().build()?;
 
     // Construct a new SecretManager client using the credentials.
     let client = SecretManagerService::builder()

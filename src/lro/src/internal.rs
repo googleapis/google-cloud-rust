@@ -362,6 +362,7 @@ where
 mod test {
     use super::super::Error;
     use super::*;
+    use gax::error::rpc::{Code, Status};
     use gax::exponential_backoff::ExponentialBackoff;
     use gax::exponential_backoff::ExponentialBackoffBuilder;
     use gax::polling_error_policy::*;
@@ -370,7 +371,6 @@ mod test {
     type ResponseType = wkt::Duration;
     type MetadataType = wkt::Timestamp;
     type TestOperation = Operation<ResponseType, MetadataType>;
-
     type EmptyResponseOperation = Operation<wkt::Empty, MetadataType>;
     type EmptyMetadataOperation = Operation<ResponseType, wkt::Empty>;
 
@@ -837,17 +837,20 @@ mod test {
         use PollingResult::{Completed, InProgress, PollingError};
         type TestResult = PollingResult<wkt::Empty, wkt::Timestamp>;
         let got = map_polling_result(TestResult::Completed(Ok(wkt::Empty::default())));
-        assert!(matches!(got, Completed(Ok(_))));
-        let got = map_polling_result(TestResult::Completed(Err(Error::other("abc".to_string()))));
-        assert!(matches!(got, Completed(Err(e)) if e.kind() == gax::error::ErrorKind::Other));
+        assert!(matches!(got, Completed(Ok(_))), "{got:?}");
+        let got = map_polling_result(TestResult::Completed(Err(service_error())));
+        assert!(
+            matches!(&got, Completed(Err(e)) if e.status() == service_error().status()),
+            "{got:?}"
+        );
         let got = map_polling_result(TestResult::InProgress(None));
-        assert!(matches!(got, InProgress(None)));
+        assert!(matches!(got, InProgress(None)), "{got:?}");
         let got = map_polling_result(TestResult::InProgress(Some(wkt::Timestamp::clamp(
             123, 456,
         ))));
         assert!(matches!(got, InProgress(Some(t)) if t == wkt::Timestamp::clamp(123, 456)));
-        let got = map_polling_result(TestResult::PollingError(Error::other("abc".to_string())));
-        assert!(matches!(got, PollingError(e) if e.kind() == gax::error::ErrorKind::Other));
+        let got = map_polling_result(TestResult::PollingError(polling_error()));
+        assert!(matches!(&got, PollingError(e) if e.is_io()), "{got:?}");
     }
 
     // The other cases are already tested.
@@ -895,15 +898,18 @@ mod test {
         use PollingResult::{Completed, InProgress, PollingError};
         type TestResult = PollingResult<wkt::Duration, wkt::Empty>;
         let got = map_polling_metadata(TestResult::Completed(Ok(wkt::Duration::clamp(123, 456))));
-        assert!(matches!(got, Completed(Ok(_))));
-        let got = map_polling_metadata(TestResult::Completed(Err(Error::other("abc".to_string()))));
-        assert!(matches!(got, Completed(Err(e)) if e.kind() == gax::error::ErrorKind::Other));
+        assert!(matches!(got, Completed(Ok(_))), "{got:?}");
+        let got = map_polling_metadata(TestResult::Completed(Err(service_error())));
+        assert!(
+            matches!(&got, Completed(Err(e)) if e.status() == service_error().status()),
+            "{got:?}"
+        );
         let got = map_polling_metadata(TestResult::InProgress(None));
-        assert!(matches!(got, InProgress(None)));
+        assert!(matches!(got, InProgress(None)), "{got:?}");
         let got = map_polling_metadata(TestResult::InProgress(Some(wkt::Empty::default())));
-        assert!(matches!(got, InProgress(Some(_))));
-        let got = map_polling_metadata(TestResult::PollingError(Error::other("abc".to_string())));
-        assert!(matches!(got, PollingError(e) if e.kind() == gax::error::ErrorKind::Other));
+        assert!(matches!(got, InProgress(Some(_))), "{got:?}");
+        let got = map_polling_metadata(TestResult::PollingError(polling_error()));
+        assert!(matches!(&got, PollingError(e) if e.is_io()), "{got:?}");
     }
 
     #[tokio::test(flavor = "multi_thread")]
@@ -992,5 +998,17 @@ mod test {
         );
 
         Ok(())
+    }
+
+    fn service_error() -> gax::error::Error {
+        gax::error::Error::service(
+            Status::default()
+                .set_code(Code::ResourceExhausted)
+                .set_message("too many things"),
+        )
+    }
+
+    fn polling_error() -> gax::error::Error {
+        gax::error::Error::io("something failed")
     }
 }
