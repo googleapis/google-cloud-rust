@@ -132,7 +132,7 @@ mod test {
                         r
                     );
                     let err = r.unwrap_err();
-                    assert!(err.is_io(), "{err:?}");
+                    assert!(err.is_timeout(), "{err:?}");
                     break;
                 },
                 _ = interval.tick() => { },
@@ -209,8 +209,8 @@ mod test {
                         "expected a timeout error, got={:?}",
                         r
                     );
-                    let err = r.err().unwrap();
-                    assert!(err.is_io(), "{err:?}");
+                    let err = r.unwrap_err();
+                    assert!(err.is_timeout(), "{err:?}");
                     break;
                 },
                 _ = interval.tick() => { },
