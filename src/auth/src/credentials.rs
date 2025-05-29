@@ -28,6 +28,7 @@ pub mod service_account;
 pub mod user_account;
 pub(crate) const QUOTA_PROJECT_KEY: &str = "x-goog-user-project";
 pub(crate) const DEFAULT_UNIVERSE_DOMAIN: &str = "googleapis.com";
+const GOOGLE_CLOUD_QUOTA_PROJECT_VAR: &str = "GOOGLE_CLOUD_QUOTA_PROJECT";
 
 /// Represents an Entity Tag for a [CacheableResource].
 ///
@@ -453,7 +454,7 @@ impl Builder {
         };
         let quota_project_id = self
             .quota_project_id
-            .or_else(|| std::env::var("GOOGLE_CLOUD_QUOTA_PROJECT").ok());
+            .or_else(|| std::env::var(GOOGLE_CLOUD_QUOTA_PROJECT_VAR).ok());
         build_credentials(json_data, quota_project_id, self.scopes)
     }
 }
@@ -877,11 +878,11 @@ mod test {
 
     #[tokio::test]
     #[serial_test::serial]
-    async fn create_access_token_credentials_fallback_to_mds_with_quota_project() {
+    async fn create_access_token_credentials_fallback_to_mds_with_quota_project_override() {
         let _e1 = ScopedEnv::remove("GOOGLE_APPLICATION_CREDENTIALS");
         let _e2 = ScopedEnv::remove("HOME"); // For posix
         let _e3 = ScopedEnv::remove("APPDATA"); // For windows
-        let _e4 = ScopedEnv::set("GOOGLE_CLOUD_QUOTA_PROJECT", "env-quota-project");
+        let _e4 = ScopedEnv::set(GOOGLE_CLOUD_QUOTA_PROJECT_VAR, "env-quota-project");
 
         let mds = Builder::default()
             .with_quota_project_id("test-quota-project")
@@ -902,7 +903,7 @@ mod test {
         let _e1 = ScopedEnv::remove("GOOGLE_APPLICATION_CREDENTIALS");
         let _e2 = ScopedEnv::remove("HOME"); // For posix
         let _e3 = ScopedEnv::remove("APPDATA"); // For windows
-        let _e4 = ScopedEnv::set("GOOGLE_CLOUD_QUOTA_PROJECT", "env-quota-project");
+        let _e4 = ScopedEnv::set(GOOGLE_CLOUD_QUOTA_PROJECT_VAR, "env-quota-project");
 
         let creds = Builder::default().build().unwrap();
         let fmt = format!("{:?}", creds);
