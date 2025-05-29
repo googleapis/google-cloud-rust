@@ -921,7 +921,9 @@ mod test {
     }
 
     #[tokio::test]
+    #[serial_test::serial]
     async fn create_access_token_service_account_credentials_with_scopes() -> TestResult {
+        let _e1 = ScopedEnv::remove(GOOGLE_CLOUD_QUOTA_PROJECT_VAR);
         let mut service_account_key = serde_json::json!({
             "type": "service_account",
             "project_id": "test-project-id",
