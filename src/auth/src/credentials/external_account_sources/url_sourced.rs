@@ -14,6 +14,7 @@
 
 use gax::error::CredentialsError;
 use reqwest::Client;
+use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use std::time::Duration;
 
@@ -24,15 +25,15 @@ use crate::{
     },
 };
 
-#[derive(Debug)]
-pub(crate) struct UrlSourcedSubjectTokenProvider {
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub(crate) struct UrlSourcedCredentials {
     pub url: String,
     pub headers: Option<CredentialSourceHeaders>,
     pub format: Option<CredentialSourceFormat>,
 }
 
 #[async_trait::async_trait]
-impl SubjectTokenProvider for UrlSourcedSubjectTokenProvider {
+impl SubjectTokenProvider for UrlSourcedCredentials {
     async fn subject_token(&self) -> Result<String> {
         let client = Client::builder()
             .timeout(Duration::from_secs(10))
@@ -116,7 +117,7 @@ mod test {
         );
 
         let url = server.url("/token").to_string();
-        let token_provider = UrlSourcedSubjectTokenProvider {
+        let token_provider = UrlSourcedCredentials {
             url,
             format: Some(CredentialSourceFormat {
                 format_type: "json".into(),
@@ -144,7 +145,7 @@ mod test {
         );
 
         let url = server.url("/token").to_string();
-        let token_provider = UrlSourcedSubjectTokenProvider {
+        let token_provider = UrlSourcedCredentials {
             url,
             format: None,
             headers: None,
@@ -173,7 +174,7 @@ mod test {
         );
 
         let url = server.url("/token").to_string();
-        let token_provider = UrlSourcedSubjectTokenProvider {
+        let token_provider = UrlSourcedCredentials {
             url,
             format: Some(CredentialSourceFormat {
                 format_type: "json".into(),

@@ -13,7 +13,7 @@
 // limitations under the License.
 
 use super::dynamic::CredentialsProvider;
-use super::external_account_sources::url_sourced_account::UrlSourcedSubjectTokenProvider;
+use super::external_account_sources::url_sourced::UrlSourcedCredentials;
 use super::internal::sts_exchange::{ClientAuthentication, ExchangeTokenRequest, STSHandler};
 use super::{CacheableResource, Credentials};
 use crate::build_errors::Error as BuilderError;
@@ -51,39 +51,39 @@ pub(crate) struct CredentialSourceHeaders {
 #[derive(Serialize, Deserialize, Debug, Clone)]
 #[serde(untagged)]
 enum CredentialSource {
-    UrlSourced {
-        url: String,
-        headers: Option<CredentialSourceHeaders>,
-        format: Option<CredentialSourceFormat>,
-    },
+    Url(UrlSourcedCredentials),
     File {},
     Aws {},
     Executable {},
 }
 
-#[async_trait::async_trait]
-impl SubjectTokenProvider for CredentialSource {
-    async fn subject_token(&self) -> Result<String> {
-        match self.clone() {
-            CredentialSource::UrlSourced {
-                url,
-                headers,
-                format,
-            } => {
-                let provider = UrlSourcedSubjectTokenProvider {
-                    url,
-                    headers,
-                    format,
+impl CredentialSource {
+    fn make_credentials(
+        self,
+        config: ExternalAccountConfig,
+        quota_project_id: Option<String>,
+    ) -> Credentials {
+        match self {
+            Self::Url(source) => {
+                let token_provider = ExternalAccountTokenProvider {
+                    subject_token_provider: source,
+                    config,
                 };
-                provider.subject_token().await
+                let cache = TokenCache::new(token_provider);
+                Credentials {
+                    inner: Arc::new(ExternalAccountCredentials {
+                        token_provider: cache,
+                        quota_project_id,
+                    }),
+                }
             }
-            CredentialSource::Executable { .. } => {
+            Self::Executable { .. } => {
                 unimplemented!("executable sourced credential not supported yet")
             }
-            CredentialSource::File { .. } => {
+            Self::File { .. } => {
                 unimplemented!("file sourced credential not supported yet")
             }
-            CredentialSource::Aws { .. } => {
+            Self::Aws { .. } => {
                 unimplemented!("AWS sourced credential not supported yet")
             }
         }
@@ -269,17 +269,9 @@ impl Builder {
             config.scopes = Some(scopes);
         }
 
-        let token_provider = ExternalAccountTokenProvider {
-            subject_token_provider: external_account_config.credential_source,
-            config,
-        };
-
-        Ok(Credentials {
-            inner: Arc::new(ExternalAccountCredentials {
-                quota_project_id: self.quota_project_id.clone(),
-                token_provider: TokenCache::new(token_provider),
-            }),
-        })
+        Ok(external_account_config
+            .credential_source
+            .make_credentials(config, self.quota_project_id))
     }
 }
 
@@ -354,20 +346,16 @@ mod test {
         let source = config.credential_source;
 
         match source {
-            CredentialSource::UrlSourced {
-                url,
-                headers,
-                format,
-            } => {
-                assert_eq!(url, "https://example.com/token");
+            CredentialSource::Url(source) => {
+                assert_eq!(source.url, "https://example.com/token");
                 assert_eq!(
-                    headers,
+                    source.headers,
                     Some(CredentialSourceHeaders {
                         headers: HashMap::from([("Metadata".to_string(), "True".to_string()),]),
                     })
                 );
                 assert_eq!(
-                    format,
+                    source.format,
                     Some(CredentialSourceFormat {
                         format_type: "json".into(),
                         subject_token_field_name: "access_token".into(),
