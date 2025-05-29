@@ -29,12 +29,16 @@ where
     T: std::error::Error + 'static,
 {
     let mut e = status.source()?;
-    loop {
+    // Prevent infinite loops due to cycles in the `source()` errors. This seems
+    // unlikely, and it would require effort to create, but it is easy to
+    // prevent.
+    for _ in 0..32 {
         if let Some(value) = e.downcast_ref::<T>() {
             return Some(value);
         }
         e = e.source()?;
     }
+    None
 }
 
 pub fn to_gax_error(status: tonic::Status) -> Error {
