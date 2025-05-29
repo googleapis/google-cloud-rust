@@ -17,7 +17,7 @@ use auth::credentials::Credentials;
 use gax::Result;
 use gax::backoff_policy::BackoffPolicy;
 use gax::client_builder::Error as BuilderError;
-use gax::error::{Error, HttpError, ServiceErrorBuilder};
+use gax::error::Error;
 use gax::exponential_backoff::ExponentialBackoff;
 use gax::polling_backoff_policy::PollingBackoffPolicy;
 use gax::polling_error_policy::Aip194Strict;
@@ -76,7 +76,7 @@ impl ReqwestClient {
         if let Some(user_agent) = options.user_agent() {
             builder = builder.header(
                 reqwest::header::USER_AGENT,
-                reqwest::header::HeaderValue::from_str(user_agent).map_err(Error::other)?,
+                reqwest::header::HeaderValue::from_str(user_agent).map_err(Error::serde)?,
             );
         }
         if let Some(body) = body {
@@ -112,7 +112,7 @@ impl ReqwestClient {
         let inner = async move |d| {
             let builder = builder
                 .try_clone()
-                .ok_or_else(|| Error::other("cannot clone builder in retry loop".to_string()))?;
+                .ok_or_else(|| Error::other("cannot clone builder in retry loop"))?;
             this.request_attempt(builder, &options, d).await
         };
         let sleep = async |d| tokio::time::sleep(d).await;
@@ -229,13 +229,10 @@ pub async fn to_http_error<O>(response: reqwest::Response) -> Result<O> {
         .to_bytes();
 
     let error = match gax::error::rpc::Status::try_from(&body) {
-        Ok(status) => Error::rpc(
-            ServiceErrorBuilder::new(status)
-                .with_headers(parts.headers)
-                .with_http_status_code(status_code)
-                .build(),
-        ),
-        Err(_) => Error::rpc(HttpError::new(status_code, parts.headers, Some(body))),
+        Ok(status) => {
+            Error::service_with_http_metadata(status, Some(status_code), Some(parts.headers))
+        }
+        Err(_) => Error::http(status_code, parts.headers, body),
     };
     Err(error)
 }
@@ -265,7 +262,6 @@ async fn to_http_response<O: serde::de::DeserializeOwned + Default>(
 
 #[cfg(test)]
 mod test {
-    use super::*;
     use http::{HeaderMap, HeaderValue};
     use test_case::test_case;
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
@@ -281,13 +277,12 @@ mod test {
         let response = super::to_http_error::<()>(response).await;
         assert!(response.is_err(), "{response:?}");
         let err = response.err().unwrap();
-        let err = err.as_inner::<HttpError>().unwrap();
-        assert_eq!(err.status_code(), 400);
+        assert_eq!(err.http_status_code(), Some(400));
         let mut want = HeaderMap::new();
         want.insert("content-type", HeaderValue::from_static("application/json"));
-        assert_eq!(err.headers(), &want);
+        assert_eq!(err.http_headers(), Some(&want));
         assert_eq!(
-            err.payload(),
+            err.http_payload(),
             Some(bytes::Bytes::from(r#"{"error": "bad request"}"#)).as_ref()
         );
         Ok(())
@@ -295,7 +290,6 @@ mod test {
 
     #[tokio::test]
     async fn client_error_with_status() -> TestResult {
-        use gax::error::ServiceError;
         use gax::error::rpc::{Code, Status, StatusDetails::LocalizedMessage};
         let body = serde_json::json!({"error": {
             "code": 404,
@@ -316,7 +310,6 @@ mod test {
         let response = super::to_http_error::<()>(response).await;
         assert!(response.is_err(), "{response:?}");
         let err = response.err().unwrap();
-        let err = err.as_inner::<ServiceError>().unwrap();
         let want_status = Status::default()
             .set_code(Code::NotFound)
             .set_message("The thing is not there, oh noes!")
@@ -325,11 +318,11 @@ mod test {
                     .set_locale("en-US")
                     .set_message("we searched everywhere, honest"),
             )]);
-        assert_eq!(err.status(), &want_status);
-        assert_eq!(err.http_status_code(), &Some(404_u16));
+        assert_eq!(err.status(), Some(&want_status));
+        assert_eq!(err.http_status_code(), Some(404_u16));
         let mut want = HeaderMap::new();
         want.insert("content-type", HeaderValue::from_static("application/json"));
-        assert_eq!(err.headers(), &Some(want));
+        assert_eq!(err.http_headers(), Some(&want));
         Ok(())
     }
 

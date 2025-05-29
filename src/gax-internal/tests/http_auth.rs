@@ -21,6 +21,7 @@ mod test {
     use http::header::{HeaderName, HeaderValue};
     use http::{Extensions, HeaderMap};
     use serde_json::json;
+    use std::error::Error as _;
 
     type AuthResult<T> = std::result::Result<T, CredentialsError>;
     type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
@@ -105,19 +106,12 @@ mod test {
         let result = client
             .execute::<serde_json::Value, serde_json::Value>(builder, Some(body), options)
             .await;
-
-        assert!(result.is_err());
-
-        if let Err(e) = result {
-            if let Some(cred_err) = e.as_inner::<CredentialsError>() {
-                assert!(
-                    cred_err.is_transient(),
-                    "Expected a retryable CredentialsError, but got non-retryable"
-                );
-            } else {
-                panic!("Expected a CredentialsError, but got some other error: {e:?}");
-            }
-        }
+        let e = result
+            .as_ref()
+            .err()
+            .and_then(|e| e.source())
+            .and_then(|e| e.downcast_ref::<CredentialsError>());
+        assert!(matches!(e, Some(e) if e.is_transient()), "{result:?}");
 
         Ok(())
     }
@@ -152,18 +146,12 @@ mod test {
             )
             .await;
 
-        assert!(result.is_err());
-
-        if let Err(e) = result {
-            if let Some(cred_err) = e.as_inner::<CredentialsError>() {
-                assert!(
-                    !cred_err.is_transient(),
-                    "Expected a non-retryable CredentialsError, but got retryable"
-                );
-            } else {
-                panic!("Expected a CredentialsError, but got another error type: {e:?}");
-            }
-        }
+        let e = result
+            .as_ref()
+            .err()
+            .and_then(|e| e.source())
+            .and_then(|e| e.downcast_ref::<CredentialsError>());
+        assert!(matches!(e, Some(e) if !e.is_transient()), "{result:?}");
 
         Ok(())
     }

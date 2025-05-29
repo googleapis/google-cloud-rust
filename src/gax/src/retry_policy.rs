@@ -53,7 +53,7 @@
 //!
 //! [idempotent]: https://en.wikipedia.org/wiki/Idempotence
 
-use crate::error::{CredentialsError, Error};
+use crate::error::Error;
 use crate::loop_state::LoopState;
 use std::sync::Arc;
 
@@ -183,8 +183,8 @@ pub trait RetryPolicyExt: RetryPolicy + Sized {
     /// assert!(policy.on_error(Instant::now(), 2, true, transient_error()).is_continue());
     /// assert!(policy.on_error(Instant::now(), 3, true, transient_error()).is_exhausted());
     ///
-    /// use google_cloud_gax::error::{Error, ServiceError, rpc::Code, rpc::Status};
-    /// fn transient_error() -> Error { Error::rpc(ServiceError::from(Status::default().set_code(Code::Unavailable))) }
+    /// use google_cloud_gax::error::{Error, rpc::Code, rpc::Status};
+    /// fn transient_error() -> Error { Error::service(Status::default().set_code(Code::Unavailable)) }
     /// ```
     fn with_attempt_limit(self, maximum_attempts: u32) -> LimitedAttemptCount<Self> {
         LimitedAttemptCount::custom(self, maximum_attempts)
@@ -210,9 +210,9 @@ impl<T: RetryPolicy> RetryPolicyExt for T {}
 /// assert!(policy.on_error(Instant::now(), 0, true, transient_error()).is_continue());
 /// assert!(policy.on_error(Instant::now(), 0, true, permanent_error()).is_permanent());
 ///
-/// use google_cloud_gax::error::{Error, ServiceError, rpc::Code, rpc::Status};
-/// fn transient_error() -> Error { Error::rpc(ServiceError::from(Status::default().set_code(Code::Unavailable))) }
-/// fn permanent_error() -> Error { Error::rpc(ServiceError::from(Status::default().set_code(Code::PermissionDenied))) }
+/// use google_cloud_gax::error::{Error, rpc::Code, rpc::Status};
+/// fn transient_error() -> Error { Error::service(Status::default().set_code(Code::Unavailable)) }
+/// fn permanent_error() -> Error { Error::service(Status::default().set_code(Code::PermissionDenied)) }
 /// ```
 ///
 /// [AIP-194]: https://google.aip.dev/194
@@ -227,49 +227,28 @@ impl RetryPolicy for Aip194Strict {
         idempotent: bool,
         error: Error,
     ) -> LoopState {
-        if let Some(svc) = error.as_inner::<crate::error::ServiceError>() {
-            if !idempotent {
-                return LoopState::Permanent(error);
-            }
-            return if svc.status().code == crate::error::rpc::Code::Unavailable {
+        if error.is_transient_and_before_rpc() {
+            return LoopState::Continue(error);
+        }
+        if !idempotent {
+            return LoopState::Permanent(error);
+        }
+        if error.is_io() {
+            return LoopState::Continue(error);
+        }
+        if let Some(status) = error.status() {
+            return if status.code == crate::error::rpc::Code::Unavailable {
                 LoopState::Continue(error)
             } else {
                 LoopState::Permanent(error)
             };
         }
 
-        if let Some(http) = error.as_inner::<crate::error::HttpError>() {
-            if !idempotent {
-                return LoopState::Permanent(error);
-            }
-            return if http.status_code() == http::StatusCode::SERVICE_UNAVAILABLE {
+        match error.http_status_code() {
+            Some(code) if code == http::StatusCode::SERVICE_UNAVAILABLE.as_u16() => {
                 LoopState::Continue(error)
-            } else {
-                LoopState::Permanent(error)
-            };
-        }
-        use crate::error::ErrorKind;
-        match error.kind() {
-            ErrorKind::Rpc | ErrorKind::Io => {
-                if idempotent {
-                    LoopState::Continue(error)
-                } else {
-                    LoopState::Permanent(error)
-                }
             }
-            ErrorKind::Authentication => {
-                if let Some(cred_err) = error.as_inner::<CredentialsError>() {
-                    if cred_err.is_transient() {
-                        LoopState::Continue(error)
-                    } else {
-                        LoopState::Permanent(error)
-                    }
-                } else {
-                    LoopState::Continue(error)
-                }
-            }
-            ErrorKind::Serde => LoopState::Permanent(error),
-            ErrorKind::Other => LoopState::Permanent(error),
+            _ => LoopState::Permanent(error),
         }
     }
 }
@@ -290,9 +269,9 @@ impl RetryPolicy for Aip194Strict {
 /// assert!(policy.on_error(Instant::now(), 0, true, transient_error()).is_continue());
 /// assert!(policy.on_error(Instant::now(), 0, true, permanent_error()).is_continue());
 ///
-/// use google_cloud_gax::error::{Error, ServiceError, rpc::Code, rpc::Status};
-/// fn transient_error() -> Error { Error::rpc(ServiceError::from(Status::default().set_code(Code::Unavailable))) }
-/// fn permanent_error() -> Error { Error::rpc(ServiceError::from(Status::default().set_code(Code::PermissionDenied))) }
+/// use google_cloud_gax::error::{Error, rpc::Code, rpc::Status};
+/// fn transient_error() -> Error { Error::service(Status::default().set_code(Code::Unavailable)) }
+/// fn permanent_error() -> Error { Error::service(Status::default().set_code(Code::PermissionDenied)) }
 /// ```
 #[derive(Clone, Debug)]
 pub struct AlwaysRetry;
@@ -322,9 +301,9 @@ impl RetryPolicy for AlwaysRetry {
 /// assert!(policy.on_error(Instant::now(), 0, true, transient_error()).is_exhausted());
 /// assert!(policy.on_error(Instant::now(), 0, true, permanent_error()).is_exhausted());
 ///
-/// use google_cloud_gax::error::{Error, ServiceError, rpc::Code, rpc::Status};
-/// fn transient_error() -> Error { Error::rpc(ServiceError::from(Status::default().set_code(Code::Unavailable))) }
-/// fn permanent_error() -> Error { Error::rpc(ServiceError::from(Status::default().set_code(Code::PermissionDenied))) }
+/// use google_cloud_gax::error::{Error, rpc::Code, rpc::Status};
+/// fn transient_error() -> Error { Error::service(Status::default().set_code(Code::Unavailable)) }
+/// fn permanent_error() -> Error { Error::service(Status::default().set_code(Code::PermissionDenied)) }
 /// ```
 #[derive(Clone, Debug)]
 pub struct NeverRetry;
@@ -399,9 +378,9 @@ where
     /// assert!(policy.remaining_time(Instant::now(), 0) <= Some(d));
     /// assert!(policy.on_error(Instant::now(), 1, false, permanent_error()).is_continue());
     ///
-    /// use google_cloud_gax::error::{Error, ServiceError, rpc::Code, rpc::Status};
-    /// fn transient_error() -> Error { Error::rpc(ServiceError::from(Status::default().set_code(Code::Unavailable))) }
-    /// fn permanent_error() -> Error { Error::rpc(ServiceError::from(Status::default().set_code(Code::PermissionDenied))) }
+    /// use google_cloud_gax::error::{Error, rpc::Code, rpc::Status};
+    /// fn transient_error() -> Error { Error::service(Status::default().set_code(Code::Unavailable)) }
+    /// fn permanent_error() -> Error { Error::service(Status::default().set_code(Code::PermissionDenied)) }
     /// ```
     pub fn custom(inner: P, maximum_duration: std::time::Duration) -> Self {
         Self {
@@ -521,8 +500,8 @@ where
     /// assert!(policy.on_error(Instant::now(), 1, false, permanent_error()).is_continue());
     /// assert!(policy.on_error(Instant::now(), 2, false, permanent_error()).is_exhausted());
     ///
-    /// use google_cloud_gax::error::{Error, ServiceError, rpc::Code, rpc::Status};
-    /// fn permanent_error() -> Error { Error::rpc(ServiceError::from(Status::default().set_code(Code::PermissionDenied))) }
+    /// use google_cloud_gax::error::{Error, rpc::Code, rpc::Status};
+    /// fn permanent_error() -> Error { Error::service(Status::default().set_code(Code::PermissionDenied)) }
     /// ```
     pub fn custom(inner: P, maximum_attempts: u32) -> Self {
         Self {
@@ -582,7 +561,6 @@ where
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::error::ServiceError;
     use http::HeaderMap;
 
     // Verify `RetryPolicyArg` can be converted from the desired types.
@@ -632,14 +610,8 @@ mod tests {
                 .is_permanent()
         );
 
-        assert!(
-            p.on_error(now, 0, true, Error::authentication("err".to_string()))
-                .is_continue()
-        );
-        assert!(
-            p.on_error(now, 0, false, Error::authentication("err".to_string()))
-                .is_continue()
-        );
+        assert!(p.on_error(now, 0, true, pre_rpc_transient()).is_continue());
+        assert!(p.on_error(now, 0, false, pre_rpc_transient()).is_continue());
 
         assert!(
             p.on_error(now, 0, true, Error::serde("err".to_string()))
@@ -676,11 +648,11 @@ mod tests {
     }
 
     #[test_case::test_case(true, Error::io("err"))]
-    #[test_case::test_case(true, Error::authentication("err"))]
+    #[test_case::test_case(true, pre_rpc_transient())]
     #[test_case::test_case(true, Error::serde("err"))]
     #[test_case::test_case(true, Error::other("err"))]
     #[test_case::test_case(false, Error::io("err"))]
-    #[test_case::test_case(false, Error::authentication("err"))]
+    #[test_case::test_case(false, pre_rpc_transient())]
     #[test_case::test_case(false, Error::serde("err"))]
     #[test_case::test_case(false, Error::other("err"))]
     fn always_retry_error_kind(idempotent: bool, error: Error) {
@@ -713,11 +685,11 @@ mod tests {
     }
 
     #[test_case::test_case(true, Error::io("err"))]
-    #[test_case::test_case(true, Error::authentication("err"))]
+    #[test_case::test_case(true, pre_rpc_transient())]
     #[test_case::test_case(true, Error::serde("err"))]
     #[test_case::test_case(true, Error::other("err"))]
     #[test_case::test_case(false, Error::io("err"))]
-    #[test_case::test_case(false, Error::authentication("err"))]
+    #[test_case::test_case(false, pre_rpc_transient())]
     #[test_case::test_case(false, Error::serde("err"))]
     #[test_case::test_case(false, Error::other("err"))]
     fn never_retry_error_kind(idempotent: bool, error: Error) {
@@ -726,36 +698,41 @@ mod tests {
         assert!(p.on_error(now, 0, idempotent, error).is_exhausted());
     }
 
+    fn pre_rpc_transient() -> Error {
+        use crate::error::CredentialsError;
+        Error::authentication(CredentialsError::from_msg(true, "err"))
+    }
+
     fn http_unavailable() -> Error {
-        Error::rpc(crate::error::HttpError::new(
+        Error::http(
             503_u16,
             HeaderMap::new(),
-            bytes::Bytes::from_owner("SERVICE UNAVAILABLE".to_string()).into(),
-        ))
+            bytes::Bytes::from_owner("SERVICE UNAVAILABLE".to_string()),
+        )
     }
 
     fn http_permission_denied() -> Error {
-        Error::rpc(crate::error::HttpError::new(
+        Error::http(
             403_u16,
             HeaderMap::new(),
-            bytes::Bytes::from_owner("PERMISSION DENIED".to_string()).into(),
-        ))
+            bytes::Bytes::from_owner("PERMISSION DENIED".to_string()),
+        )
     }
 
     fn unavailable() -> Error {
         use crate::error::rpc::Code;
-        let status = rpc::model::Status::default()
-            .set_code(Code::Unavailable as i32)
+        let status = crate::error::rpc::Status::default()
+            .set_code(Code::Unavailable)
             .set_message("UNAVAILABLE");
-        Error::rpc(ServiceError::from(status))
+        Error::service(status)
     }
 
     fn permission_denied() -> Error {
         use crate::error::rpc::Code;
-        let status = rpc::model::Status::default()
-            .set_code(Code::PermissionDenied as i32)
+        let status = crate::error::rpc::Status::default()
+            .set_code(Code::PermissionDenied)
             .set_message("PERMISSION_DENIED");
-        Error::rpc(ServiceError::from(status))
+        Error::service(status)
     }
 
     mockall::mock! {

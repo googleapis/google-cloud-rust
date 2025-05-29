@@ -38,17 +38,12 @@ mod test {
         match response {
             Ok(v) => panic!("expected an error got={v:?}"),
             Err(e) => {
-                let inner = e.as_inner::<gax::error::ServiceError>().unwrap();
-                assert_eq!(
-                    inner.http_status_code().unwrap_or_default(),
-                    http::StatusCode::BAD_REQUEST.as_u16()
-                );
-                assert!(inner.headers().is_some(), "missing headers in {inner:?}");
-                let headers = inner.headers().clone().unwrap();
-                assert!(!headers.is_empty(), "empty headers in {inner:?}");
-                let got = inner.status();
+                assert!(e.http_headers().is_some(), "missing headers in {e:?}");
+                let headers = e.http_headers().unwrap();
+                assert!(!headers.is_empty(), "empty headers in {e:?}");
+                let got = e.status();
                 let want = echo_server::make_status()?;
-                assert_eq!(got, &want);
+                assert_eq!(got, Some(&want));
             }
         }
 

@@ -130,16 +130,12 @@ mod test {
         let mut mock = MockSpeech::new();
         // ANCHOR: expectation-initial
         mock.expect_batch_recognize().return_once(|_, _| {
-            use gax::error::rpc::Status;
-            use gax::error::{Error, ServiceErrorBuilder};
-            let s = Status::default()
-                .set_code(429)
+            use gax::error::Error;
+            use gax::error::rpc::{Code, Status};
+            let status = Status::default()
+                .set_code(Code::Aborted)
                 .set_message("Resource exhausted");
-            Err(Error::rpc(
-                ServiceErrorBuilder::new(s)
-                    .with_http_status_code(429_u16)
-                    .build(),
-            ))
+            Err(Error::service(status))
         });
         // ANCHOR_END: expectation-initial
 
@@ -211,16 +207,12 @@ mod test {
             .once()
             .in_sequence(&mut seq)
             .returning(|_, _| {
-                use gax::error::rpc::Status;
-                use gax::error::{Error, ServiceErrorBuilder};
-                let s = Status::default()
-                    .set_code(409)
+                use gax::error::Error;
+                use gax::error::rpc::{Code, Status};
+                let status = Status::default()
+                    .set_code(Code::Aborted)
                     .set_message("Operation was aborted");
-                Err(Error::rpc(
-                    ServiceErrorBuilder::new(s)
-                        .with_http_status_code(409_u16)
-                        .build(),
-                ))
+                Err(Error::service(status))
             });
         // ANCHOR_END: expectation-polling-error
 

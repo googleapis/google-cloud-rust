@@ -125,15 +125,14 @@ mod test {
             tokio::select! {
                 _ = &mut server => {  },
                 r = &mut response => {
-                    use gax::error::ErrorKind;
                     assert!(
                         r.is_err(),
                         "expected an error when timeout={}, got={:?}",
                         timeout.as_millis(),
                         r
                     );
-                    let err = r.err().unwrap();
-                    assert_eq!(err.kind(), ErrorKind::Io);
+                    let err = r.unwrap_err();
+                    assert!(err.is_io(), "{err:?}");
                     break;
                 },
                 _ = interval.tick() => { },
@@ -205,14 +204,13 @@ mod test {
             tokio::select! {
                 _ = &mut server => {  },
                 r = &mut response => {
-                    use gax::error::ErrorKind;
                     assert!(
                         r.is_err(),
                         "expected a timeout error, got={:?}",
                         r
                     );
                     let err = r.err().unwrap();
-                    assert_eq!(err.kind(), ErrorKind::Io);
+                    assert!(err.is_io(), "{err:?}");
                     break;
                 },
                 _ = interval.tick() => { },
