@@ -478,11 +478,10 @@ impl ReadObject {
     }
 
     async fn http_request_builder(self) -> Result<reqwest::RequestBuilder> {
-        // TODO(2103): map additional parameters to the JSON request.
+        // TODO(#2103): map additional parameters to the JSON request.
         // - map relevant parameters to remaining: softDelete, projection, restoreToken
         // - map request parameters to optional extension headers: X-Goog-Encryption-Algorithm,
         //   X-Goog-Encryption-Key, X-Goog-Encryption-Key-Sha256
-        // - return unimplemented if anything in self.request is set but does not apply
 
         // Collect the required bucket and object parameters.
         let bucket: String = self.request.bucket;
@@ -495,6 +494,23 @@ impl ReadObject {
                 ))
             })?;
         let object: String = self.request.object;
+
+        // Check for parameters that are set that do not apply for the JSON API.
+        if let Some(read_mask) = self.request.read_mask {
+            return Err(ReadObject::unimplemented_err("read_mask", read_mask));
+        }
+        if self.request.read_offset != 0 {
+            return Err(ReadObject::unimplemented_err(
+                "read_offset",
+                self.request.read_offset,
+            ));
+        }
+        if self.request.read_limit != 0 {
+            return Err(ReadObject::unimplemented_err(
+                "read_limit",
+                self.request.read_limit,
+            ));
+        }
 
         // Build the request.
         let builder = self
@@ -543,11 +559,19 @@ impl ReadObject {
         let builder = self.inner.apply_auth_headers(builder).await?;
         Ok(builder)
     }
+
+    fn unimplemented_err<T: std::fmt::Debug>(name: &str, value: T) -> Error {
+        Error::other(format!(
+            "unimplemented parameter {} set to {:?}",
+            name, value
+        ))
+    }
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
+    use std::collections::HashMap;
     type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 
     #[tokio::test]
@@ -571,6 +595,25 @@ mod tests {
             read_object_builder.url().as_str(),
             "http://private.googleapis.com/storage/v1/b/bucket/o/object?alt=media"
         );
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_read_object_error_credentials() -> Result {
+        let client = Storage::builder()
+            .with_endpoint("http://private.googleapis.com")
+            .with_credentials(auth::credentials::testing::error_credentials(false))
+            .build()
+            .await?;
+
+        client
+            .read_object()
+            .set_bucket("projects/_/buckets/bucket")
+            .set_object("object")
+            .http_request_builder()
+            .await
+            .inspect_err(|e| assert!(e.is_authentication()))
+            .expect_err("invalid credentials should err");
         Ok(())
     }
 
@@ -612,10 +655,55 @@ mod tests {
             .build()?;
 
         assert_eq!(read_object_builder.method(), reqwest::Method::GET);
-        assert_eq!(
-            read_object_builder.url().as_str(),
-            "https://storage.googleapis.com/storage/v1/b/bucket/o/object?alt=media&generation=5&ifGenerationMatch=10&ifGenerationNotMatch=20&ifMetagenerationMatch=30&ifMetagenerationNotMatch=40"
-        );
+        let want_pairs: HashMap<String, String> = [
+            ("alt", "media"),
+            ("generation", "5"),
+            ("ifGenerationMatch", "10"),
+            ("ifGenerationNotMatch", "20"),
+            ("ifMetagenerationMatch", "30"),
+            ("ifMetagenerationNotMatch", "40"),
+        ]
+        .iter()
+        .map(|(k, v)| (k.to_string(), v.to_string()))
+        .collect();
+        let query_pairs: HashMap<String, String> = read_object_builder
+            .url()
+            .query_pairs()
+            .map(|param| (param.0.to_string(), param.1.to_string()))
+            .collect();
+        assert_eq!(query_pairs.len(), want_pairs.len());
+        assert_eq!(query_pairs, want_pairs);
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_read_object_unimplemented() -> Result {
+        let client = Storage::builder()
+            .with_credentials(auth::credentials::testing::test_credentials())
+            .build()
+            .await?;
+
+        let new_builder = || {
+            client
+                .read_object()
+                .set_bucket("projects/_/buckets/bucket")
+                .set_object("object")
+        };
+
+        let expect_unimplemented_error = async |read_obj: ReadObject| {
+            read_obj
+                .http_request_builder()
+                .await
+                .inspect_err(|e| assert!(e.to_string().contains("unimplemented")))
+                .expect_err("unimplemented field should error")
+        };
+
+        expect_unimplemented_error(new_builder().set_read_limit(5)).await;
+        expect_unimplemented_error(new_builder().set_read_offset(5)).await;
+        expect_unimplemented_error(
+            new_builder().set_read_mask(wkt::FieldMask::default().set_paths(["abc"])),
+        )
+        .await;
         Ok(())
     }
 }
@@ -709,7 +797,7 @@ mod v1 {
                     if bytes.len() != 4 {
                         return Err(serde::de::Error::invalid_length(
                             length,
-                            &"Expected a Byte Vector of length 4.",
+                            &"a Byte Vector of length 4.",
                         ));
                     }
                     Ok(((bytes[0] as u32) << 24)
@@ -1226,6 +1314,12 @@ mod v1 {
         fn test_deserialize_crc32c_err(input: &str) {
             Crc32c::deserialize_as(serde_json::json!(input))
                 .expect_err("expected error deserializing string");
+        }
+
+        #[test]
+        fn test_deserialize_crc32c_not_string_err() {
+            Crc32c::deserialize_as(serde_json::json!(5))
+                .expect_err("expected error deserializing int");
         }
     }
 }

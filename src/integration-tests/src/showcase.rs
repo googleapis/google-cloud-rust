@@ -22,6 +22,7 @@ use std::time::Duration;
 use tokio::process::Command;
 
 mod compliance;
+mod echo;
 mod identity;
 
 const SHOWCASE_NAME: &str = "github.com/googleapis/gapic-showcase/cmd/gapic-showcase@v0.36.2";
@@ -52,6 +53,9 @@ pub async fn run() -> Result<()> {
     if wait_until_ready().await.is_err() {
         tracing::error!("showcase server is not ready {child:?}");
     }
+
+    tracing::info!("running tests for Echo service");
+    echo::run().await?;
 
     tracing::info!("running tests for Identity service");
     identity::run().await?;
