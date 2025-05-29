@@ -106,7 +106,7 @@ mod test {
                         r
                     );
                     let err = r.unwrap_err();
-                    assert_eq!(err.status().map(|s| s.code), Some(gax::error::rpc::Code::Cancelled));
+                    assert!(err.is_timeout(), "{err:?}");
                     break;
                 },
                 _ = interval.tick() => { },
@@ -175,7 +175,7 @@ mod test {
                         r
                     );
                     let err = r.unwrap_err();
-                    assert_eq!(err.status().map(|s| s.code), Some(gax::error::rpc::Code::Cancelled));
+                    assert!(err.is_timeout(), "{err:?}");
                     break;
                 },
                 _ = interval.tick() => { },
