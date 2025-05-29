@@ -48,13 +48,17 @@ impl SubjectTokenProvider for CredentialSource {
     async fn subject_token(&self) -> Result<String> {
         match self.clone() {
             CredentialSource::UrlSourced { .. } => {
-                panic!("url sourced credential not supported yet")
+                unimplemented!("url sourced credential not supported yet")
             }
             CredentialSource::Executable { .. } => {
-                panic!("executable sourced credential not supported yet")
+                unimplemented!("executable sourced credential not supported yet")
             }
-            CredentialSource::File { .. } => panic!("file sourced credential not supported yet"),
-            CredentialSource::Aws { .. } => panic!("AWS sourced credential not supported yet"),
+            CredentialSource::File { .. } => {
+                unimplemented!("file sourced credential not supported yet")
+            }
+            CredentialSource::Aws { .. } => {
+                unimplemented!("AWS sourced credential not supported yet")
+            }
         }
     }
 }
