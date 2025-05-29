@@ -385,8 +385,10 @@ impl Builder {
     /// In some services, you can use an account in one project for authentication
     /// and authorization, and charge the usage to a different project. This requires
     /// that the user has `serviceusage.services.use` permissions on the quota project.
-    /// By default the credentials uses the value from `GOOGLE_CLOUD_QUOTA_PROJECT`
-    /// environment variable, and this method only takes effect if env variable is not provided.
+    ///
+    /// ## Important: Precedence
+    /// If the `GOOGLE_CLOUD_QUOTA_PROJECT` environment variable is set,
+    /// its value will be used **instead of** the value provided to this method.
     ///
     /// # Example
     /// ```
