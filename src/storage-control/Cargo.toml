@@ -54,3 +54,5 @@ anyhow.workspace     = true
 mockall.workspace    = true
 test-case.workspace  = true
 tokio-test.workspace = true
+# Local crates
+auth.workspace = true
