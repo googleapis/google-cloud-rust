@@ -13,6 +13,7 @@
 // limitations under the License.
 
 use crate::build_errors::Error as BuilderError;
+use crate::constants::GOOGLE_CLOUD_QUOTA_PROJECT_VAR;
 use crate::errors::{self, CredentialsError};
 use crate::{BuildResult, Result};
 use http::{Extensions, HeaderMap};
@@ -385,6 +386,10 @@ impl Builder {
     /// and authorization, and charge the usage to a different project. This requires
     /// that the user has `serviceusage.services.use` permissions on the quota project.
     ///
+    /// ## Important: Precedence
+    /// If the `GOOGLE_CLOUD_QUOTA_PROJECT` environment variable is set,
+    /// its value will be used **instead of** the value provided to this method.
+    ///
     /// # Example
     /// ```
     /// # use google_cloud_auth::credentials::Builder;
@@ -450,7 +455,10 @@ impl Builder {
                 AdcContents::FallbackToMds => None,
             },
         };
-        build_credentials(json_data, self.quota_project_id, self.scopes)
+        let quota_project_id = std::env::var(GOOGLE_CLOUD_QUOTA_PROJECT_VAR)
+            .ok()
+            .or(self.quota_project_id);
+        build_credentials(json_data, quota_project_id, self.scopes)
     }
 }
 
@@ -873,10 +881,11 @@ mod test {
 
     #[tokio::test]
     #[serial_test::serial]
-    async fn create_access_token_credentials_fallback_to_mds_with_quota_project() {
+    async fn create_access_token_credentials_fallback_to_mds_with_quota_project_override() {
         let _e1 = ScopedEnv::remove("GOOGLE_APPLICATION_CREDENTIALS");
         let _e2 = ScopedEnv::remove("HOME"); // For posix
         let _e3 = ScopedEnv::remove("APPDATA"); // For windows
+        let _e4 = ScopedEnv::set(GOOGLE_CLOUD_QUOTA_PROJECT_VAR, "env-quota-project");
 
         let mds = Builder::default()
             .with_quota_project_id("test-quota-project")
@@ -884,11 +893,37 @@ mod test {
             .unwrap();
         let fmt = format!("{:?}", mds);
         assert!(fmt.contains("MDSCredentials"));
-        assert!(fmt.contains("test-quota-project"));
+        assert!(
+            fmt.contains("env-quota-project"),
+            "Expected 'env-quota-project', got: {}",
+            fmt
+        );
     }
 
     #[tokio::test]
+    #[serial_test::serial]
+    async fn create_access_token_credentials_with_quota_project_from_builder() {
+        let _e1 = ScopedEnv::remove("GOOGLE_APPLICATION_CREDENTIALS");
+        let _e2 = ScopedEnv::remove("HOME"); // For posix
+        let _e3 = ScopedEnv::remove("APPDATA"); // For windows
+        let _e4 = ScopedEnv::remove(GOOGLE_CLOUD_QUOTA_PROJECT_VAR);
+
+        let creds = Builder::default()
+            .with_quota_project_id("test-quota-project")
+            .build()
+            .unwrap();
+        let fmt = format!("{:?}", creds);
+        assert!(
+            fmt.contains("test-quota-project"),
+            "Expected 'test-quota-project', got: {}",
+            fmt
+        );
+    }
+
+    #[tokio::test]
+    #[serial_test::serial]
     async fn create_access_token_service_account_credentials_with_scopes() -> TestResult {
+        let _e1 = ScopedEnv::remove(GOOGLE_CLOUD_QUOTA_PROJECT_VAR);
         let mut service_account_key = serde_json::json!({
             "type": "service_account",
             "project_id": "test-project-id",
