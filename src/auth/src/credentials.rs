@@ -385,7 +385,8 @@ impl Builder {
     /// In some services, you can use an account in one project for authentication
     /// and authorization, and charge the usage to a different project. This requires
     /// that the user has `serviceusage.services.use` permissions on the quota project.
-    /// If not set, the credentials uses the value from `GOOGLE_CLOUD_QUOTA_PROJECT`.
+    /// By default the credentials uses the value from `GOOGLE_CLOUD_QUOTA_PROJECT`
+    /// environment variable, and this method only takes effect if env variable is not provided.
     ///
     /// # Example
     /// ```
@@ -452,9 +453,9 @@ impl Builder {
                 AdcContents::FallbackToMds => None,
             },
         };
-        let quota_project_id = self
-            .quota_project_id
-            .or_else(|| std::env::var(GOOGLE_CLOUD_QUOTA_PROJECT_VAR).ok());
+        let quota_project_id = std::env::var(GOOGLE_CLOUD_QUOTA_PROJECT_VAR)
+            .ok()
+            .or(self.quota_project_id);
         build_credentials(json_data, quota_project_id, self.scopes)
     }
 }
@@ -891,25 +892,28 @@ mod test {
         let fmt = format!("{:?}", mds);
         assert!(fmt.contains("MDSCredentials"));
         assert!(
-            fmt.contains("test-quota-project"),
-            "Expected 'test-quota-project', got: {}",
+            fmt.contains("env-quota-project"),
+            "Expected 'env-quota-project', got: {}",
             fmt
         );
     }
 
     #[tokio::test]
     #[serial_test::serial]
-    async fn create_access_token_credentials_with_quota_project_from_env_variable() {
+    async fn create_access_token_credentials_with_quota_project_from_builder() {
         let _e1 = ScopedEnv::remove("GOOGLE_APPLICATION_CREDENTIALS");
         let _e2 = ScopedEnv::remove("HOME"); // For posix
         let _e3 = ScopedEnv::remove("APPDATA"); // For windows
-        let _e4 = ScopedEnv::set(GOOGLE_CLOUD_QUOTA_PROJECT_VAR, "env-quota-project");
+        let _e4 = ScopedEnv::remove(GOOGLE_CLOUD_QUOTA_PROJECT_VAR);
 
-        let creds = Builder::default().build().unwrap();
+        let creds = Builder::default()
+            .with_quota_project_id("test-quota-project")
+            .build()
+            .unwrap();
         let fmt = format!("{:?}", creds);
         assert!(
-            fmt.contains("env-quota-project"),
-            "Expected 'env-quota-project', got: {}",
+            fmt.contains("test-quota-project"),
+            "Expected 'test-quota-project', got: {}",
             fmt
         );
     }
