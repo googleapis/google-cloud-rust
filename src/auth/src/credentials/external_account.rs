@@ -25,7 +25,6 @@ use crate::{BuildResult, Result};
 use http::{Extensions, HeaderMap};
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
 use std::sync::Arc;
 use tokio::time::{Duration, Instant};
 
@@ -35,48 +34,13 @@ pub(crate) trait SubjectTokenProvider: std::fmt::Debug + Send + Sync {
     async fn subject_token(&self) -> Result<String>;
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
-pub(crate) struct CredentialSourceFormat {
-    #[serde(rename = "type")]
-    pub format_type: String,
-    pub subject_token_field_name: String,
-}
-
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
-pub(crate) struct CredentialSourceHeaders {
-    #[serde(flatten)]
-    pub headers: HashMap<String, String>,
-}
-
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
-pub(crate) struct ExecutableConfig {
-    pub command: String,
-    pub timeout_millis: Option<u32>,
-    pub output_file: Option<String>,
-}
-
 #[derive(Serialize, Deserialize, Debug, Clone)]
 #[serde(untagged)]
 enum CredentialSource {
-    UrlSourced {
-        url: String,
-        headers: Option<CredentialSourceHeaders>,
-        format: Option<CredentialSourceFormat>,
-    },
-    File {
-        file: String,
-        format: Option<CredentialSourceFormat>,
-    },
-    Executable {
-        executable: ExecutableConfig,
-    },
-    Aws {
-        environment_id: String,
-        region_url: Option<String>,
-        regional_cred_verification_url: Option<String>,
-        cred_verification_url: Option<String>,
-        imdsv2_session_token_url: Option<String>,
-    },
+    UrlSourced {},
+    File {},
+    Aws {},
+    Executable {},
 }
 
 #[async_trait::async_trait]
@@ -102,8 +66,6 @@ struct ExternalAccountConfig {
     token_url: String,
     client_id: Option<String>,
     client_secret: Option<String>,
-    // TODO(#2261): set up impersonation token provider when this attribute is used.
-    service_account_impersonation_url: Option<String>,
     scopes: Option<Vec<String>>,
     credential_source: CredentialSource,
 }
@@ -332,57 +294,8 @@ mod test {
             .unwrap();
 
         let fmt = format!("{:?}", creds);
+        // Use the debug output to verify the right kind of credentials are created.
         print!("{:?}", creds);
         assert!(fmt.contains("ExternalAccountCredentials"));
-    }
-
-    #[tokio::test]
-    async fn create_external_account_detect_url_sourced() {
-        let contents = json!({
-            "type": "external_account",
-            "audience": "audience",
-            "subject_token_type": "urn:ietf:params:oauth:token-type:jwt",
-            "token_url": "https://sts.googleapis.com/v1beta/token",
-            "credential_source": {
-                "url": "https://example.com/token",
-                "headers": {
-                  "Metadata": "True"
-                },
-                "format": {
-                  "type": "json",
-                  "subject_token_field_name": "access_token"
-                }
-            }
-        });
-
-        let config: ExternalAccountConfig =
-            serde_json::from_value(contents).expect("failed to parse external account config");
-        let source = config.credential_source;
-
-        match source {
-            CredentialSource::UrlSourced {
-                url,
-                headers,
-                format,
-            } => {
-                assert_eq!(url, "https://example.com/token".to_string());
-                assert_eq!(
-                    headers,
-                    Some(CredentialSourceHeaders {
-                        headers: HashMap::from([("Metadata".to_string(), "True".to_string()),]),
-                    })
-                );
-                assert_eq!(
-                    format,
-                    Some(CredentialSourceFormat {
-                        format_type: "json".to_string(),
-                        subject_token_field_name: "access_token".to_string(),
-                    })
-                )
-            }
-            _ => {
-                unreachable!("expected Url Sourced credential")
-            }
-        }
     }
 }
