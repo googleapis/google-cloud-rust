@@ -575,6 +575,24 @@ mod tests {
     }
 
     #[tokio::test]
+    async fn test_read_object_error_credentials() -> Result {
+        let client = Storage::builder()
+            .with_endpoint("http://private.googleapis.com")
+            .with_credentials(auth::credentials::testing::error_credentials(false))
+            .build()
+            .await?;
+
+        client
+            .read_object()
+            .set_bucket("projects/_/buckets/bucket")
+            .set_object("object")
+            .http_request_builder()
+            .await
+            .expect_err("invalid credentials should err");
+        Ok(())
+    }
+
+    #[tokio::test]
     async fn test_read_object_bad_bucket() -> Result {
         let client = Storage::builder()
             .with_credentials(auth::credentials::testing::test_credentials())
