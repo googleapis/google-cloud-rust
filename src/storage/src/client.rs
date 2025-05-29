@@ -478,7 +478,7 @@ impl ReadObject {
     }
 
     async fn http_request_builder(self) -> Result<reqwest::RequestBuilder> {
-        // TODO(2103): map additional parameters to the JSON request.
+        // TODO(#2103): map additional parameters to the JSON request.
         // - map relevant parameters to remaining: softDelete, projection, restoreToken
         // - map request parameters to optional extension headers: X-Goog-Encryption-Algorithm,
         //   X-Goog-Encryption-Key, X-Goog-Encryption-Key-Sha256
@@ -495,7 +495,7 @@ impl ReadObject {
             })?;
         let object: String = self.request.object;
 
-        // Check for unimplemented errors that are set.
+        // Check for parameters that are set that do not apply for the JSON API.
         if let Some(read_mask) = self.request.read_mask {
             return Err(ReadObject::unimplemented_err("read_mask", read_mask));
         }
@@ -656,23 +656,20 @@ mod tests {
                 .set_object("object")
         };
 
-        new_builder()
-            .set_read_limit(5)
-            .http_request_builder()
-            .await
-            .expect_err("unimplemented field should error");
+        let expect_unimplemented_error = async |read_obj: ReadObject| {
+            read_obj
+                .http_request_builder()
+                .await
+                .inspect_err(|e| assert!(e.to_string().contains("unimplemented")))
+                .expect_err("unimplemented field should error")
+        };
 
-        new_builder()
-            .set_read_offset(5)
-            .http_request_builder()
-            .await
-            .expect_err("unimplemented field should error");
-
-        new_builder()
-            .set_read_mask(wkt::FieldMask::default().set_paths(["abc"]))
-            .http_request_builder()
-            .await
-            .expect_err("unimplemented field should error");
+        expect_unimplemented_error(new_builder().set_read_limit(5)).await;
+        expect_unimplemented_error(new_builder().set_read_offset(5)).await;
+        expect_unimplemented_error(
+            new_builder().set_read_mask(wkt::FieldMask::default().set_paths(["abc"])),
+        )
+        .await;
         Ok(())
     }
 }
