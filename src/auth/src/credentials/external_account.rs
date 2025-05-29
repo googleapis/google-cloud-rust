@@ -13,11 +13,11 @@
 // limitations under the License.
 
 use super::dynamic::CredentialsProvider;
-use super::internal::sts_exchange::{ExchangeTokenRequest, STSHandler};
+use super::external_account_sources::url_sourced_account::UrlSourcedSubjectTokenProvider;
+use super::internal::sts_exchange::{ClientAuthentication, ExchangeTokenRequest, STSHandler};
 use super::{CacheableResource, Credentials};
 use crate::build_errors::Error as BuilderError;
 use crate::constants::DEFAULT_SCOPE;
-use crate::credentials::internal::sts_exchange::ClientAuthentication;
 use crate::headers_util::build_cacheable_headers;
 use crate::token::{CachedTokenProvider, Token, TokenProvider};
 use crate::token_cache::TokenCache;
@@ -25,6 +25,7 @@ use crate::{BuildResult, Result};
 use http::{Extensions, HeaderMap};
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
+use std::collections::HashMap;
 use std::sync::Arc;
 use tokio::time::{Duration, Instant};
 
@@ -34,10 +35,27 @@ pub(crate) trait SubjectTokenProvider: std::fmt::Debug + Send + Sync {
     async fn subject_token(&self) -> Result<String>;
 }
 
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
+pub(crate) struct CredentialSourceFormat {
+    #[serde(rename = "type")]
+    pub format_type: String,
+    pub subject_token_field_name: String,
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
+pub(crate) struct CredentialSourceHeaders {
+    #[serde(flatten)]
+    pub headers: HashMap<String, String>,
+}
+
 #[derive(Serialize, Deserialize, Debug, Clone)]
 #[serde(untagged)]
 enum CredentialSource {
-    UrlSourced {},
+    UrlSourced {
+        url: String,
+        headers: Option<CredentialSourceHeaders>,
+        format: Option<CredentialSourceFormat>,
+    },
     File {},
     Aws {},
     Executable {},
@@ -47,8 +65,17 @@ enum CredentialSource {
 impl SubjectTokenProvider for CredentialSource {
     async fn subject_token(&self) -> Result<String> {
         match self.clone() {
-            CredentialSource::UrlSourced { .. } => {
-                unimplemented!("url sourced credential not supported yet")
+            CredentialSource::UrlSourced {
+                url,
+                headers,
+                format,
+            } => {
+                let provider = UrlSourcedSubjectTokenProvider {
+                    url,
+                    headers,
+                    format,
+                };
+                provider.subject_token().await
             }
             CredentialSource::Executable { .. } => {
                 unimplemented!("executable sourced credential not supported yet")
@@ -301,5 +328,55 @@ mod test {
         // Use the debug output to verify the right kind of credentials are created.
         print!("{:?}", creds);
         assert!(fmt.contains("ExternalAccountCredentials"));
+    }
+
+    #[tokio::test]
+    async fn create_external_account_detect_url_sourced() {
+        let contents = json!({
+            "type": "external_account",
+            "audience": "audience",
+            "subject_token_type": "urn:ietf:params:oauth:token-type:jwt",
+            "token_url": "https://sts.googleapis.com/v1beta/token",
+            "credential_source": {
+                "url": "https://example.com/token",
+                "headers": {
+                  "Metadata": "True"
+                },
+                "format": {
+                  "type": "json",
+                  "subject_token_field_name": "access_token"
+                }
+            }
+        });
+
+        let config: ExternalAccountConfig =
+            serde_json::from_value(contents).expect("failed to parse external account config");
+        let source = config.credential_source;
+
+        match source {
+            CredentialSource::UrlSourced {
+                url,
+                headers,
+                format,
+            } => {
+                assert_eq!(url, "https://example.com/token");
+                assert_eq!(
+                    headers,
+                    Some(CredentialSourceHeaders {
+                        headers: HashMap::from([("Metadata".to_string(), "True".to_string()),]),
+                    })
+                );
+                assert_eq!(
+                    format,
+                    Some(CredentialSourceFormat {
+                        format_type: "json".into(),
+                        subject_token_field_name: "access_token".into(),
+                    })
+                )
+            }
+            _ => {
+                unreachable!("expected Url Sourced credential")
+            }
+        }
     }
 }
