@@ -728,7 +728,7 @@ mod v1 {
                     if bytes.len() != 4 {
                         return Err(serde::de::Error::invalid_length(
                             length,
-                            &"Expected a Byte Vector of length 4.",
+                            &"a Byte Vector of length 4.",
                         ));
                     }
                     Ok(((bytes[0] as u32) << 24)
@@ -1245,6 +1245,12 @@ mod v1 {
         fn test_deserialize_crc32c_err(input: &str) {
             Crc32c::deserialize_as(serde_json::json!(input))
                 .expect_err("expected error deserializing string");
+        }
+
+        #[test]
+        fn test_deserialize_crc32c_not_string_err() {
+            Crc32c::deserialize_as(serde_json::json!(5))
+                .expect_err("expected error deserializing int");
         }
     }
 }
