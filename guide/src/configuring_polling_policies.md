@@ -155,6 +155,7 @@ Initialize the client with the configuration you want:
 
 ```rust,ignore
 {{#include ../samples/src/polling_policies.rs:client-errors-client}}
+    let client = builder.build().await?;
 ```
 
 Unless you override the policy with a [per-request setting] this policy will be
@@ -172,6 +173,13 @@ example, if you make a call such as:
 The client library will only treat `UNAVAILABLE` (see [AIP-194]) as a retryable
 error, and will stop polling after 100 attempts or 300 seconds, whichever comes
 first.
+
+You may also want to configure a retry policy for the initial operation, without
+it, if the operation fails to start the polling loop stops immediately:
+
+```rust,ignore
+{{#include ../samples/src/polling_policies.rs:client-errors-client-retry}}
+```
 
 See
 [below](#configuring-the-retryable-polling-errors-for-all-requests-in-a-client-complete-code)
@@ -209,6 +217,13 @@ You can issue this request as usual. For example:
 
 ```rust,ignore
 {{#include ../samples/src/polling_policies.rs:rpc-errors-print}}
+```
+
+Consider adding a retry policy in case the initial request to start the LRO
+fails:
+
+```rust,ignore
+{{#include ../samples/src/polling_policies.rs:rpc-errors-client}}
 ```
 
 See
