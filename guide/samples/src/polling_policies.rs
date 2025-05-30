@@ -159,7 +159,8 @@ pub async fn client_errors(project_id: &str) -> crate::Result<()> {
                 .with_attempt_limit(100)
                 .with_time_limit(Duration::from_secs(300)),
         )
-    .build().await?;
+        .build()
+        .await?;
     // ANCHOR_END: client-errors-client-retry
 
     // ANCHOR: client-errors-builder
