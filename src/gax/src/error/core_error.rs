@@ -119,6 +119,65 @@ impl Error {
         matches!(self.kind, ErrorKind::Timeout)
     }
 
+    /// Not part of the public API, subject to change without notice.
+    ///
+    /// Creates an error representing a deserialization problem.
+    ///
+    /// Applications should have no need to use this function. The exception
+    /// could be mocks, but this error is too rare to merit mocks. If you are
+    /// writing a mock that extracts values from [wkt::Any], consider using a
+    /// `.expect()` calls instead.
+    ///
+    ///
+    /// # Example
+    /// ```
+    /// use std::error::Error as _;
+    /// use google_cloud_gax::error::Error;
+    /// let error = Error::deser("simulated problem");
+    /// assert!(error.is_deserialization());
+    /// assert!(error.source().is_some());
+    /// ```
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+    pub fn deser<T: Into<BoxError>>(source: T) -> Self {
+        Self {
+            kind: ErrorKind::Deserialization,
+            source: Some(source.into()),
+        }
+    }
+
+    /// The request could not be completed before its deadline.
+    ///
+    /// This is always a client-side generated error. Note that the request may
+    /// or may not have started, and it may or may not complete in the service.
+    /// If the request mutates any state in the service, it may or may not be
+    /// safe to attempt the request again.
+    ///
+    /// # Troubleshooting
+    ///
+    /// The most common cause for deserialization problems are bugs in the
+    /// client library and (rarely) bugs in the service.
+    ///
+    /// When using gRPC services, and if the response includes a [wkt::Any]
+    /// field, the client library may not be able to handle unknown types within
+    /// the `Any`. In all services we know of, this should not happen, but it is
+    /// impossible to prepare the client library for breaking changes in the
+    /// service. Upgrading to the latest version of the client library may be
+    /// the only possible fix.
+    ///
+    /// Beyond this issue with `Any`, while the client libraries are designed to
+    /// handle all valid responses, including unknown fields and unknown
+    /// enumeration values, it is possible that the client library has a bug.
+    /// Please [open an issue] if you run in to this problem. Include any
+    /// instructions on how to reproduce the problem. If you cannot use, or
+    /// prefer not to use, GitHub to discuss this problem, then contact
+    /// [Google Cloud support].
+    ///
+    /// [open an issue]: https://github.com/googleapis/google-cloud-rust/issues
+    /// [Google Cloud support]: https://cloud.google.com/support
+    pub fn is_deserialization(&self) -> bool {
+        matches!(self.kind, ErrorKind::Deserialization)
+    }
+
     /// The [Status] payload associated with this error.
     ///
     /// # Examples
@@ -507,6 +566,9 @@ impl std::fmt::Display for Error {
                 write!(f, "cannot find a matching binding to send the request {e}")
             }
             (ErrorKind::Serialization, Some(e)) => write!(f, "cannot serialize the request {e}"),
+            (ErrorKind::Deserialization, Some(e)) => {
+                write!(f, "cannot deserialize the response {e}")
+            }
             (ErrorKind::Authentication, Some(e)) => {
                 write!(f, "cannot create the authentication headers {e}")
             }
@@ -542,6 +604,7 @@ impl std::error::Error for Error {
 enum ErrorKind {
     Binding,
     Serialization,
+    Deserialization,
     Authentication,
     Timeout,
     Transport(Box<TransportDetails>),
@@ -634,6 +697,24 @@ mod test {
         assert!(error.http_status_code().is_none(), "{error:?}");
         assert!(error.http_payload().is_none(), "{error:?}");
         assert!(error.status().is_none(), "{error:?}");
+    }
+
+    #[test]
+    fn serialization() {
+        let source = wkt::TimestampError::OutOfRange;
+        let error = Error::deser(source);
+        assert!(error.is_deserialization(), "{error:?}");
+        assert!(error.source().is_some(), "{error:?}");
+        let got = error
+            .source()
+            .and_then(|e| e.downcast_ref::<wkt::TimestampError>());
+        assert!(
+            matches!(got, Some(wkt::TimestampError::OutOfRange)),
+            "{error:?}"
+        );
+        let source = wkt::TimestampError::OutOfRange;
+        assert!(error.to_string().contains(&source.to_string()), "{error}");
+        assert!(!error.is_transient_and_before_rpc(), "{error:?}");
     }
 
     #[test]
