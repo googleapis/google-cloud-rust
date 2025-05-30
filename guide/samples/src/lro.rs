@@ -19,8 +19,19 @@ use google_cloud_speech_v2 as speech;
 
 // ANCHOR: start
 pub async fn start(project_id: &str) -> crate::Result<()> {
+    use google_cloud_gax::retry_policy::Aip194Strict;
+    use google_cloud_gax::retry_policy::RetryPolicyExt;
+    use std::time::Duration;
+
     // ANCHOR: client
-    let client = speech::client::Speech::builder().build().await?;
+    let client = speech::client::Speech::builder()
+        .with_retry_policy(
+            Aip194Strict
+                .with_attempt_limit(5)
+                .with_time_limit(Duration::from_secs(30)),
+        )
+        .build()
+        .await?;
     // ANCHOR_END: client
 
     // ANCHOR: request-builder
@@ -68,12 +79,24 @@ pub async fn start(project_id: &str) -> crate::Result<()> {
 
 // ANCHOR: automatic
 pub async fn automatic(project_id: &str) -> crate::Result<()> {
+    use google_cloud_gax::retry_policy::Aip194Strict;
+    use google_cloud_gax::retry_policy::RetryPolicyExt;
+    use std::time::Duration;
+
     // ANCHOR: automatic-use
     use google_cloud_lro::Poller;
     // ANCHOR_END: automatic-use
-    // ANCHOR: automatic-prepare
-    let client = speech::client::Speech::builder().build().await?;
 
+    let client = speech::client::Speech::builder()
+        .with_retry_policy(
+            Aip194Strict
+                .with_attempt_limit(5)
+                .with_time_limit(Duration::from_secs(30)),
+        )
+        .build()
+        .await?;
+
+    // ANCHOR: automatic-prepare
     let response = client
         .batch_recognize()
         .set_recognizer(format!(
@@ -111,12 +134,24 @@ pub async fn automatic(project_id: &str) -> crate::Result<()> {
 
 // ANCHOR: polling
 pub async fn polling(project_id: &str) -> crate::Result<()> {
+    use google_cloud_gax::retry_policy::Aip194Strict;
+    use google_cloud_gax::retry_policy::RetryPolicyExt;
+    use std::time::Duration;
+
     // ANCHOR: polling-use
     use google_cloud_lro::{Poller, PollingResult};
     // ANCHOR_END: polling-use
-    // ANCHOR: polling-prepare
-    let client = speech::client::Speech::builder().build().await?;
 
+    let client = speech::client::Speech::builder()
+        .with_retry_policy(
+            Aip194Strict
+                .with_attempt_limit(5)
+                .with_time_limit(Duration::from_secs(30)),
+        )
+        .build()
+        .await?;
+
+    // ANCHOR: polling-prepare
     let mut poller = client
         .batch_recognize()
         .set_recognizer(format!(
