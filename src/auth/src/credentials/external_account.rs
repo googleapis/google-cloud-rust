@@ -25,7 +25,6 @@ use crate::{BuildResult, Result};
 use http::{Extensions, HeaderMap};
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
 use std::sync::Arc;
 use tokio::time::{Duration, Instant};
 
@@ -40,12 +39,6 @@ pub(crate) struct CredentialSourceFormat {
     #[serde(rename = "type")]
     pub format_type: String,
     pub subject_token_field_name: String,
-}
-
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
-pub(crate) struct CredentialSourceHeaders {
-    #[serde(flatten)]
-    pub headers: HashMap<String, String>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
@@ -290,6 +283,7 @@ where
 mod test {
     use super::*;
     use serde_json::*;
+    use std::collections::HashMap;
 
     #[tokio::test]
     async fn create_external_account_builder() {
@@ -300,9 +294,6 @@ mod test {
             "token_url": "https://sts.googleapis.com/v1beta/token",
             "credential_source": {
                 "url": "https://example.com/token",
-                "headers": {
-                  "Metadata": "True"
-                },
                 "format": {
                   "type": "json",
                   "subject_token_field_name": "access_token"
@@ -350,9 +341,10 @@ mod test {
                 assert_eq!(source.url, "https://example.com/token");
                 assert_eq!(
                     source.headers,
-                    Some(CredentialSourceHeaders {
-                        headers: HashMap::from([("Metadata".to_string(), "True".to_string()),]),
-                    })
+                    Some(HashMap::from([(
+                        "Metadata".to_string(),
+                        "True".to_string()
+                    ),])),
                 );
                 assert_eq!(
                     source.format,

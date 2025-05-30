@@ -16,21 +16,22 @@ use gax::error::CredentialsError;
 use reqwest::Client;
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::time::Duration;
+use std::{collections::HashMap, time::Duration};
 
 use crate::{
     Result,
-    credentials::external_account::{
-        CredentialSourceFormat, CredentialSourceHeaders, SubjectTokenProvider,
-    },
+    credentials::external_account::{CredentialSourceFormat, SubjectTokenProvider},
+    errors,
 };
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub(crate) struct UrlSourcedCredentials {
     pub url: String,
-    pub headers: Option<CredentialSourceHeaders>,
+    pub headers: Option<HashMap<String, String>>,
     pub format: Option<CredentialSourceFormat>,
 }
+
+const MSG: &str = "failed to request subject token";
 
 #[async_trait::async_trait]
 impl SubjectTokenProvider for UrlSourcedCredentials {
@@ -40,49 +41,42 @@ impl SubjectTokenProvider for UrlSourcedCredentials {
             .build()
             .unwrap();
 
-        let mut request = client.get(self.url.clone());
+        let request = client.get(self.url.clone());
+        let request = self
+            .headers
+            .iter()
+            .flat_map(|v| v.iter())
+            .fold(request, |r, (k, v)| r.header(k.as_str(), v.as_str()));
 
-        if let Some(headers) = &self.headers {
-            for (key, value) in &headers.headers {
-                request = request.header(key.as_str(), value.as_str());
-            }
-        }
-
-        let response = request.send().await.map_err(|err| {
-            CredentialsError::from_msg(false, format!("failed to request subject token: {}", err))
-        })?;
+        let response = request
+            .send()
+            .await
+            .map_err(|e| errors::from_http_error(e, MSG))?;
 
         if !response.status().is_success() {
-            return Err(CredentialsError::from_msg(
-                false,
-                "failed to request subject token",
-            ));
+            let err = errors::from_http_response(response, MSG).await;
+            return Err(err);
         }
 
-        let response_text = response.text().await.map_err(|err| {
-            CredentialsError::from_msg(
-                false,
-                format!("failed to read subject token response: {}", err),
-            )
+        let response_text = response.text().await.map_err(|e| {
+            let retryable = !e.is_body();
+            CredentialsError::from_source(retryable, e)
         })?;
 
         match &self.format {
             Some(format) => {
-                let json_response: Value = serde_json::from_str(&response_text).unwrap();
-                let subject_token = json_response
-                    .get(&format.subject_token_field_name)
-                    .and_then(Value::as_str)
-                    .map(String::from);
+                let json_response: Value = serde_json::from_str(&response_text)
+                    .map_err(|e| CredentialsError::from_source(false, e))?;
 
-                match subject_token {
-                    Some(token) => Ok(token),
-                    None => Err(CredentialsError::from_msg(
-                        false,
-                        format!(
-                            "failed to read subject token field `{}` from response: {}",
-                            format.subject_token_field_name, json_response
-                        ),
-                    )),
+                match json_response.get(&format.subject_token_field_name) {
+                    Some(Value::String(token)) => Ok(token.clone()),
+                    None | Some(_) => {
+                        let msg = format!(
+                            "failed to read subject token field `{}` as string, body=<{}>",
+                            format.subject_token_field_name, json_response,
+                        );
+                        Err(CredentialsError::from_msg(false, msg.as_str()))
+                    },
                 }
             }
             None => Ok(response_text),
@@ -95,8 +89,7 @@ mod test {
     use super::*;
     use httptest::{Expectation, Server, matchers::*, responders::*};
     use serde_json::json;
-    use std::collections::HashMap;
-    use tokio_test::assert_err;
+    use std::{collections::HashMap, error::Error};
 
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
 
@@ -123,9 +116,10 @@ mod test {
                 format_type: "json".into(),
                 subject_token_field_name: "access_token".into(),
             }),
-            headers: Some(CredentialSourceHeaders {
-                headers: HashMap::from([("Metadata".to_string(), "True".to_string())]),
-            }),
+            headers: Some(HashMap::from([(
+                "Metadata".to_string(),
+                "True".to_string(),
+            )])),
         };
         let resp = token_provider.subject_token().await?;
 
@@ -180,17 +174,19 @@ mod test {
                 format_type: "json".into(),
                 subject_token_field_name: "access_token".into(),
             }),
-            headers: Some(CredentialSourceHeaders {
-                headers: HashMap::from([("Metadata".to_string(), "True".to_string())]),
-            }),
+            headers: Some(HashMap::from([(
+                "Metadata".to_string(),
+                "True".to_string(),
+            )])),
         };
-        let err = assert_err!(token_provider.subject_token().await);
+        
+        let err = token_provider.subject_token().await.expect_err("parsing should fail");
 
-        let expected_err = crate::errors::CredentialsError::from_msg(
-            false,
-            "failed to read subject token field `access_token` from response: {\"wrong_field\":\"an_example_token\"}",
-        );
-        assert_eq!(err.to_string(), expected_err.to_string());
+        assert!(!err.is_transient(), "{err:?}");
+        assert!(err.source().is_none());
+
+        assert!(err.to_string().contains("`access_token`"), "{err:?}");
+        assert!(err.to_string().contains("{\"wrong_field\":\"an_example_token\"}"), "{err:?}");
 
         Ok(())
     }
