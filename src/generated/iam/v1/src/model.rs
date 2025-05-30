@@ -285,6 +285,7 @@ pub struct GetPolicyOptions {
     /// [IAM
     /// documentation](https://cloud.google.com/iam/help/conditions/resource-policies).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub requested_policy_version: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -412,6 +413,7 @@ pub struct Policy {
     /// [IAM
     /// documentation](https://cloud.google.com/iam/help/conditions/resource-policies).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub version: i32,
 
     /// Associates a list of `members`, or principals, with a `role`. Optionally,

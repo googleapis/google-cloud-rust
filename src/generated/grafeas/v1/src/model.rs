@@ -718,6 +718,7 @@ pub struct BaseImage {
 
     /// The number of layers that the base image is composed of.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub layer_count: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -762,6 +763,7 @@ impl wkt::message::Message for BaseImage {
 pub struct LayerDetails {
     /// The index of the layer in the container image.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub index: i32,
 
     /// The diff ID (typically a sha256 hash) of the layer in the container image.
@@ -1113,6 +1115,7 @@ pub mod compliance_note {
     #[non_exhaustive]
     pub struct CisBenchmark {
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub profile_level: i32,
 
         pub severity: crate::model::Severity,
@@ -6027,6 +6030,7 @@ pub struct ListOccurrencesRequest {
     /// Number of occurrences to return in the list. Must be positive. Max allowed
     /// page size is 1000. If not specified, page size defaults to 20.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Token to provide to skip to a particular spot in the list.
@@ -6385,6 +6389,7 @@ pub struct ListNotesRequest {
     /// Number of notes to return in the list. Must be positive. Max allowed page
     /// size is 1000. If not specified, page size defaults to 20.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Token to provide to skip to a particular spot in the list.
@@ -6686,6 +6691,7 @@ pub struct ListNoteOccurrencesRequest {
 
     /// Number of occurrences to return in the list.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Token to provide to skip to a particular spot in the list.
@@ -7142,6 +7148,7 @@ pub struct ImageOccurrence {
     /// Output only. The number of layers by which this image differs from the
     /// associated image basis.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub distance: i32,
 
     /// This contains layer-specific metadata, if populated it has length
@@ -8890,6 +8897,7 @@ impl wkt::message::Message for PackageOccurrence {
 pub struct Version {
     /// Used to correct mistakes in the version numbering scheme.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub epoch: i32,
 
     /// Required only when version kind is NORMAL. The main part of the version
@@ -12451,6 +12459,7 @@ pub mod windows_update {
 
         /// The revision number of the update.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub revision: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

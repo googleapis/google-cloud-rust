@@ -78,6 +78,7 @@ pub struct Job {
     /// completion. Job should be deleted automatically after the given TTL. Enter
     /// a value between 1 and 90. The default is 30.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub ttl_after_completion_days: i32,
 
     /// The labels associated with this job. You can use these to organize and
@@ -99,6 +100,7 @@ pub struct Job {
     /// This value cannot be negative. Higher values correspond to higher
     /// priorities for the job.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub batch_mode_priority: i32,
 
     /// Optional. The optimization strategy of the job. The default is
@@ -2076,6 +2078,7 @@ pub struct SpriteSheet {
     /// [google.cloud.video.transcoder.v1.SpriteSheet.sprite_height_pixels]: crate::model::SpriteSheet::sprite_height_pixels
     /// [google.cloud.video.transcoder.v1.SpriteSheet.sprite_width_pixels]: crate::model::SpriteSheet::sprite_width_pixels
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub sprite_width_pixels: i32,
 
     /// Required. The height of sprite in pixels. Must be an even integer. To
@@ -2094,17 +2097,20 @@ pub struct SpriteSheet {
     /// [google.cloud.video.transcoder.v1.SpriteSheet.sprite_height_pixels]: crate::model::SpriteSheet::sprite_height_pixels
     /// [google.cloud.video.transcoder.v1.SpriteSheet.sprite_width_pixels]: crate::model::SpriteSheet::sprite_width_pixels
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub sprite_height_pixels: i32,
 
     /// The maximum number of sprites per row in a sprite sheet. The default is 0,
     /// which indicates no maximum limit.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub column_count: i32,
 
     /// The maximum number of rows per sprite sheet. When the sprite sheet is full,
     /// a new sprite sheet is created. The default is 0, which indicates no maximum
     /// limit.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub row_count: i32,
 
     /// Start time in seconds, relative to the output file timeline. Determines the
@@ -2123,6 +2129,7 @@ pub struct SpriteSheet {
     /// The default is 100. A high quality value corresponds to a low image data
     /// compression ratio.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub quality: i32,
 
     /// Specify either total number of sprites or interval to create sprites.
@@ -2304,7 +2311,7 @@ pub mod sprite_sheet {
         /// Total number of sprites. Create the specified number of sprites
         /// distributed evenly across the timeline of the output media. The default
         /// is 100.
-        TotalCount(i32),
+        TotalCount(#[serde_as(as = "wkt::internal::I32")] i32),
         /// Starting from `0s`, create sprites at regular intervals. Specify the
         /// interval value in seconds.
         Interval(std::boxed::Box<wkt::Duration>),
@@ -3420,18 +3427,22 @@ pub mod preprocessing_config {
     pub struct Crop {
         /// The number of pixels to crop from the top. The default is 0.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub top_pixels: i32,
 
         /// The number of pixels to crop from the bottom. The default is 0.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub bottom_pixels: i32,
 
         /// The number of pixels to crop from the left. The default is 0.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub left_pixels: i32,
 
         /// The number of pixels to crop from the right. The default is 0.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub right_pixels: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3483,18 +3494,22 @@ pub mod preprocessing_config {
     pub struct Pad {
         /// The number of pixels to add to the top. The default is 0.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub top_pixels: i32,
 
         /// The number of pixels to add to the bottom. The default is 0.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub bottom_pixels: i32,
 
         /// The number of pixels to add to the left. The default is 0.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub left_pixels: i32,
 
         /// The number of pixels to add to the right. The default is 0.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub right_pixels: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3967,6 +3982,7 @@ pub mod video_stream {
         /// the height per the horizontal ASR. The API detects any rotation metadata
         /// and swaps the requested height and width for the output.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub width_pixels: i32,
 
         /// The height of the video in pixels. Must be an even integer.
@@ -3978,6 +3994,7 @@ pub mod video_stream {
         /// the width per the horizontal ASR. The API detects any rotation metadata
         /// and swaps the requested height and width for the output.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub height_pixels: i32,
 
         /// Required. The target video frame rate in frames per second (FPS). Must be
@@ -3994,6 +4011,7 @@ pub mod video_stream {
         /// Required. The video bitrate in bits per second. The minimum value is
         /// 1,000. The maximum value is 800,000,000.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub bitrate_bps: i32,
 
         /// Pixel format to use. The default is `yuv420p`.
@@ -4024,6 +4042,7 @@ pub mod video_stream {
         /// Target CRF level. Must be between 10 and 36, where 10 is the highest
         /// quality and 36 is the most efficient compression. The default is 21.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub crf_level: i32,
 
         /// Specifies whether an open Group of Pictures (GOP) structure should be
@@ -4039,12 +4058,14 @@ pub mod video_stream {
         /// Size of the Video Buffering Verifier (VBV) buffer in bits. Must be
         /// greater than zero. The default is equal to `VideoStream.bitrate_bps`.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub vbv_size_bits: i32,
 
         /// Initial fullness of the Video Buffering Verifier (VBV) buffer in bits.
         /// Must be greater than zero. The default is equal to 90% of
         /// `VideoStream.vbv_size_bits`.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub vbv_fullness_bits: i32,
 
         /// The entropy coder to use. The default is `cabac`.
@@ -4065,6 +4086,7 @@ pub mod video_stream {
         /// zero. Must be less than `VideoStream.gop_frame_count` if set. The default
         /// is 0.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub b_frame_count: i32,
 
         /// Specify the intensity of the adaptive quantizer (AQ). Must be between 0
@@ -4326,7 +4348,7 @@ pub mod video_stream {
         pub enum GopMode {
             /// Select the GOP size based on the specified frame count. Must be greater
             /// than zero.
-            GopFrameCount(i32),
+            GopFrameCount(#[serde_as(as = "wkt::internal::I32")] i32),
             /// Select the GOP size based on the specified duration. The default is
             /// `3s`. Note that `gopDuration` must be less than or equal to
             /// [`segmentDuration`](#SegmentSettings), and
@@ -4351,6 +4373,7 @@ pub mod video_stream {
         /// the height per the horizontal ASR. The API detects any rotation metadata
         /// and swaps the requested height and width for the output.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub width_pixels: i32,
 
         /// The height of the video in pixels. Must be an even integer.
@@ -4362,6 +4385,7 @@ pub mod video_stream {
         /// the width per the horizontal ASR. The API detects any rotation metadata
         /// and swaps the requested height and width for the output.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub height_pixels: i32,
 
         /// Required. The target video frame rate in frames per second (FPS). Must be
@@ -4378,6 +4402,7 @@ pub mod video_stream {
         /// Required. The video bitrate in bits per second. The minimum value is
         /// 1,000. The maximum value is 800,000,000.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub bitrate_bps: i32,
 
         /// Pixel format to use. The default is `yuv420p`.
@@ -4408,6 +4433,7 @@ pub mod video_stream {
         /// Target CRF level. Must be between 10 and 36, where 10 is the highest
         /// quality and 36 is the most efficient compression. The default is 21.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub crf_level: i32,
 
         /// Specifies whether an open Group of Pictures (GOP) structure should be
@@ -4423,12 +4449,14 @@ pub mod video_stream {
         /// Size of the Video Buffering Verifier (VBV) buffer in bits. Must be
         /// greater than zero. The default is equal to `VideoStream.bitrate_bps`.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub vbv_size_bits: i32,
 
         /// Initial fullness of the Video Buffering Verifier (VBV) buffer in bits.
         /// Must be greater than zero. The default is equal to 90% of
         /// `VideoStream.vbv_size_bits`.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub vbv_fullness_bits: i32,
 
         /// Allow B-pyramid for reference frame selection. This may not be supported
@@ -4440,6 +4468,7 @@ pub mod video_stream {
         /// zero. Must be less than `VideoStream.gop_frame_count` if set. The default
         /// is 0.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub b_frame_count: i32,
 
         /// Specify the intensity of the adaptive quantizer (AQ). Must be between 0
@@ -4707,7 +4736,7 @@ pub mod video_stream {
         pub enum GopMode {
             /// Select the GOP size based on the specified frame count. Must be greater
             /// than zero.
-            GopFrameCount(i32),
+            GopFrameCount(#[serde_as(as = "wkt::internal::I32")] i32),
             /// Select the GOP size based on the specified duration. The default is
             /// `3s`. Note that `gopDuration` must be less than or equal to
             /// [`segmentDuration`](#SegmentSettings), and
@@ -4732,6 +4761,7 @@ pub mod video_stream {
         /// the height per the horizontal ASR. The API detects any rotation metadata
         /// and swaps the requested height and width for the output.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub width_pixels: i32,
 
         /// The height of the video in pixels. Must be an even integer.
@@ -4743,6 +4773,7 @@ pub mod video_stream {
         /// the width per the horizontal ASR. The API detects any rotation metadata
         /// and swaps the requested height and width for the output.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub height_pixels: i32,
 
         /// Required. The target video frame rate in frames per second (FPS). Must be
@@ -4759,6 +4790,7 @@ pub mod video_stream {
         /// Required. The video bitrate in bits per second. The minimum value is
         /// 1,000. The maximum value is 480,000,000.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub bitrate_bps: i32,
 
         /// Pixel format to use. The default is `yuv420p`.
@@ -4790,6 +4822,7 @@ pub mod video_stream {
         ///
         /// **Note:** This field is not supported.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub crf_level: i32,
 
         /// Enforces the specified codec profile. The following profiles are
@@ -4964,7 +4997,7 @@ pub mod video_stream {
         pub enum GopMode {
             /// Select the GOP size based on the specified frame count. Must be greater
             /// than zero.
-            GopFrameCount(i32),
+            GopFrameCount(#[serde_as(as = "wkt::internal::I32")] i32),
             /// Select the GOP size based on the specified duration. The default is
             /// `3s`. Note that `gopDuration` must be less than or equal to
             /// [`segmentDuration`](#SegmentSettings), and
@@ -5011,10 +5044,12 @@ pub struct AudioStream {
     /// Required. Audio bitrate in bits per second. Must be between 1 and
     /// 10,000,000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub bitrate_bps: i32,
 
     /// Number of audio channels. Must be between 1 and 6. The default is 2.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub channel_count: i32,
 
     /// A list of channel names specifying layout of the audio channels.
@@ -5038,6 +5073,7 @@ pub struct AudioStream {
 
     /// The audio sample rate in Hertz. The default is 48000 Hertz.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub sample_rate_hertz: i32,
 
     /// The BCP-47 language code, such as `en-US` or `sr-Latn`. For more
@@ -5148,14 +5184,17 @@ pub mod audio_stream {
 
         /// Required. The zero-based index of the track in the input file.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub input_track: i32,
 
         /// Required. The zero-based index of the channel in the input audio stream.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub input_channel: i32,
 
         /// Required. The zero-based index of the channel in the output audio stream.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub output_channel: i32,
 
         /// Audio volume control in dB. Negative values decrease volume,
@@ -5318,6 +5357,7 @@ pub mod text_stream {
 
         /// Required. The zero-based index of the track in the input file.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub input_track: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6040,6 +6080,7 @@ pub struct ListJobsRequest {
 
     /// The maximum number of items to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The `next_page_token` value returned from a previous List request, if
@@ -6338,6 +6379,7 @@ pub struct ListJobTemplatesRequest {
 
     /// The maximum number of items to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The `next_page_token` value returned from a previous List request, if

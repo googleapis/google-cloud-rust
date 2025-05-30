@@ -1302,6 +1302,7 @@ pub struct ListDeploymentsRequest {
     /// resources to return. If unspecified, at most 500 will be returned. The
     /// maximum value is 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Token returned by previous call to 'ListDeployments' which specifies the
@@ -1511,6 +1512,7 @@ pub struct ListRevisionsRequest {
     /// resources to return. If unspecified, at most 500 will be returned. The
     /// maximum value is 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Token returned by previous call to 'ListRevisions' which specifies the
@@ -3140,6 +3142,7 @@ pub struct TerraformError {
     /// fails to provision the resource. If unset or 0, no HTTP response code was
     /// returned by Terraform.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub http_response_code: i32,
 
     /// A human-readable error description.
@@ -4132,6 +4135,7 @@ pub struct ListResourcesRequest {
     /// resources to return. If unspecified, at most 500 will be returned. The
     /// maximum value is 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Token returned by previous call to 'ListResources' which specifies the
@@ -6034,6 +6038,7 @@ pub struct ListPreviewsRequest {
     /// of resources to return. If unspecified, at most 500 will be returned. The
     /// maximum value is 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. Token returned by previous call to 'ListDeployments' which
@@ -6424,6 +6429,7 @@ pub struct ListTerraformVersionsRequest {
     /// of resources to return. If unspecified, at most 500 will be returned. The
     /// maximum value is 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. Token returned by previous call to 'ListTerraformVersions' which

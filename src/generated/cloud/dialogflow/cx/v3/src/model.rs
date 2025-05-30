@@ -191,6 +191,7 @@ pub mod advanced_settings {
         /// Sensitivity of the speech model that detects the end of speech.
         /// Scale from 0 to 100.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub endpointer_sensitivity: i32,
 
         /// Timeout before detecting no speech.
@@ -288,6 +289,7 @@ pub mod advanced_settings {
 
         /// Max length of DTMF digits.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub max_digits: i32,
 
         /// The digit that terminates a DTMF digit sequence.
@@ -1321,6 +1323,7 @@ pub struct ListAgentsRequest {
     /// The maximum number of items to return in a single page. By default 100 and
     /// at most 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous list request.
@@ -2890,6 +2893,7 @@ pub struct InputAudioConfig {
     /// documentation](https://cloud.google.com/speech-to-text/docs/basics) for
     /// more details.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub sample_rate_hertz: i32,
 
     /// Optional. If `true`, Dialogflow returns
@@ -3223,6 +3227,7 @@ pub struct OutputAudioConfig {
     /// rate, then the synthesizer will honor this request by converting to the
     /// desired sample rate (which might result in worse audio quality).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub sample_rate_hertz: i32,
 
     /// Optional. Configuration of how speech should be synthesized.
@@ -3384,6 +3389,7 @@ pub struct ListChangelogsRequest {
     /// The maximum number of items to return in a single page. By default 100 and
     /// at most 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous list request.
@@ -4105,6 +4111,7 @@ pub mod data_store_connection_signals {
 
         /// Citations for this answer part. Indices of `search_snippets`.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "std::vec::Vec<wkt::internal::I32>")]
         pub supporting_indices: std::vec::Vec<i32>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4153,6 +4160,7 @@ pub mod data_store_connection_signals {
 
         /// Index of the snippet in `search_snippets` field.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub snippet_index: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5237,6 +5245,7 @@ pub struct ListDeploymentsRequest {
     /// The maximum number of items to return in a single page. By default 20 and
     /// at most 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous list request.
@@ -6928,6 +6937,7 @@ pub struct ListEntityTypesRequest {
     /// The maximum number of items to return in a single page. By default 100 and
     /// at most 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous list request.
@@ -7648,6 +7658,7 @@ pub struct ListEnvironmentsRequest {
     /// The maximum number of items to return in a single page. By default 20 and
     /// at most 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous list request.
@@ -7983,6 +7994,7 @@ pub struct LookupEnvironmentHistoryRequest {
     /// The maximum number of items to return in a single page. By default 100 and
     /// at most 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous list request.
@@ -8459,6 +8471,7 @@ pub struct ListContinuousTestResultsRequest {
     /// The maximum number of items to return in a single page. By default 100 and
     /// at most 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous list request.
@@ -9442,6 +9455,7 @@ pub mod experiment {
 
             /// Number of sessions that were allocated to this version.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::I32")]
             pub session_count: i32,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10236,6 +10250,7 @@ pub mod rollout_config {
         /// The percentage of traffic allocated to the flow version of this rollout
         /// step. (0%, 100%].
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub traffic_percent: i32,
 
         /// The minimum time that this step should last. Should be longer than 1
@@ -10306,6 +10321,7 @@ pub struct RolloutState {
 
     /// Index of the current step in the auto rollout steps list.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub step_index: i32,
 
     /// Start time of the current step.
@@ -10378,6 +10394,7 @@ pub struct ListExperimentsRequest {
     /// The maximum number of items to return in a single page. By default 20 and
     /// at most 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous list request.
@@ -11590,6 +11607,7 @@ pub struct ListFlowsRequest {
     /// The maximum number of items to return in a single page. By default 100 and
     /// at most 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous list request.
@@ -13647,6 +13665,7 @@ pub mod generator {
 
         /// The maximum number of tokens to generate.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
         pub max_decode_steps: std::option::Option<i32>,
 
         /// If set, only the tokens comprising the top top_p probability mass are
@@ -13664,6 +13683,7 @@ pub mod generator {
         /// Valid range: [1, 40] or 1000+.
         /// Small topK = less random. Large topK = more random.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
         pub top_k: std::option::Option<i32>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -13808,6 +13828,7 @@ pub struct ListGeneratorsRequest {
     /// The maximum number of items to return in a single page. By default 100 and
     /// at most 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous list request.
@@ -14291,6 +14312,7 @@ pub struct Intent {
     /// - If the supplied value is negative, the intent is ignored
     ///   in runtime detect intent requests.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub priority: i32,
 
     /// Indicates whether this is a fallback intent. Currently only default
@@ -14445,6 +14467,7 @@ pub mod intent {
 
         /// Indicates how many times this example was added to the intent.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub repeat_count: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -14656,6 +14679,7 @@ pub struct ListIntentsRequest {
     /// The maximum number of items to return in a single page. By default 100 and
     /// at most 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous list request.
@@ -16974,6 +16998,7 @@ pub struct ListPagesRequest {
     /// The maximum number of items to return in a single page. By default 100 and
     /// at most 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous list request.
@@ -19073,6 +19098,7 @@ pub struct ListSecuritySettingsRequest {
     /// The maximum number of items to return in a single page. By default 20 and
     /// at most 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous list request.
@@ -20374,7 +20400,7 @@ pub mod security_settings {
         /// When data retention configuration is changed, it only applies to the data
         /// created after the change; the TTL of existing data created before the
         /// change stays intact.
-        RetentionWindowDays(i32),
+        RetentionWindowDays(#[serde_as(as = "wkt::internal::I32")] i32),
         /// Specifies the retention behavior defined by
         /// [SecuritySettings.RetentionStrategy][google.cloud.dialogflow.cx.v3.SecuritySettings.RetentionStrategy].
         ///
@@ -21297,6 +21323,7 @@ impl wkt::message::Message for StreamingDetectIntentRequest {
 pub struct CloudConversationDebuggingInfo {
     /// Number of input audio data chunks in streaming requests.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub audio_data_chunks: i32,
 
     /// Time offset of the end of speech utterance relative to the
@@ -21324,12 +21351,14 @@ pub struct CloudConversationDebuggingInfo {
 
     /// Total number of partial responses.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub partial_responses: i32,
 
     /// Time offset of Speaker ID stream close time relative to the Speech stream
     /// close time in milliseconds. Only meaningful for conversations involving
     /// passive verification.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub speaker_id_passive_latency_ms_offset: i32,
 
     /// Whether a barge-in event is triggered in this request.
@@ -25382,6 +25411,7 @@ pub struct ListSessionEntityTypesRequest {
     /// The maximum number of items to return in a single page. By default 100 and
     /// at most 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous list request.
@@ -26772,6 +26802,7 @@ pub mod transition_coverage {
 
         /// The index of a transition in the transition list. Starting from 0.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub index: i32,
 
         /// The end node of a transition.
@@ -27626,6 +27657,7 @@ pub struct ListTestCasesRequest {
     /// Note that when TestCaseView = FULL, the maximum page size allowed is 20.
     /// When TestCaseView = BASIC, the maximum page size allowed is 500.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous list request.
@@ -29166,6 +29198,7 @@ pub struct ListTestCaseResultsRequest {
     /// The maximum number of items to return in a single page. By default 100 and
     /// at most 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous list request.
@@ -29433,6 +29466,7 @@ pub struct ListTransitionRouteGroupsRequest {
     /// The maximum number of items to return in a single page. By default 100 and
     /// at most 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous list request.
@@ -30663,6 +30697,7 @@ pub struct ListVersionsRequest {
     /// The maximum number of items to return in a single page. By default 20 and
     /// at most 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous list request.
@@ -32181,6 +32216,7 @@ pub struct ListWebhooksRequest {
     /// The maximum number of items to return in a single page. By default 100 and
     /// at most 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous list request.

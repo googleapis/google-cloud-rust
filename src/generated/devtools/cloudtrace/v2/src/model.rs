@@ -122,6 +122,7 @@ pub struct Span {
     /// Optional. The number of child spans that were generated while this span
     /// was active. If set, allows implementation to detect missing child spans.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
     pub child_span_count: std::option::Option<wkt::Int32Value>,
 
     /// Optional. Distinguishes between spans generated in a particular context.
@@ -380,6 +381,7 @@ pub mod span {
         /// because their keys are too long or because there are too many attributes.
         /// If this value is 0 then all attributes are valid.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub dropped_attributes_count: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -862,11 +864,13 @@ pub mod span {
         /// The number of dropped annotations in all the included time events.
         /// If the value is 0, then no annotations were dropped.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub dropped_annotations_count: i32,
 
         /// The number of dropped message events in all the included time events.
         /// If the value is 0, then no message events were dropped.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub dropped_message_events_count: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1148,6 +1152,7 @@ pub mod span {
         /// The number of dropped links after the maximum size was enforced. If
         /// this value is 0, then no links were dropped.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub dropped_links_count: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1722,6 +1727,7 @@ pub mod stack_trace {
         /// were too many stack frames.
         /// If this value is 0, then no stack frames were dropped.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub dropped_frames_count: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1845,6 +1851,7 @@ pub struct TruncatableString {
     /// The number of bytes removed from the original string. If this
     /// value is 0, then the string was not shortened.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub truncated_byte_count: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

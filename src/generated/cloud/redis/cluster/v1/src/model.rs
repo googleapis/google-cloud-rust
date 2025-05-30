@@ -139,6 +139,7 @@ pub struct ListClustersRequest {
     ///
     /// [google.cloud.redis.cluster.v1.ListClustersResponse.next_page_token]: crate::model::ListClustersResponse::next_page_token
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The `next_page_token` value returned from a previous
@@ -487,6 +488,7 @@ pub struct ListBackupCollectionsRequest {
     ///
     /// [google.cloud.redis.cluster.v1.ListBackupCollectionsResponse.next_page_token]: crate::model::ListBackupCollectionsResponse::next_page_token
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. The `next_page_token` value returned from a previous
@@ -669,6 +671,7 @@ pub struct ListBackupsRequest {
     ///
     /// [google.cloud.redis.cluster.v1.ListBackupsResponse.next_page_token]: crate::model::ListBackupsResponse::next_page_token
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. The `next_page_token` value returned from a previous
@@ -1061,6 +1064,7 @@ pub struct Cluster {
 
     /// Optional. The number of replica nodes per shard.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
     pub replica_count: std::option::Option<i32>,
 
     /// Optional. The authorization mode of the Redis cluster.
@@ -1074,10 +1078,12 @@ pub struct Cluster {
     /// Output only. Redis memory size in GB for the entire cluster rounded up to
     /// the next integer.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
     pub size_gb: std::option::Option<i32>,
 
     /// Optional. Number of shards for the Redis cluster.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
     pub shard_count: std::option::Option<i32>,
 
     /// Optional. Each PscConfig configures the consumer network where IPs will
@@ -1754,10 +1760,12 @@ pub mod cluster {
         pub struct UpdateInfo {
             /// Target number of shards for redis cluster
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
+            #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
             pub target_shard_count: std::option::Option<i32>,
 
             /// Target number of replica nodes per shard.
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
+            #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
             pub target_replica_count: std::option::Option<i32>,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2493,10 +2501,12 @@ pub struct Backup {
 
     /// Output only. Number of replicas for the cluster.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub replica_count: i32,
 
     /// Output only. Number of shards for the cluster.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub shard_count: i32,
 
     /// Output only. Type of the backup.
@@ -3704,6 +3714,7 @@ pub struct DiscoveryEndpoint {
 
     /// Output only. The port number of the exposed Redis endpoint.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub port: i32,
 
     /// Output only. Customer configuration for where the endpoint is created and

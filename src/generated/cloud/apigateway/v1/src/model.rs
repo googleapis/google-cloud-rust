@@ -1164,6 +1164,7 @@ pub struct ListGatewaysRequest {
 
     /// Page size.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Page token.
@@ -1515,6 +1516,7 @@ pub struct ListApisRequest {
 
     /// Page size.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Page token.
@@ -1866,6 +1868,7 @@ pub struct ListApiConfigsRequest {
 
     /// Page size.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Page token.

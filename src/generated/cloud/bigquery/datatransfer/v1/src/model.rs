@@ -482,6 +482,7 @@ pub struct DataSource {
     /// The number of seconds to wait for an update from the data source
     /// before the Data Transfer Service marks the transfer as FAILED.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub update_deadline_seconds: i32,
 
     /// Default data transfer schedule.
@@ -518,6 +519,7 @@ pub struct DataSource {
     /// Default data refresh window on days.
     /// Only meaningful when `data_refresh_type` = `SLIDING_WINDOW`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub default_data_refresh_window_days: i32,
 
     /// Disables backfilling and manual run scheduling
@@ -1037,6 +1039,7 @@ pub struct ListDataSourcesRequest {
 
     /// Page size. The default page size is the maximum value of 1000 results.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1588,6 +1591,7 @@ pub struct ListTransferConfigsRequest {
 
     /// Page size. The default page size is the maximum value of 1000 results.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1726,6 +1730,7 @@ pub struct ListTransferRunsRequest {
 
     /// Page size. The default page size is the maximum value of 1000 results.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Indicates how run attempts are to be pulled.
@@ -2004,6 +2009,7 @@ pub struct ListTransferLogsRequest {
 
     /// Page size. The default page size is the maximum value of 1000 results.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Message types to return. If not populated - INFO, WARNING and ERROR
@@ -3215,6 +3221,7 @@ pub struct TransferConfig {
     /// Only valid if the data source supports the feature. Set the value to 0
     /// to use the default value.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub data_refresh_window_days: i32,
 
     /// Is this config disabled. When set to true, no runs will be scheduled for

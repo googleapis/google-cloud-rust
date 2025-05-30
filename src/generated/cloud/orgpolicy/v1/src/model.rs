@@ -33,6 +33,7 @@ extern crate wkt;
 pub struct Policy {
     /// Version of the `Policy`. Default version is 0;
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub version: i32,
 
     /// The name of the `Constraint` the `Policy` is configuring, for example,

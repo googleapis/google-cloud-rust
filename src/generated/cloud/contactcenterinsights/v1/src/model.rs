@@ -90,20 +90,24 @@ pub struct CalculateStatsResponse {
 
     /// The average number of turns per conversation.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub average_turn_count: i32,
 
     /// The total number of conversations.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub conversation_count: i32,
 
     /// A map associating each smart highlighter display name with its respective
     /// number of matches in the set of conversations.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "std::collections::HashMap<_, wkt::internal::I32>")]
     pub smart_highlighter_matches: std::collections::HashMap<std::string::String, i32>,
 
     /// A map associating each custom highlighter resource name with its respective
     /// number of matches in the set of conversations.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "std::collections::HashMap<_, wkt::internal::I32>")]
     pub custom_highlighter_matches: std::collections::HashMap<std::string::String, i32>,
 
     /// A map associating each issue resource name with its respective number of
@@ -111,6 +115,7 @@ pub struct CalculateStatsResponse {
     /// `projects/<Project-ID>/locations/<Location-ID>/issueModels/<Issue-Model-ID>/issues/<Issue-ID>`
     /// Deprecated, use `issue_matches_stats` field instead.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "std::collections::HashMap<_, wkt::internal::I32>")]
     #[deprecated]
     pub issue_matches: std::collections::HashMap<std::string::String, i32>,
 
@@ -329,6 +334,7 @@ pub mod calculate_stats_response {
 
             /// The number of conversations created in this interval.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::I32")]
             pub conversation_count: i32,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -794,6 +800,7 @@ pub struct ListConversationsRequest {
     /// unspecified, a default page size of 100 will be chosen. Note that a call
     /// might return fewer results than the requested page size.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The value returned by the last `ListConversationsResponse`. This value
@@ -1137,6 +1144,7 @@ pub struct IngestConversationsRequest {
     /// ingested. Unless they are first deleted, conversations produced through
     /// sampling won't be ingested by subsequent ingest requests.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
     pub sample_size: std::option::Option<i32>,
 
     /// Configuration for an external data store containing objects that will
@@ -1636,12 +1644,14 @@ pub mod ingest_conversations_request {
         /// Note that this must be set for conversations to be properly displayed and
         /// analyzed.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub agent_channel: i32,
 
         /// Optional. Indicates which of the channels, 1 or 2, contains the agent.
         /// Note that this must be set for conversations to be properly displayed and
         /// analyzed.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub customer_channel: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1847,21 +1857,25 @@ pub mod ingest_conversations_metadata {
     pub struct IngestConversationsStats {
         /// Output only. The number of objects processed during the ingest operation.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub processed_object_count: i32,
 
         /// Output only. The number of objects skipped because another conversation
         /// with the same transcript uri had already been ingested.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub duplicates_skipped_count: i32,
 
         /// Output only. The number of new conversations added during this ingest
         /// operation.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub successful_ingest_count: i32,
 
         /// Output only. The number of objects which were unable to be ingested due
         /// to errors. The errors are populated in the partial_errors field.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub failed_ingest_count: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1996,6 +2010,7 @@ pub struct ListAnalysesRequest {
     /// fewer objects than requested. A non-empty `next_page_token` in the response
     /// indicates that more data is available.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The value returned by the last `ListAnalysesResponse`; indicates
@@ -2272,15 +2287,18 @@ pub struct BulkAnalyzeConversationsMetadata {
 
     /// The number of requested analyses that have completed successfully so far.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub completed_analyses_count: i32,
 
     /// The number of requested analyses that have failed so far.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub failed_analyses_count: i32,
 
     /// Total number of analyses requested. Computed by the number of conversations
     /// returned by `filter` multiplied by `analysis_percentage` in the request.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub total_requested_analyses_count: i32,
 
     /// Output only. Partial errors during bulk analyze operation that might cause
@@ -2395,10 +2413,12 @@ impl wkt::message::Message for BulkAnalyzeConversationsMetadata {
 pub struct BulkAnalyzeConversationsResponse {
     /// Count of successful analyses.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub successful_analysis_count: i32,
 
     /// Count of failed analyses.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub failed_analysis_count: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2447,6 +2467,7 @@ pub struct BulkDeleteConversationsRequest {
 
     /// Maximum number of conversations to delete.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub max_delete_count: i32,
 
     /// If set to true, all of this conversation's analyses will also be deleted.
@@ -4637,6 +4658,7 @@ pub struct ListPhraseMatchersRequest {
     /// fewer objects than requested. A non-empty `next_page_token` in the response
     /// indicates that more data is available.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The value returned by the last `ListPhraseMatchersResponse`. This value
@@ -5185,6 +5207,7 @@ pub struct ListAnalysisRulesRequest {
     /// return fewer objects than requested. A non-empty `next_page_token` in the
     /// response indicates that more data is available.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. The value returned by the last `ListAnalysisRulesResponse`;
@@ -5598,6 +5621,7 @@ pub struct ListViewsRequest {
     /// fewer objects than requested. A non-empty `next_page_token` in the response
     /// indicates that more data is available.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The value returned by the last `ListViewsResponse`; indicates
@@ -7033,6 +7057,7 @@ pub mod query_metrics_response {
 
                 /// The conversation count.
                 #[serde(skip_serializing_if = "std::option::Option::is_none")]
+                #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
                 pub conversation_count: std::option::Option<i32>,
 
                 /// The average silence percentage.
@@ -7540,6 +7565,7 @@ pub struct ListQaQuestionsRequest {
     /// fewer objects than requested. A non-empty `next_page_token` in the response
     /// indicates that more data is available.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. The value returned by the last `ListQaQuestionsResponse`. This
@@ -8312,6 +8338,7 @@ pub mod tune_qa_scorecard_revision_metadata {
 
         /// The number of valid feedback labels in the question's dataset.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub valid_feedback_labels_count: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8572,6 +8599,7 @@ pub struct ListQaScorecardsRequest {
     /// return fewer objects than requested. A non-empty `next_page_token` in the
     /// response indicates that more data is available.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. The value returned by the last `ListQaScorecardsResponse`. This
@@ -8693,6 +8721,7 @@ pub struct ListQaScorecardRevisionsRequest {
     /// call might return fewer objects than requested. A non-empty
     /// `next_page_token` in the response indicates that more data is available.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. The value returned by the last
@@ -8910,6 +8939,7 @@ pub struct ListFeedbackLabelsRequest {
     /// zero or unspecified, a default page size of 100 will be chosen. Note that a
     /// call might return fewer results than the requested page size.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. The value returned by the last `ListFeedbackLabelsResponse`. This
@@ -9164,6 +9194,7 @@ pub struct ListAllFeedbackLabelsRequest {
     /// zero or unspecified, a default page size of 100 will be chosen. Note that a
     /// call might return fewer results than the requested page size.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. The value returned by the last `ListAllFeedbackLabelsResponse`.
@@ -9759,14 +9790,17 @@ pub mod bulk_upload_feedback_labels_metadata {
     pub struct UploadStats {
         /// The number of objects processed during the upload operation.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub processed_object_count: i32,
 
         /// The number of objects skipped because of failed validation
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub failed_validation_count: i32,
 
         /// The number of new feedback labels added during this ingest operation.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub successful_upload_count: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9833,6 +9867,7 @@ pub struct BulkDownloadFeedbackLabelsRequest {
     /// Optional. Limits the maximum number of feedback labels that will be
     /// downloaded. The first `N` feedback labels will be downloaded.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub max_download_count: i32,
 
     /// Optional. The type of feedback labels that will be downloaded.
@@ -10525,16 +10560,19 @@ pub mod bulk_download_feedback_labels_metadata {
     pub struct DownloadStats {
         /// The number of objects processed during the download operation.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub processed_object_count: i32,
 
         /// The number of new feedback labels downloaded during this operation.
         /// Different from "processed" because some labels might not be downloaded
         /// because an error.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub successful_download_count: i32,
 
         /// Total number of files written to the provided Cloud Storage bucket.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub total_files_written: i32,
 
         /// Output only. Full name of the files written to Cloud storage.
@@ -10653,6 +10691,7 @@ pub struct Conversation {
 
     /// Output only. The number of turns in the conversation.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub turn_count: i32,
 
     /// Output only. The conversation's latest analysis, if one exists.
@@ -11068,10 +11107,12 @@ pub mod conversation {
     pub struct CallMetadata {
         /// The audio channel that contains the customer.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub customer_channel: i32,
 
         /// The audio channel that contains the agent.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub agent_channel: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11110,6 +11151,7 @@ pub mod conversation {
     pub struct QualityMetadata {
         /// An arbitrary integer value indicating the customer's satisfaction rating.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub customer_satisfaction_rating: i32,
 
         /// The amount of time the customer waited to connect with an agent.
@@ -11355,6 +11397,7 @@ pub mod conversation {
             /// audioChannelCount = N, its output values can range from '1' to 'N'. A
             /// channel tag of 0 indicates that the audio is mono.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::I32")]
             pub channel_tag: i32,
 
             /// The participant of this segment.
@@ -12634,6 +12677,7 @@ pub mod feedback_label {
 pub struct ConversationLevelSentiment {
     /// The channel of the audio that the data applies to.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub channel_tag: i32,
 
     /// Data specifying sentiment.
@@ -12799,6 +12843,7 @@ pub struct CallAnnotation {
     /// The channel of the audio where the annotation occurs. For single-channel
     /// audio, this field is not populated.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub channel_tag: i32,
 
     /// The boundary in the conversation where the annotation starts, inclusive.
@@ -13157,6 +13202,7 @@ pub struct AnnotationBoundary {
     /// The index in the sequence of transcribed pieces of the conversation where
     /// the boundary is located. This index starts at zero.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub transcript_index: i32,
 
     /// A detailed boundary, which describes a more specific point.
@@ -13239,7 +13285,7 @@ pub mod annotation_boundary {
     pub enum DetailedBoundary {
         /// The word index of this boundary with respect to the first word in the
         /// transcript piece. This index starts at zero.
-        WordIndex(i32),
+        WordIndex(#[serde_as(as = "wkt::internal::I32")] i32),
     }
 }
 
@@ -18547,6 +18593,7 @@ pub struct QaQuestion {
 
     /// Defines the order of the question within its parent scorecard revision.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub order: i32,
 
     /// Metrics of the underlying tuned LLM over a holdout/test set while fine

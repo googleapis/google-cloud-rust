@@ -135,11 +135,13 @@ pub mod linux_node_config {
         /// Optional. Amount of 2M hugepages
         #[serde(rename = "hugepageSize2m")]
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
         pub hugepage_size2m: std::option::Option<i32>,
 
         /// Optional. Amount of 1G hugepages
         #[serde(rename = "hugepageSize1g")]
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
         pub hugepage_size1g: std::option::Option<i32>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -663,6 +665,7 @@ pub struct NodeConfig {
     ///
     /// If unspecified, the default disk size is 100GB.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub disk_size_gb: i32,
 
     /// The set of Google API scopes to be made available on all of the
@@ -749,6 +752,7 @@ pub struct NodeConfig {
     /// <https://cloud.google.com/compute/docs/disks/local-ssd>
     /// for more information.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub local_ssd_count: i32,
 
     /// The list of instance tags applied to all nodes. Tags are used to identify
@@ -6130,6 +6134,7 @@ pub struct Cluster {
     ///
     /// This field is deprecated, use node_pool.initial_node_count instead.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     #[deprecated]
     pub initial_node_count: i32,
 
@@ -6422,6 +6427,7 @@ pub struct Cluster {
     /// range. This field will only be set when cluster is in route-based network
     /// mode.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub node_ipv4_cidr_size: i32,
 
     /// Output only. The IP address range of the Kubernetes services in
@@ -6440,6 +6446,7 @@ pub struct Cluster {
     /// Output only. The number of nodes currently in the cluster. Deprecated.
     /// Call Kubernetes API directly to retrieve node information.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     #[deprecated]
     pub current_node_count: i32,
 
@@ -14542,7 +14549,7 @@ pub mod blue_green_settings {
             /// The range of this field should be (0.0, 1.0].
             BatchPercentage(#[serde_as(as = "wkt::internal::F32")] f32),
             /// Number of blue nodes to drain in a batch.
-            BatchNodeCount(i32),
+            BatchNodeCount(#[serde_as(as = "wkt::internal::I32")] i32),
         }
     }
 
@@ -14583,6 +14590,7 @@ pub struct NodePool {
     /// is sufficient for this number of instances. You must also have available
     /// firewall and routes quota.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub initial_node_count: i32,
 
     /// The list of Google Compute Engine
@@ -14651,6 +14659,7 @@ pub struct NodePool {
 
     /// Output only. The pod CIDR block size per node in this node pool.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub pod_ipv4_cidr_size: i32,
 
     /// Upgrade settings control disruption and speed of the upgrade.
@@ -15022,12 +15031,14 @@ pub mod node_pool {
         /// The maximum number of nodes that can be created beyond the current size
         /// of the node pool during the upgrade process.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub max_surge: i32,
 
         /// The maximum number of nodes that can be simultaneously unavailable during
         /// the upgrade process. A node is considered available if its status is
         /// Ready.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub max_unavailable: i32,
 
         /// Update strategy of the node pool.
@@ -15912,6 +15923,7 @@ pub struct BestEffortProvisioning {
     /// and the rest of nodes will be provisioned gradually and eventually when
     /// stockout issue has been resolved.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub min_provision_nodes: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -16785,6 +16797,7 @@ pub struct SetNodePoolSizeRequest {
 
     /// Required. The desired node count for the pool.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub node_count: i32,
 
     /// The name (project, location, cluster, node pool id) of the node pool to set
@@ -17313,6 +17326,7 @@ pub struct AutoprovisioningNodePoolDefaults {
     ///
     /// If unspecified, the default disk size is 100GB.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub disk_size_gb: i32,
 
     /// Type of the disk attached to each node (e.g. 'pd-standard', 'pd-ssd' or
@@ -17559,11 +17573,13 @@ pub struct NodePoolAutoscaling {
     /// Minimum number of nodes for one location in the node pool. Must be greater
     /// than or equal to 0 and less than or equal to max_node_count.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub min_node_count: i32,
 
     /// Maximum number of nodes for one location in the node pool. Must be >=
     /// min_node_count. There has to be enough quota to scale up the cluster.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub max_node_count: i32,
 
     /// Can this node pool be deleted automatically.
@@ -17578,6 +17594,7 @@ pub struct NodePoolAutoscaling {
     /// The total_*_node_count fields are mutually exclusive with the *_node_count
     /// fields.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub total_min_node_count: i32,
 
     /// Maximum number of nodes in the node pool. Must be greater than or equal to
@@ -17585,6 +17602,7 @@ pub struct NodePoolAutoscaling {
     /// The total_*_node_count fields are mutually exclusive with the *_node_count
     /// fields.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub total_max_node_count: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -21951,6 +21969,7 @@ pub struct ListUsableSubnetworksRequest {
     /// returned which can be used to get the next page of results in subsequent
     /// requests. Acceptable values are 0 to 500, inclusive. (Default: 500)
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Specifies a page token to use. Set this to the nextPageToken returned by
@@ -25250,6 +25269,7 @@ pub struct LocalNvmeSsdBlockConfig {
     ///   <https://cloud.google.com/compute/docs/disks/local-ssd#choose_number_local_ssds>
     ///   for more info.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub local_ssd_count: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -25301,6 +25321,7 @@ pub struct EphemeralStorageLocalSsdConfig {
     ///   <https://cloud.google.com/compute/docs/disks/local-ssd#choose_number_local_ssds>
     ///   for more info.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub local_ssd_count: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

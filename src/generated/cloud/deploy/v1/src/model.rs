@@ -1055,6 +1055,7 @@ pub struct CanaryDeployment {
     /// If the GatewayServiceMesh is configured for Kubernetes, then the range for
     /// n is 0 <= n <= 100.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "std::vec::Vec<wkt::internal::I32>")]
     pub percentages: std::vec::Vec<i32>,
 
     /// Optional. Whether to run verify tests after each percentage deployment via
@@ -1202,6 +1203,7 @@ pub mod custom_canary_deployment {
 
         /// Required. Percentage deployment for the phase.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub percentage: i32,
 
         /// Optional. Skaffold profiles to use when rendering the manifest for this
@@ -2193,6 +2195,7 @@ pub struct ListDeliveryPipelinesRequest {
     /// be returned. The maximum value is 1000; values above 1000 will be set
     /// to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListDeliveryPipelines` call.
@@ -4092,6 +4095,7 @@ pub struct ListTargetsRequest {
     /// will be returned. The maximum value is 1000; values above 1000 will be set
     /// to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous `ListTargets` call.
@@ -5215,6 +5219,7 @@ pub struct ListCustomTargetTypesRequest {
     /// `CustomTargetType` objects will be returned. The maximum value is 1000;
     /// values above 1000 will be set to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous `ListCustomTargetTypes`
@@ -8431,6 +8436,7 @@ pub struct ListDeployPoliciesRequest {
     /// be returned. The maximum value is 1000; values above 1000 will be set
     /// to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListDeployPolicies` call.
@@ -9000,6 +9006,7 @@ pub struct ListReleasesRequest {
     /// objects will be returned. The maximum value is 1000; values above 1000 will
     /// be set to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous `ListReleases` call.
@@ -11677,6 +11684,7 @@ pub struct ListRolloutsRequest {
     /// objects will be returned. The maximum value is 1000; values above 1000 will
     /// be set to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous `ListRollouts` call.
@@ -14174,6 +14182,7 @@ pub struct ListJobRunsRequest {
     /// will be returned. The maximum value is 1000; values above 1000 will be set
     /// to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous `ListJobRuns` call.
@@ -16297,6 +16306,7 @@ pub struct ListAutomationsRequest {
     /// be returned. The maximum value is 1000; values above 1000 will be set
     /// to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListAutomations` call.
@@ -17681,6 +17691,7 @@ pub struct ListAutomationRunsRequest {
     /// be returned. The maximum value is 1000; values above 1000 will be set
     /// to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListAutomationRuns` call.

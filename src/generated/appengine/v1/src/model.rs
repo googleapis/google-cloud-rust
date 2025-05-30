@@ -1508,6 +1508,7 @@ pub struct ListServicesRequest {
 
     /// Maximum results to return per page.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Continuation token for fetching the next page of results.
@@ -1787,6 +1788,7 @@ pub struct ListVersionsRequest {
 
     /// Maximum results to return per page.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Continuation token for fetching the next page of results.
@@ -2115,6 +2117,7 @@ pub struct ListInstancesRequest {
 
     /// Maximum results to return per page.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Continuation token for fetching the next page of results.
@@ -2344,6 +2347,7 @@ pub struct ListIngressRulesRequest {
 
     /// Maximum results to return per page.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Continuation token for fetching the next page of results.
@@ -2764,6 +2768,7 @@ pub struct ListAuthorizedDomainsRequest {
 
     /// Maximum results to return per page.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Continuation token for fetching the next page of results.
@@ -2880,6 +2885,7 @@ pub struct ListAuthorizedCertificatesRequest {
 
     /// Maximum results to return per page.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Continuation token for fetching the next page of results.
@@ -3213,6 +3219,7 @@ pub struct ListDomainMappingsRequest {
 
     /// Maximum results to return per page.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Continuation token for fetching the next page of results.
@@ -4542,6 +4549,7 @@ pub struct AuthorizedCertificate {
     ///
     /// @OutputOnly
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub domain_mappings_count: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5056,6 +5064,7 @@ pub struct ZipInfo {
     /// If set, must be greater than or equal to the actual number of files.
     /// Used for optimizing performance; if not provided, deployment may be slow.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub files_count: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5656,6 +5665,7 @@ pub struct FirewallRule {
     /// when no previous rule matches. Only the action of this rule can be modified
     /// by the user.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub priority: i32,
 
     /// The action to take on matched requests.
@@ -5901,10 +5911,12 @@ pub struct Instance {
 
     /// Output only. Number of requests since this instance was started.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub requests: i32,
 
     /// Output only. Number of errors since this instance was started.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub errors: i32,
 
     /// Output only. Average queries per second (QPS) over the last minute.
@@ -5914,6 +5926,7 @@ pub struct Instance {
 
     /// Output only. Average latency (ms) over the last minute.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub average_latency: i32,
 
     /// Output only. Total memory in use (bytes).
@@ -8283,16 +8296,19 @@ pub struct AutomaticScaling {
     ///
     /// Defaults to a runtime-specific value.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub max_concurrent_requests: i32,
 
     /// Maximum number of idle instances that should be maintained for this
     /// version.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub max_idle_instances: i32,
 
     /// Maximum number of instances that should be started to handle requests for
     /// this version.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub max_total_instances: i32,
 
     /// Maximum amount of time that a request should wait in the pending queue
@@ -8303,11 +8319,13 @@ pub struct AutomaticScaling {
     /// Minimum number of idle instances that should be maintained for
     /// this version. Only applicable for the default version of a service.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub min_idle_instances: i32,
 
     /// Minimum number of running instances that should be maintained for this
     /// version.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub min_total_instances: i32,
 
     /// Minimum amount of time a request should wait in the pending queue before
@@ -8537,6 +8555,7 @@ pub struct BasicScaling {
 
     /// Maximum number of instances to create for this version.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub max_instances: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8591,6 +8610,7 @@ pub struct ManualScaling {
     /// [Modules API](https://cloud.google.com/appengine/docs/python/modules/functions)
     /// `set_num_instances()` function.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub instances: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8680,10 +8700,12 @@ impl wkt::message::Message for CpuUtilization {
 pub struct RequestUtilization {
     /// Target requests per second.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub target_request_count_per_second: i32,
 
     /// Target number of concurrent requests.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub target_concurrent_requests: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8723,18 +8745,22 @@ impl wkt::message::Message for RequestUtilization {
 pub struct DiskUtilization {
     /// Target bytes written per second.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub target_write_bytes_per_second: i32,
 
     /// Target ops written per second.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub target_write_ops_per_second: i32,
 
     /// Target bytes read per second.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub target_read_bytes_per_second: i32,
 
     /// Target ops read per seconds.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub target_read_ops_per_second: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8786,18 +8812,22 @@ impl wkt::message::Message for DiskUtilization {
 pub struct NetworkUtilization {
     /// Target bytes sent per second.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub target_sent_bytes_per_second: i32,
 
     /// Target packets sent per second.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub target_sent_packets_per_second: i32,
 
     /// Target bytes received per second.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub target_received_bytes_per_second: i32,
 
     /// Target packets received per second.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub target_received_packets_per_second: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8865,11 +8895,13 @@ pub struct StandardSchedulerSettings {
     /// Minimum number of instances to run for this version. Set to zero to disable
     /// `min_instances` configuration.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub min_instances: i32,
 
     /// Maximum number of instances to run for this version. Set to zero to disable
     /// `max_instances` configuration.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub max_instances: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

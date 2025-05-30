@@ -696,6 +696,7 @@ pub struct ListRepositoriesRequest {
     /// fewer items than requested. If unspecified, the server will pick an
     /// appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. Page token received from a previous `ListRepositories` call.
@@ -1493,6 +1494,7 @@ pub struct QueryRepositoryDirectoryContentsRequest {
     /// items than requested. If unspecified, the server will pick an appropriate
     /// default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. Page token received from a previous
@@ -1627,6 +1629,7 @@ pub struct FetchRepositoryHistoryRequest {
     /// items than requested. If unspecified, the server will pick an appropriate
     /// default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. Page token received from a previous `FetchRepositoryHistory`
@@ -2275,6 +2278,7 @@ pub struct ListWorkspacesRequest {
     /// fewer items than requested. If unspecified, the server will pick an
     /// appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. Page token received from a previous `ListWorkspaces` call.
@@ -3078,10 +3082,12 @@ impl wkt::message::Message for FetchGitAheadBehindRequest {
 pub struct FetchGitAheadBehindResponse {
     /// The number of commits in the remote branch that are not in the workspace.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub commits_ahead: i32,
 
     /// The number of commits in the workspace that are not in the remote branch.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub commits_behind: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3388,6 +3394,7 @@ pub struct QueryDirectoryContentsRequest {
     /// items than requested. If unspecified, the server will pick an appropriate
     /// default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. Page token received from a previous `QueryDirectoryContents`
@@ -3617,6 +3624,7 @@ pub struct SearchFilesRequest {
     /// fewer items than requested. If unspecified, the server will pick an
     /// appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. Page token received from a previous `SearchFilesRequest`
@@ -4807,6 +4815,7 @@ pub struct ListReleaseConfigsRequest {
     /// return fewer items than requested. If unspecified, the server will pick an
     /// appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. Page token received from a previous `ListReleaseConfigs` call.
@@ -5766,6 +5775,7 @@ pub struct ListCompilationResultsRequest {
     /// return fewer items than requested. If unspecified, the server will pick an
     /// appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. Page token received from a previous `ListCompilationResults`
@@ -6565,6 +6575,7 @@ pub mod compilation_result_action {
 
         /// Sets the partition expiration in days.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub partition_expiration_days: i32,
 
         /// Specifies whether queries on this table must include a predicate filter
@@ -7623,6 +7634,7 @@ pub mod compilation_result_action {
             /// Error table partition expiration in days. Only positive values are
             /// allowed.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::I32")]
             pub retention_days: i32,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7982,6 +7994,7 @@ pub struct QueryCompilationResultActionsRequest {
     /// return fewer items than requested. If unspecified, the server will pick an
     /// appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. Page token received from a previous
@@ -8557,6 +8570,7 @@ pub struct ListWorkflowConfigsRequest {
     /// return fewer items than requested. If unspecified, the server will pick an
     /// appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. Page token received from a previous `ListWorkflowConfigs` call.
@@ -9292,6 +9306,7 @@ pub struct ListWorkflowInvocationsRequest {
     /// return fewer items than requested. If unspecified, the server will pick an
     /// appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. Page token received from a previous `ListWorkflowInvocations`
@@ -10180,6 +10195,7 @@ pub mod workflow_invocation_action {
             /// Error table partition expiration in days. Only positive values are
             /// allowed.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::I32")]
             pub retention_days: i32,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10645,6 +10661,7 @@ pub struct QueryWorkflowInvocationActionsRequest {
     /// return fewer items than requested. If unspecified, the server will pick an
     /// appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. Page token received from a previous

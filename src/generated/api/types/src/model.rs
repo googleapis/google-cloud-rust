@@ -3656,6 +3656,7 @@ pub mod distribution {
         pub struct Linear {
             /// Must be greater than 0.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::I32")]
             pub num_finite_buckets: i32,
 
             /// Must be greater than 0.
@@ -3719,6 +3720,7 @@ pub mod distribution {
         pub struct Exponential {
             /// Must be greater than 0.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::I32")]
             pub num_finite_buckets: i32,
 
             /// Must be greater than 1.
@@ -8926,6 +8928,7 @@ pub struct Service {
     /// This field has no semantic meaning. The service config compiler always
     /// sets this field to `3`.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<_>")]
     pub config_version: std::option::Option<wkt::UInt32Value>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

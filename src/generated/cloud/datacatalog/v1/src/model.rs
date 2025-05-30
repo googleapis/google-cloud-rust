@@ -915,6 +915,7 @@ pub struct SearchCatalogRequest {
     /// The maximum number is 1000. If exceeded, throws an "invalid argument"
     /// exception.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. Pagination token that, if specified, returns the next page of
@@ -1171,6 +1172,7 @@ pub struct SearchCatalogResponse {
 
     /// The approximate total number of entries matched by the query.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub total_size: i32,
 
     /// Pagination token that can be used in subsequent calls to retrieve the next
@@ -1521,6 +1523,7 @@ pub struct ListEntryGroupsRequest {
     /// Default is 10. Maximum limit is 1000.
     /// Throws an invalid argument if `page_size` is greater than 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. Pagination token that specifies the next page to return.
@@ -6495,6 +6498,7 @@ pub struct ListTagsRequest {
 
     /// The maximum number of tags to return. Default is 10. Maximum limit is 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Pagination token that specifies the next page to return. If empty, the
@@ -6965,6 +6969,7 @@ pub struct ListEntriesRequest {
     /// The maximum number of items to return. Default is 10. Maximum limit is
     /// 1000. Throws an invalid argument if `page_size` is more than 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Pagination token that specifies the next page to return. If empty, the
@@ -9114,6 +9119,7 @@ pub struct Taxonomy {
 
     /// Output only. Number of policy tags in this taxonomy.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub policy_tag_count: i32,
 
     /// Output only. Creation and modification timestamps of this taxonomy.
@@ -9686,6 +9692,7 @@ pub struct ListTaxonomiesRequest {
     /// The maximum number of items to return. Must be a value between 1 and 1000
     /// inclusively. If not set, defaults to 50.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The pagination token of the next results page. If not set,
@@ -10026,6 +10033,7 @@ pub struct ListPolicyTagsRequest {
     /// inclusively.
     /// If not set, defaults to 50.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The pagination token of the next results page. If not set, returns the
@@ -10854,6 +10862,7 @@ pub struct ColumnSchema {
 
     /// Optional. Ordinal position
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub ordinal_position: i32,
 
     /// Optional. Most important inclusion of this column.
@@ -12153,6 +12162,7 @@ pub struct TagField {
     ///
     /// [google.cloud.datacatalog.v1.TagTemplateField.order]: crate::model::TagTemplateField::order
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub order: i32,
 
     /// Required. The value of this field.
@@ -12714,6 +12724,7 @@ pub struct TagTemplateField {
     /// The value can be negative. Multiple fields can have the same order and
     /// field orders within a tag don't have to be sequential.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub order: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

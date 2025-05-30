@@ -461,6 +461,7 @@ pub struct ListFoldersRequest {
     /// Optional. Maximum number of folders to return in a single response. The
     /// service will use this parameter or 1,000 items, whichever is smaller.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A previously-returned page token representing part of the larger
@@ -769,6 +770,7 @@ pub struct CommonLongRunningOperationMetadata {
     /// Output only. The estimated progress of the operation in percentage [0,
     /// 100]. The value -1 means the progress is unknown.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub progress_percent: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1549,6 +1551,7 @@ pub struct ListManagedFoldersRequest {
     /// Optional. Maximum number of managed folders to return in a single response.
     /// The service will use this parameter or 1,000 items, whichever is smaller.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A previously-returned page token representing part of the larger
@@ -2451,6 +2454,7 @@ pub struct ListAnywhereCachesRequest {
     /// Maximum number of caches to return in a single response.
     /// The service will use this parameter or 1,000 items, whichever is smaller.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A previously-returned page token representing part of the larger set of

@@ -242,6 +242,7 @@ pub struct ListAttachmentsRequest {
     /// include zero. For example, you could request 100 attachments on one page,
     /// receive 0, and then on the next page, receive 90.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A token identifying the page of results to return. If unspecified, the
@@ -1108,6 +1109,7 @@ pub struct ListCasesRequest {
 
     /// The maximum number of cases fetched with each request. Defaults to 10.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A token identifying the page of results to return. If unspecified, the
@@ -1267,6 +1269,7 @@ pub struct SearchCasesRequest {
     /// The maximum number of cases fetched with each request. The default page
     /// size is 10.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A token identifying the page of results to return. If unspecified, the
@@ -1552,6 +1555,7 @@ pub struct SearchCaseClassificationsRequest {
 
     /// The maximum number of classifications fetched with each request.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A token identifying the page of results to return. If unspecified, the
@@ -1776,6 +1780,7 @@ pub struct ListCommentsRequest {
 
     /// The maximum number of comments to fetch. Defaults to 10.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A token identifying the page of results to return. If unspecified, the

@@ -72,6 +72,7 @@ pub struct ListQueuesRequest {
     ///
     /// [google.cloud.tasks.v2.ListQueuesResponse.next_page_token]: crate::model::ListQueuesResponse::next_page_token
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A token identifying the page of results to return.
@@ -574,6 +575,7 @@ pub struct ListTasksRequest {
     ///
     /// [google.cloud.tasks.v2.ListTasksResponse.next_page_token]: crate::model::ListTasksResponse::next_page_token
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A token identifying the page of results to return.
@@ -1482,6 +1484,7 @@ pub struct RateLimits {
     /// [google.cloud.tasks.v2.CloudTasks.UpdateQueue]: crate::client::CloudTasks::update_queue
     /// [google.cloud.tasks.v2.RateLimits.max_dispatches_per_second]: crate::model::RateLimits::max_dispatches_per_second
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub max_burst_size: i32,
 
     /// The maximum number of concurrent tasks that Cloud Tasks allows
@@ -1498,6 +1501,7 @@ pub struct RateLimits {
     /// [max_concurrent_requests in
     /// queue.yaml/xml](https://cloud.google.com/appengine/docs/standard/python/config/queueref#max_concurrent_requests).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub max_concurrent_dispatches: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1557,6 +1561,7 @@ pub struct RetryConfig {
     /// [task_retry_limit in
     /// queue.yaml/xml](https://cloud.google.com/appengine/docs/standard/python/config/queueref#retry_parameters).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub max_attempts: i32,
 
     /// If positive, `max_retry_duration` specifies the time limit for
@@ -1658,6 +1663,7 @@ pub struct RetryConfig {
     /// [google.cloud.tasks.v2.RetryConfig.max_backoff]: crate::model::RetryConfig::max_backoff
     /// [google.cloud.tasks.v2.RetryConfig.min_backoff]: crate::model::RetryConfig::min_backoff
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub max_doublings: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2637,10 +2643,12 @@ pub struct Task {
     /// This count includes attempts which have been dispatched but haven't
     /// received a response.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub dispatch_count: i32,
 
     /// Output only. The number of attempts which have received a response.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub response_count: i32,
 
     /// Output only. The status of the task's first attempt.

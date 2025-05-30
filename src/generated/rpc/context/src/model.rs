@@ -1097,6 +1097,7 @@ pub struct AuditContext {
 
     /// Number of scrubbed response items.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub scrubbed_response_item_count: i32,
 
     /// Audit resource name which is scrubbed.

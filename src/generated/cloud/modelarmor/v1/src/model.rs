@@ -186,6 +186,7 @@ pub mod template {
         /// to the end user by the service extension if the prompt trips Model Armor
         /// filters.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub custom_prompt_safety_error_code: i32,
 
         /// Optional. Indicates the custom error message set by the user to be
@@ -196,6 +197,7 @@ pub mod template {
         /// Optional. Indicates the custom error code set by the user to be returned
         /// to the end user if the LLM response trips Model Armor filters.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub custom_llm_response_safety_error_code: i32,
 
         /// Optional. Indicates the custom error message set by the user to be
@@ -425,6 +427,7 @@ pub struct ListTemplatesRequest {
     /// Optional. Requested page size. Server may return fewer items than
     /// requested. If unspecified, server will pick an appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.

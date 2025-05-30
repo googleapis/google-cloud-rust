@@ -272,6 +272,7 @@ pub struct ResponseMetadata {
 
     /// Size in bytes of the response.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub size_bytes: i32,
 
     /// Total time elapsed for the response.
@@ -925,26 +926,32 @@ pub struct Companion {
 
     /// The pixel height of the placement slot for the intended creative.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub height_px: i32,
 
     /// The pixel width of the placement slot for the intended creative.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub width_px: i32,
 
     /// The pixel height of the creative.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub asset_height_px: i32,
 
     /// The maximum pixel height of the creative in its expanded state.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub expanded_height_px: i32,
 
     /// The pixel width of the creative.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub asset_width_px: i32,
 
     /// The maximum pixel width of the creative in its expanded state.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub expanded_width_px: i32,
 
     /// The ID used to identify the desired placement on a publisher's page.
@@ -3240,6 +3247,7 @@ pub struct RenditionFilter {
     /// Bitrate in bits per second for the rendition. If set, only renditions with
     /// the exact bitrate will match.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub bitrate_bps: i32,
 
     /// Codecs for the rendition. If set, only renditions with the exact value
@@ -3618,6 +3626,7 @@ pub struct ListCdnKeysRequest {
     /// Requested page size. Server may return fewer items than requested.
     /// If unspecified, server will pick an appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A token identifying a page of results the server should return.
@@ -3989,6 +3998,7 @@ pub struct ListVodStitchDetailsRequest {
 
     /// The maximum number of items to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous List request, if any.
@@ -4137,6 +4147,7 @@ pub struct ListVodAdTagDetailsRequest {
 
     /// The maximum number of items to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous List request, if any.
@@ -4285,6 +4296,7 @@ pub struct ListLiveAdTagDetailsRequest {
 
     /// The maximum number of items to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The pagination token returned from a previous List request.
@@ -4556,6 +4568,7 @@ pub struct ListSlatesRequest {
     /// Requested page size. Server may return fewer items than requested.
     /// If unspecified, server will pick an appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A token identifying a page of results the server should return.
@@ -4979,6 +4992,7 @@ pub struct ListLiveConfigsRequest {
 
     /// The maximum number of items to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous List request, if any.
@@ -5354,6 +5368,7 @@ pub struct ListVodConfigsRequest {
 
     /// Optional. The maximum number of items to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. The next_page_token value returned from a previous List request,

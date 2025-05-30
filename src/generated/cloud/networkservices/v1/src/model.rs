@@ -1043,6 +1043,7 @@ pub struct ListLbTrafficExtensionsRequest {
     /// Optional. Requested page size. The server might return fewer items than
     /// requested. If unspecified, the server picks an appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results that the server returns.
@@ -1659,6 +1660,7 @@ pub struct ListLbRouteExtensionsRequest {
     /// Optional. Requested page size. The server might return fewer items than
     /// requested. If unspecified, the server picks an appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results that the server returns.
@@ -2439,6 +2441,7 @@ pub struct ListEndpointPoliciesRequest {
 
     /// Maximum number of EndpointPolicies to return per call.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The value returned by the last `ListEndpointPoliciesResponse`
@@ -2794,6 +2797,7 @@ pub struct Gateway {
     /// proxy binds to the ports specified. Gateway listen on 0.0.0.0 on the ports
     /// specified below.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "std::vec::Vec<wkt::internal::I32>")]
     pub ports: std::vec::Vec<i32>,
 
     /// Required. Immutable. Scope determines how configuration across multiple
@@ -3082,6 +3086,7 @@ pub struct ListGatewaysRequest {
 
     /// Maximum number of Gateways to return per call.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The value returned by the last `ListGatewaysResponse`
@@ -4120,6 +4125,7 @@ pub mod grpc_route {
         /// If weights are unspecified for all services, then, traffic is distributed
         /// in equal proportions to all of them.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
         pub weight: std::option::Option<i32>,
 
         /// Specifies the kind of destination to which traffic will be routed.
@@ -4313,6 +4319,7 @@ pub mod grpc_route {
             ///
             /// The value must be between [0, 100]
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
+            #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
             pub percentage: std::option::Option<i32>,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4378,12 +4385,14 @@ pub mod grpc_route {
             ///
             /// The value must be between 200 and 599 inclusive.
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
+            #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
             pub http_status: std::option::Option<i32>,
 
             /// The percentage of traffic which will be aborted.
             ///
             /// The value must be between [0, 100]
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
+            #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
             pub percentage: std::option::Option<i32>,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4696,6 +4705,7 @@ pub struct ListGrpcRoutesRequest {
 
     /// Maximum number of GrpcRoutes to return per call.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The value returned by the last `ListGrpcRoutesResponse`
@@ -5461,10 +5471,12 @@ pub mod http_route {
         pub struct IntegerRange {
             /// Start of the range (inclusive)
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::I32")]
             pub start: i32,
 
             /// End of the range (exclusive)
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::I32")]
             pub end: i32,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5905,6 +5917,7 @@ pub mod http_route {
         /// If weights are unspecified for all services, then, traffic is distributed
         /// in equal proportions to all of them.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub weight: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5985,6 +5998,7 @@ pub mod http_route {
         /// The port that will be used in the redirected request instead of the one
         /// that was supplied in the request.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub port_redirect: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6314,6 +6328,7 @@ pub mod http_route {
             ///
             /// The value must be between [0, 100]
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::I32")]
             pub percentage: i32,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6367,12 +6382,14 @@ pub mod http_route {
             ///
             /// The value must be between 200 and 599 inclusive.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::I32")]
             pub http_status: i32,
 
             /// The percentage of traffic which will be aborted.
             ///
             /// The value must be between [0, 100]
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::I32")]
             pub percentage: i32,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6561,6 +6578,7 @@ pub mod http_route {
         /// Specifies the allowed number of retries. This number must be > 0. If not
         /// specified, default to 1.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub num_retries: i32,
 
         /// Specifies a non-zero timeout per retry attempt.
@@ -7143,6 +7161,7 @@ pub struct ListHttpRoutesRequest {
 
     /// Maximum number of HttpRoutes to return per call.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The value returned by the last `ListHttpRoutesResponse`
@@ -7490,6 +7509,7 @@ pub struct Mesh {
     /// used as the interception port. This is applicable only for sidecar proxy
     /// deployments.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub interception_port: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7593,6 +7613,7 @@ pub struct ListMeshesRequest {
 
     /// Maximum number of Meshes to return per call.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The value returned by the last `ListMeshesResponse`
@@ -8028,6 +8049,7 @@ pub struct ListServiceBindingsRequest {
 
     /// Maximum number of ServiceBindings to return per call.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The value returned by the last `ListServiceBindingsResponse`
@@ -8637,6 +8659,7 @@ pub mod tcp_route {
         /// If weights are unspecified for all services, then, traffic is distributed
         /// in equal proportions to all of them.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub weight: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8684,6 +8707,7 @@ pub struct ListTcpRoutesRequest {
 
     /// Maximum number of TcpRoutes to return per call.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The value returned by the last `ListTcpRoutesResponse`
@@ -9331,6 +9355,7 @@ pub mod tls_route {
         /// - weight/Sum(weights in destinations)
         ///   Weights in all destinations does not need to sum up to 100.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub weight: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9378,6 +9403,7 @@ pub struct ListTlsRoutesRequest {
 
     /// Maximum number of TlsRoutes to return per call.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The value returned by the last `ListTlsRoutesResponse`
