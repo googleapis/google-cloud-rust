@@ -114,6 +114,8 @@ mod test {
 
     #[test_case(json!(i64::MAX))]
     #[test_case(json!(i64::MIN))]
+    #[test_case(json!(i32::MAX as i64 + 2))]
+    #[test_case(json!(i32::MIN as i64 - 2))]
     #[test_case(json!(format!("{}", i64::MAX)))]
     #[test_case(json!(format!("{}", i64::MIN)))]
     #[test_case(json!("abc"))]
