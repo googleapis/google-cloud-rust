@@ -76,7 +76,7 @@ impl SubjectTokenProvider for UrlSourcedCredentials {
                             format.subject_token_field_name, json_response,
                         );
                         Err(CredentialsError::from_msg(false, msg.as_str()))
-                    },
+                    }
                 }
             }
             None => Ok(response_text),
@@ -179,14 +179,21 @@ mod test {
                 "True".to_string(),
             )])),
         };
-        
-        let err = token_provider.subject_token().await.expect_err("parsing should fail");
+
+        let err = token_provider
+            .subject_token()
+            .await
+            .expect_err("parsing should fail");
 
         assert!(!err.is_transient(), "{err:?}");
         assert!(err.source().is_none());
 
         assert!(err.to_string().contains("`access_token`"), "{err:?}");
-        assert!(err.to_string().contains("{\"wrong_field\":\"an_example_token\"}"), "{err:?}");
+        assert!(
+            err.to_string()
+                .contains("{\"wrong_field\":\"an_example_token\"}"),
+            "{err:?}"
+        );
 
         Ok(())
     }
