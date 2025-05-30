@@ -41,8 +41,8 @@ impl serde::de::Visitor<'_> for I32Visitor {
         E: serde::de::Error,
     {
         // ProtoJSON says that both strings and numbers are accepted. Parse the
-        // string as a f64 number (all JSON numbers are f64) and then try to
-        // parse that as a
+        // string as a `f64` number (all JSON numbers are `f64`) and then try to
+        // parse that as an `i32`.
         let number = value.parse::<f64>().map_err(E::custom)?;
         self.visit_f64(number)
     }
