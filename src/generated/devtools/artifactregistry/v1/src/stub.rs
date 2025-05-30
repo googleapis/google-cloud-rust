@@ -24,8 +24,6 @@
 
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use gax::error::Error;
-
 pub(crate) mod dynamic;
 
 /// Defines the trait used to implement [super::client::ArtifactRegistry].
@@ -48,9 +46,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ListDockerImagesResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::ListDockerImagesResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ArtifactRegistry::get_docker_image].
@@ -61,9 +57,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::DockerImage>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::DockerImage>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ArtifactRegistry::list_maven_artifacts].
@@ -74,9 +68,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ListMavenArtifactsResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::ListMavenArtifactsResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ArtifactRegistry::get_maven_artifact].
@@ -87,9 +79,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::MavenArtifact>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::MavenArtifact>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ArtifactRegistry::list_npm_packages].
@@ -100,9 +90,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ListNpmPackagesResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::ListNpmPackagesResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ArtifactRegistry::get_npm_package].
@@ -113,9 +101,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::NpmPackage>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::NpmPackage>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ArtifactRegistry::list_python_packages].
@@ -126,9 +112,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ListPythonPackagesResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::ListPythonPackagesResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ArtifactRegistry::get_python_package].
@@ -139,9 +123,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::PythonPackage>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::PythonPackage>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ArtifactRegistry::import_apt_artifacts].
@@ -152,9 +134,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ArtifactRegistry::import_yum_artifacts].
@@ -165,9 +145,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ArtifactRegistry::list_repositories].
@@ -178,9 +156,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ListRepositoriesResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::ListRepositoriesResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ArtifactRegistry::get_repository].
@@ -191,9 +167,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Repository>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Repository>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ArtifactRegistry::create_repository].
@@ -204,9 +178,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ArtifactRegistry::update_repository].
@@ -217,9 +189,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Repository>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Repository>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ArtifactRegistry::delete_repository].
@@ -230,9 +200,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ArtifactRegistry::list_packages].
@@ -243,9 +211,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ListPackagesResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::ListPackagesResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ArtifactRegistry::get_package].
@@ -256,9 +222,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Package>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Package>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ArtifactRegistry::delete_package].
@@ -269,9 +233,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ArtifactRegistry::list_versions].
@@ -282,9 +244,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ListVersionsResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::ListVersionsResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ArtifactRegistry::get_version].
@@ -295,9 +255,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Version>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Version>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ArtifactRegistry::delete_version].
@@ -308,9 +266,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ArtifactRegistry::batch_delete_versions].
@@ -321,9 +277,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ArtifactRegistry::update_version].
@@ -334,9 +288,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Version>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Version>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ArtifactRegistry::list_files].
@@ -347,9 +299,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ListFilesResponse>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::ListFilesResponse>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ArtifactRegistry::get_file].
@@ -360,9 +310,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::File>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::File>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ArtifactRegistry::delete_file].
@@ -373,9 +321,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ArtifactRegistry::update_file].
@@ -386,9 +332,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::File>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::File>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ArtifactRegistry::list_tags].
@@ -399,9 +343,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ListTagsResponse>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::ListTagsResponse>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ArtifactRegistry::get_tag].
@@ -411,9 +353,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Tag>>>
     + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Tag>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ArtifactRegistry::create_tag].
@@ -423,9 +363,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Tag>>>
     + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Tag>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ArtifactRegistry::update_tag].
@@ -435,9 +373,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Tag>>>
     + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Tag>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ArtifactRegistry::delete_tag].
@@ -446,9 +382,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
         _req: crate::model::DeleteTagRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
-            "unimplemented",
-        )))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ArtifactRegistry::create_rule].
@@ -459,9 +393,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Rule>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Rule>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ArtifactRegistry::list_rules].
@@ -472,9 +404,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ListRulesResponse>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::ListRulesResponse>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ArtifactRegistry::get_rule].
@@ -485,9 +415,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Rule>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Rule>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ArtifactRegistry::update_rule].
@@ -498,9 +426,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Rule>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Rule>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ArtifactRegistry::delete_rule].
@@ -509,9 +435,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
         _req: crate::model::DeleteRuleRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
-            "unimplemented",
-        )))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ArtifactRegistry::set_iam_policy].
@@ -522,9 +446,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<iam_v1::model::Policy>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ArtifactRegistry::get_iam_policy].
@@ -535,9 +457,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<iam_v1::model::Policy>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ArtifactRegistry::test_iam_permissions].
@@ -548,9 +468,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ArtifactRegistry::get_project_settings].
@@ -561,9 +479,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ProjectSettings>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::ProjectSettings>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ArtifactRegistry::update_project_settings].
@@ -574,9 +490,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ProjectSettings>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::ProjectSettings>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ArtifactRegistry::get_vpcsc_config].
@@ -587,9 +501,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::VPCSCConfig>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::VPCSCConfig>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ArtifactRegistry::update_vpcsc_config].
@@ -600,9 +512,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::VPCSCConfig>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::VPCSCConfig>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ArtifactRegistry::update_package].
@@ -613,9 +523,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Package>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Package>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ArtifactRegistry::list_attachments].
@@ -626,9 +534,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ListAttachmentsResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::ListAttachmentsResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ArtifactRegistry::get_attachment].
@@ -639,9 +545,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Attachment>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Attachment>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ArtifactRegistry::create_attachment].
@@ -652,9 +556,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ArtifactRegistry::delete_attachment].
@@ -665,9 +567,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ArtifactRegistry::list_locations].
@@ -678,9 +578,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<location::model::ListLocationsResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<location::model::ListLocationsResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ArtifactRegistry::get_location].
@@ -691,9 +589,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<location::model::Location>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<location::model::Location>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ArtifactRegistry::get_operation].
@@ -704,9 +600,7 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Returns the polling error policy.

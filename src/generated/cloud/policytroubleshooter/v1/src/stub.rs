@@ -24,8 +24,6 @@
 
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use gax::error::Error;
-
 pub(crate) mod dynamic;
 
 /// Defines the trait used to implement [super::client::IamChecker].
@@ -50,8 +48,6 @@ pub trait IamChecker: std::fmt::Debug + Send + Sync {
             gax::response::Response<crate::model::TroubleshootIamPolicyResponse>,
         >,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::TroubleshootIamPolicyResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 }

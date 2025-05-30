@@ -30,11 +30,6 @@ limitations under the License.
 {{! TODO(#742) - remove this workaround once the bug is fixed }}
 #![allow(rustdoc::broken_intra_doc_links)]
 
-{{#Codec.PerServiceFeatures}}
-#[cfg(any({{#Codec.Services}}feature = "{{Codec.FeatureName}}",{{/Codec.Services}}))]
-{{/Codec.PerServiceFeatures}}
-use gax::error::Error;
-
 pub(crate) mod dynamic;
 
 {{/Codec.HasServices}}
@@ -63,7 +58,7 @@ pub trait {{Codec.Name}}: std::fmt::Debug + Send + Sync {
         _req: {{InputType.Codec.QualifiedName}},
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<{{Codec.ReturnType}}>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<{{Codec.ReturnType}}>>>(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
     {{/Codec.Methods}}
     {{#Codec.HasLROs}}
