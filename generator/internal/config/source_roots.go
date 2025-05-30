@@ -14,9 +14,23 @@
 
 package config
 
-import "strings"
+import (
+	"fmt"
+	"strings"
+)
 
 func SourceRoots(options map[string]string) []string {
+	if opt, ok := options["roots"]; ok {
+		var roots []string
+		for _, name := range strings.Split(opt, ",") {
+			roots = append(roots, fmt.Sprintf("%s-root", name))
+		}
+		return roots
+	}
+	return AllSourceRoots(options)
+}
+
+func AllSourceRoots(options map[string]string) []string {
 	var roots []string
 	for name := range options {
 		if strings.HasSuffix(name, "-root") {

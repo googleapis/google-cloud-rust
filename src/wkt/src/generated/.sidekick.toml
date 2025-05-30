@@ -16,6 +16,7 @@
 specification-source = 'google/protobuf'
 
 [source]
+roots        = 'protobuf-src'
 include-list = "api.proto,source_context.proto,type.proto,descriptor.proto"
 
 [codec]
