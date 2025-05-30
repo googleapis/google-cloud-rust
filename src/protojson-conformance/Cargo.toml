@@ -31,5 +31,5 @@ serde_json.workspace  = true
 serde_with.workspace  = true
 tokio.workspace       = true
 # Local dependencies
-wkt.workspace  = true
-gaxi           = { workspace = true, features = ["_internal-grpc-client"] }
+wkt.workspace = true
+gaxi          = { workspace = true, features = ["_internal-grpc-client"] }
