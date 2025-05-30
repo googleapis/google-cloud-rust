@@ -345,7 +345,7 @@ impl Error {
     /// [Authenticate for using client libraries] guide includes good
     /// information on how to set up your environment for authentication.
     ///
-    /// if you have configured custom `Credentials`, consult the documentation
+    /// If you have configured custom `Credentials`, consult the documentation
     /// for the specific credential type you used.
     ///
     /// [Credentials]: https://docs.rs/google-cloud-auth/latest/google_cloud_auth/credentials/struct.Credentials.html
