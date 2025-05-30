@@ -16,7 +16,6 @@
 
 // ANCHOR: all
 use gax::Result;
-use gax::error::Error;
 use gax::response::Response;
 use google_cloud_gax as gax;
 use google_cloud_longrunning as longrunning;
@@ -79,7 +78,7 @@ mod test {
 
     // ANCHOR: finished-op
     fn make_finished_operation(response: &BatchRecognizeResponse) -> Result<Response<Operation>> {
-        let any = wkt::Any::from_msg(response).map_err(Error::serde)?;
+        let any = wkt::Any::from_msg(response).expect("test message should succeed");
         let operation = Operation::new()
             // ANCHOR: set-done-true
             .set_done(true)

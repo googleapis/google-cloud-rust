@@ -149,12 +149,12 @@ where
     R: wkt::message::Message + serde::ser::Serialize + serde::de::DeserializeOwned,
 {
     if let Some(any) = op.response() {
-        return any.to_msg::<R>().map_err(Error::serde);
+        return any.to_msg::<R>().map_err(Error::deser);
     }
     if let Some(e) = op.error() {
         return Err(Error::service(gax::error::rpc::Status::from(e.clone())));
     }
-    Err(Error::serde("missing result in completed operation"))
+    Err(Error::other("missing result in completed operation"))
 }
 
 fn as_metadata<R, M>(op: Operation<R, M>) -> Option<M>
@@ -509,7 +509,7 @@ mod test {
         ));
         let op = O::new(op);
         let err = as_result(op).unwrap_err();
-        assert!(err.is_serde(), "{err:?}");
+        assert!(err.is_deserialization(), "{err:?}");
         assert!(
             matches!(
                 err.source().and_then(|e| e.downcast_ref::<wkt::AnyError>()),
@@ -529,7 +529,8 @@ mod test {
         let op = longrunning::model::Operation::default();
         let op = O::new(op);
         let err = as_result(op).err().unwrap();
-        assert!(err.is_serde(), "{err:?}");
+        // TODO(#2312) - use a real `is_*()` predicate.
+        assert!(format!("{err:?}").contains("Other"), "{err:?}");
         assert!(format!("{err}").contains("missing result"), "{err}");
 
         Ok(())

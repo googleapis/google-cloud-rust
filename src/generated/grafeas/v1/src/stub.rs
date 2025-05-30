@@ -24,8 +24,6 @@
 
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use gax::error::Error;
-
 pub(crate) mod dynamic;
 
 /// Defines the trait used to implement [super::client::Grafeas].
@@ -48,9 +46,7 @@ pub trait Grafeas: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Occurrence>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Occurrence>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::Grafeas::list_occurrences].
@@ -61,9 +57,7 @@ pub trait Grafeas: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ListOccurrencesResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::ListOccurrencesResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::Grafeas::delete_occurrence].
@@ -72,9 +66,7 @@ pub trait Grafeas: std::fmt::Debug + Send + Sync {
         _req: crate::model::DeleteOccurrenceRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
-            "unimplemented",
-        )))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::Grafeas::create_occurrence].
@@ -85,9 +77,7 @@ pub trait Grafeas: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Occurrence>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Occurrence>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::Grafeas::batch_create_occurrences].
@@ -100,9 +90,7 @@ pub trait Grafeas: std::fmt::Debug + Send + Sync {
             gax::response::Response<crate::model::BatchCreateOccurrencesResponse>,
         >,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::BatchCreateOccurrencesResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::Grafeas::update_occurrence].
@@ -113,9 +101,7 @@ pub trait Grafeas: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Occurrence>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Occurrence>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::Grafeas::get_occurrence_note].
@@ -126,9 +112,7 @@ pub trait Grafeas: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Note>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Note>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::Grafeas::get_note].
@@ -139,9 +123,7 @@ pub trait Grafeas: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Note>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Note>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::Grafeas::list_notes].
@@ -152,9 +134,7 @@ pub trait Grafeas: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ListNotesResponse>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::ListNotesResponse>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::Grafeas::delete_note].
@@ -163,9 +143,7 @@ pub trait Grafeas: std::fmt::Debug + Send + Sync {
         _req: crate::model::DeleteNoteRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
-            "unimplemented",
-        )))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::Grafeas::create_note].
@@ -176,9 +154,7 @@ pub trait Grafeas: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Note>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Note>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::Grafeas::batch_create_notes].
@@ -189,9 +165,7 @@ pub trait Grafeas: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::BatchCreateNotesResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::BatchCreateNotesResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::Grafeas::update_note].
@@ -202,9 +176,7 @@ pub trait Grafeas: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Note>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Note>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::Grafeas::list_note_occurrences].
@@ -215,8 +187,6 @@ pub trait Grafeas: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ListNoteOccurrencesResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::ListNoteOccurrencesResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 }

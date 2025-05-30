@@ -249,53 +249,62 @@ mod test {
         let _ = client.get_operation().send().await.unwrap_err();
     }
 
-    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn default_stub() {
+    mod default_stub {
+        use super::gcs;
+
         #[derive(Debug)]
         struct DefaultStorageControl;
         impl gcs::stub::StorageControl for DefaultStorageControl {}
 
-        let client = gcs::client::StorageControl::from_stub(DefaultStorageControl);
+        macro_rules! default_stub_method {
+            ($($method:ident),*) => {
+                $(
+                    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+                    #[should_panic]
+                    async fn $method() {
+                        let client = gcs::client::StorageControl::from_stub(DefaultStorageControl);
+                        let _ = client.$method().send().await;
+                    }
+                )*
+            };
+        }
 
-        let _ = client.delete_bucket().send().await.unwrap_err();
-        let _ = client.get_bucket().send().await.unwrap_err();
-        let _ = client.create_bucket().send().await.unwrap_err();
-        let _ = client.list_buckets().send().await.unwrap_err();
-        let _ = client
-            .lock_bucket_retention_policy()
-            .send()
-            .await
-            .unwrap_err();
-        let _ = client.get_iam_policy().send().await.unwrap_err();
-        let _ = client.set_iam_policy().send().await.unwrap_err();
-        let _ = client.test_iam_permissions().send().await.unwrap_err();
-        let _ = client.update_bucket().send().await.unwrap_err();
-        let _ = client.compose_object().send().await.unwrap_err();
-        let _ = client.delete_object().send().await.unwrap_err();
-        let _ = client.restore_object().send().await.unwrap_err();
-        let _ = client.get_object().send().await.unwrap_err();
-        let _ = client.update_object().send().await.unwrap_err();
-        let _ = client.list_objects().send().await.unwrap_err();
-        let _ = client.rewrite_object().send().await.unwrap_err();
-        let _ = client.move_object().send().await.unwrap_err();
-
-        let _ = client.create_folder().send().await.unwrap_err();
-        let _ = client.delete_folder().send().await.unwrap_err();
-        let _ = client.get_folder().send().await.unwrap_err();
-        let _ = client.list_folders().send().await.unwrap_err();
-        let _ = client.rename_folder().send().await.unwrap_err();
-        let _ = client.get_storage_layout().send().await.unwrap_err();
-        let _ = client.create_managed_folder().send().await.unwrap_err();
-        let _ = client.delete_managed_folder().send().await.unwrap_err();
-        let _ = client.get_managed_folder().send().await.unwrap_err();
-        let _ = client.list_managed_folders().send().await.unwrap_err();
-        let _ = client.create_anywhere_cache().send().await.unwrap_err();
-        let _ = client.update_anywhere_cache().send().await.unwrap_err();
-        let _ = client.disable_anywhere_cache().send().await.unwrap_err();
-        let _ = client.pause_anywhere_cache().send().await.unwrap_err();
-        let _ = client.resume_anywhere_cache().send().await.unwrap_err();
-        let _ = client.get_anywhere_cache().send().await.unwrap_err();
-        let _ = client.list_anywhere_caches().send().await.unwrap_err();
-        let _ = client.get_operation().send().await.unwrap_err();
+        default_stub_method!(
+            delete_bucket,
+            get_bucket,
+            create_bucket,
+            list_buckets,
+            lock_bucket_retention_policy,
+            get_iam_policy,
+            set_iam_policy,
+            test_iam_permissions,
+            update_bucket,
+            compose_object,
+            delete_object,
+            restore_object,
+            get_object,
+            update_object,
+            list_objects,
+            rewrite_object,
+            move_object,
+            create_folder,
+            delete_folder,
+            get_folder,
+            list_folders,
+            rename_folder,
+            get_storage_layout,
+            create_managed_folder,
+            delete_managed_folder,
+            get_managed_folder,
+            list_managed_folders,
+            create_anywhere_cache,
+            update_anywhere_cache,
+            disable_anywhere_cache,
+            pause_anywhere_cache,
+            resume_anywhere_cache,
+            get_anywhere_cache,
+            list_anywhere_caches,
+            get_operation
+        );
     }
 }

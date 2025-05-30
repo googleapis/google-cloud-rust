@@ -24,8 +24,6 @@
 
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use gax::error::Error;
-
 pub(crate) mod dynamic;
 
 /// Defines the trait used to implement [super::client::TranscoderService].
@@ -47,9 +45,7 @@ pub trait TranscoderService: std::fmt::Debug + Send + Sync {
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Job>>>
     + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Job>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::TranscoderService::list_jobs].
@@ -60,9 +56,7 @@ pub trait TranscoderService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ListJobsResponse>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::ListJobsResponse>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::TranscoderService::get_job].
@@ -72,9 +66,7 @@ pub trait TranscoderService: std::fmt::Debug + Send + Sync {
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Job>>>
     + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Job>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::TranscoderService::delete_job].
@@ -83,9 +75,7 @@ pub trait TranscoderService: std::fmt::Debug + Send + Sync {
         _req: crate::model::DeleteJobRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
-            "unimplemented",
-        )))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::TranscoderService::create_job_template].
@@ -96,9 +86,7 @@ pub trait TranscoderService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::JobTemplate>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::JobTemplate>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::TranscoderService::list_job_templates].
@@ -109,9 +97,7 @@ pub trait TranscoderService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ListJobTemplatesResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::ListJobTemplatesResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::TranscoderService::get_job_template].
@@ -122,9 +108,7 @@ pub trait TranscoderService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::JobTemplate>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::JobTemplate>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::TranscoderService::delete_job_template].
@@ -133,8 +117,6 @@ pub trait TranscoderService: std::fmt::Debug + Send + Sync {
         _req: crate::model::DeleteJobTemplateRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
-            "unimplemented",
-        )))
+        gaxi::unimplemented::unimplemented_stub()
     }
 }

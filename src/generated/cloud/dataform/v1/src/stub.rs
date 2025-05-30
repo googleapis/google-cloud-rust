@@ -24,8 +24,6 @@
 
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use gax::error::Error;
-
 pub(crate) mod dynamic;
 
 /// Defines the trait used to implement [super::client::Dataform].
@@ -48,9 +46,7 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ListRepositoriesResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::ListRepositoriesResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::Dataform::get_repository].
@@ -61,9 +57,7 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Repository>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Repository>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::Dataform::create_repository].
@@ -74,9 +68,7 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Repository>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Repository>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::Dataform::update_repository].
@@ -87,9 +79,7 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Repository>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Repository>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::Dataform::delete_repository].
@@ -98,9 +88,7 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
         _req: crate::model::DeleteRepositoryRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
-            "unimplemented",
-        )))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::Dataform::commit_repository_changes].
@@ -113,9 +101,7 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
             gax::response::Response<crate::model::CommitRepositoryChangesResponse>,
         >,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::CommitRepositoryChangesResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::Dataform::read_repository_file].
@@ -126,9 +112,7 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ReadRepositoryFileResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::ReadRepositoryFileResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::Dataform::query_repository_directory_contents].
@@ -141,11 +125,7 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
             gax::response::Response<crate::model::QueryRepositoryDirectoryContentsResponse>,
         >,
     > + Send {
-        std::future::ready::<
-            crate::Result<
-                gax::response::Response<crate::model::QueryRepositoryDirectoryContentsResponse>,
-            >,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::Dataform::fetch_repository_history].
@@ -158,9 +138,7 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
             gax::response::Response<crate::model::FetchRepositoryHistoryResponse>,
         >,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::FetchRepositoryHistoryResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::Dataform::compute_repository_access_token_status].
@@ -173,11 +151,7 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
             gax::response::Response<crate::model::ComputeRepositoryAccessTokenStatusResponse>,
         >,
     > + Send {
-        std::future::ready::<
-            crate::Result<
-                gax::response::Response<crate::model::ComputeRepositoryAccessTokenStatusResponse>,
-            >,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::Dataform::fetch_remote_branches].
@@ -188,9 +162,7 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::FetchRemoteBranchesResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::FetchRemoteBranchesResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::Dataform::list_workspaces].
@@ -201,9 +173,7 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ListWorkspacesResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::ListWorkspacesResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::Dataform::get_workspace].
@@ -214,9 +184,7 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Workspace>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Workspace>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::Dataform::create_workspace].
@@ -227,9 +195,7 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Workspace>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Workspace>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::Dataform::delete_workspace].
@@ -238,9 +204,7 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
         _req: crate::model::DeleteWorkspaceRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
-            "unimplemented",
-        )))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::Dataform::install_npm_packages].
@@ -251,9 +215,7 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::InstallNpmPackagesResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::InstallNpmPackagesResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::Dataform::pull_git_commits].
@@ -264,9 +226,7 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::PullGitCommitsResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::PullGitCommitsResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::Dataform::push_git_commits].
@@ -277,9 +237,7 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::PushGitCommitsResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::PushGitCommitsResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::Dataform::fetch_file_git_statuses].
@@ -290,9 +248,7 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::FetchFileGitStatusesResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::FetchFileGitStatusesResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::Dataform::fetch_git_ahead_behind].
@@ -303,9 +259,7 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::FetchGitAheadBehindResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::FetchGitAheadBehindResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::Dataform::commit_workspace_changes].
@@ -318,9 +272,7 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
             gax::response::Response<crate::model::CommitWorkspaceChangesResponse>,
         >,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::CommitWorkspaceChangesResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::Dataform::reset_workspace_changes].
@@ -333,9 +285,7 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
             gax::response::Response<crate::model::ResetWorkspaceChangesResponse>,
         >,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::ResetWorkspaceChangesResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::Dataform::fetch_file_diff].
@@ -346,9 +296,7 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::FetchFileDiffResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::FetchFileDiffResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::Dataform::query_directory_contents].
@@ -361,9 +309,7 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
             gax::response::Response<crate::model::QueryDirectoryContentsResponse>,
         >,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::QueryDirectoryContentsResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::Dataform::search_files].
@@ -374,9 +320,7 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::SearchFilesResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::SearchFilesResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::Dataform::make_directory].
@@ -387,9 +331,7 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::MakeDirectoryResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::MakeDirectoryResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::Dataform::remove_directory].
@@ -400,9 +342,7 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::RemoveDirectoryResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::RemoveDirectoryResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::Dataform::move_directory].
@@ -413,9 +353,7 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::MoveDirectoryResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::MoveDirectoryResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::Dataform::read_file].
@@ -426,9 +364,7 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ReadFileResponse>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::ReadFileResponse>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::Dataform::remove_file].
@@ -439,9 +375,7 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::RemoveFileResponse>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::RemoveFileResponse>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::Dataform::move_file].
@@ -452,9 +386,7 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::MoveFileResponse>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::MoveFileResponse>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::Dataform::write_file].
@@ -465,9 +397,7 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::WriteFileResponse>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::WriteFileResponse>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::Dataform::list_release_configs].
@@ -478,9 +408,7 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ListReleaseConfigsResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::ListReleaseConfigsResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::Dataform::get_release_config].
@@ -491,9 +419,7 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ReleaseConfig>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::ReleaseConfig>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::Dataform::create_release_config].
@@ -504,9 +430,7 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ReleaseConfig>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::ReleaseConfig>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::Dataform::update_release_config].
@@ -517,9 +441,7 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ReleaseConfig>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::ReleaseConfig>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::Dataform::delete_release_config].
@@ -528,9 +450,7 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
         _req: crate::model::DeleteReleaseConfigRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
-            "unimplemented",
-        )))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::Dataform::list_compilation_results].
@@ -543,9 +463,7 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
             gax::response::Response<crate::model::ListCompilationResultsResponse>,
         >,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::ListCompilationResultsResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::Dataform::get_compilation_result].
@@ -556,9 +474,7 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::CompilationResult>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::CompilationResult>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::Dataform::create_compilation_result].
@@ -569,9 +485,7 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::CompilationResult>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::CompilationResult>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::Dataform::query_compilation_result_actions].
@@ -584,11 +498,7 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
             gax::response::Response<crate::model::QueryCompilationResultActionsResponse>,
         >,
     > + Send {
-        std::future::ready::<
-            crate::Result<
-                gax::response::Response<crate::model::QueryCompilationResultActionsResponse>,
-            >,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::Dataform::list_workflow_configs].
@@ -599,9 +509,7 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ListWorkflowConfigsResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::ListWorkflowConfigsResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::Dataform::get_workflow_config].
@@ -612,9 +520,7 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::WorkflowConfig>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::WorkflowConfig>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::Dataform::create_workflow_config].
@@ -625,9 +531,7 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::WorkflowConfig>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::WorkflowConfig>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::Dataform::update_workflow_config].
@@ -638,9 +542,7 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::WorkflowConfig>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::WorkflowConfig>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::Dataform::delete_workflow_config].
@@ -649,9 +551,7 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
         _req: crate::model::DeleteWorkflowConfigRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
-            "unimplemented",
-        )))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::Dataform::list_workflow_invocations].
@@ -664,9 +564,7 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
             gax::response::Response<crate::model::ListWorkflowInvocationsResponse>,
         >,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::ListWorkflowInvocationsResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::Dataform::get_workflow_invocation].
@@ -677,9 +575,7 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::WorkflowInvocation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::WorkflowInvocation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::Dataform::create_workflow_invocation].
@@ -690,9 +586,7 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::WorkflowInvocation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::WorkflowInvocation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::Dataform::delete_workflow_invocation].
@@ -701,9 +595,7 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
         _req: crate::model::DeleteWorkflowInvocationRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
-            "unimplemented",
-        )))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::Dataform::cancel_workflow_invocation].
@@ -716,9 +608,7 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
             gax::response::Response<crate::model::CancelWorkflowInvocationResponse>,
         >,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::CancelWorkflowInvocationResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::Dataform::query_workflow_invocation_actions].
@@ -731,11 +621,7 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
             gax::response::Response<crate::model::QueryWorkflowInvocationActionsResponse>,
         >,
     > + Send {
-        std::future::ready::<
-            crate::Result<
-                gax::response::Response<crate::model::QueryWorkflowInvocationActionsResponse>,
-            >,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::Dataform::get_config].
@@ -746,9 +632,7 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Config>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Config>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::Dataform::update_config].
@@ -759,9 +643,7 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Config>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Config>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::Dataform::list_locations].
@@ -772,9 +654,7 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<location::model::ListLocationsResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<location::model::ListLocationsResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::Dataform::get_location].
@@ -785,9 +665,7 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<location::model::Location>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<location::model::Location>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::Dataform::set_iam_policy].
@@ -798,9 +676,7 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<iam_v1::model::Policy>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::Dataform::get_iam_policy].
@@ -811,9 +687,7 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<iam_v1::model::Policy>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::Dataform::test_iam_permissions].
@@ -824,8 +698,6 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 }
