@@ -536,7 +536,7 @@ fn build_credentials(
                     |b: service_account::Builder, s: Vec<String>| b
                         .with_access_specifier(service_account::AccessSpecifier::from_scopes(s))
                 ),
-                 "external_account" => config_builder!(
+                "external_account" => config_builder!(
                     external_account::Builder::new(json),
                     quota_project_id,
                     scopes,
