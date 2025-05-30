@@ -72,7 +72,7 @@ impl Client {
         Request: prost::Message + 'static + Clone,
         Response: prost::Message + Default + 'static,
     {
-        let headers = Self::make_headers(api_client_header, request_params).await?;
+        let headers = Self::make_headers(api_client_header, request_params, &options).await?;
         match self.get_retry_policy(&options) {
             None => {
                 self.request_attempt::<Request, Response>(
@@ -204,8 +204,15 @@ impl Client {
     async fn make_headers(
         api_client_header: &'static str,
         request_params: &str,
+        options: &gax::options::RequestOptions,
     ) -> Result<http::header::HeaderMap> {
         let mut headers = HeaderMap::new();
+        if let Some(user_agent) = options.user_agent() {
+            headers.append(
+                http::header::USER_AGENT,
+                http::header::HeaderValue::from_str(user_agent).map_err(Error::ser)?,
+            );
+        }
         headers.append(
             http::header::HeaderName::from_static("x-goog-api-client"),
             http::header::HeaderValue::from_static(api_client_header),
