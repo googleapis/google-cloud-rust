@@ -154,7 +154,7 @@ where
     if let Some(e) = op.error() {
         return Err(Error::service(gax::error::rpc::Status::from(e.clone())));
     }
-    Err(Error::deser("missing result in completed operation"))
+    Err(Error::other("missing result in completed operation"))
 }
 
 fn as_metadata<R, M>(op: Operation<R, M>) -> Option<M>
@@ -529,7 +529,8 @@ mod test {
         let op = longrunning::model::Operation::default();
         let op = O::new(op);
         let err = as_result(op).err().unwrap();
-        assert!(err.is_deserialization(), "{err:?}");
+        // TODO(#2312) - use a real `is_*()` predicate.
+        assert!(format!("{err:?}").contains("Other"), "{err:?}");
         assert!(format!("{err}").contains("missing result"), "{err}");
 
         Ok(())

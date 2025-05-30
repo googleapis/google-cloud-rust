@@ -125,9 +125,8 @@ impl Error {
     ///
     /// Applications should have no need to use this function. The exception
     /// could be mocks, but this error is too rare to merit mocks. If you are
-    /// writing a mock that extracts values from [wkt::Any], consider using a
+    /// writing a mock that extracts values from [wkt::Any], consider using
     /// `.expect()` calls instead.
-    ///
     ///
     /// # Example
     /// ```
@@ -145,7 +144,7 @@ impl Error {
         }
     }
 
-    /// The request could not be completed before its deadline.
+    /// The response could not be deserialized.
     ///
     /// This is always a client-side generated error. Note that the request may
     /// or may not have started, and it may or may not complete in the service.
@@ -704,7 +703,6 @@ mod test {
         let source = wkt::TimestampError::OutOfRange;
         let error = Error::deser(source);
         assert!(error.is_deserialization(), "{error:?}");
-        assert!(error.source().is_some(), "{error:?}");
         let got = error
             .source()
             .and_then(|e| e.downcast_ref::<wkt::TimestampError>());
