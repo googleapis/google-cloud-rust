@@ -40,7 +40,11 @@ impl serde::de::Visitor<'_> for I32Visitor {
     where
         E: serde::de::Error,
     {
-        value.parse::<i32>().map_err(E::custom)
+        // ProtoJSON says that both strings and numbers are accepted. Parse the
+        // string as a f64 number (all JSON numbers are f64) and then try to
+        // parse that as a
+        let number = value.parse::<f64>().map_err(E::custom)?;
+        self.visit_f64(number)
     }
 
     fn visit_i64<E>(self, value: i64) -> std::result::Result<Self::Value, E>
@@ -48,12 +52,8 @@ impl serde::de::Visitor<'_> for I32Visitor {
         E: serde::de::Error,
     {
         match value {
-            _ if value < i32::MIN as i64 => {
-                Err(E::invalid_value(Other(&format!("{value}")), &ERRMSG))
-            }
-            _ if value > i32::MAX as i64 => {
-                Err(E::invalid_value(Other(&format!("{value}")), &ERRMSG))
-            }
+            _ if value < i32::MIN as i64 => Err(self::value_error(value)),
+            _ if value > i32::MAX as i64 => Err(self::value_error(value)),
             _ => Ok(value as i32),
         }
     }
@@ -63,9 +63,22 @@ impl serde::de::Visitor<'_> for I32Visitor {
         E: serde::de::Error,
     {
         match value {
-            _ if value > i32::MAX as u64 => {
-                Err(E::invalid_value(Other(&format!("{value}")), &ERRMSG))
-            }
+            _ if value > i32::MAX as u64 => Err(self::value_error(value)),
+            _ => Ok(value as i32),
+        }
+    }
+
+    fn visit_f64<E>(self, value: f64) -> std::result::Result<Self::Value, E>
+    where
+        E: serde::de::Error,
+    {
+        match value {
+            _ if value < i32::MIN as f64 => Err(self::value_error(value)),
+            _ if value > i32::MAX as f64 => Err(self::value_error(value)),
+            _ if value.fract().abs() > 0.0 => Err(self::value_error(value)),
+            // The number is "rounded towards zero". Because we are in range,
+            // and the fractional part is 0, this conversion should be safe.
+            // See https://doc.rust-lang.org/reference/expressions/operator-expr.html#r-expr.as.numeric.float-as-int
             _ => Ok(value as i32),
         }
     }
@@ -73,6 +86,14 @@ impl serde::de::Visitor<'_> for I32Visitor {
     fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
         formatter.write_str("a 32-bit integer in ProtoJSON format")
     }
+}
+
+fn value_error<T, E>(value: T) -> E
+where
+    T: std::fmt::Display,
+    E: serde::de::Error,
+{
+    E::invalid_value(Other(&format!("{value}")), &ERRMSG)
 }
 
 impl serde_with::SerializeAs<i32> for I32 {
@@ -94,14 +115,24 @@ mod test {
 
     #[test_case(0, 0)]
     #[test_case("0", 0; "zero string")]
+    #[test_case("2.0", 2)]
+    #[test_case(3e5, 300_000)]
+    #[test_case(-4e4, -40_000)]
+    #[test_case("5e4", 50_000)]
+    #[test_case("-6e5", -600_000)]
     #[test_case(-42, -42)]
     #[test_case("-7", -7)]
     #[test_case(84, 84)]
+    #[test_case(168.0, 168)]
     #[test_case("21", 21)]
     #[test_case(i32::MAX, i32::MAX; "max")]
+    #[test_case(i32::MAX as f64, i32::MAX; "max as f64")]
     #[test_case(format!("{}", i32::MAX), i32::MAX; "max as string")]
+    #[test_case(format!("{}.0", i32::MAX), i32::MAX; "max as f64 string")]
     #[test_case(i32::MIN, i32::MIN; "min")]
+    #[test_case(i32::MIN as f64, i32::MIN; "min as f64")]
     #[test_case(format!("{}", i32::MIN), i32::MIN; "min as string")]
+    #[test_case(format!("{}.0", i32::MIN), i32::MIN; "min as f64 string")]
     // Not quite a roundtrip test because we always serialize as numbers.
     fn deser_and_ser<T: serde::Serialize>(input: T, want: i32) -> Result<()> {
         let got = I32::deserialize_as(json!(input))?;
@@ -119,6 +150,8 @@ mod test {
     #[test_case(json!(format!("{}", i64::MAX)))]
     #[test_case(json!(format!("{}", i64::MIN)))]
     #[test_case(json!("abc"))]
+    #[test_case(json!(123.4))]
+    #[test_case(json!("234.5"))]
     #[test_case(json!({}))]
     fn deser_error(input: Value) {
         let got = I32::deserialize_as(input).unwrap_err();
