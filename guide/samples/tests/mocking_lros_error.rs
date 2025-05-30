@@ -16,7 +16,6 @@
 
 // ANCHOR: all
 use gax::Result;
-use gax::error::Error;
 use gax::response::Response;
 use google_cloud_gax as gax;
 use google_cloud_longrunning as longrunning;
@@ -111,7 +110,7 @@ mod test {
 
     fn make_partial_operation(progress: i32) -> Result<Response<Operation>> {
         let metadata = OperationMetadata::new().set_progress_percent(progress);
-        let any = wkt::Any::from_msg(&metadata).map_err(Error::serde)?;
+        let any = wkt::Any::from_msg(&metadata).expect("test message should succeed");
         let operation = Operation::new().set_metadata(any);
         Ok(Response::from(operation))
     }
