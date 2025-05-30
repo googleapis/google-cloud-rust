@@ -8,11 +8,24 @@ stdin, and returns serialized messages in stdout. A driver in the
 [Protocol Buffers repository] exercises the conformance test by providing
 specific inputs and validating the output.
 
-## Compiling the test runner
+## Compiling the conformance test
 
-Checkout the Protobuf code:
+In this guide we will assume you used `$HOME/rust-conformance` to build the
+conformance test. Change the directories below if needed.
 
 ```shell
+cd $HOME
+git clone https://github.com/googleapis/google-cloud-rust rust-conformance
+cd rust-conformance
+cargo build -p protojson-conformance
+```
+
+## Compiling the test runner
+
+We will also need to checkout the Protobuf code:
+
+```shell
+cd $HOME
 git clone -b 31.x https://github.com/protocolbuffers/protobuf.git
 cd protobuf
 ```
