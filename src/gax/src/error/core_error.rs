@@ -171,7 +171,7 @@ impl Error {
     /// prefer not to use, GitHub to discuss this problem, then contact
     /// [Google Cloud support].
     ///
-    /// [open an issue]: https://github.com/googleapis/google-cloud-rust/issues
+    /// [open an issue]: https://github.com/googleapis/google-cloud-rust/issues/new/choose
     /// [Google Cloud support]: https://cloud.google.com/support
     pub fn is_deserialization(&self) -> bool {
         matches!(self.kind, ErrorKind::Deserialization)
