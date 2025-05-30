@@ -285,6 +285,7 @@ pub struct ListKeyHandlesRequest {
     /// [google.cloud.kms.v1.KeyHandle]: crate::model::KeyHandle
     /// [google.cloud.kms.v1.ListKeyHandlesResponse.next_page_token]: crate::model::ListKeyHandlesResponse::next_page_token
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. Optional pagination token, returned earlier via
@@ -859,6 +860,7 @@ pub struct ListEkmConnectionsRequest {
     /// [google.cloud.kms.v1.EkmConnection]: crate::model::EkmConnection
     /// [google.cloud.kms.v1.ListEkmConnectionsResponse.next_page_token]: crate::model::ListEkmConnectionsResponse::next_page_token
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. Optional pagination token, returned earlier via
@@ -961,6 +963,7 @@ pub struct ListEkmConnectionsResponse {
     /// [google.cloud.kms.v1.EkmConnection]: crate::model::EkmConnection
     /// [google.cloud.kms.v1.ListEkmConnectionsRequest.filter]: crate::model::ListEkmConnectionsRequest::filter
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub total_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5563,6 +5566,7 @@ pub struct ListKeyRingsRequest {
     /// [google.cloud.kms.v1.KeyRing]: crate::model::KeyRing
     /// [google.cloud.kms.v1.ListKeyRingsResponse.next_page_token]: crate::model::ListKeyRingsResponse::next_page_token
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. Optional pagination token, returned earlier via
@@ -5659,6 +5663,7 @@ pub struct ListCryptoKeysRequest {
     /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
     /// [google.cloud.kms.v1.ListCryptoKeysResponse.next_page_token]: crate::model::ListCryptoKeysResponse::next_page_token
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. Optional pagination token, returned earlier via
@@ -5771,6 +5776,7 @@ pub struct ListCryptoKeyVersionsRequest {
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     /// [google.cloud.kms.v1.ListCryptoKeyVersionsResponse.next_page_token]: crate::model::ListCryptoKeyVersionsResponse::next_page_token
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. Optional pagination token, returned earlier via
@@ -5882,6 +5888,7 @@ pub struct ListImportJobsRequest {
     /// [google.cloud.kms.v1.ImportJob]: crate::model::ImportJob
     /// [google.cloud.kms.v1.ListImportJobsResponse.next_page_token]: crate::model::ListImportJobsResponse::next_page_token
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. Optional pagination token, returned earlier via
@@ -5984,6 +5991,7 @@ pub struct ListKeyRingsResponse {
     /// [google.cloud.kms.v1.KeyRing]: crate::model::KeyRing
     /// [google.cloud.kms.v1.ListKeyRingsRequest.filter]: crate::model::ListKeyRingsRequest::filter
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub total_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6072,6 +6080,7 @@ pub struct ListCryptoKeysResponse {
     /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
     /// [google.cloud.kms.v1.ListCryptoKeysRequest.filter]: crate::model::ListCryptoKeysRequest::filter
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub total_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6161,6 +6170,7 @@ pub struct ListCryptoKeyVersionsResponse {
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     /// [google.cloud.kms.v1.ListCryptoKeyVersionsRequest.filter]: crate::model::ListCryptoKeyVersionsRequest::filter
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub total_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6249,6 +6259,7 @@ pub struct ListImportJobsResponse {
     /// [google.cloud.kms.v1.ImportJob]: crate::model::ImportJob
     /// [google.cloud.kms.v1.ListImportJobsRequest.filter]: crate::model::ListImportJobsRequest::filter
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub total_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8012,6 +8023,7 @@ pub struct RawDecryptRequest {
     /// the ciphertext. If unspecified (0), the default value for the key's
     /// algorithm will be used (for AES-GCM, the default value is 16).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub tag_length: i32,
 
     /// Optional. An optional CRC32C checksum of the
@@ -8737,6 +8749,7 @@ pub struct GenerateRandomBytesRequest {
     /// The length in bytes of the amount of randomness to retrieve.  Minimum 8
     /// bytes, maximum 1024 bytes.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub length_bytes: i32,
 
     /// The [ProtectionLevel][google.cloud.kms.v1.ProtectionLevel] to use when
@@ -9094,6 +9107,7 @@ pub struct RawEncryptResponse {
     /// The length of the authentication tag that is appended to
     /// the end of the ciphertext.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub tag_length: i32,
 
     /// Integrity verification field. A CRC32C checksum of the returned

@@ -31,6 +31,7 @@
 pub struct TestAllTypesProto3 {
     /// Singular
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub optional_int32: i32,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
@@ -45,6 +46,7 @@ pub struct TestAllTypesProto3 {
     pub optional_uint64: u64,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub optional_sint32: i32,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
@@ -59,6 +61,7 @@ pub struct TestAllTypesProto3 {
     pub optional_fixed64: u64,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub optional_sfixed32: i32,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
@@ -113,6 +116,7 @@ pub struct TestAllTypesProto3 {
 
     /// Repeated
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "std::vec::Vec<wkt::internal::I32>")]
     pub repeated_int32: std::vec::Vec<i32>,
 
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
@@ -127,6 +131,7 @@ pub struct TestAllTypesProto3 {
     pub repeated_uint64: std::vec::Vec<u64>,
 
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "std::vec::Vec<wkt::internal::I32>")]
     pub repeated_sint32: std::vec::Vec<i32>,
 
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
@@ -141,6 +146,7 @@ pub struct TestAllTypesProto3 {
     pub repeated_fixed64: std::vec::Vec<u64>,
 
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "std::vec::Vec<wkt::internal::I32>")]
     pub repeated_sfixed32: std::vec::Vec<i32>,
 
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
@@ -187,6 +193,7 @@ pub struct TestAllTypesProto3 {
 
     /// Packed
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "std::vec::Vec<wkt::internal::I32>")]
     pub packed_int32: std::vec::Vec<i32>,
 
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
@@ -201,6 +208,7 @@ pub struct TestAllTypesProto3 {
     pub packed_uint64: std::vec::Vec<u64>,
 
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "std::vec::Vec<wkt::internal::I32>")]
     pub packed_sint32: std::vec::Vec<i32>,
 
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
@@ -215,6 +223,7 @@ pub struct TestAllTypesProto3 {
     pub packed_fixed64: std::vec::Vec<u64>,
 
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "std::vec::Vec<wkt::internal::I32>")]
     pub packed_sfixed32: std::vec::Vec<i32>,
 
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
@@ -238,6 +247,7 @@ pub struct TestAllTypesProto3 {
 
     /// Unpacked
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "std::vec::Vec<wkt::internal::I32>")]
     pub unpacked_int32: std::vec::Vec<i32>,
 
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
@@ -252,6 +262,7 @@ pub struct TestAllTypesProto3 {
     pub unpacked_uint64: std::vec::Vec<u64>,
 
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "std::vec::Vec<wkt::internal::I32>")]
     pub unpacked_sint32: std::vec::Vec<i32>,
 
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
@@ -266,6 +277,7 @@ pub struct TestAllTypesProto3 {
     pub unpacked_fixed64: std::vec::Vec<u64>,
 
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "std::vec::Vec<wkt::internal::I32>")]
     pub unpacked_sfixed32: std::vec::Vec<i32>,
 
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
@@ -289,6 +301,7 @@ pub struct TestAllTypesProto3 {
 
     /// Map
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "std::collections::HashMap<wkt::internal::I32, wkt::internal::I32>")]
     pub map_int32_int32: std::collections::HashMap<i32, i32>,
 
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
@@ -307,6 +320,7 @@ pub struct TestAllTypesProto3 {
     pub map_uint64_uint64: std::collections::HashMap<u64, u64>,
 
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "std::collections::HashMap<wkt::internal::I32, wkt::internal::I32>")]
     pub map_sint32_sint32: std::collections::HashMap<i32, i32>,
 
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
@@ -325,6 +339,7 @@ pub struct TestAllTypesProto3 {
     pub map_fixed64_fixed64: std::collections::HashMap<u64, u64>,
 
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "std::collections::HashMap<wkt::internal::I32, wkt::internal::I32>")]
     pub map_sfixed32_sfixed32: std::collections::HashMap<i32, i32>,
 
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
@@ -334,11 +349,11 @@ pub struct TestAllTypesProto3 {
     pub map_sfixed64_sfixed64: std::collections::HashMap<i64, i64>,
 
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    #[serde_as(as = "std::collections::HashMap<_, wkt::internal::F32>")]
+    #[serde_as(as = "std::collections::HashMap<wkt::internal::I32, wkt::internal::F32>")]
     pub map_int32_float: std::collections::HashMap<i32, f32>,
 
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    #[serde_as(as = "std::collections::HashMap<_, wkt::internal::F64>")]
+    #[serde_as(as = "std::collections::HashMap<wkt::internal::I32, wkt::internal::F64>")]
     pub map_int32_double: std::collections::HashMap<i32, f64>,
 
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
@@ -379,6 +394,7 @@ pub struct TestAllTypesProto3 {
     pub optional_bool_wrapper: std::option::Option<wkt::BoolValue>,
 
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
     pub optional_int32_wrapper: std::option::Option<wkt::Int32Value>,
 
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -386,6 +402,7 @@ pub struct TestAllTypesProto3 {
     pub optional_int64_wrapper: std::option::Option<wkt::Int64Value>,
 
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<_>")]
     pub optional_uint32_wrapper: std::option::Option<wkt::UInt32Value>,
 
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -411,6 +428,7 @@ pub struct TestAllTypesProto3 {
     pub repeated_bool_wrapper: std::vec::Vec<wkt::BoolValue>,
 
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "std::vec::Vec<wkt::internal::I32>")]
     pub repeated_int32_wrapper: std::vec::Vec<wkt::Int32Value>,
 
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
@@ -418,6 +436,7 @@ pub struct TestAllTypesProto3 {
     pub repeated_int64_wrapper: std::vec::Vec<wkt::Int64Value>,
 
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "std::vec::Vec<_>")]
     pub repeated_uint32_wrapper: std::vec::Vec<wkt::UInt32Value>,
 
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
@@ -484,63 +503,81 @@ pub struct TestAllTypesProto3 {
     /// Test field-name-to-JSON-name convention.
     /// (protobuf says names can be any valid C/C++ identifier.)
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub fieldname1: i32,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub field_name2: i32,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub _field_name3: i32,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub field__name4_: i32,
 
     #[serde(rename = "field0name5")]
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub field0name5: i32,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub field_0_name6: i32,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub field_name_7: i32,
 
     #[serde(rename = "FieldName8")]
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub field_name_8: i32,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub field_name_9: i32,
 
     #[serde(rename = "FieldName10")]
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub field_name_10: i32,
 
     #[serde(rename = "FIELDNAME11")]
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub field_name_11: i32,
 
     #[serde(rename = "FIELDName12")]
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub field_name_12: i32,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub __field_name13: i32,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub __field_name_14: i32,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub field__name15: i32,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub field__name_16: i32,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub field_name17__: i32,
 
     #[serde(rename = "FieldName18")]
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub field_name_18__: i32,
 
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
@@ -2393,6 +2430,7 @@ pub mod test_all_types_proto_3 {
     #[non_exhaustive]
     pub struct NestedMessage {
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub a: i32,
 
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -2738,6 +2776,7 @@ pub mod test_all_types_proto_3 {
 #[non_exhaustive]
 pub struct ForeignMessage {
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub c: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

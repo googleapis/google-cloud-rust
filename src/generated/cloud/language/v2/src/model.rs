@@ -1018,6 +1018,7 @@ pub struct TextSpan {
     ///
     /// [google.cloud.language.v2.EncodingType]: crate::model::EncodingType
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub begin_offset: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

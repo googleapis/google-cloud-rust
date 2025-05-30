@@ -160,6 +160,7 @@ pub struct Instance {
 
     /// Output only. The port number of the exposed Redis endpoint.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub port: i32,
 
     /// Output only. The current zone where the Redis primary node is located. In
@@ -210,6 +211,7 @@ pub struct Instance {
 
     /// Required. Redis memory size in GiB.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub memory_size_gb: i32,
 
     /// Optional. The full name of the Google Compute Engine
@@ -263,6 +265,7 @@ pub struct Instance {
     /// is 1 and the default is 1. The valid value for basic tier is 0 and the
     /// default is also 0.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub replica_count: i32,
 
     /// Output only. Info per node.
@@ -279,6 +282,7 @@ pub struct Instance {
     /// Output only. The port number of the exposed readonly redis
     /// endpoint. Standard tier only. Write requests should target 'port'.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub read_endpoint_port: i32,
 
     /// Optional. Read replicas mode for the instance. Defaults to
@@ -2408,6 +2412,7 @@ pub struct ListInstancesRequest {
     ///
     /// [google.cloud.redis.v1.ListInstancesResponse.next_page_token]: crate::model::ListInstancesResponse::next_page_token
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The `next_page_token` value returned from a previous

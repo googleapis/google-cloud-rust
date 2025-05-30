@@ -58,10 +58,12 @@ pub struct Connector {
 
     /// Minimum throughput of the connector in Mbps. Default and min is 200.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub min_throughput: i32,
 
     /// Maximum throughput of the connector in Mbps. Default is 300, max is 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub max_throughput: i32,
 
     /// Output only. List of projects using the connector.
@@ -78,10 +80,12 @@ pub struct Connector {
 
     /// Minimum value of instances in autoscaling group underlying the connector.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub min_instances: i32,
 
     /// Maximum value of instances in autoscaling group underlying the connector.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub max_instances: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -501,6 +505,7 @@ pub struct ListConnectorsRequest {
 
     /// Maximum number of functions to return per call.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Continuation token.

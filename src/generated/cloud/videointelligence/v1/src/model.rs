@@ -2189,6 +2189,7 @@ pub struct VideoAnnotationProgress {
     /// Approximate percentage processed thus far. Guaranteed to be
     /// 100 when fully processed.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub progress_percent: i32,
 
     /// Time when the request was received.
@@ -2356,6 +2357,7 @@ pub struct SpeechTranscriptionConfig {
     /// `max_alternatives`. Valid values are `0`-`30`. A value of `0` or `1` will
     /// return a maximum of one. If omitted, will return a maximum of one.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub max_alternatives: i32,
 
     /// Optional. If set to `true`, the server will attempt to filter out
@@ -2381,6 +2383,7 @@ pub struct SpeechTranscriptionConfig {
     /// Optional. For file formats, such as MXF or MKV, supporting multiple audio
     /// tracks, specify up to two tracks. Default: track 0.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "std::vec::Vec<wkt::internal::I32>")]
     pub audio_tracks: std::vec::Vec<i32>,
 
     /// Optional. If 'true', enables speaker detection for each recognized word in
@@ -2397,6 +2400,7 @@ pub struct SpeechTranscriptionConfig {
     /// conversation. If not set, defaults to '2'. Ignored unless
     /// enable_speaker_diarization is set to true.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub diarization_speaker_count: i32,
 
     /// Optional. If `true`, the top result includes a list of words and the
@@ -2686,6 +2690,7 @@ pub struct WordInfo {
     /// have spoken this word. Value ranges from 1 up to diarization_speaker_count,
     /// and is only set if speaker diarization is enabled.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub speaker_tag: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

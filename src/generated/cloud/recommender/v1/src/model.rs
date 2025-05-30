@@ -3032,6 +3032,7 @@ pub struct ListInsightsRequest {
     /// Non-positive values are ignored. If not specified, the server will
     /// determine the number of results to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. If present, retrieves the next batch of results from the
@@ -3298,6 +3299,7 @@ pub struct ListRecommendationsRequest {
     /// Non-positive values are ignored. If not specified, the server will
     /// determine the number of results to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. If present, retrieves the next batch of results from the

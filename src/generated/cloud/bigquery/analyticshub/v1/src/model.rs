@@ -72,6 +72,7 @@ pub struct DataExchange {
 
     /// Output only. Number of listings contained in the data exchange.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub listing_count: i32,
 
     /// Optional. Base64 encoded image representing the data exchange. Max
@@ -2893,6 +2894,7 @@ pub struct ListDataExchangesRequest {
     /// The maximum number of results to return in a single response page. Leverage
     /// the page tokens to iterate through the entire collection.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Page token, returned by a previous call, to request the next page of
@@ -3010,6 +3012,7 @@ pub struct ListOrgDataExchangesRequest {
     /// The maximum number of results to return in a single response page. Leverage
     /// the page tokens to iterate through the entire collection.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Page token, returned by a previous call, to request the next page of
@@ -3331,6 +3334,7 @@ pub struct ListListingsRequest {
     /// The maximum number of results to return in a single response page. Leverage
     /// the page tokens to iterate through the entire collection.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Page token, returned by a previous call, to request the next page of
@@ -4103,6 +4107,7 @@ pub struct ListSubscriptionsRequest {
 
     /// The maximum number of results to return in a single response page.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Page token, returned by a previous call.
@@ -4230,6 +4235,7 @@ pub struct ListSharedResourceSubscriptionsRequest {
 
     /// The maximum number of results to return in a single response page.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Page token, returned by a previous call.
@@ -4611,6 +4617,7 @@ pub struct PubSubSubscription {
     /// If the subscriber never acknowledges the message, the Pub/Sub
     /// system will eventually redeliver the message.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub ack_deadline_seconds: i32,
 
     /// Optional. Indicates whether to retain acknowledged messages. If true, then
@@ -5031,6 +5038,7 @@ pub struct DeadLetterPolicy {
     ///
     /// If this parameter is 0, a default value of 5 is used.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub max_delivery_attempts: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

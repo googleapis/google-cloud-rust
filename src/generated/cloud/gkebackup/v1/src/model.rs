@@ -85,6 +85,7 @@ pub struct Backup {
     ///
     /// [google.cloud.gkebackup.v1.BackupPlan.RetentionPolicy.backup_delete_lock_days]: crate::model::backup_plan::RetentionPolicy::backup_delete_lock_days
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub delete_lock_days: i32,
 
     /// Output only. The time at which an existing delete lock will expire for this
@@ -112,6 +113,7 @@ pub struct Backup {
     /// [google.cloud.gkebackup.v1.Backup.delete_lock_days]: crate::model::Backup::delete_lock_days
     /// [google.cloud.gkebackup.v1.BackupPlan.RetentionPolicy.backup_retain_days]: crate::model::backup_plan::RetentionPolicy::backup_retain_days
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub retain_days: i32,
 
     /// Output only. The time at which this Backup will be automatically deleted
@@ -171,10 +173,12 @@ pub struct Backup {
     /// Output only. The total number of Kubernetes resources included in the
     /// Backup.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub resource_count: i32,
 
     /// Output only. The total number of volume backups contained in the Backup.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub volume_count: i32,
 
     /// Output only. The total size of the Backup in bytes = config backup size +
@@ -200,6 +204,7 @@ pub struct Backup {
 
     /// Output only. The total number of Kubernetes Pods contained in the Backup.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub pod_count: i32,
 
     /// Output only. The size of the config backup in bytes.
@@ -1196,6 +1201,7 @@ pub struct BackupPlan {
     /// Output only. The number of Kubernetes Pods backed up in the
     /// last successful Backup created via this BackupPlan.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub protected_pod_count: i32,
 
     /// Output only. State of the BackupPlan. This State field reflects the
@@ -1215,6 +1221,7 @@ pub struct BackupPlan {
     /// BackupPlan from RPO perspective with 1 being no risk and 5 being highest
     /// risk.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub rpo_risk_level: i32,
 
     /// Output only. Human-readable description of why the BackupPlan is in the
@@ -1468,6 +1475,7 @@ pub mod backup_plan {
         ///
         /// Default: 0 (no delete blocking)
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub backup_delete_lock_days: i32,
 
         /// Optional. The default maximum age of a Backup created via this
@@ -1494,6 +1502,7 @@ pub mod backup_plan {
         /// [google.cloud.gkebackup.v1.BackupPlan.Schedule.cron_schedule]: crate::model::backup_plan::Schedule::cron_schedule
         /// [google.cloud.gkebackup.v1.BackupPlan.Schedule.rpo_config]: crate::model::backup_plan::Schedule::rpo_config
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub backup_retain_days: i32,
 
         /// Optional. This flag denotes whether the retention policy of this
@@ -2057,6 +2066,7 @@ pub struct RpoConfig {
     /// BackupPlan. This must be at least 60, i.e., 1 hour, and at most 86400,
     /// i.e., 60 days.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub target_rpo_minutes: i32,
 
     /// Optional. User specified time windows during which backup can NOT happen
@@ -2520,6 +2530,7 @@ pub mod backup_plan_binding {
         /// Output only. The number of Kubernetes Pods backed up in the
         /// last successful Backup created via this BackupPlan.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub protected_pod_count: i32,
 
         /// Output only. State of the BackupPlan.
@@ -2540,6 +2551,7 @@ pub mod backup_plan_binding {
         /// BackupPlan from RPO perspective with 1 being no risk and 5 being highest
         /// risk.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub rpo_risk_level: i32,
 
         /// Output only. The fully qualified name of the last successful Backup
@@ -2923,6 +2935,7 @@ pub mod backup_plan_binding {
             ///
             /// Default: 0 (no delete blocking)
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::I32")]
             pub backup_delete_lock_days: i32,
 
             /// Optional. The default maximum age of a Backup created via this
@@ -2933,6 +2946,7 @@ pub mod backup_plan_binding {
             /// subject to automatic deletion.
             /// Default: 0 (no automatic deletion)
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::I32")]
             pub backup_retain_days: i32,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3650,6 +3664,7 @@ pub struct ListBackupPlansRequest {
     ///
     /// [google.cloud.gkebackup.v1.ListBackupPlansResponse.next_page_token]: crate::model::ListBackupPlansResponse::next_page_token
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. The value of
@@ -4050,6 +4065,7 @@ pub struct ListBackupChannelsRequest {
     ///
     /// [google.cloud.gkebackup.v1.ListBackupChannelsResponse.next_page_token]: crate::model::ListBackupChannelsResponse::next_page_token
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. The value of
@@ -4387,6 +4403,7 @@ pub struct ListBackupPlanBindingsRequest {
     ///
     /// [google.cloud.gkebackup.v1.ListBackupPlanBindingsResponse.next_page_token]: crate::model::ListBackupPlanBindingsResponse::next_page_token
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. The value of
@@ -4663,6 +4680,7 @@ pub struct ListBackupsRequest {
     ///
     /// [google.cloud.gkebackup.v1.ListBackupsResponse.next_page_token]: crate::model::ListBackupsResponse::next_page_token
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. The value of
@@ -5008,6 +5026,7 @@ pub struct ListVolumeBackupsRequest {
     ///
     /// [google.cloud.gkebackup.v1.ListVolumeBackupsResponse.next_page_token]: crate::model::ListVolumeBackupsResponse::next_page_token
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. The value of
@@ -5267,6 +5286,7 @@ pub struct ListRestorePlansRequest {
     ///
     /// [google.cloud.gkebackup.v1.ListRestorePlansResponse.next_page_token]: crate::model::ListRestorePlansResponse::next_page_token
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. The value of
@@ -5678,6 +5698,7 @@ pub struct ListRestoreChannelsRequest {
     ///
     /// [google.cloud.gkebackup.v1.ListRestoreChannelsResponse.next_page_token]: crate::model::ListRestoreChannelsResponse::next_page_token
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. The value of
@@ -6005,6 +6026,7 @@ pub struct ListRestorePlanBindingsRequest {
     ///
     /// [google.cloud.gkebackup.v1.ListRestorePlanBindingsResponse.next_page_token]: crate::model::ListRestorePlanBindingsResponse::next_page_token
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. The value of
@@ -6281,6 +6303,7 @@ pub struct ListRestoresRequest {
     ///
     /// [google.cloud.gkebackup.v1.ListRestoresResponse.next_page_token]: crate::model::ListRestoresResponse::next_page_token
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. The value of
@@ -6615,6 +6638,7 @@ pub struct ListVolumeRestoresRequest {
     ///
     /// [google.cloud.gkebackup.v1.ListVolumeRestoresResponse.next_page_token]: crate::model::ListVolumeRestoresResponse::next_page_token
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. The value of
@@ -6932,19 +6956,23 @@ pub struct Restore {
 
     /// Output only. Number of resources restored during the restore execution.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub resources_restored_count: i32,
 
     /// Output only. Number of resources excluded during the restore execution.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub resources_excluded_count: i32,
 
     /// Output only. Number of resources that failed to be restored during the
     /// restore execution.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub resources_failed_count: i32,
 
     /// Output only. Number of volumes restored during the restore execution.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub volumes_restored_count: i32,
 
     /// Output only. `etag` is used for optimistic concurrency control as a way to

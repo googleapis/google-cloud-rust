@@ -96,6 +96,7 @@ pub struct BitSequence {
     /// If the length of `bitmap` is zero, then this value must be `0`.
     /// Otherwise, this value must be between 0 and 7, inclusive.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub padding: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -152,6 +153,7 @@ pub struct BloomFilter {
 
     /// The number of hashes used by the algorithm.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub hash_count: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1453,6 +1455,7 @@ pub struct ListDocumentsRequest {
     ///
     /// Firestore may return fewer than this value.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous `ListDocuments` response.
@@ -3025,6 +3028,7 @@ pub struct RunQueryResponse {
     /// The number of results that have been skipped due to an offset between
     /// the last response and the current response.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub skipped_results: i32,
 
     /// Query explain metrics. This is only present when the
@@ -3651,6 +3655,7 @@ pub struct PartitionQueryRequest {
     /// if more results exist. A second call to PartitionQuery will return up to
     /// 2 partitions, to complete the total of 10 specified in `partition_count`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The query to partition.
@@ -4266,7 +4271,7 @@ pub mod listen_request {
         /// A target to add to this stream.
         AddTarget(std::boxed::Box<crate::model::Target>),
         /// The ID of a target to remove from this stream.
-        RemoveTarget(i32),
+        RemoveTarget(#[serde_as(as = "wkt::internal::I32")] i32),
     }
 
     impl TargetChange {
@@ -4567,6 +4572,7 @@ pub struct Target {
     /// If `target_id` is non-zero, there must not be an existing active target on
     /// this stream with the same ID.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub target_id: i32,
 
     /// If the target should be removed once it is current and consistent.
@@ -4580,6 +4586,7 @@ pub struct Target {
     /// being present and greater than zero signals that the client wants
     /// `ExistenceFilter.unchanged_names` to be included in the response.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
     pub expected_count: std::option::Option<wkt::Int32Value>,
 
     /// The type of target to listen to.
@@ -5008,6 +5015,7 @@ pub struct TargetChange {
     ///
     /// The order of the target IDs is not defined.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "std::vec::Vec<wkt::internal::I32>")]
     pub target_ids: std::vec::Vec<i32>,
 
     /// The error that resulted in this change, if applicable.
@@ -5296,6 +5304,7 @@ pub struct ListCollectionIdsRequest {
 
     /// The maximum number of results to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A page token. Must be a value from
@@ -5714,6 +5723,7 @@ pub struct StructuredQuery {
     ///
     /// * The value must be greater than or equal to zero if specified.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub offset: i32,
 
     /// The maximum number of results to return.
@@ -5724,6 +5734,7 @@ pub struct StructuredQuery {
     ///
     /// * The value must be greater than or equal to zero if specified.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
     pub limit: std::option::Option<wkt::Int32Value>,
 
     /// Optional. A potential nearest neighbors search.
@@ -7085,6 +7096,7 @@ pub mod structured_query {
         /// Required. The number of nearest neighbors to return. Must be a positive
         /// integer of no more than 1000.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
         pub limit: std::option::Option<wkt::Int32Value>,
 
         /// Optional. Optional name of the field to output the result of the vector
@@ -9229,10 +9241,12 @@ pub struct DocumentChange {
 
     /// A set of target IDs of targets that match this document.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "std::vec::Vec<wkt::internal::I32>")]
     pub target_ids: std::vec::Vec<i32>,
 
     /// A set of target IDs for targets that no longer match this document.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "std::vec::Vec<wkt::internal::I32>")]
     pub removed_target_ids: std::vec::Vec<i32>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9317,6 +9331,7 @@ pub struct DocumentDelete {
 
     /// A set of target IDs for targets that previously matched this entity.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "std::vec::Vec<wkt::internal::I32>")]
     pub removed_target_ids: std::vec::Vec<i32>,
 
     /// The read timestamp at which the delete was observed.
@@ -9403,6 +9418,7 @@ pub struct DocumentRemove {
 
     /// A set of target IDs for targets that previously matched this document.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "std::vec::Vec<wkt::internal::I32>")]
     pub removed_target_ids: std::vec::Vec<i32>,
 
     /// The read timestamp at which the remove was observed.
@@ -9470,6 +9486,7 @@ impl wkt::message::Message for DocumentRemove {
 pub struct ExistenceFilter {
     /// The target ID to which this filter applies.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub target_id: i32,
 
     /// The total count of documents that match
@@ -9485,6 +9502,7 @@ pub struct ExistenceFilter {
     ///
     /// [google.firestore.v1.ExistenceFilter.target_id]: crate::model::ExistenceFilter::target_id
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub count: i32,
 
     /// A bloom filter that, despite its name, contains the UTF-8 byte encodings of

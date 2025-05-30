@@ -1137,6 +1137,7 @@ pub mod manual_approvals {
         /// aren't enough distinct users in the list, then the workflow indefinitely
         /// blocks. Should always be greater than 0. 1 is the only supported value.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub approvals_needed: i32,
 
         /// Optional. Additional email addresses to be notified when a grant is
@@ -1410,6 +1411,7 @@ pub struct ListEntitlementsRequest {
     /// Optional. Requested page size. Server may return fewer items than
     /// requested. If unspecified, the server picks an appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
@@ -1569,6 +1571,7 @@ pub struct SearchEntitlementsRequest {
     /// Optional. Requested page size. The server may return fewer items than
     /// requested. If unspecified, the server picks an appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
@@ -3573,6 +3576,7 @@ pub struct ListGrantsRequest {
     /// Optional. Requested page size. The server may return fewer items than
     /// requested. If unspecified, the server picks an appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
@@ -3731,6 +3735,7 @@ pub struct SearchGrantsRequest {
     /// Optional. Requested page size. The server may return fewer items than
     /// requested. If unspecified, server picks an appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.

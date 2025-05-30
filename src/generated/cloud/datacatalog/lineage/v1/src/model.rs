@@ -1330,6 +1330,7 @@ pub struct ListProcessesRequest {
     /// returned. The maximum value is 100; values greater than 100 are cut to
     /// 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The page token received from a previous `ListProcesses` call. Specify
@@ -1680,6 +1681,7 @@ pub struct ListRunsRequest {
     /// returned. The maximum value is 100; values greater than 100 are cut to
     /// 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The page token received from a previous `ListRuns` call. Specify
@@ -1949,6 +1951,7 @@ pub struct ListLineageEventsRequest {
     /// If unspecified, at most 50 events are returned. The maximum value is 100;
     /// values greater than 100 are cut to 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The page token received from a previous `ListLineageEvents` call. Specify
@@ -2119,6 +2122,7 @@ pub struct SearchLinksRequest {
     ///
     /// Maximum value is 100; values greater than 100 are reduced to 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. The page token received from a previous `SearchLinksRequest`
@@ -2471,6 +2475,7 @@ pub struct BatchSearchLinkProcessesRequest {
     /// The maximum number of processes to return in a single page of the response.
     /// A page may contain fewer results than this value.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The page token received from a previous `BatchSearchLinkProcesses` call.

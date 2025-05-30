@@ -1283,6 +1283,7 @@ pub mod inventory {
 
         /// The revision number of this update package.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub revision_number: i32,
 
         /// The last published date of the update, in (UTC) date and time.
@@ -1683,6 +1684,7 @@ pub struct ListInventoriesRequest {
 
     /// The maximum number of results to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A pagination token returned from a previous call to
@@ -4987,6 +4989,7 @@ pub struct ListOSPolicyAssignmentReportsRequest {
 
     /// The maximum number of results to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// If provided, this field specifies the criteria that must be met by the
@@ -7254,6 +7257,7 @@ pub struct ListOSPolicyAssignmentsRequest {
 
     /// The maximum number of assignments to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A pagination token returned from a previous call to
@@ -7369,6 +7373,7 @@ pub struct ListOSPolicyAssignmentRevisionsRequest {
 
     /// The maximum number of revisions to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A pagination token returned from a previous call to
@@ -7602,10 +7607,10 @@ pub mod fixed_or_percent {
     #[non_exhaustive]
     pub enum Mode {
         /// Specifies a fixed value.
-        Fixed(i32),
+        Fixed(#[serde_as(as = "wkt::internal::I32")] i32),
         /// Specifies the relative value defined as a percentage, which will be
         /// multiplied by a reference value.
-        Percent(i32),
+        Percent(#[serde_as(as = "wkt::internal::I32")] i32),
     }
 }
 
@@ -8660,7 +8665,7 @@ pub mod monthly_schedule {
         /// -1 indicates the last day of the month. Months without the target day
         /// will be skipped. For example, a schedule to run "every month on the 31st"
         /// will not run in February, April, June, etc.
-        MonthDay(i32),
+        MonthDay(#[serde_as(as = "wkt::internal::I32")] i32),
     }
 }
 
@@ -8673,6 +8678,7 @@ pub struct WeekDayOfMonth {
     /// Required. Week number in a month. 1-4 indicates the 1st to 4th week of the
     /// month. -1 indicates the last week of the month.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub week_ordinal: i32,
 
     /// Required. A day of the week.
@@ -8687,6 +8693,7 @@ pub struct WeekDayOfMonth {
     /// negative, for example -5, the patches are deployed five days before before
     /// the second Tuesday of the month. Allowed values are in range [-30, 30].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub day_offset: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8844,6 +8851,7 @@ pub struct ListPatchDeploymentsRequest {
     /// Optional. The maximum number of patch deployments to return. Default is
     /// 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A pagination token returned from a previous call to
@@ -9315,6 +9323,7 @@ pub struct ListPatchJobInstanceDetailsRequest {
 
     /// The maximum number of instance details records to return.  Default is 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A pagination token returned from a previous call
@@ -9524,6 +9533,7 @@ pub struct ListPatchJobsRequest {
 
     /// The maximum number of instance status to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A pagination token returned from a previous call
@@ -11708,6 +11718,7 @@ pub struct ExecStepConfig {
     /// Defaults to [0]. A list of possible return values that the
     /// execution can return to indicate a success.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "std::vec::Vec<wkt::internal::I32>")]
     pub allowed_success_codes: std::vec::Vec<i32>,
 
     /// The script interpreter to use to run the script. If no interpreter is
@@ -12953,6 +12964,7 @@ pub struct ListVulnerabilityReportsRequest {
 
     /// The maximum number of results to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A pagination token returned from a previous call to

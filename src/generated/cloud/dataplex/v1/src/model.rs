@@ -414,16 +414,19 @@ pub mod environment {
         pub struct ComputeResources {
             /// Optional. Size in GB of the disk. Default is 100 GB.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::I32")]
             pub disk_size_gb: i32,
 
             /// Optional. Total number of nodes in the sessions created for this
             /// environment.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::I32")]
             pub node_count: i32,
 
             /// Optional. Max configurable nodes.
             /// If max_node_count > node_count, then auto-scaling is enabled.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::I32")]
             pub max_node_count: i32,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1640,6 +1643,7 @@ pub mod aspect_type {
         /// the field in the actual storage format. Index is a mandatory field, but
         /// it is optional for top level fields, and map/array "values" definitions.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub index: i32,
 
         /// Required. The name of the field.
@@ -1871,6 +1875,7 @@ pub mod aspect_type {
         pub struct EnumValue {
             /// Required. Index for the enum value. It can't be modified.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::I32")]
             pub index: i32,
 
             /// Required. Name of the enumvalue. This is the actual value that the
@@ -1974,6 +1979,7 @@ pub mod aspect_type {
             /// Optional. Display order for a field. You can use this to reorder where
             /// a field is rendered.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::I32")]
             pub display_order: i32,
 
             /// Optional. You can use String Type annotations to specify special
@@ -3307,6 +3313,7 @@ pub struct ListEntryGroupsRequest {
     /// EntryGroups. The maximum value is 1000; values above 1000 will be coerced
     /// to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. Page token received from a previous `ListEntryGroups` call.
@@ -3695,6 +3702,7 @@ pub struct ListEntryTypesRequest {
     /// EntryTypes. The maximum value is 1000; values above 1000 will be coerced to
     /// 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. Page token received from a previous `ListEntryTypes` call.
@@ -4092,6 +4100,7 @@ pub struct ListAspectTypesRequest {
     /// AspectTypes. The maximum value is 1000; values above 1000 will be coerced
     /// to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. Page token received from a previous `ListAspectTypes` call.
@@ -4531,6 +4540,7 @@ pub struct ListEntriesRequest {
     /// returns at most 10 Entries. The maximum value is 100; values above 100 will
     /// be coerced to 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. Page token received from a previous `ListEntries` call. Provide
@@ -4847,6 +4857,7 @@ pub struct SearchEntriesRequest {
     /// to 10. Max limit for page_size is 1000. Throws an invalid argument for
     /// page_size > 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. Page token received from a previous `SearchEntries` call. Provide
@@ -5069,6 +5080,7 @@ pub struct SearchEntriesResponse {
     /// The estimated total number of matching entries. This number isn't
     /// guaranteed to be accurate.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub total_size: i32,
 
     /// Token to retrieve the next page of results, or empty if there are no more
@@ -5396,6 +5408,7 @@ pub struct ListMetadataJobsRequest {
     /// return fewer jobs than this value. If unspecified, at most 10 jobs are
     /// returned. The maximum value is 1,000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. The page token received from a previous `ListMetadataJobs` call.
@@ -6800,6 +6813,7 @@ pub mod metadata_job {
 
         /// Output only. Progress tracking.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub completion_percent: i32,
 
         /// Output only. The time when the status was updated.
@@ -7901,6 +7915,7 @@ pub struct ListEncryptionConfigsRequest {
     /// will be returned. The maximum value is 1000; values above 1000 will be
     /// coerced to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. Page token received from a previous `ListEncryptionConfigs` call.
@@ -8248,6 +8263,7 @@ pub struct ListContentRequest {
     /// than this value. If unspecified, at most 10 content will be returned. The
     /// maximum value is 1000; values above 1000 will be coerced to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. Page token received from a previous `ListContent` call. Provide
@@ -9006,6 +9022,7 @@ pub mod data_discovery_spec {
             /// Optional. The number of rows to interpret as header rows that should be
             /// skipped when reading data rows.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::I32")]
             pub header_rows: i32,
 
             /// Optional. The delimiter that is used to separate values. The default is
@@ -9267,6 +9284,7 @@ pub mod data_discovery_result {
     pub struct ScanStatistics {
         /// The number of files scanned.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub scanned_file_count: i32,
 
         /// The data processed in bytes.
@@ -9276,30 +9294,37 @@ pub mod data_discovery_result {
 
         /// The number of files excluded.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub files_excluded: i32,
 
         /// The number of tables created.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub tables_created: i32,
 
         /// The number of tables deleted.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub tables_deleted: i32,
 
         /// The number of tables updated.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub tables_updated: i32,
 
         /// The number of filesets created.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub filesets_created: i32,
 
         /// The number of filesets deleted.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub filesets_deleted: i32,
 
         /// The number of filesets updated.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub filesets_updated: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -12922,6 +12947,7 @@ pub struct DataTaxonomy {
 
     /// Output only. The number of attributes in the DataTaxonomy.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub attribute_count: i32,
 
     /// This checksum is computed by the server based on the value of other
@@ -12932,6 +12958,7 @@ pub struct DataTaxonomy {
 
     /// Output only. The number of classes in the DataTaxonomy.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub class_count: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -13097,6 +13124,7 @@ pub struct DataAttribute {
 
     /// Output only. The number of child attributes present for this attribute.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub attribute_count: i32,
 
     /// This checksum is computed by the server based on the value of other
@@ -13763,6 +13791,7 @@ pub struct ListDataTaxonomiesRequest {
     /// will be returned. The maximum value is 1000; values above 1000 will be
     /// coerced to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. Page token received from a previous ` ListDataTaxonomies` call.
@@ -14159,6 +14188,7 @@ pub struct ListDataAttributesRequest {
     /// will be returned. The maximum value is 1000; values above 1000 will be
     /// coerced to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. Page token received from a previous `ListDataAttributes` call.
@@ -14554,6 +14584,7 @@ pub struct ListDataAttributeBindingsRequest {
     /// DataAttributeBindings will be returned. The maximum value is 1000; values
     /// above 1000 will be coerced to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. Page token received from a previous `ListDataAttributeBindings`
@@ -15157,6 +15188,7 @@ pub struct ListDataScansRequest {
     /// fewer than this value. If unspecified, at most 500 scans will be returned.
     /// The maximum value is 1000; values above 1000 will be coerced to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. Page token received from a previous `ListDataScans` call. Provide
@@ -15585,6 +15617,7 @@ pub struct ListDataScanJobsRequest {
     /// returned. The maximum value is 1000; values above 1000 will be coerced to
     /// 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. Page token received from a previous `ListDataScanJobs` call.
@@ -18072,6 +18105,7 @@ pub struct JobEvent {
 
     /// The number of retries.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub retries: i32,
 
     /// The type of the job.
@@ -22580,6 +22614,7 @@ pub struct ListEntitiesRequest {
     /// default. The maximum value is 500; larger values will will be truncated to
     /// 500.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. Page token received from a previous `ListEntities` call. Provide
@@ -23058,6 +23093,7 @@ pub struct ListPartitionsRequest {
     /// default. The maximum page size is 500; larger values will will be truncated
     /// to 500.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. Page token received from a previous `ListPartitions` call.
@@ -24888,6 +24924,7 @@ pub mod storage_format {
         /// Optional. The number of rows to interpret as header rows that should be
         /// skipped when reading data rows. Defaults to 0.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub header_rows: i32,
 
         /// Optional. The delimiter used to separate values. Defaults to ','.
@@ -26466,11 +26503,13 @@ pub struct AssetStatus {
 
     /// Number of active assets.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub active_assets: i32,
 
     /// Number of assets that are in process of updating the security policy on
     /// attached resources.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub security_policy_applying_assets: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -27089,6 +27128,7 @@ pub mod zone {
             /// Optional. The number of rows to interpret as header rows that should be
             /// skipped when reading data rows.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::I32")]
             pub header_rows: i32,
 
             /// Optional. The delimiter being used to separate values. This defaults to
@@ -29161,6 +29201,7 @@ pub mod asset {
             /// Optional. The number of rows to interpret as header rows that should be
             /// skipped when reading data rows.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::I32")]
             pub header_rows: i32,
 
             /// Optional. The delimiter being used to separate values. This defaults to
@@ -30536,6 +30577,7 @@ pub struct ListLakesRequest {
     /// than this value. If unspecified, at most 10 lakes will be returned. The
     /// maximum value is 1000; values above 1000 will be coerced to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. Page token received from a previous `ListLakes` call. Provide
@@ -30690,6 +30732,7 @@ pub struct ListLakeActionsRequest {
     /// than this value. If unspecified, at most 10 actions will be returned. The
     /// maximum value is 1000; values above 1000 will be coerced to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. Page token received from a previous `ListLakeActions` call.
@@ -31039,6 +31082,7 @@ pub struct ListZonesRequest {
     /// than this value. If unspecified, at most 10 zones will be returned. The
     /// maximum value is 1000; values above 1000 will be coerced to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. Page token received from a previous `ListZones` call. Provide
@@ -31178,6 +31222,7 @@ pub struct ListZoneActionsRequest {
     /// than this value. If unspecified, at most 10 actions will be returned. The
     /// maximum value is 1000; values above 1000 will be coerced to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. Page token received from a previous `ListZoneActions` call.
@@ -31464,6 +31509,7 @@ pub struct ListAssetsRequest {
     /// than this value. If unspecified, at most 10 assets will be returned. The
     /// maximum value is 1000; values above 1000 will be coerced to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. Page token received from a previous `ListAssets` call. Provide
@@ -31604,6 +31650,7 @@ pub struct ListAssetActionsRequest {
     /// than this value. If unspecified, at most 10 actions will be returned. The
     /// maximum value is 1000; values above 1000 will be coerced to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. Page token received from a previous `ListAssetActions` call.
@@ -32004,6 +32051,7 @@ pub struct ListTasksRequest {
     /// than this value. If unspecified, at most 10 tasks will be returned. The
     /// maximum value is 1000; values above 1000 will be coerced to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. Page token received from a previous `ListZones` call. Provide
@@ -32343,6 +32391,7 @@ pub struct ListJobsRequest {
     /// than this value. If unspecified, at most 10 jobs will be returned. The
     /// maximum value is 1000; values above 1000 will be coerced to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. Page token received from a previous `ListJobs` call. Provide this
@@ -32690,6 +32739,7 @@ pub struct ListEnvironmentsRequest {
     /// returned. The maximum value is 1000; values above 1000 will be coerced to
     /// 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. Page token received from a previous `ListEnvironments` call.
@@ -32864,6 +32914,7 @@ pub struct ListSessionsRequest {
     /// returned. The maximum value is 1000; values above 1000 will be coerced to
     /// 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. Page token received from a previous `ListSessions` call. Provide
@@ -33468,12 +33519,14 @@ pub mod task {
             /// Optional. Total number of job executors.
             /// Executor Count should be between 2 and 100. [Default=2]
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::I32")]
             pub executors_count: i32,
 
             /// Optional. Max configurable executors.
             /// If max_executors_count > executors_count, then auto-scaling is enabled.
             /// Max Executor Count should be between 2 and 1000. [Default=1000]
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::I32")]
             pub max_executors_count: i32,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -33784,6 +33837,7 @@ pub mod task {
         /// Optional. Number of retry attempts before aborting.
         /// Set to zero to never attempt to retry a failed task.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub max_retries: i32,
 
         /// Trigger only applies for RECURRING tasks.

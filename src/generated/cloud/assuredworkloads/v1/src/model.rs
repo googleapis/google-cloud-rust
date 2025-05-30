@@ -263,6 +263,7 @@ pub struct ListWorkloadsRequest {
 
     /// Page size.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Page token returned from previous request. Page token contains context from
@@ -2328,6 +2329,7 @@ pub struct ListViolationsRequest {
 
     /// Optional. Page size.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. Page token returned from previous request.

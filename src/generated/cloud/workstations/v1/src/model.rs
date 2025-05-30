@@ -972,11 +972,13 @@ pub mod workstation_config {
             /// new workstations can be started quickly for new users. Defaults to `0`
             /// in the API.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::I32")]
             pub pool_size: i32,
 
             /// Output only. Number of instances currently available in the pool for
             /// faster workstation startup.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::I32")]
             pub pooled_instances: i32,
 
             /// Optional. When set to true, disables public IP addresses for VMs. If
@@ -1043,6 +1045,7 @@ pub mod workstation_config {
             /// Optional. The size of the boot disk for the VM in gigabytes (GB).
             /// The minimum boot disk size is `30` GB. Defaults to `50` GB.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::I32")]
             pub boot_disk_size_gb: i32,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1402,6 +1405,7 @@ pub mod workstation_config {
             /// [google.cloud.workstations.v1.WorkstationConfig.PersistentDirectory.GceRegionalPersistentDisk.disk_type]: crate::model::workstation_config::persistent_directory::GceRegionalPersistentDisk::disk_type
             /// [google.cloud.workstations.v1.WorkstationConfig.PersistentDirectory.GceRegionalPersistentDisk.source_snapshot]: crate::model::workstation_config::persistent_directory::GceRegionalPersistentDisk::source_snapshot
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::I32")]
             pub size_gb: i32,
 
             /// Optional. Type of file system that the disk should be formatted with.
@@ -1686,6 +1690,7 @@ pub mod workstation_config {
         /// Optional. If set, overrides the USER specified in the image with the
         /// given uid.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub run_as_user: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1826,6 +1831,7 @@ pub mod workstation_config {
 
         /// Optional. Port to which the request should be sent.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub port: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2281,6 +2287,7 @@ pub struct ListWorkstationClustersRequest {
 
     /// Optional. Maximum number of items to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. next_page_token value returned from a previous List request, if
@@ -2677,6 +2684,7 @@ pub struct ListWorkstationConfigsRequest {
 
     /// Optional. Maximum number of items to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. next_page_token value returned from a previous List request, if
@@ -2807,6 +2815,7 @@ pub struct ListUsableWorkstationConfigsRequest {
 
     /// Optional. Maximum number of items to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. next_page_token value returned from a previous List request, if
@@ -3203,6 +3212,7 @@ pub struct ListWorkstationsRequest {
 
     /// Optional. Maximum number of items to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. next_page_token value returned from a previous List request, if
@@ -3333,6 +3343,7 @@ pub struct ListUsableWorkstationsRequest {
 
     /// Optional. Maximum number of items to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. next_page_token value returned from a previous List request, if

@@ -50,6 +50,7 @@ pub struct ListMigrationJobsRequest {
     /// returned. The maximum value is 1000; values above 1000 are coerced to
     /// 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The nextPageToken value received in the previous call to
@@ -737,6 +738,7 @@ pub struct GenerateSshScriptRequest {
 
     /// The port that will be open on the bastion host.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub vm_port: i32,
 
     /// The VM configuration
@@ -1116,6 +1118,7 @@ pub struct ListConnectionProfilesRequest {
     /// be returned. The maximum value is 1000; values above 1000 are coerced
     /// to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListConnectionProfiles` call.
@@ -1679,6 +1682,7 @@ pub struct ListPrivateConnectionsRequest {
     /// If unspecified, at most 50 private connections that are returned.
     /// The maximum value is 1000; values above 1000 are coerced to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Page token received from a previous `ListPrivateConnections` call.
@@ -2043,6 +2047,7 @@ pub struct ListConversionWorkspacesRequest {
     /// The maximum number of conversion workspaces to return. The service may
     /// return fewer than this value. If unspecified, at most 50 sets are returned.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The nextPageToken value received in the previous call to
@@ -2665,6 +2670,7 @@ pub struct ListMappingRulesRequest {
     /// The maximum number of rules to return. The service may return
     /// fewer than this value.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The nextPageToken value received in the previous call to
@@ -3166,6 +3172,7 @@ pub struct DescribeDatabaseEntitiesRequest {
     /// Optional. The maximum number of entities to return. The service may return
     /// fewer entities than the value specifies.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. The nextPageToken value received in the previous call to
@@ -3503,6 +3510,7 @@ pub struct SearchBackgroundJobsRequest {
     /// returned. The maximum value is 100; values above 100 are coerced to
     /// 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub max_size: i32,
 
     /// Optional. If provided, only returns jobs that completed until (not
@@ -3832,6 +3840,7 @@ pub struct FetchStaticIpsRequest {
 
     /// Maximum number of IPs to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A page token, received from a previous `FetchStaticIps` call.
@@ -4147,6 +4156,7 @@ pub struct MySqlConnectionProfile {
 
     /// Required. The network port of the source MySQL database.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub port: i32,
 
     /// Required. The username that Database Migration Service will use to connect
@@ -4258,6 +4268,7 @@ pub struct PostgreSqlConnectionProfile {
 
     /// Required. The network port of the source PostgreSQL database.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub port: i32,
 
     /// Required. The username that Database Migration Service will use to connect
@@ -4491,6 +4502,7 @@ pub struct OracleConnectionProfile {
 
     /// Required. The network port of the source Oracle database.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub port: i32,
 
     /// Required. The username that Database Migration Service will use to connect
@@ -6481,6 +6493,7 @@ pub mod alloy_db_settings {
         pub struct MachineConfig {
             /// The number of CPU's in the VM instance.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::I32")]
             pub cpu_count: i32,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6627,6 +6640,7 @@ pub struct ReverseSshConnectivity {
     /// Required. The forwarding port of the virtual machine (Compute Engine) used
     /// as the bastion server for the SSH tunnel.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub vm_port: i32,
 
     /// The name of the virtual machine (Compute Engine) used as the bastion server
@@ -6728,6 +6742,7 @@ pub struct ForwardSshTunnelConnectivity {
 
     /// Port for the SSH tunnel, default value is 22.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub port: i32,
 
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
@@ -11468,16 +11483,19 @@ pub struct SingleColumnChange {
 
     /// Optional. Column precision - e.g. 8 as in double (8,2) - when relevant.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub precision: i32,
 
     /// Optional. Column scale - e.g. 2 as in double (8,2) - when relevant.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub scale: i32,
 
     /// Optional. Column fractional seconds precision - e.g. 2 as in timestamp (2)
     ///
     /// - when relevant.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub fractional_seconds_precision: i32,
 
     /// Optional. Is the column of array type.
@@ -11487,6 +11505,7 @@ pub struct SingleColumnChange {
     /// Optional. The length of the array, only relevant if the column type is an
     /// array.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub array_length: i32,
 
     /// Optional. Is the column nullable.
@@ -11671,17 +11690,20 @@ pub struct MultiColumnDatatypeChange {
     /// Optional. Column scale - when relevant - if not specified and relevant
     /// uses the source column scale.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub override_scale: i32,
 
     /// Optional. Column precision - when relevant - if not specified and relevant
     /// uses the source column precision.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub override_precision: i32,
 
     /// Optional. Column fractional seconds precision - used only for timestamp
     /// based datatypes - if not specified and relevant uses the source column
     /// fractional seconds precision.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub override_fractional_seconds_precision: i32,
 
     /// Optional. Custom engine specific features.
@@ -11923,21 +11945,25 @@ pub struct SourceNumericFilter {
     /// Optional. The filter will match columns with scale greater than or equal to
     /// this number.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub source_min_scale_filter: i32,
 
     /// Optional. The filter will match columns with scale smaller than or equal to
     /// this number.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub source_max_scale_filter: i32,
 
     /// Optional. The filter will match columns with precision greater than or
     /// equal to this number.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub source_min_precision_filter: i32,
 
     /// Optional. The filter will match columns with precision smaller than or
     /// equal to this number.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub source_max_precision_filter: i32,
 
     /// Required. Enum to set the option defining the datatypes numeric filter has
@@ -13080,6 +13106,7 @@ pub mod apply_hash {
 pub struct RoundToScale {
     /// Required. Scale value to be used
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub scale: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -13964,14 +13991,17 @@ pub struct ColumnEntity {
 
     /// Column precision - when relevant.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub precision: i32,
 
     /// Column scale - when relevant.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub scale: i32,
 
     /// Column fractional second precision - used for timestamp based datatypes.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub fractional_seconds_precision: i32,
 
     /// Is the column of array type.
@@ -13980,6 +14010,7 @@ pub struct ColumnEntity {
 
     /// If the column is array, of which length.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub array_length: i32,
 
     /// Is the column nullable.
@@ -14009,6 +14040,7 @@ pub struct ColumnEntity {
 
     /// Column order in the table.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub ordinal_position: i32,
 
     /// Default value of the column.
@@ -15383,18 +15415,22 @@ pub mod entity_issue {
     pub struct Position {
         /// Issue line number
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub line: i32,
 
         /// Issue column number
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub column: i32,
 
         /// Issue offset
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub offset: i32,
 
         /// Issue length
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub length: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

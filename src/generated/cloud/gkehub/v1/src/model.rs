@@ -1741,15 +1741,18 @@ pub struct KubernetesMetadata {
 
     /// Output only. Node count as reported by Kubernetes nodes resources.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub node_count: i32,
 
     /// Output only. vCPU count as reported by Kubernetes nodes resources.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub vcpu_count: i32,
 
     /// Output only. The total memory capacity as reported by the sum of all
     /// Kubernetes nodes resources, defined in MB.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub memory_mb: i32,
 
     /// Output only. The time at which these details were last updated. This
@@ -2215,6 +2218,7 @@ pub struct ListMembershipsRequest {
     /// number of resources to return. If unspecified or set to 0, all resources
     /// will be returned.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. Token returned by previous call to `ListMemberships` which
@@ -2942,6 +2946,7 @@ pub struct ListFeaturesRequest {
     /// resources to return. If unspecified or set to 0, all resources will
     /// be returned.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Token returned by previous call to `ListFeatures` which

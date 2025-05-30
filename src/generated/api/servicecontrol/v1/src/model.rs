@@ -681,6 +681,7 @@ pub mod distribution {
         /// the total number of buckets is `num_finite_buckets` + 2.
         /// See comments on `bucket_options` for details.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub num_finite_buckets: i32,
 
         /// The i'th linear bucket covers the interval
@@ -742,6 +743,7 @@ pub mod distribution {
         /// the total number of buckets is `num_finite_buckets` + 2.
         /// See comments on `bucket_options` for details.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub num_finite_buckets: i32,
 
         /// The i'th exponential bucket covers the interval
@@ -910,6 +912,7 @@ pub struct HttpRequest {
     /// The response code indicating the status of the response.
     /// Examples: 200, 404.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub status: i32,
 
     /// The size of the HTTP response message sent back to the client, in bytes,

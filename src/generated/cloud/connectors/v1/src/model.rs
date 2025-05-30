@@ -2309,10 +2309,12 @@ impl wkt::message::Message for Connection {
 pub struct NodeConfig {
     /// Minimum number of nodes in the runtime nodes.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub min_node_count: i32,
 
     /// Maximum number of nodes in the runtime nodes.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub max_node_count: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3058,6 +3060,7 @@ pub struct ListConnectionsRequest {
 
     /// Page size.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Page token.
@@ -3517,6 +3520,7 @@ pub struct ListRuntimeEntitySchemasRequest {
 
     /// Page size.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Page token.
@@ -3650,6 +3654,7 @@ pub struct ListRuntimeActionSchemasRequest {
 
     /// Page size.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Page token.
@@ -4209,6 +4214,7 @@ pub struct ListConnectorsRequest {
 
     /// Page size.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Page token.
@@ -4652,6 +4658,7 @@ pub struct ListConnectorVersionsRequest {
 
     /// Page size.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Page token.
@@ -5283,6 +5290,7 @@ impl wkt::message::Message for DestinationConfig {
 pub struct Destination {
     /// The port is the target port number that is accepted by the destination.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub port: i32,
 
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
@@ -5605,6 +5613,7 @@ pub struct ListProvidersRequest {
 
     /// Page size.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Page token.

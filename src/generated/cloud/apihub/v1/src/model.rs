@@ -353,6 +353,7 @@ pub struct ListApisRequest {
     /// returned. The maximum value is 1000; values above 1000 will be coerced to
     /// 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous `ListApis` call.
@@ -782,6 +783,7 @@ pub struct ListVersionsRequest {
     /// returned. The maximum value is 1000; values above 1000 will be coerced to
     /// 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous `ListVersions` call.
@@ -1190,6 +1192,7 @@ pub struct ListSpecsRequest {
     /// returned. The maximum value is 1000; values above 1000 will be coerced to
     /// 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous `ListSpecs` call.
@@ -1442,6 +1445,7 @@ pub struct ListApiOperationsRequest {
     /// returned. The maximum value is 1000; values above 1000 will be coerced to
     /// 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous `ListApiOperations` call.
@@ -1900,6 +1904,7 @@ pub struct ListDeploymentsRequest {
     /// will be returned. The maximum value is 1000; values above 1000 will be
     /// coerced to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous `ListDeployments` call.
@@ -2304,6 +2309,7 @@ pub struct ListAttributesRequest {
     /// will be returned. The maximum value is 1000; values above 1000 will be
     /// coerced to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous `ListAttributes` call.
@@ -2467,6 +2473,7 @@ pub struct SearchResourcesRequest {
     /// While paginating, you can specify a new page size parameter for each page
     /// of search results to be listed.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous
@@ -3147,6 +3154,7 @@ pub struct ListDependenciesRequest {
     /// will be returned. The maximum value is 1000; values above 1000 will be
     /// coerced to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous `ListDependencies` call.
@@ -3508,6 +3516,7 @@ pub struct ListExternalApisRequest {
     /// ExternalApis will be returned. The maximum value is 1000; values above 1000
     /// will be coerced to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous `ListExternalApis` call.
@@ -5450,6 +5459,7 @@ pub struct Attribute {
     /// not specified, the cardinality would be set to 1 by default and represent a
     /// single-valued attribute.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub cardinality: i32,
 
     /// Output only. When mandatory is true, the attribute is mandatory for the
@@ -8183,6 +8193,7 @@ pub mod lint_response {
 
         /// Required. Count of issues with the given severity.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub count: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8378,10 +8389,12 @@ impl wkt::message::Message for Range {
 pub struct Point {
     /// Required. Line number (zero-indexed).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub line: i32,
 
     /// Required. Character position within the line (zero-indexed).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub character: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9193,6 +9206,7 @@ pub struct ListHostProjectRegistrationsRequest {
     /// project registrations will be returned. The maximum value is 1000; values
     /// above 1000 will be coerced to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous
@@ -10371,6 +10385,7 @@ pub struct ListRuntimeProjectAttachmentsRequest {
     /// runtime project attachments will be returned. The maximum value is 1000;
     /// values above 1000 will be coerced to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous

@@ -130,6 +130,7 @@ pub struct Voice {
 
     /// The natural sample rate (in hertz) for this voice.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub natural_sample_rate_hertz: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1092,6 +1093,7 @@ pub struct AudioConfig {
     /// encoding chosen, in which case it will fail the request and return
     /// [google.rpc.Code.INVALID_ARGUMENT][google.rpc.Code.INVALID_ARGUMENT].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub sample_rate_hertz: i32,
 
     /// Optional. Input only. An identifier which selects 'audio effects' profiles
@@ -1440,6 +1442,7 @@ pub struct StreamingAudioConfig {
 
     /// Optional. The synthesis sample rate (in hertz) for this audio.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub sample_rate_hertz: i32,
 
     /// Optional. Input only. Speaking rate/speed, in the range [0.25, 2.0]. 1.0 is

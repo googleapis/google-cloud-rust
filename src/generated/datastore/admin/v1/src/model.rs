@@ -1107,6 +1107,7 @@ pub struct ListIndexesRequest {
     /// The maximum number of items to return.  If zero, then all results will be
     /// returned.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous List request, if any.

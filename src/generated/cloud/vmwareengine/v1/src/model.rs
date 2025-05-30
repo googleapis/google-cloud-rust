@@ -56,6 +56,7 @@ pub struct ListPrivateCloudsRequest {
     /// The maximum value is coerced to 1000.
     /// The default value of this field is 500.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListPrivateClouds` call.
@@ -502,6 +503,7 @@ pub struct DeletePrivateCloudRequest {
     ///
     /// [google.cloud.vmwareengine.v1.VmwareEngine.UndeletePrivateCloud]: crate::client::VmwareEngine::undelete_private_cloud
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
     pub delay_hours: std::option::Option<i32>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -628,6 +630,7 @@ pub struct ListClustersRequest {
     /// The maximum value is coerced to 1000.
     /// The default value of this field is 500.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListClusters` call.
@@ -1100,6 +1103,7 @@ pub struct ListNodesRequest {
     /// The maximum value is coerced to 1000.
     /// The default value of this field is 500.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListNodes` call.
@@ -1270,6 +1274,7 @@ pub struct ListExternalAddressesRequest {
     /// The maximum value is coerced to 1000.
     /// The default value of this field is 500.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListExternalAddresses` call.
@@ -1467,6 +1472,7 @@ pub struct FetchNetworkPolicyExternalAddressesRequest {
     /// The maximum value is coerced to 1000.
     /// The default value of this field is 500.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A page token, received from a previous
@@ -1907,6 +1913,7 @@ pub struct ListSubnetsRequest {
     /// The maximum value is coerced to 1000.
     /// The default value of this field is 500.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListSubnetsRequest` call.
@@ -2166,6 +2173,7 @@ pub struct ListExternalAccessRulesRequest {
     /// The maximum value is coerced to 1000.
     /// The default value of this field is 500.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListExternalAccessRulesRequest`
@@ -2670,6 +2678,7 @@ pub struct ListLoggingServersRequest {
     /// The maximum value is coerced to 1000.
     /// The default value of this field is 500.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListLoggingServersRequest` call.
@@ -3296,6 +3305,7 @@ pub struct ListNodeTypesRequest {
     /// The maximum value is coerced to 1000.
     /// The default value of this field is 500.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListNodeTypes` call.
@@ -3843,6 +3853,7 @@ pub struct ListHcxActivationKeysRequest {
     /// The maximum value is coerced to 1000.
     /// The default value of this field is 500.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListHcxActivationKeys` call.
@@ -4395,6 +4406,7 @@ pub struct ListNetworkPeeringsRequest {
     /// The maximum value is coerced to 1000.
     /// The default value of this field is 500.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListNetworkPeerings` call.
@@ -4687,6 +4699,7 @@ pub struct ListPeeringRoutesRequest {
     /// The maximum value is coerced to 1000.
     /// The default value of this field is 500.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListPeeringRoutes` call.
@@ -4830,6 +4843,7 @@ pub struct ListNetworkPoliciesRequest {
     /// The maximum value is coerced to 1000.
     /// The default value of this field is 500.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListNetworkPolicies` call.
@@ -5335,6 +5349,7 @@ pub struct ListManagementDnsZoneBindingsRequest {
     /// The maximum value is coerced to 1000.
     /// The default value of this field is 500.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListManagementDnsZoneBindings`
@@ -6216,6 +6231,7 @@ pub struct ListVmwareEngineNetworksRequest {
     /// The maximum value is coerced to 1000.
     /// The default value of this field is 500.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListVmwareEngineNetworks` call.
@@ -6557,6 +6573,7 @@ pub struct ListPrivateConnectionsRequest {
     /// The maximum value is coerced to 1000.
     /// The default value of this field is 500.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListPrivateConnections` call.
@@ -6911,6 +6928,7 @@ pub struct ListPrivateConnectionPeeringRoutesRequest {
     /// The maximum value is coerced to 1000.
     /// The default value of this field is 500.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListPrivateConnectionPeeringRoutes`
@@ -7266,6 +7284,7 @@ pub struct NetworkConfig {
     ///   layout used by all newly created private clouds. This version supports all
     ///   current features.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub management_ip_address_layout_version: i32,
 
     /// Output only. DNS Server IP of the Private Cloud.
@@ -7338,6 +7357,7 @@ impl wkt::message::Message for NetworkConfig {
 pub struct NodeTypeConfig {
     /// Required. The number of nodes of this type in the cluster
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub node_count: i32,
 
     /// Optional. Customized number of cores available to each node of the type.
@@ -7345,6 +7365,7 @@ pub struct NodeTypeConfig {
     /// If zero is provided max value from `nodeType.availableCustomCoreCounts`
     /// will be used.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub custom_core_count: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9015,6 +9036,7 @@ pub struct Subnet {
 
     /// Output only. VLAN ID of the VLAN on which the subnet is configured
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub vlan_id: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9271,6 +9293,7 @@ pub struct ExternalAccessRule {
     /// indicate higher precedence. For example, a rule with priority `100` has
     /// higher precedence than a rule with priority `101`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub priority: i32,
 
     /// The action that the external access rule performs.
@@ -9930,6 +9953,7 @@ pub struct LoggingServer {
 
     /// Required. Port number at which the logging server receives logs.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub port: i32,
 
     /// Required. Protocol used by vCenter to send logs to a logging server.
@@ -10357,22 +10381,27 @@ pub struct NodeType {
 
     /// Output only. The total number of virtual CPUs in a single node.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub virtual_cpu_count: i32,
 
     /// Output only. The total number of CPU cores in a single node.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub total_core_count: i32,
 
     /// Output only. The amount of physical memory available, defined in GB.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub memory_gb: i32,
 
     /// Output only. The amount of storage available, defined in GB.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub disk_size_gb: i32,
 
     /// Output only. List of possible values of custom core count.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "std::vec::Vec<wkt::internal::I32>")]
     pub available_custom_core_counts: std::vec::Vec<i32>,
 
     /// Output only. The type of the resource.
@@ -11674,11 +11703,13 @@ pub struct AutoscalingSettings {
     /// Optional. Minimum number of nodes of any type in a cluster.
     /// If not specified the default limits apply.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub min_cluster_node_count: i32,
 
     /// Optional. Maximum number of nodes of any type in a cluster.
     /// If not specified the default limits apply.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub max_cluster_node_count: i32,
 
     /// Optional. The minimum duration between consecutive autoscale operations.
@@ -11760,10 +11791,12 @@ pub mod autoscaling_settings {
     pub struct Thresholds {
         /// Required. The utilization triggering the scale-out operation in percent.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub scale_out: i32,
 
         /// Required. The utilization triggering the scale-in operation in percent.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub scale_in: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11815,6 +11848,7 @@ pub mod autoscaling_settings {
         /// scale-in operation only one node (or 2 for stretched clusters) are
         /// removed in a single iteration.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub scale_out_size: i32,
 
         /// Optional. Utilization thresholds pertaining to CPU utilization.
@@ -12180,6 +12214,7 @@ pub struct NetworkPeering {
     /// The default value is `1500`. If a value of `0` is provided for this field,
     /// VMware Engine uses the default value instead.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub peer_mtu: i32,
 
     /// Required. The type of the network to peer with the VMware Engine network.

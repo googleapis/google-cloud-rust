@@ -1116,6 +1116,7 @@ pub struct ListExecutionsRequest {
     /// specified is 100, regardless of the selected view. Values greater than
     /// the max value will be coerced down to it.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListExecutions` call.

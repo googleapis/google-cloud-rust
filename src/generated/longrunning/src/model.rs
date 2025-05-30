@@ -252,6 +252,7 @@ pub struct ListOperationsRequest {
 
     /// The standard list page size.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The standard list page token.

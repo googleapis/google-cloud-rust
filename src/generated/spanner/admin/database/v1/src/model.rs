@@ -1234,6 +1234,7 @@ pub struct ListBackupsRequest {
     /// Number of backups to be returned in the response. If 0 or
     /// less, defaults to the server's maximum allowed page size.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// If non-empty, `page_token` should contain a
@@ -1450,6 +1451,7 @@ pub struct ListBackupOperationsRequest {
     /// Number of operations to be returned in the response. If 0 or
     /// less, defaults to the server's maximum allowed page size.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// If non-empty, `page_token` should contain a
@@ -2825,6 +2827,7 @@ pub struct ListBackupSchedulesRequest {
     /// Optional. Number of backup schedules to be returned in the response. If 0
     /// or less, defaults to the server's maximum allowed page size.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. If non-empty, `page_token` should contain a
@@ -3025,6 +3028,7 @@ pub struct OperationProgress {
     /// Percent completion of the operation.
     /// Values are between 0 and 100 inclusive.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub progress_percent: i32,
 
     /// Time the request was received.
@@ -3876,6 +3880,7 @@ pub struct ListDatabasesRequest {
     /// Number of databases to be returned in the response. If 0 or less,
     /// defaults to the server's maximum allowed page size.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// If non-empty, `page_token` should contain a
@@ -4889,6 +4894,7 @@ pub struct ListDatabaseOperationsRequest {
     /// Number of operations to be returned in the response. If 0 or
     /// less, defaults to the server's maximum allowed page size.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// If non-empty, `page_token` should contain a
@@ -5715,6 +5721,7 @@ pub struct ListDatabaseRolesRequest {
     /// Number of database roles to be returned in the response. If 0 or less,
     /// defaults to the server's maximum allowed page size.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// If non-empty, `page_token` should contain a

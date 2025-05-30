@@ -1090,6 +1090,7 @@ pub struct ListReservationsRequest {
 
     /// The maximum number of items to return per page.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous List request, if any.
@@ -1474,6 +1475,7 @@ pub struct ListCapacityCommitmentsRequest {
 
     /// The maximum number of items to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous List request, if any.
@@ -2384,6 +2386,7 @@ pub struct ListAssignmentsRequest {
 
     /// The maximum number of items to return per page.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous List request, if any.
@@ -2556,6 +2559,7 @@ pub struct SearchAssignmentsRequest {
 
     /// The maximum number of items to return per page.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous List request, if any.
@@ -2631,6 +2635,7 @@ pub struct SearchAllAssignmentsRequest {
 
     /// The maximum number of items to return per page.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous List request, if any.

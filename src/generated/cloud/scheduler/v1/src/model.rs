@@ -53,6 +53,7 @@ pub struct ListJobsRequest {
     /// even if more jobs exist; use next_page_token to determine if more
     /// jobs exist.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A token identifying a page of results the server will return. To
@@ -1106,6 +1107,7 @@ pub struct RetryConfig {
     ///
     /// [google.cloud.scheduler.v1.RetryConfig.max_doublings]: crate::model::RetryConfig::max_doublings
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub retry_count: i32,
 
     /// The time limit for retrying a failed job, measured from time when an
@@ -1163,6 +1165,7 @@ pub struct RetryConfig {
     /// [google.cloud.scheduler.v1.RetryConfig.min_backoff_duration]: crate::model::RetryConfig::min_backoff_duration
     /// [google.cloud.scheduler.v1.RetryConfig.retry_count]: crate::model::RetryConfig::retry_count
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub max_doublings: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

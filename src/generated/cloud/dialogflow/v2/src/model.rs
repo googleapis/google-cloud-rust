@@ -802,6 +802,7 @@ pub struct SearchAgentsRequest {
     /// Optional. The maximum number of items to return in a single page. By
     /// default 100 and at most 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous list request.
@@ -1611,6 +1612,7 @@ pub struct ListAnswerRecordsRequest {
     /// The server may return fewer records than this. If unspecified, we use 10.
     /// The maximum is 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. The
@@ -3225,6 +3227,7 @@ pub struct InputAudioConfig {
     /// documentation](https://cloud.google.com/speech-to-text/docs/basics) for
     /// more details.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub sample_rate_hertz: i32,
 
     /// Required. The language of the supplied audio. Dialogflow does not do
@@ -3623,6 +3626,7 @@ pub struct OutputAudioConfig {
     /// rate, then the synthesizer will honor this request by converting to the
     /// desired sample rate (which might result in worse audio quality).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub sample_rate_hertz: i32,
 
     /// Configuration of how speech should be synthesized.
@@ -3779,6 +3783,7 @@ pub struct SpeechToTextConfig {
     /// documentation](https://cloud.google.com/speech-to-text/docs/basics) for
     /// more details.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub sample_rate_hertz: i32,
 
     /// The language of the supplied audio. Dialogflow does not do
@@ -3926,6 +3931,7 @@ pub struct Context {
     /// immediately. Contexts expire automatically after 20 minutes if there
     /// are no matching queries.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub lifespan_count: i32,
 
     /// Optional. The collection of parameters associated with this context.
@@ -4012,6 +4018,7 @@ pub struct ListContextsRequest {
     /// Optional. The maximum number of items to return in a single page. By
     /// default 100 and at most 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. The next_page_token value returned from a previous list request.
@@ -5563,6 +5570,7 @@ pub struct ListConversationsRequest {
     /// Optional. The maximum number of items to return in a single page. By
     /// default 100 and at most 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. The next_page_token value returned from a previous list request.
@@ -5789,6 +5797,7 @@ pub struct ListMessagesRequest {
     /// Optional. The maximum number of items to return in a single page. By
     /// default 100 and at most 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. The next_page_token value returned from a previous list request.
@@ -5911,6 +5920,7 @@ impl gax::paginator::internal::PageableResponse for ListMessagesResponse {
 pub struct ConversationPhoneNumber {
     /// Output only. Desired country code for the phone number.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub country_code: i32,
 
     /// Output only. The phone number to connect to this conversation.
@@ -6071,6 +6081,7 @@ pub struct SuggestConversationSummaryRequest {
     /// [latest_message] to use as context when compiling the
     /// suggestion. By default 500 and at most 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub context_size: i32,
 
     /// Optional. Parameters for a human assist query. Only used for POC/demo
@@ -6161,6 +6172,7 @@ pub struct SuggestConversationSummaryResponse {
     /// [google.cloud.dialogflow.v2.SuggestConversationSummaryRequest.context_size]: crate::model::SuggestConversationSummaryRequest::context_size
     /// [google.cloud.dialogflow.v2.SuggestConversationSummaryResponse.latest_message]: crate::model::SuggestConversationSummaryResponse::latest_message
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub context_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6325,6 +6337,7 @@ pub struct GenerateStatelessSummaryRequest {
     /// [latest_message] to use as context when compiling the
     /// suggestion. By default 500 and at most 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub max_context_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6483,6 +6496,7 @@ pub struct GenerateStatelessSummaryResponse {
     /// [google.cloud.dialogflow.v2.GenerateStatelessSummaryRequest.max_context_size]: crate::model::GenerateStatelessSummaryRequest::max_context_size
     /// [google.cloud.dialogflow.v2.GenerateStatelessSummaryResponse.latest_message]: crate::model::GenerateStatelessSummaryResponse::latest_message
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub context_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8793,6 +8807,7 @@ pub struct ListConversationDatasetsRequest {
     /// Optional. Maximum number of conversation datasets to return in a single
     /// page. By default 100 and at most 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. The next_page_token value returned from a previous list request.
@@ -9092,6 +9107,7 @@ pub struct ImportConversationDataOperationResponse {
 
     /// Number of conversations imported successfully.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub import_count: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10438,6 +10454,7 @@ pub mod evaluation_config {
         /// descending order of the scores and we only keep the first
         /// max_result_count results as the final results to evaluate.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub max_result_count: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10488,6 +10505,7 @@ pub mod evaluation_config {
         /// descending order of the scores and we only keep the first
         /// max_result_count results as the final results to evaluate.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub max_result_count: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10721,6 +10739,7 @@ pub mod smart_reply_metrics {
         /// evaluation contains metrics for when Dialogflow retrieves 3 smart replies
         /// with the model.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub n: i32,
 
         /// Defined as `number of queries whose top n smart replies have at least one
@@ -10871,6 +10890,7 @@ pub struct ListConversationModelsRequest {
     /// Optional. Maximum number of conversation models to return in a single
     /// page. By default 100 and at most 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. The next_page_token value returned from a previous list request.
@@ -11138,6 +11158,7 @@ pub struct ListConversationModelEvaluationsRequest {
     /// Optional. Maximum number of evaluations to return in a
     /// single page. By default 100 and at most 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. The next_page_token value returned from a previous list request.
@@ -12367,6 +12388,7 @@ pub struct ListConversationProfilesRequest {
     /// The maximum number of items to return in a single page. By
     /// default 100 and at most 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous list request.
@@ -13265,6 +13287,7 @@ pub mod human_agent_assistant_config {
         /// Maximum number of results to return. Currently, if unset, defaults to 10.
         /// And the max number is 20.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub max_results: i32,
 
         /// Confidence threshold of query result.
@@ -13304,6 +13327,7 @@ pub mod human_agent_assistant_config {
         /// Optional. The number of recent messages to include in the context.
         /// Supported features: KNOWLEDGE_ASSIST.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub context_size: i32,
 
         /// Source of query.
@@ -14027,6 +14051,7 @@ pub mod human_agent_assistant_config {
         /// Number of recent non-small-talk sentences to use as context for article
         /// and FAQ suggestion
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub recent_sentences_count: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -15835,6 +15860,7 @@ pub struct ListDocumentsRequest {
     /// The maximum number of items to return in a single page. By
     /// default 10 and at most 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous list request.
@@ -17628,6 +17654,7 @@ pub struct ListEntityTypesRequest {
     /// Optional. The maximum number of items to return in a single page. By
     /// default 100 and at most 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. The next_page_token value returned from a previous list request.
@@ -18848,6 +18875,7 @@ pub struct TextToSpeechSettings {
     /// rate, then the synthesizer will honor this request by converting to the
     /// desired sample rate (which might result in worse audio quality).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub sample_rate_hertz: i32,
 
     /// Optional. Configuration of how speech should be synthesized, mapping from
@@ -18926,6 +18954,7 @@ pub struct ListEnvironmentsRequest {
     /// Optional. The maximum number of items to return in a single page. By
     /// default 100 and at most 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. The next_page_token value returned from a previous list request.
@@ -19295,6 +19324,7 @@ pub struct GetEnvironmentHistoryRequest {
     /// Optional. The maximum number of items to return in a single page. By
     /// default 100 and at most 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. The next_page_token value returned from a previous list request.
@@ -20209,6 +20239,7 @@ pub struct ListGeneratorsRequest {
     /// Optional. Maximum number of conversation models to return in a single page.
     /// Default to 10.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. The next_page_token value returned from a previous list request.
@@ -20869,6 +20900,7 @@ pub mod few_shot_example {
 pub struct InferenceParameter {
     /// Optional. Maximum number of the output tokens for the generator.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
     pub max_output_tokens: std::option::Option<i32>,
 
     /// Optional. Controls the randomness of LLM predictions.
@@ -20888,6 +20920,7 @@ pub struct InferenceParameter {
     /// Specify a lower value for less random responses and a higher value for more
     /// random responses. Acceptable value is [1, 40], default to 40.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
     pub top_k: std::option::Option<i32>,
 
     /// Optional. Top-p changes how the model selects tokens for output. Tokens are
@@ -21982,6 +22015,7 @@ pub struct Intent {
     /// - If the supplied value is negative, the intent is ignored
     ///   in runtime detect intent requests.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub priority: i32,
 
     /// Optional. Indicates whether this is a fallback intent.
@@ -22323,6 +22357,7 @@ pub mod intent {
         /// the intent. Each time a developer adds an existing sample by editing an
         /// intent or training, this counter is increased.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub times_added_count: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -25990,6 +26025,7 @@ pub struct ListIntentsRequest {
     /// Optional. The maximum number of items to return in a single page. By
     /// default 100 and at most 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. The next_page_token value returned from a previous list request.
@@ -26786,6 +26822,7 @@ pub struct ListKnowledgeBasesRequest {
     /// The maximum number of items to return in a single page. By
     /// default 10 and at most 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous list request.
@@ -27721,6 +27758,7 @@ pub struct ListParticipantsRequest {
     /// Optional. The maximum number of items to return in a single page. By
     /// default 100 and at most 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. The next_page_token value returned from a previous list request.
@@ -29177,6 +29215,7 @@ pub struct SuggestArticlesRequest {
     ///
     /// [google.cloud.dialogflow.v2.SuggestArticlesRequest.latest_message]: crate::model::SuggestArticlesRequest::latest_message
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub context_size: i32,
 
     /// Parameters for a human assist query.
@@ -29266,6 +29305,7 @@ pub struct SuggestArticlesResponse {
     /// [google.cloud.dialogflow.v2.SuggestArticlesRequest.context_size]: crate::model::SuggestArticlesRequest::context_size
     /// [google.cloud.dialogflow.v2.SuggestArticlesResponse.latest_message]: crate::model::SuggestArticlesResponse::latest_message
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub context_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -29334,6 +29374,7 @@ pub struct SuggestFaqAnswersRequest {
     /// [latest_message] to use as context when compiling the
     /// suggestion. By default 20 and at most 50.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub context_size: i32,
 
     /// Parameters for a human assist query.
@@ -29423,6 +29464,7 @@ pub struct SuggestFaqAnswersResponse {
     /// [google.cloud.dialogflow.v2.SuggestFaqAnswersRequest.context_size]: crate::model::SuggestFaqAnswersRequest::context_size
     /// [google.cloud.dialogflow.v2.SuggestFaqAnswersResponse.latest_message]: crate::model::SuggestFaqAnswersResponse::latest_message
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub context_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -29633,6 +29675,7 @@ pub struct SuggestSmartRepliesRequest {
     /// [latest_message] to use as context when compiling the
     /// suggestion. By default 20 and at most 50.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub context_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -29720,6 +29763,7 @@ pub struct SuggestSmartRepliesResponse {
     /// [google.cloud.dialogflow.v2.SuggestSmartRepliesRequest.context_size]: crate::model::SuggestSmartRepliesRequest::context_size
     /// [google.cloud.dialogflow.v2.SuggestSmartRepliesResponse.latest_message]: crate::model::SuggestSmartRepliesResponse::latest_message
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub context_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -31151,6 +31195,7 @@ pub struct SuggestKnowledgeAssistRequest {
     ///
     /// [google.cloud.dialogflow.v2.SuggestKnowledgeAssistRequest.latest_message]: crate::model::SuggestKnowledgeAssistRequest::latest_message
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub context_size: i32,
 
     /// Optional. The previously suggested query for the given conversation. This
@@ -31231,6 +31276,7 @@ pub struct SuggestKnowledgeAssistResponse {
     /// [google.cloud.dialogflow.v2.SuggestKnowledgeAssistRequest.context_size]: crate::model::SuggestKnowledgeAssistRequest::context_size
     /// [google.cloud.dialogflow.v2.SuggestKnowledgeAssistResponse.latest_message]: crate::model::SuggestKnowledgeAssistResponse::latest_message
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub context_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -32917,6 +32963,7 @@ impl wkt::message::Message for StreamingDetectIntentRequest {
 pub struct CloudConversationDebuggingInfo {
     /// Number of input audio data chunks in streaming requests.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub audio_data_chunks: i32,
 
     /// Time offset of the end of speech utterance relative to the
@@ -32944,12 +32991,14 @@ pub struct CloudConversationDebuggingInfo {
 
     /// Total number of partial responses.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub partial_responses: i32,
 
     /// Time offset of Speaker ID stream close time relative to the Speech stream
     /// close time in milliseconds. Only meaningful for conversations involving
     /// passive verification.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub speaker_id_passive_latency_ms_offset: i32,
 
     /// Whether a barge-in event is triggered in this request.
@@ -34267,6 +34316,7 @@ pub struct ListSessionEntityTypesRequest {
     /// Optional. The maximum number of items to return in a single page. By
     /// default 100 and at most 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. The next_page_token value returned from a previous list request.
@@ -34887,6 +34937,7 @@ pub struct Version {
     /// Output only. The sequential number of this version. This field is read-only
     /// which means it cannot be set by create and update methods.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub version_number: i32,
 
     /// Output only. The creation time of this version. This field is read-only,
@@ -35125,6 +35176,7 @@ pub struct ListVersionsRequest {
     /// Optional. The maximum number of items to return in a single page. By
     /// default 100 and at most 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. The next_page_token value returned from a previous list request.

@@ -2117,12 +2117,14 @@ pub mod condition_explanation {
     pub struct EvaluationState {
         /// Start position of an expression in the condition, by character.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub start: i32,
 
         /// End position of an expression in the condition, by character,
         /// end included, for example: the end position of the first part of
         /// `a==b || c==d` would be 4.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub end: i32,
 
         /// Value of this expression.

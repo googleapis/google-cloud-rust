@@ -853,6 +853,7 @@ pub struct FetchLinkableRepositoriesRequest {
 
     /// Number of results to return in the list. Default to 20.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Page start.
@@ -1904,6 +1905,7 @@ pub struct ListConnectionsRequest {
 
     /// Number of results to return in the list.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Page start.
@@ -2354,6 +2356,7 @@ pub struct ListRepositoriesRequest {
 
     /// Number of results to return in the list.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Page start.

@@ -1638,6 +1638,7 @@ pub mod automated_backup_policy {
     pub struct QuantityBasedRetention {
         /// The number of backups to retain.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub count: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1718,6 +1719,7 @@ pub struct ContinuousBackupConfig {
     /// the entire recovery window, backups and logs are retained for one day more
     /// than the recovery window. If not set, defaults to 14 days.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub recovery_window_days: i32,
 
     /// The encryption config can be specified to encrypt the
@@ -4031,6 +4033,7 @@ pub mod instance {
     pub struct MachineConfig {
         /// The number of CPU's in the VM instance.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub cpu_count: i32,
 
         /// Machine type of the VM instance. E.g. "n2-highmem-4",
@@ -4272,6 +4275,7 @@ pub mod instance {
 
         /// Query string length. The default value is 10k.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
         pub max_query_string_length: std::option::Option<i32>,
 
         /// Record application tags for an instance.
@@ -4283,6 +4287,7 @@ pub mod instance {
         /// for all queries combined. The default value is 200.
         /// Any integer between 0 to 200 is considered valid.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
         pub query_plans_per_minute: std::option::Option<i32>,
 
         /// Track actively running queries on the instance.
@@ -4458,6 +4463,7 @@ pub mod instance {
     pub struct ReadPoolConfig {
         /// Read capacity, i.e. number of nodes in a read pool instance.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub node_count: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5818,11 +5824,13 @@ pub mod backup {
         /// cluster and type, by descending chronological order create time(i.e.
         /// newest first).
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub retention_count: i32,
 
         /// Output only. The length of the quantity-based queue, specified by the
         /// backup's retention policy.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub total_retention_count: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7154,6 +7162,7 @@ pub struct ListClustersRequest {
     /// Optional. Requested page size. Server may return fewer items than
     /// requested. If unspecified, server will pick an appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A token identifying a page of results the server should return.
@@ -9665,6 +9674,7 @@ pub struct ListInstancesRequest {
     /// Optional. Requested page size. Server may return fewer items than
     /// requested. If unspecified, server will pick an appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A token identifying a page of results the server should return.
@@ -11526,6 +11536,7 @@ pub struct ListBackupsRequest {
     /// Requested page size. Server may return fewer items than requested.
     /// If unspecified, server will pick an appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A token identifying a page of results the server should return.
@@ -12003,6 +12014,7 @@ pub struct ListSupportedDatabaseFlagsRequest {
     /// Requested page size. Server may return fewer items than requested.
     /// If unspecified, server will pick an appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A token identifying a page of results the server should return.
@@ -12832,18 +12844,22 @@ pub mod upgrade_cluster_status {
         pub struct Stats {
             /// Number of read pool instances for which upgrade has not started.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::I32")]
             pub not_started: i32,
 
             /// Number of read pool instances undergoing upgrade.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::I32")]
             pub ongoing: i32,
 
             /// Number of read pool instances successfully upgraded.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::I32")]
             pub success: i32,
 
             /// Number of read pool instances which failed to upgrade.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::I32")]
             pub failed: i32,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -12901,6 +12917,7 @@ pub struct ListUsersRequest {
     /// Optional. Requested page size. Server may return fewer items than
     /// requested. If unspecified, server will pick an appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
@@ -13361,6 +13378,7 @@ pub struct ListDatabasesRequest {
     /// max value of page_size will be 4000, values above max will be coerced to
     /// max.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous `ListDatabases` call.
