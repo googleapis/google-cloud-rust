@@ -37,5 +37,5 @@ Use bazelisk to compile and run the test program:
 USE_BAZEL_VERSION=8.2.1 ./bazelisk run --repo_env=BAZEL_NO_APPLE_CPP_TOOLCHAIN=1 --enable_bzlmod  //conformance:conformance_test_runner $HOME/rust-conformance/target/debug/protojson-conformance
 ```
 
-[Protocol Buffers repository]: https://github.com/protocolbuffers/protobuf/blob/main/conformance/README.md
-[ProtoJSON]: https://protobuf.dev/programming-guides/json/
+[protocol buffers repository]: https://github.com/protocolbuffers/protobuf/blob/main/conformance/README.md
+[protojson]: https://protobuf.dev/programming-guides/json/
