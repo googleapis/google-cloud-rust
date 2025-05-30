@@ -473,7 +473,7 @@ func TestOneOfAnnotations(t *testing.T) {
 		BranchName:         "OneofFieldMap",
 		FQMessageName:      "crate::model::Message",
 		DocLines:           nil,
-		Attributes:         []string{`#[serde_as(as = "std::collections::HashMap<_, wkt::internal::F32>")]`},
+		Attributes:         []string{`#[serde_as(as = "std::collections::HashMap<wkt::internal::I32, wkt::internal::F32>")]`},
 		FieldType:          "std::collections::HashMap<i32,f32>",
 		PrimitiveFieldType: "std::collections::HashMap<i32,f32>",
 		AddQueryParameter:  `let builder = req.oneof_field_map().map(|p| serde_json::to_value(p).map_err(Error::serde) ).transpose()?.into_iter().fold(builder, |builder, p| { use gaxi::query_parameter::QueryParameter; p.add(builder, "oneofFieldMap") });`,
@@ -818,6 +818,7 @@ func TestJsonNameAnnotations(t *testing.T) {
 		DocLines:      nil,
 		Attributes: []string{
 			`#[serde(skip_serializing_if = "wkt::internal::is_default")]`,
+			`#[serde_as(as = "wkt::internal::I32")]`,
 		},
 		FieldType:          "i32",
 		PrimitiveFieldType: "i32",
@@ -836,6 +837,7 @@ func TestJsonNameAnnotations(t *testing.T) {
 		DocLines:      nil,
 		Attributes: []string{
 			`#[serde(skip_serializing_if = "std::option::Option::is_none")]`,
+			`#[serde_as(as = "std::option::Option<wkt::internal::I32>")]`,
 		},
 		FieldType:          "std::option::Option<i32>",
 		PrimitiveFieldType: "i32",
@@ -854,6 +856,7 @@ func TestJsonNameAnnotations(t *testing.T) {
 		DocLines:      nil,
 		Attributes: []string{
 			`#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]`,
+			`#[serde_as(as = "std::vec::Vec<wkt::internal::I32>")]`,
 		},
 		FieldType:          "std::vec::Vec<i32>",
 		PrimitiveFieldType: "i32",
@@ -1046,7 +1049,7 @@ func TestFieldAnnotations(t *testing.T) {
 		FQMessageName: "crate::model::TestMessage",
 		Attributes: []string{
 			`#[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]`,
-			`#[serde_as(as = "std::collections::HashMap<_, serde_with::DisplayFromStr>")]`,
+			`#[serde_as(as = "std::collections::HashMap<wkt::internal::I32, serde_with::DisplayFromStr>")]`,
 		},
 		FieldType:          "std::collections::HashMap<i32,i64>",
 		PrimitiveFieldType: "std::collections::HashMap<i32,i64>",
