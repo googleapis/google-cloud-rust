@@ -100,7 +100,10 @@ where
                 match flow {
                     LoopState::Permanent(e) | LoopState::Exhausted(e) => return Err(e),
                     LoopState::Continue(e) => {
-                        let remaining_time = retry_policy.remaining_time(loop_start, attempt_count);
+                        // TODO(#2307) - For a stricter limit, we should query
+                        //               the retry policy to determine the
+                        //               remaining time.
+                        // let remaining_time = retry_policy.remaining_time(loop_start, attempt_count);
                         if remaining_time.is_some_and(|remaining| remaining < delay) {
                             return Err(Error::timeout(e));
                         }
@@ -702,11 +705,12 @@ mod test {
 
         // We recalculate how much time is left in the operation. This is
         // compared against the delay returned by the backoff policy.
-        retry_policy
-            .expect_remaining_time()
-            .once()
-            .in_sequence(&mut seq)
-            .return_const(Duration::from_millis(100));
+        // TODO(#2307) - Query the retry policy for the remaining time
+        //retry_policy
+        //    .expect_remaining_time()
+        //    .once()
+        //    .in_sequence(&mut seq)
+        //    .return_const(Duration::from_millis(100));
 
         // There is not enough time left to sleep, and make another attempt, so
         // the retry loop is terminated.
@@ -784,11 +788,12 @@ mod test {
 
         // We recalculate how much time is left in the operation. This is
         // compared against the delay returned by the backoff policy.
-        retry_policy
-            .expect_remaining_time()
-            .once()
-            .in_sequence(&mut seq)
-            .return_const(Duration::from_millis(100));
+        // TODO(#2307) - Query the retry policy for the remaining time
+        //retry_policy
+        //    .expect_remaining_time()
+        //    .once()
+        //    .in_sequence(&mut seq)
+        //    .return_const(Duration::from_millis(100));
 
         // There is enough time, so we perform the (instantaneous) sleep
         sleep
