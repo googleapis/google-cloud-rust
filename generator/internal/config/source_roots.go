@@ -23,11 +23,7 @@ func SourceRoots(options map[string]string) []string {
 	if opt, ok := options["roots"]; ok {
 		var roots []string
 		for _, name := range strings.Split(opt, ",") {
-			if strings.HasSuffix(name, "-root") {
-				roots = append(roots, name)
-			} else {
-				roots = append(roots, fmt.Sprintf("%s-root", name))
-			}
+			roots = append(roots, fmt.Sprintf("%s-root", name))
 		}
 		return roots
 	}

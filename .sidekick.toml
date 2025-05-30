@@ -18,7 +18,7 @@ specification-format = 'protobuf'
 
 [source]
 # By default only search in the `googleapis-root` directory.
-roots                       = 'googleapis-root'
+roots                       = 'googleapis'
 showcase-extracted-name     = 'gapic-showcase-0.36.2'
 showcase-root               = 'https://github.com/googleapis/gapic-showcase/archive/refs/tags/v0.36.2.tar.gz'
 showcase-sha256             = '0914bdbb088713aa087a53b355ff6631ad95e4769afd8bbd97d5d9e78d4cdf09'
