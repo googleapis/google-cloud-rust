@@ -13,11 +13,11 @@
 // limitations under the License.
 
 use super::dynamic::CredentialsProvider;
-use super::internal::sts_exchange::{ExchangeTokenRequest, STSHandler};
+use super::external_account_sources::url_sourced::UrlSourcedCredentials;
+use super::internal::sts_exchange::{ClientAuthentication, ExchangeTokenRequest, STSHandler};
 use super::{CacheableResource, Credentials};
 use crate::build_errors::Error as BuilderError;
 use crate::constants::DEFAULT_SCOPE;
-use crate::credentials::internal::sts_exchange::ClientAuthentication;
 use crate::headers_util::build_cacheable_headers;
 use crate::token::{CachedTokenProvider, Token, TokenProvider};
 use crate::token_cache::TokenCache;
@@ -34,29 +34,49 @@ pub(crate) trait SubjectTokenProvider: std::fmt::Debug + Send + Sync {
     async fn subject_token(&self) -> Result<String>;
 }
 
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
+pub(crate) struct CredentialSourceFormat {
+    #[serde(rename = "type")]
+    pub format_type: String,
+    pub subject_token_field_name: String,
+}
+
 #[derive(Serialize, Deserialize, Debug, Clone)]
 #[serde(untagged)]
 enum CredentialSource {
-    UrlSourced {},
+    Url(UrlSourcedCredentials),
     File {},
     Aws {},
     Executable {},
 }
 
-#[async_trait::async_trait]
-impl SubjectTokenProvider for CredentialSource {
-    async fn subject_token(&self) -> Result<String> {
-        match self.clone() {
-            CredentialSource::UrlSourced { .. } => {
-                unimplemented!("url sourced credential not supported yet")
+impl CredentialSource {
+    fn make_credentials(
+        self,
+        config: ExternalAccountConfig,
+        quota_project_id: Option<String>,
+    ) -> Credentials {
+        match self {
+            Self::Url(source) => {
+                let token_provider = ExternalAccountTokenProvider {
+                    subject_token_provider: source,
+                    config,
+                };
+                let cache = TokenCache::new(token_provider);
+                Credentials {
+                    inner: Arc::new(ExternalAccountCredentials {
+                        token_provider: cache,
+                        quota_project_id,
+                    }),
+                }
             }
-            CredentialSource::Executable { .. } => {
+            Self::Executable { .. } => {
                 unimplemented!("executable sourced credential not supported yet")
             }
-            CredentialSource::File { .. } => {
+            Self::File { .. } => {
                 unimplemented!("file sourced credential not supported yet")
             }
-            CredentialSource::Aws { .. } => {
+            Self::Aws { .. } => {
                 unimplemented!("AWS sourced credential not supported yet")
             }
         }
@@ -242,17 +262,9 @@ impl Builder {
             config.scopes = Some(scopes);
         }
 
-        let token_provider = ExternalAccountTokenProvider {
-            subject_token_provider: external_account_config.credential_source,
-            config,
-        };
-
-        Ok(Credentials {
-            inner: Arc::new(ExternalAccountCredentials {
-                quota_project_id: self.quota_project_id.clone(),
-                token_provider: TokenCache::new(token_provider),
-            }),
-        })
+        Ok(external_account_config
+            .credential_source
+            .make_credentials(config, self.quota_project_id))
     }
 }
 
@@ -271,6 +283,7 @@ where
 mod test {
     use super::*;
     use serde_json::*;
+    use std::collections::HashMap;
 
     #[tokio::test]
     async fn create_external_account_builder() {
@@ -281,9 +294,6 @@ mod test {
             "token_url": "https://sts.googleapis.com/v1beta/token",
             "credential_source": {
                 "url": "https://example.com/token",
-                "headers": {
-                  "Metadata": "True"
-                },
                 "format": {
                   "type": "json",
                   "subject_token_field_name": "access_token"
@@ -301,5 +311,52 @@ mod test {
         // Use the debug output to verify the right kind of credentials are created.
         print!("{:?}", creds);
         assert!(fmt.contains("ExternalAccountCredentials"));
+    }
+
+    #[tokio::test]
+    async fn create_external_account_detect_url_sourced() {
+        let contents = json!({
+            "type": "external_account",
+            "audience": "audience",
+            "subject_token_type": "urn:ietf:params:oauth:token-type:jwt",
+            "token_url": "https://sts.googleapis.com/v1beta/token",
+            "credential_source": {
+                "url": "https://example.com/token",
+                "headers": {
+                  "Metadata": "True"
+                },
+                "format": {
+                  "type": "json",
+                  "subject_token_field_name": "access_token"
+                }
+            }
+        });
+
+        let config: ExternalAccountConfig =
+            serde_json::from_value(contents).expect("failed to parse external account config");
+        let source = config.credential_source;
+
+        match source {
+            CredentialSource::Url(source) => {
+                assert_eq!(source.url, "https://example.com/token");
+                assert_eq!(
+                    source.headers,
+                    Some(HashMap::from([(
+                        "Metadata".to_string(),
+                        "True".to_string()
+                    ),])),
+                );
+                assert_eq!(
+                    source.format,
+                    Some(CredentialSourceFormat {
+                        format_type: "json".into(),
+                        subject_token_field_name: "access_token".into(),
+                    })
+                )
+            }
+            _ => {
+                unreachable!("expected Url Sourced credential")
+            }
+        }
     }
 }
