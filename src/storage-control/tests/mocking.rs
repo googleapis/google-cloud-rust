@@ -249,24 +249,26 @@ mod test {
         let _ = client.get_operation().send().await.unwrap_err();
     }
 
-    macro_rules! default_stub_method {
-        ($($method:ident),*) => {
-            $(
-                #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-                #[should_panic]
-                async fn $method() {
-                    #[derive(Debug)]
-                    struct DefaultStorageControl;
-                    impl gcs::stub::StorageControl for DefaultStorageControl {}
-                    let client = gcs::client::StorageControl::from_stub(DefaultStorageControl);
-                    let _ = client.$method().send().await;
-                }
-            )*
-        };
-    }
-
     mod default_stub {
         use super::gcs;
+
+        #[derive(Debug)]
+        struct DefaultStorageControl;
+        impl gcs::stub::StorageControl for DefaultStorageControl {}
+
+        macro_rules! default_stub_method {
+            ($($method:ident),*) => {
+                $(
+                    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+                    #[should_panic]
+                    async fn $method() {
+                        let client = gcs::client::StorageControl::from_stub(DefaultStorageControl);
+                        let _ = client.$method().send().await;
+                    }
+                )*
+            };
+        }
+
         default_stub_method!(
             delete_bucket,
             get_bucket,
