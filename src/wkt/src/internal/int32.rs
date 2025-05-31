@@ -29,72 +29,7 @@ impl<'de> serde_with::DeserializeAs<'de, i32> for I32 {
     }
 }
 
-const ERRMSG: &str = "a 32-bit signed integer";
-
-struct I32Visitor;
-
-impl serde::de::Visitor<'_> for I32Visitor {
-    type Value = i32;
-
-    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-    where
-        E: serde::de::Error,
-    {
-        // ProtoJSON says that both strings and numbers are accepted. Parse the
-        // string as a `f64` number (all JSON numbers are `f64`) and then try to
-        // parse that as an `i32`.
-        let number = value.parse::<f64>().map_err(E::custom)?;
-        self.visit_f64(number)
-    }
-
-    fn visit_i64<E>(self, value: i64) -> std::result::Result<Self::Value, E>
-    where
-        E: serde::de::Error,
-    {
-        match value {
-            _ if value < i32::MIN as i64 => Err(self::value_error(value)),
-            _ if value > i32::MAX as i64 => Err(self::value_error(value)),
-            _ => Ok(value as i32),
-        }
-    }
-
-    fn visit_u64<E>(self, value: u64) -> std::result::Result<Self::Value, E>
-    where
-        E: serde::de::Error,
-    {
-        match value {
-            _ if value > i32::MAX as u64 => Err(self::value_error(value)),
-            _ => Ok(value as i32),
-        }
-    }
-
-    fn visit_f64<E>(self, value: f64) -> std::result::Result<Self::Value, E>
-    where
-        E: serde::de::Error,
-    {
-        match value {
-            _ if value < i32::MIN as f64 => Err(self::value_error(value)),
-            _ if value > i32::MAX as f64 => Err(self::value_error(value)),
-            _ if value.fract().abs() > 0.0 => Err(self::value_error(value)),
-            // The number is "rounded towards zero". Because we are in range,
-            // and the fractional part is 0, this conversion should be safe.
-            // See https://doc.rust-lang.org/reference/expressions/operator-expr.html#r-expr.as.numeric.float-as-int
-            _ => Ok(value as i32),
-        }
-    }
-
-    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-        formatter.write_str("a 32-bit integer in ProtoJSON format")
-    }
-}
-
-fn value_error<T, E>(value: T) -> E
-where
-    T: std::fmt::Display,
-    E: serde::de::Error,
-{
-    E::invalid_value(Other(&format!("{value}")), &ERRMSG)
-}
+visitor_32!(I32Visitor, i32, "a 32-bit signed integer");
 
 impl serde_with::SerializeAs<i32> for I32 {
     fn serialize_as<S>(source: &i32, serializer: S) -> Result<S::Ok, S::Error>
