@@ -17,6 +17,9 @@
 //! These types are intended for developers of the Google Cloud client libraries
 //! for Rust. They are undocumented and may change at any time.
 
+mod int32;
+pub use int32::I32;
+
 pub struct F32;
 pub struct F64;
 
