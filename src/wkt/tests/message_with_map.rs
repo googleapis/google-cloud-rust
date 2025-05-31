@@ -27,7 +27,7 @@ mod test {
         pub map: HashMap<String, String>,
 
         #[serde(default, skip_serializing_if = "std::collections::HashMap::is_empty")]
-        #[serde_as(as = "HashMap<_, serde_with::DisplayFromStr>")]
+        #[serde_as(as = "HashMap<_, google_cloud_wkt::internal::I64>")]
         pub map_i64: HashMap<String, i64>,
 
         #[serde(default, skip_serializing_if = "std::collections::HashMap::is_empty")]
