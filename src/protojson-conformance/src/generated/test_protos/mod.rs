@@ -339,6 +339,7 @@ pub struct TestAllTypesProto3 {
     pub map_int32_double: std::collections::HashMap<i32, f64>,
 
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "std::collections::HashMap<serde_with::DisplayFromStr, _>")]
     pub map_bool_bool: std::collections::HashMap<bool, bool>,
 
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]

@@ -422,6 +422,13 @@ func fieldFormatter(typez api.Typez) string {
 	}
 }
 
+func keyFieldFormatter(typez api.Typez) string {
+	if typez == api.BOOL_TYPE {
+		return "serde_with::DisplayFromStr"
+	}
+	return fieldFormatter(typez)
+}
+
 func fieldSkipAttributes(f *api.Field) []string {
 	// oneofs have explicit presence, and default values should be serialized:
 	// https://protobuf.dev/programming-guides/field_presence/.
@@ -573,7 +580,7 @@ func fieldAttributes(f *api.Field, state *api.APIState) []string {
 				slog.Error("missing key or value in map field")
 				return attributes
 			}
-			keyFormat := fieldFormatter(key.Typez)
+			keyFormat := keyFieldFormatter(key.Typez)
 			valFormat := fieldFormatter(value.Typez)
 			if keyFormat == "_" && valFormat == "_" {
 				return attributes
