@@ -568,7 +568,7 @@ mod tests {
         );
 
         assert!(
-            p.on_error(now, 0, Error::serde("err".to_string()))
+            p.on_error(now, 0, Error::ser("err".to_string()))
                 .is_permanent()
         );
     }
@@ -585,7 +585,7 @@ mod tests {
 
     #[test_case::test_case(Error::io("err"))]
     #[test_case::test_case(Error::authentication(CredentialsError::from_msg(true, "err")))]
-    #[test_case::test_case(Error::serde("err"))]
+    #[test_case::test_case(Error::ser("err"))]
     #[test_case::test_case(Error::other("err"))]
     fn always_continue_error_kind(error: Error) {
         let p = AlwaysContinue;
@@ -903,10 +903,10 @@ mod tests {
             .returning(|_, _, e| LoopState::Permanent(e));
         let policy = LimitedAttemptCount::custom(mock, 2);
         let now = std::time::Instant::now();
-        let rf = policy.on_error(now, 1, Error::serde("err"));
+        let rf = policy.on_error(now, 1, Error::ser("err"));
         assert!(rf.is_permanent());
 
-        let rf = policy.on_error(now, 1, Error::serde("err"));
+        let rf = policy.on_error(now, 1, Error::ser("err"));
         assert!(rf.is_permanent());
     }
 

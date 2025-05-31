@@ -76,7 +76,7 @@ impl ReqwestClient {
         if let Some(user_agent) = options.user_agent() {
             builder = builder.header(
                 reqwest::header::USER_AGENT,
-                reqwest::header::HeaderValue::from_str(user_agent).map_err(Error::serde)?,
+                reqwest::header::HeaderValue::from_str(user_agent).map_err(Error::ser)?,
             );
         }
         if let Some(body) = body {
