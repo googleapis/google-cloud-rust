@@ -24,12 +24,14 @@ mod test {
         CredentialsProvider, api_key_credentials::Builder as ApiKeyCredentialsBuilder,
     };
     use google_cloud_auth::errors::CredentialsError;
-    use http::header::{HeaderName, HeaderValue};
+    use http::header::{AUTHORIZATION, HeaderName, HeaderValue};
     use http::{Extensions, HeaderMap};
+    use httptest::{Expectation, Server, matchers::*, responders::*};
     use scoped_env::ScopedEnv;
     use serde_json::json;
 
     type Result<T> = anyhow::Result<T>;
+    type TestResult = anyhow::Result<(), Box<dyn std::error::Error>>;
 
     #[tokio::test]
     #[serial_test::serial]
@@ -180,6 +182,94 @@ mod test {
         let fmt = format!("{:?}", creds);
         assert!(fmt.contains("ApiKeyCredentials"), "{fmt:?}");
         assert!(!fmt.contains("test-api-key"), "{fmt:?}");
+    }
+
+    #[tokio::test]
+    async fn create_external_account_access_token() -> TestResult {
+        let source_token_response_body = json!({
+            "access_token":"an_example_token",
+        })
+        .to_string();
+
+        let token_response_body = json!({
+            "access_token":"an_exchanged_token",
+            "issued_token_type":"urn:ietf:params:oauth:token-type:access_token",
+            "token_type":"Bearer",
+            "expires_in":3600,
+            "scope":"https://www.googleapis.com/auth/cloud-platform"
+        })
+        .to_string();
+
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("GET", "/source_token"),
+                request::headers(contains(("metadata", "True",))),
+            ])
+            .respond_with(status_code(200).body(source_token_response_body)),
+        );
+
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("POST", "/token"),
+                request::body(url_decoded(contains(("subject_token", "an_example_token")))),
+                request::body(url_decoded(contains((
+                    "subject_token_type",
+                    "urn:ietf:params:oauth:token-type:jwt"
+                )))),
+                request::body(url_decoded(contains(("audience", "some-audience")))),
+                request::headers(contains((
+                    "content-type",
+                    "application/x-www-form-urlencoded"
+                ))),
+            ])
+            .respond_with(status_code(200).body(token_response_body)),
+        );
+
+        let contents = json!({
+          "type": "external_account",
+          "audience": "some-audience",
+          "subject_token_type": "urn:ietf:params:oauth:token-type:jwt",
+          "token_url": server.url("/token").to_string(),
+          "credential_source": {
+            "url": server.url("/source_token").to_string(),
+            "headers": {
+              "Metadata": "True"
+            },
+            "format": {
+              "type": "json",
+              "subject_token_field_name": "access_token"
+            }
+          }
+        })
+        .to_string();
+
+        let creds =
+            AccessTokenCredentialBuilder::new(serde_json::from_str(contents.as_str()).unwrap())
+                .build()
+                .unwrap();
+
+        // Use the debug output to verify the right kind of credentials are created.
+        let fmt = format!("{:?}", creds);
+        print!("{:?}", creds);
+        assert!(fmt.contains("ExternalAccountCredentials"));
+
+        let cached_headers = creds.headers(Extensions::new()).await?;
+        match cached_headers {
+            CacheableResource::New { data, .. } => {
+                let token = data
+                    .get(AUTHORIZATION)
+                    .and_then(|token_value| token_value.to_str().ok())
+                    .map(|s| s.to_string())
+                    .unwrap();
+                assert!(token.contains("Bearer an_exchanged_token"));
+            }
+            CacheableResource::NotModified => {
+                unreachable!("Expecting a header to be present");
+            }
+        };
+
+        Ok(())
     }
 
     mockall::mock! {
