@@ -100,9 +100,6 @@ mod test {
         let value = json!({"optional": input});
         let got = serde_json::from_value::<MessageWithI32>(value)?;
         let output = json!({"optional": want});
-        if want == 0 {
-            return Ok(());
-        }
         assert_eq!(
             got,
             MessageWithI32 {
@@ -126,6 +123,8 @@ mod test {
         Ok(())
     }
 
+    #[test_case(0, 0)]
+    #[test_case("0", 0; "zero as string")]
     #[test_case("123", 123)]
     #[test_case(456, 456)]
     #[test_case("-789", -789)]
@@ -136,9 +135,6 @@ mod test {
         let value = json!({"repeated": [input]});
         let got = serde_json::from_value::<MessageWithI32>(value)?;
         let output = json!({"repeated": [want]});
-        if want == 0 {
-            return Ok(());
-        }
         assert_eq!(
             got,
             MessageWithI32 {
