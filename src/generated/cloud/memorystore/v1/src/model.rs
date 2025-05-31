@@ -71,6 +71,7 @@ pub struct Instance {
     /// Optional. Number of replica nodes per shard. If omitted the default is 0
     /// replicas.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
     pub replica_count: std::option::Option<i32>,
 
     /// Optional. Immutable. Authorization mode of the instance.
@@ -81,6 +82,7 @@ pub struct Instance {
 
     /// Optional. Number of shards for the instance.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub shard_count: i32,
 
     /// Output only. Deprecated: Use the endpoints.connections.psc_auto_connection
@@ -767,10 +769,12 @@ pub mod instance {
         pub struct UpdateInfo {
             /// Output only. Target number of shards for the instance.
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
+            #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
             pub target_shard_count: std::option::Option<i32>,
 
             /// Output only. Target number of replica nodes per shard for the instance.
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
+            #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
             pub target_replica_count: std::option::Option<i32>,
 
             /// Output only. Target engine version for the instance.
@@ -2300,10 +2304,12 @@ pub struct Backup {
 
     /// Output only. Number of replicas for the instance.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub replica_count: i32,
 
     /// Output only. Number of shards for the instance.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub shard_count: i32,
 
     /// Output only. Type of the backup.
@@ -3623,7 +3629,7 @@ pub mod psc_auto_connection {
     #[non_exhaustive]
     pub enum Ports {
         /// Optional. port will only be set for Primary/Reader or Discovery endpoint.
-        Port(i32),
+        Port(#[serde_as(as = "wkt::internal::I32")] i32),
     }
 }
 
@@ -3801,7 +3807,7 @@ pub mod psc_connection {
     #[non_exhaustive]
     pub enum Ports {
         /// Optional. port will only be set for Primary/Reader or Discovery endpoint.
-        Port(i32),
+        Port(#[serde_as(as = "wkt::internal::I32")] i32),
     }
 }
 
@@ -3817,6 +3823,7 @@ pub struct DiscoveryEndpoint {
 
     /// Output only. The port number of the exposed endpoint.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub port: i32,
 
     /// Output only. The network where the IP address of the discovery endpoint
@@ -4928,6 +4935,7 @@ pub struct ListInstancesRequest {
     /// Optional. Requested page size. Server may return fewer items than
     /// requested. If unspecified, server will pick an appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
@@ -5364,6 +5372,7 @@ pub struct ListBackupCollectionsRequest {
     ///
     /// [google.cloud.memorystore.v1.ListBackupCollectionsResponse.next_page_token]: crate::model::ListBackupCollectionsResponse::next_page_token
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. The `next_page_token` value returned from a previous
@@ -5546,6 +5555,7 @@ pub struct ListBackupsRequest {
     ///
     /// [google.cloud.memorystore.v1.ListBackupsResponse.next_page_token]: crate::model::ListBackupsResponse::next_page_token
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. The `next_page_token` value returned from a previous

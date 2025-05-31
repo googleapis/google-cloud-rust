@@ -341,6 +341,7 @@ pub struct Endpoint {
     /// The IP protocol port of the endpoint.
     /// Only applicable when protocol is TCP or UDP.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub port: i32,
 
     /// A Compute Engine instance URI.
@@ -1306,6 +1307,7 @@ pub mod reachability_details {
 pub struct LatencyPercentile {
     /// Percentage of samples this data point applies to.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub percent: i32,
 
     /// percent-th percentile of latency observed, in microseconds.
@@ -1402,10 +1404,12 @@ pub struct ProbingDetails {
 
     /// Number of probes sent.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub sent_probe_count: i32,
 
     /// Number of probes that reached the destination.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub successful_probe_count: i32,
 
     /// The source and destination endpoints derived from the test input and used
@@ -1907,6 +1911,7 @@ pub struct ListConnectivityTestsRequest {
 
     /// Number of `ConnectivityTests` to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Page token from an earlier query, as returned in `next_page_token`.
@@ -2456,6 +2461,7 @@ pub struct Trace {
     /// return traces, it matches ID of associated forward trace. A single forward
     /// trace can be associated with none, one or more than one return trace.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub forward_trace_id: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4132,6 +4138,7 @@ pub struct FirewallInfo {
 
     /// The priority of the firewall rule.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub priority: i32,
 
     /// The URI of the VPC network that the firewall rule is associated with.
@@ -4530,6 +4537,7 @@ pub struct RouteInfo {
 
     /// Priority of the route.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub priority: i32,
 
     /// Instance tags of the route.
@@ -6764,10 +6772,12 @@ pub struct EndpointInfo {
 
     /// Source port. Only valid when protocol is TCP or UDP.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub source_port: i32,
 
     /// Destination port. Only valid when protocol is TCP or UDP.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub destination_port: i32,
 
     /// URI of the network where this packet originates from.
@@ -9797,20 +9807,24 @@ pub struct NatInfo {
 
     /// Source port before NAT translation. Only valid when protocol is TCP or UDP.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub old_source_port: i32,
 
     /// Source port after NAT translation. Only valid when protocol is TCP or UDP.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub new_source_port: i32,
 
     /// Destination port before NAT translation. Only valid when protocol is TCP or
     /// UDP.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub old_destination_port: i32,
 
     /// Destination port after NAT translation. Only valid when protocol is TCP or
     /// UDP.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub new_destination_port: i32,
 
     /// Uri of the Cloud Router. Only valid when type is CLOUD_NAT.
@@ -10105,20 +10119,24 @@ pub struct ProxyConnectionInfo {
     /// Source port of an original connection. Only valid when protocol is TCP or
     /// UDP.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub old_source_port: i32,
 
     /// Source port of a new connection. Only valid when protocol is TCP or UDP.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub new_source_port: i32,
 
     /// Destination port of an original connection. Only valid when protocol is TCP
     /// or UDP.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub old_destination_port: i32,
 
     /// Destination port of a new connection. Only valid when protocol is TCP or
     /// UDP.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub new_destination_port: i32,
 
     /// Uri of proxy subnet.
@@ -10619,6 +10637,7 @@ pub struct ListVpcFlowLogsConfigsRequest {
 
     /// Optional. Number of `VpcFlowLogsConfigs` to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. Page token from an earlier query, as returned in

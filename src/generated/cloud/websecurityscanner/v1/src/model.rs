@@ -1316,6 +1316,7 @@ pub struct FindingTypeStats {
 
     /// Output only. The count of findings belonging to this finding type.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub finding_count: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1367,6 +1368,7 @@ pub struct ScanConfig {
     /// default to 15. Other values outside of [5, 20] range will be rejected with
     /// INVALID_ARGUMENT error.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub max_qps: i32,
 
     /// Required. The starting URLs from which the scanner finds site pages.
@@ -1981,6 +1983,7 @@ pub mod scan_config {
 
         /// Required. The duration of time between executions in days.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub interval_duration_days: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3032,6 +3035,7 @@ pub struct ScanRun {
     /// If the scan is running, the value ranges from 0 to 100.
     /// If the scan is finished, the value is 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub progress_percent: i32,
 
     /// Output only. If result_state is an ERROR, this field provides the primary reason for
@@ -3478,6 +3482,7 @@ pub struct ScanRunErrorTrace {
     /// common HTTP error code, if such is available. For example, if this code is
     /// 404, the scan has encountered too many NOT_FOUND responses.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub most_common_http_error_code: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4174,6 +4179,7 @@ pub struct ListScanConfigsRequest {
     /// If not specified or not positive, the implementation will select a
     /// reasonable value.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4430,6 +4436,7 @@ pub struct ListScanRunsRequest {
     /// If not specified or not positive, the implementation will select a
     /// reasonable value.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4584,6 +4591,7 @@ pub struct ListCrawledUrlsRequest {
     /// If not specified or not positive, the implementation will select a
     /// reasonable value.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4745,6 +4753,7 @@ pub struct ListFindingsRequest {
     /// If not specified or not positive, the implementation will select a
     /// reasonable value.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

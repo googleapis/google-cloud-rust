@@ -83,6 +83,7 @@ pub struct BacktestResult {
     /// the last full month prior to the end_time according to the dataset's
     /// timezone.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub backtest_periods: i32,
 
     /// Required. PerformanceTarget gives information on how the test will be
@@ -445,6 +446,7 @@ pub struct ListBacktestResultsRequest {
     /// contains a next_page_token, which can be used to retrieve the next page of
     /// resources.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// In case of paginated results, this is the token that was returned in the
@@ -1464,6 +1466,7 @@ pub struct ListDatasetsRequest {
     /// contains a next_page_token, which can be used to retrieve the next page of
     /// resources.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// In case of paginated results, this is the token that was returned in the
@@ -2550,6 +2553,7 @@ pub struct ListEngineConfigsRequest {
     /// contains a next_page_token, which can be used to retrieve the next page of
     /// resources.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// In case of paginated results, this is the token that was returned in the
@@ -3310,6 +3314,7 @@ pub struct ListEngineVersionsRequest {
     /// response contains a next_page_token, which can be used to retrieve the next
     /// page of resources.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. In case of paginated results, this is the token that was returned
@@ -3775,6 +3780,7 @@ pub struct ListInstancesRequest {
     /// contains a next_page_token, which can be used to retrieve the next page of
     /// resources.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// In case of paginated results, this is the token that was returned in the
@@ -4941,6 +4947,7 @@ pub struct ListModelsRequest {
     /// contains a next_page_token, which can be used to retrieve the next page of
     /// resources.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// In case of paginated results, this is the token that was returned in the
@@ -5481,6 +5488,7 @@ pub struct PredictionResult {
     ///
     /// [google.cloud.financialservices.v1.PredictionResult.end_time]: crate::model::PredictionResult::end_time
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub prediction_periods: i32,
 
     /// Required. Where to write the output of the predictions.
@@ -5870,6 +5878,7 @@ pub struct ListPredictionResultsRequest {
     /// contains a next_page_token, which can be used to retrieve the next page of
     /// resources.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// In case of paginated results, this is the token that was returned in the

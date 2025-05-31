@@ -316,6 +316,7 @@ pub struct ListBucketsRequest {
     /// "acl" is present in the read_mask, the service will use this parameter of
     /// 200 items, whichever is smaller.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A previously-returned page token representing part of the larger
@@ -2089,6 +2090,7 @@ pub struct ListObjectsRequest {
     /// omitted, fewer total results may be returned than requested. The service
     /// will use this parameter or 1,000 items, whichever is smaller.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A previously-returned page token representing part of the larger
@@ -4543,6 +4545,7 @@ pub mod bucket {
         /// [<https://www.w3.org/TR/cors/#access-control-max-age-response-header>][Access-Control-Max-Age
         /// header] used in preflight responses.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub max_age_seconds: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4942,6 +4945,7 @@ pub mod bucket {
                 /// A value of 0 indicates that all objects immediately match this
                 /// condition.
                 #[serde(skip_serializing_if = "std::option::Option::is_none")]
+                #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
                 pub age_days: std::option::Option<i32>,
 
                 /// Optional. This condition is satisfied when an object is created
@@ -4959,6 +4963,7 @@ pub mod bucket {
                 /// condition is satisfied when there are at least N versions (including
                 /// the live version) newer than this version of the object.
                 #[serde(skip_serializing_if = "std::option::Option::is_none")]
+                #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
                 pub num_newer_versions: std::option::Option<i32>,
 
                 /// Optional. Objects having any of the storage classes specified by this
@@ -4972,6 +4977,7 @@ pub mod bucket {
                 /// object.
                 /// The value of the field must be a nonnegative integer.
                 #[serde(skip_serializing_if = "std::option::Option::is_none")]
+                #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
                 pub days_since_custom_time: std::option::Option<i32>,
 
                 /// Optional. An object matches this condition if the custom timestamp
@@ -4985,6 +4991,7 @@ pub mod bucket {
                 /// nonnegative integer. If it's zero, the object version will become
                 /// eligible for Lifecycle action as soon as it becomes noncurrent.
                 #[serde(skip_serializing_if = "std::option::Option::is_none")]
+                #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
                 pub days_since_noncurrent_time: std::option::Option<i32>,
 
                 /// Optional. This condition is relevant only for versioned objects. An
@@ -6260,6 +6267,7 @@ pub struct Object {
     /// Output only. Number of underlying components that make up this object.
     /// Components are accumulated by compose operations.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub component_count: i32,
 
     /// Output only. Hashes for the data part of this object. This field is used

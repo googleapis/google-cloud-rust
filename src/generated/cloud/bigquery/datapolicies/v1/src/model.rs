@@ -288,6 +288,7 @@ pub struct ListDataPoliciesRequest {
     /// and 1000.
     /// If not set, defaults to 50.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The `nextPageToken` value returned from a previous list request, if any. If

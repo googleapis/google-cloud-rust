@@ -43,10 +43,12 @@ extern crate wkt;
 pub struct Vertex {
     /// X coordinate.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub x: i32,
 
     /// Y coordinate.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub y: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -247,6 +249,7 @@ pub struct Feature {
     /// Maximum number of results of this type. Does not apply to
     /// `TEXT_DETECTION`, `DOCUMENT_TEXT_DETECTION`, or `CROP_HINTS`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub max_results: i32,
 
     /// Model to use for the feature.
@@ -2448,6 +2451,7 @@ pub struct ImageAnnotationContext {
     /// If the file was a PDF or TIFF, this field gives the page number within
     /// the file used to produce the image.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_number: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2922,6 +2926,7 @@ pub struct AnnotateFileRequest {
     /// If this field is empty, by default the service performs image annotation
     /// for the first 5 pages of the file.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "std::vec::Vec<wkt::internal::I32>")]
     pub pages: std::vec::Vec<i32>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3016,6 +3021,7 @@ pub struct AnnotateFileResponse {
 
     /// This field gives the total number of pages in the file.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub total_pages: i32,
 
     /// If set, represents the error message for the failed request. The
@@ -3713,6 +3719,7 @@ pub struct OutputConfig {
     /// Currently, batch_size only applies to GcsDestination, with potential future
     /// support for other output configurations.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub batch_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4879,6 +4886,7 @@ pub struct ListProductsRequest {
 
     /// The maximum number of items to return. Default 10, maximum 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The next_page_token returned from a previous List request, if any.
@@ -5207,6 +5215,7 @@ pub struct ListProductSetsRequest {
 
     /// The maximum number of items to return. Default 10, maximum 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The next_page_token returned from a previous List request, if any.
@@ -5540,6 +5549,7 @@ pub struct ListReferenceImagesRequest {
 
     /// The maximum number of items to return. Default 10, maximum 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A token identifying a page of results to be returned. This is the value
@@ -5595,6 +5605,7 @@ pub struct ListReferenceImagesResponse {
 
     /// The maximum number of items to return. Default 10, maximum 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The next_page_token returned from a previous List request, if any.
@@ -5836,6 +5847,7 @@ pub struct ListProductsInProductSetRequest {
 
     /// The maximum number of items to return. Default 10, maximum 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The next_page_token returned from a previous List request, if any.
@@ -7056,11 +7068,13 @@ pub struct Page {
     /// Page width. For PDFs the unit is points. For images (including
     /// TIFFs) the unit is pixels.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub width: i32,
 
     /// Page height. For PDFs the unit is points. For images (including
     /// TIFFs) the unit is pixels.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub height: i32,
 
     /// List of blocks of text, images etc on this page.

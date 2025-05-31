@@ -310,6 +310,7 @@ pub struct ListDomainsRequest {
     ///
     /// [google.cloud.managedidentities.v1.ListDomainsResponse.next_page_token]: crate::model::ListDomainsResponse::next_page_token
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. The `next_page_token` value returned from a previous ListDomainsRequest

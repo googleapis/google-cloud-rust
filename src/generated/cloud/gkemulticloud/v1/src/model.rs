@@ -1583,6 +1583,7 @@ pub struct ListAttachedClustersRequest {
     ///
     /// [google.cloud.gkemulticloud.v1.ListAttachedClustersResponse.next_page_token]: crate::model::ListAttachedClustersResponse::next_page_token
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The `nextPageToken` value returned from a previous
@@ -1967,6 +1968,7 @@ pub struct GenerateAttachedClusterAgentTokenResponse {
     pub access_token: std::string::String,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub expires_in: i32,
 
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
@@ -3099,6 +3101,7 @@ pub struct AwsVolumeTemplate {
     /// When unspecified, a default value is provided. See the specific reference
     /// in the parent resource.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub size_gib: i32,
 
     /// Optional. Type of the EBS volume.
@@ -3109,6 +3112,7 @@ pub struct AwsVolumeTemplate {
     /// Optional. The number of I/O operations per second (IOPS) to provision for
     /// GP3 volume.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub iops: i32,
 
     /// Optional. The throughput that the volume supports, in MiB/s. Only valid if
@@ -3116,6 +3120,7 @@ pub struct AwsVolumeTemplate {
     ///
     /// If the volume_type is GP3 and this is not speficied, it defaults to 125.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub throughput: i32,
 
     /// Optional. The Amazon Resource Name (ARN) of the Customer Managed Key (CMK)
@@ -3978,12 +3983,14 @@ pub struct SurgeSettings {
     /// Optional. The maximum number of nodes that can be created beyond the
     /// current size of the node pool during the update process.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub max_surge: i32,
 
     /// Optional. The maximum number of nodes that can be simultaneously
     /// unavailable during the update process. A node is considered unavailable if
     /// its status is not Ready.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub max_unavailable: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4361,11 +4368,13 @@ pub struct AwsNodePoolAutoscaling {
     /// Required. Minimum number of nodes in the node pool. Must be greater than or
     /// equal to 1 and less than or equal to max_node_count.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub min_node_count: i32,
 
     /// Required. Maximum number of nodes in the node pool. Must be greater than or
     /// equal to min_node_count and less than or equal to 50.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub max_node_count: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5446,6 +5455,7 @@ pub struct ListAwsClustersRequest {
     ///
     /// [google.cloud.gkemulticloud.v1.ListAwsClustersResponse.next_page_token]: crate::model::ListAwsClustersResponse::next_page_token
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The `nextPageToken` value returned from a previous
@@ -5995,6 +6005,7 @@ pub struct ListAwsNodePoolsRequest {
     ///
     /// [google.cloud.gkemulticloud.v1.ListAwsNodePoolsResponse.next_page_token]: crate::model::ListAwsNodePoolsResponse::next_page_token
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The `nextPageToken` value returned from a previous
@@ -6553,6 +6564,7 @@ pub struct GenerateAwsClusterAgentTokenResponse {
     pub access_token: std::string::String,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub expires_in: i32,
 
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
@@ -7803,6 +7815,7 @@ pub struct AzureDiskTemplate {
     /// When unspecified, a default value is provided. See the specific reference
     /// in the parent resource.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub size_gib: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8871,11 +8884,13 @@ pub struct AzureNodePoolAutoscaling {
     /// Required. Minimum number of nodes in the node pool. Must be greater than or
     /// equal to 1 and less than or equal to max_node_count.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub min_node_count: i32,
 
     /// Required. Maximum number of nodes in the node pool. Must be greater than or
     /// equal to min_node_count and less than or equal to 50.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub max_node_count: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9658,6 +9673,7 @@ pub struct ListAzureClustersRequest {
     ///
     /// [google.cloud.gkemulticloud.v1.ListAzureClustersResponse.next_page_token]: crate::model::ListAzureClustersResponse::next_page_token
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The `nextPageToken` value returned from a previous
@@ -10132,6 +10148,7 @@ pub struct ListAzureNodePoolsRequest {
     ///
     /// [google.cloud.gkemulticloud.v1.ListAzureNodePoolsResponse.next_page_token]: crate::model::ListAzureNodePoolsResponse::next_page_token
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The `nextPageToken` value returned from a previous
@@ -10626,6 +10643,7 @@ pub struct ListAzureClientsRequest {
     ///
     /// [google.cloud.gkemulticloud.v1.ListAzureClientsResponse.next_page_token]: crate::model::ListAzureClientsResponse::next_page_token
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The `nextPageToken` value returned from a previous
@@ -11037,6 +11055,7 @@ pub struct GenerateAzureClusterAgentTokenResponse {
     pub access_token: std::string::String,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub expires_in: i32,
 
     #[serde(skip_serializing_if = "std::string::String::is_empty")]

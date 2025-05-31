@@ -1924,6 +1924,7 @@ pub struct GetDatasetRequest {
     /// Please refer <https://cloud.google.com/iam/docs/troubleshooting-withcond> for
     /// more details.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub access_policy_version: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2154,6 +2155,7 @@ pub struct InsertDatasetRequest {
     /// (<https://cloud.google.com/iam/docs/policies#versions>) and will be used to
     /// set policy in IAM.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub access_policy_version: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2249,6 +2251,7 @@ pub struct UpdateOrPatchDatasetRequest {
     /// (<https://cloud.google.com/iam/docs/policies#versions>) and will be used to
     /// set policy in IAM.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub access_policy_version: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2528,6 +2531,7 @@ pub struct ListDatasetsRequest {
     /// The maximum number of results to return in a single response page.
     /// Leverage the page tokens to iterate through the entire collection.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<_>")]
     pub max_results: std::option::Option<wkt::UInt32Value>,
 
     /// Page token, returned by a previous call, to request the next page of
@@ -4291,6 +4295,7 @@ pub struct ExternalDataConfiguration {
     /// that all records are valid. This setting is ignored for Google Cloud
     /// Bigtable, Google Cloud Datastore backups, Avro, ORC and Parquet formats.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
     pub max_bad_records: std::option::Option<wkt::Int32Value>,
 
     /// Try to detect schema and format options automatically.
@@ -11954,6 +11959,7 @@ pub mod model {
         pub struct IterationResult {
             /// Index of the iteration, 0 based.
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
+            #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
             pub index: std::option::Option<wkt::Int32Value>,
 
             /// Time taken to run the iteration in milliseconds.
@@ -16470,6 +16476,7 @@ pub struct ListModelsRequest {
     /// The maximum number of results to return in a single response page.
     /// Leverage the page tokens to iterate through the entire collection.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<_>")]
     pub max_results: std::option::Option<wkt::UInt32Value>,
 
     /// Page token, returned by a previous call to request the next page of
@@ -20248,6 +20255,7 @@ pub struct ListRoutinesRequest {
     /// The maximum number of results to return in a single response page.
     /// Leverage the page tokens to iterate through the entire collection.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<_>")]
     pub max_results: std::option::Option<wkt::UInt32Value>,
 
     /// Page token, returned by a previous call, to request the next page of
@@ -20449,6 +20457,7 @@ pub struct ListRowAccessPoliciesRequest {
     /// The maximum number of results to return in a single response page. Leverage
     /// the page tokens to iterate through the entire collection.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -24192,6 +24201,7 @@ pub struct ListTablesRequest {
     /// The maximum number of results to return in a single response page.
     /// Leverage the page tokens to iterate through the entire collection.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<_>")]
     pub max_results: std::option::Option<wkt::UInt32Value>,
 
     /// Page token, returned by a previous call, to request the next page of
@@ -24591,6 +24601,7 @@ pub struct TableList {
 
     /// The total number of tables in the dataset.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
     pub total_items: std::option::Option<wkt::Int32Value>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

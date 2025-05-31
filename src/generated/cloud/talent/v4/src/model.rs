@@ -1801,14 +1801,17 @@ pub struct BatchOperationMetadata {
 
     /// Count of successful item(s) inside an operation.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub success_count: i32,
 
     /// Count of failed item(s) inside an operation.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub failure_count: i32,
 
     /// Count of total item(s) inside an operation.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub total_count: i32,
 
     /// The time when the batch operation is created.
@@ -2608,6 +2611,7 @@ pub struct ListCompaniesRequest {
     /// The maximum number of companies to be returned, at most 100.
     /// Default is 100 if a non-positive number is provided.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Set to true if the companies requested must have open jobs.
@@ -2778,6 +2782,7 @@ pub struct CompleteQueryRequest {
     ///
     /// The maximum allowed page size is 10.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// If provided, restricts completion to specified company.
@@ -5455,6 +5460,7 @@ pub struct Job {
     ///
     /// Default value is 0, and negative values are treated as 0.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub promotion_value: i32,
 
     /// A description of the qualifications required to perform the
@@ -6435,6 +6441,7 @@ pub struct ListJobsRequest {
     /// [google.cloud.talent.v4.JobView.JOB_VIEW_ID_ONLY]: crate::model::JobView::IdOnly
     /// [google.cloud.talent.v4.ListJobsRequest.job_view]: crate::model::ListJobsRequest::job_view
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The desired job attributes returned for jobs in the
@@ -6765,12 +6772,14 @@ pub struct SearchJobsRequest {
     ///
     /// [google.cloud.talent.v4.SearchJobsRequest.page_token]: crate::model::SearchJobsRequest::page_token
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub offset: i32,
 
     /// A limit on the number of jobs returned in the search results.
     /// Increasing this value above the default value of 10 can increase search
     /// response time. The value can be between 1 and 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub max_page_size: i32,
 
     /// The token specifying the current offset within
@@ -8073,6 +8082,7 @@ pub struct SearchJobsResponse {
     ///
     /// Note: This size is precise only if the total is less than 100,000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub total_size: i32,
 
     /// Additional information for the API invocation, such as the request
@@ -8088,6 +8098,7 @@ pub struct SearchJobsResponse {
     /// (without broadening) query. If this field is non-zero, subsequent requests
     /// with offset after this result set should contain all broadened results.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub broadened_query_jobs_count: i32,
 
     /// The spell checking result, and correction.
@@ -9090,6 +9101,7 @@ pub struct ListTenantsRequest {
     /// The maximum number of tenants to be returned, at most 100.
     /// Default is 100 if a non-positive number is provided.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

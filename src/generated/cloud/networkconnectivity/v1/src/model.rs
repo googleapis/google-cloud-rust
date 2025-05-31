@@ -1209,6 +1209,7 @@ pub struct ListServiceConnectionMapsRequest {
 
     /// The maximum number of results per page that should be returned.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The page token.
@@ -2540,6 +2541,7 @@ pub struct ListServiceConnectionPoliciesRequest {
 
     /// The maximum number of results per page that should be returned.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The page token.
@@ -3125,6 +3127,7 @@ pub struct ListServiceClassesRequest {
 
     /// The maximum number of results per page that should be returned.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The page token.
@@ -3649,6 +3652,7 @@ pub struct ListServiceConnectionTokensRequest {
 
     /// The maximum number of results per page that should be returned.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The page token.
@@ -5490,6 +5494,7 @@ pub struct ListHubsRequest {
 
     /// The maximum number of results per page to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The page token.
@@ -5940,6 +5945,7 @@ pub struct ListHubSpokesRequest {
 
     /// The maximum number of results to return per page.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The page token.
@@ -6265,6 +6271,7 @@ pub struct QueryHubStatusRequest {
 
     /// Optional. The maximum number of results to return per page.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. The page token.
@@ -6439,6 +6446,7 @@ pub struct HubStatusEntry {
     /// status. If the `group_by` field was not set in the request message, the
     /// value of this field is 1.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub count: i32,
 
     /// The fields that this entry is grouped by. This has the same value as the
@@ -6799,6 +6807,7 @@ pub struct ListSpokesRequest {
 
     /// The maximum number of results to return per page.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The page token.
@@ -7806,6 +7815,7 @@ pub struct ListRoutesRequest {
 
     /// The maximum number of results to return per page.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The page token.
@@ -7964,6 +7974,7 @@ pub struct ListRouteTablesRequest {
 
     /// The maximum number of results to return per page.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The page token.
@@ -8122,6 +8133,7 @@ pub struct ListGroupsRequest {
 
     /// The maximum number of results to return per page.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The page token.
@@ -9424,6 +9436,7 @@ pub struct PolicyBasedRoute {
     /// one with the lowest-numbered priority value wins. The default value is
     /// 1000. The priority value must be from 1 to 65535, inclusive.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub priority: i32,
 
     /// Output only. If potential misconfigurations are detected for this route,
@@ -10404,6 +10417,7 @@ pub struct ListPolicyBasedRoutesRequest {
 
     /// The maximum number of results per page that should be returned.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The page token.

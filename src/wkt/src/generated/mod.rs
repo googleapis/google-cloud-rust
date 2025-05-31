@@ -456,11 +456,13 @@ pub struct FileDescriptorProto {
 
     /// Indexes of the public imported files in the dependency list above.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "std::vec::Vec<wkt::internal::I32>")]
     pub public_dependency: std::vec::Vec<i32>,
 
     /// Indexes of the weak imported files in the dependency list.
     /// For Google-internal migration only. Do not use.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "std::vec::Vec<wkt::internal::I32>")]
     pub weak_dependency: std::vec::Vec<i32>,
 
     /// All top-level definitions in this file.
@@ -826,9 +828,11 @@ pub mod descriptor_proto {
     #[non_exhaustive]
     pub struct ExtensionRange {
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub start: i32,
 
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub end: i32,
 
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -889,9 +893,11 @@ pub mod descriptor_proto {
     #[non_exhaustive]
     pub struct ReservedRange {
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub start: i32,
 
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub end: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1026,6 +1032,7 @@ pub mod extension_range_options {
     pub struct Declaration {
         /// The extension number declared within the extension range.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub number: i32,
 
         /// The fully-qualified name of the extension field. There must be a leading
@@ -1232,6 +1239,7 @@ pub struct FieldDescriptorProto {
     pub name: std::string::String,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub number: i32,
 
     pub label: crate::field_descriptor_proto::Label,
@@ -1264,6 +1272,7 @@ pub struct FieldDescriptorProto {
     /// If set, gives the index of a oneof in the containing type's oneof_decl
     /// list.  This field is a member of that oneof.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub oneof_index: i32,
 
     /// JSON name of this field. The value is set by protocol compiler. If the
@@ -1936,9 +1945,11 @@ pub mod enum_descriptor_proto {
     #[non_exhaustive]
     pub struct EnumReservedRange {
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub start: i32,
 
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub end: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1980,6 +1991,7 @@ pub struct EnumValueDescriptorProto {
     pub name: std::string::String,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub number: i32,
 
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -5581,6 +5593,7 @@ pub mod source_code_info {
         /// this path refers to the whole field declaration (from the beginning
         /// of the label to the terminating semicolon).
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "std::vec::Vec<wkt::internal::I32>")]
         pub path: std::vec::Vec<i32>,
 
         /// Always has exactly three or four elements: start line, start column,
@@ -5589,6 +5602,7 @@ pub mod source_code_info {
         /// and column numbers are zero-based -- typically you will want to add
         /// 1 to each before displaying to a user.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "std::vec::Vec<wkt::internal::I32>")]
         pub span: std::vec::Vec<i32>,
 
         /// If this SourceCodeInfo represents a complete declaration, these are any
@@ -5769,6 +5783,7 @@ pub mod generated_code_info {
         /// Identifies the element in the original source .proto file. This field
         /// is formatted the same as SourceCodeInfo.Location.path.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "std::vec::Vec<wkt::internal::I32>")]
         pub path: std::vec::Vec<i32>,
 
         /// Identifies the filesystem path to the original source .proto.
@@ -5778,12 +5793,14 @@ pub mod generated_code_info {
         /// Identifies the starting offset in bytes in the generated code
         /// that relates to the identified object.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub begin: i32,
 
         /// Identifies the ending offset in bytes in the generated code that
         /// relates to the identified object. The end offset should be one past
         /// the last relevant byte (so the length of the text = end - begin).
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub end: i32,
 
         pub semantic: crate::generated_code_info::annotation::Semantic,
@@ -6153,6 +6170,7 @@ pub struct Field {
 
     /// The field number.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub number: i32,
 
     /// The field name.
@@ -6167,6 +6185,7 @@ pub struct Field {
     /// The index of the field type in `Type.oneofs`, for message or enumeration
     /// types. The first type has index 1; zero means the type is not in the list.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub oneof_index: i32,
 
     /// Whether to use alternative packed wire representation.
@@ -6773,6 +6792,7 @@ pub struct EnumValue {
 
     /// Enum value number.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub number: i32,
 
     /// Protocol buffer options.

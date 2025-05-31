@@ -687,6 +687,7 @@ pub struct ListInstancesRequest {
     /// Requested page size. Server may return fewer items than requested.
     /// If unspecified, the server will pick an appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A token identifying a page of results from the server.
@@ -2130,6 +2131,7 @@ pub struct ListLunsRequest {
     /// Requested page size. The server might return fewer items than requested.
     /// If unspecified, server will pick an appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A token identifying a page of results from the server.
@@ -3222,6 +3224,7 @@ pub struct LogicalInterface {
     /// The index of the logical interface mapping to the index of the hardware
     /// bond or nic on the chosen network template. This field is deprecated.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     #[deprecated]
     pub interface_index: i32,
 
@@ -3391,6 +3394,7 @@ pub struct ListNetworksRequest {
     /// Requested page size. The server might return fewer items than requested.
     /// If unspecified, server will pick an appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A token identifying a page of results from the server.
@@ -4530,6 +4534,7 @@ pub struct ListNfsSharesRequest {
     /// Requested page size. The server might return fewer items than requested.
     /// If unspecified, server will pick an appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A token identifying a page of results from the server.
@@ -4956,6 +4961,7 @@ pub struct ListOSImagesRequest {
     /// Notice that page_size field is not supported and won't be respected in
     /// the API request for now, will be updated when pagination is supported.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A token identifying a page of results from the server.
@@ -5570,6 +5576,7 @@ pub struct ProvisioningQuota {
 
     /// The available count of the provisioning quota.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub available_count: i32,
 
     /// The quota of one asset type.
@@ -5948,6 +5955,7 @@ pub struct ListProvisioningQuotasRequest {
     /// Notice that page_size field is not supported and won't be respected in
     /// the API request for now, will be updated when pagination is supported.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A token identifying a page of results from the server.
@@ -6483,6 +6491,7 @@ pub struct VolumeConfig {
 
     /// The requested size of this volume, in GB.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub size_gb: i32,
 
     /// LUN ranges to be configured. Set only when protocol is PROTOCOL_FC.
@@ -6637,10 +6646,12 @@ pub mod volume_config {
     pub struct LunRange {
         /// Number of LUNs to create.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub quantity: i32,
 
         /// The requested size of each LUN, in GB.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub size_gb: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7885,6 +7896,7 @@ pub struct InstanceQuota {
     /// Number of machines than can be created for the given location and
     /// instance_type.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub available_machine_count: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8165,6 +8177,7 @@ pub struct ListSSHKeysRequest {
 
     /// The maximum number of items to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous List request, if any.
@@ -8721,6 +8734,7 @@ pub mod volume {
         /// snapshot copies have overflowed into the data portion of the storage
         /// volume.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub reserved_space_used_percent: i32,
 
         /// The amount, in GiB, of available space in this storage volume's reserved
@@ -8735,6 +8749,7 @@ pub mod volume {
         /// snapshots is 40%.
         /// Setting this field will effectively set snapshot_enabled to true.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub reserved_space_percent: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9522,6 +9537,7 @@ pub struct ListVolumesRequest {
     /// Requested page size. The server might return fewer items than requested.
     /// If unspecified, server will pick an appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A token identifying a page of results from the server.
@@ -10118,6 +10134,7 @@ pub struct ListVolumeSnapshotsRequest {
     /// Requested page size. The server might return fewer items than requested.
     /// If unspecified, server will pick an appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A token identifying a page of results from the server.

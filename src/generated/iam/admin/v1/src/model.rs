@@ -382,6 +382,7 @@ pub struct ListServiceAccountsRequest {
     ///
     /// [google.iam.admin.v1.ListServiceAccountsResponse.next_page_token]: crate::model::ListServiceAccountsResponse::next_page_token
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional pagination token returned in an earlier
@@ -2018,6 +2019,7 @@ pub struct QueryGrantableRolesRequest {
     ///
     /// The default is 300, and the maximum is 1,000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional pagination token returned in an earlier
@@ -2174,6 +2176,7 @@ pub struct ListRolesRequest {
     ///
     /// The default is 300, and the maximum is 1,000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional pagination token returned in an earlier ListRolesResponse.
@@ -3095,6 +3098,7 @@ pub struct QueryTestablePermissionsRequest {
     ///
     /// The default is 100, and the maximum is 1,000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional pagination token returned in an earlier
@@ -3453,6 +3457,7 @@ pub struct LintResult {
     /// identified by `field_name`. Currently, this is populated only for condition
     /// expression.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub location_offset: i32,
 
     /// Human readable debug message associated with the issue.

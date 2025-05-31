@@ -49,6 +49,7 @@ pub struct ListCryptoKeysRequest {
     /// fewer than this value. If unspecified, at most 1000 keys will be returned.
     /// The maximum value is 1000; values above 1000 will be coerced to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. Pass this into a subsequent request in order to receive the next
@@ -217,6 +218,7 @@ pub struct ProtectedResourcesSummary {
     /// The number of distinct Cloud projects in the same Cloud organization as the
     /// key that have resources protected by the key.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub project_count: i32,
 
     /// The number of resources protected by the key grouped by resource type.
@@ -330,6 +332,7 @@ pub struct SearchProtectedResourcesRequest {
     /// If unspecified, at most 500 resources will be returned.
     /// The maximum value is 500; values above 500 will be coerced to 500.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A page token, received from a previous

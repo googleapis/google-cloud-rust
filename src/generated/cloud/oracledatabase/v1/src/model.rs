@@ -212,14 +212,17 @@ pub struct AutonomousDatabaseProperties {
 
     /// Optional. The number of CPU cores to be made available to the database.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub cpu_core_count: i32,
 
     /// Optional. The size of the data stored in the database, in terabytes.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub data_storage_size_tb: i32,
 
     /// Optional. The size of the data stored in the database, in gigabytes.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub data_storage_size_gb: i32,
 
     /// Required. The workload type of the Autonomous Database.
@@ -288,6 +291,7 @@ pub struct AutonomousDatabaseProperties {
     /// specified in days, can range from 1 day to 60 days, and has a default value
     /// of 60 days.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub backup_retention_period_days: i32,
 
     /// Output only. The amount of storage currently being used for user and system
@@ -351,6 +355,7 @@ pub struct AutonomousDatabaseProperties {
     /// Output only. The memory assigned to in-memory tables in an Autonomous
     /// Database.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub memory_table_gbs: i32,
 
     /// Output only. This field indicates whether the Autonomous Database has local
@@ -361,6 +366,7 @@ pub struct AutonomousDatabaseProperties {
     /// Output only. This field indicates the maximum data loss limit for an
     /// Autonomous Database, in seconds.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub local_adg_auto_failover_max_data_loss_limit: i32,
 
     /// Output only. The details of the Autonomous Data Guard standby database.
@@ -369,6 +375,7 @@ pub struct AutonomousDatabaseProperties {
 
     /// Output only. The amount of memory enabled per ECPU, in gigabytes.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub memory_per_oracle_compute_unit_gbs: i32,
 
     /// Output only. This field indicates the local disaster recovery (DR) type of
@@ -430,6 +437,7 @@ pub struct AutonomousDatabaseProperties {
 
     /// Output only. The storage space used by Autonomous Database, in gigabytes.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub used_data_storage_size_tbs: i32,
 
     /// Output only. The Oracle Cloud Infrastructure link for the Autonomous
@@ -4377,6 +4385,7 @@ pub struct AutonomousDatabaseBackupProperties {
 
     /// Optional. Retention period in days for the backup.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub retention_period_days: i32,
 
     /// Output only. The OCID of the compartment.
@@ -5125,14 +5134,17 @@ pub struct DbNodeProperties {
 
     /// Optional. OCPU count per database node.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub ocpu_count: i32,
 
     /// Memory allocated in GBs.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub memory_size_gb: i32,
 
     /// Optional. Local storage per database node.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub db_node_storage_size_gb: i32,
 
     /// Optional. Database server OCID.
@@ -5148,6 +5160,7 @@ pub struct DbNodeProperties {
 
     /// Total CPU core count of the database node.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub total_cpu_core_count: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5482,30 +5495,37 @@ pub struct DbServerProperties {
 
     /// Optional. OCPU count per database.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub ocpu_count: i32,
 
     /// Optional. Maximum OCPU count per database.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub max_ocpu_count: i32,
 
     /// Optional. Memory allocated in GBs.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub memory_size_gb: i32,
 
     /// Optional. Maximum memory allocated in GBs.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub max_memory_size_gb: i32,
 
     /// Optional. Local storage per VM.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub db_node_storage_size_gb: i32,
 
     /// Optional. Maximum local storage per VM.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub max_db_node_storage_size_gb: i32,
 
     /// Optional. Vm count per database.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub vm_count: i32,
 
     /// Output only. State of the database server.
@@ -5776,42 +5796,52 @@ pub struct DbSystemShape {
 
     /// Optional. Minimum number of database servers.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub min_node_count: i32,
 
     /// Optional. Maximum number of database servers.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub max_node_count: i32,
 
     /// Optional. Minimum number of storage servers.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub min_storage_count: i32,
 
     /// Optional. Maximum number of storage servers.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub max_storage_count: i32,
 
     /// Optional. Number of cores per node.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub available_core_count_per_node: i32,
 
     /// Optional. Memory per database server node in gigabytes.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub available_memory_per_node_gb: i32,
 
     /// Optional. Storage per storage server in terabytes.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub available_data_storage_tb: i32,
 
     /// Optional. Minimum core count per node.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub min_core_count_per_node: i32,
 
     /// Optional. Minimum memory per node in gigabytes.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub min_memory_per_node_gb: i32,
 
     /// Optional. Minimum node storage per database server in gigabytes.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub min_db_node_storage_per_node_gb: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6368,21 +6398,25 @@ pub struct CloudExadataInfrastructureProperties {
 
     /// Optional. The number of compute servers for the Exadata Infrastructure.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub compute_count: i32,
 
     /// Optional. The number of Cloud Exadata storage servers for the Exadata
     /// Infrastructure.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub storage_count: i32,
 
     /// Optional. The total storage allocated to the Exadata Infrastructure
     /// resource, in gigabytes (GB).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub total_storage_size_gb: i32,
 
     /// Output only. The available storage can be allocated to the Exadata
     /// Infrastructure resource, in gigabytes (GB).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub available_storage_size_gb: i32,
 
     /// Optional. Maintenance window for repair.
@@ -6403,26 +6437,32 @@ pub struct CloudExadataInfrastructureProperties {
 
     /// Output only. The number of enabled CPU cores.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub cpu_count: i32,
 
     /// Output only. The total number of CPU cores available.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub max_cpu_count: i32,
 
     /// Output only. The memory allocated in GBs.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub memory_size_gb: i32,
 
     /// Output only. The total memory available in GBs.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub max_memory_gb: i32,
 
     /// Output only. The local node storage allocated in GBs.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub db_node_storage_size_gb: i32,
 
     /// Output only. The total local node storage available in GBs.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub max_db_node_storage_size_gb: i32,
 
     /// Output only. Size, in terabytes, of the DATA disk group.
@@ -6438,11 +6478,13 @@ pub struct CloudExadataInfrastructureProperties {
     /// Output only. The requested number of additional storage servers activated
     /// for the Exadata Infrastructure.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub activated_storage_count: i32,
 
     /// Output only. The requested number of additional storage servers for the
     /// Exadata Infrastructure.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub additional_storage_count: i32,
 
     /// Output only. The software version of the database servers (dom0) in the
@@ -6915,6 +6957,7 @@ pub struct MaintenanceWindow {
     /// duration of 7 days. Weeks start and end based on calendar dates, not days
     /// of the week.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "std::vec::Vec<wkt::internal::I32>")]
     pub weeks_of_month: std::vec::Vec<i32>,
 
     /// Optional. Days during the week when maintenance should be performed.
@@ -6930,11 +6973,13 @@ pub struct MaintenanceWindow {
     /// 16 - represents time slot 16:00 - 19:59 UTC
     /// 20 - represents time slot 20:00 - 23:59 UTC
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "std::vec::Vec<wkt::internal::I32>")]
     pub hours_of_day: std::vec::Vec<i32>,
 
     /// Optional. Lead time window allows user to set a lead time to prepare for a
     /// down time. The lead time is in weeks and valid value is between 1 to 4.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub lead_time_week: i32,
 
     /// Optional. Cloud CloudExadataInfrastructure node patching method, either
@@ -6945,6 +6990,7 @@ pub struct MaintenanceWindow {
     /// start of each database server patching operation. Custom action timeout is
     /// in minutes and valid value is between 15 to 120 (inclusive).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub custom_action_timeout_mins: i32,
 
     /// Optional. If true, enables the configuration of a custom action timeout
@@ -7429,6 +7475,7 @@ pub struct ListCloudExadataInfrastructuresRequest {
     /// If unspecified, at most 50 Exadata infrastructures will be returned.
     /// The maximum value is 1000; values above 1000 will be coerced to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
@@ -7730,6 +7777,7 @@ pub struct ListCloudVmClustersRequest {
     /// If unspecified, at most 50 VM clusters will be returned.
     /// The maximum value is 1,000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A token identifying the page of results the server returns.
@@ -8039,6 +8087,7 @@ pub struct ListEntitlementsRequest {
     /// If unspecified, a maximum of 50 entitlements will be returned.
     /// The maximum value is 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
@@ -8155,6 +8204,7 @@ pub struct ListDbServersRequest {
     /// If unspecified, a maximum of 50 db servers will be returned.
     /// The maximum value is 1000; values above 1000 will be reset to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
@@ -8271,6 +8321,7 @@ pub struct ListDbNodesRequest {
     /// If unspecified, at most 50 db nodes will be returned.
     /// The maximum value is 1000; values above 1000 will be coerced to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the node should return.
@@ -8388,6 +8439,7 @@ pub struct ListGiVersionsRequest {
     /// will be returned. The maximum value is 1000; values above 1000 will be
     /// reset to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
@@ -8504,6 +8556,7 @@ pub struct ListDbSystemShapesRequest {
     /// If unspecified, at most 50 database system shapes will be returned.
     /// The maximum value is 1000; values above 1000 will be coerced to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
@@ -8754,6 +8807,7 @@ pub struct ListAutonomousDatabasesRequest {
     /// If unspecified, at most 50 Autonomous Database will be returned.
     /// The maximum value is 1000; values above 1000 will be coerced to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
@@ -9314,6 +9368,7 @@ pub struct ListAutonomousDbVersionsRequest {
     /// If unspecified, at most 50 Autonomous DB Versions will be returned.
     /// The maximum value is 1000; values above 1000 will be coerced to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
@@ -9430,6 +9485,7 @@ pub struct ListAutonomousDatabaseCharacterSetsRequest {
     /// If unspecified, at most 50 Autonomous DB Character Sets will be returned.
     /// The maximum value is 1000; values above 1000 will be coerced to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
@@ -9570,6 +9626,7 @@ pub struct ListAutonomousDatabaseBackupsRequest {
     /// If unspecified, at most 50 Autonomous DB Backups will be returned.
     /// The maximum value is 1000; values above 1000 will be coerced to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
@@ -9868,6 +9925,7 @@ pub struct CloudVmClusterProperties {
 
     /// Optional. Number of database servers.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub node_count: i32,
 
     /// Output only. Shape of VM Cluster.
@@ -9881,14 +9939,17 @@ pub struct CloudVmClusterProperties {
 
     /// Optional. Memory allocated in GBs.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub memory_size_gb: i32,
 
     /// Optional. Local storage per VM.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub db_node_storage_size_gb: i32,
 
     /// Output only. The storage allocation for the disk group, in gigabytes (GB).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub storage_size_gb: i32,
 
     /// Optional. The data disk group size to be allocated in TBs.
@@ -9921,10 +9982,12 @@ pub struct CloudVmClusterProperties {
 
     /// Output only. SCAN listener port - TCP
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub scan_listener_port_tcp: i32,
 
     /// Output only. SCAN listener port - TLS
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub scan_listener_port_tcp_ssl: i32,
 
     /// Output only. Parent DNS domain where SCAN DNS and hosts names are
@@ -9945,6 +10008,7 @@ pub struct CloudVmClusterProperties {
 
     /// Required. Number of enabled CPU cores.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub cpu_core_count: i32,
 
     /// Optional. Operating system version of the image.

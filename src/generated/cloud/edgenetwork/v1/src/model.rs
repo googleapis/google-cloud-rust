@@ -172,6 +172,7 @@ pub struct Network {
     /// Valid values are: 1500 and 9000.
     /// Default to 1500 if not set.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub mtu: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -298,6 +299,7 @@ pub struct Subnet {
     /// Optional. VLAN id provided by user. If not specified we assign one
     /// automatically.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub vlan_id: i32,
 
     /// Optional. A bonding type in the subnet creation specifies whether a VLAN
@@ -905,12 +907,14 @@ pub struct InterconnectAttachment {
 
     /// Required. VLAN id provided by user. Must be site-wise unique.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub vlan_id: i32,
 
     /// IP (L3) MTU value of the virtual edge cloud.
     /// Valid values are: 1500 and 9000.
     /// Default to 1500 if not set.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub mtu: i32,
 
     /// Output only. Current stage of the resource to the device by config push.
@@ -2597,6 +2601,7 @@ pub struct ListZonesRequest {
     /// Requested page size. Server may return fewer items than requested.
     /// If unspecified, server will pick an appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A token identifying a page of results the server should return.
@@ -2782,6 +2787,7 @@ pub struct ListNetworksRequest {
     /// Requested page size. Server may return fewer items than requested.
     /// If unspecified, server will pick an appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A token identifying a page of results the server should return.
@@ -3105,6 +3111,7 @@ pub struct ListSubnetsRequest {
     /// Requested page size. Server may return fewer items than requested.
     /// If unspecified, server will pick an appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A token identifying a page of results the server should return.
@@ -3520,6 +3527,7 @@ pub struct ListInterconnectsRequest {
     /// Requested page size. Server may return fewer items than requested.
     /// If unspecified, server will pick an appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A token identifying a page of results the server should return.
@@ -3701,6 +3709,7 @@ pub struct ListInterconnectAttachmentsRequest {
     /// Requested page size. Server may return fewer items than requested.
     /// If unspecified, server will pick an appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A token identifying a page of results the server should return.
@@ -4027,6 +4036,7 @@ pub struct ListRoutersRequest {
     /// Requested page size. Server may return fewer items than requested.
     /// If unspecified, server will pick an appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A token identifying a page of results the server should return.

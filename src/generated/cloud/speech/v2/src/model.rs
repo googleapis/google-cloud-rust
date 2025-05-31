@@ -156,6 +156,7 @@ pub struct OperationMetadata {
     /// The percent progress of the Operation. Values can range from 0-100. If the
     /// value is 100, then the operation is finished.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub progress_percent: i32,
 
     /// The request that spawned the Operation.
@@ -832,6 +833,7 @@ pub struct ListRecognizersRequest {
     /// than this value. If unspecified, at most 5 Recognizers will be returned.
     /// The maximum value is 100; values above 100 will be coerced to 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A page token, received from a previous
@@ -1725,6 +1727,7 @@ pub struct ExplicitDecodingConfig {
     /// Note that this field is marked as OPTIONAL for backward compatibility
     /// reasons. It is (and has always been) effectively REQUIRED.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub sample_rate_hertz: i32,
 
     /// Optional. Number of channels present in the audio data sent for
@@ -1733,6 +1736,7 @@ pub struct ExplicitDecodingConfig {
     ///
     /// The maximum allowed value is 8.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub audio_channel_count: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1995,6 +1999,7 @@ pub struct SpeakerDiarizationConfig {
     /// To fix the number of speakers detected in the audio, set
     /// `min_speaker_count` = `max_speaker_count`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub min_speaker_count: i32,
 
     /// Required. Maximum number of speakers in the conversation. Valid values are:
@@ -2002,6 +2007,7 @@ pub struct SpeakerDiarizationConfig {
     /// by allowing the system to automatically determine the correct number of
     /// speakers.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub max_speaker_count: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2097,6 +2103,7 @@ pub struct RecognitionFeatures {
     /// Valid values are `0`-`30`. A value of `0` or `1` will return a maximum of
     /// one. If omitted, will return a maximum of one.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub max_alternatives: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3379,6 +3386,7 @@ pub struct SpeechRecognitionResult {
     /// For `audio_channel_count` = `N`, its output values can range from `1` to
     /// `N`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub channel_tag: i32,
 
     /// Time offset of the end of this result relative to the beginning of the
@@ -5051,6 +5059,7 @@ pub mod batch_recognize_file_result {
 pub struct BatchRecognizeTranscriptionMetadata {
     /// How much of the file has been transcribed so far.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub progress_percent: i32,
 
     /// Error if one was encountered.
@@ -5350,6 +5359,7 @@ pub struct StreamingRecognitionResult {
     /// For
     /// `audio_channel_count` = `N`, its output values can range from `1` to `N`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub channel_tag: i32,
 
     /// Output only. The [BCP-47](https://www.rfc-editor.org/rfc/bcp/bcp47.txt)
@@ -6889,6 +6899,7 @@ pub struct ListCustomClassesRequest {
     /// be chosen. If the page size exceeds 100, it will be coerced down to 100.
     /// Note that a call might return fewer results than the requested page size.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A page token, received from a previous
@@ -7370,6 +7381,7 @@ pub struct ListPhraseSetsRequest {
     /// than this value. If unspecified, at most 5 PhraseSets will be returned.
     /// The maximum value is 100; values above 100 will be coerced to 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A page token, received from a previous

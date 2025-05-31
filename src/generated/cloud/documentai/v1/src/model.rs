@@ -729,6 +729,7 @@ pub mod document {
         /// [google.cloud.documentai.v1.Document]: crate::model::Document
         /// [google.cloud.documentai.v1.Document.Page]: crate::model::document::Page
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub page_number: i32,
 
         /// Rendered image for this page. This image is preprocessed to remove any
@@ -1122,10 +1123,12 @@ pub mod document {
 
             /// Width of the image in pixels.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::I32")]
             pub width: i32,
 
             /// Height of the image in pixels.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::I32")]
             pub height: i32,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1180,10 +1183,12 @@ pub mod document {
         pub struct Matrix {
             /// Number of rows in the matrix.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::I32")]
             pub rows: i32,
 
             /// Number of columns in the matrix.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::I32")]
             pub cols: i32,
 
             /// This encodes information about what data type the matrix uses.
@@ -1192,6 +1197,7 @@ pub mod document {
             /// <https://docs.opencv.org/4.3.0/d1/d1b/group__core__hal__interface.html>
             #[serde(rename = "type")]
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::I32")]
             pub r#type: i32,
 
             /// The matrix data.
@@ -2106,6 +2112,7 @@ pub mod document {
             pub struct StyleInfo {
                 /// Font size in points (`1` point is `¹⁄₇₂` inches).
                 #[serde(skip_serializing_if = "wkt::internal::is_default")]
+                #[serde_as(as = "wkt::internal::I32")]
                 pub font_size: i32,
 
                 /// Font size in pixels, equal to _unrounded
@@ -2162,6 +2169,7 @@ pub mod document {
                 /// TrueType weight on a scale `100` (thin) to `1000` (ultra-heavy).
                 /// Normal is `400`, bold is `700`.
                 #[serde(skip_serializing_if = "wkt::internal::is_default")]
+                #[serde_as(as = "wkt::internal::I32")]
                 pub font_weight: i32,
 
                 /// Whether the text is handwritten.
@@ -2627,10 +2635,12 @@ pub mod document {
 
                 /// How many rows this cell spans.
                 #[serde(skip_serializing_if = "wkt::internal::is_default")]
+                #[serde_as(as = "wkt::internal::I32")]
                 pub row_span: i32,
 
                 /// How many columns this cell spans.
                 #[serde(skip_serializing_if = "wkt::internal::is_default")]
+                #[serde_as(as = "wkt::internal::I32")]
                 pub col_span: i32,
 
                 /// A list of detected languages together with confidence.
@@ -3613,7 +3623,7 @@ pub mod document {
                 /// checkboxes.
                 BooleanValue(bool),
                 /// Integer value.
-                IntegerValue(i32),
+                IntegerValue(#[serde_as(as = "wkt::internal::I32")] i32),
                 /// Float value.
                 FloatValue(#[serde_as(as = "wkt::internal::F32")] f32),
             }
@@ -4167,12 +4177,14 @@ pub mod document {
     pub struct Provenance {
         /// The index of the revision that produced this element.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         #[deprecated]
         pub revision: i32,
 
         /// The Id of this operation.  Needs to be unique within the scope of the
         /// revision.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         #[deprecated]
         pub id: i32,
 
@@ -4250,15 +4262,18 @@ pub mod document {
         pub struct Parent {
             /// The index of the index into current revision's parent_ids list.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::I32")]
             pub revision: i32,
 
             /// The index of the parent item in the corresponding item list (eg. list
             /// of entities, properties within entities, etc.) in the parent revision.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::I32")]
             pub index: i32,
 
             /// The id of the parent provenance.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::I32")]
             #[deprecated]
             pub id: i32,
 
@@ -4492,6 +4507,7 @@ pub mod document {
         /// more parent (when documents are merged.)  This field represents the
         /// index into the `revisions` field.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "std::vec::Vec<wkt::internal::I32>")]
         #[deprecated]
         pub parent: std::vec::Vec<i32>,
 
@@ -5050,10 +5066,12 @@ pub mod document {
             pub struct LayoutPageSpan {
                 /// Page where block starts in the document.
                 #[serde(skip_serializing_if = "wkt::internal::is_default")]
+                #[serde_as(as = "wkt::internal::I32")]
                 pub page_start: i32,
 
                 /// Page where block ends in the document.
                 #[serde(skip_serializing_if = "wkt::internal::is_default")]
+                #[serde_as(as = "wkt::internal::I32")]
                 pub page_end: i32,
 
                 #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5276,10 +5294,12 @@ pub mod document {
 
                 /// How many rows this cell spans.
                 #[serde(skip_serializing_if = "wkt::internal::is_default")]
+                #[serde_as(as = "wkt::internal::I32")]
                 pub row_span: i32,
 
                 /// How many columns this cell spans.
                 #[serde(skip_serializing_if = "wkt::internal::is_default")]
+                #[serde_as(as = "wkt::internal::I32")]
                 pub col_span: i32,
 
                 #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5611,10 +5631,12 @@ pub mod document {
             pub struct ChunkPageSpan {
                 /// Page where chunk starts in the document.
                 #[serde(skip_serializing_if = "wkt::internal::is_default")]
+                #[serde_as(as = "wkt::internal::I32")]
                 pub page_start: i32,
 
                 /// Page where chunk ends in the document.
                 #[serde(skip_serializing_if = "wkt::internal::is_default")]
+                #[serde_as(as = "wkt::internal::I32")]
                 pub page_end: i32,
 
                 #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6256,10 +6278,12 @@ pub mod document_output_config {
         pub struct ShardingConfig {
             /// The number of pages per shard.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::I32")]
             pub pages_per_shard: i32,
 
             /// The number of overlapping pages between consecutive shards.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::I32")]
             pub pages_overlap: i32,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6843,6 +6867,7 @@ pub mod process_options {
             /// Optional. The chunk sizes to use when splitting documents, in order of
             /// level.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::I32")]
             pub chunk_size: i32,
 
             /// Optional. Whether or not to include ancestor headings when splitting.
@@ -6889,6 +6914,7 @@ pub mod process_options {
     pub struct IndividualPageSelector {
         /// Optional. Indices of the pages (starting from 1).
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "std::vec::Vec<wkt::internal::I32>")]
         pub pages: std::vec::Vec<i32>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6939,9 +6965,9 @@ pub mod process_options {
         ),
         /// Only process certain pages from the start. Process all if the document
         /// has fewer pages.
-        FromStart(i32),
+        FromStart(#[serde_as(as = "wkt::internal::I32")] i32),
         /// Only process certain pages from the end, same as above.
-        FromEnd(i32),
+        FromEnd(#[serde_as(as = "wkt::internal::I32")] i32),
     }
 }
 
@@ -8142,6 +8168,7 @@ pub struct ListProcessorTypesRequest {
     /// If unspecified, at most `100` processor types will be returned.
     /// The maximum value is `500`. Values above `500` will be coerced to `500`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Used to retrieve the next page of results, empty if at the end of the list.
@@ -8262,6 +8289,7 @@ pub struct ListProcessorsRequest {
     /// If unspecified, at most `50` processors will be returned.
     /// The maximum value is `100`. Values above `100` will be coerced to `100`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// We will return the processors sorted by creation time. The page token
@@ -8492,6 +8520,7 @@ pub struct ListProcessorVersionsRequest {
     /// If unspecified, at most `10` processor versions will be returned.
     /// The maximum value is `20`. Values above `20` will be coerced to `20`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// We will return the processor versions sorted by creation time. The page
@@ -9885,6 +9914,7 @@ pub mod train_processor_version_request {
         /// Optional. The number of steps to run for model tuning. Valid values are
         /// between 1 and 400. If not provided, recommended steps will be used.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub train_steps: i32,
 
         /// Optional. The multiplier to apply to the recommended learning rate. Valid
@@ -10084,10 +10114,12 @@ pub mod train_processor_version_metadata {
     pub struct DatasetValidation {
         /// The total number of document errors.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub document_error_count: i32,
 
         /// The total number of dataset errors.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub dataset_error_count: i32,
 
         /// Error information pertaining to specific documents. A maximum of 10
@@ -10893,6 +10925,7 @@ pub struct ListEvaluationsRequest {
     /// If unspecified, at most `5` evaluations are returned.
     /// The maximum value is `100`. Values above `100` are coerced to `100`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListEvaluations` call.
@@ -11841,20 +11874,24 @@ pub mod evaluation {
     pub struct Counters {
         /// How many documents were sent for evaluation.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub input_documents_count: i32,
 
         /// How many documents were not included in the evaluation as they didn't
         /// pass validation.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub invalid_documents_count: i32,
 
         /// How many documents were not included in the evaluation as Document AI
         /// failed to process them.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub failed_documents_count: i32,
 
         /// How many documents were used in the evaluation.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub evaluated_documents_count: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11920,34 +11957,42 @@ pub mod evaluation {
 
         /// The amount of occurrences in predicted documents.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub predicted_occurrences_count: i32,
 
         /// The amount of occurrences in ground truth documents.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub ground_truth_occurrences_count: i32,
 
         /// The amount of documents with a predicted occurrence.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub predicted_document_count: i32,
 
         /// The amount of documents with a ground truth occurrence.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub ground_truth_document_count: i32,
 
         /// The amount of true positives.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub true_positives_count: i32,
 
         /// The amount of false positives.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub false_positives_count: i32,
 
         /// The amount of false negatives.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub false_negatives_count: i32,
 
         /// The amount of documents that had an occurrence of this label.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub total_documents_count: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -12359,10 +12404,12 @@ pub mod evaluation {
 pub struct Vertex {
     /// X coordinate.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub x: i32,
 
     /// Y coordinate (starts from the top of the image).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub y: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -13180,6 +13227,7 @@ pub mod processor_version {
             /// The minimum number of labeled documents in the training dataset
             /// required for finetuning.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::I32")]
             pub min_train_labeled_documents: i32,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

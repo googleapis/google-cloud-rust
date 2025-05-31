@@ -376,16 +376,19 @@ pub struct AttackExposure {
     /// The number of high value resources that are exposed as a result of this
     /// finding.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub exposed_high_value_resources_count: i32,
 
     /// The number of medium value resources that are exposed as a result of this
     /// finding.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub exposed_medium_value_resources_count: i32,
 
     /// The number of high value resources that are exposed as a result of this
     /// finding.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub exposed_low_value_resources_count: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1703,14 +1706,17 @@ pub struct Requests {
 
     /// Allowed RPS (requests per second) in the short term.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub short_term_allowed: i32,
 
     /// Allowed RPS (requests per second) over the long term.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub long_term_allowed: i32,
 
     /// Denied RPS (requests per second) over the long term.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub long_term_denied: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1814,12 +1820,14 @@ pub struct Attack {
     /// Total PPS (packets per second) volume of attack. Deprecated - refer to
     /// volume_pps_long instead.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     #[deprecated]
     pub volume_pps: i32,
 
     /// Total BPS (bytes per second) volume of attack. Deprecated - refer to
     /// volume_bps_long instead.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     #[deprecated]
     pub volume_bps: i32,
 
@@ -2199,6 +2207,7 @@ pub struct Connection {
     /// Destination port. Not present for sockets that are listening and not
     /// connected.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub destination_port: i32,
 
     /// Source IP address.
@@ -2207,6 +2216,7 @@ pub struct Connection {
 
     /// Source port.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub source_port: i32,
 
     /// IANA Internet Protocol Number such as TCP(6) and UDP(17).
@@ -12954,6 +12964,7 @@ pub struct GroupFindingsRequest {
     /// The maximum number of results to return in a single response. Default is
     /// 10, minimum is 1, maximum is 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -13021,6 +13032,7 @@ pub struct GroupFindingsResponse {
 
     /// The total number of results matching the query.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub total_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -13158,6 +13170,7 @@ pub struct ListAttackPathsRequest {
     /// The maximum number of results to return in a single response. Default is
     /// 10, minimum is 1, maximum is 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -13355,6 +13368,7 @@ pub struct ListBigQueryExportsRequest {
     /// If unspecified, at most 10 configs will be returned.
     /// The maximum value is 1000; values above 1000 will be coerced to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListBigQueryExports` call.
@@ -13585,6 +13599,7 @@ pub struct ListFindingsRequest {
     /// The maximum number of results to return in a single response. Default is
     /// 10, minimum is 1, maximum is 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -13669,6 +13684,7 @@ pub struct ListFindingsResponse {
 
     /// The total number of findings matching the query.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub total_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -14096,6 +14112,7 @@ pub struct ListMuteConfigsRequest {
     /// If unspecified, at most 10 configs will be returned.
     /// The maximum value is 1000; values above 1000 will be coerced to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListMuteConfigs` call.
@@ -14225,6 +14242,7 @@ pub struct ListNotificationConfigsRequest {
     /// The maximum number of results to return in a single response. Default is
     /// 10, minimum is 1, maximum is 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -14340,6 +14358,7 @@ pub struct ListResourceValueConfigsRequest {
     /// If unspecified, at most 10 configs will be returned.
     /// The maximum value is 1000; values above 1000 will be coerced to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListResourceValueConfigs` call.
@@ -14470,6 +14489,7 @@ pub struct ListSourcesRequest {
     /// The maximum number of results to return in a single response. Default is
     /// 10, minimum is 1, maximum is 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -14600,6 +14620,7 @@ pub struct ListValuedResourcesRequest {
     /// The maximum number of results to return in a single response. Default is
     /// 10, minimum is 1, maximum is 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. The fields by which to order the valued resources response.
@@ -14685,6 +14706,7 @@ pub struct ListValuedResourcesResponse {
 
     /// The estimated total number of results matching the query.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub total_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
