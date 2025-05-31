@@ -11,6 +11,20 @@ env GOOGLE_CLOUD_PROJECT=rust-auth-testing \
   cargo test --features run-integration-tests -p auth-integration-tests
 ```
 
+### Workload Identity integration tests
+
+These tests requires more complex set up to run, like running from an Azure/AWS
+VM and having Workload Identity Pools set up. For now, we only run those tests
+locally and under a feature (`run-byoid-integration-tests`). Some extra
+environment variables with the workload identity pool configuration are required
+to run the tests.
+
+````sh
+env GOOGLE_CLOUD_PROJECT=cloud-sdk-auth-test-project \
+    GOOGLE_WORKLOAD_IDENTITY_SERVICE_ACCOUNT=[SERVICE ACCOUNT PLACEHOLDER] \
+    GOOGLE_WORKLOAD_IDENTITY_OIDC_AUDIENCE=[AUDIENCE PLACEHOLDER] \
+  cargo test run_workload_ --features run-integration-tests --features run-byoid-integration-tests -p auth-integration-tests
+
 #### Rotating the service account key
 
 Service account keys expire after 90 days, due to our org policy.
@@ -22,7 +36,7 @@ account key, and save it as the `test-sa-creds-json` secret.
 cd ${HOME}/google-cloud-rust/src/auth/.gcb/builds
 terraform plan -out="/tmp/builds.plan"
 terraform apply "/tmp/builds.plan"
-```
+````
 
 ### In your own test project
 
