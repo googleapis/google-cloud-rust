@@ -36,19 +36,19 @@ mod test {
         #[serde_as(as = "Vec<google_cloud_wkt::internal::I32>")]
         pub repeated: Vec<i32>,
 
-        #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-        #[serde_as(as = "std::collections::HashMap<_, google_cloud_wkt::internal::I32>")]
-        pub map_value: std::collections::HashMap<String, i32>,
+        #[serde(skip_serializing_if = "HashMap::is_empty")]
+        #[serde_as(as = "HashMap<_, google_cloud_wkt::internal::I32>")]
+        pub map_value: HashMap<String, i32>,
 
-        #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-        #[serde_as(as = "std::collections::HashMap<google_cloud_wkt::internal::I32, _>")]
-        pub map_key: std::collections::HashMap<i32, String>,
+        #[serde(skip_serializing_if = "HashMap::is_empty")]
+        #[serde_as(as = "HashMap<google_cloud_wkt::internal::I32, _>")]
+        pub map_key: HashMap<i32, String>,
 
-        #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+        #[serde(skip_serializing_if = "HashMap::is_empty")]
         #[serde_as(
-            as = "std::collections::HashMap<google_cloud_wkt::internal::I32, google_cloud_wkt::internal::I32>"
+            as = "HashMap<google_cloud_wkt::internal::I32, google_cloud_wkt::internal::I32>"
         )]
-        pub map_key_value: std::collections::HashMap<i32, i32>,
+        pub map_key_value: HashMap<i32, i32>,
     }
 
     #[test_case("123", 123)]
