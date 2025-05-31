@@ -560,6 +560,21 @@ func TestMapFieldAttributes(t *testing.T) {
 			},
 		},
 	}
+	map5 := &api.Message{
+		Name:  "$map<bool, string>",
+		ID:    "$map<bool, string>",
+		IsMap: true,
+		Fields: []*api.Field{
+			{
+				Name:  "key",
+				Typez: api.BOOL_TYPE,
+			},
+			{
+				Name:  "value",
+				Typez: api.STRING_TYPE,
+			},
+		},
+	}
 	message := &api.Message{
 		Name: "Fake",
 		ID:   "..Fake",
@@ -596,9 +611,15 @@ func TestMapFieldAttributes(t *testing.T) {
 				Typez:    api.MESSAGE_TYPE,
 				TypezID:  map4.ID,
 			},
+			{
+				Name:     "map_bool",
+				JSONName: "mapBool",
+				Typez:    api.MESSAGE_TYPE,
+				TypezID:  map5.ID,
+			},
 		},
 	}
-	model := api.NewTestAPI([]*api.Message{target, map1, map2, map3, map4, message}, []*api.Enum{}, []*api.Service{})
+	model := api.NewTestAPI([]*api.Message{target, map1, map2, map3, map4, map5, message}, []*api.Enum{}, []*api.Service{})
 
 	expectedAttributes := map[string]string{
 		"target":      `#[serde(skip_serializing_if = "std::option::Option::is_none")]`,
@@ -606,6 +627,7 @@ func TestMapFieldAttributes(t *testing.T) {
 		"map_i64":     `#[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]` + "\n" + `#[serde_as(as = "std::collections::HashMap<_, serde_with::DisplayFromStr>")]`,
 		"map_i64_key": `#[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]` + "\n" + `#[serde_as(as = "std::collections::HashMap<serde_with::DisplayFromStr, _>")]`,
 		"map_bytes":   `#[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]` + "\n" + `#[serde_as(as = "std::collections::HashMap<_, serde_with::base64::Base64>")]`,
+		"map_bool":    `#[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]` + "\n" + `#[serde_as(as = "std::collections::HashMap<serde_with::DisplayFromStr, _>")]`,
 	}
 	loadWellKnownTypes(model.State)
 	for _, field := range message.Fields {
