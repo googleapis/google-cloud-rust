@@ -119,6 +119,7 @@ impl wkt::message::Message for FailureSet {
 #[non_exhaustive]
 pub struct ConformanceRequest {
     /// Which format should the testee serialize its message to?
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub requested_output_format: crate::generated::gapic::model::WireFormat,
 
     /// The full name for the test message to use; for the moment, either:
@@ -133,6 +134,7 @@ pub struct ConformanceRequest {
     /// Each test is given a specific test category. Some category may need
     /// specific support in testee programs. Refer to the definition of
     /// TestCategory for more information.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub test_category: crate::generated::gapic::model::TestCategory,
 
     /// Specify details for how to encode jspb.

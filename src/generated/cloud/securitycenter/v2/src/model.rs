@@ -371,6 +371,7 @@ pub struct AttackExposure {
 
     /// Output only. What state this AttackExposure is in. This captures whether or
     /// not an attack exposure has been calculated or not.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::attack_exposure::State,
 
     /// The number of high value resources that are exposed as a result of this
@@ -861,6 +862,7 @@ pub mod attack_path {
 
             /// Attack step type. Can be either AND, OR or DEFENSE
             #[serde(rename = "type")]
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub r#type: crate::model::attack_path::attack_path_node::NodeType,
 
             /// User friendly name of the attack step
@@ -1884,6 +1886,7 @@ pub struct CloudDlpDataProfile {
     pub data_profile: std::string::String,
 
     /// The resource hierarchy level at which the data profile was generated.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub parent_type: crate::model::cloud_dlp_data_profile::ParentType,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2210,6 +2213,7 @@ pub struct Connection {
     pub source_port: i32,
 
     /// IANA Internet Protocol Number such as TCP(6) and UDP(17).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub protocol: crate::model::connection::Protocol,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2597,6 +2601,7 @@ pub struct DataAccessEvent {
     pub principal_email: std::string::String,
 
     /// The operation performed by the principal to access the data.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub operation: crate::model::data_access_event::Operation,
 
     /// Timestamp of data access event.
@@ -2821,6 +2826,7 @@ pub struct DataFlowEvent {
     pub principal_email: std::string::String,
 
     /// The operation performed by the principal for the data flow event.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub operation: crate::model::data_flow_event::Operation,
 
     /// Non-compliant location of the principal or the data destination.
@@ -3076,6 +3082,7 @@ pub struct DataRetentionDeletionEvent {
     pub max_retention_allowed: std::option::Option<wkt::Duration>,
 
     /// Type of the DRD event.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub event_type: crate::model::data_retention_deletion_event::EventType,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4097,6 +4104,7 @@ pub struct Finding {
     pub resource_name: std::string::String,
 
     /// Output only. The state of the finding.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::finding::State,
 
     /// Immutable. The additional taxonomy group within findings from a given
@@ -4140,11 +4148,13 @@ pub struct Finding {
 
     /// The severity of the finding. This field is managed by the source that
     /// writes the finding.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub severity: crate::model::finding::Severity,
 
     /// Indicates the mute state of a finding (either muted, unmuted
     /// or undefined). Unlike other attributes of a finding, a finding provider
     /// shouldn't set the value of mute.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub mute: crate::model::finding::Mute,
 
     /// Output only. The mute information regarding this finding.
@@ -4152,6 +4162,7 @@ pub struct Finding {
     pub mute_info: std::option::Option<crate::model::finding::MuteInfo>,
 
     /// The class of the finding.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub finding_class: crate::model::finding::FindingClass,
 
     /// Represents what's commonly known as an *indicator of compromise* (IoC) in
@@ -5143,6 +5154,7 @@ pub mod finding {
         pub struct StaticMute {
             /// The static mute state. If the value is `MUTED` or `UNMUTED`, then the
             /// finding's overall mute state will have the same value.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub state: crate::model::finding::Mute,
 
             /// When the static mute was applied.
@@ -5948,6 +5960,7 @@ impl wkt::message::Message for Folder {
 #[non_exhaustive]
 pub struct GroupMembership {
     /// Type of group.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub group_type: crate::model::group_membership::GroupType,
 
     /// ID of the group.
@@ -6124,6 +6137,7 @@ pub mod group_membership {
 #[non_exhaustive]
 pub struct IamBinding {
     /// The action that was performed on a Binding.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub action: crate::model::iam_binding::Action,
 
     /// Role that is assigned to "members".
@@ -6410,6 +6424,7 @@ pub mod indicator {
     #[non_exhaustive]
     pub struct ProcessSignature {
         /// Describes the type of resource associated with the signature.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub signature_type: crate::model::indicator::process_signature::SignatureType,
 
         #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
@@ -7265,6 +7280,7 @@ pub mod kubernetes {
     #[non_exhaustive]
     pub struct Role {
         /// Role type.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub kind: crate::model::kubernetes::role::Kind,
 
         /// Role namespace.
@@ -7540,6 +7556,7 @@ pub mod kubernetes {
     #[non_exhaustive]
     pub struct Subject {
         /// Authentication type for the subject.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub kind: crate::model::kubernetes::subject::AuthType,
 
         /// Namespace for the subject.
@@ -8168,6 +8185,7 @@ impl wkt::message::Message for CloudLoggingEntry {
 #[non_exhaustive]
 pub struct MitreAttack {
     /// The MITRE ATT&CK tactic most closely represented by this finding, if any.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub primary_tactic: crate::model::mitre_attack::Tactic,
 
     /// The MITRE ATT&CK technique most closely represented by this finding, if
@@ -9189,6 +9207,7 @@ pub struct MuteConfig {
     /// Required. The type of the mute config, which determines what type of mute
     /// state the config affects. Immutable after creation.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::mute_config::MuteConfigType,
 
     /// Optional. The expiry of the mute config. Only applicable for dynamic
@@ -10101,6 +10120,7 @@ pub struct Resource {
     pub r#type: std::string::String,
 
     /// Indicates which cloud provider the finding is from.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub cloud_provider: crate::model::CloudProvider,
 
     /// The service or resource provider associated with the resource.
@@ -10988,6 +11008,7 @@ pub mod resource_path {
     #[non_exhaustive]
     pub struct ResourcePathNode {
         /// The type of resource this node represents.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub node_type: crate::model::resource_path::ResourcePathNodeType,
 
         /// The ID of the resource this node represents.
@@ -11238,6 +11259,7 @@ pub struct ResourceValueConfig {
     /// Resource value level this expression represents
     /// Only required when there is no Sensitive Data Protection mapping in the
     /// request
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub resource_value: crate::model::ResourceValue,
 
     /// Tag values combined with `AND` to check against.
@@ -11283,6 +11305,7 @@ pub struct ResourceValueConfig {
     pub update_time: std::option::Option<wkt::Timestamp>,
 
     /// Cloud provider this configuration applies to
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub cloud_provider: crate::model::CloudProvider,
 
     /// A mapping of the sensitivity on Sensitive Data Protection finding to
@@ -11446,10 +11469,12 @@ pub mod resource_value_config {
     pub struct SensitiveDataProtectionMapping {
         /// Resource value mapping for high-sensitivity Sensitive Data Protection
         /// findings
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub high_sensitivity_mapping: crate::model::ResourceValue,
 
         /// Resource value mapping for medium-sensitivity Sensitive Data Protection
         /// findings
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub medium_sensitivity_mapping: crate::model::ResourceValue,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11909,6 +11934,7 @@ pub struct BulkMuteFindingsRequest {
     /// Optional. All findings matching the given filter will have their mute state
     /// set to this value. The default value is `MUTED`. Setting this to
     /// `UNDEFINED` will clear the mute state on all matching findings.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub mute_state: crate::model::bulk_mute_findings_request::MuteState,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -13829,6 +13855,7 @@ pub mod list_findings_response {
             pub r#type: std::string::String,
 
             /// Indicates which cloud provider the finding is from.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub cloud_provider: crate::model::CloudProvider,
 
             /// The service or resource provider associated with the resource.
@@ -14767,6 +14794,7 @@ pub struct SetFindingStateRequest {
     pub name: std::string::String,
 
     /// Required. The desired State of the finding.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::finding::State,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -14824,6 +14852,7 @@ pub struct SetMuteRequest {
     pub name: std::string::String,
 
     /// Required. The desired state of the Mute.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub mute: crate::model::finding::Mute,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -15431,6 +15460,7 @@ pub struct Simulation {
     pub resource_value_configs_metadata: std::vec::Vec<crate::model::ResourceValueConfigMetadata>,
 
     /// Indicates which cloud provider was used in this simulation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub cloud_provider: crate::model::CloudProvider,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -15662,6 +15692,7 @@ pub struct ValuedResource {
     pub display_name: std::string::String,
 
     /// How valuable this resource is.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub resource_value: crate::model::valued_resource::ResourceValue,
 
     /// Exposed score for this valued resource. A value of 0 means no exposure was
@@ -16059,9 +16090,11 @@ pub struct Cve {
     pub upstream_fix_available: bool,
 
     /// The potential impact of the vulnerability if it was to be exploited.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub impact: crate::model::cve::RiskRating,
 
     /// The exploitation activity of the vulnerability in the wild.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub exploitation_activity: crate::model::cve::ExploitationActivity,
 
     /// Whether or not the vulnerability has been observed in the wild.
@@ -16577,36 +16610,44 @@ pub struct Cvssv3 {
     /// constant over time and across user environments.
     /// This metric reflects the context by which vulnerability exploitation is
     /// possible.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub attack_vector: crate::model::cvssv_3::AttackVector,
 
     /// This metric describes the conditions beyond the attacker's control that
     /// must exist in order to exploit the vulnerability.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub attack_complexity: crate::model::cvssv_3::AttackComplexity,
 
     /// This metric describes the level of privileges an attacker must possess
     /// before successfully exploiting the vulnerability.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub privileges_required: crate::model::cvssv_3::PrivilegesRequired,
 
     /// This metric captures the requirement for a human user, other than the
     /// attacker, to participate in the successful compromise of the vulnerable
     /// component.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub user_interaction: crate::model::cvssv_3::UserInteraction,
 
     /// The Scope metric captures whether a vulnerability in one vulnerable
     /// component impacts resources in components beyond its security scope.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub scope: crate::model::cvssv_3::Scope,
 
     /// This metric measures the impact to the confidentiality of the information
     /// resources managed by a software component due to a successfully exploited
     /// vulnerability.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub confidentiality_impact: crate::model::cvssv_3::Impact,
 
     /// This metric measures the impact to integrity of a successfully exploited
     /// vulnerability.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub integrity_impact: crate::model::cvssv_3::Impact,
 
     /// This metric measures the impact to the availability of the impacted
     /// component resulting from a successfully exploited vulnerability.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub availability_impact: crate::model::cvssv_3::Impact,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

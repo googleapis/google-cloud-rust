@@ -187,6 +187,7 @@ pub struct DataSet {
     pub data_sources: std::vec::Vec<crate::model::DataSource>,
 
     /// Dataset state in the system.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::data_set::State,
 
     /// Dataset processing status.
@@ -1194,6 +1195,7 @@ pub struct ForecastParams {
     ///
     /// If your time series has multiple seasonal patterns, then set it to the most
     /// granular one (e.g. if it has daily and weekly patterns, set this to DAILY).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub seasonality_hint: crate::model::forecast_params::Period,
 
     /// Optional. The length of the returned [forecasted
@@ -2067,6 +2069,7 @@ pub struct TimeseriesParams {
     /// If the metric is not specified or "", then this field will be ignored.
     ///
     /// [google.cloud.timeseriesinsights.v1.TimeseriesParams.metric]: crate::model::TimeseriesParams::metric
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub metric_aggregation_method: crate::model::timeseries_params::AggregationMethod,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

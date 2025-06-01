@@ -60,6 +60,7 @@ pub struct Contact {
 
     /// Output only. The validity of the contact. A contact is considered valid if
     /// it is the correct recipient for notifications for a particular resource.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validation_state: crate::model::ValidationState,
 
     /// The last time the validation_state was updated, either manually or
@@ -626,6 +627,7 @@ pub struct SendTestMessageRequest {
 
     /// Required. The notification category to send the test message for. All
     /// contacts must be subscribed to this category.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub notification_category: crate::model::NotificationCategory,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

@@ -70,6 +70,7 @@ pub struct PosixAccount {
     pub account_id: std::string::String,
 
     /// The operating system type where this account applies.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub operating_system_type: crate::model::OperatingSystemType,
 
     /// Output only. The canonical resource name.

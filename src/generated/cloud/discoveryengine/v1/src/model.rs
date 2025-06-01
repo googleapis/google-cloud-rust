@@ -47,6 +47,7 @@ pub struct Answer {
     pub name: std::string::String,
 
     /// The state of the answer generation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::answer::State,
 
     /// The textual answer.
@@ -1125,6 +1126,7 @@ pub mod answer {
     #[non_exhaustive]
     pub struct Step {
         /// The state of the step.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub state: crate::model::answer::step::State,
 
         /// The description of the step.
@@ -1843,6 +1845,7 @@ pub mod answer {
         pub struct QueryClassificationInfo {
             /// Query classification type.
             #[serde(rename = "type")]
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub r#type:
                 crate::model::answer::query_understanding_info::query_classification_info::Type,
 
@@ -3236,6 +3239,7 @@ pub struct SuggestionDenyListEntry {
 
     /// Required. The match operator to apply for this phrase. Whether to block the
     /// exact phrase, or block any suggestions containing this phrase.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub match_operator: crate::model::suggestion_deny_list_entry::MatchOperator,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4040,6 +4044,7 @@ pub struct Control {
     ///
     /// Must be compatible with vertical of resource.
     /// Otherwise an INVALID ARGUMENT error is thrown.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub solution_type: crate::model::SolutionType,
 
     /// Specifies the use case for the control.
@@ -4466,11 +4471,13 @@ pub mod control {
             /// specified field_name. In the case of numerical it is straightforward
             /// i.e. attribute_value = numerical_field_value. In the case of freshness
             /// however, attribute_value = (time.now() - datetime_field_value).
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub attribute_type:
                 crate::model::control::boost_action::interpolation_boost_spec::AttributeType,
 
             /// Optional. The interpolation type to be applied to connect the control
             /// points listed below.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub interpolation_type:
                 crate::model::control::boost_action::interpolation_boost_spec::InterpolationType,
 
@@ -5462,6 +5469,7 @@ pub struct Conversation {
     pub name: std::string::String,
 
     /// The state of the Conversation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::conversation::State,
 
     /// A unique identifier for tracking users.
@@ -7008,9 +7016,11 @@ pub mod answer_query_request {
         #[non_exhaustive]
         pub struct SafetySetting {
             /// Required. Harm category.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub category: crate::model::HarmCategory,
 
             /// Required. The harm block threshold.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub threshold:
                 crate::model::answer_query_request::safety_spec::safety_setting::HarmBlockThreshold,
 
@@ -7259,6 +7269,7 @@ pub mod answer_query_request {
 
         /// Optional. Specifies whether to enable the filtering based on grounding
         /// score and at what level.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub filtering_level: crate::model::answer_query_request::grounding_spec::FilteringLevel,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7878,6 +7889,7 @@ pub mod answer_query_request {
             /// search result mode defaults to `DOCUMENTS`.
             /// See [parse and chunk
             /// documents](https://cloud.google.com/generative-ai-app-builder/docs/parse-chunk-documents)
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub search_result_mode:
                 crate::model::search_request::content_search_spec::SearchResultMode,
 
@@ -8896,6 +8908,7 @@ pub mod answer_query_request {
 
                 /// Optional. Enabled query rephraser model type. If not set, it will use
                 /// LARGE by default.
+                #[serde(skip_serializing_if = "wkt::internal::is_default")]
                 pub model_type: crate::model::answer_query_request::query_understanding_spec::query_rephraser_spec::model_spec::ModelType,
 
                 #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9810,6 +9823,7 @@ pub struct CustomTuningModel {
     pub model_version: i64,
 
     /// The state that the model is in (e.g.`TRAINING` or `TRAINING_FAILED`).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub model_state: crate::model::custom_tuning_model::ModelState,
 
     /// Deprecated: Timestamp the Model was created at.
@@ -10126,6 +10140,7 @@ pub struct DataStore {
     pub display_name: std::string::String,
 
     /// Immutable. The industry vertical that the data store registers.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub industry_vertical: crate::model::IndustryVertical,
 
     /// The solutions that the data store enrolls. Available solutions for each
@@ -10152,6 +10167,7 @@ pub struct DataStore {
     /// [ContentConfig.NO_CONTENT][google.cloud.discoveryengine.v1.DataStore.ContentConfig.NO_CONTENT].
     ///
     /// [google.cloud.discoveryengine.v1.DataStore.ContentConfig.NO_CONTENT]: crate::model::data_store::ContentConfig::NoContent
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub content_config: crate::model::data_store::ContentConfig,
 
     /// Output only. Timestamp the
@@ -10745,6 +10761,7 @@ impl wkt::message::Message for AdvancedSiteSearchConfig {
 pub struct WorkspaceConfig {
     /// The Google Workspace data source.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::workspace_config::Type,
 
     /// Obfuscated Dasher customer ID.
@@ -13424,6 +13441,7 @@ pub mod batch_get_documents_metadata_response {
         >,
 
         /// The state of the document.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub state: crate::model::batch_get_documents_metadata_response::State,
 
         /// The timestamp of the last time the
@@ -13856,6 +13874,7 @@ pub struct Engine {
     pub data_store_ids: std::vec::Vec<std::string::String>,
 
     /// Required. The solutions of the engine.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub solution_type: crate::model::SolutionType,
 
     /// The industry vertical that the engine registers.
@@ -13864,6 +13883,7 @@ pub struct Engine {
     /// has to match vertical of the DataStore linked to the engine.
     ///
     /// [google.cloud.discoveryengine.v1.DataStore]: crate::model::DataStore
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub industry_vertical: crate::model::IndustryVertical,
 
     /// Common config spec that specifies the metadata of the engine.
@@ -14143,6 +14163,7 @@ pub mod engine {
         /// if not specified.
         ///
         /// [google.cloud.discoveryengine.v1.SearchTier.SEARCH_TIER_STANDARD]: crate::model::SearchTier::Standard
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub search_tier: crate::model::SearchTier,
 
         /// The add-on that this search engine enables.
@@ -15603,6 +15624,7 @@ pub mod generate_grounded_content_request {
         pub struct DynamicRetrievalPredictor {
 
             /// The version of the predictor to be used in dynamic retrieval.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub version: crate::model::generate_grounded_content_request::dynamic_retrieval_configuration::dynamic_retrieval_predictor::Version,
 
             /// The value of the threshold. If the predictor will predict a
@@ -16491,6 +16513,7 @@ pub mod generate_grounded_content_response {
             pub struct RetrievalMetadata {
 
                 /// Describes the source to which the metadata is referring to.
+                #[serde(skip_serializing_if = "wkt::internal::is_default")]
                 pub source: crate::model::generate_grounded_content_response::candidate::grounding_metadata::retrieval_metadata::Source,
 
                 /// Metadata for dynamic retrieval.
@@ -16740,6 +16763,7 @@ pub mod generate_grounded_content_response {
             pub struct DynamicRetrievalPredictorMetadata {
 
                 /// The version of the predictor which was used in dynamic retrieval.
+                #[serde(skip_serializing_if = "wkt::internal::is_default")]
                 pub version: crate::model::generate_grounded_content_response::candidate::grounding_metadata::dynamic_retrieval_predictor_metadata::Version,
 
                 /// The value of the predictor. This should be between [0, 1] where
@@ -18221,12 +18245,14 @@ pub mod bigtable_options {
         /// * `BINARY`: indicates values are encoded using `HBase Bytes.toBytes`
         ///   family of functions. This can be overridden for a specific column
         ///   by listing that column in `columns` and specifying an encoding for it.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub encoding: crate::model::bigtable_options::Encoding,
 
         /// The type of values in this column family.
         /// The values are expected to be encoded using `HBase Bytes.toBytes`
         /// function when the encoding value is set to `BINARY`.
         #[serde(rename = "type")]
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub r#type: crate::model::bigtable_options::Type,
 
         /// The list of objects that contains column level information for each
@@ -18312,12 +18338,14 @@ pub mod bigtable_options {
         /// * `BINARY`: indicates values are encoded using `HBase Bytes.toBytes`
         ///   family of functions. This can be overridden for a specific column
         ///   by listing that column in `columns` and specifying an encoding for it.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub encoding: crate::model::bigtable_options::Encoding,
 
         /// The type of values in this column family.
         /// The values are expected to be encoded using `HBase Bytes.toBytes`
         /// function when the encoding value is set to `BINARY`.
         #[serde(rename = "type")]
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub r#type: crate::model::bigtable_options::Type,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -19695,6 +19723,7 @@ pub struct ImportDocumentsRequest {
     /// [ReconciliationMode.INCREMENTAL][google.cloud.discoveryengine.v1.ImportDocumentsRequest.ReconciliationMode.INCREMENTAL].
     ///
     /// [google.cloud.discoveryengine.v1.ImportDocumentsRequest.ReconciliationMode.INCREMENTAL]: crate::model::import_documents_request::ReconciliationMode::Incremental
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub reconciliation_mode: crate::model::import_documents_request::ReconciliationMode,
 
     /// Indicates which fields in the provided imported documents to update. If
@@ -21320,6 +21349,7 @@ pub mod project {
 
         /// Whether the project has accepted/rejected the service terms or it is
         /// still pending.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub state: crate::model::project::service_terms::State,
 
         /// The last time when the project agreed to the terms of service.
@@ -23308,9 +23338,11 @@ pub mod recommend_response {
 #[non_exhaustive]
 pub struct SafetyRating {
     /// Output only. Harm category.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub category: crate::model::HarmCategory,
 
     /// Output only. Harm probability levels in the content.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub probability: crate::model::safety_rating::HarmProbability,
 
     /// Output only. Harm probability score.
@@ -23319,6 +23351,7 @@ pub struct SafetyRating {
     pub probability_score: f32,
 
     /// Output only. Harm severity levels in the content.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub severity: crate::model::safety_rating::HarmSeverity,
 
     /// Output only. Harm severity score.
@@ -24695,6 +24728,7 @@ pub struct SearchRequest {
     /// comprehensive coverage of relevant information.
     ///
     /// This feature is not supported for healthcare search.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub relevance_threshold: crate::model::search_request::RelevanceThreshold,
 
     /// Optional. The specification for returning the relevance score.
@@ -25674,10 +25708,12 @@ pub mod search_request {
                 /// field_name. In the case of numerical it is straightforward i.e.
                 /// attribute_value = numerical_field_value. In the case of freshness
                 /// however, attribute_value = (time.now() - datetime_field_value).
+                #[serde(skip_serializing_if = "wkt::internal::is_default")]
                 pub attribute_type: crate::model::search_request::boost_spec::condition_boost_spec::boost_control_spec::AttributeType,
 
                 /// The interpolation type to be applied to connect the control points
                 /// listed below.
+                #[serde(skip_serializing_if = "wkt::internal::is_default")]
                 pub interpolation_type: crate::model::search_request::boost_spec::condition_boost_spec::boost_control_spec::InterpolationType,
 
                 /// The control points used to define the curve. The monotonic function
@@ -26086,6 +26122,7 @@ pub mod search_request {
         /// [Condition.DISABLED][google.cloud.discoveryengine.v1.SearchRequest.QueryExpansionSpec.Condition.DISABLED].
         ///
         /// [google.cloud.discoveryengine.v1.SearchRequest.QueryExpansionSpec.Condition.DISABLED]: crate::model::search_request::query_expansion_spec::Condition::Disabled
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub condition: crate::model::search_request::query_expansion_spec::Condition,
 
         /// Whether to pin unexpanded results. If this field is set to true,
@@ -26287,6 +26324,7 @@ pub mod search_request {
         /// [Mode.AUTO][google.cloud.discoveryengine.v1.SearchRequest.SpellCorrectionSpec.Mode.AUTO].
         ///
         /// [google.cloud.discoveryengine.v1.SearchRequest.SpellCorrectionSpec.Mode.AUTO]: crate::model::search_request::spell_correction_spec::Mode::Auto
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub mode: crate::model::search_request::spell_correction_spec::Mode,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -26494,6 +26532,7 @@ pub mod search_request {
 
         /// Specifies the search result mode. If unspecified, the
         /// search result mode defaults to `DOCUMENTS`.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub search_result_mode: crate::model::search_request::content_search_spec::SearchResultMode,
 
         /// Specifies the chunk spec to be returned from the search response.
@@ -27333,6 +27372,7 @@ pub mod search_request {
         /// [Condition.DISABLED][google.cloud.discoveryengine.v1.SearchRequest.SearchAsYouTypeSpec.Condition.DISABLED].
         ///
         /// [google.cloud.discoveryengine.v1.SearchRequest.SearchAsYouTypeSpec.Condition.DISABLED]: crate::model::search_request::search_as_you_type_spec::Condition::Disabled
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub condition: crate::model::search_request::search_as_you_type_spec::Condition,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -27521,6 +27561,7 @@ pub mod search_request {
     #[non_exhaustive]
     pub struct DisplaySpec {
         /// The condition under which match highlighting should occur.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub match_highlighting_condition:
             crate::model::search_request::display_spec::MatchHighlightingCondition,
 
@@ -29902,6 +29943,7 @@ pub struct ServingConfig {
 
     /// Required. Immutable. Specifies the solution type that a serving config can
     /// be associated with.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub solution_type: crate::model::SolutionType,
 
     /// The id of the model to use at serving time.
@@ -30703,6 +30745,7 @@ pub struct Session {
     pub display_name: std::string::String,
 
     /// The state of the session.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::session::State,
 
     /// A unique identifier for tracking users.
@@ -31177,6 +31220,7 @@ pub struct TargetSite {
     /// The type of the target site, e.g., whether the site is to be included or
     /// excluded.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::target_site::Type,
 
     /// Immutable. If set to false, a uri_pattern is generated to include all pages
@@ -31201,6 +31245,7 @@ pub struct TargetSite {
     pub site_verification_info: std::option::Option<crate::model::SiteVerificationInfo>,
 
     /// Output only. Indexing status.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub indexing_status: crate::model::target_site::IndexingStatus,
 
     /// Output only. The target site's last updated time.
@@ -31762,6 +31807,7 @@ pub mod target_site {
 #[non_exhaustive]
 pub struct SiteVerificationInfo {
     /// Site verification state indicating the ownership and validity.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub site_verification_state: crate::model::site_verification_info::SiteVerificationState,
 
     /// Latest site verification time.
@@ -33909,6 +33955,7 @@ pub mod recrawl_uris_response {
         #[non_exhaustive]
         pub struct FailureReason {
             /// DESKTOP, MOBILE, or CORPUS_TYPE_UNSPECIFIED.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub corpus_type:
                 crate::model::recrawl_uris_response::failure_info::failure_reason::CorpusType,
 

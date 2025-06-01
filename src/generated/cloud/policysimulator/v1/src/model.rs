@@ -124,6 +124,7 @@ pub struct ExplainedPolicy {
     /// this policy. To determine whether the principal actually has the
     /// permission, use the `access` field in the
     /// [TroubleshootIamPolicyResponse][IamChecker.TroubleshootIamPolicyResponse].
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub access: crate::model::AccessState,
 
     /// The full resource name that identifies the resource. For example,
@@ -169,6 +170,7 @@ pub struct ExplainedPolicy {
     /// access to the policy, this field is omitted.
     ///
     /// [google.cloud.policysimulator.v1.Replay]: crate::model::Replay
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub relevance: crate::model::HeuristicRelevance,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -255,6 +257,7 @@ pub struct BindingExplanation {
     /// this binding. To determine whether the principal actually has the
     /// permission, use the `access` field in the
     /// [TroubleshootIamPolicyResponse][IamChecker.TroubleshootIamPolicyResponse].
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub access: crate::model::AccessState,
 
     /// The role that this binding grants. For example,
@@ -267,10 +270,12 @@ pub struct BindingExplanation {
 
     /// Indicates whether the role granted by this binding contains the specified
     /// permission.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub role_permission: crate::model::binding_explanation::RolePermission,
 
     /// The relevance of the permission's existence, or nonexistence, in the role
     /// to the overall determination for the entire policy.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub role_permission_relevance: crate::model::HeuristicRelevance,
 
     /// Indicates whether each principal in the binding includes the principal
@@ -301,6 +306,7 @@ pub struct BindingExplanation {
 
     /// The relevance of this binding to the overall determination for the entire
     /// policy.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub relevance: crate::model::HeuristicRelevance,
 
     /// A condition expression that prevents this binding from granting access
@@ -412,10 +418,12 @@ pub mod binding_explanation {
     #[non_exhaustive]
     pub struct AnnotatedMembership {
         /// Indicates whether the binding includes the principal.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub membership: crate::model::binding_explanation::Membership,
 
         /// The relevance of the principal's status to the overall determination for
         /// the binding.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub relevance: crate::model::HeuristicRelevance,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -780,6 +788,7 @@ pub struct Replay {
     pub name: std::string::String,
 
     /// Output only. The current state of the `Replay`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::replay::State,
 
     /// Required. The configuration used for the `Replay`.
@@ -1645,6 +1654,7 @@ pub struct ReplayConfig {
     /// [Replay][google.cloud.policysimulator.v1.Replay].
     ///
     /// [google.cloud.policysimulator.v1.Replay]: crate::model::Replay
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub log_source: crate::model::replay_config::LogSource,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1905,6 +1915,7 @@ pub struct AccessStateDiff {
 
     /// How the principal's access, specified in the AccessState field, changed
     /// between the current (baseline) policies and proposed (simulated) policies.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub access_change: crate::model::access_state_diff::AccessChangeType,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2173,6 +2184,7 @@ pub mod access_state_diff {
 pub struct ExplainedAccess {
     /// Whether the principal in the access tuple has permission to access the
     /// resource in the access tuple under the given policies.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub access_state: crate::model::AccessState,
 
     /// If the [AccessState][google.cloud.policysimulator.v1.AccessState] is

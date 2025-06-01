@@ -1274,6 +1274,7 @@ pub mod document {
             /// [Layout][google.cloud.documentai.v1.Document.Page.Layout].
             ///
             /// [google.cloud.documentai.v1.Document.Page.Layout]: crate::model::document::page::Layout
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub orientation: crate::model::document::page::layout::Orientation,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1921,6 +1922,7 @@ pub mod document {
             pub struct DetectedBreak {
                 /// Detected break type.
                 #[serde(rename = "type")]
+                #[serde(skip_serializing_if = "wkt::internal::is_default")]
                 pub r#type: crate::model::document::page::token::detected_break::Type,
 
                 #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3864,6 +3866,7 @@ pub mod document {
 
             /// Optional. The type of the layout element that is being referenced if
             /// any.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub layout_type: crate::model::document::page_anchor::page_ref::LayoutType,
 
             /// Optional. Deprecated.  Use
@@ -4182,6 +4185,7 @@ pub mod document {
 
         /// The type of provenance operation.
         #[serde(rename = "type")]
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub r#type: crate::model::document::provenance::OperationType,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7208,6 +7212,7 @@ pub mod process_request {
 #[non_exhaustive]
 pub struct HumanReviewStatus {
     /// The state of human review on the processing request.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::human_review_status::State,
 
     /// A message providing more details about the human review state.
@@ -7679,6 +7684,7 @@ impl wkt::message::Message for BatchProcessResponse {
 #[non_exhaustive]
 pub struct BatchProcessMetadata {
     /// The state of the current batch processing.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::batch_process_metadata::State,
 
     /// A message providing more details about the current state of processing.
@@ -9714,6 +9720,7 @@ pub mod train_processor_version_request {
     pub struct CustomDocumentExtractionOptions {
 
         /// Training method to use for CDE training.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub training_method: crate::model::train_processor_version_request::custom_document_extraction_options::TrainingMethod,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10174,6 +10181,7 @@ pub struct ReviewDocumentRequest {
     pub enable_schema_validation: bool,
 
     /// The priority of the human review task.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub priority: crate::model::review_document_request::Priority,
 
     /// The document schema of the human review task.
@@ -10442,6 +10450,7 @@ pub struct ReviewDocumentResponse {
     pub gcs_destination: std::string::String,
 
     /// The state of the review operation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::review_document_response::State,
 
     /// The reason why the review is rejected by reviewer.
@@ -11290,6 +11299,7 @@ pub mod document_schema {
 
             /// Occurrence type limits the number of instances an entity type appears
             /// in the document.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub occurrence_type:
                 crate::model::document_schema::entity_type::property::OccurrenceType,
 
@@ -12131,6 +12141,7 @@ pub mod evaluation {
         pub estimated_calibration_error_exact: f32,
 
         /// The metrics type for the label.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub metrics_type: crate::model::evaluation::multi_confidence_metrics::MetricsType,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -12498,6 +12509,7 @@ impl wkt::message::Message for BoundingPoly {
 #[non_exhaustive]
 pub struct CommonOperationMetadata {
     /// The state of the operation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::common_operation_metadata::State,
 
     /// A message providing more details about the current state of processing.
@@ -12772,6 +12784,7 @@ pub struct ProcessorVersion {
     pub document_schema: std::option::Option<crate::model::DocumentSchema>,
 
     /// Output only. The state of the processor version.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::processor_version::State,
 
     /// The time the processor version was created.
@@ -12799,6 +12812,7 @@ pub struct ProcessorVersion {
     pub deprecation_info: std::option::Option<crate::model::processor_version::DeprecationInfo>,
 
     /// Output only. The model type of this processor version.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub model_type: crate::model::processor_version::ModelType,
 
     /// Output only. Reserved for future use.
@@ -13223,6 +13237,7 @@ pub mod processor_version {
         pub struct CustomGenAiModelInfo {
 
             /// The type of custom model created by the user.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub custom_model_type: crate::model::processor_version::gen_ai_model_info::custom_gen_ai_model_info::CustomModelType,
 
             /// The base processor version ID for the custom model.
@@ -13804,6 +13819,7 @@ pub struct Processor {
     pub display_name: std::string::String,
 
     /// Output only. The state of the processor.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::processor::State,
 
     /// The default processor version.
@@ -14156,6 +14172,7 @@ pub struct ProcessorType {
     pub allow_creation: bool,
 
     /// Launch stage of the processor type
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub launch_stage: api::model::LaunchStage,
 
     /// A set of Cloud Storage URIs of sample documents for this processor.

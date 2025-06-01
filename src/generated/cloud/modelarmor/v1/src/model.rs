@@ -1056,6 +1056,7 @@ impl wkt::message::Message for FilterConfig {
 pub struct PiAndJailbreakFilterSettings {
     /// Optional. Tells whether Prompt injection and Jailbreak filter is enabled or
     /// disabled.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub filter_enforcement:
         crate::model::pi_and_jailbreak_filter_settings::PiAndJailbreakFilterEnforcement,
 
@@ -1064,6 +1065,7 @@ pub struct PiAndJailbreakFilterSettings {
     /// detection confidence is equal to or greater than the specified level, a
     /// positive match is reported. Confidence level will only be used if the
     /// filter is enabled.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub confidence_level: crate::model::DetectionConfidenceLevel,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1251,6 +1253,7 @@ pub mod pi_and_jailbreak_filter_settings {
 #[non_exhaustive]
 pub struct MaliciousUriFilterSettings {
     /// Optional. Tells whether the Malicious URI filter is enabled or disabled.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub filter_enforcement:
         crate::model::malicious_uri_filter_settings::MaliciousUriFilterEnforcement,
 
@@ -1471,6 +1474,7 @@ pub mod rai_filter_settings {
     #[non_exhaustive]
     pub struct RaiFilter {
         /// Required. Type of responsible AI filter.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub filter_type: crate::model::RaiFilterType,
 
         /// Optional. Confidence level for this RAI filter.
@@ -1478,6 +1482,7 @@ pub mod rai_filter_settings {
         /// confidence level equal to or greater than the specified level, a positive
         /// match is reported. If the confidence level is unspecified (i.e., 0), the
         /// system will use a reasonable default level based on the `filter_type`.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub confidence_level: crate::model::DetectionConfidenceLevel,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1655,6 +1660,7 @@ pub mod sdp_filter_settings {
 pub struct SdpBasicConfig {
     /// Optional. Tells whether the Sensitive Data Protection basic config is
     /// enabled or disabled.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub filter_enforcement: crate::model::sdp_basic_config::SdpBasicConfigEnforcement,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2116,6 +2122,7 @@ pub struct SanitizationResult {
     /// ) MATCH_FOUND: At least one filter in configuration satisfies matching.
     ///   In other words, input did not pass one or more filters.
     ///
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub filter_match_state: crate::model::FilterMatchState,
 
     /// Output only. Results for all filters where the key is the filter name -
@@ -2127,6 +2134,7 @@ pub struct SanitizationResult {
     /// of match status. It can have the following three values: SUCCESS: All
     /// filters were executed successfully. PARTIAL: Some filters were skipped or
     /// failed execution. FAILURE: All filters were skipped or failed execution.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub invocation_result: crate::model::InvocationResult,
 
     /// Output only. Metadata related to Sanitization.
@@ -2534,6 +2542,7 @@ pub mod filter_result {
 pub struct RaiFilterResult {
     /// Output only. Reports whether the RAI filter was successfully executed or
     /// not.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub execution_state: crate::model::FilterExecutionState,
 
     /// Optional messages corresponding to the result.
@@ -2546,6 +2555,7 @@ pub struct RaiFilterResult {
     /// Output only. Overall filter match state for RAI.
     /// Value is MATCH_FOUND if at least one RAI filter confidence level is
     /// equal to or higher than the confidence level defined in configuration.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub match_state: crate::model::FilterMatchState,
 
     /// The map of RAI filter results where key is RAI filter type - either of
@@ -2625,12 +2635,15 @@ pub mod rai_filter_result {
     #[non_exhaustive]
     pub struct RaiFilterTypeResult {
         /// Type of responsible AI filter.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub filter_type: crate::model::RaiFilterType,
 
         /// Confidence level identified for this RAI filter.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub confidence_level: crate::model::DetectionConfidenceLevel,
 
         /// Output only. Match state for this RAI filter.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub match_state: crate::model::FilterMatchState,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2810,6 +2823,7 @@ pub mod sdp_filter_result {
 pub struct SdpInspectResult {
     /// Output only. Reports whether Sensitive Data Protection inspection was
     /// successfully executed or not.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub execution_state: crate::model::FilterExecutionState,
 
     /// Optional messages corresponding to the result.
@@ -2822,6 +2836,7 @@ pub struct SdpInspectResult {
     /// Output only. Match state for SDP Inspection.
     /// Value is MATCH_FOUND if at least one Sensitive Data Protection finding is
     /// identified.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub match_state: crate::model::FilterMatchState,
 
     /// List of Sensitive Data Protection findings.
@@ -3010,6 +3025,7 @@ pub mod data_item {
 #[non_exhaustive]
 pub struct ByteDataItem {
     /// Required. The type of byte data
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub byte_data_type: crate::model::byte_data_item::ByteItemType,
 
     /// Required. Bytes Data
@@ -3215,6 +3231,7 @@ pub mod byte_data_item {
 pub struct SdpDeidentifyResult {
     /// Output only. Reports whether Sensitive Data Protection deidentification was
     /// successfully executed or not.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub execution_state: crate::model::FilterExecutionState,
 
     /// Optional messages corresponding to the result.
@@ -3226,6 +3243,7 @@ pub struct SdpDeidentifyResult {
 
     /// Output only. Match state for Sensitive Data Protection Deidentification.
     /// Value is MATCH_FOUND if content is de-identified.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub match_state: crate::model::FilterMatchState,
 
     /// De-identified data.
@@ -3332,6 +3350,7 @@ pub struct SdpFinding {
     pub info_type: std::string::String,
 
     /// Identified confidence likelihood for `info_type`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub likelihood: crate::model::SdpFindingLikelihood,
 
     /// Location for this finding.
@@ -3472,6 +3491,7 @@ pub mod sdp_finding {
 pub struct PiAndJailbreakFilterResult {
     /// Output only. Reports whether Prompt injection and Jailbreak filter was
     /// successfully executed or not.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub execution_state: crate::model::FilterExecutionState,
 
     /// Optional messages corresponding to the result.
@@ -3482,9 +3502,11 @@ pub struct PiAndJailbreakFilterResult {
     pub message_items: std::vec::Vec<crate::model::MessageItem>,
 
     /// Output only. Match state for Prompt injection and Jailbreak.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub match_state: crate::model::FilterMatchState,
 
     /// Confidence level identified for Prompt injection and Jailbreak.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub confidence_level: crate::model::DetectionConfidenceLevel,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3549,6 +3571,7 @@ impl wkt::message::Message for PiAndJailbreakFilterResult {
 pub struct MaliciousUriFilterResult {
     /// Output only. Reports whether Malicious URI filter was successfully executed
     /// or not.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub execution_state: crate::model::FilterExecutionState,
 
     /// Optional messages corresponding to the result.
@@ -3560,6 +3583,7 @@ pub struct MaliciousUriFilterResult {
 
     /// Output only. Match state for this Malicious URI.
     /// Value is MATCH_FOUND if at least one Malicious URI is found.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub match_state: crate::model::FilterMatchState,
 
     /// List of Malicious URIs found in data.
@@ -3686,6 +3710,7 @@ pub mod malicious_uri_filter_result {
 #[non_exhaustive]
 pub struct VirusScanFilterResult {
     /// Output only. Reports whether Virus Scan was successfully executed or not.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub execution_state: crate::model::FilterExecutionState,
 
     /// Optional messages corresponding to the result.
@@ -3697,9 +3722,11 @@ pub struct VirusScanFilterResult {
 
     /// Output only. Match status for Virus.
     /// Value is MATCH_FOUND if the data is infected with a virus.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub match_state: crate::model::FilterMatchState,
 
     /// Type of content scanned.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub scanned_content_type: crate::model::virus_scan_filter_result::ScannedContentType,
 
     /// Size of scanned content in bytes.
@@ -3958,6 +3985,7 @@ pub struct VirusDetail {
     pub names: std::vec::Vec<std::string::String>,
 
     /// Threat type of the identified virus
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub threat_type: crate::model::virus_detail::ThreatType,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4173,6 +4201,7 @@ pub mod virus_detail {
 pub struct CsamFilterResult {
     /// Output only. Reports whether the CSAM filter was successfully executed or
     /// not.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub execution_state: crate::model::FilterExecutionState,
 
     /// Optional messages corresponding to the result.
@@ -4183,6 +4212,7 @@ pub struct CsamFilterResult {
     pub message_items: std::vec::Vec<crate::model::MessageItem>,
 
     /// Output only. Match state for CSAM.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub match_state: crate::model::FilterMatchState,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4237,6 +4267,7 @@ impl wkt::message::Message for CsamFilterResult {
 #[non_exhaustive]
 pub struct MessageItem {
     /// Type of message.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub message_type: crate::model::message_item::MessageType,
 
     /// The message content.

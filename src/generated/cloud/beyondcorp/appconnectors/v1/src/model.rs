@@ -902,6 +902,7 @@ pub struct AppConnector {
     pub uid: std::string::String,
 
     /// Output only. The current state of the AppConnector.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::app_connector::State,
 
     /// Required. Principal information about the Identity of the AppConnector.
@@ -1469,6 +1470,7 @@ pub struct ResourceInfo {
 
     /// Overall health status. Overall status is derived based on the status of
     /// each sub level resources.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub status: crate::model::HealthStatus,
 
     /// Specific details for the resource. This is for internal use only.

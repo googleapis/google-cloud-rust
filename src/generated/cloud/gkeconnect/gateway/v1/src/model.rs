@@ -64,6 +64,7 @@ pub struct GenerateCredentialsRequest {
     pub kubernetes_namespace: std::string::String,
 
     /// Optional. The operating system where the kubeconfig will be used.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub operating_system: crate::model::generate_credentials_request::OperatingSystem,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

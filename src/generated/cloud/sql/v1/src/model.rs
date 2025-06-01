@@ -276,6 +276,7 @@ pub struct BackupRun {
     pub kind: std::string::String,
 
     /// The status of this run.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub status: crate::model::SqlBackupRunStatus,
 
     /// The time the run was enqueued in UTC timezone in
@@ -311,6 +312,7 @@ pub struct BackupRun {
     /// This field defaults to "ON_DEMAND" and is ignored, when specified for
     /// insert requests.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::SqlBackupRunType,
 
     /// The description of this run, only applicable to on-demand backups.
@@ -345,6 +347,7 @@ pub struct BackupRun {
     pub disk_encryption_status: std::option::Option<crate::model::DiskEncryptionStatus>,
 
     /// Specifies the kind of backup, PHYSICAL or DEFAULT_SNAPSHOT.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub backup_kind: crate::model::SqlBackupKind,
 
     /// Backup time zone to prevent restores to an instance with
@@ -757,12 +760,14 @@ pub struct ConnectSettings {
     /// `SQLSERVER_2017_WEB`, `SQLSERVER_2019_STANDARD`,
     /// `SQLSERVER_2019_ENTERPRISE`, `SQLSERVER_2019_EXPRESS`, or
     /// `SQLSERVER_2019_WEB`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub database_version: crate::model::SqlDatabaseVersion,
 
     /// `SECOND_GEN`: Cloud SQL database instance.
     /// `EXTERNAL`: A database server that is not managed by Google.
     /// This property is read-only; use the `tier` property in the `settings`
     /// object to determine the database type.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub backend_type: crate::model::SqlBackendType,
 
     /// Whether PSC connectivity is enabled for this instance.
@@ -774,6 +779,7 @@ pub struct ConnectSettings {
     pub dns_name: std::string::String,
 
     /// Specify what type of CA is used for the server certificate.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub server_ca_mode: crate::model::connect_settings::CaMode,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1593,6 +1599,7 @@ pub struct Flag {
     /// `INTEGER` or `NONE`. `NONE` is used for flags that do not take a
     /// value, such as `skip_grant_tables`.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::SqlFlagType,
 
     /// The database version this flag applies to. Can be
@@ -3563,6 +3570,7 @@ pub struct SqlInstancesVerifyExternalSyncSettingsRequest {
     pub verify_connection_only: bool,
 
     /// External sync mode
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub sync_mode:
         crate::model::sql_instances_verify_external_sync_settings_request::ExternalSyncMode,
 
@@ -3573,11 +3581,13 @@ pub struct SqlInstancesVerifyExternalSyncSettingsRequest {
     /// Optional. MigrationType configures the migration to use physical files or
     /// logical dump files. If not set, then the logical dump file configuration is
     /// used. Valid values are `LOGICAL` or `PHYSICAL`. Only applicable to MySQL.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub migration_type:
         crate::model::sql_instances_verify_external_sync_settings_request::MigrationType,
 
     /// Optional. Parallel level for initial data sync. Only applicable for
     /// PostgreSQL.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub sync_parallel_level: crate::model::ExternalSyncParallelLevel,
 
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
@@ -4007,6 +4017,7 @@ pub struct SqlInstancesStartExternalSyncRequest {
     pub project: std::string::String,
 
     /// External sync mode.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub sync_mode:
         crate::model::sql_instances_verify_external_sync_settings_request::ExternalSyncMode,
 
@@ -4016,11 +4027,13 @@ pub struct SqlInstancesStartExternalSyncRequest {
 
     /// Optional. Parallel level for initial data sync. Currently only applicable
     /// for MySQL.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub sync_parallel_level: crate::model::ExternalSyncParallelLevel,
 
     /// Optional. MigrationType configures the migration to use physical files or
     /// logical dump files. If not set, then the logical dump file configuration is
     /// used. Valid values are `LOGICAL` or `PHYSICAL`. Only applicable to MySQL.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub migration_type:
         crate::model::sql_instances_verify_external_sync_settings_request::MigrationType,
 
@@ -5337,10 +5350,12 @@ pub struct DatabaseInstance {
     pub kind: std::string::String,
 
     /// The current serving state of the Cloud SQL instance.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::database_instance::SqlInstanceState,
 
     /// The database engine type and version. The `databaseVersion` field cannot
     /// be changed after instance creation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub database_version: crate::model::SqlDatabaseVersion,
 
     /// The user settings.
@@ -5391,6 +5406,7 @@ pub struct DatabaseInstance {
     pub server_ca_cert: std::option::Option<crate::model::SslCert>,
 
     /// The instance type.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub instance_type: crate::model::SqlInstanceType,
 
     /// The project ID of the project containing the Cloud SQL instance. The Google
@@ -5424,6 +5440,7 @@ pub struct DatabaseInstance {
     ///
     /// This property is read-only; use the `tier` property in the `settings`
     /// object to determine the database type.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub backend_type: crate::model::SqlBackendType,
 
     /// The URI of this resource.
@@ -7253,6 +7270,7 @@ pub mod sql_instances_reschedule_maintenance_request_body {
     #[non_exhaustive]
     pub struct Reschedule {
         /// Required. The type of the reschedule.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub reschedule_type:
             crate::model::sql_instances_reschedule_maintenance_request_body::RescheduleType,
 
@@ -7810,6 +7828,7 @@ pub struct SqlExternalSyncSettingError {
 
     /// Identifies the specific error that occurred.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::sql_external_sync_setting_error::SqlExternalSyncSettingErrorType,
 
     /// Additional information about the error encountered.
@@ -9119,6 +9138,7 @@ impl wkt::message::Message for AclEntry {
 #[non_exhaustive]
 pub struct ApiWarning {
     /// Code to uniquely identify the warning type.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub code: crate::model::api_warning::SqlApiWarningCode,
 
     /// The warning message.
@@ -9333,6 +9353,7 @@ pub mod api_warning {
 #[non_exhaustive]
 pub struct BackupRetentionSettings {
     /// The unit that 'retained_backups' represents.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub retention_unit: crate::model::backup_retention_settings::RetentionUnit,
 
     /// Depending on the value of retention_unit, this is used to determine
@@ -10567,6 +10588,7 @@ pub struct ExportContext {
     pub csv_export_options: std::option::Option<crate::model::export_context::SqlCsvExportOptions>,
 
     /// The file type for the specified uri.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub file_type: crate::model::SqlFileType,
 
     /// Option for export offload.
@@ -11088,6 +11110,7 @@ pub mod export_context {
         pub stripe_count: std::option::Option<wkt::Int32Value>,
 
         /// Type of this bak file will be export, FULL or DIFF, SQL Server only
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub bak_type: crate::model::BakType,
 
         /// Deprecated: copy_only is deprecated. Use differential_base instead
@@ -11223,6 +11246,7 @@ pub struct ImportContext {
 
     /// The file type for the specified uri.\`SQL`: The file
     /// contains SQL statements. \`CSV`: The file contains CSV data.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub file_type: crate::model::SqlFileType,
 
     /// Options for importing data as CSV.
@@ -11643,6 +11667,7 @@ pub mod import_context {
         pub recovery_only: std::option::Option<wkt::BoolValue>,
 
         /// Type of the bak content, FULL or DIFF
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub bak_type: crate::model::BakType,
 
         /// Optional. The timestamp when the import should stop. This timestamp is in
@@ -11925,6 +11950,7 @@ pub struct IpConfiguration {
     /// connections, while `require_ssl=false` means accept both non-SSL
     /// and SSL connections. In this case, MySQL and PostgreSQL databases respect
     /// `ssl_mode` and accepts only SSL connections.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub ssl_mode: crate::model::ip_configuration::SslMode,
 
     /// PSC settings for this instance.
@@ -12544,6 +12570,7 @@ pub struct MaintenanceWindow {
     /// Maintenance timing settings: `canary`, `stable`, or `week5`.
     /// For more information, see [About maintenance on Cloud SQL
     /// instances](https://cloud.google.com/sql/docs/mysql/maintenance).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub update_track: crate::model::SqlUpdateTrack,
 
     /// This is always `sql#maintenanceWindow`.
@@ -13056,6 +13083,7 @@ pub struct IpMapping {
     /// that can accept incoming connections. An `OUTGOING` address is the source
     /// address of connections originating from the instance, if supported.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::SqlIpAddressType,
 
     /// The IP address assigned.
@@ -13131,6 +13159,7 @@ pub struct Operation {
     pub target_link: std::string::String,
 
     /// The status of an operation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub status: crate::model::operation::SqlOperationStatus,
 
     /// The email address of the user who initiated this operation.
@@ -13178,6 +13207,7 @@ pub struct Operation {
     /// * `DELETE_USER`
     /// * `CREATE_DATABASE`
     /// * `DELETE_DATABASE`
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub operation_type: crate::model::operation::SqlOperationType,
 
     /// The context for import operation, if applicable.
@@ -14161,6 +14191,7 @@ pub struct PasswordValidationPolicy {
     pub min_length: std::option::Option<wkt::Int32Value>,
 
     /// The complexity of the password.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub complexity: crate::model::password_validation_policy::Complexity,
 
     /// Number of previous passwords that cannot be reused.
@@ -14533,15 +14564,18 @@ pub struct Settings {
     ///
     /// For more information, see [Overview of the High Availability
     /// Configuration](https://cloud.google.com/sql/docs/mysql/high-availability).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub availability_type: crate::model::SqlAvailabilityType,
 
     /// The pricing plan for this instance. This can be either `PER_USE` or
     /// `PACKAGE`. Only `PER_USE` is supported for Second Generation instances.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub pricing_plan: crate::model::SqlPricingPlan,
 
     /// The type of replication this instance uses. This can be either
     /// `ASYNCHRONOUS` or `SYNCHRONOUS`. (Deprecated) This property was only
     /// applicable to First Generation instances.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[deprecated]
     pub replication_type: crate::model::SqlReplicationType,
 
@@ -14558,6 +14592,7 @@ pub struct Settings {
     ///   connection requests.
     /// * `NEVER`: The instance is off; it is not activated, even if a
     ///   connection request arrives.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub activation_policy: crate::model::settings::SqlActivationPolicy,
 
     /// The settings for IP Management. This allows to enable or disable the
@@ -14584,6 +14619,7 @@ pub struct Settings {
 
     /// The type of data disk: `PD_SSD` (default) or `PD_HDD`. Not used for
     /// First Generation instances.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub data_disk_type: crate::model::SqlDataDiskType,
 
     /// The maintenance window for this instance. This specifies when the instance
@@ -14638,6 +14674,7 @@ pub struct Settings {
     pub sql_server_audit_config: std::option::Option<crate::model::SqlServerAuditConfig>,
 
     /// Optional. The edition of the instance.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub edition: crate::model::settings::Edition,
 
     /// Specifies if connections must use Cloud SQL connectors.
@@ -14650,6 +14687,7 @@ pub struct Settings {
     /// this field is not specified when creating a new instance, NOT_REQUIRED is
     /// used. If this field is not specified when patching or updating an existing
     /// instance, it is left unchanged in the instance.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub connector_enforcement: crate::model::settings::ConnectorEnforcement,
 
     /// Configuration to protect against accidental instance deletion.
@@ -17129,6 +17167,7 @@ pub struct User {
     /// The user type. It determines the method to authenticate the user during
     /// login. The default is the database's built-in user type.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::user::SqlUserType,
 
     /// User level password validation policy.

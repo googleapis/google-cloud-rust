@@ -3035,6 +3035,7 @@ pub struct ImportMappingRulesRequest {
     pub parent: std::string::String,
 
     /// Required. The format of the rules content file.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub rules_format: crate::model::ImportRulesFileFormat,
 
     /// Required. One or more rules files.
@@ -3177,6 +3178,7 @@ pub struct DescribeDatabaseEntitiesRequest {
     pub page_token: std::string::String,
 
     /// Required. The tree to fetch.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub tree: crate::model::describe_database_entities_request::DBTreeType,
 
     /// Optional. Whether to retrieve the latest committed version of the entities
@@ -3195,6 +3197,7 @@ pub struct DescribeDatabaseEntitiesRequest {
     pub filter: std::string::String,
 
     /// Optional. Results view based on AIP-157
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub view: crate::model::DatabaseEntityView,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3926,6 +3929,7 @@ pub struct SslConfig {
     /// Output only. The ssl config type according to 'client_key',
     /// 'client_certificate' and 'ca_certificate'.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::ssl_config::SslType,
 
     /// Input only. The unencrypted PKCS#1 or PKCS#8 PEM-encoded private key
@@ -4284,6 +4288,7 @@ pub struct PostgreSqlConnectionProfile {
 
     /// Output only. If the source is a Cloud SQL database, this field indicates
     /// the network architecture it's associated with.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub network_architecture: crate::model::NetworkArchitecture,
 
     /// Connectivity options used to establish a connection to the database server.
@@ -5124,6 +5129,7 @@ impl wkt::message::Message for SqlIpConfig {
 #[non_exhaustive]
 pub struct CloudSqlSettings {
     /// The database engine type and version.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub database_version: crate::model::cloud_sql_settings::SqlDatabaseVersion,
 
     /// The resource labels for a Cloud SQL instance to use to annotate any related
@@ -5157,6 +5163,7 @@ pub struct CloudSqlSettings {
     ///
     /// `NEVER`: The instance is off; it is not activated, even if a
     /// connection request arrives.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub activation_policy: crate::model::cloud_sql_settings::SqlActivationPolicy,
 
     /// The settings for IP Management. This allows to enable or disable the
@@ -5180,6 +5187,7 @@ pub struct CloudSqlSettings {
     pub database_flags: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// The type of storage: `PD_SSD` (default) or `PD_HDD`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub data_disk_type: crate::model::cloud_sql_settings::SqlDataDiskType,
 
     /// The storage capacity available to the database, in GB.
@@ -5227,9 +5235,11 @@ pub struct CloudSqlSettings {
     ///   zone affect data availability.
     /// * `REGIONAL`: The instance can serve data from more than one zone in a
     ///   region (it is highly available).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub availability_type: crate::model::cloud_sql_settings::SqlAvailabilityType,
 
     /// Optional. The edition of the given Cloud SQL instance.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub edition: crate::model::cloud_sql_settings::Edition,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6909,9 +6919,11 @@ impl wkt::message::Message for PrivateConnectivity {
 #[non_exhaustive]
 pub struct DatabaseType {
     /// The database provider.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub provider: crate::model::DatabaseProvider,
 
     /// The database engine.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub engine: crate::model::DatabaseEngine,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6981,13 +6993,16 @@ pub struct MigrationJob {
     pub display_name: std::string::String,
 
     /// The current migration job state.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::migration_job::State,
 
     /// Output only. The current migration job phase.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub phase: crate::model::migration_job::Phase,
 
     /// Required. The migration job type.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::migration_job::Type,
 
     /// The path to the dump file in Google Cloud Storage,
@@ -7546,6 +7561,7 @@ pub mod migration_job {
     #[non_exhaustive]
     pub struct PerformanceConfig {
         /// Initial dump parallelism level.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub dump_parallel_level: crate::model::migration_job::performance_config::DumpParallelLevel,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8325,6 +8341,7 @@ pub struct ConnectionProfile {
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// The current connection profile state (e.g. DRAFT, READY, or FAILED).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::connection_profile::State,
 
     /// The connection profile display name.
@@ -8336,6 +8353,7 @@ pub struct ConnectionProfile {
     pub error: std::option::Option<rpc::model::Status>,
 
     /// The database provider.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub provider: crate::model::DatabaseProvider,
 
     /// The connection profile definition.
@@ -8829,6 +8847,7 @@ pub mod connection_profile {
 #[non_exhaustive]
 pub struct MigrationJobVerificationError {
     /// Output only. An instance of ErrorCode specifying the error that occurred.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub error_code: crate::model::migration_job_verification_error::ErrorCode,
 
     /// Output only. A formatted message with further details about the error and a
@@ -9273,6 +9292,7 @@ pub struct PrivateConnection {
     pub display_name: std::string::String,
 
     /// Output only. The state of the private connection.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::private_connection::State,
 
     /// Output only. The error details in case of state FAILED.
@@ -9656,6 +9676,7 @@ impl wkt::message::Message for VpcPeeringConfig {
 #[non_exhaustive]
 pub struct DatabaseEngineInfo {
     /// Required. Engine type.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub engine: crate::model::DatabaseEngine,
 
     /// Required. Engine named version, for example 12.c.1.
@@ -9898,6 +9919,7 @@ pub struct BackgroundJobLogEntry {
     pub id: std::string::String,
 
     /// The type of job that was executed.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub job_type: crate::model::BackgroundJobType,
 
     /// The timestamp when the background job was started.
@@ -9910,6 +9932,7 @@ pub struct BackgroundJobLogEntry {
 
     /// Output only. Job completion state, i.e. the final state after the job
     /// completed.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub completion_state: crate::model::background_job_log_entry::JobCompletionState,
 
     /// Output only. Job completion comment, such as how many entities were seeded,
@@ -10224,6 +10247,7 @@ pub mod background_job_log_entry {
         pub files: std::vec::Vec<std::string::String>,
 
         /// Output only. The requested file format.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub file_format: crate::model::ImportRulesFileFormat,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10607,9 +10631,11 @@ pub struct MappingRule {
     pub display_name: std::string::String,
 
     /// Optional. The mapping rule state
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::mapping_rule::State,
 
     /// Required. The rule scope
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub rule_scope: crate::model::DatabaseEntityType,
 
     /// Required. The rule filter
@@ -11332,6 +11358,7 @@ pub struct MultiEntityRename {
     /// Optional. Additional transformation that can be done on the source entity
     /// name before it is being used by the new_name_pattern, for example lower
     /// case. If no transformation is desired, use NO_TRANSFORMATION
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub source_name_transformation: crate::model::EntityNameTransformation,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11915,6 +11942,7 @@ pub struct SourceNumericFilter {
 
     /// Required. Enum to set the option defining the datatypes numeric filter has
     /// to be applied to
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub numeric_filter_option: crate::model::NumericFilterOption,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -12780,6 +12808,7 @@ impl wkt::message::Message for FilterTableColumns {
 pub struct ValueListFilter {
     /// Required. Indicates whether the filter matches rows with values that are
     /// present in the list or those with values not present in it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub value_present_list: crate::model::ValuePresentInList,
 
     /// Required. The list to be used to filter by
@@ -12841,6 +12870,7 @@ impl wkt::message::Message for ValueListFilter {
 #[non_exhaustive]
 pub struct IntComparisonFilter {
     /// Required. Relation between source value and compare value
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub value_comparison: crate::model::ValueComparison,
 
     /// Required. Integer compare value to be used
@@ -12887,6 +12917,7 @@ impl wkt::message::Message for IntComparisonFilter {
 #[non_exhaustive]
 pub struct DoubleComparisonFilter {
     /// Required. Relation between source value and compare value
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub value_comparison: crate::model::ValueComparison,
 
     /// Required. Double compare value to be used
@@ -13090,9 +13121,11 @@ pub struct DatabaseEntity {
     pub parent_entity: std::string::String,
 
     /// The type of tree the entity belongs to.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub tree: crate::model::database_entity::TreeType,
 
     /// The type of the database entity (table, view, index, ...).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub entity_type: crate::model::DatabaseEntityType,
 
     /// Details about entity mappings.
@@ -14787,6 +14820,7 @@ pub struct SynonymEntity {
 
     /// The type of the entity for which the synonym is being created
     /// (usually a table or a sequence).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub source_type: crate::model::DatabaseEntityType,
 
     /// Custom engine specific features.
@@ -14993,9 +15027,11 @@ pub struct EntityMapping {
     pub draft_entity: std::string::String,
 
     /// Type of source entity.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub source_type: crate::model::DatabaseEntityType,
 
     /// Type of draft entity.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub draft_type: crate::model::DatabaseEntityType,
 
     /// Entity mapping log entries.
@@ -15137,6 +15173,7 @@ pub struct EntityDdl {
     pub ddl: std::string::String,
 
     /// The entity type (if the DDL is for a sub entity).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub entity_type: crate::model::DatabaseEntityType,
 
     /// EntityIssues found for this ddl.
@@ -15209,9 +15246,11 @@ pub struct EntityIssue {
 
     /// The type of the issue.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::entity_issue::IssueType,
 
     /// Severity of the issue
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub severity: crate::model::entity_issue::IssueSeverity,
 
     /// Issue detailed message
@@ -15231,6 +15270,7 @@ pub struct EntityIssue {
     pub position: std::option::Option<crate::model::entity_issue::Position>,
 
     /// The entity type (if the DDL is for a sub entity).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub entity_type: crate::model::DatabaseEntityType,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

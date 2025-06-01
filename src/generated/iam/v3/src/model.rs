@@ -206,6 +206,7 @@ pub struct PolicyBinding {
     ///
     /// - Left empty (will be automatically set to the policy kind)
     /// - The input policy kind
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub policy_kind: crate::model::policy_binding::PolicyKind,
 
     /// Required. Immutable. The resource name of the policy to be bound. The
@@ -1997,6 +1998,7 @@ pub struct PrincipalAccessBoundaryPolicyRule {
 
     /// Required. The access relationship of principals to the resources in this
     /// rule.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub effect: crate::model::principal_access_boundary_policy_rule::Effect,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

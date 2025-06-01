@@ -52,6 +52,7 @@ pub struct Configuration {
     pub product: std::string::String,
 
     /// Required. LicenseType to be applied for billing
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub license_type: crate::model::LicenseType,
 
     /// Required. Billing information applicable till end of the current month.
@@ -75,6 +76,7 @@ pub struct Configuration {
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. State of the configuration.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::configuration::State,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -574,6 +576,7 @@ pub struct Product {
     pub product_company: std::string::String,
 
     /// Output only. State of the product.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::product::State,
 
     /// Required. SKU for mapping to the Billing/Subscription resource.
@@ -821,6 +824,7 @@ pub struct Instance {
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. The state of the VM.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::instance::State,
 
     /// Output only. The location of the VM.

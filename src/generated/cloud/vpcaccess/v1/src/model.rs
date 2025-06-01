@@ -53,6 +53,7 @@ pub struct Connector {
     pub ip_cidr_range: std::string::String,
 
     /// Output only. State of the VPC access connector.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::connector::State,
 
     /// Minimum throughput of the connector in Mbps. Default and min is 200.

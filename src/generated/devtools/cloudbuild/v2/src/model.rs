@@ -637,6 +637,7 @@ pub mod connection {
 #[non_exhaustive]
 pub struct InstallationState {
     /// Output only. Current step of the installation process.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub stage: crate::model::installation_state::Stage,
 
     /// Output only. Message of what the user should do next to continue the
@@ -2774,6 +2775,7 @@ pub struct FetchGitRefsRequest {
     pub repository: std::string::String,
 
     /// Type of refs to fetch
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub ref_type: crate::model::fetch_git_refs_request::RefType,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

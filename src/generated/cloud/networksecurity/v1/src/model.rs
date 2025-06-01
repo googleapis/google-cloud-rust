@@ -66,6 +66,7 @@ pub struct AuthorizationPolicy {
 
     /// Required. The action to take when a rule match is found. Possible values
     /// are "ALLOW" or "DENY".
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub action: crate::model::authorization_policy::Action,
 
     /// Optional. List of rules to match. Note that at least one of the rules must match in

@@ -6779,6 +6779,7 @@ pub mod object {
     #[non_exhaustive]
     pub struct Retention {
         /// Optional. The mode of the Retention.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub mode: crate::model::object::retention::Mode,
 
         /// Optional. The timestamp that the object needs to be retained until.

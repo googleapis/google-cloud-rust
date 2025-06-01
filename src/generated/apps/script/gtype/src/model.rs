@@ -700,6 +700,7 @@ impl wkt::message::Message for LayoutProperties {
 #[non_exhaustive]
 pub struct HttpOptions {
     /// Configuration for the token sent in the HTTP Authorization header
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub authorization_header: crate::model::HttpAuthorizationHeader,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

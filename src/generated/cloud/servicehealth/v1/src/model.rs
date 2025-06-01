@@ -54,15 +54,19 @@ pub struct Event {
     pub description: std::string::String,
 
     /// Output only. The category of the event.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub category: crate::model::event::EventCategory,
 
     /// Output only. The detailed category of the event.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub detailed_category: crate::model::event::DetailedCategory,
 
     /// Output only. The current state of the event.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::event::State,
 
     /// Output only. The current detailed state of the incident.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub detailed_state: crate::model::event::DetailedState,
 
     /// Google Cloud products and locations impacted by the event.
@@ -71,6 +75,7 @@ pub struct Event {
 
     /// Output only. Communicates why a given event is deemed relevant in the
     /// context of a given project.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub relevance: crate::model::event::Relevance,
 
     /// Output only. Event updates are correspondence from Google.
@@ -1036,15 +1041,19 @@ pub struct OrganizationEvent {
     pub description: std::string::String,
 
     /// Output only. The category of the event.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub category: crate::model::organization_event::EventCategory,
 
     /// Output only. The detailed category of the event.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub detailed_category: crate::model::organization_event::DetailedCategory,
 
     /// Output only. The current state of the event.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::organization_event::State,
 
     /// Output only. The current detailed state of the incident.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub detailed_state: crate::model::organization_event::DetailedState,
 
     /// Output only. Represents the Google Cloud products and locations impacted by
@@ -2253,6 +2262,7 @@ pub struct ListEventsRequest {
     pub filter: std::string::String,
 
     /// Optional. Event fields to include in response.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub view: crate::model::EventView,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2476,6 +2486,7 @@ pub struct ListOrganizationEventsRequest {
     pub filter: std::string::String,
 
     /// Optional. OrganizationEvent fields to include in response.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub view: crate::model::OrganizationEventView,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

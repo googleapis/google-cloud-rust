@@ -94,6 +94,7 @@ pub struct TroubleshootIamPolicyResponse {
     /// Indicates whether the principal has the specified permission for the
     /// specified resource, based on evaluating all types of the applicable IAM
     /// policies.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub overall_access_state: crate::model::troubleshoot_iam_policy_response::OverallAccessState,
 
     /// The access tuple from the request, including any provided context used to
@@ -848,6 +849,7 @@ pub mod condition_context {
 pub struct AllowPolicyExplanation {
     /// Indicates whether the principal has the specified permission for the
     /// specified resource, based on evaluating all applicable IAM allow policies.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_access_state: crate::model::AllowAccessState,
 
     /// List of IAM allow policies that were evaluated to check the principal's
@@ -864,6 +866,7 @@ pub struct AllowPolicyExplanation {
     pub explained_policies: std::vec::Vec<crate::model::ExplainedAllowPolicy>,
 
     /// The relevance of the allow policy type to the overall access state.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub relevance: crate::model::HeuristicRelevance,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -928,6 +931,7 @@ pub struct ExplainedAllowPolicy {
     /// [TroubleshootIamPolicyResponse][google.cloud.policytroubleshooter.iam.v3.TroubleshootIamPolicyResponse].
     ///
     /// [google.cloud.policytroubleshooter.iam.v3.TroubleshootIamPolicyResponse]: crate::model::TroubleshootIamPolicyResponse
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_access_state: crate::model::AllowAccessState,
 
     /// The full resource name that identifies the resource. For example,
@@ -957,6 +961,7 @@ pub struct ExplainedAllowPolicy {
     /// is omitted.
     ///
     /// [google.cloud.policytroubleshooter.iam.v3.TroubleshootIamPolicyResponse]: crate::model::TroubleshootIamPolicyResponse
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub relevance: crate::model::HeuristicRelevance,
 
     /// The IAM allow policy attached to the resource.
@@ -1055,6 +1060,7 @@ pub struct AllowBindingExplanation {
     /// [TroubleshootIamPolicyResponse][google.cloud.policytroubleshooter.iam.v3.TroubleshootIamPolicyResponse].
     ///
     /// [google.cloud.policytroubleshooter.iam.v3.TroubleshootIamPolicyResponse]: crate::model::TroubleshootIamPolicyResponse
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_access_state: crate::model::AllowAccessState,
 
     /// The role that this role binding grants. For example,
@@ -1067,10 +1073,12 @@ pub struct AllowBindingExplanation {
 
     /// Indicates whether the role granted by this role binding contains the
     /// specified permission.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub role_permission: crate::model::RolePermissionInclusionState,
 
     /// The relevance of the permission's existence, or nonexistence, in the role
     /// to the overall determination for the entire policy.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub role_permission_relevance: crate::model::HeuristicRelevance,
 
     /// The combined result of all memberships. Indicates if the principal is
@@ -1107,6 +1115,7 @@ pub struct AllowBindingExplanation {
 
     /// The relevance of this role binding to the overall determination for the
     /// entire policy.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub relevance: crate::model::HeuristicRelevance,
 
     /// A condition expression that specifies when the role binding grants access.
@@ -1260,10 +1269,12 @@ pub mod allow_binding_explanation {
     #[non_exhaustive]
     pub struct AnnotatedAllowMembership {
         /// Indicates whether the role binding includes the principal.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub membership: crate::model::MembershipMatchingState,
 
         /// The relevance of the principal's status to the overall determination for
         /// the role binding.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub relevance: crate::model::HeuristicRelevance,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1311,6 +1322,7 @@ pub struct DenyPolicyExplanation {
     /// Indicates whether the principal is denied the specified permission for
     /// the specified resource, based on evaluating all applicable IAM deny
     /// policies.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub deny_access_state: crate::model::DenyAccessState,
 
     /// List of resources with IAM deny policies that were evaluated to check the
@@ -1329,6 +1341,7 @@ pub struct DenyPolicyExplanation {
     pub explained_resources: std::vec::Vec<crate::model::ExplainedDenyResource>,
 
     /// The relevance of the deny policy result to the overall access state.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub relevance: crate::model::HeuristicRelevance,
 
     /// Indicates whether the permission to troubleshoot is supported in deny
@@ -1405,6 +1418,7 @@ pub struct ExplainedDenyResource {
     /// [TroubleshootIamPolicyResponse][google.cloud.policytroubleshooter.iam.v3.TroubleshootIamPolicyResponse].
     ///
     /// [google.cloud.policytroubleshooter.iam.v3.TroubleshootIamPolicyResponse]: crate::model::TroubleshootIamPolicyResponse
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub deny_access_state: crate::model::DenyAccessState,
 
     /// The full resource name that identifies the resource. For example,
@@ -1431,6 +1445,7 @@ pub struct ExplainedDenyResource {
     /// is omitted.
     ///
     /// [google.cloud.policytroubleshooter.iam.v3.TroubleshootIamPolicyResponse]: crate::model::TroubleshootIamPolicyResponse
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub relevance: crate::model::HeuristicRelevance,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1506,6 +1521,7 @@ pub struct ExplainedDenyPolicy {
     /// [TroubleshootIamPolicyResponse][google.cloud.policytroubleshooter.iam.v3.TroubleshootIamPolicyResponse].
     ///
     /// [google.cloud.policytroubleshooter.iam.v3.TroubleshootIamPolicyResponse]: crate::model::TroubleshootIamPolicyResponse
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub deny_access_state: crate::model::DenyAccessState,
 
     /// The IAM deny policy attached to the resource.
@@ -1531,6 +1547,7 @@ pub struct ExplainedDenyPolicy {
     /// is omitted.
     ///
     /// [google.cloud.policytroubleshooter.iam.v3.TroubleshootIamPolicyResponse]: crate::model::TroubleshootIamPolicyResponse
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub relevance: crate::model::HeuristicRelevance,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1613,6 +1630,7 @@ pub struct DenyRuleExplanation {
     /// [TroubleshootIamPolicyResponse][google.cloud.policytroubleshooter.iam.v3.TroubleshootIamPolicyResponse].
     ///
     /// [google.cloud.policytroubleshooter.iam.v3.TroubleshootIamPolicyResponse]: crate::model::TroubleshootIamPolicyResponse
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub deny_access_state: crate::model::DenyAccessState,
 
     /// Indicates whether the permission in the request is listed as a denied
@@ -1691,6 +1709,7 @@ pub struct DenyRuleExplanation {
 
     /// The relevance of this role binding to the overall determination for the
     /// entire policy.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub relevance: crate::model::HeuristicRelevance,
 
     /// A condition expression that specifies when the deny rule denies the
@@ -1912,10 +1931,12 @@ pub mod deny_rule_explanation {
     pub struct AnnotatedPermissionMatching {
         /// Indicates whether the permission in the request is denied by the deny
         /// rule.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub permission_matching_state: crate::model::PermissionPatternMatchingState,
 
         /// The relevance of the permission status to the overall determination for
         /// the rule.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub relevance: crate::model::HeuristicRelevance,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1964,10 +1985,12 @@ pub mod deny_rule_explanation {
     pub struct AnnotatedDenyPrincipalMatching {
         /// Indicates whether the principal is listed as a denied principal in the
         /// deny rule, either directly or through membership in a principal set.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub membership: crate::model::MembershipMatchingState,
 
         /// The relevance of the principal's status to the overall determination for
         /// the role binding.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub relevance: crate::model::HeuristicRelevance,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

@@ -54,6 +54,7 @@ pub struct Workflow {
     pub description: std::string::String,
 
     /// Output only. State of the workflow deployment.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::workflow::State,
 
     /// Output only. The revision of the workflow.
@@ -136,6 +137,7 @@ pub struct Workflow {
     /// call responses during executions of this workflow. If both the workflow and
     /// the execution specify a logging level, the execution level takes
     /// precedence.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub call_log_level: crate::model::workflow::CallLogLevel,
 
     /// Optional. User-defined environment variables associated with this workflow
@@ -146,6 +148,7 @@ pub struct Workflow {
     pub user_env_vars: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Optional. Describes the execution history level to apply to this workflow.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub execution_history_level: crate::model::ExecutionHistoryLevel,
 
     /// Output only. A list of all KMS crypto keys used to encrypt or decrypt the
@@ -440,6 +443,7 @@ pub mod workflow {
 
         /// The type of this state error.
         #[serde(rename = "type")]
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub r#type: crate::model::workflow::state_error::Type,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

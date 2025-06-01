@@ -50,6 +50,7 @@ pub struct Instance {
     pub description: std::string::String,
 
     /// Output only. The instance state.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::instance::State,
 
     /// Output only. The time when the instance was created.
@@ -110,6 +111,7 @@ pub struct Instance {
     /// * `FILE_STRIPE_LEVEL_BALANCED`: balances performance for workloads
     ///   involving a mix of small and large files.
     /// * `FILE_STRIPE_LEVEL_MAX`: higher throughput performance for larger files.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub file_stripe_level: crate::model::FileStripeLevel,
 
     /// Optional. Immutable. Stripe level for directories. Allowed values are:
@@ -120,6 +122,7 @@ pub struct Instance {
     ///   involving a mix of small and large directories.
     /// * `DIRECTORY_STRIPE_LEVEL_MAX`: recommended for directories with a large
     ///   number of files.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub directory_stripe_level: crate::model::DirectoryStripeLevel,
 
     /// Optional. Immutable. The deployment type of the instance. Allowed values
@@ -127,6 +130,7 @@ pub struct Instance {
     ///
     /// * `SCRATCH`: the instance is a scratch instance.
     /// * `PERSISTENT`: the instance is a persistent instance.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub deployment_type: crate::model::DeploymentType,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1615,6 +1619,7 @@ impl wkt::message::Message for TransferErrorLogEntry {
 #[non_exhaustive]
 pub struct TransferErrorSummary {
     /// One of the error codes that caused the transfer failure.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub error_code: rpc::model::Code,
 
     /// Count of this type of error.
@@ -1988,6 +1993,7 @@ pub struct TransferOperationMetadata {
     pub counters: std::option::Option<crate::model::TransferCounters>,
 
     /// Output only. The type of transfer occurring.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub transfer_type: crate::model::TransferType,
 
     /// Output only. List of files that failed to be transferred. This list will

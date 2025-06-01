@@ -40,6 +40,7 @@ pub struct MetadataExchangeRequest {
     pub user_agent: std::string::String,
 
     /// Authentication type.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub auth_type: crate::model::metadata_exchange_request::AuthType,
 
     /// IAM token used for both IAM user authentiation and
@@ -233,6 +234,7 @@ pub mod metadata_exchange_request {
 #[non_exhaustive]
 pub struct MetadataExchangeResponse {
     /// Response code.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub response_code: crate::model::metadata_exchange_response::ResponseCode,
 
     /// Optional. Error message.

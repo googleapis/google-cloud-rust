@@ -73,6 +73,7 @@ pub struct ReplicationCycle {
     pub steps: std::vec::Vec<crate::model::CycleStep>,
 
     /// State of the ReplicationCycle.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::replication_cycle::State,
 
     /// Provides details on the state of the cycle in case of an error.
@@ -756,6 +757,7 @@ pub struct MigratingVm {
     pub last_sync: std::option::Option<crate::model::ReplicationSync>,
 
     /// Output only. State of the MigratingVm.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::migrating_vm::State,
 
     /// Output only. The last time the migrating VM state was updated.
@@ -1377,6 +1379,7 @@ pub struct CloneJob {
     pub name: std::string::String,
 
     /// Output only. State of the clone job.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::clone_job::State,
 
     /// Output only. The time the state was last updated.
@@ -2015,6 +2018,7 @@ pub struct CutoverJob {
     pub name: std::string::String,
 
     /// Output only. State of the cutover job.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::cutover_job::State,
 
     /// Output only. The time the state was last updated.
@@ -3274,6 +3278,7 @@ pub struct AwsSourceDetails {
     pub aws_region: std::string::String,
 
     /// Output only. State of the source as determined by the health check.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::aws_source_details::State,
 
     /// Output only. Provides details on the state of the Source in case of an
@@ -3735,6 +3740,7 @@ pub struct DatacenterConnector {
 
     /// Output only. State of the DatacenterConnector, as determined by the health
     /// checks.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::datacenter_connector::State,
 
     /// Output only. The time the state was last set.
@@ -4113,6 +4119,7 @@ pub struct UpgradeStatus {
     pub version: std::string::String,
 
     /// The state of the upgradeAppliance operation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::upgrade_status::State,
 
     /// Provides details on the state of the upgrade operation in case of an error.
@@ -4977,6 +4984,7 @@ pub struct VmwareVmDetails {
     pub display_name: std::string::String,
 
     /// The power state of the VM at the moment list was taken.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub power_state: crate::model::vmware_vm_details::PowerState,
 
     /// The number of cpus in the VM.
@@ -5003,6 +5011,7 @@ pub struct VmwareVmDetails {
     pub guest_description: std::string::String,
 
     /// Output only. The VM Boot Option.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub boot_option: crate::model::vmware_vm_details::BootOption,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5405,6 +5414,7 @@ pub struct AwsVmDetails {
     pub source_description: std::string::String,
 
     /// Output only. The power state of the VM at the moment list was taken.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub power_state: crate::model::aws_vm_details::PowerState,
 
     /// The number of cpus the VM has.
@@ -5429,6 +5439,7 @@ pub struct AwsVmDetails {
     pub os_description: std::string::String,
 
     /// The VM Boot Option.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub boot_option: crate::model::aws_vm_details::BootOption,
 
     /// The instance type of the VM.
@@ -5452,9 +5463,11 @@ pub struct AwsVmDetails {
     pub zone: std::string::String,
 
     /// The virtualization type.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub virtualization_type: crate::model::aws_vm_details::VmVirtualizationType,
 
     /// The CPU architecture.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub architecture: crate::model::aws_vm_details::VmArchitecture,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6448,6 +6461,7 @@ pub struct UtilizationReport {
     pub display_name: std::string::String,
 
     /// Output only. Current state of the report.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::utilization_report::State,
 
     /// Output only. The time the state was last set.
@@ -6465,6 +6479,7 @@ pub struct UtilizationReport {
     pub create_time: std::option::Option<wkt::Timestamp>,
 
     /// Time frame of the report.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub time_frame: crate::model::utilization_report::TimeFrame,
 
     /// Output only. The point in time when the time frame ends. Notice that the
@@ -7142,6 +7157,7 @@ pub struct ListUtilizationReportsRequest {
 
     /// Optional. The level of details of each report.
     /// Defaults to BASIC.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub view: crate::model::UtilizationReportView,
 
     /// Optional. The maximum number of reports to return. The service may return
@@ -7311,6 +7327,7 @@ pub struct GetUtilizationReportRequest {
 
     /// Optional. The level of details of the report.
     /// Defaults to FULL
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub view: crate::model::UtilizationReportView,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7947,6 +7964,7 @@ pub struct ComputeEngineTargetDefaults {
     pub service_account: std::string::String,
 
     /// The disk type to use in the VM.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub disk_type: crate::model::ComputeEngineDiskType,
 
     /// A map of labels to associate with the VM.
@@ -7954,6 +7972,7 @@ pub struct ComputeEngineTargetDefaults {
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// The license type to use in OS adaptation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub license_type: crate::model::ComputeEngineLicenseType,
 
     /// Output only. The OS license returned from the adaptation module report.
@@ -7970,6 +7989,7 @@ pub struct ComputeEngineTargetDefaults {
     pub secure_boot: bool,
 
     /// Output only. The VM Boot Option, as set in the source vm.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub boot_option: crate::model::ComputeEngineBootOption,
 
     /// The metadata key/value pairs to assign to the VM.
@@ -8211,6 +8231,7 @@ pub struct ComputeEngineTargetDetails {
     pub service_account: std::string::String,
 
     /// The disk type to use in the VM.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub disk_type: crate::model::ComputeEngineDiskType,
 
     /// A map of labels to associate with the VM.
@@ -8218,6 +8239,7 @@ pub struct ComputeEngineTargetDetails {
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// The license type to use in OS adaptation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub license_type: crate::model::ComputeEngineLicenseType,
 
     /// The OS license returned from the adaptation module report.
@@ -8234,6 +8256,7 @@ pub struct ComputeEngineTargetDetails {
     pub secure_boot: bool,
 
     /// The VM Boot Option, as set in the source vm.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub boot_option: crate::model::ComputeEngineBootOption,
 
     /// The metadata key/value pairs to assign to the VM.
@@ -8507,6 +8530,7 @@ impl wkt::message::Message for NetworkInterface {
 pub struct AppliedLicense {
     /// The license type that was used in OS adaptation.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::applied_license::Type,
 
     /// The OS license returned from the adaptation module's report.
@@ -8703,6 +8727,7 @@ pub struct SchedulingNodeAffinity {
 
     /// The operator to use for the node resources specified in the `values`
     /// parameter.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub operator: crate::model::scheduling_node_affinity::Operator,
 
     /// Corresponds to the label values of Node resource.
@@ -8899,6 +8924,7 @@ pub mod scheduling_node_affinity {
 pub struct ComputeScheduling {
     /// How the instance should behave when the host machine undergoes
     /// maintenance that may temporarily impact instance performance.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub on_host_maintenance: crate::model::compute_scheduling::OnHostMaintenance,
 
     /// Whether the Instance should be automatically restarted whenever it is
@@ -8907,6 +8933,7 @@ pub struct ComputeScheduling {
     /// Engine create instance under scheduling.
     /// It was changed to an enum (instead of a boolean) to match the default
     /// value in Compute Engine which is automatic restart.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub restart_type: crate::model::compute_scheduling::RestartType,
 
     /// A set of node affinity and anti-affinity configurations for sole tenant
@@ -9423,6 +9450,7 @@ pub struct ListMigratingVmsRequest {
     pub order_by: std::string::String,
 
     /// Optional. The level of details of each migrating VM.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub view: crate::model::MigratingVmView,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9565,6 +9593,7 @@ pub struct GetMigratingVmRequest {
     pub name: std::string::String,
 
     /// Optional. The level of details of the migrating VM.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub view: crate::model::MigratingVmView,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11560,6 +11589,7 @@ impl wkt::message::Message for OperationMetadata {
 #[non_exhaustive]
 pub struct MigrationError {
     /// Output only. The error code.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub code: crate::model::migration_error::ErrorCode,
 
     /// Output only. The localized error message.
@@ -11871,6 +11901,7 @@ pub mod migration_error {
 #[non_exhaustive]
 pub struct AwsSourceVmDetails {
     /// The firmware type of the source VM.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub firmware: crate::model::aws_source_vm_details::Firmware,
 
     /// The total size of the disks being migrated in bytes.

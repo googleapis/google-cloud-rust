@@ -420,6 +420,7 @@ pub struct DataPolicy {
     pub name: std::string::String,
 
     /// Type of data policy.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub data_policy_type: crate::model::data_policy::DataPolicyType,
 
     /// User-assigned (human readable) ID of the data policy that needs to be

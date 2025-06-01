@@ -886,6 +886,7 @@ pub struct Domain {
     pub update_time: std::option::Option<wkt::Timestamp>,
 
     /// Output only. The current state of this domain.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::domain::State,
 
     /// Output only. Additional information about the current status of this
@@ -1220,10 +1221,12 @@ pub struct Trust {
     pub target_domain_name: std::string::String,
 
     /// Required. The type of trust represented by the trust resource.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub trust_type: crate::model::trust::TrustType,
 
     /// Required. The trust direction, which decides if the current domain is trusted,
     /// trusting, or both.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub trust_direction: crate::model::trust::TrustDirection,
 
     /// Optional. The trust authentication type, which decides whether the trusted side has
@@ -1251,6 +1254,7 @@ pub struct Trust {
     pub update_time: std::option::Option<wkt::Timestamp>,
 
     /// Output only. The current state of the trust.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::trust::State,
 
     /// Output only. Additional information about the current state of the trust, if available.

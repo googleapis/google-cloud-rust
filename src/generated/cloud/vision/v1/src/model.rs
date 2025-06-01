@@ -242,6 +242,7 @@ impl wkt::message::Message for Position {
 pub struct Feature {
     /// The feature type.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::feature::Type,
 
     /// Maximum number of results of this type. Does not apply to
@@ -689,24 +690,31 @@ pub struct FaceAnnotation {
     pub landmarking_confidence: f32,
 
     /// Joy likelihood.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub joy_likelihood: crate::model::Likelihood,
 
     /// Sorrow likelihood.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub sorrow_likelihood: crate::model::Likelihood,
 
     /// Anger likelihood.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub anger_likelihood: crate::model::Likelihood,
 
     /// Surprise likelihood.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub surprise_likelihood: crate::model::Likelihood,
 
     /// Under-exposed likelihood.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub under_exposed_likelihood: crate::model::Likelihood,
 
     /// Blurred likelihood.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub blurred_likelihood: crate::model::Likelihood,
 
     /// Headwear likelihood.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub headwear_likelihood: crate::model::Likelihood,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -878,6 +886,7 @@ pub mod face_annotation {
     pub struct Landmark {
         /// Face landmark type.
         #[serde(rename = "type")]
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub r#type: crate::model::face_annotation::landmark::Type,
 
         /// Face landmark position.
@@ -1675,25 +1684,30 @@ pub struct SafeSearchAnnotation {
     /// Represents the adult content likelihood for the image. Adult content may
     /// contain elements such as nudity, pornographic images or cartoons, or
     /// sexual activities.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub adult: crate::model::Likelihood,
 
     /// Spoof likelihood. The likelihood that an modification
     /// was made to the image's canonical version to make it appear
     /// funny or offensive.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub spoof: crate::model::Likelihood,
 
     /// Likelihood that this is a medical image.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub medical: crate::model::Likelihood,
 
     /// Likelihood that this image contains violent content. Violent content may
     /// include death, serious harm, or injury to individuals or groups of
     /// individuals.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub violence: crate::model::Likelihood,
 
     /// Likelihood that the request image contains racy content. Racy content may
     /// include (but is not limited to) skimpy or sheer clothing, strategically
     /// covered nudity, lewd or provocative poses, or close-ups of sensitive
     /// body areas.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub racy: crate::model::Likelihood,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3849,6 +3863,7 @@ impl wkt::message::Message for GcsDestination {
 #[non_exhaustive]
 pub struct OperationMetadata {
     /// Current state of the batch operation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::operation_metadata::State,
 
     /// The time when the batch request was received.
@@ -6261,6 +6276,7 @@ impl wkt::message::Message for ImportProductSetsResponse {
 #[non_exhaustive]
 pub struct BatchOperationMetadata {
     /// The current state of the batch operation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::batch_operation_metadata::State,
 
     /// The time when the batch request was submitted to the server.
@@ -6781,6 +6797,7 @@ pub mod text_annotation {
     pub struct DetectedBreak {
         /// Detected break type.
         #[serde(rename = "type")]
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub r#type: crate::model::text_annotation::detected_break::BreakType,
 
         /// True if break prepends the element.
@@ -7178,6 +7195,7 @@ pub struct Block {
     pub paragraphs: std::vec::Vec<crate::model::Paragraph>,
 
     /// Detected block type (text, image etc) for this block.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub block_type: crate::model::block::BlockType,
 
     /// Confidence of the OCR results on the block. Range [0, 1].

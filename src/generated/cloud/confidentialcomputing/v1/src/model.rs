@@ -655,6 +655,7 @@ pub struct TokenOptions {
     pub nonce: std::vec::Vec<std::string::String>,
 
     /// Optional. Optional token type to select what type of token to return.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub token_type: crate::model::TokenType,
 
     /// An optional additional configuration per token type.
@@ -1192,6 +1193,7 @@ pub struct ContainerImageSignature {
     pub public_key: ::bytes::Bytes,
 
     /// Optional. Reserved for future use.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub sig_alg: crate::model::SigningAlgorithm,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

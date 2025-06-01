@@ -1053,6 +1053,7 @@ pub struct Cluster {
 
     /// Output only. The current state of this cluster.
     /// Can be CREATING, READY, UPDATING, DELETING and SUSPENDED
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::cluster::State,
 
     /// Output only. System assigned, unique identifier for the cluster.
@@ -1065,10 +1066,12 @@ pub struct Cluster {
 
     /// Optional. The authorization mode of the Redis cluster.
     /// If not provided, auth feature is disabled for the cluster.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub authorization_mode: crate::model::AuthorizationMode,
 
     /// Optional. The in-transit encryption for the Redis cluster.
     /// If not provided, encryption  is disabled for the cluster.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub transit_encryption_mode: crate::model::TransitEncryptionMode,
 
     /// Output only. Redis memory size in GB for the entire cluster rounded up to
@@ -1102,6 +1105,7 @@ pub struct Cluster {
 
     /// Optional. The type of a redis node in the cluster. NodeType determines the
     /// underlying machine-type of a redis node.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub node_type: crate::model::NodeType,
 
     /// Optional. Persistence config (RDB, AOF) for the cluster.
@@ -2068,6 +2072,7 @@ pub mod cluster {
 pub struct AutomatedBackupConfig {
     /// Optional. The automated backup mode. If the mode is disabled, the other
     /// fields will be ignored.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub automated_backup_mode: crate::model::automated_backup_config::AutomatedBackupMode,
 
     /// Optional. How long to keep automated backups before the backups are
@@ -2489,6 +2494,7 @@ pub struct Backup {
     pub backup_files: std::vec::Vec<crate::model::BackupFile>,
 
     /// Output only. Node type of the cluster.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub node_type: crate::model::NodeType,
 
     /// Output only. Number of replicas for the cluster.
@@ -2500,9 +2506,11 @@ pub struct Backup {
     pub shard_count: i32,
 
     /// Output only. Type of the backup.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub backup_type: crate::model::backup::BackupType,
 
     /// Output only. State of the backup.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::backup::State,
 
     /// Output only. Encryption information of the backup.
@@ -3026,6 +3034,7 @@ pub struct PscServiceAttachment {
     pub service_attachment: std::string::String,
 
     /// Output only. Type of a PSC connection targeting this service attachment.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub connection_type: crate::model::ConnectionType,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3069,6 +3078,7 @@ impl wkt::message::Message for PscServiceAttachment {
 #[non_exhaustive]
 pub struct CrossClusterReplicationConfig {
     /// The role of the cluster in cross cluster replication.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub cluster_role: crate::model::cross_cluster_replication_config::ClusterRole,
 
     /// Details of the primary cluster that is used as the replication source for
@@ -3544,6 +3554,7 @@ impl wkt::message::Message for ClusterMaintenancePolicy {
 #[non_exhaustive]
 pub struct ClusterWeeklyMaintenanceWindow {
     /// Allows to define schedule that runs specified day of the week.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub day: gtype::model::DayOfWeek,
 
     /// Start time of the window in UTC.
@@ -3799,9 +3810,11 @@ pub struct PscConnection {
     /// Please note that this value is updated periodically.
     /// To get the latest status of a PSC connection, follow
     /// <https://cloud.google.com/vpc/docs/configure-private-service-connect-services#endpoint-details>.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub psc_connection_status: crate::model::PscConnectionStatus,
 
     /// Output only. Type of the PSC connection.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub connection_type: crate::model::ConnectionType,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4092,9 +4105,11 @@ pub struct PscAutoConnection {
     /// Output only. The status of the PSC connection.
     /// Please note that this value is updated periodically.
     /// Please use Private Service Connect APIs for the latest status.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub psc_connection_status: crate::model::PscConnectionStatus,
 
     /// Output only. Type of the PSC connection.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub connection_type: crate::model::ConnectionType,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4490,6 +4505,7 @@ pub mod certificate_authority {
 #[non_exhaustive]
 pub struct ClusterPersistenceConfig {
     /// Optional. The mode of persistence.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub mode: crate::model::cluster_persistence_config::PersistenceMode,
 
     /// Optional. RDB configuration. This field will be ignored if mode is not RDB.
@@ -4575,6 +4591,7 @@ pub mod cluster_persistence_config {
     #[non_exhaustive]
     pub struct RDBConfig {
         /// Optional. Period between RDB snapshots.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub rdb_snapshot_period:
             crate::model::cluster_persistence_config::rdb_config::SnapshotPeriod,
 
@@ -4792,6 +4809,7 @@ pub mod cluster_persistence_config {
     #[non_exhaustive]
     pub struct AOFConfig {
         /// Optional. fsync configuration.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub append_fsync: crate::model::cluster_persistence_config::aof_config::AppendFsync,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5120,6 +5138,7 @@ pub mod cluster_persistence_config {
 pub struct ZoneDistributionConfig {
     /// Optional. The mode of zone distribution. Defaults to MULTI_ZONE, when not
     /// specified.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub mode: crate::model::zone_distribution_config::ZoneDistributionMode,
 
     /// Optional. When SINGLE ZONE distribution is selected, zone field would be
@@ -5317,6 +5336,7 @@ pub struct RescheduleClusterMaintenanceRequest {
 
     /// Required. If reschedule type is SPECIFIC_TIME, must set up schedule_time as
     /// well.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub reschedule_type: crate::model::reschedule_cluster_maintenance_request::RescheduleType,
 
     /// Optional. Timestamp when the maintenance shall be rescheduled to if
@@ -5521,6 +5541,7 @@ pub mod reschedule_cluster_maintenance_request {
 #[non_exhaustive]
 pub struct EncryptionInfo {
     /// Output only. Type of encryption.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub encryption_type: crate::model::encryption_info::Type,
 
     /// Output only. KMS key versions that are being used to protect the data
@@ -5530,6 +5551,7 @@ pub struct EncryptionInfo {
 
     /// Output only. The state of the primary version of the KMS key perceived by
     /// the system. This field is not populated in backups.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub kms_key_primary_state: crate::model::encryption_info::KmsKeyState,
 
     /// Output only. The most recent time when the encryption info was updated.

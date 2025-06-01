@@ -485,6 +485,7 @@ pub struct MigrationSource {
     pub reference_id: std::string::String,
 
     /// Output only. Type of migration source.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub source_type: crate::model::migration_source::MigrationSourceType,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -699,6 +700,7 @@ impl wkt::message::Message for EncryptionConfig {
 #[non_exhaustive]
 pub struct EncryptionInfo {
     /// Output only. Type of encryption.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub encryption_type: crate::model::encryption_info::Type,
 
     /// Output only. Cloud KMS key versions that are being used to protect the
@@ -893,10 +895,12 @@ pub mod encryption_info {
 #[non_exhaustive]
 pub struct SslConfig {
     /// Optional. SSL mode. Specifies client-server SSL/TLS connection behavior.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub ssl_mode: crate::model::ssl_config::SslMode,
 
     /// Optional. Certificate Authority (CA) source. Only CA_SOURCE_MANAGED is
     /// supported currently, and is the default value.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub ca_source: crate::model::ssl_config::CaSource,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2040,6 +2044,7 @@ pub mod maintenance_update_policy {
     #[non_exhaustive]
     pub struct MaintenanceWindow {
         /// Preferred day of the week for maintenance, e.g. MONDAY, TUESDAY, etc.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub day: gtype::model::DayOfWeek,
 
         /// Preferred time to start the maintenance operation on the specified day.
@@ -2180,18 +2185,21 @@ pub struct Cluster {
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. The current serving state of the cluster.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::cluster::State,
 
     /// Output only. The type of the cluster. This is an output-only field and it's
     /// populated at the Cluster creation time or the Cluster promotion
     /// time. The cluster type is determined by which RPC was used to create
     /// the cluster (i.e. `CreateCluster` vs. `CreateSecondaryCluster`
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub cluster_type: crate::model::cluster::ClusterType,
 
     /// Optional. The database engine major version. This is an optional field and
     /// it is populated at the Cluster creation time. If a database version is not
     /// supplied at cluster creation time, then a default database version will
     /// be used.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub database_version: crate::model::DatabaseVersion,
 
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -2292,6 +2300,7 @@ pub struct Cluster {
     pub maintenance_schedule: std::option::Option<crate::model::MaintenanceSchedule>,
 
     /// Optional. Subscription type of the cluster.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub subscription_type: crate::model::SubscriptionType,
 
     /// Output only. Metadata for free trial clusters
@@ -3530,9 +3539,11 @@ pub struct Instance {
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. The current serving state of the instance.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::instance::State,
 
     /// Required. The type of the instance. Specified at creation time.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub instance_type: crate::model::instance::InstanceType,
 
     /// Configurations for the machines that host the underlying
@@ -3546,6 +3557,7 @@ pub struct Instance {
     /// read pools are evenly distributed across available zones within the region
     /// (i.e. read pools with more than one node will have a node in at
     /// least two zones).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub availability_type: crate::model::instance::AvailabilityType,
 
     /// The Compute Engine zone that the instance should serve from, per
@@ -5434,10 +5446,12 @@ pub struct Backup {
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. The current state of the backup.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::backup::State,
 
     /// The backup type, which suggests the trigger for the backup.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::backup::Type,
 
     /// User-provided description of the backup.
@@ -5506,6 +5520,7 @@ pub struct Backup {
     /// Output only. The database engine major version of the cluster this backup
     /// was created from. Any restored cluster created from this backup will have
     /// the same database version.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub database_version: crate::model::DatabaseVersion,
 
     /// Optional. Input only. Immutable. Tag keys/values directly bound to this
@@ -6149,6 +6164,7 @@ pub struct SupportedDatabaseFlag {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub flag_name: std::string::String,
 
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub value_type: crate::model::supported_database_flag::ValueType,
 
     /// Whether the database flag accepts multiple values. If true,
@@ -6168,6 +6184,7 @@ pub struct SupportedDatabaseFlag {
     pub requires_db_restart: bool,
 
     /// The scope of the flag.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub scope: crate::model::supported_database_flag::Scope,
 
     /// The restrictions on the flag value per type.
@@ -6862,6 +6879,7 @@ pub struct User {
     pub database_roles: std::vec::Vec<std::string::String>,
 
     /// Optional. Type of this user.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub user_type: crate::model::user::UserType,
 
     /// Input only. If the user already exists and it has additional roles, keep
@@ -7285,6 +7303,7 @@ pub struct GetClusterRequest {
 
     /// Optional. The view of the cluster to return. Returns all default fields if
     /// not set.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub view: crate::model::ClusterView,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8478,6 +8497,7 @@ pub struct UpgradeClusterRequest {
     pub name: std::string::String,
 
     /// Required. The version the cluster is going to be upgraded to.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub version: crate::model::DatabaseVersion,
 
     /// Optional. An optional request ID to identify requests. Specify a unique
@@ -8564,6 +8584,7 @@ impl wkt::message::Message for UpgradeClusterRequest {
 #[non_exhaustive]
 pub struct UpgradeClusterResponse {
     /// Status of upgrade operation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub status: crate::model::upgrade_cluster_response::Status,
 
     /// A user friendly message summarising the upgrade operation details and the
@@ -8631,9 +8652,11 @@ pub mod upgrade_cluster_response {
     #[non_exhaustive]
     pub struct StageInfo {
         /// The stage.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub stage: crate::model::upgrade_cluster_response::Stage,
 
         /// Status of the stage.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub status: crate::model::upgrade_cluster_response::Status,
 
         /// logs_url is the URL for the logs associated with a stage if that stage
@@ -8693,9 +8716,11 @@ pub mod upgrade_cluster_response {
         pub name: std::string::String,
 
         /// Upgrade status of the instance.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub upgrade_status: crate::model::upgrade_cluster_response::Status,
 
         /// Instance type.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub instance_type: crate::model::instance::InstanceType,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8751,14 +8776,17 @@ pub mod upgrade_cluster_response {
         pub name: std::string::String,
 
         /// Upgrade status of the cluster.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub upgrade_status: crate::model::upgrade_cluster_response::Status,
 
         /// Cluster type which can either be primary or secondary.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub cluster_type: crate::model::cluster::ClusterType,
 
         /// Database version of the cluster after the upgrade operation. This will be
         /// the target version if the upgrade was successful otherwise it remains the
         /// same as that before the upgrade operation.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub database_version: crate::model::DatabaseVersion,
 
         /// Array containing stage info associated with this cluster.
@@ -9785,6 +9813,7 @@ pub struct GetInstanceRequest {
     pub name: std::string::String,
 
     /// The view of the instance to return.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub view: crate::model::InstanceView,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10257,6 +10286,7 @@ pub struct BatchCreateInstanceStatus {
     /// . ROLLED_BACK indicating that although the instance was created
     ///   successfully, it had to be rolled back and deleted due to failure in
     ///   other steps of the workflow.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::batch_create_instance_status::State,
 
     /// DEPRECATED - Use the error field instead.
@@ -10270,6 +10300,7 @@ pub struct BatchCreateInstanceStatus {
     pub error: std::option::Option<rpc::model::Status>,
 
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::instance::InstanceType,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10769,6 +10800,7 @@ impl wkt::message::Message for FailoverInstanceRequest {
 #[non_exhaustive]
 pub struct InjectFaultRequest {
     /// Required. The type of fault to be injected in an instance.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub fault_type: crate::model::inject_fault_request::FaultType,
 
     /// Required. The name of the resource. For the required format, see the
@@ -11267,6 +11299,7 @@ pub struct ExecuteSqlMetadata {
     pub sql_statement_execution_duration: std::option::Option<wkt::Duration>,
 
     /// Status of SQL execution.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub status: crate::model::execute_sql_metadata::Status,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11978,6 +12011,7 @@ pub struct ListSupportedDatabaseFlagsRequest {
 
     /// Optional. The scope for which supported flags are requested. If not
     /// specified, default is DATABASE.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub scope: crate::model::supported_database_flag::Scope,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -12525,6 +12559,7 @@ pub mod operation_metadata {
 #[non_exhaustive]
 pub struct UpgradeClusterStatus {
     /// Cluster Major Version Upgrade state.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::upgrade_cluster_response::Status,
 
     /// Whether the operation is cancellable.
@@ -12532,9 +12567,11 @@ pub struct UpgradeClusterStatus {
     pub cancellable: bool,
 
     /// Source database major version.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub source_version: crate::model::DatabaseVersion,
 
     /// Target database major version.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub target_version: crate::model::DatabaseVersion,
 
     /// Status of all upgrade stages.
@@ -12613,9 +12650,11 @@ pub mod upgrade_cluster_status {
     #[non_exhaustive]
     pub struct StageStatus {
         /// Upgrade stage.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub stage: crate::model::upgrade_cluster_response::Stage,
 
         /// State of this stage.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub state: crate::model::upgrade_cluster_response::Status,
 
         /// Stage specific status information, if any.

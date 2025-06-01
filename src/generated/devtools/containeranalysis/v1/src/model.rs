@@ -300,6 +300,7 @@ pub mod vulnerability_occurrences_summary {
 
         /// The severity for this count. SEVERITY_UNSPECIFIED indicates total across
         /// all severities.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub severity: grafeas::model::Severity,
 
         /// The number of fixable vulnerabilities associated with this resource.

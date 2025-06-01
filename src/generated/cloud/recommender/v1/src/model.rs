@@ -75,9 +75,11 @@ pub struct Insight {
     pub state_info: std::option::Option<crate::model::InsightStateInfo>,
 
     /// Category being targeted by the insight.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub category: crate::model::insight::Category,
 
     /// Insight's severity.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub severity: crate::model::insight::Severity,
 
     /// Fingerprint of the Insight. Provides optimistic locking when updating
@@ -596,6 +598,7 @@ pub mod insight {
 #[non_exhaustive]
 pub struct InsightStateInfo {
     /// Insight state.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::insight_state_info::State,
 
     /// A map of metadata for the state, provided by user or automations systems.
@@ -1022,6 +1025,7 @@ pub struct Recommendation {
     pub additional_impact: std::vec::Vec<crate::model::Impact>,
 
     /// Recommendation's priority.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub priority: crate::model::recommendation::Priority,
 
     /// Content of the recommendation describing recommended changes to resources.
@@ -2234,6 +2238,7 @@ pub mod reliability_projection {
 #[non_exhaustive]
 pub struct Impact {
     /// Category that is being targeted.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub category: crate::model::impact::Category,
 
     /// Contains projections (if any) for this category.
@@ -2591,6 +2596,7 @@ pub mod impact {
 #[non_exhaustive]
 pub struct RecommendationStateInfo {
     /// The state of the recommendation, Eg ACTIVE, SUCCEEDED, FAILED.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::recommendation_state_info::State,
 
     /// A map of metadata for the state, provided by user or automations systems.

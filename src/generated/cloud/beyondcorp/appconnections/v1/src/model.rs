@@ -770,6 +770,7 @@ pub struct AppConnection {
 
     /// Required. The type of network connectivity used by the AppConnection.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::app_connection::Type,
 
     /// Required. Address of the remote application endpoint for the BeyondCorp
@@ -784,6 +785,7 @@ pub struct AppConnection {
     pub connectors: std::vec::Vec<std::string::String>,
 
     /// Output only. The current state of the AppConnection.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::app_connection::State,
 
     /// Optional. Gateway used by the AppConnection.
@@ -993,6 +995,7 @@ pub mod app_connection {
     pub struct Gateway {
         /// Required. The type of hosting used by the gateway.
         #[serde(rename = "type")]
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub r#type: crate::model::app_connection::gateway::Type,
 
         /// Output only. Server-defined URI for this resource.

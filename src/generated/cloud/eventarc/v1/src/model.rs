@@ -72,6 +72,7 @@ pub struct Channel {
     pub provider: std::string::String,
 
     /// Output only. The state of a Channel.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::channel::State,
 
     /// Output only. The activation token for the channel. The token must be used
@@ -4462,6 +4463,7 @@ pub struct LoggingConfig {
     /// Optional. The minimum severity of logs that will be sent to
     /// Stackdriver/Platform Telemetry. Logs at severitiy ≥ this value will be
     /// sent, unless it is NONE.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub log_severity: crate::model::logging_config::LogSeverity,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6849,6 +6851,7 @@ impl wkt::message::Message for EventFilter {
 #[non_exhaustive]
 pub struct StateCondition {
     /// The canonical code of the condition.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub code: rpc::model::Code,
 
     /// Human-readable message.

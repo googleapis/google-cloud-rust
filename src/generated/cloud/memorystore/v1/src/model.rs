@@ -58,6 +58,7 @@ pub struct Instance {
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. Current state of the instance.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::instance::State,
 
     /// Output only. Additional information about the state of the instance.
@@ -74,9 +75,11 @@ pub struct Instance {
     pub replica_count: std::option::Option<i32>,
 
     /// Optional. Immutable. Authorization mode of the instance.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub authorization_mode: crate::model::instance::AuthorizationMode,
 
     /// Optional. Immutable. In-transit encryption mode of the instance.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub transit_encryption_mode: crate::model::instance::TransitEncryptionMode,
 
     /// Optional. Number of shards for the instance.
@@ -90,6 +93,7 @@ pub struct Instance {
     pub discovery_endpoints: std::vec::Vec<crate::model::DiscoveryEndpoint>,
 
     /// Optional. Machine type for individual nodes of the instance.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub node_type: crate::model::instance::NodeType,
 
     /// Optional. Persistence configuration of the instance.
@@ -132,6 +136,7 @@ pub struct Instance {
     pub endpoints: std::vec::Vec<crate::model::instance::InstanceEndpoint>,
 
     /// Optional. The mode config for the instance.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub mode: crate::model::instance::Mode,
 
     /// Optional. Input only. Ondemand maintenance for the instance.
@@ -1853,6 +1858,7 @@ pub mod instance {
 pub struct AutomatedBackupConfig {
     /// Optional. The automated backup mode. If the mode is disabled, the other
     /// fields will be ignored.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub automated_backup_mode: crate::model::automated_backup_config::AutomatedBackupMode,
 
     /// Optional. How long to keep automated backups before the backups are
@@ -2296,6 +2302,7 @@ pub struct Backup {
     pub backup_files: std::vec::Vec<crate::model::BackupFile>,
 
     /// Output only. Node type of the instance.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub node_type: crate::model::instance::NodeType,
 
     /// Output only. Number of replicas for the instance.
@@ -2307,9 +2314,11 @@ pub struct Backup {
     pub shard_count: i32,
 
     /// Output only. Type of the backup.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub backup_type: crate::model::backup::BackupType,
 
     /// Output only. State of the backup.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::backup::State,
 
     /// Output only. System assigned unique identifier of the backup.
@@ -2808,6 +2817,7 @@ impl wkt::message::Message for BackupFile {
 #[non_exhaustive]
 pub struct CrossInstanceReplicationConfig {
     /// Required. The role of the instance in cross instance replication.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub instance_role: crate::model::cross_instance_replication_config::InstanceRole,
 
     /// Optional. Details of the primary instance that is used as the replication
@@ -3285,6 +3295,7 @@ impl wkt::message::Message for MaintenancePolicy {
 #[non_exhaustive]
 pub struct WeeklyMaintenanceWindow {
     /// Optional. Allows to define schedule that runs specified day of the week.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub day: gtype::model::DayOfWeek,
 
     /// Optional. Start time of the window in UTC.
@@ -3412,6 +3423,7 @@ pub struct PscAttachmentDetail {
     pub service_attachment: std::string::String,
 
     /// Output only. Type of Psc endpoint.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub connection_type: crate::model::ConnectionType,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3490,9 +3502,11 @@ pub struct PscAutoConnection {
     /// and ACTIVE or it no longer exists. Please note that this value is updated
     /// periodically. Please use Private Service Connect APIs for the latest
     /// status.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub psc_connection_status: crate::model::PscConnectionStatus,
 
     /// Output only. Type of the PSC connection.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub connection_type: crate::model::ConnectionType,
 
     /// Ports of the exposed endpoint.
@@ -3669,9 +3683,11 @@ pub struct PscConnection {
     /// and ACTIVE or it no longer exists. Please note that this value is updated
     /// periodically. Please use Private Service Connect APIs for the latest
     /// status.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub psc_connection_status: crate::model::PscConnectionStatus,
 
     /// Output only. Type of the PSC connection.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub connection_type: crate::model::ConnectionType,
 
     /// Ports of the exposed endpoint.
@@ -3866,6 +3882,7 @@ impl wkt::message::Message for DiscoveryEndpoint {
 #[non_exhaustive]
 pub struct PersistenceConfig {
     /// Optional. Current persistence mode.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub mode: crate::model::persistence_config::PersistenceMode,
 
     /// Optional. RDB configuration. This field will be ignored if mode is not RDB.
@@ -3949,6 +3966,7 @@ pub mod persistence_config {
     #[non_exhaustive]
     pub struct RDBConfig {
         /// Optional. Period between RDB snapshots.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub rdb_snapshot_period: crate::model::persistence_config::rdb_config::SnapshotPeriod,
 
         /// Optional. Time that the first snapshot was/will be attempted, and to
@@ -4164,6 +4182,7 @@ pub mod persistence_config {
     #[non_exhaustive]
     pub struct AOFConfig {
         /// Optional. The fsync mode.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub append_fsync: crate::model::persistence_config::aof_config::AppendFsync,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4529,6 +4548,7 @@ pub struct ZoneDistributionConfig {
     pub zone: std::string::String,
 
     /// Optional. Current zone distribution mode. Defaults to MULTI_ZONE.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub mode: crate::model::zone_distribution_config::ZoneDistributionMode,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4717,6 +4737,7 @@ pub struct RescheduleMaintenanceRequest {
     pub name: std::string::String,
 
     /// Required. If reschedule type is SPECIFIC_TIME, schedule_time must be set.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub reschedule_type: crate::model::reschedule_maintenance_request::RescheduleType,
 
     /// Optional. Timestamp when the maintenance shall be rescheduled to if

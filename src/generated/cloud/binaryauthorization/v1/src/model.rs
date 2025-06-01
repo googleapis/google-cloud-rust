@@ -52,6 +52,7 @@ pub struct Policy {
     /// policy for common system-level images. Images not covered by the global
     /// policy will be subject to the project admission policy. This setting
     /// has no effect when specified inside a global admission policy.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub global_policy_evaluation_mode: crate::model::policy::GlobalPolicyEvaluationMode,
 
     /// Optional. Admission policy allowlisting. A matching admission request will
@@ -435,6 +436,7 @@ impl wkt::message::Message for AdmissionWhitelistPattern {
 #[non_exhaustive]
 pub struct AdmissionRule {
     /// Required. How this admission rule will be evaluated.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub evaluation_mode: crate::model::admission_rule::EvaluationMode,
 
     /// Optional. The resource names of the attestors that must attest to
@@ -449,6 +451,7 @@ pub struct AdmissionRule {
     pub require_attestations_by: std::vec::Vec<std::string::String>,
 
     /// Required. The action when a pod creation is denied by the admission rule.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enforcement_mode: crate::model::admission_rule::EnforcementMode,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1021,6 +1024,7 @@ pub struct PkixPublicKey {
     /// These signature algorithm must match the structure and any object
     /// identifiers encoded in `public_key_pem` (i.e. this algorithm must match
     /// that of the public key).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub signature_algorithm: crate::model::pkix_public_key::SignatureAlgorithm,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1982,6 +1986,7 @@ impl wkt::message::Message for ValidateAttestationOccurrenceRequest {
 #[non_exhaustive]
 pub struct ValidateAttestationOccurrenceResponse {
     /// The result of the Attestation validation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub result: crate::model::validate_attestation_occurrence_response::Result,
 
     /// The reason for denial if the Attestation couldn't be validated.

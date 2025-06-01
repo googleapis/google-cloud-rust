@@ -135,6 +135,7 @@ pub struct Event {
 
     /// Optional. Event type.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::event::EventType,
 
     /// Optional. Event details. This field is used to pass event information.
@@ -380,6 +381,7 @@ pub struct NetworkInterface {
 
     /// Optional. The type of vNIC to be used on this interface. This may be gVNIC
     /// or VirtioNet.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub nic_type: crate::model::network_interface::NicType,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -727,6 +729,7 @@ impl wkt::message::Message for ContainerImage {
 pub struct AcceleratorConfig {
     /// Optional. Type of this accelerator.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::accelerator_config::AcceleratorType,
 
     /// Optional. Count of cores of this accelerator.
@@ -1087,10 +1090,12 @@ pub struct DataDisk {
     pub disk_size_gb: i64,
 
     /// Optional. Input only. Indicates the type of the disk.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub disk_type: crate::model::DiskType,
 
     /// Optional. Input only. Disk encryption method used on the boot and data
     /// disks, defaults to GMEK.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub disk_encryption: crate::model::DiskEncryption,
 
     /// Optional. Input only. The KMS key used to encrypt the disks, only
@@ -1158,10 +1163,12 @@ pub struct BootDisk {
     pub disk_size_gb: i64,
 
     /// Optional. Indicates the type of the disk.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub disk_type: crate::model::DiskType,
 
     /// Optional. Input only. Disk encryption method used on the boot and data
     /// disks, defaults to GMEK.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub disk_encryption: crate::model::DiskEncryption,
 
     /// Optional. Input only. The KMS key used to encrypt the disks, only
@@ -1600,6 +1607,7 @@ pub struct UpgradeHistoryEntry {
     pub version: std::string::String,
 
     /// Output only. The state of this instance upgrade history entry.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::upgrade_history_entry::State,
 
     /// Immutable. The time that this instance upgrade history entry is created.
@@ -1607,6 +1615,7 @@ pub struct UpgradeHistoryEntry {
     pub create_time: std::option::Option<wkt::Timestamp>,
 
     /// Optional. Action. Rolloback or Upgrade.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub action: crate::model::upgrade_history_entry::Action,
 
     /// Optional. Target VM Version, like m63.
@@ -2009,6 +2018,7 @@ pub struct Instance {
     pub creator: std::string::String,
 
     /// Output only. The state of this instance.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::State,
 
     /// Output only. The upgrade history of this instance.
@@ -2020,6 +2030,7 @@ pub struct Instance {
     pub id: std::string::String,
 
     /// Output only. Instance health_state.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub health_state: crate::model::HealthState,
 
     /// Output only. Additional information about instance health.

@@ -111,6 +111,7 @@ impl wkt::message::Message for AccessLocations {
 pub struct AccessReason {
     /// Type of access justification.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::access_reason::Type,
 
     /// More detail about certain reason types. See comments for each type above.
@@ -990,6 +991,7 @@ pub struct EnrolledService {
     pub cloud_product: std::string::String,
 
     /// The enrollment level of the service.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enrollment_level: crate::model::EnrollmentLevel,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
