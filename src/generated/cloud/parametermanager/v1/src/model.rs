@@ -56,6 +56,7 @@ pub struct Parameter {
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Optional. Specifies the format of a Parameter.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub format: crate::model::ParameterFormat,
 
     /// Output only. [Output-only] policy member strings of a Google Cloud
@@ -941,6 +942,7 @@ pub struct GetParameterVersionRequest {
     /// Optional. View of the ParameterVersion.
     /// In the default FULL view, all metadata & payload associated with the
     /// ParameterVersion will be returned.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub view: crate::model::View,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

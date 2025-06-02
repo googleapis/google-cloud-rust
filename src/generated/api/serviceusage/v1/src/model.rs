@@ -63,6 +63,7 @@ pub struct Service {
     pub config: std::option::Option<crate::model::ServiceConfig>,
 
     /// Whether or not the service has been enabled for use by the consumer.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::State,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -474,6 +475,7 @@ pub struct DisableServiceRequest {
     pub disable_dependent_services: bool,
 
     /// Defines the behavior for checking service usage when disabling a service.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub check_if_service_has_usage: crate::model::disable_service_request::CheckIfServiceHasUsage,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

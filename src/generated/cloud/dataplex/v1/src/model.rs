@@ -73,6 +73,7 @@ pub struct Environment {
     pub description: std::string::String,
 
     /// Output only. Current state of the environment.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::State,
 
     /// Required. Infrastructure specification for the Environment.
@@ -958,6 +959,7 @@ pub mod content {
     #[non_exhaustive]
     pub struct SqlScript {
         /// Required. Query Engine to be used for the Sql Query.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub engine: crate::model::content::sql_script::QueryEngine,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1126,6 +1128,7 @@ pub mod content {
     #[non_exhaustive]
     pub struct Notebook {
         /// Required. Kernel Type of the notebook.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub kernel_type: crate::model::content::notebook::KernelType,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1332,6 +1335,7 @@ pub struct Session {
     pub create_time: std::option::Option<wkt::Timestamp>,
 
     /// Output only. State of Session
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::State,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1439,6 +1443,7 @@ pub struct AspectType {
 
     /// Output only. Denotes the transfer status of the Aspect Type. It is
     /// unspecified for Aspect Types created from Dataplex API.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub transfer_status: crate::model::TransferStatus,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2101,6 +2106,7 @@ pub struct EntryGroup {
 
     /// Output only. Denotes the transfer status of the Entry Group. It is
     /// unspecified for Entry Group created from Dataplex API.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub transfer_status: crate::model::TransferStatus,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4671,6 +4677,7 @@ pub struct GetEntryRequest {
 
     /// Optional. View to control which parts of an entry the service should
     /// return.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub view: crate::model::EntryView,
 
     /// Optional. Limits the aspects returned to the provided aspect types.
@@ -4746,6 +4753,7 @@ pub struct LookupEntryRequest {
 
     /// Optional. View to control which parts of an entry the service should
     /// return.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub view: crate::model::EntryView,
 
     /// Optional. Limits the aspects returned to the provided aspect types.
@@ -5602,6 +5610,7 @@ pub struct MetadataJob {
 
     /// Required. Metadata job type.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::metadata_job::Type,
 
     /// Output only. Metadata job status.
@@ -6061,9 +6070,11 @@ pub mod metadata_job {
         pub scope: std::option::Option<crate::model::metadata_job::import_job_spec::ImportJobScope>,
 
         /// Required. The sync mode for entries.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub entry_sync_mode: crate::model::metadata_job::import_job_spec::SyncMode,
 
         /// Required. The sync mode for aspects.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub aspect_sync_mode: crate::model::metadata_job::import_job_spec::SyncMode,
 
         /// Optional. The level of logs to write to Cloud Logging for this job.
@@ -6074,6 +6085,7 @@ pub mod metadata_job {
         /// merited for all jobs.
         ///
         /// If unspecified, defaults to `INFO`.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub log_level: crate::model::metadata_job::import_job_spec::LogLevel,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6779,6 +6791,7 @@ pub mod metadata_job {
     #[non_exhaustive]
     pub struct Status {
         /// Output only. State of the metadata job.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub state: crate::model::metadata_job::status::State,
 
         /// Output only. Message relating to the progression of a metadata job.
@@ -7208,6 +7221,7 @@ pub struct EncryptionConfig {
     pub update_time: std::option::Option<wkt::Timestamp>,
 
     /// Output only. The state of encryption of the databases.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub encryption_state: crate::model::encryption_config::EncryptionState,
 
     /// Etag of the EncryptionConfig. This is a strong etag.
@@ -7329,6 +7343,7 @@ pub mod encryption_config {
     #[non_exhaustive]
     pub struct FailureDetails {
         /// Output only. The error code for the failure.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub error_code: crate::model::encryption_config::failure_details::ErrorCode,
 
         /// Output only. The error message will be shown to the user. Set only if the
@@ -8368,6 +8383,7 @@ pub struct GetContentRequest {
     pub name: std::string::String,
 
     /// Optional. Specify content view to make a partial request.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub view: crate::model::get_content_request::ContentView,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8650,6 +8666,7 @@ pub mod data_discovery_spec {
     pub struct BigQueryPublishingConfig {
         /// Optional. Determines whether to  publish discovered tables as BigLake
         /// external tables or non-BigLake external tables.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub table_type: crate::model::data_discovery_spec::big_query_publishing_config::TableType,
 
         /// Optional. The BigQuery connection used to create BigLake tables.
@@ -10426,6 +10443,7 @@ pub mod data_profile_result {
         pub struct BigQueryExportResult {
 
             /// Output only. Execution state for the BigQuery exporting.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub state: crate::model::data_profile_result::post_scan_actions_result::big_query_export_result::State,
 
             /// Output only. Additional information about the BigQuery exporting.
@@ -11313,6 +11331,7 @@ pub mod data_quality_result {
         pub struct BigQueryExportResult {
 
             /// Output only. Execution state for the BigQuery exporting.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub state: crate::model::data_quality_result::post_scan_actions_result::big_query_export_result::State,
 
             /// Output only. Additional information about the BigQuery exporting.
@@ -12397,6 +12416,7 @@ pub mod data_quality_rule {
     #[non_exhaustive]
     pub struct StatisticRangeExpectation {
         /// Optional. The aggregate metric to evaluate.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub statistic:
             crate::model::data_quality_rule::statistic_range_expectation::ColumnStatistic,
 
@@ -14948,6 +14968,7 @@ pub struct GetDataScanRequest {
     pub name: std::string::String,
 
     /// Optional. Select the DataScan view to return. Defaults to `BASIC`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub view: crate::model::get_data_scan_request::DataScanView,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -15372,6 +15393,7 @@ pub struct GetDataScanJobRequest {
     pub name: std::string::String,
 
     /// Optional. Select the DataScanJob view to return. Defaults to `BASIC`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub view: crate::model::get_data_scan_job_request::DataScanJobView,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -15819,6 +15841,7 @@ pub struct DataScan {
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. Current state of the DataScan.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::State,
 
     /// Output only. The time when the scan was created.
@@ -15845,6 +15868,7 @@ pub struct DataScan {
 
     /// Output only. The type of DataScan.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::DataScanType,
 
     /// Data scan related setting.
@@ -16488,6 +16512,7 @@ pub struct DataScanJob {
     pub end_time: std::option::Option<wkt::Timestamp>,
 
     /// Output only. Execution state for the DataScanJob.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::data_scan_job::State,
 
     /// Output only. Additional information about the current state.
@@ -16496,6 +16521,7 @@ pub struct DataScanJob {
 
     /// Output only. The type of the parent DataScan.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::DataScanType,
 
     /// Data scan related setting.
@@ -17047,6 +17073,7 @@ pub struct DiscoveryEvent {
 
     /// The type of the event being logged.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::discovery_event::EventType,
 
     /// Additional details about the event.
@@ -17333,6 +17360,7 @@ pub mod discovery_event {
 
         /// The type of the entity resource.
         #[serde(rename = "type")]
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub r#type: crate::model::discovery_event::EntityType,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -17378,6 +17406,7 @@ pub mod discovery_event {
 
         /// The type of the table resource.
         #[serde(rename = "type")]
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub r#type: crate::model::discovery_event::TableType,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -17429,6 +17458,7 @@ pub mod discovery_event {
 
         /// The type of the containing entity resource.
         #[serde(rename = "type")]
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub r#type: crate::model::discovery_event::EntityType,
 
         /// The locations of the data items (e.g., a Cloud Storage objects) sampled
@@ -18037,6 +18067,7 @@ pub struct JobEvent {
     pub end_time: std::option::Option<wkt::Timestamp>,
 
     /// The job state on completion.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::job_event::State,
 
     /// The number of retries.
@@ -18045,9 +18076,11 @@ pub struct JobEvent {
 
     /// The type of the job.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::job_event::Type,
 
     /// The service used to execute the job.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub service: crate::model::job_event::Service,
 
     /// The reference to the job within the service.
@@ -18055,6 +18088,7 @@ pub struct JobEvent {
     pub service_job: std::string::String,
 
     /// Job execution trigger.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub execution_trigger: crate::model::job_event::ExecutionTrigger,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -18732,6 +18766,7 @@ pub struct SessionEvent {
 
     /// The type of the event.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::session_event::EventType,
 
     /// The status of the event.
@@ -18887,6 +18922,7 @@ pub mod session_event {
         pub query_text: std::string::String,
 
         /// Query Execution engine.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub engine: crate::model::session_event::query_detail::Engine,
 
         /// Time taken for execution of the query.
@@ -19282,6 +19318,7 @@ pub struct GovernanceEvent {
     pub message: std::string::String,
 
     /// The type of the event.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub event_type: crate::model::governance_event::EventType,
 
     /// Entity resource information if the log event is associated with a
@@ -19356,6 +19393,7 @@ pub mod governance_event {
         pub entity: std::string::String,
 
         /// Type of entity.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub entity_type: crate::model::governance_event::entity::EntityType,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -19814,9 +19852,11 @@ pub struct DataScanEvent {
 
     /// The type of the data scan.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::data_scan_event::ScanType,
 
     /// The status of the data scan job.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::data_scan_event::State,
 
     /// The message describing the data scan job event.
@@ -19828,9 +19868,11 @@ pub struct DataScanEvent {
     pub spec_version: std::string::String,
 
     /// The trigger type of the data scan job.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub trigger: crate::model::data_scan_event::Trigger,
 
     /// The scope of the data scan (e.g. full, incremental).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub scope: crate::model::data_scan_event::Scope,
 
     /// The result of post scan actions.
@@ -20478,6 +20520,7 @@ pub mod data_scan_event {
         pub struct BigQueryExportResult {
 
             /// Execution state for the BigQuery exporting.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub state: crate::model::data_scan_event::post_scan_actions_result::big_query_export_result::State,
 
             /// Additional information about the BigQuery exporting.
@@ -21270,9 +21313,11 @@ pub struct DataQualityScanRuleResult {
     pub rule_name: std::string::String,
 
     /// The type of the data quality rule.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub rule_type: crate::model::data_quality_scan_rule_result::RuleType,
 
     /// The evaluation type of the data quality rule.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub evalution_type: crate::model::data_quality_scan_rule_result::EvaluationType,
 
     /// The dimension of the data quality rule.
@@ -21285,6 +21330,7 @@ pub struct DataQualityScanRuleResult {
     pub threshold_percent: f64,
 
     /// The result of the data quality rule.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub result: crate::model::data_quality_scan_rule_result::Result,
 
     /// The number of rows evaluated against the data quality rule.
@@ -21914,6 +21960,7 @@ pub struct BusinessGlossaryEvent {
     pub message: std::string::String,
 
     /// The type of the event.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub event_type: crate::model::business_glossary_event::EventType,
 
     /// Name of the resource.
@@ -22163,6 +22210,7 @@ pub struct EntryLinkEvent {
     pub message: std::string::String,
 
     /// The type of the event.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub event_type: crate::model::entry_link_event::EventType,
 
     /// Name of the resource.
@@ -22524,6 +22572,7 @@ pub struct ListEntitiesRequest {
     pub parent: std::string::String,
 
     /// Required. Specify the entity view to make a partial list request.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub view: crate::model::list_entities_request::EntityView,
 
     /// Optional. Maximum number of entities to return. The service may return
@@ -22814,6 +22863,7 @@ pub struct GetEntityRequest {
 
     /// Optional. Used to select the subset of entity information to return.
     /// Defaults to `BASIC`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub view: crate::model::get_entity_request::EntityView,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -23333,6 +23383,7 @@ pub struct Entity {
 
     /// Required. Immutable. The type of entity.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::entity::Type,
 
     /// Required. Immutable. The ID of the asset associated with the storage
@@ -23360,6 +23411,7 @@ pub struct Entity {
     pub catalog_entry: std::string::String,
 
     /// Required. Immutable. Identifies the storage system of the entity data.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub system: crate::model::StorageSystem,
 
     /// Required. Identifies the storage format of the entity data.
@@ -23953,6 +24005,7 @@ pub struct Schema {
 
     /// Optional. The structure of paths containing partition data within the
     /// entity.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub partition_style: crate::model::schema::PartitionStyle,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -24032,9 +24085,11 @@ pub mod schema {
 
         /// Required. The type of field.
         #[serde(rename = "type")]
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub r#type: crate::model::schema::Type,
 
         /// Required. Additional field semantics.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub mode: crate::model::schema::Mode,
 
         /// Optional. Any nested field for complex types.
@@ -24109,6 +24164,7 @@ pub mod schema {
 
         /// Required. Immutable. The type of field.
         #[serde(rename = "type")]
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub r#type: crate::model::schema::Type,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -24638,10 +24694,12 @@ pub mod schema {
 pub struct StorageFormat {
     /// Output only. The data format associated with the stored data, which
     /// represents content type values. The value is inferred from mime type.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub format: crate::model::storage_format::Format,
 
     /// Optional. The compression type associated with the stored data.
     /// If unspecified, the data is uncompressed.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub compression_format: crate::model::storage_format::CompressionFormat,
 
     /// Required. The mime type descriptor for the data. Must match the pattern
@@ -25308,6 +25366,7 @@ pub mod storage_format {
 pub struct StorageAccess {
     /// Output only. Describes the read access mechanism of the data. Not user
     /// settable.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub read: crate::model::storage_access::AccessMode,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -25946,6 +26005,7 @@ pub struct Lake {
     pub description: std::string::String,
 
     /// Output only. Current state of the lake.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::State,
 
     /// Output only. Service account associated with this lake. This service
@@ -26168,6 +26228,7 @@ pub mod lake {
     #[non_exhaustive]
     pub struct MetastoreStatus {
         /// Current state of association.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub state: crate::model::lake::metastore_status::State,
 
         /// Additional information about the current status.
@@ -26498,10 +26559,12 @@ pub struct Zone {
     pub description: std::string::String,
 
     /// Output only. Current state of the zone.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::State,
 
     /// Required. Immutable. The type of the zone.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::zone::Type,
 
     /// Optional. Specification of the discovery feature applied to data in this
@@ -26685,6 +26748,7 @@ pub mod zone {
     pub struct ResourceSpec {
         /// Required. Immutable. The location type of the resources that are allowed
         /// to be attached to the assets within this zone.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub location_type: crate::model::zone::resource_spec::LocationType,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -27298,6 +27362,7 @@ pub mod zone {
 #[non_exhaustive]
 pub struct Action {
     /// The category of issue associated with the action.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub category: crate::model::action::Category,
 
     /// Detailed description of the issue requiring action.
@@ -27858,6 +27923,7 @@ pub mod action {
         pub sampled_data_locations: std::vec::Vec<std::string::String>,
 
         /// Whether the action relates to a schema that is incompatible or modified.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub schema_change: crate::model::action::incompatible_data_schema::SchemaChange,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -28068,6 +28134,7 @@ pub mod action {
     #[non_exhaustive]
     pub struct InvalidDataPartition {
         /// The issue type of InvalidDataPartition.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub expected_structure: crate::model::action::invalid_data_partition::PartitionStructure,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -28489,6 +28556,7 @@ pub struct Asset {
     pub description: std::string::String,
 
     /// Output only. Current state of the asset.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::State,
 
     /// Required. Specification of the resource that is referenced by this asset.
@@ -28713,6 +28781,7 @@ pub mod asset {
     pub struct SecurityStatus {
         /// The current state of the security policy applied to the attached
         /// resource.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub state: crate::model::asset::security_status::State,
 
         /// Additional information about the current state.
@@ -29236,10 +29305,12 @@ pub mod asset {
 
         /// Required. Immutable. Type of resource.
         #[serde(rename = "type")]
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub r#type: crate::model::asset::resource_spec::Type,
 
         /// Optional. Determines how read permissions are handled for each asset and
         /// their associated tables. Only available to storage buckets assets.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub read_access_mode: crate::model::asset::resource_spec::AccessMode,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -29568,6 +29639,7 @@ pub mod asset {
     #[non_exhaustive]
     pub struct ResourceStatus {
         /// The current state of the managed resource.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub state: crate::model::asset::resource_status::State,
 
         /// Additional information about the current state.
@@ -29788,6 +29860,7 @@ pub mod asset {
     #[non_exhaustive]
     pub struct DiscoveryStatus {
         /// The current status of the discovery feature.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub state: crate::model::asset::discovery_status::State,
 
         /// Additional information about the current state.
@@ -32947,6 +33020,7 @@ pub struct Task {
     pub display_name: std::string::String,
 
     /// Output only. Current state of the task.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::State,
 
     /// Optional. User-defined labels for the task.
@@ -33692,6 +33766,7 @@ pub mod task {
     pub struct TriggerSpec {
         /// Required. Immutable. Trigger type of the user-specified Task.
         #[serde(rename = "type")]
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub r#type: crate::model::task::trigger_spec::Type,
 
         /// Optional. The first run of the task will be after this time.
@@ -34544,6 +34619,7 @@ pub struct Job {
     pub end_time: std::option::Option<wkt::Timestamp>,
 
     /// Output only. Execution state for the job.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::job::State,
 
     /// Output only. The number of times the job has been retried (excluding the
@@ -34552,6 +34628,7 @@ pub struct Job {
     pub retry_count: u32,
 
     /// Output only. The underlying service running a job.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub service: crate::model::job::Service,
 
     /// Output only. The full resource name for the job run under a particular
@@ -34568,6 +34645,7 @@ pub struct Job {
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. Job execution trigger.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub trigger: crate::model::job::Trigger,
 
     /// Output only. Spec related to how a task is executed.

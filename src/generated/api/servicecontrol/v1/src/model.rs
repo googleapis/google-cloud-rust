@@ -43,6 +43,7 @@ extern crate wkt;
 #[non_exhaustive]
 pub struct CheckError {
     /// The error code.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub code: crate::model::check_error::Code,
 
     /// Subject to whom this error applies. See the specific code enum for more
@@ -1108,6 +1109,7 @@ pub struct LogEntry {
 
     /// The severity of the log entry. The default value is
     /// `LogSeverity.DEFAULT`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub severity: logging_type::model::LogSeverity,
 
     /// Optional. Information about the HTTP request associated with this
@@ -1908,6 +1910,7 @@ pub struct Operation {
     pub log_entries: std::vec::Vec<crate::model::LogEntry>,
 
     /// DO NOT USE. This is an experimental field.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub importance: crate::model::operation::Importance,
 
     /// Unimplemented.
@@ -2304,6 +2307,7 @@ pub struct QuotaOperation {
     pub quota_metrics: std::vec::Vec<crate::model::MetricValueSet>,
 
     /// Quota mode for this operation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub quota_mode: crate::model::quota_operation::QuotaMode,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2648,6 +2652,7 @@ impl wkt::message::Message for AllocateQuotaResponse {
 #[non_exhaustive]
 pub struct QuotaError {
     /// Error code.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub code: crate::model::quota_error::Code,
 
     /// Subject to whom this error applies. See the specific enum for more details
@@ -3160,6 +3165,7 @@ pub mod check_response {
         /// The type of the consumer which should have been defined in
         /// [Google Resource Manager](https://cloud.google.com/resource-manager/).
         #[serde(rename = "type")]
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub r#type: crate::model::check_response::consumer_info::ConsumerType,
 
         /// The consumer identity number, can be Google cloud project number, folder

@@ -155,6 +155,7 @@ pub struct Backup {
     pub cluster_metadata: std::option::Option<crate::model::backup::ClusterMetadata>,
 
     /// Output only. Current state of the Backup
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::backup::State,
 
     /// Output only. Human-readable description of why the backup is in the current
@@ -1201,6 +1202,7 @@ pub struct BackupPlan {
     /// various stages a BackupPlan can be in
     /// during the Create operation. It will be set to "DEACTIVATED"
     /// if the BackupPlan is deactivated on an Update
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::backup_plan::State,
 
     /// Output only. Human-readable description of why BackupPlan is in the current
@@ -2521,6 +2523,7 @@ pub mod backup_plan_binding {
         pub protected_pod_count: i32,
 
         /// Output only. State of the BackupPlan.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub state: crate::model::backup_plan_binding::backup_plan_details::State,
 
         /// Output only. Completion time of the last successful Backup. This is
@@ -6913,6 +6916,7 @@ pub struct Restore {
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. The current state of the Restore.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::restore::State,
 
     /// Output only. Human-readable description of why the Restore is in its
@@ -7414,6 +7418,7 @@ pub struct RestoreConfig {
     /// Optional. Specifies the mechanism to be used to restore volume data.
     /// Default: VOLUME_DATA_RESTORE_POLICY_UNSPECIFIED (will be treated as
     /// NO_VOLUME_DATA_RESTORATION).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub volume_data_restore_policy: crate::model::restore_config::VolumeDataRestorePolicy,
 
     /// Optional. Defines the behavior for handling the situation where
@@ -7424,6 +7429,7 @@ pub struct RestoreConfig {
     /// is not empty.
     ///
     /// [google.cloud.gkebackup.v1.RestoreConfig.cluster_resource_restore_scope]: crate::model::RestoreConfig::cluster_resource_restore_scope
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub cluster_resource_conflict_policy:
         crate::model::restore_config::ClusterResourceConflictPolicy,
 
@@ -7431,6 +7437,7 @@ pub struct RestoreConfig {
     /// namespaced resources being restored already exist in the target cluster.
     /// This MUST be set to a value other than
     /// NAMESPACED_RESOURCE_RESTORE_MODE_UNSPECIFIED.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub namespaced_resource_restore_mode:
         crate::model::restore_config::NamespacedResourceRestoreMode,
 
@@ -8053,6 +8060,7 @@ pub mod restore_config {
     #[non_exhaustive]
     pub struct TransformationRuleAction {
         /// Required. op specifies the operation to perform.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub op: crate::model::restore_config::transformation_rule_action::Op,
 
         /// Optional. A string containing a JSON Pointer value that references the
@@ -8459,6 +8467,7 @@ pub mod restore_config {
     pub struct VolumeDataRestorePolicyBinding {
         /// Required. The VolumeDataRestorePolicy to apply when restoring volumes in
         /// scope.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub policy: crate::model::restore_config::VolumeDataRestorePolicy,
 
         #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
@@ -9307,6 +9316,7 @@ impl wkt::message::Message for ResourceSelector {
 pub struct VolumeDataRestorePolicyOverride {
     /// Required. The VolumeDataRestorePolicy to apply when restoring volumes in
     /// scope.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub policy: crate::model::restore_config::VolumeDataRestorePolicy,
 
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
@@ -9638,6 +9648,7 @@ pub struct RestorePlan {
     /// Output only. State of the RestorePlan. This State field reflects the
     /// various stages a RestorePlan can be in
     /// during the Create operation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::restore_plan::State,
 
     /// Output only. Human-readable description of why RestorePlan is in the
@@ -10115,6 +10126,7 @@ pub struct VolumeBackup {
     pub volume_backup_handle: std::string::String,
 
     /// Output only. The format used for the volume backup.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub format: crate::model::volume_backup::VolumeBackupFormat,
 
     /// Output only. The aggregate size of the underlying artifacts associated with
@@ -10138,6 +10150,7 @@ pub struct VolumeBackup {
     pub complete_time: std::option::Option<wkt::Timestamp>,
 
     /// Output only. The current state of this VolumeBackup.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::volume_backup::State,
 
     /// Output only. A human readable message explaining why the VolumeBackup is in
@@ -10673,6 +10686,7 @@ pub struct VolumeRestore {
     pub volume_handle: std::string::String,
 
     /// Output only. The type of volume provisioned
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub volume_type: crate::model::volume_restore::VolumeType,
 
     /// Output only. The timestamp when the associated underlying volume
@@ -10681,6 +10695,7 @@ pub struct VolumeRestore {
     pub complete_time: std::option::Option<wkt::Timestamp>,
 
     /// Output only. The current state of this VolumeRestore.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::volume_restore::State,
 
     /// Output only. A human readable message explaining why the VolumeRestore is

@@ -724,6 +724,7 @@ pub mod media_cdn_key {
 #[non_exhaustive]
 pub struct CompanionAds {
     /// Indicates how many of the companions should be displayed with the ad.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub display_requirement: crate::model::companion_ads::DisplayRequirement,
 
     /// List of companion ads.
@@ -1278,6 +1279,7 @@ impl wkt::message::Message for StaticAdResource {
 pub struct Event {
     /// Describes the event that occurred.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::event::EventType,
 
     /// The URI to trigger for this event.
@@ -1766,9 +1768,11 @@ pub struct LiveConfig {
     pub gam_live_config: std::option::Option<crate::model::GamLiveConfig>,
 
     /// Output only. State of the live config.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::live_config::State,
 
     /// Required. Determines how the ads are tracked.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub ad_tracking: crate::model::AdTracking,
 
     /// This must refer to a slate in the same
@@ -1780,6 +1784,7 @@ pub struct LiveConfig {
 
     /// Defines the stitcher behavior in case an ad does not align exactly with
     /// the ad break boundaries. If not specified, the default is `CUT_CURRENT`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub stitching_policy: crate::model::live_config::StitchingPolicy,
 
     /// The configuration for prefetching ads.
@@ -2366,6 +2371,7 @@ pub struct VodSession {
     pub asset_id: std::string::String,
 
     /// Required. Determines how the ad should be tracked.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub ad_tracking: crate::model::AdTracking,
 
     /// This field should be set with appropriate values if GAM is being used for
@@ -2890,6 +2896,7 @@ pub struct LiveSession {
 
     /// Determines how the ad should be tracked. This overrides the value set in
     /// the live config for this session.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub ad_tracking: crate::model::AdTracking,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3055,6 +3062,7 @@ pub struct ManifestOptions {
 
     /// If specified, the output manifest will orders the video and muxed
     /// renditions by bitrate according to the ordering policy.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub bitrate_order: crate::model::manifest_options::OrderPolicy,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5739,6 +5747,7 @@ pub struct VodConfig {
     pub gam_vod_config: std::option::Option<crate::model::GamVodConfig>,
 
     /// Output only. State of the VOD config.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::vod_config::State,
 
     /// Options for fetching source manifests and segments.

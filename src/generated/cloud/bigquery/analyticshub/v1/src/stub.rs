@@ -24,8 +24,6 @@
 
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use gax::error::Error;
-
 pub(crate) mod dynamic;
 
 /// Defines the trait used to implement [super::client::AnalyticsHubService].
@@ -48,9 +46,7 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ListDataExchangesResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::ListDataExchangesResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::AnalyticsHubService::list_org_data_exchanges].
@@ -61,9 +57,7 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ListOrgDataExchangesResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::ListOrgDataExchangesResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::AnalyticsHubService::get_data_exchange].
@@ -74,9 +68,7 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::DataExchange>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::DataExchange>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::AnalyticsHubService::create_data_exchange].
@@ -87,9 +79,7 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::DataExchange>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::DataExchange>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::AnalyticsHubService::update_data_exchange].
@@ -100,9 +90,7 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::DataExchange>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::DataExchange>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::AnalyticsHubService::delete_data_exchange].
@@ -111,9 +99,7 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
         _req: crate::model::DeleteDataExchangeRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
-            "unimplemented",
-        )))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::AnalyticsHubService::list_listings].
@@ -124,9 +110,7 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ListListingsResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::ListListingsResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::AnalyticsHubService::get_listing].
@@ -137,9 +121,7 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Listing>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Listing>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::AnalyticsHubService::create_listing].
@@ -150,9 +132,7 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Listing>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Listing>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::AnalyticsHubService::update_listing].
@@ -163,9 +143,7 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Listing>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Listing>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::AnalyticsHubService::delete_listing].
@@ -174,9 +152,7 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
         _req: crate::model::DeleteListingRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
-            "unimplemented",
-        )))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::AnalyticsHubService::subscribe_listing].
@@ -187,9 +163,7 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::SubscribeListingResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::SubscribeListingResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::AnalyticsHubService::subscribe_data_exchange].
@@ -200,9 +174,7 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::AnalyticsHubService::refresh_subscription].
@@ -213,9 +185,7 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::AnalyticsHubService::get_subscription].
@@ -226,9 +196,7 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Subscription>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Subscription>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::AnalyticsHubService::list_subscriptions].
@@ -239,9 +207,7 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ListSubscriptionsResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::ListSubscriptionsResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::AnalyticsHubService::list_shared_resource_subscriptions].
@@ -254,11 +220,7 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
             gax::response::Response<crate::model::ListSharedResourceSubscriptionsResponse>,
         >,
     > + Send {
-        std::future::ready::<
-            crate::Result<
-                gax::response::Response<crate::model::ListSharedResourceSubscriptionsResponse>,
-            >,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::AnalyticsHubService::revoke_subscription].
@@ -269,9 +231,7 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::RevokeSubscriptionResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::RevokeSubscriptionResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::AnalyticsHubService::delete_subscription].
@@ -282,9 +242,7 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::AnalyticsHubService::get_iam_policy].
@@ -295,9 +253,7 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<iam_v1::model::Policy>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::AnalyticsHubService::set_iam_policy].
@@ -308,9 +264,7 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<iam_v1::model::Policy>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::AnalyticsHubService::test_iam_permissions].
@@ -321,9 +275,7 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::AnalyticsHubService::get_operation].
@@ -334,9 +286,7 @@ pub trait AnalyticsHubService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Returns the polling error policy.

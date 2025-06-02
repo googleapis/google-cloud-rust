@@ -317,6 +317,7 @@ pub struct ListAccessLevelsRequest {
     /// Whether to return `BasicLevels` in the Cloud Common Expression language, as
     /// `CustomLevels`, rather than as `BasicLevels`. Defaults to returning
     /// `AccessLevels` in the format they were defined.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub access_level_format: crate::model::LevelFormat,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -447,6 +448,7 @@ pub struct GetAccessLevelRequest {
     /// [google.identity.accesscontextmanager.v1.AccessLevel] are returned as
     /// `CustomLevels`. In the CEL case, `BasicLevels` are translated to equivalent
     /// `CustomLevels`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub access_level_format: crate::model::LevelFormat,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1854,6 +1856,7 @@ pub struct BasicLevel {
     /// `conditions` must be satisfied for the `AccessLevel` to be applied. If OR
     /// is used, at least one `Condition` in `conditions` must be satisfied for the
     /// `AccessLevel` to be applied. Default behavior is AND.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub combining_function: crate::model::basic_level::ConditionCombiningFunction,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2325,6 +2328,7 @@ impl wkt::message::Message for DevicePolicy {
 #[non_exhaustive]
 pub struct OsConstraint {
     /// Required. The allowed OS type.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub os_type: accesscontextmanager_type::model::OsType,
 
     /// The minimum allowed OS version. If not set, any version of this OS
@@ -2638,6 +2642,7 @@ pub struct ServicePerimeter {
     /// without being included in regular perimeter. For perimeter bridges,
     /// the restricted service list as well as access level lists must be
     /// empty.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub perimeter_type: crate::model::service_perimeter::PerimeterType,
 
     /// Current ServicePerimeter configuration. Specifies sets of resources,
@@ -3490,6 +3495,7 @@ pub mod service_perimeter_config {
         /// Specifies the type of identities that are allowed access from outside the
         /// perimeter. If left unspecified, then members of `identities` field will
         /// be allowed access.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub identity_type: crate::model::service_perimeter_config::IdentityType,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3730,6 +3736,7 @@ pub mod service_perimeter_config {
         /// Specifies the type of identities that are allowed access to outside the
         /// perimeter. If left unspecified, then members of `identities` field will
         /// be allowed access.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub identity_type: crate::model::service_perimeter_config::IdentityType,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

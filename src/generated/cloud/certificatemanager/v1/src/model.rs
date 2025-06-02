@@ -368,6 +368,7 @@ pub struct CertificateIssuanceConfig {
     pub rotation_window_percentage: i32,
 
     /// Required. The key algorithm to use when generating the private key.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub key_algorithm: crate::model::certificate_issuance_config::KeyAlgorithm,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2348,6 +2349,7 @@ pub struct Certificate {
     pub expire_time: std::option::Option<wkt::Timestamp>,
 
     /// Immutable. The scope of the certificate.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub scope: crate::model::certificate::Scope,
 
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
@@ -2631,6 +2633,7 @@ pub mod certificate {
         pub issuance_config: std::string::String,
 
         /// Output only. State of the managed certificate resource.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub state: crate::model::certificate::managed_certificate::State,
 
         /// Output only. Information about issues with provisioning a Managed
@@ -2750,6 +2753,7 @@ pub mod certificate {
         #[non_exhaustive]
         pub struct ProvisioningIssue {
             /// Output only. Reason for provisioning failures.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub reason: crate::model::certificate::managed_certificate::provisioning_issue::Reason,
 
             /// Output only. Human readable explanation about the issue. Provided to
@@ -2952,10 +2956,12 @@ pub mod certificate {
             pub domain: std::string::String,
 
             /// Output only. State of the domain for managed certificate issuance.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub state: crate::model::certificate::managed_certificate::authorization_attempt_info::State,
 
             /// Output only. Reason for failure of the authorization attempt for the
             /// domain.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub failure_reason: crate::model::certificate::managed_certificate::authorization_attempt_info::FailureReason,
 
             /// Output only. Human readable explanation for reaching the state.
@@ -3946,6 +3952,7 @@ pub struct CertificateMapEntry {
     pub certificates: std::vec::Vec<std::string::String>,
 
     /// Output only. A serving state of this Certificate Map Entry.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::ServingState,
 
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
@@ -4300,6 +4307,7 @@ pub struct DnsAuthorization {
     ///
     /// - in location global: FIXED_RECORD.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::dns_authorization::Type,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

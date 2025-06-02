@@ -36,6 +36,7 @@ pub struct ActionLog {
     pub actor: std::string::String,
 
     /// Required. State change that was made by the actor. Eg, SUCCEEDED.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: recommender::model::recommendation_state_info::State,
 
     /// Optional. Metadata that was included with the action that was taken.
@@ -112,6 +113,7 @@ pub struct InsightActionLog {
     pub actor: std::string::String,
 
     /// Required. State change that was made by the actor. Eg, ACCEPTED.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: recommender::model::insight_state_info::State,
 
     /// Optional. Metadata that was included with the action that was taken.

@@ -58,6 +58,7 @@ pub struct CalendarAddOnManifest {
     pub event_update_trigger: std::option::Option<crate::model::CalendarExtensionPoint>,
 
     /// Define the level of data access when an event addon is triggered.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub current_event_access: crate::model::calendar_add_on_manifest::EventAccess,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

@@ -782,6 +782,7 @@ pub struct Listing {
     pub documentation: std::string::String,
 
     /// Output only. Current state of the listing.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::listing::State,
 
     /// Optional. Base64 encoded image representing the listing. Max Size: 3.0MiB
@@ -823,6 +824,7 @@ pub struct Listing {
     pub discovery_type: std::option::Option<crate::model::DiscoveryType>,
 
     /// Output only. Listing shared asset type.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub resource_type: crate::model::SharedResourceType,
 
     /// Output only. Commercial info contains the information about the commercial
@@ -2216,6 +2218,7 @@ pub struct Subscription {
     pub organization_display_name: std::string::String,
 
     /// Output only. Current state of the subscription.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::subscription::State,
 
     /// Output only. Map of listing resource names to associated linked resource,
@@ -2239,6 +2242,7 @@ pub struct Subscription {
     pub linked_resources: std::vec::Vec<crate::model::subscription::LinkedResource>,
 
     /// Output only. Listing shared asset type.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub resource_type: crate::model::SharedResourceType,
 
     /// Output only. This is set if this is a commercial subscription i.e. if this

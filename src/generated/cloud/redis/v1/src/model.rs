@@ -173,6 +173,7 @@ pub struct Instance {
     pub create_time: std::option::Option<wkt::Timestamp>,
 
     /// Output only. The current state of this instance.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::instance::State,
 
     /// Output only. Additional information about the current status of this
@@ -204,6 +205,7 @@ pub struct Instance {
     pub redis_configs: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Required. The service tier of the instance.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub tier: crate::model::instance::Tier,
 
     /// Required. Redis memory size in GiB.
@@ -227,6 +229,7 @@ pub struct Instance {
 
     /// Optional. The network connect mode of the Redis instance.
     /// If not provided, the connect mode defaults to DIRECT_PEERING.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub connect_mode: crate::model::instance::ConnectMode,
 
     /// Optional. Indicates whether OSS Redis AUTH is enabled for the instance. If
@@ -241,6 +244,7 @@ pub struct Instance {
 
     /// Optional. The TLS mode of the Redis instance.
     /// If not provided, TLS is disabled for the instance.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub transit_encryption_mode: crate::model::instance::TransitEncryptionMode,
 
     /// Optional. The maintenance policy for the instance. If not provided,
@@ -279,6 +283,7 @@ pub struct Instance {
 
     /// Optional. Read replicas mode for the instance. Defaults to
     /// READ_REPLICAS_DISABLED.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub read_replicas_mode: crate::model::instance::ReadReplicasMode,
 
     /// Optional. The KMS key reference that the customer provides when trying to
@@ -1499,6 +1504,7 @@ pub mod instance {
 pub struct PersistenceConfig {
     /// Optional. Controls whether Persistence features are enabled.
     /// If not provided, the existing value will be used.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub persistence_mode: crate::model::persistence_config::PersistenceMode,
 
     /// Optional. Period between RDB snapshots. Snapshots will be attempted every
@@ -1507,6 +1513,7 @@ pub struct PersistenceConfig {
     /// until 01/01/2033, and then trigger snapshots every day at 06:45, 12:45,
     /// 18:45, and 00:45 the next day, and so on. If not provided,
     /// TWENTY_FOUR_HOURS will be used as default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub rdb_snapshot_period: crate::model::persistence_config::SnapshotPeriod,
 
     /// Output only. The next time that a snapshot attempt is scheduled to occur.
@@ -1895,6 +1902,7 @@ pub struct RescheduleMaintenanceRequest {
 
     /// Required. If reschedule type is SPECIFIC_TIME, must set up schedule_time as
     /// well.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub reschedule_type: crate::model::reschedule_maintenance_request::RescheduleType,
 
     /// Optional. Timestamp when the maintenance shall be rescheduled to if
@@ -2202,6 +2210,7 @@ impl wkt::message::Message for MaintenancePolicy {
 #[non_exhaustive]
 pub struct WeeklyMaintenanceWindow {
     /// Required. The day of week that maintenance updates occur.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub day: gtype::model::DayOfWeek,
 
     /// Required. Start time of the window in UTC time.
@@ -3243,6 +3252,7 @@ pub struct FailoverInstanceRequest {
 
     /// Optional. Available data protection modes that the user can choose. If it's
     /// unspecified, data protection mode will be LIMITED_DATA_LOSS by default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub data_protection_mode: crate::model::failover_instance_request::DataProtectionMode,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

@@ -48,6 +48,7 @@ pub struct CommonMetadata {
 
     /// The type of the operation. Can be used as a filter in
     /// ListOperationsRequest.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub operation_type: crate::model::OperationType,
 
     /// The client-assigned labels which were provided when the operation was
@@ -56,6 +57,7 @@ pub struct CommonMetadata {
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// The current state of the Operation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::common_metadata::State,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1306,10 +1308,12 @@ impl wkt::message::Message for IndexOperationMetadata {
 pub struct DatastoreFirestoreMigrationMetadata {
     /// The current state of migration from Cloud Datastore to Cloud Firestore in
     /// Datastore mode.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub migration_state: crate::model::MigrationState,
 
     /// The current step of migration from Cloud Datastore to Cloud Firestore in
     /// Datastore mode.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub migration_step: crate::model::MigrationStep,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1366,6 +1370,7 @@ pub struct Index {
 
     /// Required. The index's ancestor mode.  Must not be
     /// ANCESTOR_MODE_UNSPECIFIED.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub ancestor: crate::model::index::AncestorMode,
 
     /// Required. An ordered sequence of property names and their index attributes.
@@ -1377,6 +1382,7 @@ pub struct Index {
     pub properties: std::vec::Vec<crate::model::index::IndexedProperty>,
 
     /// Output only. The state of the index.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::index::State,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1456,6 +1462,7 @@ pub mod index {
 
         /// Required. The indexed property's direction.  Must not be
         /// DIRECTION_UNSPECIFIED.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub direction: crate::model::index::Direction,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1925,6 +1932,7 @@ pub mod index {
 #[non_exhaustive]
 pub struct MigrationStateEvent {
     /// The new state of the migration.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::MigrationState,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1961,6 +1969,7 @@ pub struct MigrationProgressEvent {
     ///
     /// An event with step set to `START` indicates that the migration
     /// has been reverted back to the initial pre-migration state.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub step: crate::model::MigrationStep,
 
     /// Details about this step.
@@ -2092,6 +2101,7 @@ pub mod migration_progress_event {
     pub struct PrepareStepDetails {
         /// The concurrency mode this database will use when it reaches the
         /// `REDIRECT_WRITES` step.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub concurrency_mode: crate::model::migration_progress_event::ConcurrencyMode,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2128,6 +2138,7 @@ pub mod migration_progress_event {
     #[non_exhaustive]
     pub struct RedirectWritesStepDetails {
         /// Ths concurrency mode for this database.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub concurrency_mode: crate::model::migration_progress_event::ConcurrencyMode,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

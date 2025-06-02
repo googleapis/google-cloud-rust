@@ -77,6 +77,7 @@ pub struct Constraint {
     pub description: std::string::String,
 
     /// The evaluation behavior of this constraint in the absence of a policy.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub constraint_default: crate::model::constraint::ConstraintDefault,
 
     /// Shows if dry run is supported for this constraint or not.
@@ -325,6 +326,7 @@ pub mod constraint {
         pub condition: std::string::String,
 
         /// Allow or deny type.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub action_type: crate::model::constraint::custom_constraint_definition::ActionType,
 
         /// Stores the structure of
@@ -423,6 +425,7 @@ pub mod constraint {
         pub struct Parameter {
             /// Type of the parameter.
             #[serde(rename = "type")]
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub r#type: crate::model::constraint::custom_constraint_definition::parameter::Type,
 
             /// Sets the value of the parameter in an assignment if no value is given.
@@ -445,6 +448,7 @@ pub mod constraint {
             /// Determines the parameter's value structure.
             /// For example, `LIST<STRING>` can be specified by defining `type: LIST`,
             /// and `item: STRING`.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub item: crate::model::constraint::custom_constraint_definition::parameter::Type,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1274,6 +1278,7 @@ pub struct CustomConstraint {
     pub condition: std::string::String,
 
     /// Allow or deny type.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub action_type: crate::model::custom_constraint::ActionType,
 
     /// One line display name for the UI.

@@ -305,9 +305,11 @@ pub struct Subnet {
     /// In addition, this flag is to be used to set the specific network
     /// configuration which clusters can then use for their workloads based on the
     /// bonding choice.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub bonding_type: crate::model::subnet::BondingType,
 
     /// Output only. Current stage of the resource to the device by config push.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::ResourceState,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -606,6 +608,7 @@ pub struct Interconnect {
 
     /// Optional. Type of interconnect, which takes only the value 'DEDICATED' for
     /// now.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub interconnect_type: crate::model::interconnect::InterconnectType,
 
     /// Output only. Unique identifier for the link.
@@ -914,6 +917,7 @@ pub struct InterconnectAttachment {
     pub mtu: i32,
 
     /// Output only. Current stage of the resource to the device by config push.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::ResourceState,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1068,6 +1072,7 @@ pub struct Router {
     pub bgp: std::option::Option<crate::model::router::Bgp>,
 
     /// Output only. Current stage of the resource to the device by config push.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::ResourceState,
 
     /// Optional. A list of CIDRs in IP/Length format to advertise northbound as
@@ -1840,6 +1845,7 @@ pub mod interconnect_diagnostics {
     #[non_exhaustive]
     pub struct LinkLACPStatus {
         /// The state of a LACP link.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub state: crate::model::interconnect_diagnostics::link_lacp_status::State,
 
         /// System ID of the port on Google's side of the LACP exchange.
@@ -2247,6 +2253,7 @@ pub mod router_status {
         pub peer_ip_address: std::string::String,
 
         /// The current status of BGP.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub status: crate::model::router_status::bgp_peer_status::BgpStatus,
 
         /// BGP state as specified in RFC1771.
@@ -4666,6 +4673,7 @@ pub mod diagnose_network_response {
         pub subnet_status: std::vec::Vec<crate::model::SubnetStatus>,
 
         /// The MACsec status of internal links.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub macsec_status_internal_links:
             crate::model::diagnose_network_response::network_status::MacsecStatus,
 

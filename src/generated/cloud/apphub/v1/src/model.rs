@@ -2501,6 +2501,7 @@ pub struct Application {
     pub uid: std::string::String,
 
     /// Output only. Application state.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::application::State,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2777,6 +2778,7 @@ pub mod application {
 pub struct Scope {
     /// Required. Scope Type.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::scope::Type,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3059,6 +3061,7 @@ impl wkt::message::Message for Attributes {
 pub struct Criticality {
     /// Required. Criticality Type.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::criticality::Type,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3246,6 +3249,7 @@ pub mod criticality {
 pub struct Environment {
     /// Required. Environment Type.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::environment::Type,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3523,6 +3527,7 @@ pub struct Service {
     pub uid: std::string::String,
 
     /// Output only. Service state.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::service::State,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4022,6 +4027,7 @@ pub struct ServiceProjectAttachment {
     pub uid: std::string::String,
 
     /// Output only. ServiceProjectAttachment state.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::service_project_attachment::State,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4288,6 +4294,7 @@ pub struct Workload {
     pub uid: std::string::String,
 
     /// Output only. Workload state.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::workload::State,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

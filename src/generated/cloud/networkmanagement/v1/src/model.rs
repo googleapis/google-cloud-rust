@@ -420,6 +420,7 @@ pub struct Endpoint {
     /// Type of the network where the endpoint is located.
     /// Applicable only to source endpoint, as destination network type can be
     /// inferred from the source.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub network_type: crate::model::endpoint::NetworkType,
 
     /// Project ID where the endpoint is located.
@@ -1040,6 +1041,7 @@ pub mod endpoint {
 #[non_exhaustive]
 pub struct ReachabilityDetails {
     /// The overall result of the test's configuration analysis.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub result: crate::model::reachability_details::Result,
 
     /// The time of the configuration analysis.
@@ -1387,6 +1389,7 @@ impl wkt::message::Message for LatencyDistribution {
 #[non_exhaustive]
 pub struct ProbingDetails {
     /// The overall result of active probing.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub result: crate::model::probing_details::ProbingResult,
 
     /// The time that reachability was assessed through active probing.
@@ -1398,6 +1401,7 @@ pub struct ProbingDetails {
     pub error: std::option::Option<rpc::model::Status>,
 
     /// The reason probing was aborted.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub abort_cause: crate::model::probing_details::ProbingAbortCause,
 
     /// Number of probes sent.
@@ -2521,6 +2525,7 @@ pub struct Step {
     pub description: std::string::String,
 
     /// Each step is in one of the pre-defined states.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::step::State,
 
     /// This is a step that leads to the final state Drop.
@@ -4161,6 +4166,7 @@ pub struct FirewallInfo {
     pub policy_uri: std::string::String,
 
     /// The firewall rule's type.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub firewall_rule_type: crate::model::firewall_info::FirewallRuleType,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4488,13 +4494,16 @@ pub mod firewall_info {
 #[non_exhaustive]
 pub struct RouteInfo {
     /// Type of route.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub route_type: crate::model::route_info::RouteType,
 
     /// Type of next hop.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub next_hop_type: crate::model::route_info::NextHopType,
 
     /// Indicates where route is applicable. Deprecated, routes with NCC_HUB scope
     /// are not included in the trace in new tests.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[deprecated]
     pub route_scope: crate::model::route_info::RouteScope,
 
@@ -5402,6 +5411,7 @@ pub struct GoogleServiceInfo {
     pub source_ip: std::string::String,
 
     /// Recognized type of a Google Service.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub google_service_type: crate::model::google_service_info::GoogleServiceType,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5779,6 +5789,7 @@ impl wkt::message::Message for ForwardingRuleInfo {
 #[non_exhaustive]
 pub struct LoadBalancerInfo {
     /// Type of the load balancer.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub load_balancer_type: crate::model::load_balancer_info::LoadBalancerType,
 
     /// URI of the health check for the load balancer. Deprecated and no longer
@@ -5793,6 +5804,7 @@ pub struct LoadBalancerInfo {
     pub backends: std::vec::Vec<crate::model::LoadBalancerBackend>,
 
     /// Type of load balancer's backend configuration.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub backend_type: crate::model::load_balancer_info::BackendType,
 
     /// Backend configuration URI.
@@ -6177,6 +6189,7 @@ pub struct LoadBalancerBackend {
     pub uri: std::string::String,
 
     /// State of the health check firewall configuration.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub health_check_firewall_state: crate::model::load_balancer_backend::HealthCheckFirewallState,
 
     /// A list of firewall rule URIs allowing probes from health check IP ranges.
@@ -6515,6 +6528,7 @@ pub struct VpnTunnelInfo {
     pub region: std::string::String,
 
     /// Type of the routing policy.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub routing_type: crate::model::vpn_tunnel_info::RoutingType,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6862,6 +6876,7 @@ impl wkt::message::Message for EndpointInfo {
 #[non_exhaustive]
 pub struct DeliverInfo {
     /// Target type where the packet is delivered to.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub target: crate::model::deliver_info::Target,
 
     /// URI of the resource that the packet is delivered to.
@@ -7186,6 +7201,7 @@ pub mod deliver_info {
 #[non_exhaustive]
 pub struct ForwardInfo {
     /// Target type where this packet is forwarded to.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub target: crate::model::forward_info::Target,
 
     /// URI of the resource that the packet is forwarded to.
@@ -7431,6 +7447,7 @@ pub mod forward_info {
 #[non_exhaustive]
 pub struct AbortInfo {
     /// Causes that the analysis is aborted.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub cause: crate::model::abort_info::Cause,
 
     /// URI of the resource that caused the abort.
@@ -7973,6 +7990,7 @@ pub mod abort_info {
 #[non_exhaustive]
 pub struct DropInfo {
     /// Cause that the packet is dropped.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub cause: crate::model::drop_info::Cause,
 
     /// URI of the resource that caused the drop.
@@ -9769,6 +9787,7 @@ impl wkt::message::Message for ServerlessExternalConnectionInfo {
 pub struct NatInfo {
     /// Type of NAT.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::nat_info::Type,
 
     /// IP protocol in string format, for example: "TCP", "UDP", "ICMP".
@@ -10269,6 +10288,7 @@ pub struct LoadBalancerBackendInfo {
     /// The backend might still be unhealthy even if these firewalls are
     /// configured. Please refer to the documentation for more information:
     /// <https://cloud.google.com/load-balancing/docs/firewall-rules>
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub health_check_firewalls_config_state:
         crate::model::load_balancer_backend_info::HealthCheckFirewallsConfigState,
 

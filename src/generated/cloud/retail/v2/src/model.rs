@@ -195,6 +195,7 @@ pub struct CatalogAttribute {
     ///
     /// [google.cloud.retail.v2.Product.attributes]: crate::model::Product::attributes
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::catalog_attribute::AttributeType,
 
     /// When
@@ -209,6 +210,7 @@ pub struct CatalogAttribute {
     ///
     /// [google.cloud.retail.v2.AttributesConfig.attribute_config_level]: crate::model::AttributesConfig::attribute_config_level
     /// [google.cloud.retail.v2.SearchService.Search]: crate::client::SearchService::search
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub indexable_option: crate::model::catalog_attribute::IndexableOption,
 
     /// If DYNAMIC_FACETABLE_ENABLED, attribute values are available for dynamic
@@ -219,6 +221,7 @@ pub struct CatalogAttribute {
     /// Must be specified, otherwise throws INVALID_FORMAT error.
     ///
     /// [google.cloud.retail.v2.CatalogAttribute.indexable_option]: crate::model::CatalogAttribute::indexable_option
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub dynamic_facetable_option: crate::model::catalog_attribute::DynamicFacetableOption,
 
     /// When
@@ -238,6 +241,7 @@ pub struct CatalogAttribute {
     ///
     /// [google.cloud.retail.v2.AttributesConfig.attribute_config_level]: crate::model::AttributesConfig::attribute_config_level
     /// [google.cloud.retail.v2.SearchService.Search]: crate::client::SearchService::search
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub searchable_option: crate::model::catalog_attribute::SearchableOption,
 
     /// If EXACT_SEARCHABLE_ENABLED, attribute values will be exact searchable.
@@ -247,6 +251,7 @@ pub struct CatalogAttribute {
     /// [EXACT_SEARCHABLE_DISABLED][google.cloud.retail.v2.CatalogAttribute.ExactSearchableOption.EXACT_SEARCHABLE_DISABLED].
     ///
     /// [google.cloud.retail.v2.CatalogAttribute.ExactSearchableOption.EXACT_SEARCHABLE_DISABLED]: crate::model::catalog_attribute::ExactSearchableOption::ExactSearchableDisabled
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub exact_searchable_option: crate::model::catalog_attribute::ExactSearchableOption,
 
     /// If RETRIEVABLE_ENABLED, attribute values are retrievable in the search
@@ -254,6 +259,7 @@ pub struct CatalogAttribute {
     /// [RETRIEVABLE_DISABLED][google.cloud.retail.v2.CatalogAttribute.RetrievableOption.RETRIEVABLE_DISABLED].
     ///
     /// [google.cloud.retail.v2.CatalogAttribute.RetrievableOption.RETRIEVABLE_DISABLED]: crate::model::catalog_attribute::RetrievableOption::RetrievableDisabled
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub retrievable_option: crate::model::catalog_attribute::RetrievableOption,
 
     /// Contains facet options.
@@ -1630,6 +1636,7 @@ pub struct AttributesConfig {
     /// for this catalog.
     ///
     /// [google.cloud.retail.v2.AttributeConfigLevel]: crate::model::AttributeConfigLevel
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub attribute_config_level: crate::model::AttributeConfigLevel,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8212,6 +8219,7 @@ pub struct ImportProductsRequest {
     /// [ReconciliationMode.INCREMENTAL][google.cloud.retail.v2.ImportProductsRequest.ReconciliationMode.INCREMENTAL].
     ///
     /// [google.cloud.retail.v2.ImportProductsRequest.ReconciliationMode.INCREMENTAL]: crate::model::import_products_request::ReconciliationMode::Incremental
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub reconciliation_mode: crate::model::import_products_request::ReconciliationMode,
 
     /// Full Pub/Sub topic name for receiving notification. If this field is set,
@@ -9443,9 +9451,11 @@ pub struct Model {
     /// model in order to control cost. If not specified: the default value for
     /// `CreateModel` method is `TRAINING`. The default value for
     /// `UpdateModel` method is to keep the state the same as before.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub training_state: crate::model::model::TrainingState,
 
     /// Output only. The serving state of the model: `ACTIVE`, `NOT_ACTIVE`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub serving_state: crate::model::model::ServingState,
 
     /// Output only. Timestamp the Recommendation Model was created at.
@@ -9512,6 +9522,7 @@ pub struct Model {
     /// The period we use is 3 months - to do a
     /// one-off tune earlier use the `TuneModel` method. Default value
     /// is `PERIODIC_TUNING_ENABLED`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub periodic_tuning_state: crate::model::model::PeriodicTuningState,
 
     /// Output only. The timestamp when the latest successful tune finished.
@@ -9533,10 +9544,12 @@ pub struct Model {
     /// if serving state is `ACTIVE`: models were trained successfully before, but
     /// cannot be refreshed because model no longer has sufficient
     /// data for training.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub data_state: crate::model::model::DataState,
 
     /// Optional. If `RECOMMENDATIONS_FILTERING_ENABLED`, recommendation filtering
     /// by attributes is enabled for the model.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub filtering_option: crate::model::RecommendationsFilteringOption,
 
     /// Output only. The list of valid serving configs associated with the
@@ -9788,6 +9801,7 @@ pub mod model {
         /// [MULTIPLE_CONTEXT_PRODUCTS][google.cloud.retail.v2.Model.ContextProductsType.MULTIPLE_CONTEXT_PRODUCTS].
         ///
         /// [google.cloud.retail.v2.Model.ContextProductsType.MULTIPLE_CONTEXT_PRODUCTS]: crate::model::model::ContextProductsType::MultipleContextProducts
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub context_products_type: crate::model::model::ContextProductsType,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11555,6 +11569,7 @@ pub struct Product {
     ///
     /// [google.cloud.retail.v2.ProductLevelConfig.ingestion_product_type]: crate::model::ProductLevelConfig::ingestion_product_type
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::product::Type,
 
     /// Variant group identifier. Must be an
@@ -11810,6 +11825,7 @@ pub struct Product {
     /// [google.cloud.retail.v2.Product]: crate::model::Product
     /// [google.cloud.retail.v2.Product.Availability.IN_STOCK]: crate::model::product::Availability::InStock
     /// [google.cloud.retail.v2.Product.Availability.OUT_OF_STOCK]: crate::model::product::Availability::OutOfStock
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub availability: crate::model::product::Availability,
 
     /// The available quantity of the item.
@@ -15392,6 +15408,7 @@ pub struct SearchRequest {
 
     /// The search mode of the search request. If not specified, a single search
     /// request triggers both product search and faceted search.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub search_mode: crate::model::search_request::SearchMode,
 
     /// The specification for personalization.
@@ -16230,6 +16247,7 @@ pub mod search_request {
         /// if it's unset.
         ///
         /// [google.cloud.retail.v2.SearchRequest.DynamicFacetSpec.Mode.DISABLED]: crate::model::search_request::dynamic_facet_spec::Mode::Disabled
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub mode: crate::model::search_request::dynamic_facet_spec::Mode,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -16565,6 +16583,7 @@ pub mod search_request {
         /// [Condition.DISABLED][google.cloud.retail.v2.SearchRequest.QueryExpansionSpec.Condition.DISABLED].
         ///
         /// [google.cloud.retail.v2.SearchRequest.QueryExpansionSpec.Condition.DISABLED]: crate::model::search_request::query_expansion_spec::Condition::Disabled
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub condition: crate::model::search_request::query_expansion_spec::Condition,
 
         /// Whether to pin unexpanded results. If this field is set to true,
@@ -16765,6 +16784,7 @@ pub mod search_request {
         /// [Mode.AUTO][google.cloud.retail.v2.SearchRequest.PersonalizationSpec.Mode.AUTO].
         ///
         /// [google.cloud.retail.v2.SearchRequest.PersonalizationSpec.Mode.AUTO]: crate::model::search_request::personalization_spec::Mode::Auto
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub mode: crate::model::search_request::personalization_spec::Mode,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -16950,6 +16970,7 @@ pub mod search_request {
         /// [Mode.AUTO][google.cloud.retail.v2.SearchRequest.SpellCorrectionSpec.Mode.AUTO].
         ///
         /// [google.cloud.retail.v2.SearchRequest.SpellCorrectionSpec.Mode.AUTO]: crate::model::search_request::spell_correction_spec::Mode::Auto
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub mode: crate::model::search_request::spell_correction_spec::Mode,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -19126,6 +19147,7 @@ pub struct ServingConfig {
     /// [RULE_BASED_DIVERSITY][google.cloud.retail.v2.ServingConfig.DiversityType.RULE_BASED_DIVERSITY].
     ///
     /// [google.cloud.retail.v2.ServingConfig.DiversityType.RULE_BASED_DIVERSITY]: crate::model::serving_config::DiversityType::RuleBasedDiversity
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub diversity_type: crate::model::serving_config::DiversityType,
 
     /// Whether to add additional category filters on the `similar-items` model.
@@ -20941,6 +20963,7 @@ pub struct RejoinUserEventsRequest {
     /// events to be rejoined with the latest product catalog. Defaults to
     /// `USER_EVENT_REJOIN_SCOPE_UNSPECIFIED` if this field is not set, or set to
     /// an invalid integer value.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub user_event_rejoin_scope: crate::model::rejoin_user_events_request::UserEventRejoinScope,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

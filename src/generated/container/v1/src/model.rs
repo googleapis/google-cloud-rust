@@ -60,6 +60,7 @@ pub struct LinuxNodeConfig {
     pub sysctls: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// cgroup_mode specifies the cgroup mode to be used on the node.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub cgroup_mode: crate::model::linux_node_config::CgroupMode,
 
     /// Optional. Amounts for 2M and 1G hugepages
@@ -339,6 +340,7 @@ pub mod linux_node_config {
 #[non_exhaustive]
 pub struct WindowsNodeConfig {
     /// OSVersion specifies the Windows node config to be used on the node
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub os_version: crate::model::windows_node_config::OSVersion,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -925,6 +927,7 @@ pub struct NodeConfig {
     /// node pool. It is determined by the cgroup mode specified in the
     /// LinuxNodeConfig or the default cgroup mode based on the cluster creation
     /// version.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub effective_cgroup_mode: crate::model::node_config::EffectiveCgroupMode,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2434,6 +2437,7 @@ impl wkt::message::Message for ShieldedInstanceConfig {
 pub struct SandboxConfig {
     /// Type of the sandbox to use for the node.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::sandbox_config::Type,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2634,6 +2638,7 @@ impl wkt::message::Message for GcfsConfig {
 #[non_exhaustive]
 pub struct ReservationAffinity {
     /// Corresponds to the type of reservation consumption.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub consume_reservation_type: crate::model::reservation_affinity::Type,
 
     /// Corresponds to the label key of a reservation resource. To target a
@@ -2893,6 +2898,7 @@ pub mod sole_tenant_config {
         pub key: std::string::String,
 
         /// Operator for NodeAffinity.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub operator: crate::model::sole_tenant_config::node_affinity::Operator,
 
         /// Values for NodeAffinity.
@@ -3358,6 +3364,7 @@ pub struct NodeTaint {
     pub value: std::string::String,
 
     /// Effect for taint.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub effect: crate::model::node_taint::Effect,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4646,6 +4653,7 @@ pub struct CloudRunConfig {
     pub disabled: bool,
 
     /// Which load balancer type is installed for Cloud Run.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub load_balancer_type: crate::model::cloud_run_config::LoadBalancerType,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5320,6 +5328,7 @@ impl wkt::message::Message for LegacyAbac {
 #[non_exhaustive]
 pub struct NetworkPolicy {
     /// The selected network policy provider.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub provider: crate::model::network_policy::Provider,
 
     /// Whether network policy is enabled on the cluster.
@@ -5503,6 +5512,7 @@ pub struct BinaryAuthorization {
 
     /// Mode of operation for binauthz policy evaluation. If unspecified, defaults
     /// to DISABLED.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub evaluation_mode: crate::model::binary_authorization::EvaluationMode,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5854,9 +5864,11 @@ pub struct IPAllocationPolicy {
     pub use_routes: bool,
 
     /// The IP stack type of the cluster
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub stack_type: crate::model::StackType,
 
     /// The ipv6 access type (internal or external) when create_subnetwork is true
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub ipv6_access_type: crate::model::IPv6AccessType,
 
     /// [PRIVATE FIELD]
@@ -6408,6 +6420,7 @@ pub struct Cluster {
     pub create_time: std::string::String,
 
     /// Output only. The current status of this cluster.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub status: crate::model::cluster::Status,
 
     /// Output only. Deprecated. Use conditions instead.
@@ -9029,9 +9042,11 @@ pub struct ClusterUpdate {
     pub desired_l4ilb_subsetting_config: std::option::Option<crate::model::ILBSubsettingConfig>,
 
     /// The desired datapath provider for the cluster.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub desired_datapath_provider: crate::model::DatapathProvider,
 
     /// The desired state of IPv6 connectivity to Google Services.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub desired_private_ipv6_google_access: crate::model::PrivateIPv6GoogleAccess,
 
     /// The desired notification configuration.
@@ -9131,6 +9146,7 @@ pub struct ClusterUpdate {
     /// The desired stack type of the cluster.
     /// If a stack type is provided and does not match the current stack type of
     /// the cluster, update will attempt to change the stack type to the new type.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub desired_stack_type: crate::model::StackType,
 
     /// The additional pod ranges to be added to the cluster. These pod ranges
@@ -10506,6 +10522,7 @@ impl wkt::message::Message for RangeInfo {
 #[non_exhaustive]
 pub struct DesiredEnterpriseConfig {
     /// desired_tier specifies the desired tier of the cluster.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub desired_tier: crate::model::enterprise_config::ClusterTier,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10552,9 +10569,11 @@ pub struct Operation {
     pub zone: std::string::String,
 
     /// Output only. The operation type.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub operation_type: crate::model::operation::Type,
 
     /// Output only. The current status of the operation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub status: crate::model::operation::Status,
 
     /// Output only. Detailed operation progress, if available.
@@ -11282,6 +11301,7 @@ pub struct OperationProgress {
 
     /// Status of an operation stage.
     /// Unset for single-stage operations.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub status: crate::model::operation::Status,
 
     /// Progress metric bundle, for example:
@@ -13016,6 +13036,7 @@ pub struct SetMasterAuthRequest {
     pub cluster_id: std::string::String,
 
     /// Required. The exact form of action to be taken on the master auth.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub action: crate::model::set_master_auth_request::Action,
 
     /// Required. A description of the update.
@@ -13885,6 +13906,7 @@ pub mod server_config {
     #[non_exhaustive]
     pub struct ReleaseChannelConfig {
         /// The release channel this configuration applies to.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub channel: crate::model::release_channel::Channel,
 
         /// The default version for newly created clusters on the channel.
@@ -14622,6 +14644,7 @@ pub struct NodePool {
     pub instance_group_urls: std::vec::Vec<std::string::String>,
 
     /// Output only. The status of the nodes in this pool instance.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub status: crate::model::node_pool::Status,
 
     /// Output only. Deprecated. Use conditions instead.
@@ -15160,6 +15183,7 @@ pub mod node_pool {
         #[non_exhaustive]
         pub struct BlueGreenInfo {
             /// Current blue-green upgrade phase.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub phase: crate::model::node_pool::update_info::blue_green_info::Phase,
 
             /// The resource URLs of the [managed instance groups]
@@ -15435,6 +15459,7 @@ pub mod node_pool {
     pub struct PlacementPolicy {
         /// The type of placement.
         #[serde(rename = "type")]
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub r#type: crate::model::node_pool::placement_policy::Type,
 
         /// Optional. TPU placement topology for pod slice node pool.
@@ -16332,6 +16357,7 @@ pub mod time_window {
 pub struct MaintenanceExclusionOptions {
     /// Scope specifies the upgrade scope which upgrades are blocked by the
     /// exclusion.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub scope: crate::model::maintenance_exclusion_options::Scope,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -17042,6 +17068,7 @@ pub struct ClusterAutoscaling {
     pub resource_limits: std::vec::Vec<crate::model::ResourceLimit>,
 
     /// Defines autoscaling behaviour.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub autoscaling_profile: crate::model::cluster_autoscaling::AutoscalingProfile,
 
     /// AutoprovisioningNodePoolDefaults contains defaults for a node pool
@@ -17571,6 +17598,7 @@ pub struct NodePoolAutoscaling {
     pub autoprovisioned: bool,
 
     /// Location policy used when scaling up a nodepool.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub location_policy: crate::model::node_pool_autoscaling::LocationPolicy,
 
     /// Minimum number of nodes in the node pool. Must be greater than or equal
@@ -18653,6 +18681,7 @@ pub mod gpu_driver_installation_config {
 pub struct WorkloadMetadataConfig {
     /// Mode is the configuration for how to expose metadata to workloads running
     /// on the node pool.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub mode: crate::model::workload_metadata_config::Mode,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -19019,6 +19048,7 @@ impl wkt::message::Message for SetMaintenancePolicyRequest {
 pub struct StatusCondition {
     /// Machine-friendly representation of the condition
     /// Deprecated. Use canonical_code instead.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[deprecated]
     pub code: crate::model::status_condition::Code,
 
@@ -19027,6 +19057,7 @@ pub struct StatusCondition {
     pub message: std::string::String,
 
     /// Canonical code of the condition.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub canonical_code: rpc::model::Code,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -19277,11 +19308,13 @@ pub struct NetworkConfig {
 
     /// The desired datapath provider for this cluster. By default, uses the
     /// IPTables-based kube-proxy implementation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub datapath_provider: crate::model::DatapathProvider,
 
     /// The desired state of IPv6 connectivity to Google Services.
     /// By default, no private IPv6 access to or from Google Services (all access
     /// will be via IPv4)
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub private_ipv6_google_access: crate::model::PrivateIPv6GoogleAccess,
 
     /// DNSConfig contains clusterDNS config for this cluster.
@@ -19761,6 +19794,7 @@ pub mod network_config {
 #[non_exhaustive]
 pub struct GatewayAPIConfig {
     /// The Gateway API release channel to use for Gateway API.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub channel: crate::model::gateway_api_config::Channel,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -20357,6 +20391,7 @@ pub struct AutopilotCompatibilityIssue {
     pub constraint_type: std::string::String,
 
     /// The incompatibility type of this issue.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub incompatibility_type: crate::model::autopilot_compatibility_issue::IssueType,
 
     /// The name of the resources which are subject to this issue.
@@ -20660,6 +20695,7 @@ impl wkt::message::Message for CheckAutopilotCompatibilityResponse {
 #[non_exhaustive]
 pub struct ReleaseChannel {
     /// channel specifies which release channel the cluster is subscribed to.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub channel: crate::model::release_channel::Channel,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -20953,9 +20989,11 @@ impl wkt::message::Message for ILBSubsettingConfig {
 #[non_exhaustive]
 pub struct DNSConfig {
     /// cluster_dns indicates which in-cluster DNS provider should be used.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub cluster_dns: crate::model::dns_config::Provider,
 
     /// cluster_dns_scope indicates the scope of access to cluster DNS records.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub cluster_dns_scope: crate::model::dns_config::DNSScope,
 
     /// cluster_dns_domain is the suffix used for all cluster service records.
@@ -21460,6 +21498,7 @@ pub struct DatabaseEncryption {
     pub key_name: std::string::String,
 
     /// The desired state of etcd encryption.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::database_encryption::State,
 
     /// Output only. The current state of etcd encryption.
@@ -22079,6 +22118,7 @@ pub struct UsableSubnetworkSecondaryRange {
     pub ip_cidr_range: std::string::String,
 
     /// This field is to determine the status of the secondary range programmably.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub status: crate::model::usable_subnetwork_secondary_range::Status,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -23016,6 +23056,7 @@ impl wkt::message::Message for ConfidentialNodes {
 #[non_exhaustive]
 pub struct UpgradeEvent {
     /// The resource type that is upgrading.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub resource_type: crate::model::UpgradeResourceType,
 
     /// The operation associated with this upgrade.
@@ -23114,6 +23155,7 @@ impl wkt::message::Message for UpgradeEvent {
 #[non_exhaustive]
 pub struct UpgradeInfoEvent {
     /// The resource type associated with the upgrade.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub resource_type: crate::model::UpgradeResourceType,
 
     /// The operation associated with this upgrade.
@@ -23142,6 +23184,7 @@ pub struct UpgradeInfoEvent {
     pub resource: std::string::String,
 
     /// Output only. The state of the upgrade.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::upgrade_info_event::State,
 
     /// A brief description of the event.
@@ -23412,6 +23455,7 @@ pub struct UpgradeAvailableEvent {
     pub version: std::string::String,
 
     /// The resource type of the release version.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub resource_type: crate::model::UpgradeResourceType,
 
     /// The release channel of the version. If empty, it means a non-channel
@@ -24124,6 +24168,7 @@ pub struct AdvancedDatapathObservabilityConfig {
     pub enable_metrics: bool,
 
     /// Method used to make Relay available
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub relay_mode: crate::model::advanced_datapath_observability_config::RelayMode,
 
     /// Enable Relay component
@@ -24410,6 +24455,7 @@ impl wkt::message::Message for NodePoolLoggingConfig {
 #[non_exhaustive]
 pub struct LoggingVariantConfig {
     /// Logging variant deployed on nodes.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub variant: crate::model::logging_variant_config::Variant,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -25379,9 +25425,11 @@ impl wkt::message::Message for ResourceManagerTags {
 #[non_exhaustive]
 pub struct EnterpriseConfig {
     /// Output only. cluster_tier indicates the effective tier of the cluster.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub cluster_tier: crate::model::enterprise_config::ClusterTier,
 
     /// desired_tier specifies the desired tier of the cluster.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub desired_tier: crate::model::enterprise_config::ClusterTier,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -25608,6 +25656,7 @@ impl wkt::message::Message for SecretManagerConfig {
 #[non_exhaustive]
 pub struct SecondaryBootDisk {
     /// Disk mode (container image cache, etc.)
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub mode: crate::model::secondary_boot_disk::Mode,
 
     /// Fully-qualified resource ID for an existing disk image.

@@ -76,7 +76,7 @@ impl ReqwestClient {
         if let Some(user_agent) = options.user_agent() {
             builder = builder.header(
                 reqwest::header::USER_AGENT,
-                reqwest::header::HeaderValue::from_str(user_agent).map_err(Error::serde)?,
+                reqwest::header::HeaderValue::from_str(user_agent).map_err(Error::ser)?,
             );
         }
         if let Some(body) = body {
@@ -258,7 +258,7 @@ async fn to_http_response<O: serde::de::DeserializeOwned + Default>(
 
     let response = match body.to_bytes() {
         content if (content.is_empty() && no_content_status) => O::default(),
-        content => serde_json::from_slice::<O>(&content).map_err(Error::serde)?,
+        content => serde_json::from_slice::<O>(&content).map_err(Error::deser)?,
     };
 
     Ok(Response::from_parts(

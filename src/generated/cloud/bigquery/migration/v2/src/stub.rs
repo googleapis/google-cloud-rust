@@ -24,8 +24,6 @@
 
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use gax::error::Error;
-
 pub(crate) mod dynamic;
 
 /// Defines the trait used to implement [super::client::MigrationService].
@@ -48,9 +46,7 @@ pub trait MigrationService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::MigrationWorkflow>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::MigrationWorkflow>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::MigrationService::get_migration_workflow].
@@ -61,9 +57,7 @@ pub trait MigrationService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::MigrationWorkflow>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::MigrationWorkflow>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::MigrationService::list_migration_workflows].
@@ -76,9 +70,7 @@ pub trait MigrationService: std::fmt::Debug + Send + Sync {
             gax::response::Response<crate::model::ListMigrationWorkflowsResponse>,
         >,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::ListMigrationWorkflowsResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::MigrationService::delete_migration_workflow].
@@ -87,9 +79,7 @@ pub trait MigrationService: std::fmt::Debug + Send + Sync {
         _req: crate::model::DeleteMigrationWorkflowRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
-            "unimplemented",
-        )))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::MigrationService::start_migration_workflow].
@@ -98,9 +88,7 @@ pub trait MigrationService: std::fmt::Debug + Send + Sync {
         _req: crate::model::StartMigrationWorkflowRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
-            "unimplemented",
-        )))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::MigrationService::get_migration_subtask].
@@ -111,9 +99,7 @@ pub trait MigrationService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::MigrationSubtask>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::MigrationSubtask>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::MigrationService::list_migration_subtasks].
@@ -126,8 +112,6 @@ pub trait MigrationService: std::fmt::Debug + Send + Sync {
             gax::response::Response<crate::model::ListMigrationSubtasksResponse>,
         >,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::ListMigrationSubtasksResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 }

@@ -2246,6 +2246,7 @@ pub struct GetReferenceListRequest {
 
     /// How much of the ReferenceList to view. Defaults to
     /// REFERENCE_LIST_VIEW_FULL.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub view: crate::model::ReferenceListView,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2307,6 +2308,7 @@ pub struct ListReferenceListsRequest {
 
     /// How much of each ReferenceList to view. Defaults to
     /// REFERENCE_LIST_VIEW_BASIC.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub view: crate::model::ReferenceListView,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2603,6 +2605,7 @@ pub struct ReferenceList {
     pub rules: std::vec::Vec<std::string::String>,
 
     /// Required. The syntax type indicating how list entries should be validated.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub syntax_type: crate::model::ReferenceListSyntaxType,
 
     /// Output only. The count of self-authored rules using the reference list.
@@ -2813,11 +2816,13 @@ pub struct Rule {
 
     /// Output only. The current compilation state of the rule.
     /// Populated in FULL view.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub compilation_state: crate::model::rule::CompilationState,
 
     /// Output only. User-facing type of the rule. Extracted from the events
     /// section of rule text. Populated in BASIC view and FULL view.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::RuleType,
 
     /// Output only. Resource names of the reference lists used in this rule.
@@ -3243,9 +3248,11 @@ pub struct RuleDeployment {
     pub archive_time: std::option::Option<wkt::Timestamp>,
 
     /// The run frequency of the rule deployment.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub run_frequency: crate::model::RunFrequency,
 
     /// Output only. The execution state of the rule deployment.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub execution_state: crate::model::rule_deployment::ExecutionState,
 
     /// Output only. The names of the associated/chained producer rules. Rules are
@@ -3561,6 +3568,7 @@ pub struct Retrohunt {
     pub execution_interval: std::option::Option<gtype::model::Interval>,
 
     /// Output only. The state of the retrohunt.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::retrohunt::State,
 
     /// Output only. Percent progress of the retrohunt towards completion, from
@@ -3863,6 +3871,7 @@ pub struct GetRuleRequest {
 
     /// The view field indicates the scope of fields to populate for the Rule being
     /// returned. If unspecified, defaults to FULL.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub view: crate::model::RuleView,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3921,6 +3930,7 @@ pub struct ListRulesRequest {
 
     /// view indicates the scope of fields to populate for the Rule being returned.
     /// If unspecified, defaults to BASIC.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub view: crate::model::RuleView,
 
     /// Only the following filters are allowed:
@@ -4188,6 +4198,7 @@ pub struct ListRuleRevisionsRequest {
 
     /// The view field indicates the scope of fields to populate for the revision
     /// being returned. If unspecified, defaults to BASIC.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub view: crate::model::RuleView,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4839,6 +4850,7 @@ pub struct CompilationDiagnostic {
     pub position: std::option::Option<crate::model::CompilationPosition>,
 
     /// Output only. The severity of a rule's compilation diagnostic.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub severity: crate::model::compilation_diagnostic::Severity,
 
     /// Output only. Link to documentation that describes a diagnostic in more

@@ -561,6 +561,7 @@ pub struct ListTasksRequest {
     /// [google.cloud.tasks.v2.Task]: crate::model::Task
     /// [google.cloud.tasks.v2.Task.View.BASIC]: crate::model::task::View::Basic
     /// [google.cloud.tasks.v2.Task.View.FULL]: crate::model::task::View::Full
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub response_view: crate::model::task::View,
 
     /// Maximum page size.
@@ -737,6 +738,7 @@ pub struct GetTaskRequest {
     /// [google.cloud.tasks.v2.Task]: crate::model::Task
     /// [google.cloud.tasks.v2.Task.View.BASIC]: crate::model::task::View::Basic
     /// [google.cloud.tasks.v2.Task.View.FULL]: crate::model::task::View::Full
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub response_view: crate::model::task::View,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -842,6 +844,7 @@ pub struct CreateTaskRequest {
     /// [google.cloud.tasks.v2.Task]: crate::model::Task
     /// [google.cloud.tasks.v2.Task.View.BASIC]: crate::model::task::View::Basic
     /// [google.cloud.tasks.v2.Task.View.FULL]: crate::model::task::View::Full
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub response_view: crate::model::task::View,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -959,6 +962,7 @@ pub struct RunTaskRequest {
     /// [google.cloud.tasks.v2.Task]: crate::model::Task
     /// [google.cloud.tasks.v2.Task.View.BASIC]: crate::model::task::View::Basic
     /// [google.cloud.tasks.v2.Task.View.FULL]: crate::model::task::View::Full
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub response_view: crate::model::task::View,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1103,6 +1107,7 @@ pub struct Queue {
     /// [google.cloud.tasks.v2.CloudTasks.PauseQueue]: crate::client::CloudTasks::pause_queue
     /// [google.cloud.tasks.v2.CloudTasks.ResumeQueue]: crate::client::CloudTasks::resume_queue
     /// [google.cloud.tasks.v2.CloudTasks.UpdateQueue]: crate::client::CloudTasks::update_queue
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::queue::State,
 
     /// Output only. The last time this queue was purged.
@@ -1834,6 +1839,7 @@ pub struct HttpRequest {
     pub url: std::string::String,
 
     /// The HTTP method to use for the request. The default is POST.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub http_method: crate::model::HttpMethod,
 
     /// HTTP request headers.
@@ -2133,6 +2139,7 @@ pub struct AppEngineHttpRequest {
     /// handler](https://cloud.google.com/appengine/docs/java/taskqueue/push/creating-handlers#writing_a_push_task_request_handler)
     /// and the App Engine documentation for your runtime on [How Requests are
     /// Handled](https://cloud.google.com/appengine/docs/standard/python3/how-requests-are-handled).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub http_method: crate::model::HttpMethod,
 
     /// Task-level setting for App Engine routing.
@@ -2662,6 +2669,7 @@ pub struct Task {
     /// [Task][google.cloud.tasks.v2.Task] has been returned.
     ///
     /// [google.cloud.tasks.v2.Task]: crate::model::Task
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub view: crate::model::task::View,
 
     /// Required. The message to send to the worker.

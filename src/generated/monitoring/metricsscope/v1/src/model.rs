@@ -406,6 +406,7 @@ impl wkt::message::Message for DeleteMonitoredProjectRequest {
 #[non_exhaustive]
 pub struct OperationMetadata {
     /// Current state of the batch operation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::operation_metadata::State,
 
     /// The time when the batch request was received.

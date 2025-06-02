@@ -239,6 +239,7 @@ pub struct Profile {
     /// Type of profile.
     /// For offline mode, this must be specified when creating the profile. For
     /// online mode it is assigned and returned by the server.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub profile_type: crate::model::ProfileType,
 
     /// Deployment this profile corresponds to.

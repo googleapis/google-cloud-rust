@@ -426,6 +426,7 @@ pub struct ComplianceData {
     #[serde_as(as = "serde_with::base64::Base64")]
     pub f_bytes: ::bytes::Bytes,
 
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub f_kingdom: crate::model::compliance_data::LifeKingdom,
 
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -868,6 +869,7 @@ pub struct ComplianceDataChild {
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub f_bool: bool,
 
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub f_continent: crate::model::Continent,
 
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -887,6 +889,7 @@ pub struct ComplianceDataChild {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub p_bool: std::option::Option<bool>,
 
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub p_continent: crate::model::Continent,
 
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -1142,6 +1145,7 @@ pub struct EnumResponse {
     pub request: std::option::Option<crate::model::EnumRequest>,
 
     /// The actual enum the server provided.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub continent: crate::model::Continent,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1194,6 +1198,7 @@ impl wkt::message::Message for EnumResponse {
 #[non_exhaustive]
 pub struct EchoRequest {
     /// The severity to be echoed by the server.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub severity: crate::model::Severity,
 
     /// Optional. This field can be set to test the routing annotation on the Echo method.
@@ -1362,6 +1367,7 @@ pub struct EchoResponse {
     pub content: std::string::String,
 
     /// The severity specified in the request.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub severity: crate::model::Severity,
 
     /// The request ID specified or autopopulated in the request.
@@ -4190,6 +4196,7 @@ pub struct StreamBlurbsResponse {
     pub blurb: std::option::Option<crate::model::Blurb>,
 
     /// The action that triggered the blurb to be returned.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub action: crate::model::stream_blurbs_response::Action,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4623,6 +4630,7 @@ pub mod rest_error {
         pub message: std::string::String,
 
         /// This is the enum version for `google.rpc.Status.code`.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub status: rpc::model::Code,
 
         /// This corresponds to `google.rpc.Status.details`.
@@ -5541,6 +5549,7 @@ pub struct Session {
     pub name: std::string::String,
 
     /// Required. The version this session is using.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub version: crate::model::session::Version,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5966,6 +5975,7 @@ impl wkt::message::Message for ReportSessionRequest {
 #[non_exhaustive]
 pub struct ReportSessionResponse {
     /// The state of the report.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub result: crate::model::report_session_response::Result,
 
     /// The test runs of this session.
@@ -6164,6 +6174,7 @@ pub struct Test {
     pub name: std::string::String,
 
     /// The expectation level for this test.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub expectation_level: crate::model::test::ExpectationLevel,
 
     /// A description of the test.
@@ -6524,9 +6535,11 @@ pub mod test {
 pub struct Issue {
     /// The type of the issue.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::issue::Type,
 
     /// The severity of the issue.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub severity: crate::model::issue::Severity,
 
     /// A description of the issue.

@@ -155,6 +155,7 @@ pub struct ReplicaInfo {
 
     /// The type of replica.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::replica_info::ReplicaType,
 
     /// If true, this location is designated as the default leader location where
@@ -386,6 +387,7 @@ pub struct InstanceConfig {
 
     /// Output only. Whether this instance configuration is a Google-managed or
     /// user-managed configuration.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub config_type: crate::model::instance_config::Type,
 
     /// The geographic placement of nodes in this instance configuration and their
@@ -461,13 +463,16 @@ pub struct InstanceConfig {
 
     /// Output only. The current instance configuration state. Applicable only for
     /// `USER_MANAGED` configurations.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::instance_config::State,
 
     /// Output only. Describes whether free instances are available to be created
     /// in this instance configuration.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub free_instance_availability: crate::model::instance_config::FreeInstanceAvailability,
 
     /// Output only. The `QuorumType` of the instance configuration.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub quorum_type: crate::model::instance_config::QuorumType,
 
     /// Output only. The storage limit in bytes per processing unit.
@@ -1922,6 +1927,7 @@ pub struct Instance {
     ///
     /// [google.spanner.admin.instance.v1.InstanceAdmin.CreateInstance]: crate::client::InstanceAdmin::create_instance
     /// [google.spanner.admin.instance.v1.InstanceAdmin.UpdateInstance]: crate::client::InstanceAdmin::update_instance
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::instance::State,
 
     /// Cloud Labels are a flexible and lightweight mechanism for organizing cloud
@@ -1949,6 +1955,7 @@ pub struct Instance {
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// The `InstanceType` of the current instance.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub instance_type: crate::model::instance::InstanceType,
 
     /// Deprecated. This field is not populated.
@@ -1968,6 +1975,7 @@ pub struct Instance {
     pub free_instance_metadata: std::option::Option<crate::model::FreeInstanceMetadata>,
 
     /// Optional. The `Edition` of the current instance.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub edition: crate::model::instance::Edition,
 
     /// Optional. Controls the default backup schedule behavior for new databases
@@ -1980,6 +1988,7 @@ pub struct Instance {
     /// In the `GetInstance` or `ListInstances` response, if the value of
     /// `default_backup_schedule_type` isn't set, or set to `NONE`, Spanner doesn't
     /// create a default backup schedule for new databases in the instance.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub default_backup_schedule_type: crate::model::instance::DefaultBackupScheduleType,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3828,6 +3837,7 @@ pub struct CreateInstanceMetadata {
     pub end_time: std::option::Option<wkt::Timestamp>,
 
     /// The expected fulfillment period of this create operation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub expected_fulfillment_period: crate::model::FulfillmentPeriod,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3961,6 +3971,7 @@ pub struct UpdateInstanceMetadata {
     pub end_time: std::option::Option<wkt::Timestamp>,
 
     /// The expected fulfillment period of this update operation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub expected_fulfillment_period: crate::model::FulfillmentPeriod,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4084,6 +4095,7 @@ pub struct FreeInstanceMetadata {
     /// Specifies the expiration behavior of a free instance. The default of
     /// ExpireBehavior is `REMOVE_AFTER_GRACE_PERIOD`. This can be modified during
     /// or after creation, and before expiration.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub expire_behavior: crate::model::free_instance_metadata::ExpireBehavior,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4513,6 +4525,7 @@ pub struct InstancePartition {
     pub display_name: std::string::String,
 
     /// Output only. The current instance partition state.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::instance_partition::State,
 
     /// Output only. The time at which the instance partition was created.

@@ -60,6 +60,7 @@ pub struct Deployment {
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. Current state of the deployment.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::deployment::State,
 
     /// Output only. Revision name that was most recently applied.
@@ -73,6 +74,7 @@ pub struct Deployment {
     pub state_detail: std::string::String,
 
     /// Output only. Error code describing errors that may have occurred.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub error_code: crate::model::deployment::ErrorCode,
 
     /// Output only. Location of artifacts from a DeleteDeployment operation.
@@ -138,6 +140,7 @@ pub struct Deployment {
     pub worker_pool: std::option::Option<std::string::String>,
 
     /// Output only. Current lock state of the deployment.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub lock_state: crate::model::deployment::LockState,
 
     /// Optional. The user-specified Terraform version constraint.
@@ -153,6 +156,7 @@ pub struct Deployment {
     /// Optional. Input to control quota checks for resources in terraform
     /// configuration files. There are limited resources on which quota validation
     /// applies.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub quota_validation: crate::model::QuotaValidation,
 
     /// Optional. Arbitrary key-value metadata storage e.g. to help client tools
@@ -1929,6 +1933,7 @@ pub struct DeleteDeploymentRequest {
     /// Optional. Policy on how resources actuated by the deployment should be
     /// deleted. If unspecified, the default behavior is to delete the underlying
     /// resources.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub delete_policy: crate::model::delete_deployment_request::DeletePolicy,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2362,9 +2367,11 @@ pub struct Revision {
     pub update_time: std::option::Option<wkt::Timestamp>,
 
     /// Output only. The action which created this revision
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub action: crate::model::revision::Action,
 
     /// Output only. Current state of the revision.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::revision::State,
 
     /// Output only. Outputs and artifacts from applying a deployment.
@@ -2376,6 +2383,7 @@ pub struct Revision {
     pub state_detail: std::string::String,
 
     /// Output only. Code describing any errors that may have occurred.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub error_code: crate::model::revision::ErrorCode,
 
     /// Output only. Cloud Build instance UUID associated with this revision.
@@ -2441,6 +2449,7 @@ pub struct Revision {
     /// Optional. Input to control quota checks for resources in terraform
     /// configuration files. There are limited resources on which quota validation
     /// applies.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub quota_validation: crate::model::QuotaValidation,
 
     /// Blueprint that was deployed.
@@ -3306,6 +3315,7 @@ impl wkt::message::Message for GitSource {
 #[non_exhaustive]
 pub struct DeploymentOperationMetadata {
     /// The current step the deployment operation is running.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub step: crate::model::deployment_operation_metadata::DeploymentStep,
 
     /// Outputs and artifacts from applying a deployment.
@@ -3616,9 +3626,11 @@ pub struct Resource {
     pub cai_assets: std::collections::HashMap<std::string::String, crate::model::ResourceCAIInfo>,
 
     /// Output only. Intent of the resource.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub intent: crate::model::resource::Intent,
 
     /// Output only. Current state of the resource.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::resource::State,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4730,6 +4742,7 @@ pub struct Preview {
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. Current state of the preview.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::preview::State,
 
     /// Optional. Optional deployment reference. If specified, the preview will be
@@ -4740,6 +4753,7 @@ pub struct Preview {
     pub deployment: std::string::String,
 
     /// Optional. Current mode of preview.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub preview_mode: crate::model::preview::PreviewMode,
 
     /// Required. User-specified Service Account (SA) credentials to be used when
@@ -4772,6 +4786,7 @@ pub struct Preview {
     pub worker_pool: std::option::Option<std::string::String>,
 
     /// Output only. Code describing any errors that may have occurred.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub error_code: crate::model::preview::ErrorCode,
 
     /// Output only. Additional information regarding the current state.
@@ -5585,6 +5600,7 @@ pub mod preview {
 #[non_exhaustive]
 pub struct PreviewOperationMetadata {
     /// The current step the preview operation is running.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub step: crate::model::preview_operation_metadata::PreviewStep,
 
     /// Artifacts from preview.
@@ -6585,6 +6601,7 @@ pub struct TerraformVersion {
     pub name: std::string::String,
 
     /// Output only. The state of the version, ACTIVE, DEPRECATED or OBSOLETE.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::terraform_version::State,
 
     /// Output only. When the version is supported.

@@ -1398,8 +1398,10 @@ pub mod pricing_expression {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct AggregationInfo {
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub aggregation_level: crate::model::aggregation_info::AggregationLevel,
 
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub aggregation_interval: crate::model::aggregation_info::AggregationInterval,
 
     /// The number of intervals to aggregate over.
@@ -1728,6 +1730,7 @@ pub mod aggregation_info {
 pub struct GeoTaxonomy {
     /// The type of Geo Taxonomy: GLOBAL, REGIONAL, or MULTI_REGIONAL.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::geo_taxonomy::Type,
 
     /// The list of regions associated with a sku. Empty for Global skus, which are

@@ -568,6 +568,7 @@ pub struct Condition {
     pub r#type: std::string::String,
 
     /// State of the condition.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::condition::State,
 
     /// Human readable message indicating details about the current status.
@@ -579,6 +580,7 @@ pub struct Condition {
     pub last_transition_time: std::option::Option<wkt::Timestamp>,
 
     /// How to interpret failures of this condition, one of Error, Warning, Info
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub severity: crate::model::condition::Severity,
 
     /// The reason for this condition. Depending on the condition type,
@@ -2023,6 +2025,7 @@ pub struct Execution {
     /// as input. For example, if ALPHA was provided as input in the parent
     /// resource, but only BETA and GA-level features are were, this field will be
     /// BETA.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub launch_stage: api::model::LaunchStage,
 
     /// Output only. The name of the parent Job.
@@ -3188,6 +3191,7 @@ pub struct Job {
     ///
     /// For example, if ALPHA is provided as input, but only BETA and GA-level
     /// features are used, this field will be BETA on output.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub launch_stage: api::model::LaunchStage,
 
     /// Settings for the Binary Authorization feature.
@@ -3652,6 +3656,7 @@ pub struct ExecutionReference {
     pub delete_time: std::option::Option<wkt::Timestamp>,
 
     /// Status for the execution completion.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub completion_status: crate::model::execution_reference::CompletionStatus,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4932,6 +4937,7 @@ pub struct EmptyDirVolumeSource {
     /// The medium on which the data is stored. Acceptable values today is only
     /// MEMORY or none. When none, the default will currently be backed by memory
     /// but could change over time. +optional
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub medium: crate::model::empty_dir_volume_source::Medium,
 
     /// Limit on the storage usable by this EmptyDir volume.
@@ -5920,6 +5926,7 @@ pub struct Revision {
     /// as input. For example, if ALPHA was provided as input in the parent
     /// resource, but only BETA and GA-level features are were, this field will be
     /// BETA.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub launch_stage: api::model::LaunchStage,
 
     /// Output only. The name of the parent service.
@@ -5959,6 +5966,7 @@ pub struct Revision {
     pub volumes: std::vec::Vec<crate::model::Volume>,
 
     /// The execution environment being used to host this Revision.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub execution_environment: crate::model::ExecutionEnvironment,
 
     /// A reference to a customer managed encryption key (CMEK) to use to encrypt
@@ -5972,6 +5980,7 @@ pub struct Revision {
     pub service_mesh: std::option::Option<crate::model::ServiceMesh>,
 
     /// The action to take if the encryption key is revoked.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub encryption_key_revocation_action: crate::model::EncryptionKeyRevocationAction,
 
     /// If encryption_key_revocation_action is SHUTDOWN, the duration before
@@ -6501,6 +6510,7 @@ pub struct RevisionTemplate {
     pub volumes: std::vec::Vec<crate::model::Volume>,
 
     /// Optional. The sandbox environment to host this Revision.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub execution_environment: crate::model::ExecutionEnvironment,
 
     /// A reference to a customer managed encryption key (CMEK) to use to encrypt
@@ -6520,6 +6530,7 @@ pub struct RevisionTemplate {
     pub service_mesh: std::option::Option<crate::model::ServiceMesh>,
 
     /// Optional. The action to take if the encryption key is revoked.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub encryption_key_revocation_action: crate::model::EncryptionKeyRevocationAction,
 
     /// Optional. If encryption_key_revocation_action is SHUTDOWN, the duration
@@ -7272,6 +7283,7 @@ pub struct Service {
     /// Optional. Provides the ingress settings for this Service. On output,
     /// returns the currently observed ingress settings, or
     /// INGRESS_TRAFFIC_UNSPECIFIED if no revision is active.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub ingress: crate::model::IngressTraffic,
 
     /// Optional. The launch stage as defined by [Google Cloud Platform
@@ -7284,6 +7296,7 @@ pub struct Service {
     ///
     /// For example, if ALPHA is provided as input, but only BETA and GA-level
     /// features are used, this field will be BETA on output.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub launch_stage: api::model::LaunchStage,
 
     /// Optional. Settings for the Binary Authorization feature.
@@ -8098,6 +8111,7 @@ pub struct Task {
     pub service_account: std::string::String,
 
     /// The execution environment being used to host this Task.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub execution_environment: crate::model::ExecutionEnvironment,
 
     /// Output only. Indicates whether the resource's reconciliation is still in
@@ -8619,6 +8633,7 @@ pub struct TaskTemplate {
     pub service_account: std::string::String,
 
     /// Optional. The execution environment being used to host this Task.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub execution_environment: crate::model::ExecutionEnvironment,
 
     /// A reference to a customer managed encryption key (CMEK) to use to encrypt
@@ -8814,6 +8829,7 @@ pub mod task_template {
 pub struct TrafficTarget {
     /// The allocation type for this traffic target.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::TrafficTargetAllocationType,
 
     /// Revision to which to send this portion of traffic, if traffic allocation is
@@ -8882,6 +8898,7 @@ impl wkt::message::Message for TrafficTarget {
 pub struct TrafficTargetStatus {
     /// The allocation type for this traffic target.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::TrafficTargetAllocationType,
 
     /// Revision to which this traffic is sent.
@@ -8966,6 +8983,7 @@ pub struct VpcAccess {
 
     /// Optional. Traffic VPC egress settings. If not provided, it defaults to
     /// PRIVATE_RANGES_ONLY.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub egress: crate::model::vpc_access::VpcEgress,
 
     /// Optional. Direct VPC egress settings. Currently only single network
@@ -9437,6 +9455,7 @@ pub struct ServiceScaling {
     pub min_instance_count: i32,
 
     /// Optional. The scaling mode for the service.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub scaling_mode: crate::model::service_scaling::ScalingMode,
 
     /// Optional. total instance count for the service in manual scaling mode. This

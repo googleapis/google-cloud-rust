@@ -4050,6 +4050,7 @@ pub struct PrivateConnection {
     pub display_name: std::string::String,
 
     /// Output only. The state of the Private Connection.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::private_connection::State,
 
     /// Output only. In case of error, the details of the error in a user-friendly
@@ -8063,9 +8064,11 @@ impl wkt::message::Message for AvroFileFormat {
 #[non_exhaustive]
 pub struct JsonFileFormat {
     /// The schema file format along JSON data files.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub schema_file_format: crate::model::json_file_format::SchemaFileFormat,
 
     /// Compression of the loaded JSON file.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub compression: crate::model::json_file_format::JsonCompression,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8976,9 +8979,11 @@ pub mod big_query_destination_config {
         pub connection_name: std::string::String,
 
         /// Required. The file format.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub file_format: crate::model::big_query_destination_config::blmt_config::FileFormat,
 
         /// Required. The table format.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub table_format: crate::model::big_query_destination_config::blmt_config::TableFormat,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9556,6 +9561,7 @@ pub struct Stream {
     pub destination_config: std::option::Option<crate::model::DestinationConfig>,
 
     /// The state of the stream.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::stream::State,
 
     /// Output only. Errors on the Stream.
@@ -10926,9 +10932,11 @@ pub mod source_object_identifier {
 #[non_exhaustive]
 pub struct BackfillJob {
     /// Output only. Backfill job state.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::backfill_job::State,
 
     /// Backfill job's triggering reason.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub trigger: crate::model::backfill_job::Trigger,
 
     /// Output only. Backfill job's start time.
@@ -11473,6 +11481,7 @@ pub struct Validation {
     pub description: std::string::String,
 
     /// Output only. Validation execution status.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::validation::State,
 
     /// Messages reflecting the validation results.
@@ -11694,6 +11703,7 @@ pub struct ValidationMessage {
     pub message: std::string::String,
 
     /// Message severity level (warning or error).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub level: crate::model::validation_message::Level,
 
     /// Additional metadata related to the result.

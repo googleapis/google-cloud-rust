@@ -428,6 +428,7 @@ pub struct ImportJob {
     pub complete_time: std::option::Option<wkt::Timestamp>,
 
     /// Output only. The state of the import job.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::import_job::ImportJobState,
 
     /// Labels as key value pairs.
@@ -825,6 +826,7 @@ pub struct ImportDataFile {
     pub display_name: std::string::String,
 
     /// Required. The payload format.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub format: crate::model::ImportJobFormat,
 
     /// Output only. The timestamp when the file was created.
@@ -832,6 +834,7 @@ pub struct ImportDataFile {
     pub create_time: std::option::Option<wkt::Timestamp>,
 
     /// Output only. The state of the import data file.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::import_data_file::State,
 
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
@@ -1329,6 +1332,7 @@ pub struct Source {
 
     /// Data source type.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::source::SourceType,
 
     /// The information confidence of the source.
@@ -1350,6 +1354,7 @@ pub struct Source {
     pub error_frame_count: i32,
 
     /// Output only. The state of the source.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::source::State,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1944,9 +1949,11 @@ pub struct Report {
 
     /// Report type.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::report::Type,
 
     /// Report creation state.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::report::State,
 
     /// Output only. Summary view of the Report.
@@ -2473,6 +2480,7 @@ pub struct ListAssetsRequest {
     pub order_by: std::string::String,
 
     /// View of the assets. Defaults to BASIC.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub view: crate::model::AssetView,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2614,6 +2622,7 @@ pub struct GetAssetRequest {
     pub name: std::string::String,
 
     /// View of the assets. Defaults to BASIC.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub view: crate::model::AssetView,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3234,6 +3243,7 @@ pub struct ListImportJobsRequest {
 
     /// Optional. The level of details of each import job.
     /// Default value is BASIC.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub view: crate::model::ImportJobView,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3376,6 +3386,7 @@ pub struct GetImportJobRequest {
 
     /// Optional. The level of details of the import job.
     /// Default value is FULL.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub view: crate::model::ImportJobView,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4627,6 +4638,7 @@ pub struct ListErrorFramesRequest {
 
     /// Optional. An optional view mode to control the level of details of each
     /// error frame. The default is a BASIC frame view.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub view: crate::model::ErrorFrameView,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4758,6 +4770,7 @@ pub struct GetErrorFrameRequest {
 
     /// Optional. An optional view mode to control the level of details for the
     /// frame. The default is a basic frame view.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub view: crate::model::ErrorFrameView,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5914,6 +5927,7 @@ pub struct GetReportRequest {
     pub name: std::string::String,
 
     /// Determines what information to retrieve for the Report.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub view: crate::model::ReportView,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5972,6 +5986,7 @@ pub struct ListReportsRequest {
     pub order_by: std::string::String,
 
     /// Determines what information to retrieve for each Report.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub view: crate::model::ReportView,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6660,6 +6675,7 @@ pub struct MachineDetails {
     pub memory_mb: i32,
 
     /// Power state of the machine.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub power_state: crate::model::machine_details::PowerState,
 
     /// Architecture details (vendor, CPU architecture).
@@ -7038,9 +7054,11 @@ pub struct MachineArchitectureDetails {
     pub bios: std::option::Option<crate::model::BiosDetails>,
 
     /// Firmware type.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub firmware_type: crate::model::machine_architecture_details::FirmwareType,
 
     /// CPU hyper-threading support.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub hyperthreading: crate::model::machine_architecture_details::CpuHyperThreading,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7744,6 +7762,7 @@ pub struct NetworkAddress {
     pub fqdn: std::string::String,
 
     /// Whether DHCP is used to assign addresses.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub assignment: crate::model::network_address::AddressAssignment,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8063,6 +8082,7 @@ pub struct DiskEntry {
     pub disk_label_type: std::string::String,
 
     /// Disks interface type.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub interface_type: crate::model::disk_entry::InterfaceType,
 
     /// Partition layout.
@@ -8523,6 +8543,7 @@ impl wkt::message::Message for DiskPartition {
 #[non_exhaustive]
 pub struct VmwareDiskConfig {
     /// VMDK backing type.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub backing_type: crate::model::vmware_disk_config::BackingType,
 
     /// Is VMDK shared with other VMs.
@@ -8530,9 +8551,11 @@ pub struct VmwareDiskConfig {
     pub shared: bool,
 
     /// VMDK disk mode.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub vmdk_mode: crate::model::vmware_disk_config::VmdkMode,
 
     /// RDM compatibility mode.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub rdm_compatibility: crate::model::vmware_disk_config::RdmCompatibility,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9052,6 +9075,7 @@ pub struct GuestOsDetails {
     pub os_name: std::string::String,
 
     /// What family the OS belong to, if known.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub family: crate::model::OperatingSystemFamily,
 
     /// The version of the operating system.
@@ -9162,6 +9186,7 @@ pub struct GuestConfigDetails {
     pub nfs_exports: std::option::Option<crate::model::NfsExportList>,
 
     /// Security-Enhanced Linux (SELinux) mode.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub selinux_mode: crate::model::guest_config_details::SeLinuxMode,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9909,9 +9934,11 @@ pub struct RunningService {
     pub service_name: std::string::String,
 
     /// Service state (OS-agnostic).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::running_service::State,
 
     /// Service start mode (OS-agnostic).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub start_mode: crate::model::running_service::StartMode,
 
     /// Service binary path.
@@ -10528,6 +10555,7 @@ pub struct NetworkConnection {
     pub remote_port: i32,
 
     /// Network connection state.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::network_connection::State,
 
     /// Process ID.
@@ -12679,6 +12707,7 @@ impl wkt::message::Message for ComputeEngineShapeDescriptor {
 pub struct ComputeStorageDescriptor {
     /// Disk type backing the storage.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::PersistentDiskType,
 
     /// Disk size in GiB.
@@ -12723,6 +12752,7 @@ impl wkt::message::Message for ComputeStorageDescriptor {
 #[non_exhaustive]
 pub struct FitDescriptor {
     /// Fit level.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub fit_level: crate::model::fit_descriptor::FitLevel,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -13787,6 +13817,7 @@ pub struct ImportError {
     pub error_details: std::string::String,
 
     /// The severity of the error.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub severity: crate::model::import_error::Severity,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -14192,6 +14223,7 @@ pub struct VirtualMachinePreferences {
     /// Target product for assets using this preference set.
     /// Specify either target product or business goal, but
     /// not both.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub target_product: crate::model::ComputeMigrationTargetProduct,
 
     /// Region preferences for assets using this preference set.
@@ -14204,6 +14236,7 @@ pub struct VirtualMachinePreferences {
     /// insights and recommendations.
     /// If you are unsure which value to set, a 3 year commitment plan is often a
     /// good value to start with.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub commitment_plan: crate::model::CommitmentPlan,
 
     /// Sizing optimization strategy specifies the preferred strategy used when
@@ -14211,6 +14244,7 @@ pub struct VirtualMachinePreferences {
     /// virtual machine.
     /// If you are unsure which value to set, a moderate sizing optimization
     /// strategy is often a good value to start with.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub sizing_optimization_strategy: crate::model::SizingOptimizationStrategy,
 
     /// Compute Engine preferences concern insights and recommendations for Compute
@@ -14359,6 +14393,7 @@ pub struct ComputeEnginePreferences {
     /// License type to consider when calculating costs for virtual machine
     /// insights and recommendations. If unspecified, costs are calculated
     /// based on the default licensing plan.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub license_type: crate::model::LicenseType,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -14512,6 +14547,7 @@ pub struct VmwareEnginePreferences {
     /// insights and recommendations.
     /// If you are unsure which value to set, a 3 year commitment plan is often a
     /// good value to start with.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub commitment_plan: crate::model::vmware_engine_preferences::CommitmentPlan,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -14742,12 +14778,14 @@ pub struct SoleTenancyPreferences {
     pub cpu_overcommit_ratio: f64,
 
     /// Sole Tenancy nodes maintenance policy.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub host_maintenance_policy: crate::model::sole_tenancy_preferences::HostMaintenancePolicy,
 
     /// Commitment plan to consider when calculating costs for virtual machine
     /// insights and recommendations.
     /// If you are unsure which value to set, a 3 year commitment plan is often a
     /// good value to start with.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub commitment_plan: crate::model::sole_tenancy_preferences::CommitmentPlan,
 
     /// A list of sole tenant node types.

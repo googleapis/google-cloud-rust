@@ -614,11 +614,11 @@ mod tests {
         assert!(p.on_error(now, 0, false, pre_rpc_transient()).is_continue());
 
         assert!(
-            p.on_error(now, 0, true, Error::serde("err".to_string()))
+            p.on_error(now, 0, true, Error::ser("err".to_string()))
                 .is_permanent()
         );
         assert!(
-            p.on_error(now, 0, false, Error::serde("err".to_string()))
+            p.on_error(now, 0, false, Error::ser("err".to_string()))
                 .is_permanent()
         );
         assert!(
@@ -649,11 +649,11 @@ mod tests {
 
     #[test_case::test_case(true, Error::io("err"))]
     #[test_case::test_case(true, pre_rpc_transient())]
-    #[test_case::test_case(true, Error::serde("err"))]
+    #[test_case::test_case(true, Error::ser("err"))]
     #[test_case::test_case(true, Error::other("err"))]
     #[test_case::test_case(false, Error::io("err"))]
     #[test_case::test_case(false, pre_rpc_transient())]
-    #[test_case::test_case(false, Error::serde("err"))]
+    #[test_case::test_case(false, Error::ser("err"))]
     #[test_case::test_case(false, Error::other("err"))]
     fn always_retry_error_kind(idempotent: bool, error: Error) {
         let p = AlwaysRetry;
@@ -686,11 +686,11 @@ mod tests {
 
     #[test_case::test_case(true, Error::io("err"))]
     #[test_case::test_case(true, pre_rpc_transient())]
-    #[test_case::test_case(true, Error::serde("err"))]
+    #[test_case::test_case(true, Error::ser("err"))]
     #[test_case::test_case(true, Error::other("err"))]
     #[test_case::test_case(false, Error::io("err"))]
     #[test_case::test_case(false, pre_rpc_transient())]
-    #[test_case::test_case(false, Error::serde("err"))]
+    #[test_case::test_case(false, Error::ser("err"))]
     #[test_case::test_case(false, Error::other("err"))]
     fn never_retry_error_kind(idempotent: bool, error: Error) {
         let p = NeverRetry;

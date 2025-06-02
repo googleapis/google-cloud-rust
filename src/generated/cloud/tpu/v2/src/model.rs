@@ -195,6 +195,7 @@ pub struct AttachedDisk {
     /// The mode in which to attach this disk.
     /// If not specified, the default is READ_WRITE mode.
     /// Only applicable to data_disks.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub mode: crate::model::attached_disk::DiskMode,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -664,6 +665,7 @@ pub struct Node {
     pub accelerator_type: std::string::String,
 
     /// Output only. The current state for the TPU Node.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::node::State,
 
     /// Output only. If this field is populated, it contains a description of why
@@ -719,6 +721,7 @@ pub struct Node {
     pub network_endpoints: std::vec::Vec<crate::model::NetworkEndpoint>,
 
     /// The health status of the TPU node.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub health: crate::model::node::Health,
 
     /// Resource labels to represent user-provided metadata.
@@ -745,6 +748,7 @@ pub struct Node {
     pub data_disks: std::vec::Vec<crate::model::AttachedDisk>,
 
     /// Output only. The API version that created this Node.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub api_version: crate::model::node::ApiVersion,
 
     /// Output only. The Symptoms that have occurred to the TPU Node.
@@ -2392,11 +2396,13 @@ pub mod queued_resource {
 #[non_exhaustive]
 pub struct QueuedResourceState {
     /// Output only. State of the QueuedResource request.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::queued_resource_state::State,
 
     /// Output only. The initiator of the QueuedResources's current state. Used to
     /// indicate whether the SUSPENDING/SUSPENDED state was initiated by the user
     /// or the service.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state_initiator: crate::model::queued_resource_state::StateInitiator,
 
     /// Further data for the state.
@@ -4746,6 +4752,7 @@ pub struct Symptom {
     pub create_time: std::option::Option<wkt::Timestamp>,
 
     /// Type of the Symptom.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub symptom_type: crate::model::symptom::SymptomType,
 
     /// Detailed information of the current Symptom.
@@ -5087,6 +5094,7 @@ impl wkt::message::Message for GetGuestAttributesResponse {
 pub struct AcceleratorConfig {
     /// Required. Type of TPU.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::accelerator_config::Type,
 
     /// Required. Topology of TPU in chips.

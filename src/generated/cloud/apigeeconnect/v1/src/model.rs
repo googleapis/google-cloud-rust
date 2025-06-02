@@ -273,6 +273,7 @@ pub struct EgressRequest {
     pub payload: std::option::Option<crate::model::Payload>,
 
     /// Tether Endpoint.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub endpoint: crate::model::TetherEndpoint,
 
     /// GCP Project.
@@ -555,6 +556,7 @@ pub struct EgressResponse {
     pub trace_id: std::string::String,
 
     /// Tether Endpoint.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub endpoint: crate::model::TetherEndpoint,
 
     /// Name is the full resource path of endpoint.
@@ -750,6 +752,7 @@ impl wkt::message::Message for HttpRequest {
 #[non_exhaustive]
 pub struct Url {
     /// Scheme.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub scheme: crate::model::Scheme,
 
     /// Host or Host:Port.

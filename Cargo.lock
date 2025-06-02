@@ -5513,6 +5513,24 @@ dependencies = [
 ]
 
 [[package]]
+name = "protojson-conformance"
+version = "0.0.0"
+dependencies = [
+ "anyhow",
+ "bytes",
+ "crc32c",
+ "futures",
+ "google-cloud-gax-internal",
+ "google-cloud-wkt",
+ "prost",
+ "prost-types",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tokio",
+]
+
+[[package]]
 name = "quinn"
 version = "0.11.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"

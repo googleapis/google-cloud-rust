@@ -18,23 +18,12 @@ mod test {
     type Result = std::result::Result<(), Box<dyn std::error::Error>>;
     use test_case::test_case;
 
-    #[serde_with::serde_as]
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(default, rename_all = "camelCase")]
-    pub struct MessageWithF32 {
-        #[serde(skip_serializing_if = "google_cloud_wkt::internal::is_default")]
-        #[serde_as(as = "google_cloud_wkt::internal::F32")]
-        pub singular: f32,
-        #[serde(skip_serializing_if = "std::option::Option::is_none")]
-        #[serde_as(as = "Option<google_cloud_wkt::internal::F32>")]
-        pub optional: Option<f32>,
-        #[serde(skip_serializing_if = "Vec::is_empty")]
-        #[serde_as(as = "Vec<google_cloud_wkt::internal::F32>")]
-        pub repeated: Vec<f32>,
-        #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-        #[serde_as(as = "std::collections::HashMap<_, google_cloud_wkt::internal::F32>")]
-        pub hashmap: std::collections::HashMap<String, f32>,
+    #[allow(dead_code)]
+    mod protos {
+        use google_cloud_wkt as wkt;
+        include!("generated/mod.rs");
     }
+    use protos::MessageWithF32;
 
     #[test_case(9876.5, 9876.5)]
     #[test_case(f32::INFINITY, "Infinity")]
@@ -44,10 +33,7 @@ mod test {
     where
         T: serde::ser::Serialize,
     {
-        let msg = MessageWithF32 {
-            singular: input,
-            ..Default::default()
-        };
+        let msg = MessageWithF32::new().set_singular(input);
         let got = serde_json::to_value(&msg)?;
         let want = json!({"singular": want});
         assert_eq!(want, got);
@@ -76,10 +62,7 @@ mod test {
     where
         T: serde::ser::Serialize,
     {
-        let msg = MessageWithF32 {
-            optional: Some(input),
-            ..Default::default()
-        };
+        let msg = MessageWithF32::new().set_optional(input);
         let got = serde_json::to_value(&msg)?;
         let want = json!({"optional": want});
         assert_eq!(want, got);
@@ -91,10 +74,12 @@ mod test {
 
     #[test]
     fn test_repeated() -> Result {
-        let msg = MessageWithF32 {
-            repeated: vec![f32::INFINITY, f32::NEG_INFINITY, f32::NAN, 9876.5_f32],
-            ..Default::default()
-        };
+        let msg = MessageWithF32::new().set_repeated([
+            f32::INFINITY,
+            f32::NEG_INFINITY,
+            f32::NAN,
+            9876.5_f32,
+        ]);
         let got = serde_json::to_value(&msg)?;
         let want = json!({"repeated": ["Infinity", "-Infinity", "NaN", 9876.5]});
         assert_eq!(want, got);
@@ -108,20 +93,17 @@ mod test {
 
     #[test]
     fn test_hashmap() -> Result {
-        let mut hashmap = std::collections::HashMap::new();
-        hashmap.insert("number".to_string(), 9876.5);
-        hashmap.insert("inf".to_string(), f32::INFINITY);
-        hashmap.insert("-inf".to_string(), f32::NEG_INFINITY);
-        hashmap.insert("nan".to_string(), f32::NAN);
+        let mut map = std::collections::HashMap::new();
+        map.insert("number".to_string(), 9876.5);
+        map.insert("inf".to_string(), f32::INFINITY);
+        map.insert("-inf".to_string(), f32::NEG_INFINITY);
+        map.insert("nan".to_string(), f32::NAN);
 
-        let msg = MessageWithF32 {
-            hashmap,
-            ..Default::default()
-        };
+        let msg = MessageWithF32::new().set_map(map);
 
         let got = serde_json::to_value(&msg)?;
         let want = json!({
-            "hashmap": {
+            "map": {
                 "number": 9876.5,
                 "inf": "Infinity",
                 "-inf": "-Infinity",
@@ -131,8 +113,8 @@ mod test {
         assert_eq!(want, got);
 
         let roundtrip = serde_json::from_value::<MessageWithF32>(got)?;
-        for (k, roundtrip) in roundtrip.hashmap.iter() {
-            let msg = msg.hashmap.get(k).unwrap();
+        for (k, roundtrip) in roundtrip.map.iter() {
+            let msg = msg.map.get(k).unwrap();
             assert_float_eq(*roundtrip, *msg);
         }
         Ok(())

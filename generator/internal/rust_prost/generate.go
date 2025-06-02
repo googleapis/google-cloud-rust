@@ -41,7 +41,6 @@ func Generate(model *api.API, outdir string, cfg *config.Config) error {
 		return fmt.Errorf("got an error trying to run `protoc --version`, the instructions on https://grpc.io/docs/protoc-installation/ may solve this problem: %w", err)
 	}
 
-	googleapisRoot := cfg.Source["googleapis-root"]
 	codec := newCodec(cfg)
 	codec.annotateModel(model, cfg)
 	provider := templatesProvider()
@@ -49,7 +48,8 @@ func Generate(model *api.API, outdir string, cfg *config.Config) error {
 	if err := language.GenerateFromModel(outdir, model, provider, generatedFiles); err != nil {
 		return err
 	}
-	return buildRS(googleapisRoot, outdir)
+	rootName := cfg.Source[codec.RootName]
+	return buildRS(rootName, outdir)
 }
 
 func templatesProvider() language.TemplateProvider {
@@ -62,14 +62,14 @@ func templatesProvider() language.TemplateProvider {
 	}
 }
 
-func buildRS(googleapisRoot, outdir string) error {
-	absolute, err := filepath.Abs(googleapisRoot)
+func buildRS(rootName, outdir string) error {
+	absolute, err := filepath.Abs(rootName)
 	if err != nil {
 		return err
 	}
 	cmd := exec.Command("cargo", "build", "--features", "_generate-protos")
 	cmd.Dir = outdir
-	cmd.Env = append(os.Environ(), fmt.Sprintf("GOOGLEAPIS_ROOT=%s", absolute))
+	cmd.Env = append(os.Environ(), fmt.Sprintf("SOURCE_ROOT=%s", absolute))
 	return runAndCaptureErrors(cmd)
 }
 

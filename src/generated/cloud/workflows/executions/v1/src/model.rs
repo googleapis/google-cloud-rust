@@ -56,6 +56,7 @@ pub struct Execution {
     pub duration: std::option::Option<wkt::Duration>,
 
     /// Output only. Current state of the execution.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::execution::State,
 
     /// Input parameters of the execution represented as a JSON string.
@@ -83,6 +84,7 @@ pub struct Execution {
     pub workflow_revision_id: std::string::String,
 
     /// The call logging level associated to this execution.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub call_log_level: crate::model::execution::CallLogLevel,
 
     /// Output only. Status tracks the current steps and progress data of this
@@ -624,6 +626,7 @@ pub mod execution {
 
         /// The type of this state error.
         #[serde(rename = "type")]
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub r#type: crate::model::execution::state_error::Type,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1128,6 +1131,7 @@ pub struct ListExecutionsRequest {
 
     /// Optional. A view defining which fields should be filled in the returned
     /// executions. The API will default to the BASIC view.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub view: crate::model::ExecutionView,
 
     /// Optional. Filters applied to the [Executions.ListExecutions] results.
@@ -1340,6 +1344,7 @@ pub struct GetExecutionRequest {
 
     /// Optional. A view defining which fields should be filled in the returned
     /// execution. The API will default to the FULL view.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub view: crate::model::ExecutionView,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

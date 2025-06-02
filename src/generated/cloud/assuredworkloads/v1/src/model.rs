@@ -409,6 +409,7 @@ pub struct Workload {
     pub resources: std::vec::Vec<crate::model::workload::ResourceInfo>,
 
     /// Required. Immutable. Compliance Regime associated with this workload.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub compliance_regime: crate::model::workload::ComplianceRegime,
 
     /// Output only. Immutable. The Workload creation timestamp.
@@ -460,6 +461,7 @@ pub struct Workload {
     pub resource_settings: std::vec::Vec<crate::model::workload::ResourceSettings>,
 
     /// Output only. Represents the KAJ enrollment state of the given workload.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub kaj_enrollment_state: crate::model::workload::KajEnrollmentState,
 
     /// Optional. Indicates the sovereignty status of the given workload.
@@ -481,6 +483,7 @@ pub struct Workload {
     pub compliant_but_disallowed_services: std::vec::Vec<std::string::String>,
 
     /// Optional. Compliance Regime associated with this workload.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub partner: crate::model::workload::Partner,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -688,6 +691,7 @@ pub mod workload {
         pub resource_id: i64,
 
         /// Indicates the type of resource.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub resource_type: crate::model::workload::resource_info::ResourceType,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -975,6 +979,7 @@ pub mod workload {
         /// Indicates the type of resource. This field should be specified to
         /// correspond the id to the right resource type (CONSUMER_FOLDER or
         /// ENCRYPTION_KEYS_PROJECT)
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub resource_type: crate::model::workload::resource_info::ResourceType,
 
         /// User-assigned resource display name.
@@ -1873,6 +1878,7 @@ pub struct CreateWorkloadOperationMetadata {
 
     /// Optional. Compliance controls that should be applied to the resources managed by
     /// the workload.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub compliance_regime: crate::model::workload::ComplianceRegime,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1947,6 +1953,7 @@ pub struct RestrictAllowedResourcesRequest {
     pub name: std::string::String,
 
     /// Required. The type of restriction for using gcp products in the Workload environment.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub restriction_type: crate::model::restrict_allowed_resources_request::RestrictionType,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2520,6 +2527,7 @@ pub struct Violation {
     pub category: std::string::String,
 
     /// Output only. State of the violation
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::violation::State,
 
     /// Output only. Immutable. The org-policy-constraint that was incorrectly changed, which resulted in
@@ -2756,6 +2764,7 @@ pub mod violation {
         pub compliant_values: std::vec::Vec<std::string::String>,
 
         /// Output only. Reemediation type based on the type of org policy values violated
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub remediation_type: crate::model::violation::remediation::RemediationType,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

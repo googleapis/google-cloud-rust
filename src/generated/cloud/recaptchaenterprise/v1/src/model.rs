@@ -93,6 +93,7 @@ impl wkt::message::Message for CreateAssessmentRequest {
 #[non_exhaustive]
 pub struct TransactionEvent {
     /// Optional. The type of this transaction event.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub event_type: crate::model::transaction_event::TransactionEventType,
 
     /// Optional. The reason or standardized code that corresponds with this
@@ -476,6 +477,7 @@ pub struct AnnotateAssessmentRequest {
     /// Optional. The annotation that is assigned to the Event. This field can be
     /// left empty to provide reasons that apply to an event without concluding
     /// whether the event is legitimate or fraudulent.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub annotation: crate::model::annotate_assessment_request::Annotation,
 
     /// Optional. Reasons for the annotation that are assigned to the event.
@@ -1145,6 +1147,7 @@ pub struct AccountVerificationInfo {
     pub language_code: std::string::String,
 
     /// Output only. Result of the latest account verification challenge.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub latest_verification_result: crate::model::account_verification_info::Result,
 
     /// Username of the account that is being verified. Deprecated. Customers
@@ -1875,6 +1878,7 @@ pub struct Event {
     pub user_info: std::option::Option<crate::model::UserInfo>,
 
     /// Optional. The Fraud Prevention setting for this assessment.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub fraud_prevention: crate::model::event::FraudPrevention,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2960,6 +2964,7 @@ pub struct RiskAnalysis {
 
     /// Output only. Challenge information for SCORE_AND_CHALLENGE and INVISIBLE
     /// keys
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub challenge: crate::model::risk_analysis::Challenge,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3347,6 +3352,7 @@ pub struct TokenProperties {
     pub valid: bool,
 
     /// Output only. Reason associated with the response when valid = false.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub invalid_reason: crate::model::token_properties::InvalidReason,
 
     /// Output only. The timestamp corresponding to the generation of the token.
@@ -5792,6 +5798,7 @@ pub struct TestingOptions {
     /// Optional. For challenge-based keys only (CHECKBOX, INVISIBLE), all
     /// challenge requests for this site return nocaptcha if NOCAPTCHA, or an
     /// unsolvable challenge if CHALLENGE.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub testing_challenge: crate::model::testing_options::TestingChallenge,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5992,11 +5999,13 @@ pub struct WebKeySettings {
     pub allow_amp_traffic: bool,
 
     /// Required. Describes how this key is integrated with the website.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub integration_type: crate::model::web_key_settings::IntegrationType,
 
     /// Optional. Settings for the frequency and difficulty at which this key
     /// triggers captcha challenges. This should only be specified for
     /// IntegrationTypes CHECKBOX and INVISIBLE and SCORE_AND_CHALLENGE.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub challenge_security_preference: crate::model::web_key_settings::ChallengeSecurityPreference,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8123,9 +8132,11 @@ impl wkt::message::Message for RelatedAccountGroup {
 #[non_exhaustive]
 pub struct WafSettings {
     /// Required. The WAF service that uses this key.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub waf_service: crate::model::waf_settings::WafService,
 
     /// Required. The WAF feature for which this key is enabled.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub waf_feature: crate::model::waf_settings::WafFeature,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8530,6 +8541,7 @@ pub struct IpOverrideData {
     pub ip: std::string::String,
 
     /// Required. Describes the type of IP override.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub override_type: crate::model::ip_override_data::OverrideType,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

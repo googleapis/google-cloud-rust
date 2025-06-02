@@ -24,8 +24,6 @@
 
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use gax::error::Error;
-
 pub(crate) mod dynamic;
 
 /// Defines the trait used to implement [super::client::IdentityAwareProxyAdminService].
@@ -48,9 +46,7 @@ pub trait IdentityAwareProxyAdminService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<iam_v1::model::Policy>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::IdentityAwareProxyAdminService::get_iam_policy].
@@ -61,9 +57,7 @@ pub trait IdentityAwareProxyAdminService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<iam_v1::model::Policy>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::IdentityAwareProxyAdminService::test_iam_permissions].
@@ -74,9 +68,7 @@ pub trait IdentityAwareProxyAdminService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::IdentityAwareProxyAdminService::get_iap_settings].
@@ -87,9 +79,7 @@ pub trait IdentityAwareProxyAdminService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::IapSettings>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::IapSettings>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::IdentityAwareProxyAdminService::update_iap_settings].
@@ -100,9 +90,7 @@ pub trait IdentityAwareProxyAdminService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::IapSettings>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::IapSettings>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::IdentityAwareProxyAdminService::validate_iap_attribute_expression].
@@ -115,11 +103,7 @@ pub trait IdentityAwareProxyAdminService: std::fmt::Debug + Send + Sync {
             gax::response::Response<crate::model::ValidateIapAttributeExpressionResponse>,
         >,
     > + Send {
-        std::future::ready::<
-            crate::Result<
-                gax::response::Response<crate::model::ValidateIapAttributeExpressionResponse>,
-            >,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::IdentityAwareProxyAdminService::list_tunnel_dest_groups].
@@ -130,9 +114,7 @@ pub trait IdentityAwareProxyAdminService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ListTunnelDestGroupsResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::ListTunnelDestGroupsResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::IdentityAwareProxyAdminService::create_tunnel_dest_group].
@@ -143,9 +125,7 @@ pub trait IdentityAwareProxyAdminService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::TunnelDestGroup>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::TunnelDestGroup>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::IdentityAwareProxyAdminService::get_tunnel_dest_group].
@@ -156,9 +136,7 @@ pub trait IdentityAwareProxyAdminService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::TunnelDestGroup>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::TunnelDestGroup>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::IdentityAwareProxyAdminService::delete_tunnel_dest_group].
@@ -167,9 +145,7 @@ pub trait IdentityAwareProxyAdminService: std::fmt::Debug + Send + Sync {
         _req: crate::model::DeleteTunnelDestGroupRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
-            "unimplemented",
-        )))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::IdentityAwareProxyAdminService::update_tunnel_dest_group].
@@ -180,9 +156,7 @@ pub trait IdentityAwareProxyAdminService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::TunnelDestGroup>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::TunnelDestGroup>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 }
 
@@ -206,9 +180,7 @@ pub trait IdentityAwareProxyOAuthService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ListBrandsResponse>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::ListBrandsResponse>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::IdentityAwareProxyOAuthService::create_brand].
@@ -219,9 +191,7 @@ pub trait IdentityAwareProxyOAuthService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Brand>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Brand>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::IdentityAwareProxyOAuthService::get_brand].
@@ -232,9 +202,7 @@ pub trait IdentityAwareProxyOAuthService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Brand>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Brand>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::IdentityAwareProxyOAuthService::create_identity_aware_proxy_client].
@@ -245,9 +213,7 @@ pub trait IdentityAwareProxyOAuthService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::IdentityAwareProxyClient>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::IdentityAwareProxyClient>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::IdentityAwareProxyOAuthService::list_identity_aware_proxy_clients].
@@ -260,11 +226,7 @@ pub trait IdentityAwareProxyOAuthService: std::fmt::Debug + Send + Sync {
             gax::response::Response<crate::model::ListIdentityAwareProxyClientsResponse>,
         >,
     > + Send {
-        std::future::ready::<
-            crate::Result<
-                gax::response::Response<crate::model::ListIdentityAwareProxyClientsResponse>,
-            >,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::IdentityAwareProxyOAuthService::get_identity_aware_proxy_client].
@@ -275,9 +237,7 @@ pub trait IdentityAwareProxyOAuthService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::IdentityAwareProxyClient>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::IdentityAwareProxyClient>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::IdentityAwareProxyOAuthService::reset_identity_aware_proxy_client_secret].
@@ -288,9 +248,7 @@ pub trait IdentityAwareProxyOAuthService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::IdentityAwareProxyClient>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::IdentityAwareProxyClient>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::IdentityAwareProxyOAuthService::delete_identity_aware_proxy_client].
@@ -299,8 +257,6 @@ pub trait IdentityAwareProxyOAuthService: std::fmt::Debug + Send + Sync {
         _req: crate::model::DeleteIdentityAwareProxyClientRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
-            "unimplemented",
-        )))
+        gaxi::unimplemented::unimplemented_stub()
     }
 }

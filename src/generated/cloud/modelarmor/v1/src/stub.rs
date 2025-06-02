@@ -24,8 +24,6 @@
 
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use gax::error::Error;
-
 pub(crate) mod dynamic;
 
 /// Defines the trait used to implement [super::client::ModelArmor].
@@ -48,9 +46,7 @@ pub trait ModelArmor: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ListTemplatesResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::ListTemplatesResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ModelArmor::get_template].
@@ -61,9 +57,7 @@ pub trait ModelArmor: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Template>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Template>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ModelArmor::create_template].
@@ -74,9 +68,7 @@ pub trait ModelArmor: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Template>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Template>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ModelArmor::update_template].
@@ -87,9 +79,7 @@ pub trait ModelArmor: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Template>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Template>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ModelArmor::delete_template].
@@ -98,9 +88,7 @@ pub trait ModelArmor: std::fmt::Debug + Send + Sync {
         _req: crate::model::DeleteTemplateRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
-            "unimplemented",
-        )))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ModelArmor::get_floor_setting].
@@ -111,9 +99,7 @@ pub trait ModelArmor: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::FloorSetting>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::FloorSetting>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ModelArmor::update_floor_setting].
@@ -124,9 +110,7 @@ pub trait ModelArmor: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::FloorSetting>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::FloorSetting>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ModelArmor::sanitize_user_prompt].
@@ -137,9 +121,7 @@ pub trait ModelArmor: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::SanitizeUserPromptResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::SanitizeUserPromptResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ModelArmor::sanitize_model_response].
@@ -152,9 +134,7 @@ pub trait ModelArmor: std::fmt::Debug + Send + Sync {
             gax::response::Response<crate::model::SanitizeModelResponseResponse>,
         >,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::SanitizeModelResponseResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ModelArmor::list_locations].
@@ -165,9 +145,7 @@ pub trait ModelArmor: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<location::model::ListLocationsResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<location::model::ListLocationsResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ModelArmor::get_location].
@@ -178,8 +156,6 @@ pub trait ModelArmor: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<location::model::Location>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<location::model::Location>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 }

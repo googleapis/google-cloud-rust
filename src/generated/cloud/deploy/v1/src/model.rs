@@ -57,6 +57,7 @@ pub struct AutomationEvent {
 
     /// Type of this notification, e.g. for a Pub/Sub failure.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::Type,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -133,6 +134,7 @@ pub struct AutomationRunEvent {
 
     /// Type of this notification, e.g. for a Pub/Sub failure.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::Type,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7020,6 +7022,7 @@ pub struct Release {
     pub custom_target_type_snapshots: std::vec::Vec<crate::model::CustomTargetType>,
 
     /// Output only. Current state of the render operation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub render_state: crate::model::release::RenderState,
 
     /// This checksum is computed by the server based on the value of other
@@ -7339,6 +7342,7 @@ pub mod release {
         pub rendering_build: std::string::String,
 
         /// Output only. Current state of the render operation for this Target.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub rendering_state: crate::model::release::target_render::TargetRenderState,
 
         /// Output only. Metadata related to the `Release` render for this Target.
@@ -7347,6 +7351,7 @@ pub mod release {
 
         /// Output only. Reason this render failed. This will always be unspecified
         /// while the render in progress.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub failure_cause: crate::model::release::target_render::FailureCause,
 
         /// Output only. Additional information about the render failure, if
@@ -7818,6 +7823,7 @@ pub mod release {
         pub status: bool,
 
         /// The Skaffold support state for this release's version of Skaffold.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub skaffold_support_state: crate::model::SkaffoldSupportState,
 
         /// The time at which this release's version of Skaffold will enter
@@ -9360,9 +9366,11 @@ pub struct Rollout {
     pub target_id: std::string::String,
 
     /// Output only. Approval state of the `Rollout`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub approval_state: crate::model::rollout::ApprovalState,
 
     /// Output only. Current state of the `Rollout`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::rollout::State,
 
     /// Output only. Additional information about the rollout failure, if
@@ -9384,6 +9392,7 @@ pub struct Rollout {
 
     /// Output only. The reason this rollout failed. This will always be
     /// unspecified while the rollout is in progress.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub deploy_failure_cause: crate::model::rollout::FailureCause,
 
     /// Output only. The phases that represent the workflows of this `Rollout`.
@@ -10605,6 +10614,7 @@ pub struct Phase {
     pub id: std::string::String,
 
     /// Output only. Current state of the Phase.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::phase::State,
 
     /// Output only. Additional information on why the Phase was skipped, if
@@ -11070,6 +11080,7 @@ pub struct Job {
     pub id: std::string::String,
 
     /// Output only. The current state of the Job.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::job::State,
 
     /// Output only. Additional information on why the Job was skipped, if
@@ -12614,6 +12625,7 @@ pub struct JobRun {
     pub end_time: std::option::Option<wkt::Timestamp>,
 
     /// Output only. The current state of the `JobRun`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::job_run::State,
 
     /// Output only. This checksum is computed by the server based on the value of
@@ -13119,6 +13131,7 @@ pub struct DeployJobRun {
 
     /// Output only. The reason the deploy failed. This will always be unspecified
     /// while the deploy is in progress or if it succeeded.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub failure_cause: crate::model::deploy_job_run::FailureCause,
 
     /// Output only. Additional information about the deploy failure, if available.
@@ -13407,6 +13420,7 @@ pub struct VerifyJobRun {
 
     /// Output only. The reason the verify failed. This will always be unspecified
     /// while the verify is in progress or if it succeeded.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub failure_cause: crate::model::verify_job_run::FailureCause,
 
     /// Output only. Additional information about the verify failure, if available.
@@ -13643,6 +13657,7 @@ pub struct PredeployJobRun {
 
     /// Output only. The reason the predeploy failed. This will always be
     /// unspecified while the predeploy is in progress or if it succeeded.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub failure_cause: crate::model::predeploy_job_run::FailureCause,
 
     /// Output only. Additional information about the predeploy failure, if
@@ -13861,6 +13876,7 @@ pub struct PostdeployJobRun {
 
     /// Output only. The reason the postdeploy failed. This will always be
     /// unspecified while the postdeploy is in progress or if it succeeded.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub failure_cause: crate::model::postdeploy_job_run::FailureCause,
 
     /// Output only. Additional information about the postdeploy failure, if
@@ -15647,6 +15663,7 @@ pub struct Retry {
 
     /// Optional. The pattern of how wait time will be increased. Default is
     /// linear. Backoff mode will be ignored if `wait` is 0.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub backoff_mode: crate::model::BackoffMode,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -16518,6 +16535,7 @@ pub struct AutomationRun {
     pub target_id: std::string::String,
 
     /// Output only. Current state of the `AutomationRun`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::automation_run::State,
 
     /// Output only. Explains the current state of the `AutomationRun`. Present
@@ -17465,6 +17483,7 @@ pub struct RetryPhase {
 
     /// Output only. The pattern of how the wait time of the retry attempt is
     /// calculated.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub backoff_mode: crate::model::BackoffMode,
 
     /// Output only. Detail of a retry action.
@@ -17529,6 +17548,7 @@ pub struct RetryAttempt {
     pub wait: std::option::Option<wkt::Duration>,
 
     /// Output only. Valid state of this retry action.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::RepairState,
 
     /// Output only. Description of the state of the Retry.
@@ -17602,6 +17622,7 @@ pub struct RollbackAttempt {
     pub rollout_id: std::string::String,
 
     /// Output only. Valid state of this rollback action.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::RepairState,
 
     /// Output only. Description of the state of the Rollback.
@@ -17933,6 +17954,7 @@ pub struct CustomTargetTypeNotificationEvent {
 
     /// Type of this notification, e.g. for a Pub/Sub failure.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::Type,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -18003,6 +18025,7 @@ pub struct DeliveryPipelineNotificationEvent {
 
     /// Type of this notification, e.g. for a Pub/Sub failure.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::Type,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -18086,6 +18109,7 @@ pub struct DeployPolicyEvaluationEvent {
     pub target: std::string::String,
 
     /// What invoked the action (e.g. a user or automation).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub invoker: crate::model::deploy_policy::Invoker,
 
     /// The name of the `DeployPolicy`.
@@ -18105,6 +18129,7 @@ pub struct DeployPolicyEvaluationEvent {
     pub allowed: bool,
 
     /// The policy verdict of the request.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub verdict: crate::model::deploy_policy_evaluation_event::PolicyVerdict,
 
     /// Things that could have overridden the policy verdict. Overrides together
@@ -18524,6 +18549,7 @@ pub struct DeployPolicyNotificationEvent {
 
     /// Type of this notification, e.g. for a Pub/Sub failure.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::Type,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -18611,6 +18637,7 @@ pub struct JobRunNotificationEvent {
 
     /// Type of this notification, e.g. for a Pub/Sub failure.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::Type,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -18709,6 +18736,7 @@ pub struct ReleaseNotificationEvent {
 
     /// Type of this notification, e.g. for a Pub/Sub failure.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::Type,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -18781,9 +18809,11 @@ pub struct ReleaseRenderEvent {
 
     /// Type of this notification, e.g. for a release render state change event.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::Type,
 
     /// The state of the release render.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub release_render_state: crate::model::release::RenderState,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -18873,6 +18903,7 @@ pub struct RolloutNotificationEvent {
 
     /// Type of this notification, e.g. for a Pub/Sub failure.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::Type,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -18974,9 +19005,11 @@ pub struct RolloutUpdateEvent {
 
     /// Type of this notification, e.g. for a rollout update event.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::Type,
 
     /// The type of the rollout update.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub rollout_update_type: crate::model::rollout_update_event::RolloutUpdateType,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -19281,6 +19314,7 @@ pub struct TargetNotificationEvent {
 
     /// Type of this notification, e.g. for a Pub/Sub failure.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::Type,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

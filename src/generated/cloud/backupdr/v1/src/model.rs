@@ -49,6 +49,7 @@ pub struct NetworkConfig {
 
     /// Optional. The network connect mode of the ManagementServer instance. For
     /// this version, only PRIVATE_SERVICE_ACCESS is supported.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub peering_mode: crate::model::network_config::PeeringMode,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -386,6 +387,7 @@ pub struct ManagementServer {
 
     /// Optional. The type of the ManagementServer resource.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::management_server::InstanceType,
 
     /// Output only. The hostname or ip address of the exposed AGM endpoints, used
@@ -400,6 +402,7 @@ pub struct ManagementServer {
         std::option::Option<crate::model::WorkforceIdentityBasedManagementURI>,
 
     /// Output only. The ManagementServer state.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::management_server::InstanceState,
 
     /// Optional. VPC networks to which the ManagementServer instance is connected.
@@ -1626,6 +1629,7 @@ pub struct BackupPlan {
     pub backup_rules: std::vec::Vec<crate::model::BackupRule>,
 
     /// Output only. The `State` for the `BackupPlan`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::backup_plan::State,
 
     /// Required. The resource type to which the `BackupPlan` will be applied.
@@ -2058,6 +2062,7 @@ pub mod backup_rule {
 #[non_exhaustive]
 pub struct StandardSchedule {
     /// Required. Specifies the `RecurrenceType` for the schedule.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub recurrence_type: crate::model::standard_schedule::RecurrenceType,
 
     /// Optional. Specifies frequency for hourly backups. A hourly frequency of 2
@@ -2452,9 +2457,11 @@ impl wkt::message::Message for BackupWindow {
 #[non_exhaustive]
 pub struct WeekDayOfMonth {
     /// Required. Specifies the week of the month.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub week_of_month: crate::model::week_day_of_month::WeekOfMonth,
 
     /// Required. Specifies the day of the week.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub day_of_week: gtype::model::DayOfWeek,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3049,6 +3056,7 @@ pub struct BackupPlanAssociation {
     pub update_time: std::option::Option<wkt::Timestamp>,
 
     /// Output only. The BackupPlanAssociation resource state.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::backup_plan_association::State,
 
     /// Output only. The config info related to backup rules.
@@ -3326,6 +3334,7 @@ pub struct RuleConfigInfo {
     pub rule_id: std::string::String,
 
     /// Output only. The last backup state for rule.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub last_backup_state: crate::model::rule_config_info::LastBackupState,
 
     /// Output only. google.rpc.Status object to store the last backup error.
@@ -4006,6 +4015,7 @@ pub struct BackupVault {
     pub etag: std::option::Option<std::string::String>,
 
     /// Output only. The BackupVault resource instance state.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::backup_vault::State,
 
     /// Optional. Time after which the BackupVault resource is locked.
@@ -4042,6 +4052,7 @@ pub struct BackupVault {
     ///
     /// Access restriction for the backup vault.
     /// Default value is WITHIN_ORGANIZATION if not provided during creation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub access_restriction: crate::model::backup_vault::AccessRestriction,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4583,6 +4594,7 @@ pub struct DataSource {
     pub name: std::string::String,
 
     /// Output only. The DataSource resource instance state.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::data_source::State,
 
     /// Optional. Resource labels to represent user provided metadata.
@@ -4614,6 +4626,7 @@ pub struct DataSource {
     pub total_stored_bytes: std::option::Option<i64>,
 
     /// Output only. The backup configuration state.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub config_state: crate::model::BackupConfigState,
 
     /// Output only. Details of how the resource is configured for backup.
@@ -5044,6 +5057,7 @@ pub mod data_source {
 #[non_exhaustive]
 pub struct BackupConfigInfo {
     /// Output only. The status of the last backup to this BackupVault
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub last_backup_state: crate::model::backup_config_info::LastBackupState,
 
     /// Output only. If the last backup were successful, this field has the
@@ -6187,6 +6201,7 @@ pub struct Backup {
     pub etag: std::option::Option<std::string::String>,
 
     /// Output only. The Backup resource instance state.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::backup::State,
 
     /// Output only. The list of BackupLocks taken by the service to prevent the
@@ -6199,6 +6214,7 @@ pub struct Backup {
     pub backup_appliance_locks: std::vec::Vec<crate::model::BackupLock>,
 
     /// Output only. Type of the backup, unspecified, scheduled or ondemand.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub backup_type: crate::model::backup::BackupType,
 
     /// Output only. source resource size in bytes at the time of the backup.
@@ -7031,6 +7047,7 @@ pub struct ListBackupVaultsRequest {
 
     /// Optional. Reserved for future use to provide a BASIC & FULL view of Backup
     /// Vault.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub view: crate::model::BackupVaultView,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7342,6 +7359,7 @@ pub struct GetBackupVaultRequest {
 
     /// Optional. Reserved for future use to provide a BASIC & FULL view of Backup
     /// Vault
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub view: crate::model::BackupVaultView,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7926,6 +7944,7 @@ pub struct ListBackupsRequest {
 
     /// Optional. Reserved for future use to provide a BASIC & FULL view of Backup
     /// resource.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub view: crate::model::BackupView,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8076,6 +8095,7 @@ pub struct GetBackupRequest {
 
     /// Optional. Reserved for future use to provide a BASIC & FULL view of Backup
     /// resource.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub view: crate::model::BackupView,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

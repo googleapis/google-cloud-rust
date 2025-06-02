@@ -315,6 +315,7 @@ pub struct Manifest {
 
     /// Required. Type of the manifest, can be `HLS` or `DASH`.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::manifest::ManifestType,
 
     /// Required. List of `MuxStream`
@@ -1694,6 +1695,7 @@ pub struct TimecodeConfig {
     /// The source of the timecode that will later be used in outputs/manifests.
     /// It determines the initial timecode/timestamp (first frame) of output
     /// streams.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub source: crate::model::timecode_config::TimecodeSource,
 
     /// For EMBEDDED_TIMECODE source only.
@@ -1971,12 +1973,14 @@ pub struct Input {
 
     /// Source type.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::input::Type,
 
     /// Tier defines the maximum input specification that is accepted by the
     /// video pipeline. The billing is charged based on the tier specified here.
     /// See [Pricing](https://cloud.google.com/livestream/pricing) for more detail.
     /// The default is `HD`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub tier: crate::model::input::Tier,
 
     /// Output only. URI to push the input stream to.
@@ -2529,6 +2533,7 @@ pub struct Channel {
     pub sprite_sheets: std::vec::Vec<crate::model::SpriteSheet>,
 
     /// Output only. State of the streaming operation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub streaming_state: crate::model::channel::StreamingState,
 
     /// Output only. A description of the reason for the streaming error. This
@@ -3245,6 +3250,7 @@ impl wkt::message::Message for StaticOverlay {
 #[non_exhaustive]
 pub struct InputConfig {
     /// Input switch mode. Default mode is `FAILOVER_PREFER_PRIMARY`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub input_switch_mode: crate::model::input_config::InputSwitchMode,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3435,6 +3441,7 @@ pub mod input_config {
 #[non_exhaustive]
 pub struct LogConfig {
     /// The severity level of platform logging for this resource.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub log_severity: crate::model::log_config::LogSeverity,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4155,6 +4162,7 @@ pub struct Event {
     pub execution_time: std::option::Option<wkt::Timestamp>,
 
     /// Output only. The state of the event.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::event::State,
 
     /// Output only. An error object that describes the reason for the failure.
@@ -4901,6 +4909,7 @@ pub struct Clip {
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. The state of the clip.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::clip::State,
 
     /// Specify the `output_uri` to determine where to place the clip segments and
@@ -4930,6 +4939,7 @@ pub struct Clip {
 
     /// Optional. OutputType of the clip. If not specified, the default value is
     /// MANIFEST.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub output_type: crate::model::clip::OutputType,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5668,6 +5678,7 @@ pub struct DvrSession {
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. The state of the clip.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::dvr_session::State,
 
     /// Output only. An error object that describes the reason for the failure.
@@ -6190,6 +6201,7 @@ pub struct Asset {
     pub crc32c: std::string::String,
 
     /// Output only. The state of the asset resource.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::asset::State,
 
     /// Output only. Only present when `state` is `ERROR`. The reason for the error

@@ -24,8 +24,6 @@
 
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use gax::error::Error;
-
 pub(crate) mod dynamic;
 
 /// Defines the trait used to implement [super::client::StorageControl].
@@ -48,9 +46,7 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Folder>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Folder>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::StorageControl::delete_folder].
@@ -59,9 +55,7 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
         _req: crate::model::DeleteFolderRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
-            "unimplemented",
-        )))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::StorageControl::get_folder].
@@ -72,9 +66,7 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Folder>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Folder>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::StorageControl::list_folders].
@@ -85,9 +77,7 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ListFoldersResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::ListFoldersResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::StorageControl::rename_folder].
@@ -98,9 +88,7 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::StorageControl::get_storage_layout].
@@ -111,9 +99,7 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::StorageLayout>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::StorageLayout>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::StorageControl::create_managed_folder].
@@ -124,9 +110,7 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ManagedFolder>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::ManagedFolder>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::StorageControl::delete_managed_folder].
@@ -135,9 +119,7 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
         _req: crate::model::DeleteManagedFolderRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
-            "unimplemented",
-        )))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::StorageControl::get_managed_folder].
@@ -148,9 +130,7 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ManagedFolder>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::ManagedFolder>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::StorageControl::list_managed_folders].
@@ -161,9 +141,7 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ListManagedFoldersResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::ListManagedFoldersResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::StorageControl::create_anywhere_cache].
@@ -174,9 +152,7 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::StorageControl::update_anywhere_cache].
@@ -187,9 +163,7 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::StorageControl::disable_anywhere_cache].
@@ -200,9 +174,7 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::AnywhereCache>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::AnywhereCache>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::StorageControl::pause_anywhere_cache].
@@ -213,9 +185,7 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::AnywhereCache>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::AnywhereCache>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::StorageControl::resume_anywhere_cache].
@@ -226,9 +196,7 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::AnywhereCache>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::AnywhereCache>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::StorageControl::get_anywhere_cache].
@@ -239,9 +207,7 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::AnywhereCache>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::AnywhereCache>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::StorageControl::list_anywhere_caches].
@@ -252,9 +218,7 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ListAnywhereCachesResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::ListAnywhereCachesResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::StorageControl::get_project_intelligence_config].
@@ -265,9 +229,7 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::IntelligenceConfig>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::IntelligenceConfig>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::StorageControl::update_project_intelligence_config].
@@ -278,9 +240,7 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::IntelligenceConfig>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::IntelligenceConfig>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::StorageControl::get_folder_intelligence_config].
@@ -291,9 +251,7 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::IntelligenceConfig>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::IntelligenceConfig>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::StorageControl::update_folder_intelligence_config].
@@ -304,9 +262,7 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::IntelligenceConfig>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::IntelligenceConfig>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::StorageControl::get_organization_intelligence_config].
@@ -317,9 +273,7 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::IntelligenceConfig>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::IntelligenceConfig>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::StorageControl::update_organization_intelligence_config].
@@ -330,9 +284,7 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::IntelligenceConfig>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::IntelligenceConfig>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::StorageControl::get_operation].
@@ -343,9 +295,7 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Returns the polling error policy.

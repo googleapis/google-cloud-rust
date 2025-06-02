@@ -1115,6 +1115,7 @@ pub mod compliance_note {
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub profile_level: i32,
 
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub severity: crate::model::Severity,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1368,20 +1369,28 @@ pub struct CVSSv3 {
     /// Base Metrics
     /// Represents the intrinsic characteristics of a vulnerability that are
     /// constant over time and across user environments.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub attack_vector: crate::model::cvs_sv_3::AttackVector,
 
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub attack_complexity: crate::model::cvs_sv_3::AttackComplexity,
 
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub privileges_required: crate::model::cvs_sv_3::PrivilegesRequired,
 
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub user_interaction: crate::model::cvs_sv_3::UserInteraction,
 
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub scope: crate::model::cvs_sv_3::Scope,
 
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub confidentiality_impact: crate::model::cvs_sv_3::Impact,
 
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub integrity_impact: crate::model::cvs_sv_3::Impact,
 
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub availability_impact: crate::model::cvs_sv_3::Impact,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2314,22 +2323,31 @@ pub struct Cvss {
     /// Base Metrics
     /// Represents the intrinsic characteristics of a vulnerability that are
     /// constant over time and across user environments.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub attack_vector: crate::model::cvss::AttackVector,
 
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub attack_complexity: crate::model::cvss::AttackComplexity,
 
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub authentication: crate::model::cvss::Authentication,
 
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub privileges_required: crate::model::cvss::PrivilegesRequired,
 
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub user_interaction: crate::model::cvss::UserInteraction,
 
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub scope: crate::model::cvss::Scope,
 
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub confidentiality_impact: crate::model::cvss::Impact,
 
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub integrity_impact: crate::model::cvss::Impact,
 
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub availability_impact: crate::model::cvss::Impact,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3465,6 +3483,7 @@ pub struct DeploymentOccurrence {
     pub resource_uri: std::vec::Vec<std::string::String>,
 
     /// Platform hosting this deployment.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub platform: crate::model::deployment_occurrence::Platform,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3712,6 +3731,7 @@ pub mod deployment_occurrence {
 pub struct DiscoveryNote {
     /// Required. Immutable. The kind of analysis that is handled by this
     /// discovery.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub analysis_kind: crate::model::NoteKind,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3746,9 +3766,11 @@ impl wkt::message::Message for DiscoveryNote {
 #[non_exhaustive]
 pub struct DiscoveryOccurrence {
     /// Whether the resource is continuously analyzed.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub continuous_analysis: crate::model::discovery_occurrence::ContinuousAnalysis,
 
     /// The status of discovery for the resource.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub analysis_status: crate::model::discovery_occurrence::AnalysisStatus,
 
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -3999,6 +4021,7 @@ pub mod discovery_occurrence {
     #[non_exhaustive]
     pub struct SBOMStatus {
         /// The progress of the SBOM generation.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub sbom_state: crate::model::discovery_occurrence::sbom_status::SBOMState,
 
         /// If there was an error generating an SBOM, this will indicate what that
@@ -4192,6 +4215,7 @@ pub mod discovery_occurrence {
         pub last_attempt_time: std::option::Option<wkt::Timestamp>,
 
         /// The success/failure state of the latest attestation attempt.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub state: crate::model::discovery_occurrence::vulnerability_attestation::VulnerabilityAttestationState,
 
         /// If failure, the error reason for why the attestation generation failed.
@@ -4906,6 +4930,7 @@ pub struct Occurrence {
 
     /// Output only. This explicitly denotes which of the occurrence details are
     /// specified. This field can be used as a filter in list requests.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub kind: crate::model::NoteKind,
 
     /// A description of actions that can be taken to remedy the note.
@@ -5436,6 +5461,7 @@ pub struct Note {
 
     /// Output only. The type of analysis. This field can be used as a filter in
     /// list requests.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub kind: crate::model::NoteKind,
 
     /// URLs associated with this note.
@@ -8428,6 +8454,7 @@ pub struct Distribution {
 
     /// The CPU architecture for which packages in this distribution channel were
     /// built.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub architecture: crate::model::Architecture,
 
     /// The latest available version of this package in this distribution channel.
@@ -8608,6 +8635,7 @@ pub struct PackageNote {
 
     /// The CPU architecture for which packages in this distribution channel were
     /// built. Architecture will be blank for language packages.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub architecture: crate::model::Architecture,
 
     /// The version of the package.
@@ -8782,6 +8810,7 @@ pub struct PackageOccurrence {
 
     /// The CPU architecture for which packages in this distribution channel were
     /// built. Architecture will be blank for language packages.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub architecture: crate::model::Architecture,
 
     /// Licenses that have been declared by the authors of the package.
@@ -8912,6 +8941,7 @@ pub struct Version {
 
     /// Required. Distinguishes between sentinel MIN/MAX versions and normal
     /// versions.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub kind: crate::model::version::VersionKind,
 
     /// Human readable version string. This string is of the form
@@ -9848,6 +9878,7 @@ pub mod source_context {
 #[non_exhaustive]
 pub struct AliasContext {
     /// The alias kind.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub kind: crate::model::alias_context::Kind,
 
     /// The alias name.
@@ -10798,6 +10829,7 @@ impl wkt::message::Message for SecretNote {
 #[non_exhaustive]
 pub struct SecretOccurrence {
     /// Type of secret.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub kind: crate::model::SecretKind,
 
     /// Locations where the secret is detected.
@@ -10945,6 +10977,7 @@ pub mod secret_location {
 #[non_exhaustive]
 pub struct SecretStatus {
     /// The status of the secret.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub status: crate::model::secret_status::Status,
 
     /// The time the secret status was last updated.
@@ -12984,6 +13017,7 @@ pub mod vulnerability_assessment_note {
         pub related_uris: std::vec::Vec<crate::model::RelatedUrl>,
 
         /// Provides the state of this Vulnerability assessment.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub state: crate::model::vulnerability_assessment_note::assessment::State,
 
         /// Contains information about the impact of this vulnerability,
@@ -13135,6 +13169,7 @@ pub mod vulnerability_assessment_note {
         pub struct Justification {
 
             /// The justification type for this vulnerability.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub justification_type: crate::model::vulnerability_assessment_note::assessment::justification::JustificationType,
 
             /// Additional details on why this justification was chosen.
@@ -13369,6 +13404,7 @@ pub mod vulnerability_assessment_note {
         pub struct Remediation {
 
             /// The type of remediation that can be applied.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub remediation_type: crate::model::vulnerability_assessment_note::assessment::remediation::RemediationType,
 
             /// Contains a comprehensive human-readable discussion of the remediation.
@@ -13753,6 +13789,7 @@ pub struct VulnerabilityNote {
     pub cvss_score: f32,
 
     /// The note provider assigned severity of this vulnerability.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub severity: crate::model::Severity,
 
     /// Details of all known distros and packages affected by this vulnerability.
@@ -13777,6 +13814,7 @@ pub struct VulnerabilityNote {
     pub source_update_time: std::option::Option<wkt::Timestamp>,
 
     /// CVSS version used to populate cvss_score and severity.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub cvss_version: crate::model::CVSSVersion,
 
     /// The full description of the v2 CVSS for this vulnerability.
@@ -14286,6 +14324,7 @@ pub struct VulnerabilityOccurrence {
     pub r#type: std::string::String,
 
     /// Output only. The note provider assigned severity of this vulnerability.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub severity: crate::model::Severity,
 
     /// Output only. The CVSS score of this vulnerability. CVSS score is on a
@@ -14326,6 +14365,7 @@ pub struct VulnerabilityOccurrence {
     /// PackageIssue level. In the case where multiple PackageIssues have differing
     /// effective severities, this field should be the highest severity for any of
     /// the PackageIssues.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub effective_severity: crate::model::Severity,
 
     /// Output only. Whether at least one of the affected packages has a fix
@@ -14334,6 +14374,7 @@ pub struct VulnerabilityOccurrence {
     pub fix_available: bool,
 
     /// Output only. CVSS version used to populate cvss_score and severity.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub cvss_version: crate::model::CVSSVersion,
 
     /// The cvss v2 score for the vulnerability.
@@ -14558,6 +14599,7 @@ pub mod vulnerability_occurrence {
         /// The distro or language system assigned severity for this vulnerability
         /// when that is available and note provider assigned severity when it is not
         /// available.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub effective_severity: crate::model::Severity,
 
         /// The location at which this package was found.
@@ -14720,6 +14762,7 @@ pub mod vulnerability_occurrence {
         pub note_name: std::string::String,
 
         /// Provides the state of this Vulnerability assessment.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub state: crate::model::vulnerability_assessment_note::assessment::State,
 
         /// Contains information about the impact of this vulnerability,

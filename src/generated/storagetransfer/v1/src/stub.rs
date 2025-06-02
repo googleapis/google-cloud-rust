@@ -24,8 +24,6 @@
 
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use gax::error::Error;
-
 pub(crate) mod dynamic;
 
 /// Defines the trait used to implement [super::client::StorageTransferService].
@@ -48,9 +46,7 @@ pub trait StorageTransferService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::GoogleServiceAccount>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::GoogleServiceAccount>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::StorageTransferService::create_transfer_job].
@@ -61,9 +57,7 @@ pub trait StorageTransferService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::TransferJob>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::TransferJob>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::StorageTransferService::update_transfer_job].
@@ -74,9 +68,7 @@ pub trait StorageTransferService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::TransferJob>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::TransferJob>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::StorageTransferService::get_transfer_job].
@@ -87,9 +79,7 @@ pub trait StorageTransferService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::TransferJob>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::TransferJob>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::StorageTransferService::list_transfer_jobs].
@@ -100,9 +90,7 @@ pub trait StorageTransferService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ListTransferJobsResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::ListTransferJobsResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::StorageTransferService::pause_transfer_operation].
@@ -111,9 +99,7 @@ pub trait StorageTransferService: std::fmt::Debug + Send + Sync {
         _req: crate::model::PauseTransferOperationRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
-            "unimplemented",
-        )))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::StorageTransferService::resume_transfer_operation].
@@ -122,9 +108,7 @@ pub trait StorageTransferService: std::fmt::Debug + Send + Sync {
         _req: crate::model::ResumeTransferOperationRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
-            "unimplemented",
-        )))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::StorageTransferService::run_transfer_job].
@@ -135,9 +119,7 @@ pub trait StorageTransferService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::StorageTransferService::delete_transfer_job].
@@ -146,9 +128,7 @@ pub trait StorageTransferService: std::fmt::Debug + Send + Sync {
         _req: crate::model::DeleteTransferJobRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
-            "unimplemented",
-        )))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::StorageTransferService::create_agent_pool].
@@ -159,9 +139,7 @@ pub trait StorageTransferService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::AgentPool>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::AgentPool>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::StorageTransferService::update_agent_pool].
@@ -172,9 +150,7 @@ pub trait StorageTransferService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::AgentPool>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::AgentPool>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::StorageTransferService::get_agent_pool].
@@ -185,9 +161,7 @@ pub trait StorageTransferService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::AgentPool>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::AgentPool>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::StorageTransferService::list_agent_pools].
@@ -198,9 +172,7 @@ pub trait StorageTransferService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ListAgentPoolsResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::ListAgentPoolsResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::StorageTransferService::delete_agent_pool].
@@ -209,9 +181,7 @@ pub trait StorageTransferService: std::fmt::Debug + Send + Sync {
         _req: crate::model::DeleteAgentPoolRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
-            "unimplemented",
-        )))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::StorageTransferService::list_operations].
@@ -222,9 +192,7 @@ pub trait StorageTransferService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::StorageTransferService::get_operation].
@@ -235,9 +203,7 @@ pub trait StorageTransferService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::StorageTransferService::cancel_operation].
@@ -246,9 +212,7 @@ pub trait StorageTransferService: std::fmt::Debug + Send + Sync {
         _req: longrunning::model::CancelOperationRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
-            "unimplemented",
-        )))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Returns the polling error policy.

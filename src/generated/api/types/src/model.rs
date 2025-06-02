@@ -708,6 +708,7 @@ pub struct BackendRule {
     #[serde_as(as = "wkt::internal::F64")]
     pub operation_deadline: f64,
 
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub path_translation: crate::model::backend_rule::PathTranslation,
 
     /// The protocol used for sending a request to the backend.
@@ -1345,6 +1346,7 @@ pub struct ClientLibrarySettings {
     pub version: std::string::String,
 
     /// Launch stage of this version of the API.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub launch_stage: crate::model::LaunchStage,
 
     /// When using transport=rest, the client request will encode enums as
@@ -1609,6 +1611,7 @@ pub struct Publishing {
     pub doc_tag_prefix: std::string::String,
 
     /// For whom the client library is being published.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub organization: crate::model::ClientLibraryOrganization,
 
     /// Client library settings.  If the same version string appears multiple
@@ -2653,6 +2656,7 @@ pub struct ConfigChange {
     pub new_value: std::string::String,
 
     /// The type for this change, either ADDED, REMOVED, or MODIFIED.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub change_type: crate::model::ChangeType,
 
     /// Collection of advice provided for this change, useful for determining the
@@ -2821,6 +2825,7 @@ pub struct Property {
 
     /// The type of this property.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::property::PropertyType,
 
     /// The description of the property
@@ -4301,6 +4306,7 @@ pub struct FieldInfo {
     /// The standard format of a field value. This does not explicitly configure
     /// any API consumer, just documents the API's format for the field it is
     /// applied to.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub format: crate::model::field_info::Format,
 
     /// The type(s) that the annotated, generic field may represent.
@@ -5320,6 +5326,7 @@ pub struct LabelDescriptor {
     pub key: std::string::String,
 
     /// The type of data that can be assigned to the label.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub value_type: crate::model::label_descriptor::ValueType,
 
     /// A human-readable description for the label.
@@ -5775,10 +5782,12 @@ pub struct MetricDescriptor {
 
     /// Whether the metric records instantaneous values, changes to a value, etc.
     /// Some combinations of `metric_kind` and `value_type` might not be supported.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub metric_kind: crate::model::metric_descriptor::MetricKind,
 
     /// Whether the measurement is an integer, a floating-point number, etc.
     /// Some combinations of `metric_kind` and `value_type` might not be supported.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub value_type: crate::model::metric_descriptor::ValueType,
 
     /// The units in which the metric value is reported. It is only applicable
@@ -5923,6 +5932,7 @@ pub struct MetricDescriptor {
     pub metadata: std::option::Option<crate::model::metric_descriptor::MetricDescriptorMetadata>,
 
     /// Optional. The launch stage of the metric definition.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub launch_stage: crate::model::LaunchStage,
 
     /// Read-only. If present, then a [time
@@ -6066,6 +6076,7 @@ pub mod metric_descriptor {
         /// instead.
         ///
         /// [google.api.MetricDescriptor.launch_stage]: crate::model::MetricDescriptor::launch_stage
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[deprecated]
         pub launch_stage: crate::model::LaunchStage,
 
@@ -6730,6 +6741,7 @@ pub struct MonitoredResourceDescriptor {
     pub labels: std::vec::Vec<crate::model::LabelDescriptor>,
 
     /// Optional. The launch stage of the monitored resource definition.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub launch_stage: crate::model::LaunchStage,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7731,6 +7743,7 @@ pub struct ResourceDescriptor {
     ///   };
     /// }
     /// ```
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub history: crate::model::resource_descriptor::History,
 
     /// The plural name used in the resource name and permission names, such as

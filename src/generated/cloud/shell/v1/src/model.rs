@@ -60,6 +60,7 @@ pub struct Environment {
     pub docker_image: std::string::String,
 
     /// Output only. Current execution state of this environment.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::environment::State,
 
     /// Output only. Host to which clients can connect to initiate HTTPS or WSS
@@ -611,6 +612,7 @@ impl wkt::message::Message for AuthorizeEnvironmentMetadata {
 #[non_exhaustive]
 pub struct StartEnvironmentMetadata {
     /// Current state of the environment being started.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::start_environment_metadata::State,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1067,6 +1069,7 @@ impl wkt::message::Message for RemovePublicKeyMetadata {
 #[non_exhaustive]
 pub struct CloudShellErrorDetails {
     /// Code indicating the specific error the occurred.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub code: crate::model::cloud_shell_error_details::CloudShellErrorCode,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
