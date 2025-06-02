@@ -72,6 +72,7 @@ pub struct Cluster {
     /// value is not specified explicitly for a node pool in this cluster. If
     /// unspecified, the Kubernetes default value will be used.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub default_max_pods_per_node: i32,
 
     /// Output only. The IP address of the Kubernetes API server.
@@ -80,6 +81,7 @@ pub struct Cluster {
 
     /// Output only. The port number of the Kubernetes API server.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub port: i32,
 
     /// Output only. The PEM-encoded public certificate of the cluster's CA.
@@ -638,6 +640,7 @@ pub mod cluster {
 
             /// The number of nodes to serve as replicas of the Control Plane.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::I32")]
             pub node_count: i32,
 
             /// Only machines matching this filter will be allowed to host control
@@ -2498,6 +2501,7 @@ pub struct NodePool {
 
     /// Required. The number of nodes in the pool.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub node_count: i32,
 
     /// Only machines matching this filter will be allowed to join the node pool.
@@ -4711,6 +4715,7 @@ pub struct ListClustersRequest {
 
     /// The maximum number of resources to list.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A page token received from previous list request.
@@ -5489,6 +5494,7 @@ pub struct ListNodePoolsRequest {
 
     /// The maximum number of resources to list.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A page token received from previous list request.
@@ -5871,6 +5877,7 @@ pub struct ListMachinesRequest {
 
     /// The maximum number of resources to list.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A page token received from previous list request.
@@ -6052,6 +6059,7 @@ pub struct ListVpnConnectionsRequest {
 
     /// The maximum number of resources to list.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A page token received from previous list request.

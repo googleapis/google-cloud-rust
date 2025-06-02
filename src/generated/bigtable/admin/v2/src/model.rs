@@ -1499,6 +1499,7 @@ pub struct ListAppProfilesRequest {
     /// to pass a page_size. If a page_size is set in subsequent calls, it must
     /// match the page_size given in the first request.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The value of `next_page_token` returned by a previous call.
@@ -1798,6 +1799,7 @@ pub struct ListHotTabletsRequest {
     /// page_size field. If a page_size is set in subsequent calls, it must match
     /// the page_size given in the first request.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The value of `next_page_token` returned by a previous call.
@@ -2144,6 +2146,7 @@ pub struct ListLogicalViewsRequest {
     /// Optional. The maximum number of logical views to return. The service may
     /// return fewer than this value
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous `ListLogicalViews` call.
@@ -2663,6 +2666,7 @@ pub struct ListMaterializedViewsRequest {
     /// Optional. The maximum number of materialized views to return. The service
     /// may return fewer than this value
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous `ListMaterializedViews`
@@ -3662,6 +3666,7 @@ pub struct ListTablesRequest {
     /// to pass a page_size. If a page_size is set in subsequent calls, it must
     /// match the page_size given in the first request.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The value of `next_page_token` returned by a previous call.
@@ -4882,6 +4887,7 @@ pub struct ListSnapshotsRequest {
     /// The maximum number of snapshots to return per page.
     /// CURRENTLY UNIMPLEMENTED AND IGNORED.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The value of `next_page_token` returned by a previous call.
@@ -5618,6 +5624,7 @@ pub struct ListBackupsRequest {
     /// Number of backups to be returned in the response. If 0 or
     /// less, defaults to the server's maximum allowed page size.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// If non-empty, `page_token` should contain a
@@ -6112,6 +6119,7 @@ pub struct ListAuthorizedViewsRequest {
     /// to pass a page_size. If a page_size is set in subsequent calls, it must
     /// match the page_size given in the first request.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. The value of `next_page_token` returned by a previous call.
@@ -6524,6 +6532,7 @@ pub struct OperationProgress {
     /// Percent completion of the operation.
     /// Values are between 0 and 100 inclusive.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub progress_percent: i32,
 
     /// Time the request was received.
@@ -7046,6 +7055,7 @@ pub struct AutoscalingTargets {
     /// 100 (total utilization), and is limited between 10 and 80, otherwise it
     /// will return INVALID_ARGUMENT error.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub cpu_utilization_percent: i32,
 
     /// The storage utilization that the Autoscaler should be trying to achieve.
@@ -7055,6 +7065,7 @@ pub struct AutoscalingTargets {
     /// it will be treated as if it were set to the default value: 2560 for SSD,
     /// 8192 for HDD.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub storage_utilization_gib_per_node: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7096,10 +7107,12 @@ impl wkt::message::Message for AutoscalingTargets {
 pub struct AutoscalingLimits {
     /// Required. Minimum number of nodes to scale down to.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub min_serve_nodes: i32,
 
     /// Required. Maximum number of nodes to scale up to.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub max_serve_nodes: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7161,6 +7174,7 @@ pub struct Cluster {
     /// Cloud Bigtable automatically allocates nodes based on your data footprint
     /// and optimized for 50% storage utilization.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub serve_nodes: i32,
 
     /// Immutable. The node scaling factor of this cluster.
@@ -10602,7 +10616,7 @@ pub mod gc_rule {
     #[non_exhaustive]
     pub enum Rule {
         /// Delete all cells in a column except the most recent N.
-        MaxNumVersions(i32),
+        MaxNumVersions(#[serde_as(as = "wkt::internal::I32")] i32),
         /// Delete cells in a column older than the given age.
         /// Values must be at least one millisecond, and will be truncated to
         /// microsecond granularity.

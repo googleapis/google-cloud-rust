@@ -52,6 +52,7 @@ pub struct ListAppGatewaysRequest {
     /// [next_page_token][BeyondCorp.ListAppGatewaysResponse.next_page_token] to
     /// determine if there are more instances left to be queried.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. The next_page_token value returned from a previous
@@ -594,6 +595,7 @@ pub mod app_gateway {
 
         /// Required. The ingress port of an allocated connection
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub ingress_port: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

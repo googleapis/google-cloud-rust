@@ -433,6 +433,7 @@ pub struct NetworkEndpoint {
 
     /// The port of this network endpoint.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub port: i32,
 
     /// The access config for the TPU worker.
@@ -549,6 +550,7 @@ pub struct NetworkConfig {
     /// Optional. Specifies networking queue count for TPU VM instance's network
     /// interface.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub queue_count: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2017,6 +2019,7 @@ pub mod queued_resource {
                 /// to provision "node_count" nodes as part of the request.
                 /// This needs to be > 1.
                 #[serde(skip_serializing_if = "wkt::internal::is_default")]
+                #[serde_as(as = "wkt::internal::I32")]
                 pub node_count: i32,
 
                 /// Optional. Prefix of node_ids in case of multislice request.
@@ -3298,6 +3301,7 @@ pub struct ListNodesRequest {
 
     /// The maximum number of items to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous List request, if any.
@@ -3703,6 +3707,7 @@ pub struct ListQueuedResourcesRequest {
 
     /// Optional. The maximum number of items to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. The next_page_token value returned from a previous List request,
@@ -4253,6 +4258,7 @@ pub struct ListAcceleratorTypesRequest {
 
     /// The maximum number of items to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous List request, if any.
@@ -4483,6 +4489,7 @@ pub struct ListRuntimeVersionsRequest {
 
     /// The maximum number of items to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous List request, if any.

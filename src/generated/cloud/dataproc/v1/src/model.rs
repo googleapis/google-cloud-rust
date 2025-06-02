@@ -471,6 +471,7 @@ pub struct InstanceGroupAutoscalingPolicyConfig {
     /// Primary workers - Bounds: [2, max_instances]. Default: 2.
     /// Secondary workers - Bounds: [0, max_instances]. Default: 0.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub min_instances: i32,
 
     /// Required. Maximum number of instances for this group. Required for primary
@@ -480,6 +481,7 @@ pub struct InstanceGroupAutoscalingPolicyConfig {
     /// Primary workers - Bounds: [min_instances, ).
     /// Secondary workers - Bounds: [min_instances, ). Default: 0.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub max_instances: i32,
 
     /// Optional. Weight for the instance group, which is used to determine the
@@ -501,6 +503,7 @@ pub struct InstanceGroupAutoscalingPolicyConfig {
     /// primary workers, the cluster will use primary workers only and no
     /// secondary workers.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub weight: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -754,6 +757,7 @@ pub struct ListAutoscalingPoliciesRequest {
     /// Optional. The maximum number of results to return in each response.
     /// Must be less than or equal to 1000. Defaults to 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. The page token, returned by a previous call, to request the
@@ -993,6 +997,7 @@ pub struct ListBatchesRequest {
     /// The service may return fewer than this value.
     /// The default page size is 20; the maximum page size is 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A page token received from a previous `ListBatches` call.
@@ -3834,6 +3839,7 @@ pub struct InstanceGroupConfig {
     /// For standard cluster [master_config](#FIELDS.master_config) groups,
     /// **must be set to 1**.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub num_instances: i32,
 
     /// Output only. The list of instance names. Dataproc derives the names
@@ -3933,6 +3939,7 @@ pub struct InstanceGroupConfig {
     ///   the cluster in placed in an `ERROR` state. The failed VMs
     ///   are not deleted.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub min_num_instances: i32,
 
     /// Optional. Instance flexibility Policy allowing a mixture of VM shapes and
@@ -4562,6 +4569,7 @@ pub mod instance_flexibility_policy {
         /// standard_capacity_base is 5, Dataproc will create 5 standard VMs and then
         /// start mixing spot and standard VMs for remaining 10 instances.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
         pub standard_capacity_base: std::option::Option<i32>,
 
         /// Optional. The percentage of target capacity that should use Standard VM.
@@ -4572,6 +4580,7 @@ pub mod instance_flexibility_policy {
         /// standard VMs and then start mixing spot and standard VMs for remaining 10
         /// instances. The mix will be 30% standard and 70% spot.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
         pub standard_capacity_percent_above_base: std::option::Option<i32>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4645,6 +4654,7 @@ pub mod instance_flexibility_policy {
         /// availability. Machine types and instance selections with the same
         /// priority have the same preference.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub rank: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4693,6 +4703,7 @@ pub mod instance_flexibility_policy {
 
         /// Output only. Number of VM provisioned with the machine_type.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
         pub vm_count: std::option::Option<i32>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4777,6 +4788,7 @@ pub struct AcceleratorConfig {
 
     /// The number of the accelerator cards of this type exposed to this instance.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub accelerator_count: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4826,6 +4838,7 @@ pub struct DiskConfig {
 
     /// Optional. Size in GB of the boot disk (default is 500GB).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub boot_disk_size_gb: i32,
 
     /// Optional. Number of attached SSDs, from 0 to 8 (default is 0).
@@ -4838,6 +4851,7 @@ pub struct DiskConfig {
     /// Note: Local SSD options may vary by machine type and number of vCPUs
     /// selected.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub num_local_ssds: i32,
 
     /// Optional. Interface type of local SSDs (default is "scsi").
@@ -5860,6 +5874,7 @@ pub struct KerberosConfig {
     /// If not specified, or user specifies 0, then default value 10
     /// will be used.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub tgt_lifetime_hours: i32,
 
     /// Optional. The name of the on-cluster Kerberos realm.
@@ -7336,6 +7351,7 @@ pub struct ListClustersRequest {
 
     /// Optional. The standard List page size.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. The standard List page token.
@@ -11465,10 +11481,12 @@ pub mod job {
 pub struct DriverSchedulingConfig {
     /// Required. The amount of memory in MB the driver is requesting.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub memory_mb: i32,
 
     /// Required. The number of vCPUs the driver is requesting.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub vcores: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11518,6 +11536,7 @@ pub struct JobScheduling {
     /// [workflow templates]
     /// (<https://cloud.google.com/dataproc/docs/concepts/workflows/using-workflows#adding_jobs_to_a_template>).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub max_failures_per_hour: i32,
 
     /// Optional. Maximum total number of times a driver can be restarted as a
@@ -11531,6 +11550,7 @@ pub struct JobScheduling {
     /// [workflow
     /// templates](https://cloud.google.com/dataproc/docs/concepts/workflows/using-workflows#adding_jobs_to_a_template).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub max_failures_total: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11805,6 +11825,7 @@ pub struct ListJobsRequest {
 
     /// Optional. The number of results to return in each response.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. The page token, returned by a previous call, to request the
@@ -12442,6 +12463,7 @@ pub struct ResizeNodeGroupRequest {
     /// The group adds or removes instances to maintain the number of instances
     /// specified by this parameter.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub size: i32,
 
     /// Optional. A unique ID used to identify the request. If the server receives
@@ -13926,6 +13948,7 @@ pub struct ListSessionTemplatesRequest {
     /// Optional. The maximum number of sessions to return in each response.
     /// The service may return fewer than this value.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A page token received from a previous `ListSessions` call.
@@ -14483,6 +14506,7 @@ pub struct ListSessionsRequest {
     /// Optional. The maximum number of sessions to return in each response.
     /// The service may return fewer than this value.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A page token received from a previous `ListSessions` call.
@@ -16947,6 +16971,7 @@ pub mod gke_node_pool_config {
         /// limited by the maximum number of disks allowable per zone (see [Adding
         /// Local SSDs](https://cloud.google.com/compute/docs/disks/local-ssd)).
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub local_ssd_count: i32,
 
         /// Optional. Whether the nodes are created as legacy [preemptible VM
@@ -17146,12 +17171,14 @@ pub mod gke_node_pool_config {
         /// The minimum number of nodes in the node pool. Must be >= 0 and <=
         /// max_node_count.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub min_node_count: i32,
 
         /// The maximum number of nodes in the node pool. Must be >= min_node_count,
         /// and must be > 0.
         /// **Note:** Quota must be sufficient to scale up the cluster.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub max_node_count: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -17656,6 +17683,7 @@ pub struct WorkflowTemplate {
     /// current server version. The user updates other fields in the template,
     /// then returns it as part of the `UpdateWorkflowTemplate` request.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub version: i32,
 
     /// Output only. The time template was created.
@@ -18969,6 +18997,7 @@ pub struct WorkflowMetadata {
     /// Output only. The version of template at the time of
     /// workflow instantiation.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub version: i32,
 
     /// Output only. The create cluster operation metadata.
@@ -19797,6 +19826,7 @@ pub struct GetWorkflowTemplateRequest {
     ///
     /// If unspecified, retrieves the current version.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub version: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -19854,6 +19884,7 @@ pub struct InstantiateWorkflowTemplateRequest {
     /// This option cannot be used to instantiate a previous version of
     /// workflow template.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub version: i32,
 
     /// Optional. A tag that prevents multiple concurrent workflow
@@ -20069,6 +20100,7 @@ pub struct ListWorkflowTemplatesRequest {
 
     /// Optional. The maximum number of results to return in each response.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. The page token, returned by a previous call, to request the
@@ -20216,6 +20248,7 @@ pub struct DeleteWorkflowTemplateRequest {
     /// will only delete the template if the current server version matches
     /// specified version.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub version: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

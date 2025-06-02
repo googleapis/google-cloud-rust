@@ -512,6 +512,7 @@ pub struct ListEndpointsRequest {
     /// Optional. The maximum number of endpoints to return. The service may return fewer
     /// than this value.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous `ListEndpoints` call.

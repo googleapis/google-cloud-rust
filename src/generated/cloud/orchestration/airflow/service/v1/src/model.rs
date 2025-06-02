@@ -134,6 +134,7 @@ pub struct ListEnvironmentsRequest {
 
     /// The maximum number of environments to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous List request, if any.
@@ -753,6 +754,7 @@ pub struct PollAirflowCommandRequest {
 
     /// Line number from which new logs should be fetched.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub next_line_number: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -884,6 +886,7 @@ pub mod poll_airflow_command_response {
     pub struct Line {
         /// Number of the line.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub line_number: i32,
 
         /// Text content of the log line.
@@ -926,6 +929,7 @@ pub mod poll_airflow_command_response {
     pub struct ExitInfo {
         /// The exit code from the command execution.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub exit_code: i32,
 
         /// Error message. Empty if there was no error.
@@ -1062,6 +1066,7 @@ pub struct ListUserWorkloadsSecretsRequest {
 
     /// Optional. The maximum number of Secrets to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. The next_page_token value returned from a previous List request,
@@ -1281,6 +1286,7 @@ pub struct ListUserWorkloadsConfigMapsRequest {
 
     /// Optional. The maximum number of ConfigMaps to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. The next_page_token value returned from a previous List request,
@@ -1653,6 +1659,7 @@ pub struct ListWorkloadsRequest {
 
     /// Optional. The maximum number of environments to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. The next_page_token value returned from a previous List request,
@@ -2651,6 +2658,7 @@ pub struct EnvironmentConfig {
     /// This field is supported for Cloud Composer environments in versions
     /// composer-1.*.*-airflow-*.*.*.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub node_count: i32,
 
     /// Optional. The configuration settings for software inside the environment.
@@ -3746,6 +3754,7 @@ pub struct SoftwareConfig {
     /// This field is supported for Cloud Composer environments in versions
     /// composer-1.*.*-airflow-2.*.*.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub scheduler_count: i32,
 
     /// Optional. The configuration for Cloud Data Lineage integration.
@@ -4352,6 +4361,7 @@ pub struct NodeConfig {
     /// This field is supported for Cloud Composer environments in versions
     /// composer-1.*.*-airflow-*.*.*.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub disk_size_gb: i32,
 
     /// Optional. The set of Google API scopes to be made available on all
@@ -5167,6 +5177,7 @@ pub mod workloads_config {
 
         /// Optional. The number of schedulers.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub count: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5289,10 +5300,12 @@ pub mod workloads_config {
 
         /// Optional. Minimum number of workers for autoscaling.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub min_count: i32,
 
         /// Optional. Maximum number of workers for autoscaling.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub max_count: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5349,6 +5362,7 @@ pub mod workloads_config {
     pub struct TriggererResource {
         /// Optional. The number of triggerers.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub count: i32,
 
         /// Optional. CPU request and limit for a single Airflow triggerer replica.
@@ -5426,6 +5440,7 @@ pub mod workloads_config {
         /// Optional. The number of DAG processors. If not provided or set to 0, a
         /// single DAG processor instance will be created.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub count: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6624,6 +6639,7 @@ pub struct AirflowMetadataRetentionPolicyConfig {
 
     /// Optional. How many days data should be retained for.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub retention_days: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6809,6 +6825,7 @@ pub struct ListImageVersionsRequest {
 
     /// The maximum number of image_versions to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous List request, if any.

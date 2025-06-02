@@ -2324,6 +2324,7 @@ pub struct ListConstraintsRequest {
     /// be ignored. The server may at any point start using this field to limit
     /// page size.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Page token used to retrieve the next page. This is currently unsupported
@@ -2449,6 +2450,7 @@ pub struct ListPoliciesRequest {
     /// be ignored. The server may at any point start using this field to limit
     /// page size.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Page token used to retrieve the next page. This is currently unsupported
@@ -2913,6 +2915,7 @@ pub struct ListCustomConstraintsRequest {
     /// be ignored. The server may at any point start using this field to limit
     /// page size.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Page token used to retrieve the next page. This is currently unsupported

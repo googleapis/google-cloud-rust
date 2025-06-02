@@ -151,6 +151,7 @@ pub struct ListConnectionsRequest {
 
     /// Required. Page size.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Page token.
@@ -996,6 +997,7 @@ pub struct CloudSpannerProperties {
     /// REQUIRES: Either `use_data_boost` or `use_serverless_analytics` must be
     /// set.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub max_parallelism: i32,
 
     /// If the serverless analytics service should be used to read data from Cloud

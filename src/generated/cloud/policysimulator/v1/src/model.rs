@@ -876,20 +876,24 @@ pub mod replay {
     pub struct ResultsSummary {
         /// The total number of log entries replayed.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub log_count: i32,
 
         /// The number of replayed log entries with no difference between
         /// baseline and simulated policies.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub unchanged_count: i32,
 
         /// The number of replayed log entries with a difference between baseline and
         /// simulated policies.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub difference_count: i32,
 
         /// The number of log entries that could not be replayed.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub error_count: i32,
 
         /// The date of the oldest log entry replayed.
@@ -1504,6 +1508,7 @@ pub struct ListReplayResultsRequest {
     ///
     /// [google.cloud.policysimulator.v1.ReplayResult]: crate::model::ReplayResult
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A page token, received from a previous

@@ -776,6 +776,7 @@ pub struct OptimizeToursRequest {
     ///
     /// [google.cloud.optimization.v1.OptimizeToursResponse.validation_errors]: crate::model::OptimizeToursResponse::validation_errors
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
     pub max_validation_errors: std::option::Option<i32>,
 
     /// Label that may be used to identify this request, reported back in the
@@ -1463,6 +1464,7 @@ pub mod optimize_tours_response {
 
         /// Number of mandatory shipments skipped.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub skipped_mandatory_shipment_count: i32,
 
         /// Number of vehicles used. Note: if a vehicle route is empty and
@@ -1471,6 +1473,7 @@ pub mod optimize_tours_response {
         ///
         /// [google.cloud.optimization.v1.Vehicle.used_if_route_is_empty]: crate::model::Vehicle::used_if_route_is_empty
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub used_vehicle_count: i32,
 
         /// The earliest start time for a used vehicle, computed as the minimum over
@@ -1823,6 +1826,7 @@ pub struct ShipmentModel {
     /// will then select the best subset of vehicles to use.
     /// Must be strictly positive.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
     pub max_active_vehicles: std::option::Option<i32>,
 
     /// Global start and end time of the model: no times outside of this range
@@ -2349,6 +2353,7 @@ pub mod shipment_model {
     pub struct PrecedenceRule {
         /// Shipment index of the "first" event. This field must be specified.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
         pub first_index: std::option::Option<i32>,
 
         /// Indicates if the "first" event is a delivery.
@@ -2357,6 +2362,7 @@ pub mod shipment_model {
 
         /// Shipment index of the "second" event. This field must be specified.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
         pub second_index: std::option::Option<i32>,
 
         /// Indicates if the "second" event is a delivery.
@@ -2768,6 +2774,7 @@ pub struct Shipment {
     /// may perform it. Vehicles are given by their index in the `ShipmentModel`'s
     /// `vehicles` list.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "std::vec::Vec<wkt::internal::I32>")]
     pub allowed_vehicle_indices: std::vec::Vec<i32>,
 
     /// Specifies the cost that is incurred when this shipment is delivered by each
@@ -2790,6 +2797,7 @@ pub struct Shipment {
     /// index may not be specified more than once. If a vehicle is excluded from
     /// `costs_per_vehicle_indices`, its cost is zero.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "std::vec::Vec<wkt::internal::I32>")]
     pub costs_per_vehicle_indices: std::vec::Vec<i32>,
 
     /// Specifies the maximum relative detour time compared to the shortest path
@@ -4185,6 +4193,7 @@ pub struct Vehicle {
     ///
     /// [google.cloud.optimization.v1.ShipmentModel]: crate::model::ShipmentModel
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "std::vec::Vec<wkt::internal::I32>")]
     #[deprecated]
     pub break_rule_indices: std::vec::Vec<i32>,
 
@@ -6046,6 +6055,7 @@ pub struct Location {
     /// drop-off. Heading values can be from 0 to 360, where 0 specifies a heading
     /// of due North, 90 specifies a heading of due East, etc.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
     pub heading: std::option::Option<i32>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6460,6 +6470,7 @@ pub struct ShipmentRoute {
     /// Vehicle performing the route, identified by its index in the source
     /// `ShipmentModel`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub vehicle_index: i32,
 
     /// Label of the vehicle performing this route, equal to
@@ -6913,6 +6924,7 @@ pub mod shipment_route {
         ///
         /// [google.cloud.optimization.v1.ShipmentModel]: crate::model::ShipmentModel
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub shipment_index: i32,
 
         /// If true the visit corresponds to a pickup of a `Shipment`. Otherwise, it
@@ -6923,6 +6935,7 @@ pub mod shipment_route {
         /// Index of `VisitRequest` in either the pickup or delivery field of the
         /// `Shipment` (see `is_pickup`).
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub visit_request_index: i32,
 
         /// Time at which the visit starts. Note that the vehicle may arrive earlier
@@ -7705,6 +7718,7 @@ pub struct SkippedShipment {
     /// The index corresponds to the index of the shipment in the source
     /// `ShipmentModel`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub index: i32,
 
     /// Copy of the corresponding
@@ -7804,6 +7818,7 @@ pub mod skipped_shipment {
         /// If the reason is related to a shipment-vehicle incompatibility, this
         /// field provides the index of one relevant vehicle.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
         pub example_vehicle_index: std::option::Option<i32>,
 
         /// If the reason code is `DEMAND_EXCEEDS_VEHICLE_CAPACITY`, documents one
@@ -8110,6 +8125,7 @@ pub struct AggregatedMetrics {
     /// Number of shipments performed. Note that a pickup and delivery pair only
     /// counts once.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub performed_shipment_count: i32,
 
     /// Total travel duration for a route or a solution.
@@ -8465,6 +8481,7 @@ pub mod injected_solution_constraint {
         ///
         /// [google.cloud.optimization.v1.ShipmentRoute.vehicle_index]: crate::model::ShipmentRoute::vehicle_index
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "std::vec::Vec<wkt::internal::I32>")]
         pub vehicle_indices: std::vec::Vec<i32>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8571,6 +8588,7 @@ pub mod injected_solution_constraint {
             /// the vehicle end. If it is more than `route.visits_size() + 1`,
             /// `level` is not applied at all for that route.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::I32")]
             pub threshold_visit_count: i32,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9068,6 +9086,7 @@ pub struct OptimizeToursValidationError {
     ///   * DURATION_SECONDS_MATRIX_DURATION_NEGATIVE_OR_NAN = 5600;
     ///   * DURATION_SECONDS_MATRIX_DURATION_EXCEEDS_GLOBAL_DURATION = 5601;
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub code: i32,
 
     /// The error display name.
@@ -9314,7 +9333,7 @@ pub mod optimize_tours_validation_error {
         #[non_exhaustive]
         pub enum IndexOrKey {
             /// Index of the field if repeated.
-            Index(i32),
+            Index(#[serde_as(as = "wkt::internal::I32")] i32),
             /// Key if the field is a map.
             Key(std::string::String),
         }

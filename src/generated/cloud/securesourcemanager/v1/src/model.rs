@@ -1139,11 +1139,13 @@ pub struct BranchRule {
     /// Optional. The minimum number of reviews required for the branch rule to be
     /// matched.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub minimum_reviews_count: i32,
 
     /// Optional. The minimum number of approvals required for the branch rule to
     /// be matched.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub minimum_approvals_count: i32,
 
     /// Optional. Determines if require comments resolved before merging to the
@@ -1357,6 +1359,7 @@ pub struct ListInstancesRequest {
     /// Requested page size. Server may return fewer items than requested.
     /// If unspecified, server will pick an appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A token identifying a page of results the server should return.
@@ -1799,6 +1802,7 @@ pub struct ListRepositoriesRequest {
     /// Optional. Requested page size. Server may return fewer items than
     /// requested. If unspecified, server will pick an appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A token identifying a page of results the server should return.
@@ -2176,6 +2180,7 @@ pub struct ListBranchRulesRequest {
     pub parent: std::string::String,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     #[serde(skip_serializing_if = "std::string::String::is_empty")]

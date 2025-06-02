@@ -663,6 +663,7 @@ pub struct ListAuthorizationPoliciesRequest {
 
     /// Maximum number of AuthorizationPolicies to return per call.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The value returned by the last
@@ -1145,6 +1146,7 @@ pub struct ListClientTlsPoliciesRequest {
 
     /// Maximum number of ClientTlsPolicies to return per call.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The value returned by the last `ListClientTlsPoliciesResponse`
@@ -1809,6 +1811,7 @@ pub struct ListServerTlsPoliciesRequest {
 
     /// Maximum number of ServerTlsPolicies to return per call.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The value returned by the last `ListServerTlsPoliciesResponse`

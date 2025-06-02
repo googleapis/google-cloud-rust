@@ -118,6 +118,7 @@ pub struct ListKeysRequest {
 
     /// Optional. Specifies the maximum number of results to be returned at a time.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. Requests a specific page of results.

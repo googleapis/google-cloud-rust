@@ -3658,6 +3658,7 @@ pub mod x_509_parameters {
         /// If this value is missing, the max path length will be omitted from the
         /// CA certificate.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
         pub max_issuer_path_length: std::option::Option<i32>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4931,6 +4932,7 @@ pub struct ObjectId {
     /// Required. The parts of an OID path. The most significant parts of the path
     /// come first.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "std::vec::Vec<wkt::internal::I32>")]
     pub object_id_path: std::vec::Vec<i32>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6169,6 +6171,7 @@ pub struct ListCertificatesRequest {
     /// [google.cloud.security.privateca.v1.Certificate]: crate::model::Certificate
     /// [google.cloud.security.privateca.v1.ListCertificatesResponse.next_page_token]: crate::model::ListCertificatesResponse::next_page_token
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. Pagination token, returned earlier via
@@ -6975,6 +6978,7 @@ pub struct ListCertificateAuthoritiesRequest {
     /// [google.cloud.security.privateca.v1.CertificateAuthority]: crate::model::CertificateAuthority
     /// [google.cloud.security.privateca.v1.ListCertificateAuthoritiesResponse.next_page_token]: crate::model::ListCertificateAuthoritiesResponse::next_page_token
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. Pagination token, returned earlier via
@@ -7854,6 +7858,7 @@ pub struct ListCaPoolsRequest {
     /// [google.cloud.security.privateca.v1.CaPool]: crate::model::CaPool
     /// [google.cloud.security.privateca.v1.ListCaPoolsResponse.next_page_token]: crate::model::ListCaPoolsResponse::next_page_token
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. Pagination token, returned earlier via
@@ -8071,6 +8076,7 @@ pub struct ListCertificateRevocationListsRequest {
     /// [google.cloud.security.privateca.v1.CertificateRevocationList]: crate::model::CertificateRevocationList
     /// [google.cloud.security.privateca.v1.ListCertificateRevocationListsResponse.next_page_token]: crate::model::ListCertificateRevocationListsResponse::next_page_token
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. Pagination token, returned earlier via
@@ -8545,6 +8551,7 @@ pub struct ListCertificateTemplatesRequest {
     /// [google.cloud.security.privateca.v1.CertificateTemplate]: crate::model::CertificateTemplate
     /// [google.cloud.security.privateca.v1.ListCertificateTemplatesResponse.next_page_token]: crate::model::ListCertificateTemplatesResponse::next_page_token
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. Pagination token, returned earlier via

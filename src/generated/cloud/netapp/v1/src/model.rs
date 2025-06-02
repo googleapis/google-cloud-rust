@@ -46,6 +46,7 @@ pub struct ListActiveDirectoriesRequest {
     /// Requested page size. Server may return fewer items than requested.
     /// If unspecified, the server will pick an appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A token identifying a page of results the server should return.
@@ -1406,6 +1407,7 @@ pub struct ListBackupsRequest {
     /// than this value. The maximum value
     /// is 1000; values above 1000 will be coerced to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The next_page_token value to use if there are additional
@@ -1767,16 +1769,19 @@ pub struct BackupPolicy {
     /// Number of daily backups to keep. Note that the minimum daily backup limit
     /// is 2.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
     pub daily_backup_limit: std::option::Option<i32>,
 
     /// Number of weekly backups to keep. Note that the sum of daily, weekly and
     /// monthly backups should be greater than 1.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
     pub weekly_backup_limit: std::option::Option<i32>,
 
     /// Number of monthly backups to keep. Note that the sum of daily, weekly and
     /// monthly backups should be greater than 1.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
     pub monthly_backup_limit: std::option::Option<i32>,
 
     /// Description of the backup policy.
@@ -1791,6 +1796,7 @@ pub struct BackupPolicy {
 
     /// Output only. The total number of volumes assigned by this backup policy.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
     pub assigned_volume_count: std::option::Option<i32>,
 
     /// Output only. The time when the backup policy was created.
@@ -2250,6 +2256,7 @@ pub struct ListBackupPoliciesRequest {
     /// Requested page size. Server may return fewer items than requested.
     /// If unspecified, the server will pick an appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A token identifying a page of results the server should return.
@@ -2689,6 +2696,7 @@ pub mod backup_vault {
         /// Required. Minimum retention duration in days for backups in the backup
         /// vault.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub backup_minimum_enforced_retention_days: i32,
 
         /// Optional. Indicates if the daily backups are immutable.
@@ -3097,6 +3105,7 @@ pub struct ListBackupVaultsRequest {
 
     /// The maximum number of items to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The next_page_token value to use if there are additional
@@ -3628,6 +3637,7 @@ pub struct ListKmsConfigsRequest {
 
     /// The maximum number of items to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The next_page_token value to use if there are additional
@@ -4405,6 +4415,7 @@ pub struct ListQuotaRulesRequest {
     /// Optional. Requested page size. Server may return fewer items than
     /// requested. If unspecified, the server will pick an appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
@@ -4767,6 +4778,7 @@ pub struct QuotaRule {
 
     /// Required. The maximum allowed disk space in MiB.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub disk_limit_mib: i32,
 
     /// Output only. State of the quota rule
@@ -6570,6 +6582,7 @@ pub struct ListReplicationsRequest {
 
     /// The maximum number of items to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The next_page_token value to use if there are additional
@@ -7260,6 +7273,7 @@ pub struct ListSnapshotsRequest {
 
     /// The maximum number of items to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The next_page_token value to use if there are additional
@@ -7923,6 +7937,7 @@ pub struct ListStoragePoolsRequest {
 
     /// Optional. The maximum number of items to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. The next_page_token value to use if there are additional
@@ -8291,6 +8306,7 @@ pub struct StoragePool {
 
     /// Output only. Volume count of the storage pool
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub volume_count: i32,
 
     /// Output only. State of the storage pool
@@ -8826,6 +8842,7 @@ pub struct ListVolumesRequest {
     /// Requested page size. Server may return fewer items than requested.
     /// If unspecified, the server will pick an appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A token identifying a page of results the server should return.
@@ -11096,6 +11113,7 @@ pub struct TieringPolicy {
     /// Optional. Time in days to mark the volume's data block as cold and make it
     /// eligible for tiering, can be range from 2-183. Default is 31.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
     pub cooling_threshold_days: std::option::Option<i32>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

@@ -366,6 +366,7 @@ pub struct ListTransferJobsRequest {
 
     /// The list page size. The max allowed value is 256.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The list page token.
@@ -830,6 +831,7 @@ pub struct ListAgentPoolsRequest {
 
     /// The list page size. The max allowed value is `256`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The list page token.

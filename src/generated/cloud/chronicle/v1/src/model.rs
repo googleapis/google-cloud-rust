@@ -154,6 +154,7 @@ pub struct ListDataAccessLabelsRequest {
     /// be returned. The maximum value is 1000; values above 1000 will be coerced
     /// to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListDataAccessLabelsRequest` call.
@@ -498,6 +499,7 @@ pub struct ListDataAccessScopesRequest {
     /// be returned. The maximum value is 1000; values above 1000 will be coerced
     /// to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListDataAccessScopesRequest` call.
@@ -1656,10 +1658,12 @@ pub mod watchlist {
     pub struct EntityCount {
         /// Output only. Count of user type entities in the watchlist.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub user: i32,
 
         /// Output only. Count of asset type entities in the watchlist.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub asset: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1774,6 +1778,7 @@ pub struct ListWatchlistsRequest {
     /// If unspecified, at most 200 watchlists will be returned.
     /// The maximum value is 200; values above 200 will be coerced to 200.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous `ListWatchlists` call.
@@ -2297,6 +2302,7 @@ pub struct ListReferenceListsRequest {
     /// If unspecified, at most 100 reference lists will be returned.
     /// The maximum value is 1000; values above 1000 will be coerced to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListReferenceLists` call.
@@ -2610,6 +2616,7 @@ pub struct ReferenceList {
 
     /// Output only. The count of self-authored rules using the reference list.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub rule_associations_count: i32,
 
     /// The scope info of the reference list.
@@ -3918,6 +3925,7 @@ pub struct ListRulesRequest {
     /// this value. If unspecified, at most 100 rules will be returned. The
     /// maximum value is 1000; values above 1000 will be coerced to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListRules` call.
@@ -4186,6 +4194,7 @@ pub struct ListRuleRevisionsRequest {
     /// returned. The maximum value is 1000; values above 1000 will be coerced to
     /// 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The page token, received from a previous `ListRuleRevisions` call.
@@ -4410,6 +4419,7 @@ pub struct ListRetrohuntsRequest {
     /// The maximum value is 1000; values above 1000 will be coerced to
     /// 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListRetrohunts` call.
@@ -4580,6 +4590,7 @@ pub struct ListRuleDeploymentsRequest {
     /// returned. The maximum value is 1000; values above 1000 will be coerced to
     /// 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListRuleDeployments` call.
@@ -4777,18 +4788,22 @@ impl wkt::message::Message for UpdateRuleDeploymentRequest {
 pub struct CompilationPosition {
     /// Output only. Start line number, beginning at 1.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub start_line: i32,
 
     /// Output only. Start column number, beginning at 1.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub start_column: i32,
 
     /// Output only. End line number, beginning at 1.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub end_line: i32,
 
     /// Output only. End column number, beginning at 1.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub end_column: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

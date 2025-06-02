@@ -52,6 +52,7 @@ pub struct ListAppConnectionsRequest {
     /// [next_page_token][BeyondCorp.ListAppConnectionsResponse.next_page_token] to
     /// determine if there are more instances left to be queried.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. The next_page_token value returned from a previous
@@ -538,6 +539,7 @@ pub struct ResolveAppConnectionsRequest {
     /// [next_page_token][BeyondCorp.ResolveAppConnectionsResponse.next_page_token]
     /// to determine if there are more instances left to be queried.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. The next_page_token value returned from a previous
@@ -956,6 +958,7 @@ pub mod app_connection {
 
         /// Required. Port of the remote application endpoint.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub port: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1005,6 +1008,7 @@ pub mod app_connection {
         /// Output only. Ingress port reserved on the gateways for this
         /// AppConnection, if not specified or zero, the default port is 19443.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub ingress_port: i32,
 
         /// Required. AppGateway name in following format:

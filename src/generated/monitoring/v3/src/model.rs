@@ -934,7 +934,7 @@ pub mod alert_policy {
             pub enum Type {
                 /// The absolute number of time series that must fail
                 /// the predicate for the condition to be triggered.
-                Count(i32),
+                Count(#[serde_as(as = "wkt::internal::I32")] i32),
                 /// The percentage of time series that must fail the
                 /// predicate for the condition to be triggered.
                 Percent(#[serde_as(as = "wkt::internal::F64")] f64),
@@ -2063,6 +2063,7 @@ pub mod alert_policy {
                 /// greater than or equal to 5 minutes and less than or equal to 1440
                 /// minutes.
                 #[serde(skip_serializing_if = "wkt::internal::is_default")]
+                #[serde_as(as = "wkt::internal::I32")]
                 pub periodicity: i32,
 
                 #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2096,6 +2097,7 @@ pub mod alert_policy {
                 /// Required. The number of hours between runs. Must be greater than or
                 /// equal to 1 hour and less than or equal to 48 hours.
                 #[serde(skip_serializing_if = "wkt::internal::is_default")]
+                #[serde_as(as = "wkt::internal::I32")]
                 pub periodicity: i32,
 
                 /// Optional. The number of minutes after the hour (in UTC) to run the
@@ -2103,6 +2105,7 @@ pub mod alert_policy {
                 /// equal to 59 minutes.  If left unspecified, then an arbitrary offset
                 /// is used.
                 #[serde(skip_serializing_if = "std::option::Option::is_none")]
+                #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
                 pub minute_offset: std::option::Option<i32>,
 
                 #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2154,6 +2157,7 @@ pub mod alert_policy {
                 /// Required. The number of days between runs. Must be greater than or
                 /// equal to 1 day and less than or equal to 31 days.
                 #[serde(skip_serializing_if = "wkt::internal::is_default")]
+                #[serde_as(as = "wkt::internal::I32")]
                 pub periodicity: i32,
 
                 /// Optional. The time of day (in UTC) at which the query should run. If
@@ -3321,6 +3325,7 @@ pub struct ListAlertPoliciesRequest {
 
     /// Optional. The maximum number of results to return in a single response.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. If this field is not empty then it must contain the
@@ -3395,6 +3400,7 @@ pub struct ListAlertPoliciesResponse {
     /// The total number of alert policies in all pages. This number is only an
     /// estimate, and may change in subsequent pages. <https://aip.dev/158>
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub total_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4832,6 +4838,7 @@ pub struct ListGroupsRequest {
 
     /// A positive number that is the maximum number of results to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// If this field is not empty then it must contain the `next_page_token` value
@@ -5315,6 +5322,7 @@ pub struct ListGroupMembersRequest {
 
     /// A positive number that is the maximum number of results to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// If this field is not empty then it must contain the `next_page_token` value
@@ -5419,6 +5427,7 @@ pub struct ListGroupMembersResponse {
 
     /// The total number of elements matching this request.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub total_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6321,11 +6330,13 @@ pub mod text_locator {
     pub struct Position {
         /// The line, starting with 1, where the byte is positioned.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub line: i32,
 
         /// The column within the line, starting with 1, where the byte is
         /// positioned. This is a byte index even though the text is UTF-8.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub column: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6386,6 +6397,7 @@ pub struct ListMonitoredResourceDescriptorsRequest {
 
     /// A positive number that is the maximum number of results to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// If this field is not empty then it must contain the `nextPageToken` value
@@ -6570,6 +6582,7 @@ pub struct ListMetricDescriptorsRequest {
     /// return. The default and maximum value is 10,000. If a page_size <= 0 or >
     /// 10,000 is submitted, will instead return a maximum of 10,000 results.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. If this field is not empty then it must contain the
@@ -6907,6 +6920,7 @@ pub struct ListTimeSeriesRequest {
     /// maximum number of `Points` returned. If `view` is set to `HEADERS`, this is
     /// the maximum number of `TimeSeries` returned.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// If this field is not empty then it must contain the `nextPageToken` value
@@ -7392,10 +7406,12 @@ impl wkt::message::Message for CreateTimeSeriesError {
 pub struct CreateTimeSeriesSummary {
     /// The number of points in the request.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub total_point_count: i32,
 
     /// The number of points that were successfully written.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub success_point_count: i32,
 
     /// The number of points that failed to be written. Order is not guaranteed.
@@ -7458,6 +7474,7 @@ pub mod create_time_series_summary {
 
         /// The number of points that couldn't be written because of `status`.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub point_count: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7528,6 +7545,7 @@ pub struct QueryTimeSeriesRequest {
 
     /// A positive number that is the maximum number of time_series_data to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// If this field is not empty then it must contain the `nextPageToken` value
@@ -8320,6 +8338,7 @@ pub struct ListNotificationChannelDescriptorsRequest {
     /// not set to a positive number, a reasonable value will be chosen by the
     /// service.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// If non-empty, `page_token` must contain a value returned as the
@@ -8574,6 +8593,7 @@ pub struct ListNotificationChannelsRequest {
     /// not set to a positive number, a reasonable value will be chosen by the
     /// service.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. If non-empty, `page_token` must contain a value returned as the
@@ -8648,6 +8668,7 @@ pub struct ListNotificationChannelsResponse {
     /// The total number of notification channels in all pages. This number is only
     /// an estimate, and may change in subsequent pages. <https://aip.dev/158>
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub total_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11857,6 +11878,7 @@ pub struct ListServicesRequest {
     /// A non-negative number that is the maximum number of results to return.
     /// When 0, use default page size.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// If this field is not empty then it must contain the `nextPageToken` value
@@ -12222,6 +12244,7 @@ pub struct ListServiceLevelObjectivesRequest {
     /// A non-negative number that is the maximum number of results to return.
     /// When 0, use default page size.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// If this field is not empty then it must contain the `nextPageToken` value
@@ -12734,6 +12757,7 @@ pub struct ListSnoozesRequest {
     /// is outside this range, the server will decide the number of results to be
     /// returned.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. The `next_page_token` from a previous call to
@@ -13911,6 +13935,7 @@ pub mod uptime_check_config {
     pub struct PingConfig {
         /// Number of ICMP pings. A maximum of 3 ICMP pings is currently supported.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub pings_count: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -13963,6 +13988,7 @@ pub mod uptime_check_config {
         /// run the check. Will be combined with host (specified within the
         /// `monitored_resource`) and `path` to construct the full URL.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub port: i32,
 
         /// The authentication information. Optional when creating an HTTP check;
@@ -14579,7 +14605,7 @@ pub mod uptime_check_config {
             #[non_exhaustive]
             pub enum StatusCode {
                 /// A status code to accept.
-                StatusValue(i32),
+                StatusValue(#[serde_as(as = "wkt::internal::I32")]i32),
                 /// A class of status codes to accept.
                 StatusClass(crate::model::uptime_check_config::http_check::response_status_code::StatusClass),
             }
@@ -15061,6 +15087,7 @@ pub mod uptime_check_config {
         /// combined with host (specified within the `monitored_resource`) to
         /// construct the full URL. Required.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub port: i32,
 
         /// Contains information needed to add pings to a TCP check.
@@ -15889,6 +15916,7 @@ pub struct ListUptimeCheckConfigsRequest {
     /// page. If the page_size is <=0, the server will decide the number of results
     /// to be returned.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// If this field is not empty then it must contain the `nextPageToken` value
@@ -15958,6 +15986,7 @@ pub struct ListUptimeCheckConfigsResponse {
     /// The total number of Uptime check configurations for the project,
     /// irrespective of any pagination.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub total_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -16236,6 +16265,7 @@ pub struct ListUptimeCheckIpsRequest {
     /// to be returned.
     /// NOTE: this field is not yet implemented
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// If this field is not empty then it must contain the `nextPageToken` value

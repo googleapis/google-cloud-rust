@@ -593,6 +593,7 @@ pub struct ListNotificationsRequest {
     /// notifications will be returned. The maximum value is 50; values above 50
     /// will be coerced to 50.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A page token returned from a previous request.
@@ -677,6 +678,7 @@ pub struct ListNotificationsResponse {
 
     /// Estimation of a total number of notifications.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub total_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

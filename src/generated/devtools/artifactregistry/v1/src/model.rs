@@ -776,6 +776,7 @@ pub struct ListDockerImagesRequest {
 
     /// The maximum number of artifacts to return. Maximum page size is 1,000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous list request, if any.
@@ -1060,6 +1061,7 @@ pub struct ListMavenArtifactsRequest {
 
     /// The maximum number of artifacts to return. Maximum page size is 1,000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous list request, if any.
@@ -1324,6 +1326,7 @@ pub struct ListNpmPackagesRequest {
 
     /// The maximum number of artifacts to return. Maximum page size is 1,000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous list request, if any.
@@ -1587,6 +1590,7 @@ pub struct ListPythonPackagesRequest {
 
     /// The maximum number of artifacts to return. Maximum page size is 1,000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous list request, if any.
@@ -1910,6 +1914,7 @@ pub struct ListAttachmentsRequest {
 
     /// The maximum number of attachments to return. Maximum page size is 1,000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous list request, if any.
@@ -2548,6 +2553,7 @@ pub struct ListFilesRequest {
 
     /// The maximum number of files to return. Maximum page size is 1,000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous list request, if any.
@@ -3138,6 +3144,7 @@ pub struct ListPackagesRequest {
 
     /// The maximum number of packages to return. Maximum page size is 1,000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous list request, if any.
@@ -3453,6 +3460,7 @@ pub struct UpstreamPolicy {
 
     /// Entries with a greater priority value take precedence in the pull order.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub priority: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3782,6 +3790,7 @@ pub struct CleanupPolicyMostRecentVersions {
 
     /// Minimum number of versions to keep.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
     pub keep_count: std::option::Option<i32>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8075,6 +8084,7 @@ pub struct ListRepositoriesRequest {
 
     /// The maximum number of repositories to return. Maximum page size is 1,000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous list request, if any.
@@ -8780,6 +8790,7 @@ pub struct ListRulesRequest {
 
     /// The maximum number of rules to return. Maximum page size is 1,000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous list request, if any.
@@ -9123,6 +9134,7 @@ pub struct ProjectSettings {
     /// The percentage of pull traffic to redirect from GCR to AR when using
     /// partial redirection.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub pull_percent: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9530,6 +9542,7 @@ pub struct ListTagsRequest {
 
     /// The maximum number of tags to return. Maximum page size is 1,000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous list request, if any.
@@ -9998,6 +10011,7 @@ pub struct ListVersionsRequest {
 
     /// The maximum number of versions to return. Maximum page size is 1,000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous list request, if any.

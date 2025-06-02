@@ -51,6 +51,7 @@ pub struct ListAccessPoliciesRequest {
 
     /// Number of AccessPolicy instances to include in the list. Default 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Next page token for the next batch of AccessPolicy instances. Defaults to
@@ -306,6 +307,7 @@ pub struct ListAccessLevelsRequest {
     /// [google.identity.accesscontextmanager.v1.AccessLevel] to include in
     /// the list. Default 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Next page token for the next batch of [Access Level]
@@ -779,6 +781,7 @@ pub struct ListServicePerimetersRequest {
     /// [google.identity.accesscontextmanager.v1.ServicePerimeter] to include
     /// in the list. Default 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Next page token for the next batch of [Service Perimeter]
@@ -1309,6 +1312,7 @@ pub struct ListGcpUserAccessBindingsRequest {
     /// Optional. Maximum number of items to return. The server may return fewer items.
     /// If left blank, the server may return any number of items.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. If left blank, returns the first page. To enumerate all items, use the

@@ -3921,6 +3921,7 @@ pub mod fraud_signals {
         /// Output only. This user (based on email, phone, and other identifiers) has
         /// been seen on the internet for at least this number of days.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub active_days_lower_bound: i32,
 
         /// Output only. Likelihood (from 0.0 to 1.0) this user includes synthetic
@@ -4640,6 +4641,7 @@ pub struct ListKeysRequest {
     /// Optional. The maximum number of keys to return. Default is 10. Max limit is
     /// 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. The next_page_token value returned from a previous.
@@ -4978,6 +4980,7 @@ pub struct ListFirewallPoliciesRequest {
     /// Optional. The maximum number of policies to return. Default is 10. Max
     /// limit is 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. The next_page_token value returned from a previous.
@@ -6584,7 +6587,7 @@ pub struct ScoreDistribution {
     /// between [0, 1]. The maximum number of buckets is on order of a few dozen,
     /// but typically much lower (ie. 10).
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    #[serde_as(as = "std::collections::HashMap<_, serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::collections::HashMap<wkt::internal::I32, serde_with::DisplayFromStr>")]
     pub score_buckets: std::collections::HashMap<i32, i64>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7371,6 +7374,7 @@ pub struct ListRelatedAccountGroupMembershipsRequest {
     /// return fewer than this value. If unspecified, at most 50 accounts are
     /// returned. The maximum value is 1000; values above 1000 are coerced to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous
@@ -7494,6 +7498,7 @@ pub struct ListRelatedAccountGroupsRequest {
     /// fewer than this value. If unspecified, at most 50 groups are returned. The
     /// maximum value is 1000; values above 1000 are coerced to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous `ListRelatedAccountGroups`
@@ -7634,6 +7639,7 @@ pub struct SearchRelatedAccountGroupMembershipsRequest {
     /// fewer than this value. If unspecified, at most 50 groups are returned. The
     /// maximum value is 1000; values above 1000 are coerced to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous
@@ -7926,6 +7932,7 @@ pub struct ListIpOverridesRequest {
     /// overrides are returned. If the page size is more than 100, it is coerced to
     /// 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. The next_page_token value returned from a previous

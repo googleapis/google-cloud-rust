@@ -61,6 +61,7 @@ pub struct AdaptiveMtDataset {
 
     /// The number of examples in the dataset.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub example_count: i32,
 
     /// Output only. Timestamp when this dataset was created.
@@ -295,6 +296,7 @@ pub struct ListAdaptiveMtDatasetsRequest {
     /// Optional. Requested page size. The server may return fewer results than
     /// requested. If unspecified, the server picks an appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
@@ -860,6 +862,7 @@ pub struct AdaptiveMtFile {
 
     /// The number of entries that the file contains.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub entry_count: i32,
 
     /// Output only. Timestamp when this file was created.
@@ -1199,6 +1202,7 @@ pub struct ListAdaptiveMtFilesRequest {
 
     /// Optional.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
@@ -1418,6 +1422,7 @@ pub struct ListAdaptiveMtSentencesRequest {
     pub parent: std::string::String,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A token identifying a page of results the server should return.
@@ -2241,6 +2246,7 @@ pub struct ListDatasetsRequest {
     /// Optional. Requested page size. The server can return fewer results than
     /// requested.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results for the server to return.
@@ -2519,6 +2525,7 @@ pub struct ListExamplesRequest {
     /// Optional. Requested page size. The server can return fewer results than
     /// requested.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results for the server to return.
@@ -2832,18 +2839,22 @@ pub struct Dataset {
 
     /// Output only. The number of examples in the dataset.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub example_count: i32,
 
     /// Output only. Number of training examples (sentence pairs).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub train_example_count: i32,
 
     /// Output only. Number of validation examples (sentence pairs).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub validate_example_count: i32,
 
     /// Output only. Number of test examples (sentence pairs).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub test_example_count: i32,
 
     /// Output only. Timestamp when this dataset was created.
@@ -3133,6 +3144,7 @@ pub struct ListModelsRequest {
     /// Optional. Requested page size. The server can return fewer results than
     /// requested.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results for the server to return.
@@ -3438,15 +3450,18 @@ pub struct Model {
 
     /// Output only. Number of examples (sentence pairs) used to train the model.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub train_example_count: i32,
 
     /// Output only. Number of examples (sentence pairs) used to validate the
     /// model.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub validate_example_count: i32,
 
     /// Output only. Number of examples (sentence pairs) used to test the model.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub test_example_count: i32,
 
     /// Output only. Timestamp when the model resource was created, which is also
@@ -6681,6 +6696,7 @@ pub struct Glossary {
 
     /// Output only. The number of entries defined in the glossary.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub entry_count: i32,
 
     /// Output only. When CreateGlossary was called.
@@ -7165,6 +7181,7 @@ pub struct ListGlossariesRequest {
     /// Optional. Requested page size. The server may return fewer glossaries than
     /// requested. If unspecified, the server picks an appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
@@ -7374,6 +7391,7 @@ pub struct ListGlossaryEntriesRequest {
     /// Optional. Requested page size. The server may return fewer glossary entries
     /// than requested. If unspecified, the server picks an appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.

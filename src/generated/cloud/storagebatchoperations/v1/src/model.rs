@@ -50,6 +50,7 @@ pub struct ListJobsRequest {
 
     /// Optional. The list page size. default page size is 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. The list page token.

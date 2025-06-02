@@ -3577,6 +3577,7 @@ pub struct ListIndexesRequest {
 
     /// The number of results to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A page token, returned from a previous call to
@@ -3898,6 +3899,7 @@ pub struct ListFieldsRequest {
 
     /// The number of results to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A page token, returned from a previous call to
@@ -4696,6 +4698,7 @@ pub struct Index {
 
     /// Optional. The number of shards for the index.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub shard_count: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4944,6 +4947,7 @@ pub mod index {
             /// The resulting index will only include vectors of this dimension, and
             /// can be used for vector search with the same dimension.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::I32")]
             pub dimension: i32,
 
             /// The type of index used.

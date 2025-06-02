@@ -1358,12 +1358,14 @@ pub struct BuildStep {
 
     /// Output only. Return code from running the step.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub exit_code: i32,
 
     /// Allow this build step to fail without failing the entire build if and
     /// only if the exit code is one of the specified codes. If allow_failure
     /// is also specified, this field will take precedence.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "std::vec::Vec<wkt::internal::I32>")]
     pub allow_exit_codes: std::vec::Vec<i32>,
 
     /// A shell script to be executed in the step.
@@ -4822,6 +4824,7 @@ pub struct ListBuildsRequest {
 
     /// Number of results to return in the list.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The page token for the next page of Builds.
@@ -8000,6 +8003,7 @@ pub struct ListBuildTriggersRequest {
 
     /// Number of results to return in the list.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Token to provide to skip to a particular spot in the list.
@@ -10871,6 +10875,7 @@ pub struct ListWorkerPoolsRequest {
     /// The maximum number of `WorkerPool`s to return. The service may return
     /// fewer than this value. If omitted, the server will use a sensible default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListWorkerPools` call. Provide this

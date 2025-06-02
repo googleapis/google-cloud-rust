@@ -264,17 +264,20 @@ pub struct Date {
     /// Year of the date. Must be from 1 to 9999, or 0 to specify a date without
     /// a year.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub year: i32,
 
     /// Month of a year. Must be from 1 to 12, or 0 to specify a year without a
     /// month and day.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub month: i32,
 
     /// Day of a month. Must be from 1 to 31 and valid for the year and month, or 0
     /// to specify a year by itself or a year and month where the day isn't
     /// significant.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub day: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -343,35 +346,42 @@ pub struct DateTime {
     /// Optional. Year of date. Must be from 1 to 9999, or 0 if specifying a
     /// datetime without a year.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub year: i32,
 
     /// Required. Month of year. Must be from 1 to 12.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub month: i32,
 
     /// Required. Day of month. Must be from 1 to 31 and valid for the year and
     /// month.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub day: i32,
 
     /// Required. Hours of day in 24 hour format. Should be from 0 to 23. An API
     /// may choose to allow the value "24:00:00" for scenarios like business
     /// closing time.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub hours: i32,
 
     /// Required. Minutes of hour of day. Must be from 0 to 59.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub minutes: i32,
 
     /// Required. Seconds of minutes of the time. Must normally be from 0 to 59. An
     /// API may allow the value 60 if it allows leap-seconds.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub seconds: i32,
 
     /// Required. Fractions of seconds in nanoseconds. Must be from 0 to
     /// 999,999,999.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub nanos: i32,
 
     /// Optional. Specifies either the UTC offset or the time zone of the DateTime.
@@ -1014,6 +1024,7 @@ pub struct Money {
     /// If `units` is negative, `nanos` must be negative or zero.
     /// For example $-1.75 is represented as `units`=-1 and `nanos`=-750,000,000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub nanos: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1313,6 +1324,7 @@ pub struct PostalAddress {
     ///
     /// All new revisions **must** be backward compatible with old revisions.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub revision: i32,
 
     /// Required. CLDR region code of the country/region of the address. This
@@ -1643,19 +1655,23 @@ pub struct TimeOfDay {
     /// Hours of day in 24 hour format. Should be from 0 to 23. An API may choose
     /// to allow the value "24:00:00" for scenarios like business closing time.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub hours: i32,
 
     /// Minutes of hour of day. Must be from 0 to 59.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub minutes: i32,
 
     /// Seconds of minutes of the time. Must normally be from 0 to 59. An API may
     /// allow the value 60 if it allows leap-seconds.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub seconds: i32,
 
     /// Fractions of seconds in nanoseconds. Must be from 0 to 999,999,999.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub nanos: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

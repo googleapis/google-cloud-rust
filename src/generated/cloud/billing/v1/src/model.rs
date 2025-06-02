@@ -264,6 +264,7 @@ pub struct ListBillingAccountsRequest {
     /// Requested page size. The maximum page size is 100; this is also the
     /// default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A token identifying a page of results to return. This should be a
@@ -549,6 +550,7 @@ pub struct ListProjectBillingInfoRequest {
     /// Requested page size. The maximum page size is 100; this is also the
     /// default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A token identifying a page of results to be returned. This should be a
@@ -1408,6 +1410,7 @@ pub struct AggregationInfo {
     /// Example: If aggregation_level is "DAILY" and aggregation_count is 14,
     /// aggregation will be over 14 days.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub aggregation_count: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1929,6 +1932,7 @@ pub mod geo_taxonomy {
 pub struct ListServicesRequest {
     /// Requested page size. Defaults to 5000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A token identifying a page of results to return. This should be a
@@ -2065,6 +2069,7 @@ pub struct ListSkusRequest {
 
     /// Requested page size. Defaults to 5000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A token identifying a page of results to return. This should be a

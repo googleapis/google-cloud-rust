@@ -1075,6 +1075,7 @@ pub mod dns_settings {
     pub struct DsRecord {
         /// The key tag of the record. Must be set in range 0 -- 65535.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub key_tag: i32,
 
         /// The algorithm used to generate the referenced DNSKEY.
@@ -2477,6 +2478,7 @@ pub struct ListRegistrationsRequest {
 
     /// Maximum number of results to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// When set to the `next_page_token` from a prior response, provides the next

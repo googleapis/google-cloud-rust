@@ -49,6 +49,7 @@ pub struct ListTunnelDestGroupsRequest {
     /// If unspecified, at most 100 groups are returned.
     /// The maximum value is 1000; values above 1000 are coerced to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListTunnelDestGroups`
@@ -2398,6 +2399,7 @@ pub struct ListIdentityAwareProxyClientsRequest {
     /// If unspecified, at most 100 clients will be returned.
     /// The maximum value is 1000; values above 1000 will be coerced to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListIdentityAwareProxyClients`

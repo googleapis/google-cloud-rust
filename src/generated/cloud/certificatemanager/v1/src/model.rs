@@ -46,6 +46,7 @@ pub struct ListCertificateIssuanceConfigsRequest {
 
     /// Maximum number of certificate configs to return per call.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The value returned by the last `ListCertificateIssuanceConfigsResponse`.
@@ -365,6 +366,7 @@ pub struct CertificateIssuanceConfig {
     /// lifetime to wait before renewing the certificate. Must be a number between
     /// 1-99, inclusive.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub rotation_window_percentage: i32,
 
     /// Required. The key algorithm to use when generating the private key.
@@ -767,6 +769,7 @@ pub struct ListCertificatesRequest {
 
     /// Maximum number of certificates to return per call.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The value returned by the last `ListCertificatesResponse`. Indicates that
@@ -1121,6 +1124,7 @@ pub struct ListCertificateMapsRequest {
 
     /// Maximum number of certificate maps to return per call.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The value returned by the last `ListCertificateMapsResponse`. Indicates
@@ -1482,6 +1486,7 @@ pub struct ListCertificateMapEntriesRequest {
     /// If unspecified, at most 50 certificate map entries will be returned.
     /// The maximum value is 1000; values above 1000 will be coerced to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The value returned by the last `ListCertificateMapEntriesResponse`.
@@ -1840,6 +1845,7 @@ pub struct ListDnsAuthorizationsRequest {
 
     /// Maximum number of dns authorizations to return per call.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The value returned by the last `ListDnsAuthorizationsResponse`. Indicates
@@ -4629,6 +4635,7 @@ pub struct ListTrustConfigsRequest {
 
     /// Maximum number of TrustConfigs to return per call.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The value returned by the last `ListTrustConfigsResponse`. Indicates

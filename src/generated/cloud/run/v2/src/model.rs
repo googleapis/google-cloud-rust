@@ -1713,6 +1713,7 @@ pub struct ListExecutionsRequest {
 
     /// Maximum number of Executions to return in this call.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A page token received from a previous call to ListExecutions.
@@ -2038,12 +2039,14 @@ pub struct Execution {
     /// ((.spec.task_count - .status.successful) < .spec.parallelism), i.e. when
     /// the work left to do is less than max parallelism.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub parallelism: i32,
 
     /// Output only. Specifies the desired number of tasks the execution should
     /// run. Setting to 1 means that parallelism is limited to 1 and the success of
     /// that task signals the success of the execution.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub task_count: i32,
 
     /// Output only. The template used to create tasks for this execution.
@@ -2071,22 +2074,27 @@ pub struct Execution {
 
     /// Output only. The number of actively running tasks.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub running_count: i32,
 
     /// Output only. The number of tasks which reached phase Succeeded.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub succeeded_count: i32,
 
     /// Output only. The number of tasks which reached phase Failed.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub failed_count: i32,
 
     /// Output only. The number of tasks which reached phase Cancelled.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub cancelled_count: i32,
 
     /// Output only. The number of tasks which have retried at least once.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub retried_count: i32,
 
     /// Output only. URI where logs for this execution can be found in Cloud
@@ -2421,12 +2429,14 @@ pub struct ExecutionTemplate {
     /// there are fewer tasks waiting to be completed remaining, i.e. when the work
     /// left to do is less than max parallelism.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub parallelism: i32,
 
     /// Specifies the desired number of tasks the execution should run.
     /// Setting to 1 means that parallelism is limited to 1 and the success of
     /// that task signals the success of the execution. Defaults to 1.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub task_count: i32,
 
     /// Required. Describes the task(s) that will be created when executing an
@@ -2697,6 +2707,7 @@ pub struct ListJobsRequest {
 
     /// Maximum number of Jobs to return in this call.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A page token received from a previous call to ListJobs.
@@ -2964,6 +2975,7 @@ pub mod run_job_request {
         /// Optional. The desired number of tasks the execution should run. Will
         /// replace existing task_count value.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub task_count: i32,
 
         /// Duration in seconds the task may be active before the system will
@@ -3222,6 +3234,7 @@ pub struct Job {
 
     /// Output only. Number of executions created for this job.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub execution_count: i32,
 
     /// Output only. Name of the last created execution.
@@ -4447,6 +4460,7 @@ pub struct ContainerPort {
     /// Port number the container listens on.
     /// This must be a valid TCP port number, 0 < container_port < 65536.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub container_port: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4773,6 +4787,7 @@ pub struct SecretVolumeSource {
     /// This might be in conflict with other options that affect the
     /// file mode, like fsGroup, and as a result, other mode bits could be set.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub default_mode: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4846,6 +4861,7 @@ pub struct VersionToPath {
     /// * This might be in conflict with other options that affect the
     ///   file mode, like fsGroup, and the result can be other mode bits set.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub mode: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5237,12 +5253,14 @@ pub struct Probe {
     /// probe is initiated. Defaults to 0 seconds. Minimum value is 0. Maximum
     /// value for liveness probe is 3600. Maximum value for startup probe is 240.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub initial_delay_seconds: i32,
 
     /// Optional. Number of seconds after which the probe times out.
     /// Defaults to 1 second. Minimum value is 1. Maximum value is 3600.
     /// Must be smaller than period_seconds.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub timeout_seconds: i32,
 
     /// Optional. How often (in seconds) to perform the probe.
@@ -5250,11 +5268,13 @@ pub struct Probe {
     /// is 3600. Maximum value for startup probe is 240.
     /// Must be greater or equal than timeout_seconds.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub period_seconds: i32,
 
     /// Optional. Minimum consecutive failures for the probe to be considered
     /// failed after having succeeded. Defaults to 3. Minimum value is 1.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub failure_threshold: i32,
 
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
@@ -5431,6 +5451,7 @@ pub struct HTTPGetAction {
     /// 65535. If not specified, defaults to the exposed port of the container,
     /// which is the value of container.ports[0].containerPort.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub port: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5524,6 +5545,7 @@ pub struct TCPSocketAction {
     /// 65535. If not specified, defaults to the exposed port of the container,
     /// which is the value of container.ports[0].containerPort.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub port: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5558,6 +5580,7 @@ pub struct GRPCAction {
     /// 65535. If not specified, defaults to the exposed port of the container,
     /// which is the value of container.ports[0].containerPort.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub port: i32,
 
     /// Optional. Service is the name of the service to place in the gRPC
@@ -5687,6 +5710,7 @@ pub struct ListRevisionsRequest {
 
     /// Maximum number of revisions to return in this call.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A page token received from a previous call to ListRevisions.
@@ -5944,6 +5968,7 @@ pub struct Revision {
 
     /// Sets the maximum number of requests that each serving instance can receive.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub max_instance_request_concurrency: i32,
 
     /// Max allowed time for an instance to respond to a request.
@@ -6523,6 +6548,7 @@ pub struct RevisionTemplate {
     /// can receive. If not specified or 0, concurrency defaults to 80 when
     /// requested `CPU >= 1` and defaults to 1 when requested `CPU < 1`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub max_instance_request_concurrency: i32,
 
     /// Optional. Enables service mesh connectivity.
@@ -6990,6 +7016,7 @@ pub struct ListServicesRequest {
 
     /// Maximum number of Services to return in this call.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A page token received from a previous call to ListServices.
@@ -7814,6 +7841,7 @@ impl wkt::message::Message for Service {
 pub struct RevisionScalingStatus {
     /// The current number of min instances provisioned for this revision.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub desired_min_instance_count: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7887,6 +7915,7 @@ pub struct ListTasksRequest {
 
     /// Maximum number of Tasks to return in this call.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A page token received from a previous call to ListTasks.
@@ -8095,6 +8124,7 @@ pub struct Task {
 
     /// Number of retries allowed per Task, before marking this Task failed.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub max_retries: i32,
 
     /// Max allowed time duration the Task may be active before the system will
@@ -8133,11 +8163,13 @@ pub struct Task {
 
     /// Output only. Index of the Task, unique per execution, and beginning at 0.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub index: i32,
 
     /// Output only. The number of times this Task was retried.
     /// Tasks are retried when they fail up to the maxRetries limit.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub retried: i32,
 
     /// Output only. Result of the last attempt of this Task.
@@ -8560,6 +8592,7 @@ pub struct TaskAttemptResult {
     /// due to some other failure.
     /// See status field for possible failure details.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub exit_code: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8816,7 +8849,7 @@ pub mod task_template {
     pub enum Retries {
         /// Number of retries allowed per Task, before marking this Task failed.
         /// Defaults to 3.
-        MaxRetries(i32),
+        MaxRetries(#[serde_as(as = "wkt::internal::I32")] i32),
     }
 }
 
@@ -8840,6 +8873,7 @@ pub struct TrafficTarget {
     /// Specifies percent of the traffic to this Revision.
     /// This defaults to zero if unspecified.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub percent: i32,
 
     /// Indicates a string to be part of the URI to exclusively reference this
@@ -8907,6 +8941,7 @@ pub struct TrafficTargetStatus {
 
     /// Specifies percent of the traffic to this Revision.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub percent: i32,
 
     /// Indicates the string used in the URI to exclusively reference this target.
@@ -9369,6 +9404,7 @@ pub struct RevisionScaling {
     /// Optional. Minimum number of serving instances that this resource should
     /// have.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub min_instance_count: i32,
 
     /// Optional. Maximum number of serving instances that this resource should
@@ -9376,6 +9412,7 @@ pub struct RevisionScaling {
     /// 100. For more information see
     /// <https://cloud.google.com/run/docs/configuring/max-instances>
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub max_instance_count: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9452,6 +9489,7 @@ pub struct ServiceScaling {
     /// divided among all revisions with specified traffic based on the percent
     /// of traffic they are receiving.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub min_instance_count: i32,
 
     /// Optional. The scaling mode for the service.
@@ -9462,6 +9500,7 @@ pub struct ServiceScaling {
     /// number of instances is divided among all revisions with specified traffic
     /// based on the percent of traffic they are receiving.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
     pub manual_instance_count: std::option::Option<i32>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
