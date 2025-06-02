@@ -47,7 +47,11 @@ pub async fn objects(builder: storage::client::ClientBuilder) -> Result<()> {
     tracing::info!("testing insert_object()");
     const CONTENTS: &str = "the quick brown fox jumps over the lazy dog";
     let insert = client
-        .insert_object(&bucket.name, "quick.text", CONTENTS)
+        .insert_object()
+        .set_bucket(&bucket.name)
+        .set_object("quick.text")
+        .set_payload(CONTENTS)
+        .send()
         .await?;
     tracing::info!("success with insert={insert:?}");
 

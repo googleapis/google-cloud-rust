@@ -111,64 +111,18 @@ impl Storage {
     /// # use google_cloud_storage::client::Storage;
     /// async fn example(client: &Storage) -> gax::Result<()> {
     ///     let response = client
-    ///         .insert_object(
-    ///             "projects/_/buckets/my-bucket",
-    ///             "my-object",
-    ///             "the quick brown fox jumped over the lazy dog",
-    ///         )
+    ///         .insert_object()
+    ///         .set_bucket("projects/_/buckets/my-bucket")
+    ///         .set_object("my-object")
+    ///         .set_payload("the quick brown fox jumped over the lazy dog")
+    ///         .send()
     ///         .await?;
     ///     println!("response details={response:?}");
     ///     Ok(())
     /// }
     /// ```
-    pub async fn insert_object<B, O, P>(
-        &self,
-        bucket: B,
-        object: O,
-        payload: P,
-    ) -> crate::Result<Object>
-    where
-        B: Into<String>,
-        O: Into<String>,
-        P: Into<bytes::Bytes>,
-    {
-        let bucket: String = bucket.into();
-        let bucket_id = bucket
-            .as_str()
-            .strip_prefix("projects/_/buckets/")
-            .ok_or_else(|| {
-                Error::other(format!(
-                    "malformed bucket name, it must start with `projects/_/buckets/`: {bucket}"
-                ))
-            })?;
-        let object: String = object.into();
-        let builder = self
-            .inner
-            .client
-            .request(
-                reqwest::Method::POST,
-                format!("{}/upload/storage/v1/b/{bucket_id}/o", &self.inner.endpoint),
-            )
-            .query(&[("uploadType", "media")])
-            .query(&[("name", &object)])
-            .header("content-type", "application/octet-stream")
-            .header(
-                "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&self::info::X_GOOG_API_CLIENT_HEADER),
-            );
-
-        let builder = self.inner.apply_auth_headers(builder).await?;
-        let builder = builder.body(payload.into());
-
-        tracing::info!("builder={builder:?}");
-
-        let response = builder.send().await.map_err(Error::io)?;
-        if !response.status().is_success() {
-            return gaxi::http::to_http_error(response).await;
-        }
-        let response = response.json::<v1::Object>().await.map_err(Error::io)?;
-
-        Ok(Object::from(response))
+    pub fn insert_object(&self) -> InsertObject {
+        InsertObject::new(self.inner.clone())
     }
 
     /// A simple download into a buffer.
@@ -290,6 +244,99 @@ pub(crate) mod info {
             };
             ac.grpc_header_value()
         };
+    }
+}
+
+pub struct InsertObject {
+    inner: std::sync::Arc<StorageInner>,
+    bucket: String,
+    object: String,
+    payload: bytes::Bytes,
+}
+
+impl InsertObject {
+    fn new(inner: std::sync::Arc<StorageInner>) -> Self {
+        InsertObject {
+            inner,
+            bucket: Default::default(),
+            object: Default::default(),
+            payload: Default::default(),
+        }
+    }
+
+    /// A simple upload from a buffer.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// async fn example(client: &Storage) -> gax::Result<()> {
+    ///     let response = client
+    ///         .insert_object()
+    ///         .set_bucket("projects/_/buckets/my-bucket")
+    ///         .set_object("my-object")
+    ///         .set_payload("the quick brown fox jumped over the lazy dog")
+    ///         .send()
+    ///         .await?;
+    ///     println!("response details={response:?}");
+    ///     Ok(())
+    /// }
+    /// ```
+    pub async fn send(&self) -> crate::Result<Object> {
+        let bucket: String = self.bucket.clone();
+        let bucket_id = bucket
+            .as_str()
+            .strip_prefix("projects/_/buckets/")
+            .ok_or_else(|| {
+                Error::other(format!(
+                    "malformed bucket name, it must start with `projects/_/buckets/`: {bucket}"
+                ))
+            })?;
+        let object: String = self.object.clone();
+        let builder = self
+            .inner
+            .client
+            .request(
+                reqwest::Method::POST,
+                format!("{}/upload/storage/v1/b/{bucket_id}/o", &self.inner.endpoint),
+            )
+            .query(&[("uploadType", "media")])
+            .query(&[("name", &object)])
+            .header("content-type", "application/octet-stream")
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&self::info::X_GOOG_API_CLIENT_HEADER),
+            );
+
+        let builder = self.inner.apply_auth_headers(builder).await?;
+        let builder = builder.body(self.payload.clone());
+
+        tracing::info!("builder={builder:?}");
+
+        let response = builder.send().await.map_err(Error::io)?;
+        if !response.status().is_success() {
+            return gaxi::http::to_http_error(response).await;
+        }
+        let response = response.json::<v1::Object>().await.map_err(Error::io)?;
+
+        Ok(Object::from(response))
+    }
+
+    /// Sets the value of bucket.
+    pub fn set_bucket<T: Into<String>>(mut self, v: T) -> Self {
+        self.bucket = v.into();
+        self
+    }
+
+    /// Sets the value of object.
+    pub fn set_object<T: Into<String>>(mut self, v: T) -> Self {
+        self.object = v.into();
+        self
+    }
+
+    /// Sets the value of payload.
+    pub fn set_payload<T: Into<bytes::Bytes>>(mut self, v: T) -> Self {
+        self.payload = v.into();
+        self
     }
 }
 
