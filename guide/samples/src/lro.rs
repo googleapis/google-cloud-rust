@@ -151,7 +151,6 @@ pub async fn polling(project_id: &str) -> crate::Result<()> {
         .build()
         .await?;
 
-    // ANCHOR: polling-prepare
     let mut poller = client
         .batch_recognize()
         .set_recognizer(format!(
@@ -172,7 +171,6 @@ pub async fn polling(project_id: &str) -> crate::Result<()> {
                 .set_model("short")
                 .set_auto_decoding_config(speech::model::AutoDetectDecodingConfig::new()),
         )
-        // ANCHOR_END: polling-prepare
         // ANCHOR: polling-poller
         .poller();
     // ANCHOR_END: polling-poller
