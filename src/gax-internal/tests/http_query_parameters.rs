@@ -468,7 +468,6 @@ mod test {
         let builder = add_query_parameters(&request)?;
 
         let r = builder.build()?;
-        // TODO(#736) - the `.paths` field here may not be correct, investigate
         assert_eq!(split_query(&r), vec!["fieldMask=a%2Cb"]);
 
         Ok(())
@@ -485,7 +484,6 @@ mod test {
         let builder = add_query_parameters(&request)?;
 
         let r = builder.build()?;
-        // TODO(#736) - the `.paths` field here may not be correct, investigate
         assert_eq!(split_query(&r), vec!["requiredFieldMask=a%2Cb"]);
 
         Ok(())
