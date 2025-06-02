@@ -179,13 +179,6 @@ The client library will only treat `UNAVAILABLE` (see [AIP-194]) as a retryable
 error, and will stop polling after 100 attempts or 300 seconds, whichever comes
 first.
 
-You may also want to configure a retry policy for the initial operation, without
-it, if the operation fails to start the polling loop stops immediately:
-
-```rust,ignore
-{{#include ../samples/src/polling_policies.rs:client-errors-client-retry}}
-```
-
 See
 [below](#configuring-the-retryable-polling-errors-for-all-requests-in-a-client-complete-code)
 for the complete code.
