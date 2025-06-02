@@ -13,6 +13,7 @@
 // limitations under the License.
 
 use super::dynamic::CredentialsProvider;
+use super::external_account_sources::executable_sourced::ExecutableSourcedCredentials;
 use super::external_account_sources::url_sourced::UrlSourcedCredentials;
 use super::internal::sts_exchange::{ClientAuthentication, ExchangeTokenRequest, STSHandler};
 use super::{CacheableResource, Credentials};
@@ -47,7 +48,7 @@ enum CredentialSource {
     Url(UrlSourcedCredentials),
     File {},
     Aws {},
-    Executable {},
+    Executable(ExecutableSourcedCredentials),
 }
 
 impl CredentialSource {
@@ -58,20 +59,10 @@ impl CredentialSource {
     ) -> Credentials {
         match self {
             Self::Url(source) => {
-                let token_provider = ExternalAccountTokenProvider {
-                    subject_token_provider: source,
-                    config,
-                };
-                let cache = TokenCache::new(token_provider);
-                Credentials {
-                    inner: Arc::new(ExternalAccountCredentials {
-                        token_provider: cache,
-                        quota_project_id,
-                    }),
-                }
+                Self::make_credentials_from_source(source, config, quota_project_id)
             }
-            Self::Executable { .. } => {
-                unimplemented!("executable sourced credential not supported yet")
+            Self::Executable(source) => {
+                Self::make_credentials_from_source(source, config, quota_project_id)
             }
             Self::File { .. } => {
                 unimplemented!("file sourced credential not supported yet")
@@ -79,6 +70,27 @@ impl CredentialSource {
             Self::Aws { .. } => {
                 unimplemented!("AWS sourced credential not supported yet")
             }
+        }
+    }
+
+    fn make_credentials_from_source<T>(
+        subject_token_provider: T,
+        config: ExternalAccountConfig,
+        quota_project_id: Option<String>,
+    ) -> Credentials
+    where
+        T: SubjectTokenProvider + 'static,
+    {
+        let token_provider = ExternalAccountTokenProvider {
+            subject_token_provider,
+            config,
+        };
+        let cache = TokenCache::new(token_provider);
+        Credentials {
+            inner: Arc::new(ExternalAccountCredentials {
+                token_provider: cache,
+                quota_project_id,
+            }),
         }
     }
 }
