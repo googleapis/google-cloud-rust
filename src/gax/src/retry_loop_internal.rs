@@ -24,7 +24,7 @@ use std::time::Duration;
 enum RetryLoopAttempt {
     // The first attempt
     Initial,
-    // (Attempt count, time to sleep, previous error)
+    // (Attempt count, backoff delay, previous error)
     Retry(u32, Duration, Error),
 }
 
