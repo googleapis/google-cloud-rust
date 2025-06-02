@@ -131,13 +131,11 @@ pub async fn workload_identity_provider_url_sourced() -> anyhow::Result<()> {
         }
     };
 
-    let id_token =
-        generate_id_token(audience.clone(), client_email.to_string(), service_account).await?;
+    let id_token = generate_id_token(audience.clone(), client_email, service_account).await?;
 
     let source_token_response_body = serde_json::json!({
         "id_token": id_token,
-    })
-    .to_string();
+    });
 
     let server = Server::run();
     server.expect(
@@ -145,7 +143,7 @@ pub async fn workload_identity_provider_url_sourced() -> anyhow::Result<()> {
             request::method_path("GET", "/source_token"),
             request::headers(contains(("metadata", "True",))),
         ])
-        .respond_with(status_code(200).body(source_token_response_body)),
+        .respond_with(json_encoded(source_token_response_body)),
     );
 
     let contents = serde_json::json!({
@@ -163,14 +161,10 @@ pub async fn workload_identity_provider_url_sourced() -> anyhow::Result<()> {
           "subject_token_field_name": "id_token"
         }
       }
-    })
-    .to_string();
+    });
 
     // Create external account with Url sourced creds
-    let creds =
-        ExternalAccountCredentialsBuilder::new(serde_json::from_str(contents.as_str()).unwrap())
-            .build()
-            .unwrap();
+    let creds = ExternalAccountCredentialsBuilder::new(contents).build()?;
 
     // Construct a BigQuery client using the credentials.
     // Using BigQuery as it doesn't require a billing account.
