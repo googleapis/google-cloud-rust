@@ -169,7 +169,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .map(|p| serde_json::to_value(p).map_err(Error::ser))
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
@@ -343,7 +343,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .map(|p| serde_json::to_value(p).map_err(Error::ser))
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
@@ -495,7 +495,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .map(|p| serde_json::to_value(p).map_err(Error::ser))
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
@@ -635,7 +635,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
         let builder = req
             .start_time
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .map(|p| serde_json::to_value(p).map_err(Error::ser))
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
@@ -645,7 +645,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
         let builder = req
             .end_time
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .map(|p| serde_json::to_value(p).map_err(Error::ser))
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
@@ -768,7 +768,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .map(|p| serde_json::to_value(p).map_err(Error::ser))
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
@@ -920,7 +920,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .map(|p| serde_json::to_value(p).map_err(Error::ser))
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
@@ -1247,7 +1247,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .map(|p| serde_json::to_value(p).map_err(Error::ser))
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
@@ -1423,7 +1423,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .map(|p| serde_json::to_value(p).map_err(Error::ser))
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
@@ -1755,7 +1755,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .map(|p| serde_json::to_value(p).map_err(Error::ser))
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
