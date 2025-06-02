@@ -289,7 +289,7 @@ fn is_protobuf_id(path: &str) -> bool {
 
 fn is_identifier(id: &str) -> bool {
     !id.is_empty()
-        && id.chars().all(|c: char| c.is_alphanumeric())
+        && id.chars().all(|c: char| c.is_alphanumeric() || c == '_')
         && !id.starts_with(|c: char| c.is_ascii_digit())
 }
 
@@ -364,6 +364,17 @@ mod test {
         let d = any.to_msg::<Duration>()?;
         assert_eq!(d, Duration::clamp(60, 0));
         Ok(())
+    }
+
+    #[test_case(json!({"@type": "type.googleapis.com/foo"}))]
+    #[test_case(json!({"@type": "type.googleapis.com/foo_bar"}))]
+    #[test_case(json!({"@type": "type.googleapis.com/foo_bar.baz"}))]
+    #[test_case(json!({"@type": "type.googleapis.com/foo_bar.baz.Message"}))]
+    #[test_case(json!({"@type": "type.googleapis.com/foo_bar.baz.Message3"}))]
+    #[test_case(json!({"@type": "type.googleapis.com/foo2_bar.baz.Message3"}))]
+    fn deserialize_any_success(input: Value) {
+        let any = serde_json::from_value::<Any>(input.clone());
+        assert!(any.is_ok(), "{any:?} from {input:?}");
     }
 
     #[test_case(json!({"value": "7"}))]
