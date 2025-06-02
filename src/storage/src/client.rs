@@ -16,7 +16,7 @@ pub use crate::Error;
 pub use crate::Result;
 use auth::credentials::CacheableResource;
 use base64::Engine;
-use base64::prelude::*;
+use base64::prelude::BASE64_STANDARD;
 pub use control::model::Object;
 use http::Extensions;
 
@@ -428,12 +428,20 @@ impl ReadObject {
         self
     }
 
-    /// Sets the value of [common_object_request_params][control::model::ReadObjectRequest::common_object_request_params].
-    pub fn set_common_object_request_params<T>(mut self, v: T) -> Self
+    /// Sets the value of key in [common_object_request_params][control::model::ReadObjectRequest::common_object_request_params].
+    pub fn set_key<T>(mut self, v: T) -> Self
     where
-        T: Into<control::model::CommonObjectRequestParams>,
+        T: Into<bytes::Bytes>,
     {
-        self.request.common_object_request_params = Option::Some(v.into());
+        use sha2::{Digest, Sha256};
+        let v: bytes::Bytes = v.into();
+        // let sha256 = Sha256::digest(v.clone()).to_owned();
+        self.request.common_object_request_params = Some(
+            control::model::CommonObjectRequestParams::new()
+                .set_encryption_algorithm("AES256")
+                .set_encryption_key_bytes(v.clone())
+                .set_encryption_key_sha256_bytes(Sha256::digest(v.clone()).as_slice().to_owned()),
+        );
         self
     }
 
@@ -482,8 +490,6 @@ impl ReadObject {
     async fn http_request_builder(self) -> Result<reqwest::RequestBuilder> {
         // TODO(#2103): map additional parameters to the JSON request.
         // - map relevant parameters to remaining: softDelete, projection, restoreToken
-        // - map request parameters to optional extension headers: X-Goog-Encryption-Algorithm,
-        //   X-Goog-Encryption-Key, X-Goog-Encryption-Key-Sha256
 
         // Collect the required bucket and object parameters.
         let bucket: String = self.request.bucket;
@@ -735,23 +741,17 @@ mod tests {
             .with_credentials(auth::credentials::testing::test_credentials())
             .build()
             .await?;
+        // A precomputed random key encoded in base64 and its Sha256.
         let key_base64 = "V8knzq04ASfjVn7eNM/UGsXnHEvpRByfCRE/gkNJfK0=";
         let key_sha256_base64 = "0hA2ubfDbe2m0t8tZIDKYGd53WYJkoWSXGCPvYESW58=";
+
+        // The API takes the unencoded byte array.
         let key: Vec<u8> = BASE64_STANDARD.decode(key_base64)?;
-        let sha256: Vec<u8> = BASE64_STANDARD.decode(key_sha256_base64)?;
         let read_object_builder = client
             .read_object()
             .set_bucket("projects/_/buckets/bucket")
             .set_object("object")
-            // TODO: this is a bad interface, algorithm is always AES256 and the sha256 is calculated from the key bytes.
-            // Other client libraries allow user to simply specify "key", we should do that.
-            .set_common_object_request_params(
-                control::model::CommonObjectRequestParams::new()
-                    .set_encryption_algorithm("AES256")
-                    // Random key generated for this test.
-                    .set_encryption_key_bytes(key)
-                    .set_encryption_key_sha256_bytes(sha256),
-            )
+            .set_key(key)
             .http_request_builder()
             .await?
             .build()?;
