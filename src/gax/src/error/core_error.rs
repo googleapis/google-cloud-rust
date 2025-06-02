@@ -206,15 +206,22 @@ impl Error {
     ///
     /// This is always a client-side generated error, generated before the
     /// request is made. This error is never transient: the serialization is
-    /// deterministic (module out of memory conditions), and will fail on future
+    /// deterministic (modulo out of memory conditions), and will fail on future
     /// attempts with the same input data.
     ///
     /// # Troubleshooting
     ///
-    /// The most common cause for serialization problems is using an enum value
-    /// name with a gRPC-based client. gRPC requires integer enum values (JSON
-    /// accepts both). Verify the enum value is valid, and if so, try upgrading
-    /// the client library. Newer versions should include the new value.
+    /// Most client libraries use HTTP and JSON as the transport, though some
+    /// client libraries use gRPC for some, or all RPCs.
+    ///
+    /// The most common cause for serialization problems is using an unknown
+    /// enum value name with a gRPC-based RPC. gRPC requires integer enum
+    /// values, while JSON accepts both. The client libraries convert **known**
+    /// enum value names to their integer representation, but unknown values
+    /// cannot be sent over gRPC. Verify the enum value is valid, and if so:
+    /// - try using an integer value instead of the enum name, or 
+    /// - upgrade the client library: newer versions should include the new
+    ///   value.
     ///
     /// In all other cases please [open an issue]. While we do not expect these
     /// problems to be common, we would like to hear if they are so we can
@@ -225,8 +232,8 @@ impl Error {
     /// condition, or any other runtime error. Use `format!("{:?}", ...)` to
     /// examine the error as it should include the original problem.
     ///
-    /// Finally, using a [wkt::Any] with a gRPC-based client is unsupported. As
-    /// of this writing, no client libraries send `Any` via gRPC, but this
+    /// Finally, sending a [wkt::Any] with a gRPC-based client is unsupported.
+    /// As of this writing, no client libraries sends `Any` via gRPC, but this
     /// could be a problem in the future.
     ///
     /// [open an issue]: https://github.com/googleapis/google-cloud-rust/issues/new/choose
