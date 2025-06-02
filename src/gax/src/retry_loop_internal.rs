@@ -729,7 +729,6 @@ mod test {
         Ok(())
     }
 
-
     #[tokio::test]
     async fn no_sleep_past_overall_timeout_after_throttle() -> anyhow::Result<()> {
         // This test simulates a server responding with a transient error. There
