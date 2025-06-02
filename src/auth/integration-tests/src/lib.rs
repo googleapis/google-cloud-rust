@@ -24,7 +24,6 @@ use language::client::LanguageService;
 use language::model::Document;
 use scoped_env::ScopedEnv;
 use secretmanager::client::SecretManagerService;
-use std::collections::HashMap;
 
 pub async fn service_account() -> anyhow::Result<()> {
     let project = std::env::var("GOOGLE_CLOUD_PROJECT").expect("GOOGLE_CLOUD_PROJECT not set");
@@ -125,12 +124,12 @@ pub async fn workload_identity_provider_url_sourced() -> anyhow::Result<()> {
     let project = std::env::var("GOOGLE_CLOUD_PROJECT").expect("GOOGLE_CLOUD_PROJECT not set");
     let audience = get_oidc_audience();
     let service_account = get_byoid_service_account();
-    let service_account_data =
-        serde_json::from_value::<HashMap<String, String>>(service_account.clone())
-            .expect("failed to read service account data as map");
-    let client_email = service_account_data
-        .get("client_email")
-        .expect("missing client_email");
+    let client_email = match service_account.get("client_email") {
+        Some(serde_json::Value::String(v)) => v.clone(),
+        None | Some(_) => {
+            panic!("missing `client_email` string in service account: {service_account:?}")
+        }
+    };
 
     let id_token =
         generate_id_token(audience.clone(), client_email.to_string(), service_account).await?;
@@ -198,7 +197,6 @@ async fn generate_id_token(
     service_account: serde_json::Value,
 ) -> anyhow::Result<String> {
     let creds = AccessTokenCredentialBuilder::new(service_account.clone())
-        .with_scopes(["https://www.googleapis.com/auth/cloud-platform"])
         .build()
         .expect("failed to setup service account credentials for IAM");
 
