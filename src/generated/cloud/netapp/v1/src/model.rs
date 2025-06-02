@@ -403,6 +403,7 @@ pub struct ActiveDirectory {
     pub create_time: std::option::Option<wkt::Timestamp>,
 
     /// Output only. The state of the AD.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::active_directory::State,
 
     /// Required. Name of the Active Directory domain
@@ -861,6 +862,7 @@ pub struct Backup {
     pub name: std::string::String,
 
     /// Output only. The backup state.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::backup::State,
 
     /// A description of the backup with 2048 characters or less.
@@ -877,6 +879,7 @@ pub struct Backup {
 
     /// Output only. Type of backup, manually created or created by a backup
     /// policy.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub backup_type: crate::model::backup::Type,
 
     /// Volume full name of this backup belongs to.
@@ -1799,6 +1802,7 @@ pub struct BackupPolicy {
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. The backup policy state.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::backup_policy::State,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2498,6 +2502,7 @@ pub struct BackupVault {
     pub name: std::string::String,
 
     /// Output only. The backup vault state.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::backup_vault::State,
 
     /// Output only. Create time of the backup vault.
@@ -2514,6 +2519,7 @@ pub struct BackupVault {
 
     /// Optional. Type of backup vault to be created.
     /// Default is IN_REGION.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub backup_vault_type: crate::model::backup_vault::BackupVaultType,
 
     /// Output only. Region in which the backup vault is created.
@@ -4063,6 +4069,7 @@ pub struct KmsConfig {
     pub crypto_key_name: std::string::String,
 
     /// Output only. State of the KmsConfig.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::kms_config::State,
 
     /// Output only. State details of the KmsConfig.
@@ -4755,6 +4762,7 @@ pub struct QuotaRule {
 
     /// Required. The type of quota rule.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::quota_rule::Type,
 
     /// Required. The maximum allowed disk space in MiB.
@@ -4762,6 +4770,7 @@ pub struct QuotaRule {
     pub disk_limit_mib: i32,
 
     /// Output only. State of the quota rule
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::quota_rule::State,
 
     /// Output only. State details of the quota rule
@@ -5393,6 +5402,7 @@ pub struct Replication {
     pub name: std::string::String,
 
     /// Output only. State of the replication.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::replication::State,
 
     /// Output only. State details of the replication.
@@ -5400,12 +5410,15 @@ pub struct Replication {
     pub state_details: std::string::String,
 
     /// Output only. Indicates whether this points to source or destination.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub role: crate::model::replication::ReplicationRole,
 
     /// Required. Indicates the schedule for replication.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub replication_schedule: crate::model::replication::ReplicationSchedule,
 
     /// Output only. Indicates the state of mirroring.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub mirror_state: crate::model::replication::MirrorState,
 
     /// Output only. Condition of the relationship. Can be one of the following:
@@ -5457,6 +5470,7 @@ pub struct Replication {
     pub cluster_location: std::string::String,
 
     /// Output only. Type of the hybrid replication.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub hybrid_replication_type: crate::model::replication::HybridReplicationType,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7598,6 +7612,7 @@ pub struct Snapshot {
     pub name: std::string::String,
 
     /// Output only. The snapshot state.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::snapshot::State,
 
     /// Output only. State details of the storage pool
@@ -8261,6 +8276,7 @@ pub struct StoragePool {
     pub name: std::string::String,
 
     /// Required. Service level of the storage pool
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub service_level: crate::model::ServiceLevel,
 
     /// Required. Capacity in GIB of the pool
@@ -8278,6 +8294,7 @@ pub struct StoragePool {
     pub volume_count: i32,
 
     /// Output only. State of the storage pool
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::storage_pool::State,
 
     /// Output only. State details of the storage pool
@@ -8320,6 +8337,7 @@ pub struct StoragePool {
     pub psa_range: std::string::String,
 
     /// Output only. Specifies the current pool encryption key source.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub encryption_type: crate::model::EncryptionType,
 
     /// Deprecated. Used to allow SO pool to access AD or DNS server from other
@@ -8761,6 +8779,7 @@ pub struct ValidateDirectoryServiceRequest {
     pub name: std::string::String,
 
     /// Type of directory service policy attached to the storage pool.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub directory_service_type: crate::model::DirectoryServiceType,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9212,6 +9231,7 @@ pub struct Volume {
     pub name: std::string::String,
 
     /// Output only. State of the volume
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::volume::State,
 
     /// Output only. State details of the volume
@@ -9241,6 +9261,7 @@ pub struct Volume {
     pub network: std::string::String,
 
     /// Output only. Service level of the volume
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub service_level: crate::model::ServiceLevel,
 
     /// Required. Capacity in GIB of the volume
@@ -9300,6 +9321,7 @@ pub struct Volume {
     pub used_gib: i64,
 
     /// Optional. Security Style of the Volume
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub security_style: crate::model::SecurityStyle,
 
     /// Optional. Flag indicating if the volume is a kerberos volume or not, export
@@ -9324,6 +9346,7 @@ pub struct Volume {
     pub kms_config: std::string::String,
 
     /// Output only. Specified the current volume encryption key source.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub encryption_type: crate::model::EncryptionType,
 
     /// Output only. Indicates whether the volume is part of a replication
@@ -10793,6 +10816,7 @@ pub struct MountOption {
     pub export_full: std::string::String,
 
     /// Protocol to mount with.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub protocol: crate::model::Protocols,
 
     /// Instructions for mounting

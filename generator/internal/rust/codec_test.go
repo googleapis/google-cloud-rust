@@ -394,6 +394,10 @@ func TestMethodInOut(t *testing.T) {
 }
 
 func TestFieldAttributes(t *testing.T) {
+	enum := &api.Enum{
+		Name: "FakeEnum",
+		ID:   "..FakeNum",
+	}
 	message := &api.Message{
 		Name: "Fake",
 		ID:   "..Fake",
@@ -463,9 +467,33 @@ func TestFieldAttributes(t *testing.T) {
 				Optional: false,
 				Repeated: true,
 			},
+			{
+				Name:     "f_enum",
+				JSONName: "fEnum",
+				Typez:    api.ENUM_TYPE,
+				TypezID:  "..FakeEnum",
+				Optional: false,
+				Repeated: false,
+			},
+			{
+				Name:     "f_enum_optional",
+				JSONName: "fEnumOptional",
+				Typez:    api.ENUM_TYPE,
+				TypezID:  "..FakeEnum",
+				Optional: true,
+				Repeated: false,
+			},
+			{
+				Name:     "f_enum_repeated",
+				JSONName: "fEnumRepeated",
+				Typez:    api.ENUM_TYPE,
+				TypezID:  "..FakeEnum",
+				Optional: false,
+				Repeated: true,
+			},
 		},
 	}
-	model := api.NewTestAPI([]*api.Message{message}, []*api.Enum{}, []*api.Service{})
+	model := api.NewTestAPI([]*api.Message{message}, []*api.Enum{enum}, []*api.Service{})
 
 	expectedAttributes := map[string]string{
 		"f_int64":          `#[serde(skip_serializing_if = "wkt::internal::is_default")]` + "\n" + `#[serde_as(as = "serde_with::DisplayFromStr")]`,
@@ -479,6 +507,10 @@ func TestFieldAttributes(t *testing.T) {
 		"f_string":          `#[serde(skip_serializing_if = "std::string::String::is_empty")]`,
 		"f_string_optional": `#[serde(skip_serializing_if = "std::option::Option::is_none")]`,
 		"f_string_repeated": `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]`,
+
+		"f_enum":          `#[serde(skip_serializing_if = "wkt::internal::is_default")]`,
+		"f_enum_optional": `#[serde(skip_serializing_if = "std::option::Option::is_none")]`,
+		"f_enum_repeated": `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]`,
 	}
 	loadWellKnownTypes(model.State)
 	for _, field := range message.Fields {
@@ -560,6 +592,21 @@ func TestMapFieldAttributes(t *testing.T) {
 			},
 		},
 	}
+	map5 := &api.Message{
+		Name:  "$map<bool, string>",
+		ID:    "$map<bool, string>",
+		IsMap: true,
+		Fields: []*api.Field{
+			{
+				Name:  "key",
+				Typez: api.BOOL_TYPE,
+			},
+			{
+				Name:  "value",
+				Typez: api.STRING_TYPE,
+			},
+		},
+	}
 	message := &api.Message{
 		Name: "Fake",
 		ID:   "..Fake",
@@ -596,9 +643,15 @@ func TestMapFieldAttributes(t *testing.T) {
 				Typez:    api.MESSAGE_TYPE,
 				TypezID:  map4.ID,
 			},
+			{
+				Name:     "map_bool",
+				JSONName: "mapBool",
+				Typez:    api.MESSAGE_TYPE,
+				TypezID:  map5.ID,
+			},
 		},
 	}
-	model := api.NewTestAPI([]*api.Message{target, map1, map2, map3, map4, message}, []*api.Enum{}, []*api.Service{})
+	model := api.NewTestAPI([]*api.Message{target, map1, map2, map3, map4, map5, message}, []*api.Enum{}, []*api.Service{})
 
 	expectedAttributes := map[string]string{
 		"target":      `#[serde(skip_serializing_if = "std::option::Option::is_none")]`,
@@ -606,6 +659,7 @@ func TestMapFieldAttributes(t *testing.T) {
 		"map_i64":     `#[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]` + "\n" + `#[serde_as(as = "std::collections::HashMap<_, serde_with::DisplayFromStr>")]`,
 		"map_i64_key": `#[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]` + "\n" + `#[serde_as(as = "std::collections::HashMap<serde_with::DisplayFromStr, _>")]`,
 		"map_bytes":   `#[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]` + "\n" + `#[serde_as(as = "std::collections::HashMap<_, serde_with::base64::Base64>")]`,
+		"map_bool":    `#[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]` + "\n" + `#[serde_as(as = "std::collections::HashMap<serde_with::DisplayFromStr, _>")]`,
 	}
 	loadWellKnownTypes(model.State)
 	for _, field := range message.Fields {
@@ -1244,8 +1298,8 @@ func TestAsQueryParameter(t *testing.T) {
 		{requiredEnumField, `let builder = builder.query(&[("requiredEnumField", &req.required_enum_field)]);`},
 		{optionalEnumField, `let builder = req.optional_enum_field.iter().fold(builder, |builder, p| builder.query(&[("optionalEnumField", p)]));`},
 		{repeatedEnumField, `let builder = req.repeated_enum_field.iter().fold(builder, |builder, p| builder.query(&[("repeatedEnumField", p)]));`},
-		{requiredFieldMaskField, `let builder = req.required_field_mask.paths.iter().fold(builder, |builder, v| builder.query(&[("requiredFieldMask", v)]));`},
-		{optionalFieldMaskField, `let builder = req.optional_field_mask.as_ref().iter().flat_map(|p| p.paths.iter()).fold(builder, |builder, v| builder.query(&[("optionalFieldMask", v)]));`},
+		{requiredFieldMaskField, `let builder = { use gaxi::query_parameter::QueryParameter; serde_json::to_value(&req.required_field_mask).map_err(Error::serde)?.add(builder, "requiredFieldMask") };`},
+		{optionalFieldMaskField, `let builder = req.optional_field_mask.as_ref().map(|p| serde_json::to_value(p).map_err(Error::serde) ).transpose()?.into_iter().fold(builder, |builder, v| { use gaxi::query_parameter::QueryParameter; v.add(builder, "optionalFieldMask") });`},
 	} {
 		got := addQueryParameter(test.field)
 		if test.want != got {

@@ -76,6 +76,7 @@ pub struct Backup {
     pub stats: std::option::Option<crate::model::backup::Stats>,
 
     /// Output only. The current state of the backup.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::backup::State,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -414,9 +415,11 @@ pub struct Database {
     /// See <https://cloud.google.com/datastore/docs/firestore-or-datastore> for
     /// information about how to choose.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::database::DatabaseType,
 
     /// The concurrency control mode to use for this database.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub concurrency_mode: crate::model::database::ConcurrencyMode,
 
     /// Output only. The period during which past versions of data are retained in
@@ -444,9 +447,11 @@ pub struct Database {
     pub earliest_version_time: std::option::Option<wkt::Timestamp>,
 
     /// Whether to enable the PITR feature on this database.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub point_in_time_recovery_enablement: crate::model::database::PointInTimeRecoveryEnablement,
 
     /// The App Engine integration mode to use for this database.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub app_engine_integration_mode: crate::model::database::AppEngineIntegrationMode,
 
     /// Output only. The key_prefix for this database. This key_prefix is used, in
@@ -460,6 +465,7 @@ pub struct Database {
     pub key_prefix: std::string::String,
 
     /// State of delete protection for the database.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub delete_protection_state: crate::model::database::DeleteProtectionState,
 
     /// Optional. Presence indicates CMEK is enabled for this database.
@@ -496,6 +502,7 @@ pub struct Database {
     pub etag: std::string::String,
 
     /// Immutable. The edition of the database.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub database_edition: crate::model::database::DatabaseEdition,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2304,6 +2311,7 @@ pub mod field {
     #[non_exhaustive]
     pub struct TtlConfig {
         /// Output only. The state of the TTL configuration.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub state: crate::model::field::ttl_config::State,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4646,9 +4654,11 @@ pub struct Index {
     /// Indexes with a collection group query scope specified allow queries against
     /// all collections descended from a specific document, specified at query
     /// time, and that have the same collection ID as this index.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub query_scope: crate::model::index::QueryScope,
 
     /// The API scope supported by this index.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub api_scope: crate::model::index::ApiScope,
 
     /// The fields supported by this index.
@@ -4666,9 +4676,11 @@ pub struct Index {
     pub fields: std::vec::Vec<crate::model::index::IndexField>,
 
     /// Output only. The serving state of the index.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::index::State,
 
     /// Immutable. The density configuration of the index.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub density: crate::model::index::Density,
 
     /// Optional. Whether the index is multikey. By default, the index is not
@@ -5966,6 +5978,7 @@ pub struct IndexOperationMetadata {
     pub index: std::string::String,
 
     /// The state of the operation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::OperationState,
 
     /// The progress, in documents, of this operation.
@@ -6111,6 +6124,7 @@ pub struct FieldOperationMetadata {
         std::vec::Vec<crate::model::field_operation_metadata::IndexConfigDelta>,
 
     /// The state of the operation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::OperationState,
 
     /// The progress, in documents, of this operation.
@@ -6267,6 +6281,7 @@ pub mod field_operation_metadata {
     #[non_exhaustive]
     pub struct IndexConfigDelta {
         /// Specifies how the index is changing.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub change_type: crate::model::field_operation_metadata::index_config_delta::ChangeType,
 
         /// The index being changed.
@@ -6468,6 +6483,7 @@ pub mod field_operation_metadata {
     #[non_exhaustive]
     pub struct TtlConfigDelta {
         /// Specifies how the TTL configuration is changing.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub change_type: crate::model::field_operation_metadata::ttl_config_delta::ChangeType,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6662,6 +6678,7 @@ pub struct ExportDocumentsMetadata {
     pub end_time: std::option::Option<wkt::Timestamp>,
 
     /// The state of the export operation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub operation_state: crate::model::OperationState,
 
     /// The progress, in documents, of this operation.
@@ -6857,6 +6874,7 @@ pub struct ImportDocumentsMetadata {
     pub end_time: std::option::Option<wkt::Timestamp>,
 
     /// The state of the import operation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub operation_state: crate::model::OperationState,
 
     /// The progress, in documents, of this operation.
@@ -7028,6 +7046,7 @@ pub struct BulkDeleteDocumentsMetadata {
     pub end_time: std::option::Option<wkt::Timestamp>,
 
     /// The state of the operation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub operation_state: crate::model::OperationState,
 
     /// The progress, in documents, of this operation.
@@ -7248,6 +7267,7 @@ pub struct RestoreDatabaseMetadata {
     pub end_time: std::option::Option<wkt::Timestamp>,
 
     /// The operation state of the restore.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub operation_state: crate::model::OperationState,
 
     /// The name of the database being restored to.
@@ -7651,6 +7671,7 @@ pub struct WeeklyRecurrence {
     /// The day of week to run.
     ///
     /// DAY_OF_WEEK_UNSPECIFIED is not allowed.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub day: gtype::model::DayOfWeek,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7697,6 +7718,7 @@ pub struct UserCreds {
 
     /// Output only. Whether the user creds are enabled or disabled. Defaults to
     /// ENABLED on creation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::user_creds::State,
 
     /// Output only. The plaintext server-generated password for the user creds.

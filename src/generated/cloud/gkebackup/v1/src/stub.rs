@@ -24,8 +24,6 @@
 
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use gax::error::Error;
-
 pub(crate) mod dynamic;
 
 /// Defines the trait used to implement [super::client::BackupForGKE].
@@ -48,9 +46,7 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::BackupForGKE::list_backup_plans].
@@ -61,9 +57,7 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ListBackupPlansResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::ListBackupPlansResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::BackupForGKE::get_backup_plan].
@@ -74,9 +68,7 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::BackupPlan>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::BackupPlan>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::BackupForGKE::update_backup_plan].
@@ -87,9 +79,7 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::BackupForGKE::delete_backup_plan].
@@ -100,9 +90,7 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::BackupForGKE::create_backup_channel].
@@ -113,9 +101,7 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::BackupForGKE::list_backup_channels].
@@ -126,9 +112,7 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ListBackupChannelsResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::ListBackupChannelsResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::BackupForGKE::get_backup_channel].
@@ -139,9 +123,7 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::BackupChannel>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::BackupChannel>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::BackupForGKE::update_backup_channel].
@@ -152,9 +134,7 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::BackupForGKE::delete_backup_channel].
@@ -165,9 +145,7 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::BackupForGKE::list_backup_plan_bindings].
@@ -180,9 +158,7 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
             gax::response::Response<crate::model::ListBackupPlanBindingsResponse>,
         >,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::ListBackupPlanBindingsResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::BackupForGKE::get_backup_plan_binding].
@@ -193,9 +169,7 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::BackupPlanBinding>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::BackupPlanBinding>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::BackupForGKE::create_backup].
@@ -206,9 +180,7 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::BackupForGKE::list_backups].
@@ -219,9 +191,7 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ListBackupsResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::ListBackupsResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::BackupForGKE::get_backup].
@@ -232,9 +202,7 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Backup>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Backup>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::BackupForGKE::update_backup].
@@ -245,9 +213,7 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::BackupForGKE::delete_backup].
@@ -258,9 +224,7 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::BackupForGKE::list_volume_backups].
@@ -271,9 +235,7 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ListVolumeBackupsResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::ListVolumeBackupsResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::BackupForGKE::get_volume_backup].
@@ -284,9 +246,7 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::VolumeBackup>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::VolumeBackup>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::BackupForGKE::create_restore_plan].
@@ -297,9 +257,7 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::BackupForGKE::list_restore_plans].
@@ -310,9 +268,7 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ListRestorePlansResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::ListRestorePlansResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::BackupForGKE::get_restore_plan].
@@ -323,9 +279,7 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::RestorePlan>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::RestorePlan>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::BackupForGKE::update_restore_plan].
@@ -336,9 +290,7 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::BackupForGKE::delete_restore_plan].
@@ -349,9 +301,7 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::BackupForGKE::create_restore_channel].
@@ -362,9 +312,7 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::BackupForGKE::list_restore_channels].
@@ -375,9 +323,7 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ListRestoreChannelsResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::ListRestoreChannelsResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::BackupForGKE::get_restore_channel].
@@ -388,9 +334,7 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::RestoreChannel>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::RestoreChannel>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::BackupForGKE::update_restore_channel].
@@ -401,9 +345,7 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::BackupForGKE::delete_restore_channel].
@@ -414,9 +356,7 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::BackupForGKE::list_restore_plan_bindings].
@@ -429,9 +369,7 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
             gax::response::Response<crate::model::ListRestorePlanBindingsResponse>,
         >,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::ListRestorePlanBindingsResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::BackupForGKE::get_restore_plan_binding].
@@ -442,9 +380,7 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::RestorePlanBinding>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::RestorePlanBinding>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::BackupForGKE::create_restore].
@@ -455,9 +391,7 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::BackupForGKE::list_restores].
@@ -468,9 +402,7 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ListRestoresResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::ListRestoresResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::BackupForGKE::get_restore].
@@ -481,9 +413,7 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Restore>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Restore>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::BackupForGKE::update_restore].
@@ -494,9 +424,7 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::BackupForGKE::delete_restore].
@@ -507,9 +435,7 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::BackupForGKE::list_volume_restores].
@@ -520,9 +446,7 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ListVolumeRestoresResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::ListVolumeRestoresResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::BackupForGKE::get_volume_restore].
@@ -533,9 +457,7 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::VolumeRestore>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::VolumeRestore>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::BackupForGKE::get_backup_index_download_url].
@@ -548,9 +470,7 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
             gax::response::Response<crate::model::GetBackupIndexDownloadUrlResponse>,
         >,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::GetBackupIndexDownloadUrlResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::BackupForGKE::list_locations].
@@ -561,9 +481,7 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<location::model::ListLocationsResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<location::model::ListLocationsResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::BackupForGKE::get_location].
@@ -574,9 +492,7 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<location::model::Location>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<location::model::Location>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::BackupForGKE::set_iam_policy].
@@ -587,9 +503,7 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<iam_v1::model::Policy>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::BackupForGKE::get_iam_policy].
@@ -600,9 +514,7 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<iam_v1::model::Policy>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::BackupForGKE::test_iam_permissions].
@@ -613,9 +525,7 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::BackupForGKE::list_operations].
@@ -626,9 +536,7 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::BackupForGKE::get_operation].
@@ -639,9 +547,7 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::BackupForGKE::delete_operation].
@@ -650,9 +556,7 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
         _req: longrunning::model::DeleteOperationRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
-            "unimplemented",
-        )))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::BackupForGKE::cancel_operation].
@@ -661,9 +565,7 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
         _req: longrunning::model::CancelOperationRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
-            "unimplemented",
-        )))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Returns the polling error policy.

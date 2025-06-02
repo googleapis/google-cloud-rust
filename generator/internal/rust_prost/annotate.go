@@ -43,13 +43,13 @@ type methodAnnotations struct {
 }
 
 func (codec *codec) annotateModel(model *api.API, cfg *config.Config) error {
-	googleapisRoot := cfg.Source["googleapis-root"]
+	rootSource := cfg.Source[codec.RootName]
 	files, err := protobuf.DetermineInputFiles(cfg.General.SpecificationSource, cfg.Source)
 	if err != nil {
 		return err
 	}
 	for i, f := range files {
-		files[i] = strings.TrimPrefix(f, googleapisRoot+"/")
+		files[i] = strings.TrimPrefix(f, rootSource+"/")
 	}
 	annotations := &modelAnnotations{
 		CopyrightYear: codec.GenerationYear,

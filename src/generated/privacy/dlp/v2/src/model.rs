@@ -156,6 +156,7 @@ impl wkt::message::Message for ExcludeByHotword {
 #[non_exhaustive]
 pub struct ExclusionRule {
     /// How the rule is applied, see MatchingType documentation for details.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub matching_type: crate::model::MatchingType,
 
     /// Exclusion rule types.
@@ -545,6 +546,7 @@ pub struct InspectConfig {
     /// results and the lowest chance of a false positive. For more information,
     /// see [Match
     /// likelihood](https://cloud.google.com/sensitive-data-protection/docs/likelihood).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub min_likelihood: crate::model::Likelihood,
 
     /// Minimum likelihood per infotype. For each infotype, a user can specify a
@@ -739,6 +741,7 @@ pub mod inspect_config {
 
         /// Only returns findings equal to or above this threshold. This field is
         /// required or else the configuration fails.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub min_likelihood: crate::model::Likelihood,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -947,6 +950,7 @@ pub mod inspect_config {
 pub struct ByteContentItem {
     /// The type of data stored in the bytes string. Default will be TEXT_UTF8.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::byte_content_item::BytesType,
 
     /// Content data to inspect or redact.
@@ -1544,6 +1548,7 @@ pub struct Finding {
     pub info_type: std::option::Option<crate::model::InfoType>,
 
     /// Confidence of how likely it is that the `info_type` is correct.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub likelihood: crate::model::Likelihood,
 
     /// Where the content was found.
@@ -2124,6 +2129,7 @@ pub mod content_location {
 pub struct MetadataLocation {
     /// Type of metadata containing the finding.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::MetadataType,
 
     /// Label of the piece of metadata containing the finding, for example -
@@ -3737,6 +3743,7 @@ pub struct OutputStorageConfig {
     /// an (existing) table with no schema, and no changes will be made to an
     /// existing table that has a schema.
     /// Only for use with external storage.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub output_schema: crate::model::output_storage_config::OutputSchema,
 
     /// Output storage types.
@@ -9291,6 +9298,7 @@ pub struct DateTime {
     pub date: std::option::Option<gtype::model::Date>,
 
     /// Day of week
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub day_of_week: gtype::model::DayOfWeek,
 
     /// Time of day
@@ -10608,6 +10616,7 @@ pub mod primitive_transformation {
 #[non_exhaustive]
 pub struct TimePartConfig {
     /// The part of the time to keep.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub part_to_extract: crate::model::time_part_config::TimePart,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -13096,6 +13105,7 @@ pub mod record_condition {
         pub field: std::option::Option<crate::model::FieldId>,
 
         /// Required. Operator used to compare the field or infoType to the value.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub operator: crate::model::RelationalOperator,
 
         /// Value to compare against. [Mandatory, except for `EXISTS` tests.]
@@ -13208,6 +13218,7 @@ pub mod record_condition {
     pub struct Expressions {
         /// The operator to apply to the result of conditions. Default and currently
         /// only supported value is `AND`.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub logical_operator: crate::model::record_condition::expressions::LogicalOperator,
 
         /// Expression types.
@@ -13656,6 +13667,7 @@ pub mod transformation_summary {
         pub count: i64,
 
         /// Outcome of the transformation.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub code: crate::model::transformation_summary::TransformationResultCode,
 
         /// A place for warnings or errors to show up if a transformation didn't
@@ -13848,6 +13860,7 @@ pub mod transformation_summary {
 pub struct TransformationDescription {
     /// The transformation type.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::TransformationType,
 
     /// A description of the transformation. This is empty for a
@@ -14061,6 +14074,7 @@ impl wkt::message::Message for TransformationDetails {
 pub struct TransformationLocation {
     /// Information about the functionality of the container where this finding
     /// occurred, if available.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub container_type: crate::model::TransformationContainerType,
 
     /// Location type.
@@ -14274,6 +14288,7 @@ impl wkt::message::Message for RecordTransformation {
 pub struct TransformationResultStatus {
     /// Transformation result status type, this will be either SUCCESS, or it will
     /// be the reason for why the transformation was not completely successful.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub result_status_type: crate::model::TransformationResultStatusType,
 
     /// Detailed error codes and messages
@@ -14800,6 +14815,7 @@ pub struct Error {
     pub timestamps: std::vec::Vec<wkt::Timestamp>,
 
     /// Additional information about the error.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub extra_info: crate::model::error::ErrorExtraInfo,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -15047,6 +15063,7 @@ pub struct JobTrigger {
     pub last_run_time: std::option::Option<wkt::Timestamp>,
 
     /// Required. A status for this trigger.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub status: crate::model::job_trigger::Status,
 
     /// The configuration details for the specific type of job to run.
@@ -17508,6 +17525,7 @@ pub struct ListJobTriggersRequest {
 
     /// The type of jobs. Will use `DlpJobType.INSPECT` if not set.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::DlpJobType,
 
     /// Deprecated. This field has no effect.
@@ -18090,6 +18108,7 @@ pub mod data_profile_action {
 
         /// The type of event that triggers a Pub/Sub. At most one
         /// `PubSubNotification` per EventType is permitted.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub event: crate::model::data_profile_action::EventType,
 
         /// Conditions (e.g., data risk or sensitivity level) for triggering a
@@ -18100,6 +18119,7 @@ pub mod data_profile_action {
         /// How much data to include in the Pub/Sub message. If the user wishes to
         /// limit the size of the message, they can use resource_name and fetch the
         /// profile fields they wish to. Per table profile (not per column).
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub detail_of_message: crate::model::data_profile_action::pub_sub_notification::DetailLevel,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -18867,6 +18887,7 @@ pub struct DataProfileFinding {
     pub location: std::option::Option<crate::model::DataProfileFindingLocation>,
 
     /// How broadly a resource has been shared.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub resource_visibility: crate::model::ResourceVisibility,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -19626,6 +19647,7 @@ pub struct DiscoveryConfig {
     pub last_run_time: std::option::Option<wkt::Timestamp>,
 
     /// Required. A status for this configuration.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub status: crate::model::discovery_config::Status,
 
     /// Optional. Processing location configuration. Vertex AI dataset scanning
@@ -21012,6 +21034,7 @@ pub struct DiscoveryGenerationCadence {
 
     /// Frequency at which profiles should be updated, regardless of whether the
     /// underlying resource has changed. Defaults to never.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub refresh_frequency: crate::model::DataProfileUpdateFrequency,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -21112,6 +21135,7 @@ pub struct DiscoveryTableModifiedCadence {
 
     /// How frequently data profiles can be updated when tables are modified.
     /// Defaults to never.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub frequency: crate::model::DataProfileUpdateFrequency,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -21164,6 +21188,7 @@ pub struct DiscoverySchemaModifiedCadence {
 
     /// How frequently profiles may be updated when schemas are
     /// modified. Defaults to monthly.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub frequency: crate::model::DataProfileUpdateFrequency,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -21211,6 +21236,7 @@ impl wkt::message::Message for DiscoverySchemaModifiedCadence {
 pub struct DiscoveryInspectTemplateModifiedCadence {
     /// How frequently data profiles can be updated when the template is modified.
     /// Defaults to never.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub frequency: crate::model::DataProfileUpdateFrequency,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -22230,6 +22256,7 @@ pub struct DiscoveryCloudSqlGenerationCadence {
     /// reprofiling. If you set this field, profiles are refreshed at this
     /// frequency regardless of whether the underlying tables have changed.
     /// Defaults to never.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub refresh_frequency: crate::model::DataProfileUpdateFrequency,
 
     /// Governs when to update data profiles when the inspection rules
@@ -22328,6 +22355,7 @@ pub mod discovery_cloud_sql_generation_cadence {
 
         /// Frequency to regenerate data profiles when the schema is modified.
         /// Defaults to monthly.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub frequency: crate::model::DataProfileUpdateFrequency,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -23207,6 +23235,7 @@ pub struct DiscoveryCloudStorageGenerationCadence {
     /// Optional. Data changes in Cloud Storage can't trigger reprofiling. If you
     /// set this field, profiles are refreshed at this frequency regardless of
     /// whether the underlying buckets have changed. Defaults to never.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub refresh_frequency: crate::model::DataProfileUpdateFrequency,
 
     /// Optional. Governs when to update data profiles when the inspection rules
@@ -25136,6 +25165,7 @@ pub mod amazon_s_3_bucket_conditions {
 pub struct DiscoveryOtherCloudGenerationCadence {
     /// Optional. Frequency to update profiles regardless of whether the underlying
     /// resource has changes. Defaults to never.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub refresh_frequency: crate::model::DataProfileUpdateFrequency,
 
     /// Optional. Governs when to update data profiles when the inspection rules
@@ -26148,6 +26178,7 @@ pub struct DiscoveryVertexDatasetGenerationCadence {
     /// If you set this field, profiles are refreshed at this
     /// frequency regardless of whether the underlying datasets have changed.
     /// Defaults to never.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub refresh_frequency: crate::model::DataProfileUpdateFrequency,
 
     /// Governs when to update data profiles when the inspection rules
@@ -26218,9 +26249,11 @@ pub struct DlpJob {
 
     /// The type of job.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::DlpJobType,
 
     /// State of a job.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::dlp_job::JobState,
 
     /// Time when the job was created.
@@ -26753,6 +26786,7 @@ pub struct ListDlpJobsRequest {
 
     /// The type of job. Defaults to `DlpJobType.INSPECT`
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::DlpJobType,
 
     /// Comma-separated list of fields to order by,
@@ -27874,6 +27908,7 @@ pub struct StoredInfoTypeVersion {
 
     /// Stored info type version state. Read-only, updated by the system
     /// during dictionary creation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::StoredInfoTypeState,
 
     /// Errors that occurred when creating this storedInfoType version, or
@@ -29345,6 +29380,7 @@ impl gax::paginator::internal::PageableResponse for ListColumnDataProfilesRespon
 #[non_exhaustive]
 pub struct DataRiskLevel {
     /// The score applied to the resource.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub score: crate::model::data_risk_level::DataRiskLevelScore,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -29865,6 +29901,7 @@ pub struct TableDataProfile {
     pub profile_status: std::option::Option<crate::model::ProfileStatus>,
 
     /// State of a profile.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::table_data_profile::State,
 
     /// The sensitivity score of this table.
@@ -29917,9 +29954,11 @@ pub struct TableDataProfile {
     pub row_count: i64,
 
     /// How the table is encrypted.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub encryption_status: crate::model::EncryptionStatus,
 
     /// How broadly a resource has been shared.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub resource_visibility: crate::model::ResourceVisibility,
 
     /// The last time the profile was generated.
@@ -30648,6 +30687,7 @@ pub struct ColumnDataProfile {
     pub profile_status: std::option::Option<crate::model::ProfileStatus>,
 
     /// State of a profile.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::column_data_profile::State,
 
     /// The last time the profile was generated.
@@ -30703,9 +30743,11 @@ pub struct ColumnDataProfile {
     pub other_matches: std::vec::Vec<crate::model::OtherInfoTypeSummary>,
 
     /// Approximate percentage of entries being null in the column.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub estimated_null_percentage: crate::model::NullPercentageLevel,
 
     /// Approximate uniqueness of the column.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub estimated_uniqueness_score: crate::model::UniquenessScoreLevel,
 
     /// The likelihood that this column contains free-form text.
@@ -30717,9 +30759,11 @@ pub struct ColumnDataProfile {
     pub free_text_score: f64,
 
     /// The data type of a given column.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub column_type: crate::model::column_data_profile::ColumnDataType,
 
     /// Indicates if a policy tag has been applied to the column.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub policy_state: crate::model::column_data_profile::ColumnPolicyState,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -31545,6 +31589,7 @@ pub struct FileStoreDataProfile {
     pub profile_status: std::option::Option<crate::model::ProfileStatus>,
 
     /// State of a profile.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::file_store_data_profile::State,
 
     /// The last time the profile was generated.
@@ -31552,6 +31597,7 @@ pub struct FileStoreDataProfile {
     pub profile_last_generated: std::option::Option<wkt::Timestamp>,
 
     /// How broadly a resource has been shared.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub resource_visibility: crate::model::ResourceVisibility,
 
     /// The sensitivity score of this resource.
@@ -32959,6 +33005,7 @@ pub mod data_profile_pub_sub_condition {
     pub struct PubSubExpressions {
 
         /// The operator to apply to the collection of conditions.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub logical_operator: crate::model::data_profile_pub_sub_condition::pub_sub_expressions::PubSubLogicalOperator,
 
         /// Conditions to apply to the expression.
@@ -33294,6 +33341,7 @@ pub struct DataProfilePubSubMessage {
     pub file_store_profile: std::option::Option<crate::model::FileStoreDataProfile>,
 
     /// The event that caused the Pub/Sub message to be sent.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub event: crate::model::data_profile_action::EventType,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -33831,6 +33879,7 @@ pub struct Connection {
     pub name: std::string::String,
 
     /// Required. The connection's state in its lifecycle.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::ConnectionState,
 
     /// Output only. Set if status == ERROR, to provide additional details. Will
@@ -34040,6 +34089,7 @@ pub struct CloudSqlProperties {
 
     /// Required. The database engine used by the Cloud SQL instance that this
     /// connection configures.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub database_engine: crate::model::cloud_sql_properties::DatabaseEngine,
 
     /// How to authenticate to the instance.
@@ -34904,6 +34954,7 @@ impl wkt::message::Message for InfoType {
 #[non_exhaustive]
 pub struct SensitivityScore {
     /// The sensitivity score applied to the resource.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub score: crate::model::sensitivity_score::SensitivityScoreLevel,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -35170,6 +35221,7 @@ pub struct CustomInfoType {
     /// Likelihood to return for this CustomInfoType. This base value can be
     /// altered by a detection rule if the finding meets the criteria specified by
     /// the rule. Defaults to `VERY_LIKELY` if not specified.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub likelihood: crate::model::Likelihood,
 
     /// Set of detection rules to apply to all findings of this CustomInfoType.
@@ -35180,6 +35232,7 @@ pub struct CustomInfoType {
 
     /// If set to EXCLUSION_TYPE_EXCLUDE this infoType will not cause a finding
     /// to be returned. It still can be used for rules matching.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub exclusion_type: crate::model::custom_info_type::ExclusionType,
 
     /// Sensitivity for this CustomInfoType. If this CustomInfoType extends an
@@ -36523,6 +36576,7 @@ pub struct CloudStorageOptions {
     pub file_types: std::vec::Vec<crate::model::FileType>,
 
     /// How to sample the data.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub sample_method: crate::model::cloud_storage_options::SampleMethod,
 
     /// Limits the number of files to scan to this percentage of the input FileSet.
@@ -36916,6 +36970,7 @@ pub struct BigQueryOptions {
     pub rows_limit_percent: i32,
 
     /// How to sample the data.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub sample_method: crate::model::big_query_options::SampleMethod,
 
     /// References to fields excluded from scanning. This allows you to skip

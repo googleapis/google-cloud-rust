@@ -973,6 +973,7 @@ impl wkt::message::Message for OperationMetadata {
 #[non_exhaustive]
 pub struct FrequencyOptions {
     /// Frequency of report generation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub frequency: crate::model::frequency_options::Frequency,
 
     /// The date from which report generation should start.
@@ -1812,6 +1813,7 @@ pub struct Identity {
 
     /// Type of identity to use for the datasetConfig.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::identity::IdentityType,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2050,6 +2052,7 @@ pub struct DatasetConfig {
     pub status: std::option::Option<rpc::model::Status>,
 
     /// Output only. State of the `datasetConfig`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub dataset_config_state: crate::model::dataset_config::ConfigState,
 
     /// Optional. A user-provided description for the dataset configuration.

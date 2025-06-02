@@ -70,6 +70,7 @@ pub struct Folder {
     ///
     /// [google.cloud.resourcemanager.v3.Folders.DeleteFolder]: crate::client::Folders::delete_folder
     /// [google.cloud.resourcemanager.v3.Folders.UndeleteFolder]: crate::client::Folders::undelete_folder
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::folder::State,
 
     /// Output only. Timestamp when the folder was created.
@@ -1073,6 +1074,7 @@ pub struct Organization {
     pub display_name: std::string::String,
 
     /// Output only. The organization's current lifecycle state.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::organization::State,
 
     /// Output only. Timestamp when the Organization was created.
@@ -1643,6 +1645,7 @@ pub struct Project {
     pub project_id: std::string::String,
 
     /// Output only. The project lifecycle state.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::project::State,
 
     /// Optional. A user-assigned display name of the project.
@@ -3765,6 +3768,7 @@ pub struct TagKey {
     /// other policy engines.
     ///
     /// A purpose cannot be changed once set.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub purpose: crate::model::Purpose,
 
     /// Optional. Purpose data corresponds to the policy system that the tag is

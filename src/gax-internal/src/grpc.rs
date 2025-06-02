@@ -218,7 +218,7 @@ impl Client {
             //
             headers.append(
                 http::header::HeaderName::from_static("x-goog-request-params"),
-                http::header::HeaderValue::from_str(request_params).map_err(Error::serde)?,
+                http::header::HeaderValue::from_str(request_params).map_err(Error::ser)?,
             );
         }
         Ok(headers)
@@ -265,6 +265,6 @@ where
     let (metadata, body, _extensions) = response.into_parts();
     Ok(gax::response::Response::from_parts(
         gax::response::Parts::new().set_headers(metadata.into_headers()),
-        body.cnv().map_err(Error::serde)?,
+        body.cnv().map_err(Error::deser)?,
     ))
 }

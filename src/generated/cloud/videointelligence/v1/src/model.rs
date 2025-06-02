@@ -382,6 +382,7 @@ pub struct LabelDetectionConfig {
     /// What labels should be detected with LABEL_DETECTION, in addition to
     /// video-level labels or segment-level labels.
     /// If unspecified, defaults to `SHOT_MODE`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub label_detection_mode: crate::model::LabelDetectionMode,
 
     /// Whether the video has been shot from a stationary (i.e., non-moving)
@@ -1079,6 +1080,7 @@ pub struct ExplicitContentFrame {
     pub time_offset: std::option::Option<wkt::Duration>,
 
     /// Likelihood of the pornography content..
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub pornography_likelihood: crate::model::Likelihood,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2199,6 +2201,7 @@ pub struct VideoAnnotationProgress {
 
     /// Specifies which feature is being tracked if the request contains more than
     /// one feature.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub feature: crate::model::Feature,
 
     /// Specifies which segment is being tracked if the request contains more than

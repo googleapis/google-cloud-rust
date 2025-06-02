@@ -203,6 +203,7 @@ pub struct MembershipSpec {
     pub cluster: std::string::String,
 
     /// Enables automatic Feature management.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub management: crate::model::membership_spec::Management,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -937,9 +938,11 @@ impl wkt::message::Message for HierarchyControllerConfig {
 #[non_exhaustive]
 pub struct HierarchyControllerDeploymentState {
     /// The deployment state for open source HNC (e.g. v0.7.0-hc.0)
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub hnc: crate::model::DeploymentState,
 
     /// The deployment state for Hierarchy Controller extension (e.g. v0.7.0-hc.1)
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub extension: crate::model::DeploymentState,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1092,6 +1095,7 @@ pub struct OperatorState {
     pub version: std::string::String,
 
     /// The state of the Operator's deployment
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub deployment_state: crate::model::DeploymentState,
 
     /// Install errors.
@@ -1196,13 +1200,16 @@ pub struct ConfigSyncState {
     pub errors: std::vec::Vec<crate::model::ConfigSyncError>,
 
     /// The state of the RootSync CRD
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub rootsync_crd: crate::model::config_sync_state::CRDState,
 
     /// The state of the Reposync CRD
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub reposync_crd: crate::model::config_sync_state::CRDState,
 
     /// The state of CS
     /// This field summarizes the other fields in this message.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::config_sync_state::State,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1749,24 +1756,31 @@ impl wkt::message::Message for ConfigSyncVersion {
 #[non_exhaustive]
 pub struct ConfigSyncDeploymentState {
     /// Deployment state of the importer pod
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub importer: crate::model::DeploymentState,
 
     /// Deployment state of the syncer pod
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub syncer: crate::model::DeploymentState,
 
     /// Deployment state of the git-sync pod
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub git_sync: crate::model::DeploymentState,
 
     /// Deployment state of the monitor pod
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub monitor: crate::model::DeploymentState,
 
     /// Deployment state of reconciler-manager pod
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub reconciler_manager: crate::model::DeploymentState,
 
     /// Deployment state of root-reconciler
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub root_reconciler: crate::model::DeploymentState,
 
     /// Deployment state of admission-webhook
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub admission_webhook: crate::model::DeploymentState,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1878,6 +1892,7 @@ pub struct SyncState {
     pub last_sync_time: std::option::Option<wkt::Timestamp>,
 
     /// Sync status code
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub code: crate::model::sync_state::SyncCode,
 
     /// A list of errors resulting from problematic configs.
@@ -2430,9 +2445,11 @@ impl wkt::message::Message for PolicyControllerVersion {
 #[non_exhaustive]
 pub struct GatekeeperDeploymentState {
     /// Status of gatekeeper-controller-manager pod.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub gatekeeper_controller_manager_state: crate::model::DeploymentState,
 
     /// Status of gatekeeper-audit deployment.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub gatekeeper_audit: crate::model::DeploymentState,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

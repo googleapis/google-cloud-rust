@@ -125,6 +125,7 @@ pub struct Voice {
     pub name: std::string::String,
 
     /// The gender of this voice.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub ssml_gender: crate::model::SsmlVoiceGender,
 
     /// The natural sample rate (in hertz) for this voice.
@@ -958,6 +959,7 @@ pub struct VoiceSelectionParams {
     /// name. Note that this is only a preference, not requirement; if a
     /// voice of the appropriate gender is not available, the synthesizer should
     /// substitute a voice with a different gender rather than failing the request.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub ssml_gender: crate::model::SsmlVoiceGender,
 
     /// The configuration for a custom voice. If [CustomVoiceParams.model] is set,
@@ -1052,6 +1054,7 @@ impl wkt::message::Message for VoiceSelectionParams {
 #[non_exhaustive]
 pub struct AudioConfig {
     /// Required. The format of the audio byte stream.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub audio_encoding: crate::model::AudioEncoding,
 
     /// Optional. Input only. Speaking rate/speed, in the range [0.25, 2.0]. 1.0 is
@@ -1171,6 +1174,7 @@ pub struct CustomVoiceParams {
     pub model: std::string::String,
 
     /// Optional. Deprecated. The usage of the synthesized audio to be reported.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[deprecated]
     pub reported_usage: crate::model::custom_voice_params::ReportedUsage,
 
@@ -1431,6 +1435,7 @@ pub struct StreamingAudioConfig {
     /// Required. The format of the audio byte stream.
     /// Streaming supports PCM, ALAW, MULAW and OGG_OPUS. All other encodings
     /// return an error.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub audio_encoding: crate::model::AudioEncoding,
 
     /// Optional. The synthesis sample rate (in hertz) for this audio.

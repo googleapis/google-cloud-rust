@@ -307,6 +307,7 @@ pub mod endpoint_matcher {
         /// If there is more than one best match, (for example, if a
         /// config P4 with selector <A:1,D:1> exists and if a client with
         /// label <A:1,B:1,D:1> connects), an error will be thrown.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub metadata_label_match_criteria:
             crate::model::endpoint_matcher::metadata_label_matcher::MetadataLabelMatchCriteria,
 
@@ -890,6 +891,7 @@ pub struct LbTrafficExtension {
     /// `INTERNAL_MANAGED`, `EXTERNAL_MANAGED`. For more information, refer to
     /// [Choosing a load
     /// balancer](https://cloud.google.com/load-balancing/docs/backend-service).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub load_balancing_scheme: crate::model::LoadBalancingScheme,
 
     /// Optional. The metadata provided here is included in the
@@ -1505,6 +1507,7 @@ pub struct LbRouteExtension {
     /// `INTERNAL_MANAGED`, `EXTERNAL_MANAGED`. For more information, refer to
     /// [Choosing a load
     /// balancer](https://cloud.google.com/load-balancing/docs/backend-service).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub load_balancing_scheme: crate::model::LoadBalancingScheme,
 
     /// Optional. The metadata provided here is included as part of the
@@ -2097,6 +2100,7 @@ pub struct EndpointPolicy {
     /// Required. The type of endpoint policy. This is primarily used to validate
     /// the configuration.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::endpoint_policy::EndpointPolicyType,
 
     /// Optional. This field specifies the URL of AuthorizationPolicy resource that
@@ -2788,6 +2792,7 @@ pub struct Gateway {
     /// Immutable. The type of the customer managed gateway.
     /// This field is required. If unspecified, an error is returned.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::gateway::Type,
 
     /// Required. One or more ports that the Gateway must receive traffic on. The
@@ -3621,6 +3626,7 @@ pub mod grpc_route {
         /// Optional. Specifies how to match against the name. If not specified, a
         /// default value of "EXACT" is used.
         #[serde(rename = "type")]
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub r#type: crate::model::grpc_route::method_match::Type,
 
         /// Required. Name of the service to match against. If unspecified, will
@@ -3848,6 +3854,7 @@ pub mod grpc_route {
         /// Optional. Specifies how to match against the value of the header. If not
         /// specified, a default value of EXACT is used.
         #[serde(rename = "type")]
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub r#type: crate::model::grpc_route::header_match::Type,
 
         /// Required. The key of the header.
@@ -5964,6 +5971,7 @@ pub mod http_route {
         pub prefix_rewrite: std::string::String,
 
         /// The HTTP Status code to use for the redirect.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub response_code: crate::model::http_route::redirect::ResponseCode,
 
         /// If set to true, the URL scheme in the redirected request is set to https.

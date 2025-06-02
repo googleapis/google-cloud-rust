@@ -76,6 +76,7 @@ pub struct Service {
     pub port: i32,
 
     /// Output only. The current state of the metastore service.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::service::State,
 
     /// Output only. Additional information about the current state of the
@@ -89,6 +90,7 @@ pub struct Service {
     pub artifact_gcs_uri: std::string::String,
 
     /// The tier of the service.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub tier: crate::model::service::Tier,
 
     /// The one hour maintenance window of the metastore service. This specifies
@@ -109,6 +111,7 @@ pub struct Service {
 
     /// Immutable. The release channel of the service.
     /// If unspecified, defaults to `STABLE`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub release_channel: crate::model::service::ReleaseChannel,
 
     /// Immutable. Information used to configure the Dataproc Metastore service to
@@ -122,6 +125,7 @@ pub struct Service {
     pub network_config: std::option::Option<crate::model::NetworkConfig>,
 
     /// Immutable. The database type that the Metastore service stores its data.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub database_type: crate::model::service::DatabaseType,
 
     /// The configuration specifying telemetry settings for the Dataproc Metastore
@@ -1034,6 +1038,7 @@ pub struct MaintenanceWindow {
     pub hour_of_day: std::option::Option<wkt::Int32Value>,
 
     /// The day of week, when the window starts.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub day_of_week: gtype::model::DayOfWeek,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1105,6 +1110,7 @@ pub struct HiveMetastoreConfig {
 
     /// The protocol to use for the metastore service endpoint. If unspecified,
     /// defaults to `THRIFT`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub endpoint_protocol: crate::model::hive_metastore_config::EndpointProtocol,
 
     /// A mapping of Hive metastore version to the auxiliary version
@@ -1762,6 +1768,7 @@ pub mod network_config {
 #[non_exhaustive]
 pub struct TelemetryConfig {
     /// The output format of the Dataproc Metastore service's logs.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub log_format: crate::model::telemetry_config::LogFormat,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2007,6 +2014,7 @@ pub struct MetadataImport {
     pub end_time: std::option::Option<wkt::Timestamp>,
 
     /// Output only. The current state of the metadata import.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::metadata_import::State,
 
     /// The metadata to be imported.
@@ -2163,6 +2171,7 @@ pub mod metadata_import {
     #[non_exhaustive]
     pub struct DatabaseDump {
         /// The type of the database.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[deprecated]
         pub database_type: crate::model::metadata_import::database_dump::DatabaseType,
 
@@ -2179,6 +2188,7 @@ pub mod metadata_import {
         /// Optional. The type of the database dump. If unspecified, defaults to
         /// `MYSQL`.
         #[serde(rename = "type")]
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub r#type: crate::model::database_dump_spec::Type,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2541,9 +2551,11 @@ pub struct MetadataExport {
     pub end_time: std::option::Option<wkt::Timestamp>,
 
     /// Output only. The current state of the export.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::metadata_export::State,
 
     /// Output only. The type of the database dump.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub database_dump_type: crate::model::database_dump_spec::Type,
 
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
@@ -2846,6 +2858,7 @@ pub struct Backup {
     pub end_time: std::option::Option<wkt::Timestamp>,
 
     /// Output only. The current state of the backup.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::backup::State,
 
     /// Output only. The revision of the service at the time of backup.
@@ -3133,6 +3146,7 @@ pub struct Restore {
     pub end_time: std::option::Option<wkt::Timestamp>,
 
     /// Output only. The current state of the restore.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::restore::State,
 
     /// Output only. The relative resource name of the metastore service backup to
@@ -3144,6 +3158,7 @@ pub struct Restore {
 
     /// Output only. The type of restore.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::restore::RestoreType,
 
     /// Output only. The restore details containing the revision of the service to
@@ -5056,6 +5071,7 @@ pub struct ExportMetadataRequest {
 
     /// Optional. The type of the database dump. If unspecified, defaults to
     /// `MYSQL`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub database_dump_type: crate::model::database_dump_spec::Type,
 
     /// Required. Destination that metadata is exported to.
@@ -5180,6 +5196,7 @@ pub struct RestoreServiceRequest {
     pub backup: std::string::String,
 
     /// Optional. The type of restore. If unspecified, defaults to `METADATA_ONLY`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub restore_type: crate::model::restore::RestoreType,
 
     /// Optional. A request ID. Specify a unique request ID to allow the server to
@@ -5973,6 +5990,7 @@ pub struct Federation {
     pub endpoint_uri: std::string::String,
 
     /// Output only. The current state of the federation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::federation::State,
 
     /// Output only. Additional information about the current state of the
@@ -6279,6 +6297,7 @@ pub struct BackendMetastore {
     pub name: std::string::String,
 
     /// The type of the backend metastore.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub metastore_type: crate::model::backend_metastore::MetastoreType,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

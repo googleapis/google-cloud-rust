@@ -152,9 +152,13 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
         let builder = req
             .update_mask
             .as_ref()
-            .iter()
-            .flat_map(|p| p.paths.iter())
-            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
+            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .transpose()?
+            .into_iter()
+            .fold(builder, |builder, v| {
+                use gaxi::query_parameter::QueryParameter;
+                v.add(builder, "updateMask")
+            });
         let builder = builder.query(&[("requestId", &req.request_id)]);
         self.inner
             .execute(builder, Some(req.service_connection_map), options)
@@ -309,9 +313,13 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
         let builder = req
             .update_mask
             .as_ref()
-            .iter()
-            .flat_map(|p| p.paths.iter())
-            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
+            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .transpose()?
+            .into_iter()
+            .fold(builder, |builder, v| {
+                use gaxi::query_parameter::QueryParameter;
+                v.add(builder, "updateMask")
+            });
         let builder = builder.query(&[("requestId", &req.request_id)]);
         self.inner
             .execute(builder, Some(req.service_connection_policy), options)
@@ -433,9 +441,13 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
         let builder = req
             .update_mask
             .as_ref()
-            .iter()
-            .flat_map(|p| p.paths.iter())
-            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
+            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .transpose()?
+            .into_iter()
+            .fold(builder, |builder, v| {
+                use gaxi::query_parameter::QueryParameter;
+                v.add(builder, "updateMask")
+            });
         let builder = builder.query(&[("requestId", &req.request_id)]);
         self.inner
             .execute(builder, Some(req.service_class), options)
@@ -989,9 +1001,13 @@ impl super::stub::HubService for HubService {
         let builder = req
             .update_mask
             .as_ref()
-            .iter()
-            .flat_map(|p| p.paths.iter())
-            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
+            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .transpose()?
+            .into_iter()
+            .fold(builder, |builder, v| {
+                use gaxi::query_parameter::QueryParameter;
+                v.add(builder, "updateMask")
+            });
         let builder = builder.query(&[("requestId", &req.request_id)]);
         self.inner.execute(builder, Some(req.hub), options).await
     }
@@ -1198,9 +1214,13 @@ impl super::stub::HubService for HubService {
         let builder = req
             .update_mask
             .as_ref()
-            .iter()
-            .flat_map(|p| p.paths.iter())
-            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
+            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .transpose()?
+            .into_iter()
+            .fold(builder, |builder, v| {
+                use gaxi::query_parameter::QueryParameter;
+                v.add(builder, "updateMask")
+            });
         let builder = builder.query(&[("requestId", &req.request_id)]);
         self.inner.execute(builder, Some(req.spoke), options).await
     }
@@ -1524,9 +1544,13 @@ impl super::stub::HubService for HubService {
         let builder = req
             .update_mask
             .as_ref()
-            .iter()
-            .flat_map(|p| p.paths.iter())
-            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
+            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .transpose()?
+            .into_iter()
+            .fold(builder, |builder, v| {
+                use gaxi::query_parameter::QueryParameter;
+                v.add(builder, "updateMask")
+            });
         let builder = builder.query(&[("requestId", &req.request_id)]);
         self.inner.execute(builder, Some(req.group), options).await
     }

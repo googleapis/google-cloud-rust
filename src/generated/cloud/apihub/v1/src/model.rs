@@ -4350,6 +4350,7 @@ pub struct Spec {
 
     /// Optional. Input only. Enum specifying the parsing mode for OpenAPI
     /// Specification (OAS) parsing.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub parsing_mode: crate::model::spec::ParsingMode,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5119,6 +5120,7 @@ pub struct Definition {
 
     /// Output only. The type of the definition.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::definition::Type,
 
     /// Output only. The time at which the definition was created.
@@ -5424,13 +5426,16 @@ pub struct Attribute {
     pub description: std::string::String,
 
     /// Output only. The definition type of the attribute.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub definition_type: crate::model::attribute::DefinitionType,
 
     /// Required. The scope of the attribute. It represents the resource in the API
     /// Hub to which the attribute can be linked.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub scope: crate::model::attribute::Scope,
 
     /// Required. The type of the data of the attribute.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub data_type: crate::model::attribute::DataType,
 
     /// Optional. The list of allowed values when the attribute value is of type
@@ -6276,6 +6281,7 @@ pub mod spec_details {
 #[non_exhaustive]
 pub struct OpenApiSpecDetails {
     /// Output only. The format of the spec.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub format: crate::model::open_api_spec_details::Format,
 
     /// Output only. The version in the spec.
@@ -6625,6 +6631,7 @@ pub struct HttpOperation {
     pub path: std::option::Option<crate::model::Path>,
 
     /// Output only. Operation method
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub method: crate::model::http_operation::Method,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7282,6 +7289,7 @@ pub struct Dependency {
     pub supplier: std::option::Option<crate::model::DependencyEntityReference>,
 
     /// Output only. State of the dependency.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::dependency::State,
 
     /// Optional. Human readable description corresponding of the dependency.
@@ -7289,6 +7297,7 @@ pub struct Dependency {
     pub description: std::string::String,
 
     /// Output only. Discovery mode of the dependency.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub discovery_mode: crate::model::dependency::DiscoveryMode,
 
     /// Output only. Error details of a dependency if the system has detected it
@@ -7865,6 +7874,7 @@ pub mod dependency_entity_reference {
 #[non_exhaustive]
 pub struct DependencyErrorDetail {
     /// Optional. Error in the dependency.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub error: crate::model::dependency_error_detail::Error,
 
     /// Optional. Timestamp at which the error was found.
@@ -8067,6 +8077,7 @@ pub struct LintResponse {
     pub summary: std::vec::Vec<crate::model::lint_response::SummaryEntry>,
 
     /// Required. Lint state represents success or failure for linting.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::LintState,
 
     /// Required. Name of the linting application.
@@ -8074,6 +8085,7 @@ pub struct LintResponse {
     pub source: std::string::String,
 
     /// Required. Name of the linter used.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub linter: crate::model::Linter,
 
     /// Required. Timestamp when the linting response was generated.
@@ -8166,6 +8178,7 @@ pub mod lint_response {
     #[non_exhaustive]
     pub struct SummaryEntry {
         /// Required. Severity of the issue.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub severity: crate::model::Severity,
 
         /// Required. Count of issues with the given severity.
@@ -8221,6 +8234,7 @@ pub struct Issue {
     pub message: std::string::String,
 
     /// Required. Severity level of the rule violation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub severity: crate::model::Severity,
 
     /// Required. Object describing where in the file the issue was found.
@@ -8541,6 +8555,7 @@ pub struct ApiHubInstance {
     pub update_time: std::option::Option<wkt::Timestamp>,
 
     /// Output only. The current state of the ApiHub instance.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::api_hub_instance::State,
 
     /// Output only. Extra information about ApiHub instance state. Currently the
@@ -9625,6 +9640,7 @@ pub struct StyleGuide {
     pub name: std::string::String,
 
     /// Required. Target linter for the style guide.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub linter: crate::model::Linter,
 
     /// Required. Input only. The contents of the uploaded style guide.
@@ -9711,6 +9727,7 @@ pub struct Plugin {
     pub description: std::string::String,
 
     /// Output only. Represents the state of the plugin.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::plugin::State,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

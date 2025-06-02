@@ -371,9 +371,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         let builder = req
             .update_mask
             .as_ref()
-            .iter()
-            .flat_map(|p| p.paths.iter())
-            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
+            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .transpose()?
+            .into_iter()
+            .fold(builder, |builder, v| {
+                use gaxi::query_parameter::QueryParameter;
+                v.add(builder, "updateMask")
+            });
         self.inner.execute(builder, Some(req.bucket), options).await
     }
 
@@ -426,9 +430,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         let builder = req
             .update_mask
             .as_ref()
-            .iter()
-            .flat_map(|p| p.paths.iter())
-            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
+            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .transpose()?
+            .into_iter()
+            .fold(builder, |builder, v| {
+                use gaxi::query_parameter::QueryParameter;
+                v.add(builder, "updateMask")
+            });
         self.inner.execute(builder, Some(req.bucket), options).await
     }
 
@@ -594,9 +602,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         let builder = req
             .update_mask
             .as_ref()
-            .iter()
-            .flat_map(|p| p.paths.iter())
-            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
+            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .transpose()?
+            .into_iter()
+            .fold(builder, |builder, v| {
+                use gaxi::query_parameter::QueryParameter;
+                v.add(builder, "updateMask")
+            });
         self.inner.execute(builder, Some(req.view), options).await
     }
 
@@ -734,9 +746,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         let builder = req
             .update_mask
             .as_ref()
-            .iter()
-            .flat_map(|p| p.paths.iter())
-            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
+            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .transpose()?
+            .into_iter()
+            .fold(builder, |builder, v| {
+                use gaxi::query_parameter::QueryParameter;
+                v.add(builder, "updateMask")
+            });
         self.inner.execute(builder, Some(req.sink), options).await
     }
 
@@ -979,9 +995,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         let builder = req
             .update_mask
             .as_ref()
-            .iter()
-            .flat_map(|p| p.paths.iter())
-            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
+            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .transpose()?
+            .into_iter()
+            .fold(builder, |builder, v| {
+                use gaxi::query_parameter::QueryParameter;
+                v.add(builder, "updateMask")
+            });
         self.inner
             .execute(builder, Some(req.exclusion), options)
             .await
@@ -1067,9 +1087,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         let builder = req
             .update_mask
             .as_ref()
-            .iter()
-            .flat_map(|p| p.paths.iter())
-            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
+            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .transpose()?
+            .into_iter()
+            .fold(builder, |builder, v| {
+                use gaxi::query_parameter::QueryParameter;
+                v.add(builder, "updateMask")
+            });
         self.inner
             .execute(builder, Some(req.cmek_settings), options)
             .await
@@ -1125,9 +1149,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         let builder = req
             .update_mask
             .as_ref()
-            .iter()
-            .flat_map(|p| p.paths.iter())
-            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
+            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .transpose()?
+            .into_iter()
+            .fold(builder, |builder, v| {
+                use gaxi::query_parameter::QueryParameter;
+                v.add(builder, "updateMask")
+            });
         self.inner
             .execute(builder, Some(req.settings), options)
             .await

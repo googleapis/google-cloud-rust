@@ -183,6 +183,7 @@ pub mod operation_metadata {
         pub description: std::string::String,
 
         /// The status code.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub status: crate::model::operation_metadata::Status,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -382,6 +383,7 @@ pub struct Diagnostic {
     pub location: std::string::String,
 
     /// The kind of diagnostic information provided.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub kind: crate::model::diagnostic::Kind,
 
     /// Message describing the error or warning.
@@ -620,6 +622,7 @@ pub struct ConfigFile {
     pub file_contents: ::bytes::Bytes,
 
     /// The type of configuration file this represents.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub file_type: crate::model::config_file::FileType,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -937,6 +940,7 @@ pub struct Rollout {
     /// The status of this rollout. Readonly. In case of a failed rollout,
     /// the system will automatically rollback to the current Rollout
     /// version. Readonly.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub status: crate::model::rollout::RolloutStatus,
 
     /// The name of the service associated with this Rollout.
@@ -1714,6 +1718,7 @@ pub struct GetServiceConfigRequest {
 
     /// Specifies which parts of the Service Config should be returned in the
     /// response.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub view: crate::model::get_service_config_request::ConfigView,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

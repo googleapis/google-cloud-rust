@@ -65,6 +65,7 @@ pub struct CertificateAuthority {
     /// [google.cloud.security.privateca.v1.CertificateAuthority]: crate::model::CertificateAuthority
     /// [google.cloud.security.privateca.v1.CertificateAuthority.Type]: crate::model::certificate_authority::Type
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::certificate_authority::Type,
 
     /// Required. Immutable. The config used to create a self-signed X.509
@@ -108,6 +109,7 @@ pub struct CertificateAuthority {
     /// [google.cloud.security.privateca.v1.CaPool]: crate::model::CaPool
     /// [google.cloud.security.privateca.v1.CaPool.Tier]: crate::model::ca_pool::Tier
     /// [google.cloud.security.privateca.v1.CertificateAuthority]: crate::model::CertificateAuthority
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub tier: crate::model::ca_pool::Tier,
 
     /// Output only. The
@@ -117,6 +119,7 @@ pub struct CertificateAuthority {
     ///
     /// [google.cloud.security.privateca.v1.CertificateAuthority]: crate::model::CertificateAuthority
     /// [google.cloud.security.privateca.v1.CertificateAuthority.State]: crate::model::certificate_authority::State
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::certificate_authority::State,
 
     /// Output only. This
@@ -1197,6 +1200,7 @@ pub struct CaPool {
     ///
     /// [google.cloud.security.privateca.v1.CaPool]: crate::model::CaPool
     /// [google.cloud.security.privateca.v1.CaPool.Tier]: crate::model::ca_pool::Tier
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub tier: crate::model::ca_pool::Tier,
 
     /// Optional. The
@@ -1360,6 +1364,7 @@ pub mod ca_pool {
         /// and CRLs will be published in PEM.
         ///
         /// [google.cloud.security.privateca.v1.CertificateAuthority]: crate::model::CertificateAuthority
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub encoding_format: crate::model::ca_pool::publishing_options::EncodingFormat,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1978,6 +1983,7 @@ pub mod ca_pool {
 
                 /// Optional. A signature algorithm that must be used. If this is
                 /// omitted, any EC-based signature algorithm will be allowed.
+                #[serde(skip_serializing_if = "wkt::internal::is_default")]
                 pub signature_algorithm: crate::model::ca_pool::issuance_policy::allowed_key_type::ec_key_type::EcSignatureAlgorithm,
 
                 #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2427,6 +2433,7 @@ pub struct CertificateRevocationList {
     ///
     /// [google.cloud.security.privateca.v1.CertificateRevocationList]: crate::model::CertificateRevocationList
     /// [google.cloud.security.privateca.v1.CertificateRevocationList.State]: crate::model::certificate_revocation_list::State
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::certificate_revocation_list::State,
 
     /// Output only. The time at which this
@@ -2606,6 +2613,7 @@ pub mod certificate_revocation_list {
         /// revoked.
         ///
         /// [google.cloud.security.privateca.v1.Certificate]: crate::model::Certificate
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub revocation_reason: crate::model::RevocationReason,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2847,6 +2855,7 @@ pub struct Certificate {
     /// will be used.
     ///
     /// [google.cloud.security.privateca.v1.Certificate]: crate::model::Certificate
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub subject_mode: crate::model::SubjectRequestMode,
 
     /// Output only. Details regarding the revocation of this
@@ -3143,6 +3152,7 @@ pub mod certificate {
         /// revoked.
         ///
         /// [google.cloud.security.privateca.v1.Certificate]: crate::model::Certificate
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub revocation_state: crate::model::RevocationReason,
 
         /// The time at which this
@@ -4074,6 +4084,7 @@ pub struct PublicKey {
     pub key: ::bytes::Bytes,
 
     /// Required. The format of the public key.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub format: crate::model::public_key::KeyFormat,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6330,6 +6341,7 @@ pub struct RevokeCertificateRequest {
     /// revoking this certificate.
     ///
     /// [google.cloud.security.privateca.v1.RevocationReason]: crate::model::RevocationReason
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub reason: crate::model::RevocationReason,
 
     /// Optional. An ID to identify requests. Specify a unique request ID so that

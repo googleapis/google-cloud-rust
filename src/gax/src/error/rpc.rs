@@ -362,7 +362,7 @@ impl TryFrom<&bytes::Bytes> for Status {
     fn try_from(value: &bytes::Bytes) -> Result<Self, Self::Error> {
         let wrapper = serde_json::from_slice::<ErrorWrapper>(value)
             .map(|w| w.error)
-            .map_err(Error::serde)?;
+            .map_err(Error::deser)?;
         let code = match wrapper.status.as_deref().map(Code::try_from) {
             Some(Ok(code)) => code,
             Some(Err(_)) | None => Code::Unknown,
@@ -832,11 +832,11 @@ mod test {
 
         let got = Status::try_from(&bytes::Bytes::from_static(b"\"error\": 1234"));
         let err = got.unwrap_err();
-        assert!(err.is_serde(), "{err:?}");
+        assert!(err.is_deserialization(), "{err:?}");
 
         let got = Status::try_from(&bytes::Bytes::from_static(b"\"missing-error\": 1234"));
         let err = got.unwrap_err();
-        assert!(err.is_serde(), "{err:?}");
+        assert!(err.is_deserialization(), "{err:?}");
 
         let got = Status::try_from(&bytes::Bytes::from_static(INVALID_CODE_PAYLOAD))?;
         assert_eq!(got.code, Code::Unknown);

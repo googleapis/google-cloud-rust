@@ -58,6 +58,7 @@ pub struct MigrationWorkflow {
     pub tasks: std::collections::HashMap<std::string::String, crate::model::MigrationTask>,
 
     /// Output only. That status of the workflow.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::migration_workflow::State,
 
     /// Time when the workflow was created.
@@ -333,6 +334,7 @@ pub struct MigrationTask {
     pub r#type: std::string::String,
 
     /// Output only. The current state of the task.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::migration_task::State,
 
     /// Output only. An explanation that may be populated when the task is in
@@ -815,6 +817,7 @@ pub struct MigrationSubtask {
     pub r#type: std::string::String,
 
     /// Output only. The current state of the subtask.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::migration_subtask::State,
 
     /// Output only. An explanation that may be populated when the task is in
@@ -1475,6 +1478,7 @@ pub struct TimeSeries {
     pub metric: std::string::String,
 
     /// Required. The value type of the time series.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub value_type: api::model::metric_descriptor::ValueType,
 
     /// Optional. The metric kind of the time series.
@@ -1483,6 +1487,7 @@ pub struct TimeSeries {
     /// metric. If the associated metric's descriptor must be auto-created, then
     /// this field specifies the metric kind of the new descriptor and must be
     /// either `GAUGE` (the default) or `CUMULATIVE`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub metric_kind: api::model::metric_descriptor::MetricKind,
 
     /// Required. The data points of this time series. When listing time series,
@@ -3371,6 +3376,7 @@ impl wkt::message::Message for RedshiftDialect {
 #[non_exhaustive]
 pub struct TeradataDialect {
     /// Which Teradata sub-dialect mode the user specifies.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub mode: crate::model::teradata_dialect::Mode,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3936,6 +3942,7 @@ impl wkt::message::Message for ObjectNameMapping {
 pub struct NameMappingKey {
     /// The type of object that is being mapped.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::name_mapping_key::Type,
 
     /// The database name (BigQuery project ID equivalent in the source data
@@ -4824,6 +4831,7 @@ impl wkt::message::Message for SourceEnvironment {
 #[non_exhaustive]
 pub struct TranslationReportRecord {
     /// Severity of the translation record.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub severity: crate::model::translation_report_record::Severity,
 
     /// Specifies the row from the source text where the error occurred (0 based).

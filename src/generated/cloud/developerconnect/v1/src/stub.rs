@@ -24,8 +24,6 @@
 
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use gax::error::Error;
-
 pub(crate) mod dynamic;
 
 /// Defines the trait used to implement [super::client::DeveloperConnect].
@@ -48,9 +46,7 @@ pub trait DeveloperConnect: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ListConnectionsResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::ListConnectionsResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::DeveloperConnect::get_connection].
@@ -61,9 +57,7 @@ pub trait DeveloperConnect: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Connection>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Connection>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::DeveloperConnect::create_connection].
@@ -74,9 +68,7 @@ pub trait DeveloperConnect: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::DeveloperConnect::update_connection].
@@ -87,9 +79,7 @@ pub trait DeveloperConnect: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::DeveloperConnect::delete_connection].
@@ -100,9 +90,7 @@ pub trait DeveloperConnect: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::DeveloperConnect::create_git_repository_link].
@@ -113,9 +101,7 @@ pub trait DeveloperConnect: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::DeveloperConnect::delete_git_repository_link].
@@ -126,9 +112,7 @@ pub trait DeveloperConnect: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::DeveloperConnect::list_git_repository_links].
@@ -141,9 +125,7 @@ pub trait DeveloperConnect: std::fmt::Debug + Send + Sync {
             gax::response::Response<crate::model::ListGitRepositoryLinksResponse>,
         >,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::ListGitRepositoryLinksResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::DeveloperConnect::get_git_repository_link].
@@ -154,9 +136,7 @@ pub trait DeveloperConnect: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::GitRepositoryLink>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::GitRepositoryLink>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::DeveloperConnect::fetch_read_write_token].
@@ -167,9 +147,7 @@ pub trait DeveloperConnect: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::FetchReadWriteTokenResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::FetchReadWriteTokenResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::DeveloperConnect::fetch_read_token].
@@ -180,9 +158,7 @@ pub trait DeveloperConnect: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::FetchReadTokenResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::FetchReadTokenResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::DeveloperConnect::fetch_linkable_git_repositories].
@@ -195,11 +171,7 @@ pub trait DeveloperConnect: std::fmt::Debug + Send + Sync {
             gax::response::Response<crate::model::FetchLinkableGitRepositoriesResponse>,
         >,
     > + Send {
-        std::future::ready::<
-            crate::Result<
-                gax::response::Response<crate::model::FetchLinkableGitRepositoriesResponse>,
-            >,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::DeveloperConnect::fetch_git_hub_installations].
@@ -212,9 +184,7 @@ pub trait DeveloperConnect: std::fmt::Debug + Send + Sync {
             gax::response::Response<crate::model::FetchGitHubInstallationsResponse>,
         >,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::FetchGitHubInstallationsResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::DeveloperConnect::fetch_git_refs].
@@ -225,9 +195,7 @@ pub trait DeveloperConnect: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::FetchGitRefsResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::FetchGitRefsResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::DeveloperConnect::list_locations].
@@ -238,9 +206,7 @@ pub trait DeveloperConnect: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<location::model::ListLocationsResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<location::model::ListLocationsResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::DeveloperConnect::get_location].
@@ -251,9 +217,7 @@ pub trait DeveloperConnect: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<location::model::Location>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<location::model::Location>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::DeveloperConnect::list_operations].
@@ -264,9 +228,7 @@ pub trait DeveloperConnect: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::DeveloperConnect::get_operation].
@@ -277,9 +239,7 @@ pub trait DeveloperConnect: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::DeveloperConnect::delete_operation].
@@ -288,9 +248,7 @@ pub trait DeveloperConnect: std::fmt::Debug + Send + Sync {
         _req: longrunning::model::DeleteOperationRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
-            "unimplemented",
-        )))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::DeveloperConnect::cancel_operation].
@@ -299,9 +257,7 @@ pub trait DeveloperConnect: std::fmt::Debug + Send + Sync {
         _req: longrunning::model::CancelOperationRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
-            "unimplemented",
-        )))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Returns the polling error policy.

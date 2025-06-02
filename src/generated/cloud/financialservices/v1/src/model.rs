@@ -59,6 +59,7 @@ pub struct BacktestResult {
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. State of the BacktestResult (creating, active, deleting, etc.)
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::backtest_result::State,
 
     /// Required. The resource name of the Dataset to backtest on
@@ -92,6 +93,7 @@ pub struct BacktestResult {
 
     /// Output only. The line of business (Retail/Commercial) this backtest is for.
     /// Determined by Model, cannot be set by user.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub line_of_business: crate::model::LineOfBusiness,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -950,6 +952,7 @@ pub struct BigQueryDestination {
     /// Required. Whether or not to overwrite the destination table. By default the
     /// table won't be overwritten and an error will be returned if the table
     /// exists and contains data.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub write_disposition: crate::model::big_query_destination::WriteDisposition,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1162,6 +1165,7 @@ pub struct Dataset {
     pub table_specs: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. State of the dataset (creating, active, deleting, etc.)
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::dataset::State,
 
     /// Required. Core time window of the dataset. All tables should have complete
@@ -1894,6 +1898,7 @@ pub struct EngineConfig {
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. State of the EngineConfig (creating, active, deleting, etc.)
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::engine_config::State,
 
     /// Required. The resource name of the EngineVersion used in this model tuning.
@@ -1916,12 +1921,14 @@ pub struct EngineConfig {
 
     /// Output only. The line of business (Retail/Commercial) this engine config is
     /// used for. Determined by EngineVersion, cannot be set by user.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub line_of_business: crate::model::LineOfBusiness,
 
     /// Optional. The origin of hyperparameters for the created EngineConfig. The
     /// default is `TUNING`. In this case, the hyperparameters are selected as a
     /// result of a
     /// tuning run.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub hyperparameter_source_type: crate::model::engine_config::HyperparameterSourceType,
 
     /// Optional. Configuration of hyperparameters source EngineConfig.
@@ -3052,6 +3059,7 @@ pub struct EngineVersion {
     pub name: std::string::String,
 
     /// Output only. The state of the version.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::engine_version::State,
 
     /// Output only. Planned time to stop allowing training/tuning using this
@@ -3067,6 +3075,7 @@ pub struct EngineVersion {
 
     /// Output only. The line of business (Retail/Commercial) this engine version
     /// is used for.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub line_of_business: crate::model::LineOfBusiness,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3512,6 +3521,7 @@ pub struct Instance {
 
     /// Output only. State of the instance.
     /// Assigned by the server.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::instance::State,
 
     /// Labels
@@ -4203,6 +4213,7 @@ pub struct ImportRegisteredPartiesRequest {
     pub party_tables: std::vec::Vec<std::string::String>,
 
     /// Required. Mode of the request.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub mode: crate::model::import_registered_parties_request::UpdateMode,
 
     /// Optional. If the request will not register the parties, just determine what
@@ -4211,6 +4222,7 @@ pub struct ImportRegisteredPartiesRequest {
     pub validate_only: bool,
 
     /// Required. LineOfBusiness for the specified registered parties.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub line_of_business: crate::model::LineOfBusiness,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4525,6 +4537,7 @@ pub struct ExportRegisteredPartiesRequest {
     pub dataset: std::option::Option<crate::model::BigQueryDestination>,
 
     /// Required. LineOfBusiness to get RegisteredParties from.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub line_of_business: crate::model::LineOfBusiness,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4623,6 +4636,7 @@ pub struct Model {
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. State of the model (creating, active, deleting, etc.)
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::model::State,
 
     /// Output only. The EngineVersion used in training this model.  This is output
@@ -4651,6 +4665,7 @@ pub struct Model {
 
     /// Output only. The line of business (Retail/Commercial) this model is used
     /// for. Determined by EngineConfig, cannot be set by user.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub line_of_business: crate::model::LineOfBusiness,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5451,6 +5466,7 @@ pub struct PredictionResult {
 
     /// Output only. State of the PredictionResult (creating, active, deleting,
     /// etc.)
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::prediction_result::State,
 
     /// Required. The resource name of the Dataset to do predictions on
@@ -5489,6 +5505,7 @@ pub struct PredictionResult {
 
     /// Output only. The line of business (Retail/Commercial) this prediction is
     /// for. Determined by Model, cannot be set by user.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub line_of_business: crate::model::LineOfBusiness,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

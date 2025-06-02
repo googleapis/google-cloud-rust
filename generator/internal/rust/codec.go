@@ -111,7 +111,11 @@ func newCodec(protobufSource bool, options map[string]string) (*codec, error) {
 				codec.packageMapping[source] = pkgOption.pkg
 			}
 		case key == "disabled-rustdoc-warnings":
-			codec.disabledRustdocWarnings = strings.Split(definition, ",")
+			if definition == "" {
+				codec.disabledRustdocWarnings = []string{}
+			} else {
+				codec.disabledRustdocWarnings = strings.Split(definition, ",")
+			}
 		case key == "template-override":
 			codec.templateOverride = definition
 		case key == "include-grpc-only-methods":
@@ -422,6 +426,13 @@ func fieldFormatter(typez api.Typez) string {
 	}
 }
 
+func keyFieldFormatter(typez api.Typez) string {
+	if typez == api.BOOL_TYPE {
+		return "serde_with::DisplayFromStr"
+	}
+	return fieldFormatter(typez)
+}
+
 func fieldSkipAttributes(f *api.Field) []string {
 	// oneofs have explicit presence, and default values should be serialized:
 	// https://protobuf.dev/programming-guides/field_presence/.
@@ -451,7 +462,8 @@ func fieldSkipAttributes(f *api.Field) []string {
 		api.SFIXED32_TYPE,
 		api.SFIXED64_TYPE,
 		api.SINT32_TYPE,
-		api.SINT64_TYPE:
+		api.SINT64_TYPE,
+		api.ENUM_TYPE:
 		return []string{`#[serde(skip_serializing_if = "wkt::internal::is_default")]`}
 	default:
 		return []string{}
@@ -573,7 +585,7 @@ func fieldAttributes(f *api.Field, state *api.APIState) []string {
 				slog.Error("missing key or value in map field")
 				return attributes
 			}
-			keyFormat := fieldFormatter(key.Typez)
+			keyFormat := keyFieldFormatter(key.Typez)
 			valFormat := fieldFormatter(value.Typez)
 			if keyFormat == "_" && valFormat == "_" {
 				return attributes
@@ -696,16 +708,6 @@ func addQueryParameter(f *api.Field) string {
 		}
 		return fmt.Sprintf(`let builder = builder.query(&[("%s", &req.%s)]);`, f.JSONName, fieldName)
 	case api.MESSAGE_TYPE:
-		if f.TypezID == ".google.protobuf.FieldMask" {
-			// `FieldMask` (and other well-known types) are special. Their JSON
-			// encoding is a string. That works well for `Timestamp`, `Empty`,
-			// `Duration`, and so forth, but is not what Google Cloud expects
-			// for query parameters.
-			if f.Optional || f.Repeated {
-				return fmt.Sprintf(`let builder = req.%s.as_ref().iter().flat_map(|p| p.paths.iter()).fold(builder, |builder, v| builder.query(&[("%s", v)]));`, fieldName, f.JSONName)
-			}
-			return fmt.Sprintf(`let builder = req.%s.paths.iter().fold(builder, |builder, v| builder.query(&[("%s", v)]));`, fieldName, f.JSONName)
-		}
 		// Query parameters in nested messages are first converted to a
 		// `serde_json::Value`` and then recursively merged into the request
 		// query. The conversion to `serde_json::Value` is expensive, but very

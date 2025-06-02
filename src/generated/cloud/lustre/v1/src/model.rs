@@ -63,6 +63,7 @@ pub struct Instance {
     pub network: std::string::String,
 
     /// Output only. The state of the instance.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::instance::State,
 
     /// Output only. Mount point of the instance in the format
@@ -1840,6 +1841,7 @@ impl wkt::message::Message for ErrorLogEntry {
 #[non_exhaustive]
 pub struct ErrorSummary {
     /// Required.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub error_code: rpc::model::Code,
 
     /// Required. Count of this type of error.
@@ -1904,6 +1906,7 @@ pub struct TransferOperationMetadata {
     pub counters: std::option::Option<crate::model::TransferCounters>,
 
     /// Output only. The type of transfer occurring.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub transfer_type: crate::model::TransferType,
 
     /// Output only. Error summary about the transfer operation

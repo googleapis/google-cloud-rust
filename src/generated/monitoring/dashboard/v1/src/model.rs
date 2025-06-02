@@ -163,6 +163,7 @@ pub struct Aggregation {
     /// `per_series_aligner` must be specified and not equal to `ALIGN_NONE`
     /// and `alignment_period` must be specified; otherwise, an error is
     /// returned.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub per_series_aligner: crate::model::aggregation::Aligner,
 
     /// The reduction operation to be used to combine time series into a single
@@ -179,6 +180,7 @@ pub struct Aggregation {
     /// specified, then `per_series_aligner` must be specified, and must not be
     /// `ALIGN_NONE`. An `alignment_period` must also be specified; otherwise, an
     /// error is returned.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub cross_series_reducer: crate::model::aggregation::Reducer,
 
     /// The set of fields to preserve when `cross_series_reducer` is
@@ -884,6 +886,7 @@ pub struct PickTimeSeriesFilter {
     /// `ranking_method` is applied to each time series independently to produce
     /// the value which will be used to compare the time series to other time
     /// series.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub ranking_method: crate::model::pick_time_series_filter::Method,
 
     /// How many time series to allow to pass through the filter.
@@ -891,6 +894,7 @@ pub struct PickTimeSeriesFilter {
     pub num_time_series: i32,
 
     /// How to use the ranking to select time series that pass through the filter.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub direction: crate::model::pick_time_series_filter::Direction,
 
     /// Select the top N streams/time series within this time interval
@@ -1265,6 +1269,7 @@ pub struct StatisticalTimeSeriesFilter {
     /// series to others.
     /// These are methods that cannot be applied stream-by-stream, but rather
     /// require the full context of a request to evaluate time series.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub ranking_method: crate::model::statistical_time_series_filter::Method,
 
     /// How many time series to output.
@@ -1690,6 +1695,7 @@ pub struct DashboardFilter {
     pub template_variable: std::string::String,
 
     /// The specified filter type
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub filter_type: crate::model::dashboard_filter::FilterType,
 
     /// The default value used in the filter comparison
@@ -3517,14 +3523,17 @@ pub struct Threshold {
     pub value: f64,
 
     /// The state color for this threshold. Color is not allowed in a XyChart.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub color: crate::model::threshold::Color,
 
     /// The direction for the current threshold. Direction is not allowed in a
     /// XyChart.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub direction: crate::model::threshold::Direction,
 
     /// The target axis to use for plotting the threshold. Target axis is not
     /// allowed in a Scorecard.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub target_axis: crate::model::threshold::TargetAxis,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4000,6 +4009,7 @@ pub struct PieChart {
     pub data_sets: std::vec::Vec<crate::model::pie_chart::PieChartDataSet>,
 
     /// Required. Indicates the visualization type for the PieChart.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub chart_type: crate::model::pie_chart::PieChartType,
 
     /// Optional. Indicates whether or not the pie chart should show slices' labels
@@ -4538,6 +4548,7 @@ pub mod scorecard {
     #[non_exhaustive]
     pub struct SparkChartView {
         /// Required. The type of sparkchart to show in this chartView.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub spark_chart_type: crate::model::SparkChartType,
 
         /// The lower bound on data point frequency in the chart implemented by
@@ -4686,6 +4697,7 @@ pub struct TimeSeriesTable {
     pub data_sets: std::vec::Vec<crate::model::time_series_table::TableDataSet>,
 
     /// Optional. Store rendering strategy
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub metric_visualization: crate::model::time_series_table::MetricVisualization,
 
     /// Optional. The list of the persistent column settings for the table.
@@ -5082,6 +5094,7 @@ pub struct Text {
     pub content: std::string::String,
 
     /// How the text content is formatted.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub format: crate::model::text::Format,
 
     /// How the text is styled
@@ -5154,19 +5167,24 @@ pub mod text {
         pub text_color: std::string::String,
 
         /// The horizontal alignment of both the title and content
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub horizontal_alignment: crate::model::text::text_style::HorizontalAlignment,
 
         /// The vertical alignment of both the title and content
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub vertical_alignment: crate::model::text::text_style::VerticalAlignment,
 
         /// The amount of padding around the widget
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub padding: crate::model::text::text_style::PaddingSize,
 
         /// Font sizes for both the title and content. The title will still be larger
         /// relative to the content.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub font_size: crate::model::text::text_style::FontSize,
 
         /// The pointer location for this widget (also sometimes called a "tail")
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub pointer_location: crate::model::text::text_style::PointerLocation,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6825,6 +6843,7 @@ pub mod xy_chart {
         pub time_series_query: std::option::Option<crate::model::TimeSeriesQuery>,
 
         /// How this data should be plotted on the chart.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub plot_type: crate::model::xy_chart::data_set::PlotType,
 
         /// A template string for naming `TimeSeries` in the resulting data set.
@@ -6842,6 +6861,7 @@ pub mod xy_chart {
         pub min_alignment_period: std::option::Option<wkt::Duration>,
 
         /// Optional. The target axis to use for plotting the metric.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub target_axis: crate::model::xy_chart::data_set::TargetAxis,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7235,6 +7255,7 @@ pub mod xy_chart {
         pub label: std::string::String,
 
         /// The axis scale. By default, a linear scale is used.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub scale: crate::model::xy_chart::axis::Scale,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7417,6 +7438,7 @@ pub mod xy_chart {
 #[non_exhaustive]
 pub struct ChartOptions {
     /// The chart mode.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub mode: crate::model::chart_options::Mode,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

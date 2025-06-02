@@ -2034,19 +2034,23 @@ pub struct S3CompatibleMetadata {
     /// Specifies the authentication and authorization method used by the storage
     /// service. When not specified, Transfer Service will attempt to determine
     /// right auth method to use.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub auth_method: crate::model::s_3_compatible_metadata::AuthMethod,
 
     /// Specifies the API request model used to call the storage service. When not
     /// specified, the default value of RequestModel
     /// REQUEST_MODEL_VIRTUAL_HOSTED_STYLE is used.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub request_model: crate::model::s_3_compatible_metadata::RequestModel,
 
     /// Specifies the network protocol of the agent. When not specified, the
     /// default value of NetworkProtocol NETWORK_PROTOCOL_HTTPS is used.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub protocol: crate::model::s_3_compatible_metadata::NetworkProtocol,
 
     /// The Listing API to use for discovering objects. When not specified,
     /// Transfer Service will attempt to determine the right API to use.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub list_api: crate::model::s_3_compatible_metadata::ListApi,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2664,6 +2668,7 @@ pub struct AgentPool {
     pub display_name: std::string::String,
 
     /// Output only. Specifies the state of the AgentPool.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::agent_pool::State,
 
     /// Specifies the bandwidth limit details. If this field is unspecified, the
@@ -2947,6 +2952,7 @@ pub struct TransferOptions {
     /// [overwrite_objects_already_existing_in_sink][google.storagetransfer.v1.TransferOptions.overwrite_objects_already_existing_in_sink].
     ///
     /// [google.storagetransfer.v1.TransferOptions.overwrite_objects_already_existing_in_sink]: crate::model::TransferOptions::overwrite_objects_already_existing_in_sink
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub overwrite_when: crate::model::transfer_options::OverwriteWhen,
 
     /// Represents the selected metadata options for a transfer job.
@@ -3914,26 +3920,31 @@ pub struct MetadataOptions {
     /// Specifies how symlinks should be handled by the transfer. By default,
     /// symlinks are not preserved. Only applicable to transfers involving
     /// POSIX file systems, and ignored for other transfers.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub symlink: crate::model::metadata_options::Symlink,
 
     /// Specifies how each file's mode attribute should be handled by the transfer.
     /// By default, mode is not preserved. Only applicable to transfers involving
     /// POSIX file systems, and ignored for other transfers.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub mode: crate::model::metadata_options::Mode,
 
     /// Specifies how each file's POSIX group ID (GID) attribute should be handled
     /// by the transfer. By default, GID is not preserved. Only applicable to
     /// transfers involving POSIX file systems, and ignored for other transfers.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub gid: crate::model::metadata_options::Gid,
 
     /// Specifies how each file's POSIX user ID (UID) attribute should be handled
     /// by the transfer. By default, UID is not preserved. Only applicable to
     /// transfers involving POSIX file systems, and ignored for other transfers.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub uid: crate::model::metadata_options::Uid,
 
     /// Specifies how each object's ACLs should be preserved for transfers between
     /// Google Cloud Storage buckets. If unspecified, the default behavior is the
     /// same as ACL_DESTINATION_BUCKET_DEFAULT.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub acl: crate::model::metadata_options::Acl,
 
     /// Specifies the storage class to set on objects being transferred to Google
@@ -3941,6 +3952,7 @@ pub struct MetadataOptions {
     /// [STORAGE_CLASS_DESTINATION_BUCKET_DEFAULT][google.storagetransfer.v1.MetadataOptions.StorageClass.STORAGE_CLASS_DESTINATION_BUCKET_DEFAULT].
     ///
     /// [google.storagetransfer.v1.MetadataOptions.StorageClass.STORAGE_CLASS_DESTINATION_BUCKET_DEFAULT]: crate::model::metadata_options::StorageClass::DestinationBucketDefault
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub storage_class: crate::model::metadata_options::StorageClass,
 
     /// Specifies how each object's temporary hold status should be preserved for
@@ -3949,6 +3961,7 @@ pub struct MetadataOptions {
     /// [TEMPORARY_HOLD_PRESERVE][google.storagetransfer.v1.MetadataOptions.TemporaryHold.TEMPORARY_HOLD_PRESERVE].
     ///
     /// [google.storagetransfer.v1.MetadataOptions.TemporaryHold.TEMPORARY_HOLD_PRESERVE]: crate::model::metadata_options::TemporaryHold::Preserve
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub temporary_hold: crate::model::metadata_options::TemporaryHold,
 
     /// Specifies how each object's Cloud KMS customer-managed encryption key
@@ -3957,6 +3970,7 @@ pub struct MetadataOptions {
     /// [KMS_KEY_DESTINATION_BUCKET_DEFAULT][google.storagetransfer.v1.MetadataOptions.KmsKey.KMS_KEY_DESTINATION_BUCKET_DEFAULT].
     ///
     /// [google.storagetransfer.v1.MetadataOptions.KmsKey.KMS_KEY_DESTINATION_BUCKET_DEFAULT]: crate::model::metadata_options::KmsKey::DestinationBucketDefault
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub kms_key: crate::model::metadata_options::KmsKey,
 
     /// Specifies how each object's `timeCreated` metadata is preserved for
@@ -3966,6 +3980,7 @@ pub struct MetadataOptions {
     /// Cloud Storage, Amazon S3, S3-compatible storage, and Azure sources.
     ///
     /// [google.storagetransfer.v1.MetadataOptions.TimeCreated.TIME_CREATED_SKIP]: crate::model::metadata_options::TimeCreated::Skip
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub time_created: crate::model::metadata_options::TimeCreated,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5720,6 +5735,7 @@ pub struct TransferJob {
     ///
     /// [google.storagetransfer.v1.TransferJob.Status.DISABLED]: crate::model::transfer_job::Status::Disabled
     /// [google.storagetransfer.v1.TransferJob.Status.ENABLED]: crate::model::transfer_job::Status::Enabled
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub status: crate::model::transfer_job::Status,
 
     /// Output only. The time that the transfer job was created.
@@ -6157,6 +6173,7 @@ impl wkt::message::Message for ErrorLogEntry {
 #[non_exhaustive]
 pub struct ErrorSummary {
     /// Required.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub error_code: rpc::model::Code,
 
     /// Required. Count of this type of error.
@@ -6553,6 +6570,7 @@ pub struct NotificationConfig {
     pub event_types: std::vec::Vec<crate::model::notification_config::EventType>,
 
     /// Required. The desired format of the notification message payloads.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub payload_format: crate::model::notification_config::PayloadFormat,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7288,6 +7306,7 @@ pub struct TransferOperation {
     pub end_time: std::option::Option<wkt::Timestamp>,
 
     /// Status of the transfer operation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub status: crate::model::transfer_operation::Status,
 
     /// Information about the progress of the transfer operation.

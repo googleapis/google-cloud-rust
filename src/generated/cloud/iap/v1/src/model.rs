@@ -1224,6 +1224,7 @@ impl wkt::message::Message for OAuth2 {
 #[non_exhaustive]
 pub struct ReauthSettings {
     /// Optional. Reauth method requested.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub method: crate::model::reauth_settings::Method,
 
     /// Optional. Reauth session lifetime, how long before a user has to
@@ -1234,6 +1235,7 @@ pub struct ReauthSettings {
     /// Optional. How IAP determines the effective policy in cases of hierarchical
     /// policies. Policies are merged from higher in the hierarchy to lower in the
     /// hierarchy.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub policy_type: crate::model::reauth_settings::PolicyType,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

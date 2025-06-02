@@ -67,6 +67,7 @@ pub struct Function {
     pub event_trigger: std::option::Option<crate::model::EventTrigger>,
 
     /// Output only. State of the function.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::function::State,
 
     /// Output only. The last update timestamp of a Cloud Function.
@@ -82,6 +83,7 @@ pub struct Function {
     pub state_messages: std::vec::Vec<crate::model::StateMessage>,
 
     /// Describe whether the function is 1st Gen or 2nd Gen.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub environment: crate::model::Environment,
 
     /// Output only. The deployed url for the function.
@@ -446,6 +448,7 @@ pub mod function {
 #[non_exhaustive]
 pub struct StateMessage {
     /// Severity of the state message.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub severity: crate::model::state_message::Severity,
 
     /// One-word CamelCase type of the state message.
@@ -1177,6 +1180,7 @@ pub struct BuildConfig {
     /// If unspecified, it defaults to `ARTIFACT_REGISTRY`.
     /// If `docker_repository` field is specified, this field should either be left
     /// unspecified or set to `ARTIFACT_REGISTRY`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[deprecated]
     pub docker_registry: crate::model::build_config::DockerRegistry,
 
@@ -1621,10 +1625,12 @@ pub struct ServiceConfig {
 
     /// The egress settings for the connector, controlling what traffic is diverted
     /// through it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub vpc_connector_egress_settings: crate::model::service_config::VpcConnectorEgressSettings,
 
     /// The ingress settings for the function, controlling what traffic can reach
     /// it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub ingress_settings: crate::model::service_config::IngressSettings,
 
     /// Output only. URI of the Service deployed.
@@ -1665,6 +1671,7 @@ pub struct ServiceConfig {
     /// This configuration is only applicable to 1st Gen functions with Http
     /// trigger. By default https is optional for 1st Gen functions; 2nd Gen
     /// functions are https ONLY.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub security_level: crate::model::service_config::SecurityLevel,
 
     /// Optional. The binary authorization policy to be checked when deploying the
@@ -2523,6 +2530,7 @@ pub struct EventTrigger {
 
     /// Optional. If unset, then defaults to ignoring failures (i.e. not retrying
     /// them).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub retry_policy: crate::model::event_trigger::RetryPolicy,
 
     /// Optional. The name of the channel associated with the trigger in
@@ -3230,6 +3238,7 @@ pub struct GenerateUploadUrlRequest {
     /// The upload url for 2nd Gen functions can also be used for 1st gen
     /// functions, but not vice versa. If not specified, 2nd generation-style
     /// upload URLs are generated.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub environment: crate::model::Environment,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3500,6 +3509,7 @@ pub mod list_runtimes_response {
         pub display_name: std::string::String,
 
         /// The stage of life this runtime is in, e.g., BETA, GA, etc.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub stage: crate::model::list_runtimes_response::RuntimeStage,
 
         /// Warning messages, e.g., a deprecation warning.
@@ -3507,6 +3517,7 @@ pub mod list_runtimes_response {
         pub warnings: std::vec::Vec<std::string::String>,
 
         /// The environment for the runtime.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub environment: crate::model::Environment,
 
         /// Deprecation date for the runtime.
@@ -3892,6 +3903,7 @@ pub struct OperationMetadata {
     pub build_name: std::string::String,
 
     /// The operation type.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub operation_type: crate::model::OperationType,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4070,6 +4082,7 @@ impl wkt::message::Message for LocationMetadata {
 #[non_exhaustive]
 pub struct Stage {
     /// Name of the Stage. This will be unique for each Stage.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub name: crate::model::stage::Name,
 
     /// Message describing the Stage
@@ -4077,6 +4090,7 @@ pub struct Stage {
     pub message: std::string::String,
 
     /// Current state of the Stage
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::stage::State,
 
     /// Resource of the Stage

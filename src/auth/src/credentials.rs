@@ -25,6 +25,7 @@ use std::sync::atomic::{AtomicU64, Ordering};
 pub mod api_key_credentials;
 #[doc(hidden)]
 pub mod external_account;
+pub(crate) mod external_account_sources;
 pub(crate) mod internal;
 pub mod mds;
 pub mod service_account;
@@ -534,6 +535,12 @@ fn build_credentials(
                     scopes,
                     |b: service_account::Builder, s: Vec<String>| b
                         .with_access_specifier(service_account::AccessSpecifier::from_scopes(s))
+                ),
+                "external_account" => config_builder!(
+                    external_account::Builder::new(json),
+                    quota_project_id,
+                    scopes,
+                    |b: external_account::Builder, s: Vec<String>| b.with_scopes(s)
                 ),
                 _ => Err(BuilderError::unknown_type(cred_type)),
             }

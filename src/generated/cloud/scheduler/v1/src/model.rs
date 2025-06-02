@@ -591,6 +591,7 @@ pub struct Job {
     pub user_update_time: std::option::Option<wkt::Timestamp>,
 
     /// Output only. State of the job.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::job::State,
 
     /// Output only. The response from the target for the last attempted execution.
@@ -1272,6 +1273,7 @@ pub struct HttpTarget {
     pub uri: std::string::String,
 
     /// Which HTTP method to use for the request.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub http_method: crate::model::HttpMethod,
 
     /// HTTP request headers.
@@ -1509,6 +1511,7 @@ pub mod http_target {
 pub struct AppEngineHttpTarget {
     /// The HTTP method to use for the request. PATCH and OPTIONS are not
     /// permitted.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub http_method: crate::model::HttpMethod,
 
     /// App Engine Routing setting for the job.

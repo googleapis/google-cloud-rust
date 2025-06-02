@@ -746,6 +746,7 @@ impl wkt::message::Message for AuditConfig {
 #[non_exhaustive]
 pub struct AuditLogConfig {
     /// The log type that this config enables.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub log_type: crate::model::audit_log_config::LogType,
 
     /// Specifies the identities that do not cause logging for this type of
@@ -1000,6 +1001,7 @@ impl wkt::message::Message for PolicyDelta {
 pub struct BindingDelta {
     /// The action that was performed on a Binding.
     /// Required
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub action: crate::model::binding_delta::Action,
 
     /// Role that is assigned to `members`.
@@ -1220,6 +1222,7 @@ pub mod binding_delta {
 pub struct AuditConfigDelta {
     /// The action that was performed on an audit configuration in a policy.
     /// Required
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub action: crate::model::audit_config_delta::Action,
 
     /// Specifies a service that was configured for Cloud Audit Logging.

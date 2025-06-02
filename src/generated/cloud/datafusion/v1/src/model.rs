@@ -105,6 +105,7 @@ pub struct Version {
 
     /// Type represents the release availability of the version
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::version::Type,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -297,9 +298,11 @@ pub mod version {
 #[non_exhaustive]
 pub struct Accelerator {
     /// The type of an accelator for a CDF instance.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub accelerator_type: crate::model::accelerator::AcceleratorType,
 
     /// The state of the accelerator
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::accelerator::State,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -679,6 +682,7 @@ pub struct Instance {
 
     /// Required. Instance type.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::instance::Type,
 
     /// Option to enable Stackdriver Logging.
@@ -720,6 +724,7 @@ pub struct Instance {
     pub update_time: std::option::Option<wkt::Timestamp>,
 
     /// Output only. The current state of this Data Fusion instance.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::instance::State,
 
     /// Output only. Additional information about the current state of this Data

@@ -24,8 +24,6 @@
 
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use gax::error::Error;
-
 pub(crate) mod dynamic;
 
 /// Defines the trait used to implement [super::client::WebSecurityScanner].
@@ -48,9 +46,7 @@ pub trait WebSecurityScanner: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ScanConfig>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::ScanConfig>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::WebSecurityScanner::delete_scan_config].
@@ -59,9 +55,7 @@ pub trait WebSecurityScanner: std::fmt::Debug + Send + Sync {
         _req: crate::model::DeleteScanConfigRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
-            "unimplemented",
-        )))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::WebSecurityScanner::get_scan_config].
@@ -72,9 +66,7 @@ pub trait WebSecurityScanner: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ScanConfig>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::ScanConfig>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::WebSecurityScanner::list_scan_configs].
@@ -85,9 +77,7 @@ pub trait WebSecurityScanner: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ListScanConfigsResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::ListScanConfigsResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::WebSecurityScanner::update_scan_config].
@@ -98,9 +88,7 @@ pub trait WebSecurityScanner: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ScanConfig>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::ScanConfig>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::WebSecurityScanner::start_scan_run].
@@ -111,9 +99,7 @@ pub trait WebSecurityScanner: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ScanRun>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::ScanRun>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::WebSecurityScanner::get_scan_run].
@@ -124,9 +110,7 @@ pub trait WebSecurityScanner: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ScanRun>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::ScanRun>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::WebSecurityScanner::list_scan_runs].
@@ -137,9 +121,7 @@ pub trait WebSecurityScanner: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ListScanRunsResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::ListScanRunsResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::WebSecurityScanner::stop_scan_run].
@@ -150,9 +132,7 @@ pub trait WebSecurityScanner: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ScanRun>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::ScanRun>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::WebSecurityScanner::list_crawled_urls].
@@ -163,9 +143,7 @@ pub trait WebSecurityScanner: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ListCrawledUrlsResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::ListCrawledUrlsResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::WebSecurityScanner::get_finding].
@@ -176,9 +154,7 @@ pub trait WebSecurityScanner: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Finding>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Finding>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::WebSecurityScanner::list_findings].
@@ -189,9 +165,7 @@ pub trait WebSecurityScanner: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ListFindingsResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::ListFindingsResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::WebSecurityScanner::list_finding_type_stats].
@@ -202,8 +176,6 @@ pub trait WebSecurityScanner: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ListFindingTypeStatsResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::ListFindingTypeStatsResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 }

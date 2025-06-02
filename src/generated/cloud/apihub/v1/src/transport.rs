@@ -148,9 +148,13 @@ impl super::stub::ApiHub for ApiHub {
         let builder = req
             .update_mask
             .as_ref()
-            .iter()
-            .flat_map(|p| p.paths.iter())
-            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
+            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .transpose()?
+            .into_iter()
+            .fold(builder, |builder, v| {
+                use gaxi::query_parameter::QueryParameter;
+                v.add(builder, "updateMask")
+            });
         self.inner.execute(builder, Some(req.api), options).await
     }
 
@@ -295,9 +299,13 @@ impl super::stub::ApiHub for ApiHub {
         let builder = req
             .update_mask
             .as_ref()
-            .iter()
-            .flat_map(|p| p.paths.iter())
-            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
+            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .transpose()?
+            .into_iter()
+            .fold(builder, |builder, v| {
+                use gaxi::query_parameter::QueryParameter;
+                v.add(builder, "updateMask")
+            });
         self.inner
             .execute(builder, Some(req.version), options)
             .await
@@ -468,9 +476,13 @@ impl super::stub::ApiHub for ApiHub {
         let builder = req
             .update_mask
             .as_ref()
-            .iter()
-            .flat_map(|p| p.paths.iter())
-            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
+            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .transpose()?
+            .into_iter()
+            .fold(builder, |builder, v| {
+                use gaxi::query_parameter::QueryParameter;
+                v.add(builder, "updateMask")
+            });
         self.inner.execute(builder, Some(req.spec), options).await
     }
 
@@ -695,9 +707,13 @@ impl super::stub::ApiHub for ApiHub {
         let builder = req
             .update_mask
             .as_ref()
-            .iter()
-            .flat_map(|p| p.paths.iter())
-            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
+            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .transpose()?
+            .into_iter()
+            .fold(builder, |builder, v| {
+                use gaxi::query_parameter::QueryParameter;
+                v.add(builder, "updateMask")
+            });
         self.inner
             .execute(builder, Some(req.deployment), options)
             .await
@@ -814,9 +830,13 @@ impl super::stub::ApiHub for ApiHub {
         let builder = req
             .update_mask
             .as_ref()
-            .iter()
-            .flat_map(|p| p.paths.iter())
-            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
+            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .transpose()?
+            .into_iter()
+            .fold(builder, |builder, v| {
+                use gaxi::query_parameter::QueryParameter;
+                v.add(builder, "updateMask")
+            });
         self.inner
             .execute(builder, Some(req.attribute), options)
             .await
@@ -986,9 +1006,13 @@ impl super::stub::ApiHub for ApiHub {
         let builder = req
             .update_mask
             .as_ref()
-            .iter()
-            .flat_map(|p| p.paths.iter())
-            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
+            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .transpose()?
+            .into_iter()
+            .fold(builder, |builder, v| {
+                use gaxi::query_parameter::QueryParameter;
+                v.add(builder, "updateMask")
+            });
         self.inner
             .execute(builder, Some(req.external_api), options)
             .await
@@ -1325,9 +1349,13 @@ impl super::stub::ApiHubDependencies for ApiHubDependencies {
         let builder = req
             .update_mask
             .as_ref()
-            .iter()
-            .flat_map(|p| p.paths.iter())
-            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
+            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .transpose()?
+            .into_iter()
+            .fold(builder, |builder, v| {
+                use gaxi::query_parameter::QueryParameter;
+                v.add(builder, "updateMask")
+            });
         self.inner
             .execute(builder, Some(req.dependency), options)
             .await
@@ -1916,9 +1944,13 @@ impl super::stub::LintingService for LintingService {
         let builder = req
             .update_mask
             .as_ref()
-            .iter()
-            .flat_map(|p| p.paths.iter())
-            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
+            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .transpose()?
+            .into_iter()
+            .fold(builder, |builder, v| {
+                use gaxi::query_parameter::QueryParameter;
+                v.add(builder, "updateMask")
+            });
         self.inner
             .execute(builder, Some(req.style_guide), options)
             .await

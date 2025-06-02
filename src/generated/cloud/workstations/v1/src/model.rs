@@ -1435,6 +1435,7 @@ pub mod workstation_config {
             /// Optional. Whether the persistent disk should be deleted when the
             /// workstation is deleted. Valid values are `DELETE` and `RETAIN`.
             /// Defaults to `DELETE`.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub reclaim_policy: crate::model::workstation_config::persistent_directory::gce_regional_persistent_disk::ReclaimPolicy,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1914,6 +1915,7 @@ pub struct Workstation {
     pub etag: std::string::String,
 
     /// Output only. Current state of the workstation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::workstation::State,
 
     /// Output only. Host to which clients can send HTTPS traffic that will be

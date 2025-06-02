@@ -24,8 +24,6 @@
 
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use gax::error::Error;
-
 pub(crate) mod dynamic;
 
 /// Defines the trait used to implement [super::client::AppGatewaysService].
@@ -48,9 +46,7 @@ pub trait AppGatewaysService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ListAppGatewaysResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::ListAppGatewaysResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::AppGatewaysService::get_app_gateway].
@@ -61,9 +57,7 @@ pub trait AppGatewaysService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::AppGateway>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::AppGateway>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::AppGatewaysService::create_app_gateway].
@@ -74,9 +68,7 @@ pub trait AppGatewaysService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::AppGatewaysService::delete_app_gateway].
@@ -87,9 +79,7 @@ pub trait AppGatewaysService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::AppGatewaysService::list_locations].
@@ -100,9 +90,7 @@ pub trait AppGatewaysService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<location::model::ListLocationsResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<location::model::ListLocationsResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::AppGatewaysService::get_location].
@@ -113,9 +101,7 @@ pub trait AppGatewaysService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<location::model::Location>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<location::model::Location>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::AppGatewaysService::set_iam_policy].
@@ -126,9 +112,7 @@ pub trait AppGatewaysService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<iam_v1::model::Policy>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::AppGatewaysService::get_iam_policy].
@@ -139,9 +123,7 @@ pub trait AppGatewaysService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<iam_v1::model::Policy>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::AppGatewaysService::test_iam_permissions].
@@ -152,9 +134,7 @@ pub trait AppGatewaysService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::AppGatewaysService::list_operations].
@@ -165,9 +145,7 @@ pub trait AppGatewaysService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::AppGatewaysService::get_operation].
@@ -178,9 +156,7 @@ pub trait AppGatewaysService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::AppGatewaysService::delete_operation].
@@ -189,9 +165,7 @@ pub trait AppGatewaysService: std::fmt::Debug + Send + Sync {
         _req: longrunning::model::DeleteOperationRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
-            "unimplemented",
-        )))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::AppGatewaysService::cancel_operation].
@@ -200,9 +174,7 @@ pub trait AppGatewaysService: std::fmt::Debug + Send + Sync {
         _req: longrunning::model::CancelOperationRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
-            "unimplemented",
-        )))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Returns the polling error policy.

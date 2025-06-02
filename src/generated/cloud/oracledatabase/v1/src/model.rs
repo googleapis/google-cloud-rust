@@ -223,9 +223,11 @@ pub struct AutonomousDatabaseProperties {
     pub data_storage_size_gb: i32,
 
     /// Required. The workload type of the Autonomous Database.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub db_workload: crate::model::DBWorkload,
 
     /// Optional. The edition of the Autonomous Databases.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub db_edition: crate::model::autonomous_database_properties::DatabaseEdition,
 
     /// Optional. The character set for the Autonomous Database. The default is
@@ -261,6 +263,7 @@ pub struct AutonomousDatabaseProperties {
     pub is_storage_auto_scaling_enabled: bool,
 
     /// Required. The license type used for the Autonomous Database.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub license_type: crate::model::autonomous_database_properties::LicenseType,
 
     /// Optional. The list of customer contacts.
@@ -276,6 +279,7 @@ pub struct AutonomousDatabaseProperties {
     pub vault_id: std::string::String,
 
     /// Optional. The maintenance schedule of the Autonomous Database.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub maintenance_schedule_type:
         crate::model::autonomous_database_properties::MaintenanceScheduleType,
 
@@ -323,6 +327,7 @@ pub struct AutonomousDatabaseProperties {
     pub lifecycle_details: std::string::String,
 
     /// Output only. The current lifecycle state of the Autonomous Database.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::State,
 
     /// Output only. The Autonomous Container Database OCID.
@@ -373,24 +378,29 @@ pub struct AutonomousDatabaseProperties {
 
     /// Output only. This field indicates the local disaster recovery (DR) type of
     /// an Autonomous Database.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub local_disaster_recovery_type:
         crate::model::autonomous_database_properties::LocalDisasterRecoveryType,
 
     /// Output only. The current state of the Data Safe registration for the
     /// Autonomous Database.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub data_safe_state: crate::model::autonomous_database_properties::DataSafeState,
 
     /// Output only. The current state of database management for the Autonomous
     /// Database.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub database_management_state:
         crate::model::autonomous_database_properties::DatabaseManagementState,
 
     /// Output only. This field indicates the current mode of the Autonomous
     /// Database.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub open_mode: crate::model::autonomous_database_properties::OpenMode,
 
     /// Output only. This field indicates the state of Operations Insights for the
     /// Autonomous Database.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub operations_insights_state: crate::model::OperationsInsightsState,
 
     /// Output only. The list of OCIDs of standby databases located in Autonomous
@@ -399,6 +409,7 @@ pub struct AutonomousDatabaseProperties {
     pub peer_db_ids: std::vec::Vec<std::string::String>,
 
     /// Output only. The permission level of the Autonomous Database.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub permission_level: crate::model::autonomous_database_properties::PermissionLevel,
 
     /// Output only. The private endpoint for the Autonomous Database.
@@ -406,12 +417,15 @@ pub struct AutonomousDatabaseProperties {
     pub private_endpoint: std::string::String,
 
     /// Output only. The refresh mode of the cloned Autonomous Database.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub refreshable_mode: crate::model::autonomous_database_properties::RefreshableMode,
 
     /// Output only. The refresh State of the clone.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub refreshable_state: crate::model::autonomous_database_properties::RefreshableState,
 
     /// Output only. The Data Guard role of the Autonomous Database.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub role: crate::model::autonomous_database_properties::Role,
 
     /// Output only. The list and details of the scheduled operations of the
@@ -2738,6 +2752,7 @@ impl wkt::message::Message for AutonomousDatabaseConnectionStrings {
 #[non_exhaustive]
 pub struct DatabaseConnectionStringProfile {
     /// Output only. The current consumer group being used by the connection.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub consumer_group: crate::model::database_connection_string_profile::ConsumerGroup,
 
     /// Output only. The display name for the database connection.
@@ -2746,6 +2761,7 @@ pub struct DatabaseConnectionStringProfile {
 
     /// Output only. The host name format being currently used in connection
     /// string.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub host_format: crate::model::database_connection_string_profile::HostFormat,
 
     /// Output only. This field indicates if the connection string is regional and
@@ -2754,16 +2770,20 @@ pub struct DatabaseConnectionStringProfile {
     pub is_regional: bool,
 
     /// Output only. The protocol being used by the connection.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub protocol: crate::model::database_connection_string_profile::Protocol,
 
     /// Output only. The current session mode of the connection.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub session_mode: crate::model::database_connection_string_profile::SessionMode,
 
     /// Output only. The syntax of the connection string.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub syntax_format: crate::model::database_connection_string_profile::SyntaxFormat,
 
     /// Output only. This field indicates the TLS authentication type of the
     /// connection.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub tls_authentication: crate::model::database_connection_string_profile::TLSAuthentication,
 
     /// Output only. The value of the connection string.
@@ -3891,6 +3911,7 @@ pub struct AutonomousDatabaseStandbySummary {
     pub lifecycle_details: std::string::String,
 
     /// Output only. The current lifecycle state of the Autonomous Database.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::State,
 
     /// Output only. The date and time the Autonomous Data Guard role was switched
@@ -3999,6 +4020,7 @@ impl wkt::message::Message for AutonomousDatabaseStandbySummary {
 #[non_exhaustive]
 pub struct ScheduledOperationDetails {
     /// Output only. Day of week.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub day_of_week: gtype::model::DayOfWeek,
 
     /// Output only. Auto start time.
@@ -4081,6 +4103,7 @@ pub struct AutonomousDatabaseCharacterSet {
     pub name: std::string::String,
 
     /// Output only. The character set type for the Autonomous Database.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub character_set_type: crate::model::autonomous_database_character_set::CharacterSetType,
 
     /// Output only. The character set name for the Autonomous Database which is
@@ -4432,6 +4455,7 @@ pub struct AutonomousDatabaseBackupProperties {
     pub lifecycle_details: std::string::String,
 
     /// Output only. The lifecycle state of the backup.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub lifecycle_state: crate::model::autonomous_database_backup_properties::State,
 
     /// Output only. The backup size in terabytes.
@@ -4453,6 +4477,7 @@ pub struct AutonomousDatabaseBackupProperties {
 
     /// Output only. The type of the backup.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::autonomous_database_backup_properties::Type,
 
     /// Optional. The OCID of the vault.
@@ -4973,6 +4998,7 @@ pub struct AutonomousDbVersion {
     pub version: std::string::String,
 
     /// Output only. The Autonomous Database workload type.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub db_workload: crate::model::DBWorkload,
 
     /// Output only. A URL that points to a detailed description of the Autonomous
@@ -5144,6 +5170,7 @@ pub struct DbNodeProperties {
     pub hostname: std::string::String,
 
     /// Output only. State of the database node.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::db_node_properties::State,
 
     /// Total CPU core count of the database node.
@@ -5509,6 +5536,7 @@ pub struct DbServerProperties {
     pub vm_count: i32,
 
     /// Output only. State of the database server.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::db_server_properties::State,
 
     /// Output only. OCID of database nodes associated with the database server.
@@ -5922,6 +5950,7 @@ pub struct Entitlement {
     pub entitlement_id: std::string::String,
 
     /// Output only. Entitlement State.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::entitlement::State,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6390,6 +6419,7 @@ pub struct CloudExadataInfrastructureProperties {
     pub maintenance_window: std::option::Option<crate::model::MaintenanceWindow>,
 
     /// Output only. The current lifecycle state of the Exadata Infrastructure.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::cloud_exadata_infrastructure_properties::State,
 
     /// Required. The shape of the Exadata Infrastructure. The shape determines the
@@ -6904,6 +6934,7 @@ pub mod cloud_exadata_infrastructure_properties {
 #[non_exhaustive]
 pub struct MaintenanceWindow {
     /// Optional. The maintenance window scheduling preference.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub preference: crate::model::maintenance_window::MaintenanceWindowPreference,
 
     /// Optional. Months during the year when maintenance should be performed.
@@ -6939,6 +6970,7 @@ pub struct MaintenanceWindow {
 
     /// Optional. Cloud CloudExadataInfrastructure node patching method, either
     /// "ROLLING" or "NONROLLING". Default value is ROLLING.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub patching_mode: crate::model::maintenance_window::PatchingMode,
 
     /// Optional. Determines the amount of time the system will wait before the
@@ -9214,6 +9246,7 @@ pub struct GenerateAutonomousDatabaseWalletRequest {
     /// Optional. The type of wallet generation for the Autonomous Database. The
     /// default value is SINGLE.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::GenerateType,
 
     /// Optional. True when requesting regional connection strings in PDB connect
@@ -9852,6 +9885,7 @@ pub struct CloudVmClusterProperties {
     pub ocid: std::string::String,
 
     /// Required. License type of VM Cluster.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub license_type: crate::model::cloud_vm_cluster_properties::LicenseType,
 
     /// Optional. Grid Infrastructure Version.
@@ -9897,6 +9931,7 @@ pub struct CloudVmClusterProperties {
     pub data_storage_size_tb: f64,
 
     /// Optional. The type of redundancy.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub disk_redundancy: crate::model::cloud_vm_cluster_properties::DiskRedundancy,
 
     /// Optional. Use exadata sparse snapshots.
@@ -9917,6 +9952,7 @@ pub struct CloudVmClusterProperties {
         std::option::Option<crate::model::DataCollectionOptions>,
 
     /// Output only. State of the cluster.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::cloud_vm_cluster_properties::State,
 
     /// Output only. SCAN listener port - TCP

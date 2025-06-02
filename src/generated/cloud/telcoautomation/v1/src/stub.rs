@@ -24,8 +24,6 @@
 
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use gax::error::Error;
-
 pub(crate) mod dynamic;
 
 /// Defines the trait used to implement [super::client::TelcoAutomation].
@@ -50,9 +48,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
             gax::response::Response<crate::model::ListOrchestrationClustersResponse>,
         >,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::ListOrchestrationClustersResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::TelcoAutomation::get_orchestration_cluster].
@@ -63,9 +59,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::OrchestrationCluster>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::OrchestrationCluster>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::TelcoAutomation::create_orchestration_cluster].
@@ -76,9 +70,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::TelcoAutomation::delete_orchestration_cluster].
@@ -89,9 +81,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::TelcoAutomation::list_edge_slms].
@@ -102,9 +92,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ListEdgeSlmsResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::ListEdgeSlmsResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::TelcoAutomation::get_edge_slm].
@@ -115,9 +103,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::EdgeSlm>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::EdgeSlm>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::TelcoAutomation::create_edge_slm].
@@ -128,9 +114,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::TelcoAutomation::delete_edge_slm].
@@ -141,9 +125,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::TelcoAutomation::create_blueprint].
@@ -154,9 +136,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Blueprint>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Blueprint>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::TelcoAutomation::update_blueprint].
@@ -167,9 +147,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Blueprint>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Blueprint>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::TelcoAutomation::get_blueprint].
@@ -180,9 +158,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Blueprint>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Blueprint>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::TelcoAutomation::delete_blueprint].
@@ -191,9 +167,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
         _req: crate::model::DeleteBlueprintRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
-            "unimplemented",
-        )))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::TelcoAutomation::list_blueprints].
@@ -204,9 +178,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ListBlueprintsResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::ListBlueprintsResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::TelcoAutomation::approve_blueprint].
@@ -217,9 +189,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Blueprint>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Blueprint>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::TelcoAutomation::propose_blueprint].
@@ -230,9 +200,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Blueprint>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Blueprint>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::TelcoAutomation::reject_blueprint].
@@ -243,9 +211,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Blueprint>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Blueprint>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::TelcoAutomation::list_blueprint_revisions].
@@ -258,9 +224,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
             gax::response::Response<crate::model::ListBlueprintRevisionsResponse>,
         >,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::ListBlueprintRevisionsResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::TelcoAutomation::search_blueprint_revisions].
@@ -273,9 +237,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
             gax::response::Response<crate::model::SearchBlueprintRevisionsResponse>,
         >,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::SearchBlueprintRevisionsResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::TelcoAutomation::search_deployment_revisions].
@@ -288,9 +250,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
             gax::response::Response<crate::model::SearchDeploymentRevisionsResponse>,
         >,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::SearchDeploymentRevisionsResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::TelcoAutomation::discard_blueprint_changes].
@@ -303,9 +263,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
             gax::response::Response<crate::model::DiscardBlueprintChangesResponse>,
         >,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::DiscardBlueprintChangesResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::TelcoAutomation::list_public_blueprints].
@@ -316,9 +274,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ListPublicBlueprintsResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::ListPublicBlueprintsResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::TelcoAutomation::get_public_blueprint].
@@ -329,9 +285,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::PublicBlueprint>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::PublicBlueprint>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::TelcoAutomation::create_deployment].
@@ -342,9 +296,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Deployment>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Deployment>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::TelcoAutomation::update_deployment].
@@ -355,9 +307,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Deployment>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Deployment>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::TelcoAutomation::get_deployment].
@@ -368,9 +318,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Deployment>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Deployment>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::TelcoAutomation::remove_deployment].
@@ -379,9 +327,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
         _req: crate::model::RemoveDeploymentRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
-            "unimplemented",
-        )))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::TelcoAutomation::list_deployments].
@@ -392,9 +338,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ListDeploymentsResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::ListDeploymentsResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::TelcoAutomation::list_deployment_revisions].
@@ -407,9 +351,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
             gax::response::Response<crate::model::ListDeploymentRevisionsResponse>,
         >,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::ListDeploymentRevisionsResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::TelcoAutomation::discard_deployment_changes].
@@ -422,9 +364,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
             gax::response::Response<crate::model::DiscardDeploymentChangesResponse>,
         >,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::DiscardDeploymentChangesResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::TelcoAutomation::apply_deployment].
@@ -435,9 +375,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Deployment>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Deployment>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::TelcoAutomation::compute_deployment_status].
@@ -450,9 +388,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
             gax::response::Response<crate::model::ComputeDeploymentStatusResponse>,
         >,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::ComputeDeploymentStatusResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::TelcoAutomation::rollback_deployment].
@@ -463,9 +399,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Deployment>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Deployment>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::TelcoAutomation::get_hydrated_deployment].
@@ -476,9 +410,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::HydratedDeployment>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::HydratedDeployment>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::TelcoAutomation::list_hydrated_deployments].
@@ -491,9 +423,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
             gax::response::Response<crate::model::ListHydratedDeploymentsResponse>,
         >,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::ListHydratedDeploymentsResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::TelcoAutomation::update_hydrated_deployment].
@@ -504,9 +434,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::HydratedDeployment>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::HydratedDeployment>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::TelcoAutomation::apply_hydrated_deployment].
@@ -517,9 +445,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::HydratedDeployment>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::HydratedDeployment>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::TelcoAutomation::list_locations].
@@ -530,9 +456,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<location::model::ListLocationsResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<location::model::ListLocationsResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::TelcoAutomation::get_location].
@@ -543,9 +467,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<location::model::Location>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<location::model::Location>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::TelcoAutomation::list_operations].
@@ -556,9 +478,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::TelcoAutomation::get_operation].
@@ -569,9 +489,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::TelcoAutomation::delete_operation].
@@ -580,9 +498,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
         _req: longrunning::model::DeleteOperationRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
-            "unimplemented",
-        )))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::TelcoAutomation::cancel_operation].
@@ -591,9 +507,7 @@ pub trait TelcoAutomation: std::fmt::Debug + Send + Sync {
         _req: longrunning::model::CancelOperationRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
-            "unimplemented",
-        )))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Returns the polling error policy.

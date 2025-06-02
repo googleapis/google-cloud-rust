@@ -98,6 +98,7 @@ pub struct LogEntry {
 
     /// Optional. The severity of the log entry. The default value is
     /// `LogSeverity.DEFAULT`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub severity: logging_type::model::LogSeverity,
 
     /// Optional. A unique identifier for the log entry. If you provide a value,
@@ -1575,6 +1576,7 @@ pub mod tail_log_entries_response {
     #[non_exhaustive]
     pub struct SuppressionInfo {
         /// The reason that entries were omitted from the session.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub reason: crate::model::tail_log_entries_response::suppression_info::Reason,
 
         /// A lower bound on the count of entries omitted due to `reason`.
@@ -1779,6 +1781,7 @@ pub struct IndexConfig {
 
     /// Required. The type of data in this index.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::IndexType,
 
     /// Output only. The timestamp when the index was last modified.
@@ -1884,6 +1887,7 @@ pub struct LogBucket {
     pub locked: bool,
 
     /// Output only. The bucket lifecycle state.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub lifecycle_state: crate::model::LifecycleState,
 
     /// Whether log analytics is enabled for this bucket.
@@ -2224,6 +2228,7 @@ pub struct LogSink {
     pub exclusions: std::vec::Vec<crate::model::LogExclusion>,
 
     /// Deprecated. This field is unused.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[deprecated]
     pub output_version_format: crate::model::log_sink::VersionFormat,
 
@@ -2667,6 +2672,7 @@ pub struct Link {
     pub create_time: std::option::Option<wkt::Timestamp>,
 
     /// Output only. The resource lifecycle state.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub lifecycle_state: crate::model::LifecycleState,
 
     /// The information of a BigQuery Dataset. When a link is created, a BigQuery
@@ -5471,6 +5477,7 @@ pub struct CopyLogEntriesMetadata {
     pub end_time: std::option::Option<wkt::Timestamp>,
 
     /// State of an operation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::OperationState,
 
     /// Identifies whether the user has requested cancellation of the operation.
@@ -5637,6 +5644,7 @@ pub struct BucketMetadata {
     pub end_time: std::option::Option<wkt::Timestamp>,
 
     /// State of an operation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::OperationState,
 
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
@@ -5810,6 +5818,7 @@ pub struct LinkMetadata {
     pub end_time: std::option::Option<wkt::Timestamp>,
 
     /// State of an operation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::OperationState,
 
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
@@ -6147,6 +6156,7 @@ pub struct LogMetric {
 
     /// Deprecated. The API version that created or updated this metric.
     /// The v2 format is used by default and cannot be changed.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[deprecated]
     pub version: crate::model::log_metric::ApiVersion,
 

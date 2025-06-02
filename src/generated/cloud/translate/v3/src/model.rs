@@ -1733,6 +1733,7 @@ pub mod dataset_input_config {
 #[non_exhaustive]
 pub struct ImportDataMetadata {
     /// The current state of the operation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::OperationState,
 
     /// The creation time of the operation.
@@ -1973,6 +1974,7 @@ pub mod dataset_output_config {
 #[non_exhaustive]
 pub struct ExportDataMetadata {
     /// The current state of the operation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::OperationState,
 
     /// The creation time of the operation.
@@ -2102,6 +2104,7 @@ impl wkt::message::Message for DeleteDatasetRequest {
 #[non_exhaustive]
 pub struct DeleteDatasetMetadata {
     /// The current state of the operation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::OperationState,
 
     /// The creation time of the operation.
@@ -2404,6 +2407,7 @@ impl wkt::message::Message for CreateDatasetRequest {
 #[non_exhaustive]
 pub struct CreateDatasetMetadata {
     /// The current state of the operation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::OperationState,
 
     /// The creation time of the operation.
@@ -3018,6 +3022,7 @@ impl wkt::message::Message for CreateModelRequest {
 #[non_exhaustive]
 pub struct CreateModelMetadata {
     /// The current state of the operation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::OperationState,
 
     /// The creation time of the operation.
@@ -3310,6 +3315,7 @@ impl wkt::message::Message for DeleteModelRequest {
 #[non_exhaustive]
 pub struct DeleteModelMetadata {
     /// The current state of the operation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::OperationState,
 
     /// The creation time of the operation.
@@ -6195,6 +6201,7 @@ impl wkt::message::Message for BatchTranslateTextRequest {
 #[non_exhaustive]
 pub struct BatchTranslateMetadata {
     /// The state of the operation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::batch_translate_metadata::State,
 
     /// Number of successfully translated characters so far (Unicode codepoints).
@@ -7585,6 +7592,7 @@ pub struct CreateGlossaryMetadata {
     pub name: std::string::String,
 
     /// The current state of the glossary creation operation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::create_glossary_metadata::State,
 
     /// The time when the operation was submitted to the server.
@@ -7816,6 +7824,7 @@ pub struct UpdateGlossaryMetadata {
 
     /// The current state of the glossary update operation. If the glossary input
     /// file was not updated this will be completed immediately
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::update_glossary_metadata::State,
 
     /// The time when the operation was submitted to the server.
@@ -8058,6 +8067,7 @@ pub struct DeleteGlossaryMetadata {
     pub name: std::string::String,
 
     /// The current state of the glossary deletion operation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::delete_glossary_metadata::State,
 
     /// The time when the operation was submitted to the server.
@@ -9001,6 +9011,7 @@ impl wkt::message::Message for BatchTranslateDocumentResponse {
 #[non_exhaustive]
 pub struct BatchTranslateDocumentMetadata {
     /// The state of the operation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::batch_translate_document_metadata::State,
 
     /// Total number of pages to translate in all documents so far. Documents

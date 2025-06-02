@@ -1656,6 +1656,7 @@ pub struct ExportAgentRequest {
 
     /// Optional. The data format of the exported agent. If not specified, `BLOB`
     /// is assumed.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub data_format: crate::model::export_agent_request::DataFormat,
 
     /// Optional. Environment name. If not set, draft environment is assumed.
@@ -2093,6 +2094,7 @@ pub struct RestoreAgentRequest {
     pub name: std::string::String,
 
     /// Agent restore mode. If not specified, `KEEP` is assumed.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub restore_option: crate::model::restore_agent_request::RestoreOption,
 
     /// Required. The agent to restore.
@@ -2882,6 +2884,7 @@ impl wkt::message::Message for BargeInConfig {
 #[non_exhaustive]
 pub struct InputAudioConfig {
     /// Required. Audio encoding of the audio content to process.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub audio_encoding: crate::model::AudioEncoding,
 
     /// Sample rate (in Hertz) of the audio content sent in the query.
@@ -2924,6 +2927,7 @@ pub struct InputAudioConfig {
     /// model][google.cloud.dialogflow.cx.v3.InputAudioConfig.model] to use.
     ///
     /// [google.cloud.dialogflow.cx.v3.InputAudioConfig.model]: crate::model::InputAudioConfig::model
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub model_variant: crate::model::SpeechModelVariant,
 
     /// Optional. If `false` (default), recognition does not cease until the
@@ -3069,6 +3073,7 @@ pub struct VoiceSelectionParams {
     /// different gender rather than failing the request.
     ///
     /// [google.cloud.dialogflow.cx.v3.VoiceSelectionParams.name]: crate::model::VoiceSelectionParams::name
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub ssml_gender: crate::model::SsmlVoiceGender,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3215,6 +3220,7 @@ impl wkt::message::Message for SynthesizeSpeechConfig {
 #[non_exhaustive]
 pub struct OutputAudioConfig {
     /// Required. Audio encoding of the synthesized audio content.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub audio_encoding: crate::model::OutputAudioEncoding,
 
     /// Optional. The synthesis sample rate (in hertz) for this audio. If not
@@ -3659,6 +3665,7 @@ impl wkt::message::Message for Changelog {
 #[non_exhaustive]
 pub struct DataStoreConnection {
     /// The type of the connected data store.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub data_store_type: crate::model::DataStoreType,
 
     /// The full name of the referenced data store.
@@ -3671,6 +3678,7 @@ pub struct DataStoreConnection {
     /// The document processing mode for the data store connection. Should only be
     /// set for PUBLIC_WEB and UNSTRUCTURED data stores. If not set it is
     /// considered as DOCUMENTS, as this is the legacy mode.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub document_processing_mode: crate::model::DocumentProcessingMode,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4202,10 +4210,12 @@ pub mod data_store_connection_signals {
     #[non_exhaustive]
     pub struct GroundingSignals {
         /// Represents the decision of the grounding check.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub decision:
             crate::model::data_store_connection_signals::grounding_signals::GroundingDecision,
 
         /// Grounding score bucket setting.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub score:
             crate::model::data_store_connection_signals::grounding_signals::GroundingScoreBucket,
 
@@ -4543,9 +4553,11 @@ pub mod data_store_connection_signals {
     #[non_exhaustive]
     pub struct SafetySignals {
         /// Safety decision.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub decision: crate::model::data_store_connection_signals::safety_signals::SafetyDecision,
 
         /// Specifies banned phrase match subject.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub banned_phrase_match:
             crate::model::data_store_connection_signals::safety_signals::BannedPhraseMatch,
 
@@ -4916,6 +4928,7 @@ pub struct Deployment {
     pub flow_version: std::string::String,
 
     /// The current state of the deployment.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::deployment::State,
 
     /// Result of the deployment.
@@ -5437,9 +5450,11 @@ pub struct EntityType {
     pub display_name: std::string::String,
 
     /// Required. Indicates the kind of entity type.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub kind: crate::model::entity_type::Kind,
 
     /// Indicates whether the entity type can be automatically expanded.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub auto_expansion_mode: crate::model::entity_type::AutoExpansionMode,
 
     /// The collection of entity entries associated with the entity type.
@@ -5941,6 +5956,7 @@ pub struct ExportEntityTypesRequest {
 
     /// Optional. The data format of the exported entity types. If not specified,
     /// `BLOB` is assumed.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub data_format: crate::model::export_entity_types_request::DataFormat,
 
     /// Optional. The language to retrieve the entity type for. The following
@@ -6421,6 +6437,7 @@ pub struct ImportEntityTypesRequest {
     pub parent: std::string::String,
 
     /// Required. Merge option for importing entity types.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub merge_option: crate::model::import_entity_types_request::MergeOption,
 
     /// Optional. The target entity type to import into.
@@ -8105,6 +8122,7 @@ pub struct ContinuousTestResult {
 
     /// The result of this continuous test run, i.e. whether all the tests in this
     /// continuous test run pass or not.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub result: crate::model::continuous_test_result::AggregatedTestResult,
 
     /// A list of individual test case results names in this continuous test run.
@@ -8737,6 +8755,7 @@ pub struct Experiment {
     /// Transition triggered by Experiments.StartExperiment: DRAFT->RUNNING.
     /// Transition triggered by Experiments.CancelExperiment: DRAFT->DONE or
     /// RUNNING->DONE.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::experiment::State,
 
     /// The definition of the experiment.
@@ -9267,10 +9286,12 @@ pub mod experiment {
             /// Ratio-based metric type. Only one of type or count_type is specified in
             /// each Metric.
             #[serde(rename = "type")]
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub r#type: crate::model::experiment::result::MetricType,
 
             /// Count-based metric type. Only one of type or count_type is specified in
             /// each Metric.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub count_type: crate::model::experiment::result::CountType,
 
             /// The probability that the treatment is better than all other treatments
@@ -10776,6 +10797,7 @@ impl wkt::message::Message for StopExperimentRequest {
 #[non_exhaustive]
 pub struct NluSettings {
     /// Indicates the type of NLU model.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub model_type: crate::model::nlu_settings::ModelType,
 
     /// To filter out false positive results and still get variety in matched
@@ -10790,6 +10812,7 @@ pub struct NluSettings {
     pub classification_threshold: f32,
 
     /// Indicates NLU model training mode.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub model_training_mode: crate::model::nlu_settings::ModelTrainingMode,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -12088,6 +12111,7 @@ pub struct ImportFlowRequest {
     pub parent: std::string::String,
 
     /// Flow import mode. If not specified, `KEEP` is assumed.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub import_option: crate::model::import_flow_request::ImportOption,
 
     /// Optional. Specifies the import strategy used when resolving resource
@@ -12384,6 +12408,7 @@ pub struct FlowImportStrategy {
     /// globally throughout the flow. It will be applied for all display name
     /// conflicts in the imported content. If not specified, 'CREATE_NEW' is
     /// assumed.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub global_import_strategy: crate::model::ImportStrategy,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -14651,6 +14676,7 @@ pub struct ListIntentsRequest {
     pub language_code: std::string::String,
 
     /// The resource view to apply to the returned intent.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub intent_view: crate::model::IntentView,
 
     /// The maximum number of items to return in a single page. By default 100 and
@@ -15049,6 +15075,7 @@ pub struct ImportIntentsRequest {
     pub parent: std::string::String,
 
     /// Merge option for importing intents. If not specified, `REJECT` is assumed.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub merge_option: crate::model::import_intents_request::MergeOption,
 
     /// Required. The intents to import.
@@ -15529,6 +15556,7 @@ pub struct ExportIntentsRequest {
 
     /// Optional. The data format of the exported intents. If not specified, `BLOB`
     /// is assumed.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub data_format: crate::model::export_intents_request::DataFormat,
 
     /// The destination to export.
@@ -17605,6 +17633,7 @@ pub mod knowledge_connector_settings {
 #[non_exhaustive]
 pub struct ResponseMessage {
     /// Response type.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub response_type: crate::model::response_message::ResponseType,
 
     /// The channel which the response is associated with. Clients can specify the
@@ -19297,11 +19326,13 @@ pub struct SecuritySettings {
     pub display_name: std::string::String,
 
     /// Strategy that defines how we do redaction.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub redaction_strategy: crate::model::security_settings::RedactionStrategy,
 
     /// Defines the data for which Dialogflow applies redaction. Dialogflow does
     /// not redact data that it does not have access to – for example, Cloud
     /// logging.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub redaction_scope: crate::model::security_settings::RedactionScope,
 
     /// [DLP](https://cloud.google.com/dlp/docs) inspect template name. Use this
@@ -19608,6 +19639,7 @@ pub mod security_settings {
 
         /// File format for exported audio file. Currently only in telephony
         /// recordings.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub audio_format: crate::model::security_settings::audio_export_settings::AudioFormat,
 
         /// Whether to store TTS audio. By default, TTS audio from the virtual agent
@@ -20390,6 +20422,7 @@ pub mod security_settings {
 #[non_exhaustive]
 pub struct AnswerFeedback {
     /// Optional. Rating from user for the specific Dialogflow response.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub rating: crate::model::answer_feedback::Rating,
 
     /// Optional. In case of thumbs down rating provided, users can optionally
@@ -20879,6 +20912,7 @@ pub struct DetectIntentResponse {
     pub output_audio_config: std::option::Option<crate::model::OutputAudioConfig>,
 
     /// Response type.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub response_type: crate::model::detect_intent_response::ResponseType,
 
     /// Indicates whether the partial response can be cancelled when a later
@@ -21832,6 +21866,7 @@ pub mod streaming_detect_intent_response {
 #[non_exhaustive]
 pub struct StreamingRecognitionResult {
     /// Type of the result message.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub message_type: crate::model::streaming_recognition_result::MessageType,
 
     /// Transcript text representing the words that the user spoke.
@@ -22717,10 +22752,12 @@ pub mod boost_spec {
             /// specified field_name. In the case of numerical it is straightforward
             /// i.e. attribute_value = numerical_field_value. In the case of freshness
             /// however, attribute_value = (time.now() - datetime_field_value).
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub attribute_type: crate::model::boost_spec::condition_boost_spec::boost_control_spec::AttributeType,
 
             /// Optional. The interpolation type to be applied to connect the control
             /// points listed below.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub interpolation_type: crate::model::boost_spec::condition_boost_spec::boost_control_spec::InterpolationType,
 
             /// Optional. The control points used to define the curve. The monotonic
@@ -24305,6 +24342,7 @@ pub struct Match {
     /// Type of this [Match][google.cloud.dialogflow.cx.v3.Match].
     ///
     /// [google.cloud.dialogflow.cx.v3.Match]: crate::model::Match
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub match_type: crate::model::r#match::MatchType,
 
     /// The confidence of this match. Values range from 0.0 (completely uncertain)
@@ -25159,6 +25197,7 @@ pub struct SessionEntityType {
 
     /// Required. Indicates whether the additional data should override or
     /// supplement the custom entity type definition.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub entity_override_mode: crate::model::session_entity_type::EntityOverrideMode,
 
     /// Required. The collection of entities to override or supplement the custom
@@ -25888,6 +25927,7 @@ pub struct TestCaseResult {
     pub conversation_turns: std::vec::Vec<crate::model::ConversationTurn>,
 
     /// Whether the test case passed in the agent environment.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub test_result: crate::model::TestResult,
 
     /// The time that the test was run.
@@ -26386,6 +26426,7 @@ pub mod conversation_turn {
 pub struct TestRunDifference {
     /// The type of diff.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::test_run_difference::DiffType,
 
     /// A human readable description of the diff, showing the actual output vs
@@ -27256,6 +27297,7 @@ pub struct CalculateCoverageRequest {
 
     /// Required. The type of coverage requested.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::calculate_coverage_request::CoverageType,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -27633,6 +27675,7 @@ pub struct ListTestCasesRequest {
     pub page_token: std::string::String,
 
     /// Specifies whether response should include all fields or just the metadata.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub view: crate::model::list_test_cases_request::TestCaseView,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -28747,6 +28790,7 @@ pub struct ExportTestCasesRequest {
 
     /// The data format of the exported test cases. If not specified, `BLOB` is
     /// assumed.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub data_format: crate::model::export_test_cases_request::DataFormat,
 
     /// The filter expression used to filter exported test cases, see
@@ -29863,6 +29907,7 @@ impl wkt::message::Message for DeleteTransitionRouteGroupRequest {
 #[non_exhaustive]
 pub struct ValidationMessage {
     /// The type of the resources where the message is found.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub resource_type: crate::model::validation_message::ResourceType,
 
     /// The names of the resources where the message is found.
@@ -29875,6 +29920,7 @@ pub struct ValidationMessage {
     pub resource_names: std::vec::Vec<crate::model::ResourceName>,
 
     /// Indicates the severity of the message.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub severity: crate::model::validation_message::Severity,
 
     /// The message detail.
@@ -30420,6 +30466,7 @@ pub struct Version {
 
     /// Output only. The state of this version. This field is read-only and cannot
     /// be set by create and update methods.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::version::State,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -31395,13 +31442,16 @@ pub mod webhook {
         /// service
         /// agent](https://cloud.google.com/iam/docs/service-agents#dialogflow-service-agent).
         /// The generated token is sent in the Authorization header.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub service_agent_auth: crate::model::webhook::generic_web_service::ServiceAgentAuth,
 
         /// Optional. Type of the webhook.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub webhook_type: crate::model::webhook::generic_web_service::WebhookType,
 
         /// Optional. HTTP method for the flexible webhook calls. Standard webhook
         /// always uses POST.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub http_method: crate::model::webhook::generic_web_service::HttpMethod,
 
         /// Optional. Defines a custom JSON object as request body to send to
@@ -33360,6 +33410,7 @@ pub mod webhook_response {
         pub messages: std::vec::Vec<crate::model::ResponseMessage>,
 
         /// Merge behavior for `messages`.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub merge_behavior: crate::model::webhook_response::fulfillment_response::MergeBehavior,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -33740,6 +33791,7 @@ pub mod page_info {
             /// [google.cloud.dialogflow.cx.v3.PageInfo.FormInfo.ParameterInfo.ParameterState.INVALID]: crate::model::page_info::form_info::parameter_info::ParameterState::Invalid
             /// [google.cloud.dialogflow.cx.v3.WebhookRequest]: crate::model::WebhookRequest
             /// [google.cloud.dialogflow.cx.v3.WebhookResponse]: crate::model::WebhookResponse
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub state: crate::model::page_info::form_info::parameter_info::ParameterState,
 
             /// Optional for both

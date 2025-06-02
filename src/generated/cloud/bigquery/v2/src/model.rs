@@ -52,9 +52,11 @@ pub struct BigLakeConfiguration {
     pub storage_uri: std::string::String,
 
     /// Optional. The file format the table data is stored in.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub file_format: crate::model::big_lake_configuration::FileFormat,
 
     /// Optional. The table format the metadata only snapshots are stored in.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub table_format: crate::model::big_lake_configuration::TableFormat,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1009,6 +1011,7 @@ pub struct Dataset {
     /// If columns are defined during that table creation,
     /// they will immediately inherit the table's default rounding mode,
     /// unless otherwise specified.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub default_rounding_mode: crate::model::table_field_schema::RoundingMode,
 
     /// Optional. Defines the time travel window in hours. The value can be from 48
@@ -1025,6 +1028,7 @@ pub struct Dataset {
     pub tags: std::vec::Vec<crate::model::GcpTag>,
 
     /// Optional. Updates storage_billing_model for the dataset.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub storage_billing_model: crate::model::dataset::StorageBillingModel,
 
     /// Optional. Output only. Restriction config for all tables and dataset. If
@@ -1710,6 +1714,7 @@ impl wkt::message::Message for LinkedDatasetSource {
 pub struct LinkedDatasetMetadata {
     /// Output only. Specifies whether Linked Dataset is currently in a linked
     /// state or not.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub link_state: crate::model::linked_dataset_metadata::LinkState,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1895,6 +1900,7 @@ pub struct GetDatasetRequest {
 
     /// Optional. Specifies the view that determines which dataset information is
     /// returned. By default, metadata and ACL information are returned.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub dataset_view: crate::model::get_dataset_request::DatasetView,
 
     /// Optional. The version of the access policy schema to fetch.
@@ -2223,6 +2229,7 @@ pub struct UpdateOrPatchDatasetRequest {
 
     /// Optional. Specifies the fields of dataset that update/patch operation is
     /// targeting By default, both metadata and ACL fields are updated.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub update_mode: crate::model::update_or_patch_dataset_request::UpdateMode,
 
     /// Optional. The version of the provided access policy schema.
@@ -3405,6 +3412,7 @@ pub struct ParquetOptions {
     pub enable_list_inference: std::option::Option<wkt::BoolValue>,
 
     /// Optional. Indicates how to represent a Parquet map if present.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub map_target_type: crate::model::MapTargetType,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4263,6 +4271,7 @@ pub struct ExternalDataConfiguration {
     /// file set to load.  By default source URIs are expanded against the
     /// underlying storage.  Other options include specifying manifest files. Only
     /// applicable to object storage systems.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub file_set_spec_type: crate::model::FileSetSpecType,
 
     /// Optional. The schema for the data.
@@ -4393,6 +4402,7 @@ pub struct ExternalDataConfiguration {
     /// newline-delimited JSON to indicate that a variant of JSON is being loaded.
     /// To load newline-delimited GeoJSON, specify GEOJSON (and source_format must
     /// be set to NEWLINE_DELIMITED_JSON).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub json_extension: crate::model::JsonExtension,
 
     /// Optional. Additional properties to set if sourceFormat is set to PARQUET.
@@ -4416,6 +4426,7 @@ pub struct ExternalDataConfiguration {
 
     /// Optional. Metadata Cache Mode for the table. Set this to enable caching of
     /// metadata from external data source.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub metadata_cache_mode: crate::model::external_data_configuration::MetadataCacheMode,
 
     /// Optional. Time zone used when parsing timestamp values that do not have
@@ -5799,6 +5810,7 @@ pub struct Model {
     pub encryption_configuration: std::option::Option<crate::model::EncryptionConfiguration>,
 
     /// Output only. Type of the model resource.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub model_type: crate::model::model::ModelType,
 
     /// Information for all training runs in increasing order of start_time.
@@ -10369,6 +10381,7 @@ pub mod model {
             pub max_iterations: i64,
 
             /// Type of loss function used during training run.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub loss_type: crate::model::model::LossType,
 
             /// Learning rate in training. Used only for iterative training algorithms.
@@ -10408,6 +10421,7 @@ pub mod model {
             pub input_label_columns: std::vec::Vec<std::string::String>,
 
             /// The data split type for training and evaluation, e.g. RANDOM.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub data_split_method: crate::model::model::DataSplitMethod,
 
             /// The fraction of evaluation data over the whole input data. The rest
@@ -10433,6 +10447,7 @@ pub mod model {
             pub data_split_column: std::string::String,
 
             /// The strategy to determine learn rate for the current iteration.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub learn_rate_strategy: crate::model::model::LearnRateStrategy,
 
             /// Specifies the initial learning rate for the line search learn rate
@@ -10456,6 +10471,7 @@ pub mod model {
             pub item_column: std::string::String,
 
             /// Distance type for clustering models.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub distance_type: crate::model::model::DistanceType,
 
             /// Number of clusters for clustering models.
@@ -10469,6 +10485,7 @@ pub mod model {
             pub model_uri: std::string::String,
 
             /// Optimization strategy for training linear regression models.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub optimization_strategy: crate::model::model::OptimizationStrategy,
 
             /// Hidden units for dnn models.
@@ -10503,6 +10520,7 @@ pub mod model {
             pub min_split_loss: std::option::Option<wkt::DoubleValue>,
 
             /// Booster type for boosted tree models.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub booster_type: crate::model::model::boosted_tree_option_enums::BoosterType,
 
             /// Number of parallel trees constructed during each iteration for boosted
@@ -10513,10 +10531,12 @@ pub mod model {
 
             /// Type of normalization algorithm for boosted tree models using
             /// dart booster.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub dart_normalize_type:
                 crate::model::model::boosted_tree_option_enums::DartNormalizeType,
 
             /// Tree construction algorithm for boosted tree models.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub tree_method: crate::model::model::boosted_tree_option_enums::TreeMethod,
 
             /// Minimum sum of instance weight needed in a child for boosted tree
@@ -10549,6 +10569,7 @@ pub mod model {
 
             /// Feedback type that specifies which algorithm to run for matrix
             /// factorization.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub feedback_type: crate::model::model::FeedbackType,
 
             /// Hyperparameter for matrix factoration when implicit feedback type is
@@ -10558,6 +10579,7 @@ pub mod model {
             pub wals_alpha: std::option::Option<wkt::DoubleValue>,
 
             /// The method used to initialize the centroids for kmeans algorithm.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub kmeans_initialization_method:
                 crate::model::model::kmeans_enums::KmeansInitializationMethod,
 
@@ -10585,6 +10607,7 @@ pub mod model {
             pub non_seasonal_order: std::option::Option<crate::model::model::ArimaOrder>,
 
             /// The data frequency of a time series.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub data_frequency: crate::model::model::DataFrequency,
 
             /// Whether or not p-value test should be computed for this model. Only
@@ -10599,6 +10622,7 @@ pub mod model {
             /// The geographical region based on which the holidays are considered in
             /// time series modeling. If a valid value is specified, then holiday
             /// effects modeling is enabled.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub holiday_region: crate::model::model::HolidayRegion,
 
             /// A list of geographical regions that are used for time series modeling.
@@ -10684,6 +10708,7 @@ pub mod model {
             pub integrated_gradients_num_steps: i64,
 
             /// Categorical feature encoding method.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub category_encoding_method:
                 crate::model::model::category_encoding_method::EncodingMethod,
 
@@ -10695,6 +10720,7 @@ pub mod model {
             /// Enums for color space, used for processing images in Object Table.
             /// See more details at
             /// <https://www.tensorflow.org/io/tutorials/colorspace>.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub color_space: crate::model::model::ColorSpace,
 
             /// Name of the instance weight column for training data.
@@ -10773,6 +10799,7 @@ pub mod model {
             pub scale_features: std::option::Option<wkt::BoolValue>,
 
             /// The solver for PCA.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub pca_solver: crate::model::model::pca_solver_option_enums::PcaSolver,
 
             /// Whether to calculate class weights automatically based on the
@@ -10803,6 +10830,7 @@ pub mod model {
             pub l1_reg_activation: f64,
 
             /// The model registry.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub model_registry: crate::model::model::model_registry_option_enums::ModelRegistry,
 
             /// The version aliases to apply in Vertex AI model registry. Always
@@ -13896,6 +13924,7 @@ pub mod model {
         pub evaluation_metrics: std::option::Option<crate::model::model::EvaluationMetrics>,
 
         /// The status of the trial.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub status: crate::model::model::hparam_tuning_trial::TrialStatus,
 
         /// Error message for FAILED and INFEASIBLE trial.
@@ -18015,6 +18044,7 @@ pub mod range_partitioning {
 pub struct RestrictionConfig {
     /// Output only. Specifies the type of dataset/table restriction.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::restriction_config::RestrictionType,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -18190,6 +18220,7 @@ pub struct Routine {
     pub routine_reference: std::option::Option<crate::model::RoutineReference>,
 
     /// Required. The type of routine.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub routine_type: crate::model::routine::RoutineType,
 
     /// Output only. The time when this routine was created, in milliseconds since
@@ -18206,6 +18237,7 @@ pub struct Routine {
 
     /// Optional. Defaults to "SQL" if remote_function_options field is absent, not
     /// set otherwise.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub language: crate::model::routine::Language,
 
     /// Optional.
@@ -18284,10 +18316,12 @@ pub struct Routine {
     pub description: std::string::String,
 
     /// Optional. The determinism level of the JavaScript UDF, if defined.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub determinism_level: crate::model::routine::DeterminismLevel,
 
     /// Optional. The security mode of the routine, if defined. If not defined, the
     /// security mode is automatically determined from the routine's configuration.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub security_mode: crate::model::routine::SecurityMode,
 
     /// Optional. Use this option to catch many common errors. Error checking is
@@ -18318,6 +18352,7 @@ pub struct Routine {
     /// available as a masking function. For more information, see [Create custom
     /// masking
     /// routines](https://cloud.google.com/bigquery/docs/user-defined-functions#custom-mask).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub data_governance_type: crate::model::routine::DataGovernanceType,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -18560,10 +18595,12 @@ pub mod routine {
         pub name: std::string::String,
 
         /// Optional. Defaults to FIXED_TYPE.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub argument_kind: crate::model::routine::argument::ArgumentKind,
 
         /// Optional. Specifies whether the argument is input or output.
         /// Can be set for procedures only.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub mode: crate::model::routine::argument::Mode,
 
         /// Set if argument_kind == FIXED_TYPE.
@@ -21231,6 +21268,7 @@ impl wkt::message::Message for RowAccessPolicyReference {
 pub struct StandardSqlDataType {
     /// Required. The top level type of this field.
     /// Can be any GoogleSQL data type (e.g., "INT64", "DATE", "ARRAY").
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub type_kind: crate::model::standard_sql_data_type::TypeKind,
 
     /// For complex types, the sub type information.
@@ -21849,6 +21887,7 @@ pub struct TableReplicationInfo {
     pub replicated_source_last_refresh_time: i64,
 
     /// Optional. Output only. Replication status of configured replication.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub replication_status: crate::model::table_replication_info::ReplicationStatus,
 
     /// Optional. Output only. Replication error that will permanently stopped
@@ -22799,6 +22838,7 @@ pub struct Table {
 
     /// Optional. If set, overrides the default managed table type configured in
     /// the dataset.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub managed_table_type: crate::model::ManagedTableType,
 
     /// Output only. The geographic location where the table resides. This value
@@ -22838,6 +22878,7 @@ pub struct Table {
     /// update, if a decimal field is added to this table without an explicit
     /// rounding mode specified, then the field inherits the table default
     /// rounding mode. Changing this field doesn't affect existing fields.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub default_rounding_mode: crate::model::table_field_schema::RoundingMode,
 
     /// Output only. Contains information about the clone. This value is set via
@@ -23773,6 +23814,7 @@ pub struct GetTableRequest {
     /// Optional. Specifies the view that determines which table information is
     /// returned. By default, basic table information and storage statistics
     /// (STORAGE_STATS) are returned.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub view: crate::model::get_table_request::TableMetadataView,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -25002,6 +25044,7 @@ impl wkt::message::Message for TableSchema {
 #[non_exhaustive]
 pub struct ForeignTypeInfo {
     /// Required. Specifies the system which defines the foreign data type.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub type_system: crate::model::foreign_type_info::TypeSystem,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -25325,6 +25368,7 @@ pub struct TableFieldSchema {
 
     /// Optional. Specifies the rounding mode to be used when storing values of
     /// NUMERIC and BIGNUMERIC type.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub rounding_mode: crate::model::table_field_schema::RoundingMode,
 
     /// Optional. Field collation can be set only when the type of field is STRING.

@@ -97,9 +97,13 @@ impl super::stub::AttachedClusters for AttachedClusters {
         let builder = req
             .update_mask
             .as_ref()
-            .iter()
-            .flat_map(|p| p.paths.iter())
-            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
+            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .transpose()?
+            .into_iter()
+            .fold(builder, |builder, v| {
+                use gaxi::query_parameter::QueryParameter;
+                v.add(builder, "updateMask")
+            });
         self.inner
             .execute(builder, Some(req.attached_cluster), options)
             .await
@@ -511,9 +515,13 @@ impl super::stub::AwsClusters for AwsClusters {
         let builder = req
             .update_mask
             .as_ref()
-            .iter()
-            .flat_map(|p| p.paths.iter())
-            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
+            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .transpose()?
+            .into_iter()
+            .fold(builder, |builder, v| {
+                use gaxi::query_parameter::QueryParameter;
+                v.add(builder, "updateMask")
+            });
         self.inner
             .execute(builder, Some(req.aws_cluster), options)
             .await
@@ -710,9 +718,13 @@ impl super::stub::AwsClusters for AwsClusters {
         let builder = req
             .update_mask
             .as_ref()
-            .iter()
-            .flat_map(|p| p.paths.iter())
-            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
+            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .transpose()?
+            .into_iter()
+            .fold(builder, |builder, v| {
+                use gaxi::query_parameter::QueryParameter;
+                v.add(builder, "updateMask")
+            });
         self.inner
             .execute(builder, Some(req.aws_node_pool), options)
             .await
@@ -1222,9 +1234,13 @@ impl super::stub::AzureClusters for AzureClusters {
         let builder = req
             .update_mask
             .as_ref()
-            .iter()
-            .flat_map(|p| p.paths.iter())
-            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
+            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .transpose()?
+            .into_iter()
+            .fold(builder, |builder, v| {
+                use gaxi::query_parameter::QueryParameter;
+                v.add(builder, "updateMask")
+            });
         self.inner
             .execute(builder, Some(req.azure_cluster), options)
             .await
@@ -1421,9 +1437,13 @@ impl super::stub::AzureClusters for AzureClusters {
         let builder = req
             .update_mask
             .as_ref()
-            .iter()
-            .flat_map(|p| p.paths.iter())
-            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
+            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .transpose()?
+            .into_iter()
+            .fold(builder, |builder, v| {
+                use gaxi::query_parameter::QueryParameter;
+                v.add(builder, "updateMask")
+            });
         self.inner
             .execute(builder, Some(req.azure_node_pool), options)
             .await

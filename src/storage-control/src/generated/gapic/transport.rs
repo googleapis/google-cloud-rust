@@ -89,7 +89,7 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::other)?,
+                req.to_proto().map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -130,7 +130,7 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::other)?,
+                req.to_proto().map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -181,7 +181,7 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::other)?,
+                req.to_proto().map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -222,7 +222,7 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::other)?,
+                req.to_proto().map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -265,7 +265,7 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::other)?,
+                req.to_proto().map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -322,7 +322,7 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::other)?,
+                req.to_proto().map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -379,7 +379,7 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::other)?,
+                req.to_proto().map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -456,7 +456,7 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::other)?,
+                req.to_proto().map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -499,7 +499,7 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::other)?,
+                req.to_proto().map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -542,7 +542,7 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::other)?,
+                req.to_proto().map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -583,7 +583,7 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::other)?,
+                req.to_proto().map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -624,7 +624,7 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::other)?,
+                req.to_proto().map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -665,7 +665,7 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::other)?,
+                req.to_proto().map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -708,7 +708,7 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::other)?,
+                req.to_proto().map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -749,7 +749,7 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::other)?,
+                req.to_proto().map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -799,7 +799,7 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::other)?,
+                req.to_proto().map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -840,7 +840,7 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::other)?,
+                req.to_proto().map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,

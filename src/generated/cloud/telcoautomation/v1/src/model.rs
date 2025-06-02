@@ -66,6 +66,7 @@ pub struct OrchestrationCluster {
     pub tna_version: std::string::String,
 
     /// Output only. State of the Orchestration Cluster.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::orchestration_cluster::State,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -360,10 +361,12 @@ pub struct EdgeSlm {
     pub tna_version: std::string::String,
 
     /// Output only. State of the EdgeSlm resource.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::edge_slm::State,
 
     /// Optional. Type of workload cluster for which an EdgeSLM resource is
     /// created.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub workload_cluster_type: crate::model::edge_slm::WorkloadClusterType,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -787,6 +790,7 @@ pub struct Blueprint {
     pub revision_create_time: std::option::Option<wkt::Timestamp>,
 
     /// Output only. Approval state of the blueprint (DRAFT, PROPOSED, APPROVED)
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub approval_state: crate::model::blueprint::ApprovalState,
 
     /// Optional. Human readable name of a Blueprint.
@@ -824,6 +828,7 @@ pub struct Blueprint {
 
     /// Output only. DeploymentLevel of a blueprint signifies where the blueprint
     /// will be applied. e.g. [HYDRATION, SINGLE_DEPLOYMENT, MULTI_DEPLOYMENT]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub deployment_level: crate::model::DeploymentLevel,
 
     /// Output only. Indicates if the deployment created from this blueprint can be
@@ -1164,6 +1169,7 @@ pub struct PublicBlueprint {
 
     /// DeploymentLevel of a blueprint signifies where the blueprint will be
     /// applied. e.g. [HYDRATION, SINGLE_DEPLOYMENT, MULTI_DEPLOYMENT]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub deployment_level: crate::model::DeploymentLevel,
 
     /// Source provider is the author of a public blueprint. e.g. Google, vendors
@@ -1256,6 +1262,7 @@ pub struct Deployment {
     pub revision_create_time: std::option::Option<wkt::Timestamp>,
 
     /// Output only. State of the deployment (DRAFT, APPLIED, DELETING).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::deployment::State,
 
     /// Optional. Human readable name of a Deployment.
@@ -1301,6 +1308,7 @@ pub struct Deployment {
 
     /// Output only. Attributes to where the deployment can inflict changes. The
     /// value can only be [SINGLE_DEPLOYMENT, MULTI_DEPLOYMENT].
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub deployment_level: crate::model::DeploymentLevel,
 
     /// Output only. Indicates if the deployment can be rolled back, exported from
@@ -1639,6 +1647,7 @@ pub struct HydratedDeployment {
     pub name: std::string::String,
 
     /// Output only. State of the hydrated deployment (DRAFT, APPLIED).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::hydrated_deployment::State,
 
     /// Optional. File contents of a hydrated deployment.
@@ -2642,6 +2651,7 @@ pub struct GetBlueprintRequest {
 
     /// Optional. Defines the type of view of the blueprint.
     /// When field is not present BLUEPRINT_VIEW_BASIC is considered as default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub view: crate::model::BlueprintView,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3536,6 +3546,7 @@ pub struct GetDeploymentRequest {
 
     /// Optional. Defines the type of view of the deployment.
     /// When field is not present VIEW_BASIC is considered as default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub view: crate::model::DeploymentView,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4109,6 +4120,7 @@ pub struct ComputeDeploymentStatusResponse {
     pub name: std::string::String,
 
     /// Output only. Aggregated status of a deployment.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub aggregated_status: crate::model::Status,
 
     /// Output only. Resource level status details in deployments.
@@ -5180,9 +5192,11 @@ pub struct ResourceStatus {
     pub kind: std::string::String,
 
     /// Output only. Resource type.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub resource_type: crate::model::ResourceType,
 
     /// Output only. Status of the resource.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub status: crate::model::Status,
 
     /// Output only. Detailed status of NFDeploy.

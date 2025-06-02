@@ -105,6 +105,7 @@ pub struct Finding {
     pub finding_type: std::string::String,
 
     /// Output only. The severity level of the reported vulnerability.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub severity: crate::model::finding::Severity,
 
     /// Output only. The http method of the request that triggered the vulnerability, in
@@ -840,6 +841,7 @@ pub struct Xss {
     pub error_message: std::string::String,
 
     /// The attack vector of the payload triggering this XSS.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub attack_vector: crate::model::xss::AttackVector,
 
     /// The reproduction url for the seeding POST request of a Stored XSS.
@@ -1139,6 +1141,7 @@ pub struct Xxe {
     pub payload_value: std::string::String,
 
     /// Location within the request where the payload was placed.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub payload_location: crate::model::xxe::Location,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1379,6 +1382,7 @@ pub struct ScanConfig {
     pub authentication: std::option::Option<crate::model::scan_config::Authentication>,
 
     /// The user agent used during scanning.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub user_agent: crate::model::scan_config::UserAgent,
 
     /// The excluded URL patterns as described in
@@ -1392,9 +1396,11 @@ pub struct ScanConfig {
 
     /// Controls export of scan configurations and results to Security
     /// Command Center.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub export_to_security_command_center: crate::model::scan_config::ExportToSecurityCommandCenter,
 
     /// The risk level selected for the scan
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub risk_level: crate::model::scan_config::RiskLevel,
 
     /// Whether the scan config is managed by Web Security Scanner, output
@@ -2444,6 +2450,7 @@ pub mod scan_config {
 #[non_exhaustive]
 pub struct ScanConfigError {
     /// Output only. Indicates the reason code for a configuration failure.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub code: crate::model::scan_config_error::Code,
 
     /// Output only. Indicates the full name of the ScanConfig field that triggers this error,
@@ -2994,10 +3001,12 @@ pub struct ScanRun {
     pub name: std::string::String,
 
     /// Output only. The execution state of the ScanRun.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub execution_state: crate::model::scan_run::ExecutionState,
 
     /// Output only. The result state of the ScanRun. This field is only available after the
     /// execution state reaches "FINISHED".
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub result_state: crate::model::scan_run::ResultState,
 
     /// Output only. The time at which the ScanRun started.
@@ -3466,6 +3475,7 @@ pub mod scan_run {
 #[non_exhaustive]
 pub struct ScanRunErrorTrace {
     /// Output only. Indicates the error reason code.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub code: crate::model::scan_run_error_trace::Code,
 
     /// Output only. If the scan encounters SCAN_CONFIG_ISSUE error, this field has the error
@@ -3725,9 +3735,11 @@ pub struct ScanRunLog {
     pub name: std::string::String,
 
     /// The execution state of the ScanRun.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub execution_state: crate::model::scan_run::ExecutionState,
 
     /// The result state of the ScanRun.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub result_state: crate::model::scan_run::ResultState,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
@@ -3835,6 +3847,7 @@ impl wkt::message::Message for ScanRunLog {
 #[non_exhaustive]
 pub struct ScanRunWarningTrace {
     /// Output only. Indicates the warning code.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub code: crate::model::scan_run_warning_trace::Code,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

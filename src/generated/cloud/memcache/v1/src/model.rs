@@ -91,6 +91,7 @@ pub struct Instance {
     /// latest supported major version is `MEMCACHE_1_5`.
     /// The minor version will be automatically determined by our system based on
     /// the latest supported minor version.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub memcache_version: crate::model::MemcacheVersion,
 
     /// User defined parameters to apply to the memcached process
@@ -114,6 +115,7 @@ pub struct Instance {
     pub update_time: std::option::Option<wkt::Timestamp>,
 
     /// Output only. The state of this Memcached instance.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::instance::State,
 
     /// Output only. The full version of memcached server running on this instance.
@@ -432,6 +434,7 @@ pub mod instance {
         pub zone: std::string::String,
 
         /// Output only. Current state of the Memcached node.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub state: crate::model::instance::node::State,
 
         /// Output only. Hostname or IP address of the Memcached node used by the
@@ -675,6 +678,7 @@ pub mod instance {
     #[non_exhaustive]
     pub struct InstanceMessage {
         /// A code that correspond to one type of user-facing message.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub code: crate::model::instance::instance_message::Code,
 
         /// Message on memcached instance which will be exposed to users.
@@ -1103,6 +1107,7 @@ impl wkt::message::Message for MaintenancePolicy {
 #[non_exhaustive]
 pub struct WeeklyMaintenanceWindow {
     /// Required. Allows to define schedule that runs specified day of the week.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub day: gtype::model::DayOfWeek,
 
     /// Required. Start time of the window in UTC.
@@ -1275,6 +1280,7 @@ pub struct RescheduleMaintenanceRequest {
     pub instance: std::string::String,
 
     /// Required. If reschedule type is SPECIFIC_TIME, must set up schedule_time as well.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub reschedule_type: crate::model::reschedule_maintenance_request::RescheduleType,
 
     /// Timestamp when the maintenance shall be rescheduled to if

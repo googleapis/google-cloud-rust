@@ -24,8 +24,6 @@
 
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use gax::error::Error;
-
 pub(crate) mod dynamic;
 
 /// Defines the trait used to implement [super::client::StorageInsights].
@@ -48,9 +46,7 @@ pub trait StorageInsights: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ListReportConfigsResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::ListReportConfigsResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::StorageInsights::get_report_config].
@@ -61,9 +57,7 @@ pub trait StorageInsights: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ReportConfig>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::ReportConfig>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::StorageInsights::create_report_config].
@@ -74,9 +68,7 @@ pub trait StorageInsights: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ReportConfig>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::ReportConfig>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::StorageInsights::update_report_config].
@@ -87,9 +79,7 @@ pub trait StorageInsights: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ReportConfig>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::ReportConfig>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::StorageInsights::delete_report_config].
@@ -98,9 +88,7 @@ pub trait StorageInsights: std::fmt::Debug + Send + Sync {
         _req: crate::model::DeleteReportConfigRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
-            "unimplemented",
-        )))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::StorageInsights::list_report_details].
@@ -111,9 +99,7 @@ pub trait StorageInsights: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ListReportDetailsResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::ListReportDetailsResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::StorageInsights::get_report_detail].
@@ -124,9 +110,7 @@ pub trait StorageInsights: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ReportDetail>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::ReportDetail>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::StorageInsights::list_dataset_configs].
@@ -137,9 +121,7 @@ pub trait StorageInsights: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ListDatasetConfigsResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::ListDatasetConfigsResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::StorageInsights::get_dataset_config].
@@ -150,9 +132,7 @@ pub trait StorageInsights: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::DatasetConfig>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::DatasetConfig>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::StorageInsights::create_dataset_config].
@@ -163,9 +143,7 @@ pub trait StorageInsights: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::StorageInsights::update_dataset_config].
@@ -176,9 +154,7 @@ pub trait StorageInsights: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::StorageInsights::delete_dataset_config].
@@ -189,9 +165,7 @@ pub trait StorageInsights: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::StorageInsights::link_dataset].
@@ -202,9 +176,7 @@ pub trait StorageInsights: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::StorageInsights::unlink_dataset].
@@ -215,9 +187,7 @@ pub trait StorageInsights: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::StorageInsights::list_locations].
@@ -228,9 +198,7 @@ pub trait StorageInsights: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<location::model::ListLocationsResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<location::model::ListLocationsResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::StorageInsights::get_location].
@@ -241,9 +209,7 @@ pub trait StorageInsights: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<location::model::Location>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<location::model::Location>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::StorageInsights::list_operations].
@@ -254,9 +220,7 @@ pub trait StorageInsights: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::StorageInsights::get_operation].
@@ -267,9 +231,7 @@ pub trait StorageInsights: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::StorageInsights::delete_operation].
@@ -278,9 +240,7 @@ pub trait StorageInsights: std::fmt::Debug + Send + Sync {
         _req: longrunning::model::DeleteOperationRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
-            "unimplemented",
-        )))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::StorageInsights::cancel_operation].
@@ -289,9 +249,7 @@ pub trait StorageInsights: std::fmt::Debug + Send + Sync {
         _req: longrunning::model::CancelOperationRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
-            "unimplemented",
-        )))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Returns the polling error policy.

@@ -826,6 +826,7 @@ pub struct ListConversationsRequest {
     pub order_by: std::string::String,
 
     /// The level of details of the conversation. Default is `BASIC`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub view: crate::model::ConversationView,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -954,6 +955,7 @@ pub struct GetConversationRequest {
     pub name: std::string::String,
 
     /// The level of details of the conversation. Default is `FULL`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub view: crate::model::ConversationView,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1360,6 +1362,7 @@ pub mod ingest_conversations_request {
         pub bucket_uri: std::string::String,
 
         /// Optional. Specifies the type of the objects in `bucket_uri`.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub bucket_object_type:
             crate::model::ingest_conversations_request::gcs_source::BucketObjectType,
 
@@ -1592,6 +1595,7 @@ pub mod ingest_conversations_request {
     #[non_exhaustive]
     pub struct TranscriptObjectConfig {
         /// Required. The medium transcript objects represent.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub medium: crate::model::conversation::Medium,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2643,6 +2647,7 @@ pub struct ExportInsightsDataRequest {
     pub kms_key: std::string::String,
 
     /// Options for what to do if the destination table already exists.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub write_disposition: crate::model::export_insights_data_request::WriteDisposition,
 
     /// Exporter destination.
@@ -5808,6 +5813,7 @@ impl wkt::message::Message for DeleteViewRequest {
 #[non_exhaustive]
 pub struct Dimension {
     /// The key of the dimension.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub dimension_key: crate::model::dimension::DimensionKey,
 
     /// Output-only metadata about the dimension.
@@ -6453,6 +6459,7 @@ pub struct QueryMetricsRequest {
 
     /// The time granularity of each data point in the time series.
     /// Defaults to NONE if this field is unspecified.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub time_granularity: crate::model::query_metrics_request::TimeGranularity,
 
     /// The dimensions that determine the grouping key for the query. Defaults to
@@ -9403,6 +9410,7 @@ pub mod bulk_upload_feedback_labels_request {
     #[non_exhaustive]
     pub struct GcsSource {
         /// Required. File format which will be ingested.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub format: crate::model::bulk_upload_feedback_labels_request::gcs_source::Format,
 
         /// Required. The Google Cloud Storage URI of the file to import.
@@ -9836,6 +9844,7 @@ pub struct BulkDownloadFeedbackLabelsRequest {
     pub max_download_count: i32,
 
     /// Optional. The type of feedback labels that will be downloaded.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub feedback_label_type: crate::model::bulk_download_feedback_labels_request::FeedbackLabelType,
 
     /// Optional. Filter parent conversations to download feedback labels for.
@@ -9993,6 +10002,7 @@ pub mod bulk_download_feedback_labels_request {
     #[non_exhaustive]
     pub struct GcsDestination {
         /// Required. File format in which the labels will be exported.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub format: crate::model::bulk_download_feedback_labels_request::gcs_destination::Format,
 
         /// Required. The Google Cloud Storage URI to write the feedback labels to.
@@ -10645,6 +10655,7 @@ pub struct Conversation {
 
     /// Immutable. The conversation medium, if unspecified will default to
     /// PHONE_CALL.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub medium: crate::model::conversation::Medium,
 
     /// Output only. The duration of the conversation.
@@ -11213,6 +11224,7 @@ pub mod conversation {
             pub disposition_code: std::string::String,
 
             /// The agent type, e.g. HUMAN_AGENT.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub agent_type: crate::model::conversation_participant::Role,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -13257,6 +13269,7 @@ pub struct Entity {
 
     /// The entity type.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::entity::Type,
 
     /// Metadata associated with the entity.
@@ -13789,6 +13802,7 @@ pub struct EntityMentionData {
 
     /// The type of the entity mention.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::entity_mention_data::MentionType,
 
     /// Sentiment expressed for this mention of the entity.
@@ -14143,6 +14157,7 @@ pub struct IssueModel {
     pub issue_count: i64,
 
     /// Output only. State of the model.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::issue_model::State,
 
     /// Configs for the input data that used to create the issue model.
@@ -14155,6 +14170,7 @@ pub struct IssueModel {
     pub training_stats: std::option::Option<crate::model::IssueModelLabelStats>,
 
     /// Type of the model.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub model_type: crate::model::issue_model::ModelType,
 
     /// Language of the model.
@@ -14305,6 +14321,7 @@ pub mod issue_model {
         /// Medium of conversations used in training data. This field is being
         /// deprecated. To specify the medium to be used in training a new issue
         /// model, set the `medium` field on `filter`.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[deprecated]
         pub medium: crate::model::conversation::Medium,
 
@@ -14929,6 +14946,7 @@ pub struct PhraseMatcher {
 
     /// Required. The type of this phrase matcher.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::phrase_matcher::PhraseMatcherType,
 
     /// Applies the phrase matcher only when it is active.
@@ -14947,6 +14965,7 @@ pub struct PhraseMatcher {
     /// The role whose utterances the phrase matcher should be matched
     /// against. If the role is ROLE_UNSPECIFIED it will be matched against any
     /// utterances in the transcript.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub role_match: crate::model::conversation_participant::Role,
 
     /// Output only. The most recent time at which the phrase matcher was updated.
@@ -15229,6 +15248,7 @@ pub mod phrase_matcher {
 pub struct PhraseMatchRuleGroup {
     /// Required. The type of this phrase match rule group.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::phrase_match_rule_group::PhraseMatchRuleGroupType,
 
     /// A list of phrase match rules that are included in this group.
@@ -16589,6 +16609,7 @@ pub mod runtime_annotation {
         pub generator_name: std::string::String,
 
         /// Query source for the answer.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub query_source: crate::model::runtime_annotation::user_input::QuerySource,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -16805,6 +16826,7 @@ pub mod runtime_annotation {
 #[non_exhaustive]
 pub struct AnswerFeedback {
     /// The correctness level of an answer.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub correctness_level: crate::model::answer_feedback::CorrectnessLevel,
 
     /// Indicates whether an answer or item was clicked by the human agent.
@@ -17511,6 +17533,7 @@ pub struct ConversationParticipant {
     pub obfuscated_external_user_id: std::string::String,
 
     /// The role of the participant.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub role: crate::model::conversation_participant::Role,
 
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
@@ -19142,6 +19165,7 @@ pub struct QaScorecardRevision {
 
     /// Output only. State of the scorecard revision, indicating whether it's ready
     /// to be used in analysis.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::qa_scorecard_revision::State,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -19757,6 +19781,7 @@ pub mod qa_answer {
     #[non_exhaustive]
     pub struct AnswerSource {
         /// What created the answer.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub source_type: crate::model::qa_answer::answer_source::SourceType,
 
         /// The answer value from this source.
@@ -20272,6 +20297,7 @@ pub mod qa_scorecard_result {
     #[non_exhaustive]
     pub struct ScoreSource {
         /// What created the score.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub source_type: crate::model::qa_scorecard_result::score_source::SourceType,
 
         /// The overall numerical score of the result.

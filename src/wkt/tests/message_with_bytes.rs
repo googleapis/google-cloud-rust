@@ -17,28 +17,17 @@ mod test {
     use serde_json::json;
     type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 
-    #[serde_with::serde_as]
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(default, rename_all = "camelCase")]
-    pub struct MessageWithBytes {
-        #[serde(skip_serializing_if = "google_cloud_wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::base64::Base64")]
-        pub singular: bytes::Bytes,
-        #[serde(skip_serializing_if = "Option::is_none")]
-        #[serde_as(as = "Option<serde_with::base64::Base64>")]
-        pub optional: Option<bytes::Bytes>,
-        #[serde(skip_serializing_if = "Vec::is_empty")]
-        #[serde_as(as = "Vec<serde_with::base64::Base64>")]
-        pub repeated: Vec<bytes::Bytes>,
+    #[allow(dead_code)]
+    mod protos {
+        use google_cloud_wkt as wkt;
+        include!("generated/mod.rs");
     }
+    use protos::MessageWithBytes;
 
     #[test]
     fn test_serialize_singular() -> Result {
         let b = bytes::Bytes::from("the quick brown fox jumps over the laze dog");
-        let msg = MessageWithBytes {
-            singular: b,
-            ..Default::default()
-        };
+        let msg = MessageWithBytes::new().set_singular(b);
         let got = serde_json::to_value(&msg)?;
         let want =
             json!({"singular": "dGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXplIGRvZw=="});
@@ -52,10 +41,7 @@ mod test {
     #[test]
     fn test_serialize_optional() -> Result {
         let b = bytes::Bytes::from("the quick brown fox jumps over the laze dog");
-        let msg = MessageWithBytes {
-            optional: Some(b),
-            ..Default::default()
-        };
+        let msg = MessageWithBytes::new().set_optional(b);
         let got = serde_json::to_value(&msg)?;
         let want =
             json!({"optional": "dGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXplIGRvZw=="});
@@ -69,13 +55,23 @@ mod test {
     #[test]
     fn test_serialize_repeated() -> Result {
         let b = bytes::Bytes::from("the quick brown fox jumps over the laze dog");
-        let msg = MessageWithBytes {
-            repeated: vec![b],
-            ..Default::default()
-        };
+        let msg = MessageWithBytes::new().set_repeated([b]);
         let got = serde_json::to_value(&msg)?;
         let want =
             json!({"repeated": ["dGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXplIGRvZw=="]});
+        assert_eq!(want, got);
+
+        let roundtrip = serde_json::from_value::<MessageWithBytes>(got)?;
+        assert_eq!(msg, roundtrip);
+        Ok(())
+    }
+
+    #[test]
+    fn test_serialize_map() -> Result {
+        let b = bytes::Bytes::from("the quick brown fox jumps over the laze dog");
+        let msg = MessageWithBytes::new().set_map([("quick", b)]);
+        let got = serde_json::to_value(&msg)?;
+        let want = json!({"map": {"quick": "dGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXplIGRvZw=="}});
         assert_eq!(want, got);
 
         let roundtrip = serde_json::from_value::<MessageWithBytes>(got)?;

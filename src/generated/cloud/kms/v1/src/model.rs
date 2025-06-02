@@ -558,6 +558,7 @@ pub struct AutokeyConfig {
     pub key_project: std::string::String,
 
     /// Output only. The state for the AutokeyConfig.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::autokey_config::State,
 
     /// Optional. A checksum computed by the server based on the value of other
@@ -1540,6 +1541,7 @@ pub struct EkmConnection {
     /// [MANUAL][google.cloud.kms.v1.EkmConnection.KeyManagementMode.MANUAL].
     ///
     /// [google.cloud.kms.v1.EkmConnection.KeyManagementMode.MANUAL]: crate::model::ekm_connection::KeyManagementMode::Manual
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub key_management_mode: crate::model::ekm_connection::KeyManagementMode,
 
     /// Optional. Identifies the EKM Crypto Space that this
@@ -2143,6 +2145,7 @@ pub struct CryptoKey {
     /// [CryptoKey][google.cloud.kms.v1.CryptoKey].
     ///
     /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub purpose: crate::model::crypto_key::CryptoKeyPurpose,
 
     /// Output only. The time at which this
@@ -2704,6 +2707,7 @@ pub struct CryptoKeyVersionTemplate {
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     /// [google.cloud.kms.v1.ProtectionLevel]: crate::model::ProtectionLevel
     /// [google.cloud.kms.v1.ProtectionLevel.SOFTWARE]: crate::model::ProtectionLevel::Software
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub protection_level: crate::model::ProtectionLevel,
 
     /// Required.
@@ -2721,6 +2725,7 @@ pub struct CryptoKeyVersionTemplate {
     /// [google.cloud.kms.v1.CryptoKey.purpose]: crate::model::CryptoKey::purpose
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionAlgorithm]: crate::model::crypto_key_version::CryptoKeyVersionAlgorithm
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub algorithm: crate::model::crypto_key_version::CryptoKeyVersionAlgorithm,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2768,6 +2773,7 @@ impl wkt::message::Message for CryptoKeyVersionTemplate {
 #[non_exhaustive]
 pub struct KeyOperationAttestation {
     /// Output only. The format of the attestation data.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub format: crate::model::key_operation_attestation::AttestationFormat,
 
     /// Output only. The attestation data provided by the HSM when the key
@@ -3075,6 +3081,7 @@ pub struct CryptoKeyVersion {
     /// [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion].
     ///
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::crypto_key_version::CryptoKeyVersionState,
 
     /// Output only. The [ProtectionLevel][google.cloud.kms.v1.ProtectionLevel]
@@ -3083,6 +3090,7 @@ pub struct CryptoKeyVersion {
     ///
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     /// [google.cloud.kms.v1.ProtectionLevel]: crate::model::ProtectionLevel
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub protection_level: crate::model::ProtectionLevel,
 
     /// Output only. The
@@ -3092,6 +3100,7 @@ pub struct CryptoKeyVersion {
     ///
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionAlgorithm]: crate::model::crypto_key_version::CryptoKeyVersionAlgorithm
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub algorithm: crate::model::crypto_key_version::CryptoKeyVersionAlgorithm,
 
     /// Output only. Statement that was generated and signed by the HSM at key
@@ -4404,6 +4413,7 @@ pub struct PublicKey {
     /// associated with this key.
     ///
     /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionAlgorithm]: crate::model::crypto_key_version::CryptoKeyVersionAlgorithm
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub algorithm: crate::model::crypto_key_version::CryptoKeyVersionAlgorithm,
 
     /// Integrity verification field. A CRC32C checksum of the returned
@@ -4443,6 +4453,7 @@ pub struct PublicKey {
     ///
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     /// [google.cloud.kms.v1.ProtectionLevel]: crate::model::ProtectionLevel
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub protection_level: crate::model::ProtectionLevel,
 
     /// The [PublicKey][google.cloud.kms.v1.PublicKey] format specified by the
@@ -4452,6 +4463,7 @@ pub struct PublicKey {
     ///
     /// [google.cloud.kms.v1.GetPublicKeyRequest.public_key_format]: crate::model::GetPublicKeyRequest::public_key_format
     /// [google.cloud.kms.v1.PublicKey]: crate::model::PublicKey
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub public_key_format: crate::model::public_key::PublicKeyFormat,
 
     /// This field contains the public key (with integrity verification), formatted
@@ -4774,6 +4786,7 @@ pub struct ImportJob {
 
     /// Required. Immutable. The wrapping method to be used for incoming key
     /// material.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub import_method: crate::model::import_job::ImportMethod,
 
     /// Required. Immutable. The protection level of the
@@ -4787,6 +4800,7 @@ pub struct ImportJob {
     /// [google.cloud.kms.v1.CryptoKey.version_template]: crate::model::CryptoKey::version_template
     /// [google.cloud.kms.v1.CryptoKeyVersionTemplate.protection_level]: crate::model::CryptoKeyVersionTemplate::protection_level
     /// [google.cloud.kms.v1.ImportJob]: crate::model::ImportJob
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub protection_level: crate::model::ProtectionLevel,
 
     /// Output only. The time at which this
@@ -4825,6 +4839,7 @@ pub struct ImportJob {
     /// [ImportJob][google.cloud.kms.v1.ImportJob], indicating if it can be used.
     ///
     /// [google.cloud.kms.v1.ImportJob]: crate::model::ImportJob
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::import_job::ImportJobState,
 
     /// Output only. The public key with which to wrap key material prior to
@@ -5654,6 +5669,7 @@ pub struct ListCryptoKeysRequest {
     pub page_token: std::string::String,
 
     /// The fields of the primary version to include in the response.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub version_view: crate::model::crypto_key_version::CryptoKeyVersionView,
 
     /// Optional. Only include resources that match the filter in the response. For
@@ -5765,6 +5781,7 @@ pub struct ListCryptoKeyVersionsRequest {
     pub page_token: std::string::String,
 
     /// The fields to include in the response.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub view: crate::model::crypto_key_version::CryptoKeyVersionView,
 
     /// Optional. Only include resources that match the filter in the response. For
@@ -6432,6 +6449,7 @@ pub struct GetPublicKeyRequest {
     /// [google.cloud.kms.v1.PublicKey]: crate::model::PublicKey
     /// [google.cloud.kms.v1.PublicKey.pem]: crate::model::PublicKey::pem
     /// [google.cloud.kms.v1.PublicKey.public_key]: crate::model::PublicKey::public_key
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub public_key_format: crate::model::public_key::PublicKeyFormat,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6806,6 +6824,7 @@ pub struct ImportCryptoKeyVersionRequest {
     /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
     /// [google.cloud.kms.v1.CryptoKey.version_template]: crate::model::CryptoKey::version_template
     /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionAlgorithm]: crate::model::crypto_key_version::CryptoKeyVersionAlgorithm
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub algorithm: crate::model::crypto_key_version::CryptoKeyVersionAlgorithm,
 
     /// Required. The [name][google.cloud.kms.v1.ImportJob.name] of the
@@ -8727,6 +8746,7 @@ pub struct GenerateRandomBytesRequest {
     ///
     /// [google.cloud.kms.v1.ProtectionLevel]: crate::model::ProtectionLevel
     /// [google.cloud.kms.v1.ProtectionLevel.HSM]: crate::model::ProtectionLevel::Hsm
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub protection_level: crate::model::ProtectionLevel,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8859,6 +8879,7 @@ pub struct EncryptResponse {
     ///
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     /// [google.cloud.kms.v1.ProtectionLevel]: crate::model::ProtectionLevel
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub protection_level: crate::model::ProtectionLevel,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8984,6 +9005,7 @@ pub struct DecryptResponse {
     ///
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     /// [google.cloud.kms.v1.ProtectionLevel]: crate::model::ProtectionLevel
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub protection_level: crate::model::ProtectionLevel,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9183,6 +9205,7 @@ pub struct RawEncryptResponse {
     ///
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     /// [google.cloud.kms.v1.ProtectionLevel]: crate::model::ProtectionLevel
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub protection_level: crate::model::ProtectionLevel,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9341,6 +9364,7 @@ pub struct RawDecryptResponse {
     ///
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     /// [google.cloud.kms.v1.ProtectionLevel]: crate::model::ProtectionLevel
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub protection_level: crate::model::ProtectionLevel,
 
     /// Integrity verification field. A flag indicating whether
@@ -9567,6 +9591,7 @@ pub struct AsymmetricSignResponse {
     ///
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     /// [google.cloud.kms.v1.ProtectionLevel]: crate::model::ProtectionLevel
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub protection_level: crate::model::ProtectionLevel,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9698,6 +9723,7 @@ pub struct AsymmetricDecryptResponse {
     ///
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     /// [google.cloud.kms.v1.ProtectionLevel]: crate::model::ProtectionLevel
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub protection_level: crate::model::ProtectionLevel,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9824,6 +9850,7 @@ pub struct MacSignResponse {
     ///
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     /// [google.cloud.kms.v1.ProtectionLevel]: crate::model::ProtectionLevel
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub protection_level: crate::model::ProtectionLevel,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9972,6 +9999,7 @@ pub struct MacVerifyResponse {
     ///
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     /// [google.cloud.kms.v1.ProtectionLevel]: crate::model::ProtectionLevel
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub protection_level: crate::model::ProtectionLevel,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

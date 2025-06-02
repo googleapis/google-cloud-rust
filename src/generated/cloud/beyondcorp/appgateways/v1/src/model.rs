@@ -432,9 +432,11 @@ pub struct AppGateway {
 
     /// Required. The type of network connectivity used by the AppGateway.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::app_gateway::Type,
 
     /// Output only. The current state of the AppGateway.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::app_gateway::State,
 
     /// Output only. Server-defined URI for this resource.
@@ -446,6 +448,7 @@ pub struct AppGateway {
     pub allocated_connections: std::vec::Vec<crate::model::app_gateway::AllocatedConnection>,
 
     /// Required. The type of hosting used by the AppGateway.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub host_type: crate::model::app_gateway::HostType,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

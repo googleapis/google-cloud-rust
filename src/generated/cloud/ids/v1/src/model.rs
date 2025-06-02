@@ -73,9 +73,11 @@ pub struct Endpoint {
     pub description: std::string::String,
 
     /// Required. Lowest threat severity that this endpoint will alert on.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub severity: crate::model::endpoint::Severity,
 
     /// Output only. Current state of the endpoint.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::endpoint::State,
 
     /// Whether the endpoint should report traffic logs in addition to threat logs.

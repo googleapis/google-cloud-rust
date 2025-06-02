@@ -40,7 +40,7 @@ type BoxError = Box<dyn StdError + Send + Sync>;
 /// use google_cloud_gax::error::Error;
 /// match example_function() {
 ///     Err(e) if matches!(e.status(), Some(_)) => {
-///         println!("service error {e}, should have a status={:?}", e.status());
+///         println!("service error {e}, debug using {:?}", e.status().unwrap());
 ///     },
 ///     Err(e) if e.is_timeout() => { println!("not enough time {e}"); },
 ///     Err(e) => { println!("some other error {e}"); },
@@ -105,8 +105,141 @@ impl Error {
     /// or may not have started, and it may or may not complete in the service.
     /// If the request mutates any state in the service, it may or may not be
     /// safe to attempt the request again.
+    ///
+    /// # Troubleshooting
+    ///
+    /// The most common cause of this problem is setting a timeout value that is
+    /// based on the observed latency when the service is not under load.
+    /// Consider increasing the timeout value to handle temporary latency
+    /// increases too.
+    ///
+    /// It could also indicate a congestion in the network, a service outage, or
+    /// a service that is under load and will take time to scale up.
     pub fn is_timeout(&self) -> bool {
         matches!(self.kind, ErrorKind::Timeout)
+    }
+
+    /// Not part of the public API, subject to change without notice.
+    ///
+    /// Creates an error representing a deserialization problem.
+    ///
+    /// Applications should have no need to use this function. The exception
+    /// could be mocks, but this error is too rare to merit mocks. If you are
+    /// writing a mock that extracts values from [wkt::Any], consider using
+    /// `.expect()` calls instead.
+    ///
+    /// # Example
+    /// ```
+    /// use std::error::Error as _;
+    /// use google_cloud_gax::error::Error;
+    /// let error = Error::deser("simulated problem");
+    /// assert!(error.is_deserialization());
+    /// assert!(error.source().is_some());
+    /// ```
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+    pub fn deser<T: Into<BoxError>>(source: T) -> Self {
+        Self {
+            kind: ErrorKind::Deserialization,
+            source: Some(source.into()),
+        }
+    }
+
+    /// The response could not be deserialized.
+    ///
+    /// This is always a client-side generated error. Note that the request may
+    /// or may not have started, and it may or may not complete in the service.
+    /// If the request mutates any state in the service, it may or may not be
+    /// safe to attempt the request again.
+    ///
+    /// # Troubleshooting
+    ///
+    /// The most common cause for deserialization problems are bugs in the
+    /// client library and (rarely) bugs in the service.
+    ///
+    /// When using gRPC services, and if the response includes a [wkt::Any]
+    /// field, the client library may not be able to handle unknown types within
+    /// the `Any`. In all services we know of, this should not happen, but it is
+    /// impossible to prepare the client library for breaking changes in the
+    /// service. Upgrading to the latest version of the client library may be
+    /// the only possible fix.
+    ///
+    /// Beyond this issue with `Any`, while the client libraries are designed to
+    /// handle all valid responses, including unknown fields and unknown
+    /// enumeration values, it is possible that the client library has a bug.
+    /// Please [open an issue] if you run in to this problem. Include any
+    /// instructions on how to reproduce the problem. If you cannot use, or
+    /// prefer not to use, GitHub to discuss this problem, then contact
+    /// [Google Cloud support].
+    ///
+    /// [open an issue]: https://github.com/googleapis/google-cloud-rust/issues/new/choose
+    /// [Google Cloud support]: https://cloud.google.com/support
+    pub fn is_deserialization(&self) -> bool {
+        matches!(self.kind, ErrorKind::Deserialization)
+    }
+
+    /// Not part of the public API, subject to change without notice.
+    ///
+    /// Creates an error representing a serialization problem.
+    ///
+    /// Applications should have no need to use this function. The exception
+    /// could be mocks, but this error is too rare to merit mocks. If you are
+    /// writing a mock that stores values into [wkt::Any], consider using
+    /// `.expect()` calls instead.
+    ///
+    /// # Example
+    /// ```
+    /// use std::error::Error as _;
+    /// use google_cloud_gax::error::Error;
+    /// let error = Error::ser("simulated problem");
+    /// assert!(error.is_serialization());
+    /// assert!(error.source().is_some());
+    /// ```
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+    pub fn ser<T: Into<BoxError>>(source: T) -> Self {
+        Self {
+            kind: ErrorKind::Serialization,
+            source: Some(source.into()),
+        }
+    }
+
+    /// The request could not be serialized.
+    ///
+    /// This is always a client-side generated error, generated before the
+    /// request is made. This error is never transient: the serialization is
+    /// deterministic (modulo out of memory conditions), and will fail on future
+    /// attempts with the same input data.
+    ///
+    /// # Troubleshooting
+    ///
+    /// Most client libraries use HTTP and JSON as the transport, though some
+    /// client libraries use gRPC for some, or all RPCs.
+    ///
+    /// The most common cause for serialization problems is using an unknown
+    /// enum value name with a gRPC-based RPC. gRPC requires integer enum
+    /// values, while JSON accepts both. The client libraries convert **known**
+    /// enum value names to their integer representation, but unknown values
+    /// cannot be sent over gRPC. Verify the enum value is valid, and if so:
+    /// - try using an integer value instead of the enum name, or
+    /// - upgrade the client library: newer versions should include the new
+    ///   value.
+    ///
+    /// In all other cases please [open an issue]. While we do not expect these
+    /// problems to be common, we would like to hear if they are so we can
+    /// prevent them. If you cannot use a public issue tracker, contact
+    /// [Google Cloud support].
+    ///
+    /// A less common cause for serialization problems may be an out of memory
+    /// condition, or any other runtime error. Use `format!("{:?}", ...)` to
+    /// examine the error as it should include the original problem.
+    ///
+    /// Finally, sending a [wkt::Any] with a gRPC-based client is unsupported.
+    /// As of this writing, no client libraries sends `Any` via gRPC, but this
+    /// could be a problem in the future.
+    ///
+    /// [open an issue]: https://github.com/googleapis/google-cloud-rust/issues/new/choose
+    /// [Google Cloud support]: https://cloud.google.com/support
+    pub fn is_serialization(&self) -> bool {
+        matches!(self.kind, ErrorKind::Serialization)
     }
 
     /// The [Status] payload associated with this error.
@@ -129,6 +262,21 @@ impl Error {
     ///
     /// See [AIP-193] for background information about the error model in Google
     /// Cloud services.
+    ///
+    /// # Troubleshooting
+    ///
+    /// As this error type is typically created by the service, troubleshooting
+    /// this problem typically involves reading the service documentation to
+    /// root cause the problem.
+    ///
+    /// Some services include additional details about the error, sometimes
+    /// including what fields are missing or have bad values in the
+    /// [Status::details] vector. The `std::fmt::Debug` format will include
+    /// such details.
+    ///
+    /// With that said, review the status [Code][crate::error::rpc::Code]
+    /// documentation. The description of the status codes provides a good
+    /// starting point.
     ///
     /// [AIP-193]: https://google.aip.dev/193
     pub fn status(&self) -> Option<&Status> {
@@ -273,10 +421,23 @@ impl Error {
         }
     }
 
+    // TODO(#2316) - update the troubleshooting text.
     /// Not part of the public API, subject to change without notice.
     ///
     /// If true, the request was missing required parameters or the parameters
     /// did not match any of the expected formats.
+    ///
+    /// # Troubleshooting
+    ///
+    /// Typically this indicates a problem in the application. A required field
+    /// in the request builder was not initialized or the format of the field
+    /// does not match the expectations.
+    ///
+    /// We are working to improve the messages in these errors to make them
+    /// self-explanatory, until bug [#2316] is fixed, please consult the service
+    /// REST API documentation.
+    ///
+    /// [#2316]: https://github.com/googleapis/google-cloud-rust/issues/2316
     #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
     pub fn is_binding(&self) -> bool {
         matches!(&self.kind, ErrorKind::Binding)
@@ -296,6 +457,23 @@ impl Error {
     /// Not part of the public API, subject to change without notice.
     ///
     /// Could not create the authentication headers before sending the request.
+    ///
+    /// # Troubleshooting
+    ///
+    /// Typically this indicates a misconfigured authentication environment for
+    /// your application. Very rarely, this may indicate a failure to contact
+    /// the HTTP services used to create [access tokens].
+    ///
+    /// If you are using the default [Credentials], the
+    /// [Authenticate for using client libraries] guide includes good
+    /// information on how to set up your environment for authentication.
+    ///
+    /// If you have configured custom `Credentials`, consult the documentation
+    /// for the specific credential type you used.
+    ///
+    /// [Credentials]: https://docs.rs/google-cloud-auth/latest/google_cloud_auth/credentials/struct.Credentials.html
+    /// [Authenticate for using client libraries]: https://cloud.google.com/docs/authentication/client-libraries
+    /// [access tokens]: https://cloud.google.com/docs/authentication/token-types
     #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
     pub fn is_authentication(&self) -> bool {
         matches!(self.kind, ErrorKind::Authentication)
@@ -339,6 +517,17 @@ impl Error {
     /// A problem in the transport layer without a full HTTP response.
     ///
     /// Examples include read or write problems, and broken connections.
+    ///
+    /// # Troubleshooting
+    ///
+    /// This indicates a problem completing the request. This type of error is
+    /// rare, but includes crashes and restarts on proxies and load balancers.
+    /// It could indicate a bug in the client library, if it tried to use a
+    /// stale connection that had been closed by the service.
+    ///
+    /// Most often, the solution is to use the right retry policy. This may
+    /// involve changing your request to be idempotent, or configuring the
+    /// policy to retry non-idempotent failures.
     #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
     pub fn is_io(&self) -> bool {
         matches!(
@@ -373,6 +562,23 @@ impl Error {
     ///
     /// Examples include errors in a proxy, load balancer, or other network
     /// element generated before the service is able to send a full response.
+    ///
+    /// # Troubleshooting
+    ///
+    /// This indicates that the request did not reach the service. Most commonly
+    /// the problem are invalid or mismatched request parameters that route
+    /// the request to the wrong backend.
+    ///
+    /// In this regard, this is similar to the [is_binding][Error::is_binding]
+    /// errors, except that the client library was unable to detect the problem
+    /// locally.
+    ///
+    /// An increasingly common cause for this error is trying to use regional
+    /// resources (e.g. `projects/my-project/locations/us-central1/secrets/my-secret`)
+    /// while using the default, non-regional endpoint. Some services require
+    /// using regional endpoints (e.g.
+    /// `https://secretmanager.us-central1.rep.googleapis.com`) to access such
+    /// resources.
     #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
     pub fn is_transport(&self) -> bool {
         matches!(&self.kind, ErrorKind::Transport { .. })
@@ -381,10 +587,7 @@ impl Error {
     // TODO(#2221) - remove once the migration is completed.
     #[doc(hidden)]
     pub fn serde<T: Into<BoxError>>(source: T) -> Self {
-        Self {
-            kind: ErrorKind::Serialization,
-            source: Some(source.into()),
-        }
+        Self::ser(source)
     }
 
     /// Not part of the public API, subject to change without notice.
@@ -424,6 +627,9 @@ impl std::fmt::Display for Error {
                 write!(f, "cannot find a matching binding to send the request {e}")
             }
             (ErrorKind::Serialization, Some(e)) => write!(f, "cannot serialize the request {e}"),
+            (ErrorKind::Deserialization, Some(e)) => {
+                write!(f, "cannot deserialize the response {e}")
+            }
             (ErrorKind::Authentication, Some(e)) => {
                 write!(f, "cannot create the authentication headers {e}")
             }
@@ -459,6 +665,7 @@ impl std::error::Error for Error {
 enum ErrorKind {
     Binding,
     Serialization,
+    Deserialization,
     Authentication,
     Timeout,
     Transport(Box<TransportDetails>),
@@ -554,6 +761,23 @@ mod test {
     }
 
     #[test]
+    fn serialization() {
+        let source = wkt::TimestampError::OutOfRange;
+        let error = Error::deser(source);
+        assert!(error.is_deserialization(), "{error:?}");
+        let got = error
+            .source()
+            .and_then(|e| e.downcast_ref::<wkt::TimestampError>());
+        assert!(
+            matches!(got, Some(wkt::TimestampError::OutOfRange)),
+            "{error:?}"
+        );
+        let source = wkt::TimestampError::OutOfRange;
+        assert!(error.to_string().contains(&source.to_string()), "{error}");
+        assert!(!error.is_transient_and_before_rpc(), "{error:?}");
+    }
+
+    #[test]
     fn service_with_http_metadata() {
         let status = Status::default()
             .set_code(Code::NotFound)
@@ -607,8 +831,8 @@ mod test {
     #[test]
     fn ser() {
         let source = wkt::TimestampError::OutOfRange;
-        let error = Error::serde(source);
-        assert!(error.is_serde(), "{error:?}");
+        let error = Error::ser(source);
+        assert!(error.is_serialization(), "{error:?}");
         assert!(error.source().is_some(), "{error:?}");
         let got = error
             .source()
@@ -620,6 +844,11 @@ mod test {
         let source = wkt::TimestampError::OutOfRange;
         assert!(error.to_string().contains(&source.to_string()), "{error}");
         assert!(!error.is_transient_and_before_rpc(), "{error:?}");
+
+        // TODO(#2312) - remove once the migration is done
+        let error = Error::serde(source);
+        assert!(error.is_serialization(), "{error:?}");
+        assert!(error.is_serde(), "{error:?}");
     }
 
     #[test]

@@ -41,6 +41,7 @@ extern crate wkt;
 #[non_exhaustive]
 pub struct AuthConfig {
     /// The type of authentication configured.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub auth_type: crate::model::AuthType,
 
     /// List containing additional auth configs.
@@ -575,6 +576,7 @@ pub mod auth_config {
 #[non_exhaustive]
 pub struct AuthConfigTemplate {
     /// The type of authentication configured.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub auth_type: crate::model::AuthType,
 
     /// Config variables to describe an `AuthConfig` for a `Connection`.
@@ -769,6 +771,7 @@ pub struct ConfigVariableTemplate {
 
     /// Type of the parameter: string, int, bool etc.
     /// consider custom type for the benefit for the validation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub value_type: crate::model::config_variable_template::ValueType,
 
     /// Display name of the parameter.
@@ -803,6 +806,7 @@ pub struct ConfigVariableTemplate {
     pub authorization_code_link: std::option::Option<crate::model::AuthorizationCodeLink>,
 
     /// State of the config variable.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::config_variable_template::State,
 
     /// Indicates if current template is part of advanced settings
@@ -1479,6 +1483,7 @@ pub mod config_variable {
 #[non_exhaustive]
 pub struct RoleGrant {
     /// Prinicipal/Identity for whom the role need to assigned.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub principal: crate::model::role_grant::Principal,
 
     /// List of roles that need to be granted.
@@ -1569,6 +1574,7 @@ pub mod role_grant {
     pub struct Resource {
         /// Different types of resource supported.
         #[serde(rename = "type")]
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub r#type: crate::model::role_grant::resource::Type,
 
         /// Template to uniquely represent a GCP resource in a format IAM expects
@@ -2369,6 +2375,7 @@ pub struct ConnectionSchemaMetadata {
     pub refresh_time: std::option::Option<wkt::Timestamp>,
 
     /// Output only. The current state of runtime schema.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::connection_schema_metadata::State,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2665,6 +2672,7 @@ pub mod runtime_entity_schema {
         pub description: std::string::String,
 
         /// The data type of the Field.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub data_type: crate::model::DataType,
 
         /// The following boolean field specifies if the current Field acts
@@ -2865,6 +2873,7 @@ pub mod runtime_action_schema {
         pub description: std::string::String,
 
         /// The data type of the Parameter.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub data_type: crate::model::DataType,
 
         /// Specifies whether a null value is allowed.
@@ -2952,6 +2961,7 @@ pub mod runtime_action_schema {
         pub description: std::string::String,
 
         /// The data type of the field.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub data_type: crate::model::DataType,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3064,6 +3074,7 @@ pub struct ListConnectionsRequest {
 
     /// Specifies which fields of the Connection are returned in the response.
     /// Defaults to `BASIC` view.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub view: crate::model::ConnectionView,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3207,6 +3218,7 @@ pub struct GetConnectionRequest {
 
     /// Specifies which fields of the Connection are returned in the response.
     /// Defaults to `BASIC` view.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub view: crate::model::ConnectionView,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3761,6 +3773,7 @@ impl gax::paginator::internal::PageableResponse for ListRuntimeActionSchemasResp
 #[non_exhaustive]
 pub struct ConnectionStatus {
     /// State.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::connection_status::State,
 
     /// Description.
@@ -4030,6 +4043,7 @@ pub struct Connector {
     pub display_name: std::string::String,
 
     /// Output only. Flag to mark the version indicating the launch stage.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub launch_stage: crate::model::LaunchStage,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4339,6 +4353,7 @@ pub struct ConnectorVersion {
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. Flag to mark the version indicating the launch stage.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub launch_stage: crate::model::LaunchStage,
 
     /// Output only. ReleaseVersion of the connector, for example: "1.0.1-alpha".
@@ -4589,6 +4604,7 @@ pub struct GetConnectorVersionRequest {
 
     /// Specifies which fields of the ConnectorVersion are returned in the
     /// response. Defaults to `CUSTOMER` view.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub view: crate::model::ConnectorVersionView,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4644,6 +4660,7 @@ pub struct ListConnectorVersionsRequest {
 
     /// Specifies which fields of the ConnectorVersion are returned in the
     /// response. Defaults to `BASIC` view.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub view: crate::model::ConnectorVersionView,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5048,6 +5065,7 @@ pub mod extraction_rule {
     #[non_exhaustive]
     pub struct Source {
         /// Type of the source.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub source_type: crate::model::extraction_rule::SourceType,
 
         /// Field identifier. For example config vaiable name.
@@ -5421,6 +5439,7 @@ pub struct Provider {
     pub display_name: std::string::String,
 
     /// Output only. Flag to mark the version indicating the launch stage.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub launch_stage: crate::model::LaunchStage,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5774,6 +5793,7 @@ pub struct RuntimeConfig {
     pub runtime_endpoint: std::string::String,
 
     /// Output only. The state of the location.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::runtime_config::State,
 
     /// Output only. The Cloud Storage bucket that stores connector's schema
@@ -6147,6 +6167,7 @@ impl wkt::message::Message for Settings {
 #[non_exhaustive]
 pub struct SslConfigTemplate {
     /// Controls the ssl type for the given connector version
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub ssl_type: crate::model::SslType,
 
     /// Boolean for determining if the connector version mandates TLS.
@@ -6234,9 +6255,11 @@ impl wkt::message::Message for SslConfigTemplate {
 pub struct SslConfig {
     /// Controls the ssl type for the given connector version.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::SslType,
 
     /// Trust Model of the SSL connection
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub trust_model: crate::model::ssl_config::TrustModel,
 
     /// Private Server Certificate. Needs to be specified if trust model is
@@ -6257,9 +6280,11 @@ pub struct SslConfig {
     pub client_private_key_pass: std::option::Option<crate::model::Secret>,
 
     /// Type of Server Cert (PEM/JKS/.. etc.)
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub server_cert_type: crate::model::CertType,
 
     /// Type of Client Cert (PEM/JKS/.. etc.)
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub client_cert_type: crate::model::CertType,
 
     /// Bool for enabling SSL

@@ -24,8 +24,6 @@
 
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use gax::error::Error;
-
 pub(crate) mod dynamic;
 
 /// Defines the trait used to implement [super::client::ReservationService].
@@ -48,9 +46,7 @@ pub trait ReservationService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Reservation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Reservation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ReservationService::list_reservations].
@@ -61,9 +57,7 @@ pub trait ReservationService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ListReservationsResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::ListReservationsResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ReservationService::get_reservation].
@@ -74,9 +68,7 @@ pub trait ReservationService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Reservation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Reservation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ReservationService::delete_reservation].
@@ -85,9 +77,7 @@ pub trait ReservationService: std::fmt::Debug + Send + Sync {
         _req: crate::model::DeleteReservationRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
-            "unimplemented",
-        )))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ReservationService::update_reservation].
@@ -98,9 +88,7 @@ pub trait ReservationService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Reservation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Reservation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ReservationService::failover_reservation].
@@ -111,9 +99,7 @@ pub trait ReservationService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Reservation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Reservation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ReservationService::create_capacity_commitment].
@@ -124,9 +110,7 @@ pub trait ReservationService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::CapacityCommitment>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::CapacityCommitment>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ReservationService::list_capacity_commitments].
@@ -139,9 +123,7 @@ pub trait ReservationService: std::fmt::Debug + Send + Sync {
             gax::response::Response<crate::model::ListCapacityCommitmentsResponse>,
         >,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::ListCapacityCommitmentsResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ReservationService::get_capacity_commitment].
@@ -152,9 +134,7 @@ pub trait ReservationService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::CapacityCommitment>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::CapacityCommitment>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ReservationService::delete_capacity_commitment].
@@ -163,9 +143,7 @@ pub trait ReservationService: std::fmt::Debug + Send + Sync {
         _req: crate::model::DeleteCapacityCommitmentRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
-            "unimplemented",
-        )))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ReservationService::update_capacity_commitment].
@@ -176,9 +154,7 @@ pub trait ReservationService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::CapacityCommitment>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::CapacityCommitment>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ReservationService::split_capacity_commitment].
@@ -191,9 +167,7 @@ pub trait ReservationService: std::fmt::Debug + Send + Sync {
             gax::response::Response<crate::model::SplitCapacityCommitmentResponse>,
         >,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::SplitCapacityCommitmentResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ReservationService::merge_capacity_commitments].
@@ -204,9 +178,7 @@ pub trait ReservationService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::CapacityCommitment>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::CapacityCommitment>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ReservationService::create_assignment].
@@ -217,9 +189,7 @@ pub trait ReservationService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Assignment>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Assignment>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ReservationService::list_assignments].
@@ -230,9 +200,7 @@ pub trait ReservationService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ListAssignmentsResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::ListAssignmentsResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ReservationService::delete_assignment].
@@ -241,9 +209,7 @@ pub trait ReservationService: std::fmt::Debug + Send + Sync {
         _req: crate::model::DeleteAssignmentRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
-            "unimplemented",
-        )))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ReservationService::search_assignments].
@@ -254,9 +220,7 @@ pub trait ReservationService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::SearchAssignmentsResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::SearchAssignmentsResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ReservationService::search_all_assignments].
@@ -267,9 +231,7 @@ pub trait ReservationService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::SearchAllAssignmentsResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::SearchAllAssignmentsResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ReservationService::move_assignment].
@@ -280,9 +242,7 @@ pub trait ReservationService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Assignment>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Assignment>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ReservationService::update_assignment].
@@ -293,9 +253,7 @@ pub trait ReservationService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Assignment>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Assignment>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ReservationService::get_bi_reservation].
@@ -306,9 +264,7 @@ pub trait ReservationService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::BiReservation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::BiReservation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ReservationService::update_bi_reservation].
@@ -319,8 +275,6 @@ pub trait ReservationService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::BiReservation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::BiReservation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 }

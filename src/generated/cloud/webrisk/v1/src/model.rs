@@ -41,6 +41,7 @@ pub struct ComputeThreatListDiffRequest {
     /// Required. The threat list to update. Only a single ThreatType should be
     /// specified per request. If you want to handle multiple ThreatTypes, you must
     /// make one request per ThreatType.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub threat_type: crate::model::ThreatType,
 
     /// The current version token of the client for the requested list (the
@@ -180,6 +181,7 @@ pub mod compute_threat_list_diff_request {
 pub struct ComputeThreatListDiffResponse {
     /// The type of response. This may indicate that an action must be taken by the
     /// client when the response is received.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub response_type: crate::model::compute_threat_list_diff_response::ResponseType,
 
     /// A set of entries to add to a local threat type's list.
@@ -1190,6 +1192,7 @@ impl wkt::message::Message for Submission {
 #[non_exhaustive]
 pub struct ThreatInfo {
     /// The type of abuse.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub abuse_type: crate::model::threat_info::AbuseType,
 
     /// Confidence that the URI is unsafe.
@@ -1875,6 +1878,7 @@ pub mod threat_info {
 #[non_exhaustive]
 pub struct ThreatDiscovery {
     /// Platform on which the threat was discovered.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub platform: crate::model::threat_discovery::Platform,
 
     /// CLDR region code of the countries/regions the URI poses a threat ordered
@@ -2231,6 +2235,7 @@ impl wkt::message::Message for SubmitUriRequest {
 #[non_exhaustive]
 pub struct SubmitUriMetadata {
     /// The state of the operation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::submit_uri_metadata::State,
 
     /// Creation time of the operation.

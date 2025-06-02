@@ -285,6 +285,7 @@ pub struct ComposeTrigger {
     pub actions: std::vec::Vec<apps_script_type::model::MenuItemExtensionPoint>,
 
     /// Define the level of data access when a compose time addon is triggered.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub draft_access: crate::model::compose_trigger::DraftAccess,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

@@ -378,7 +378,7 @@ mod test {
         );
         let got = serde_json::to_value(any)?;
         let want =
-            json!({"@type": "type.googleapis.com/google.protobuf.FieldMask", "paths": "a,b"});
+            json!({"@type": "type.googleapis.com/google.protobuf.FieldMask", "value": "a,b"});
         assert_eq!(got, want);
         Ok(())
     }
@@ -386,7 +386,7 @@ mod test {
     #[test]
     fn deserialize_field_mask() -> Result {
         let input =
-            json!({"@type": "type.googleapis.com/google.protobuf.FieldMask", "paths": "a,b"});
+            json!({"@type": "type.googleapis.com/google.protobuf.FieldMask", "value": "a,b"});
         let any = Any(input.as_object().unwrap().clone());
         assert_eq!(
             any.type_url(),

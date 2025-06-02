@@ -7465,6 +7465,7 @@ pub struct PrivateCloud {
 
     /// Output only. State of the resource. New values may be added to this enum
     /// when appropriate.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::private_cloud::State,
 
     /// Required. Network configuration of the private cloud.
@@ -7502,6 +7503,7 @@ pub struct PrivateCloud {
 
     /// Optional. Type of the private cloud. Defaults to STANDARD.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::private_cloud::Type,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8126,6 +8128,7 @@ pub struct Cluster {
     pub update_time: std::option::Option<wkt::Timestamp>,
 
     /// Output only. State of the resource.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::cluster::State,
 
     /// Output only. True if the cluster is a management cluster; false otherwise.
@@ -8477,6 +8480,7 @@ pub struct Node {
     pub custom_core_count: i64,
 
     /// Output only. The state of the appliance.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::node::State,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8721,6 +8725,7 @@ pub struct ExternalAddress {
     pub external_ip: std::string::String,
 
     /// Output only. The state of the resource.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::external_address::State,
 
     /// Output only. System-generated unique identifier for the resource.
@@ -9005,6 +9010,7 @@ pub struct Subnet {
     pub r#type: std::string::String,
 
     /// Output only. The state of the resource.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::subnet::State,
 
     /// Output only. VLAN ID of the VLAN on which the subnet is configured
@@ -9268,6 +9274,7 @@ pub struct ExternalAccessRule {
     pub priority: i32,
 
     /// The action that the external access rule performs.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub action: crate::model::external_access_rule::Action,
 
     /// The IP protocol to which the external access rule applies. This value can
@@ -9312,6 +9319,7 @@ pub struct ExternalAccessRule {
     pub destination_ports: std::vec::Vec<std::string::String>,
 
     /// Output only. The state of the resource.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::external_access_rule::State,
 
     /// Output only. System-generated unique identifier for the resource.
@@ -9925,10 +9933,12 @@ pub struct LoggingServer {
     pub port: i32,
 
     /// Required. Protocol used by vCenter to send logs to a logging server.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub protocol: crate::model::logging_server::Protocol,
 
     /// Required. The type of component that produces logs that will be forwarded
     /// to this logging server.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub source_type: crate::model::logging_server::SourceType,
 
     /// Output only. System-generated unique identifier for the resource.
@@ -10366,6 +10376,7 @@ pub struct NodeType {
     pub available_custom_core_counts: std::vec::Vec<i32>,
 
     /// Output only. The type of the resource.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub kind: crate::model::node_type::Kind,
 
     /// Output only. Families of the node type.
@@ -10810,6 +10821,7 @@ pub struct HcxActivationKey {
     pub create_time: std::option::Option<wkt::Timestamp>,
 
     /// Output only. State of HCX activation key.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::hcx_activation_key::State,
 
     /// Output only. HCX activation key.
@@ -11041,6 +11053,7 @@ pub struct Hcx {
     pub version: std::string::String,
 
     /// Output only. The state of the appliance.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::hcx::State,
 
     /// Fully qualified domain name of the appliance.
@@ -11247,6 +11260,7 @@ pub struct Nsx {
     pub version: std::string::String,
 
     /// Output only. The state of the appliance.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::nsx::State,
 
     /// Fully qualified domain name of the appliance.
@@ -11446,6 +11460,7 @@ pub struct Vcenter {
     pub version: std::string::String,
 
     /// Output only. The state of the appliance.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::vcenter::State,
 
     /// Fully qualified domain name of the appliance.
@@ -12153,6 +12168,7 @@ pub struct NetworkPeering {
     /// Output only. State of the network peering. This field
     /// has a value of 'ACTIVE' when there's a matching configuration in the peer
     /// network. New values may be added to this enum when appropriate.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::network_peering::State,
 
     /// Output only. Output Only. Details about the current state of the network
@@ -12167,6 +12183,7 @@ pub struct NetworkPeering {
     pub peer_mtu: i32,
 
     /// Required. The type of the network to peer with the VMware Engine network.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub peer_network_type: crate::model::network_peering::PeerNetworkType,
 
     /// Output only. System-generated unique identifier for the resource.
@@ -12735,6 +12752,7 @@ pub struct PeeringRoute {
 
     /// Output only. Type of the route in the peer VPC network.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::peering_route::Type,
 
     /// Output only. Region containing the next hop of the peering route. This
@@ -12761,6 +12779,7 @@ pub struct PeeringRoute {
     /// * Routes of direction `INCOMING` are imported from the peer network.
     /// * Routes of direction `OUTGOING` are exported from the intranet VPC network
     ///   of the VMware Engine network.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub direction: crate::model::peering_route::Direction,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -13317,6 +13336,7 @@ pub mod network_policy {
 
         /// Output only. State of the service. New values may be added to this enum
         /// when appropriate.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub state: crate::model::network_policy::network_service::State,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -13529,6 +13549,7 @@ pub struct ManagementDnsZoneBinding {
     pub update_time: std::option::Option<wkt::Timestamp>,
 
     /// Output only. The state of the resource.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::management_dns_zone_binding::State,
 
     /// User-provided description for this resource.
@@ -13907,10 +13928,12 @@ pub struct VmwareEngineNetwork {
     pub vpc_networks: std::vec::Vec<crate::model::vmware_engine_network::VpcNetwork>,
 
     /// Output only. State of the VMware Engine network.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::vmware_engine_network::State,
 
     /// Required. VMware Engine network type.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::vmware_engine_network::Type,
 
     /// Output only. System-generated unique identifier for the resource.
@@ -14044,6 +14067,7 @@ pub mod vmware_engine_network {
         /// Output only. Type of VPC network (INTRANET, INTERNET, or
         /// GOOGLE_CLOUD)
         #[serde(rename = "type")]
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub r#type: crate::model::vmware_engine_network::vpc_network::Type,
 
         /// Output only. The relative resource name of the service VPC network this
@@ -14547,6 +14571,7 @@ pub struct PrivateConnection {
     pub description: std::string::String,
 
     /// Output only. State of the private connection.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::private_connection::State,
 
     /// Required. The relative resource name of Legacy VMware Engine network.
@@ -14566,6 +14591,7 @@ pub struct PrivateConnection {
 
     /// Required. Private connection type.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::private_connection::Type,
 
     /// Output only. VPC network peering id between given network VPC and
@@ -14577,6 +14603,7 @@ pub struct PrivateConnection {
     /// Default value is set to GLOBAL.
     /// For type = PRIVATE_SERVICE_ACCESS, this field can be set to GLOBAL or
     /// REGIONAL, for other types only GLOBAL is supported.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub routing_mode: crate::model::private_connection::RoutingMode,
 
     /// Output only. System-generated unique identifier for the resource.
@@ -14600,6 +14627,7 @@ pub struct PrivateConnection {
 
     /// Output only. Peering state between service network and VMware Engine
     /// network.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub peering_state: crate::model::private_connection::PeeringState,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

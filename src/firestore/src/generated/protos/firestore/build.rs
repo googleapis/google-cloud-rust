@@ -17,8 +17,8 @@
 fn main() {
     #[cfg(feature = "_generate-protos")]
     {
-        let root = std::env::var("GOOGLEAPIS_ROOT")
-            .expect("GOOGLEAPIS_ROOT must be set");
+        let root = std::env::var("SOURCE_ROOT")
+            .expect("SOURCE_ROOT must be set");
         let files = &[
             "google/firestore/v1/aggregation_result.proto",
             "google/firestore/v1/bloom_filter.proto",

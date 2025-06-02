@@ -14,10 +14,28 @@
 
 use super::Result;
 use super::backoff_policy::BackoffPolicy;
+use super::error::Error;
 use super::loop_state::LoopState;
 use super::retry_policy::RetryPolicy;
 use super::retry_throttler::RetryThrottler;
 use std::sync::{Arc, Mutex};
+use std::time::Duration;
+
+enum RetryLoopAttempt {
+    // The first attempt
+    Initial,
+    // (Attempt count, backoff delay, previous error)
+    Retry(u32, Duration, Error),
+}
+
+impl RetryLoopAttempt {
+    fn count(&self) -> u32 {
+        match self {
+            RetryLoopAttempt::Initial => 0,
+            RetryLoopAttempt::Retry(count, _, _) => *count,
+        }
+    }
+}
 
 /// Runs the retry loop for a given function.
 ///
@@ -36,29 +54,31 @@ pub async fn retry_loop<F, S, Response>(
     backoff_policy: Arc<dyn BackoffPolicy>,
 ) -> Result<Response>
 where
-    F: AsyncFn(Option<std::time::Duration>) -> Result<Response> + Send,
-    S: AsyncFn(std::time::Duration) -> () + Send,
+    F: AsyncFn(Option<Duration>) -> Result<Response> + Send,
+    S: AsyncFn(Duration) -> () + Send,
 {
     let loop_start = tokio::time::Instant::now().into_std();
-    let mut attempt_count = 0;
+    let mut attempt = RetryLoopAttempt::Initial;
     loop {
+        let mut attempt_count = attempt.count();
         let remaining_time = retry_policy.remaining_time(loop_start, attempt_count);
-        let throttle = if attempt_count == 0 {
-            false
-        } else {
-            let t = retry_throttler
-                .lock()
-                .expect("retry throttler lock is poisoned");
-            t.throttle_retry_attempt()
-        };
-        if throttle {
-            // This counts as an error for the purposes of the retry policy.
-            if let Some(error) = retry_policy.on_throttle(loop_start, attempt_count) {
-                return Err(error);
-            }
-            let delay = backoff_policy.on_failure(loop_start, attempt_count);
+
+        if let RetryLoopAttempt::Retry(attempt_count, delay, prev_error) = attempt {
             sleep(delay).await;
-            continue;
+
+            if retry_throttler
+                .lock()
+                .expect("retry throttler lock is poisoned")
+                .throttle_retry_attempt()
+            {
+                // This counts as an error for the purposes of the retry policy.
+                if let Some(error) = retry_policy.on_throttle(loop_start, attempt_count) {
+                    return Err(error);
+                }
+                let delay = backoff_policy.on_failure(loop_start, attempt_count);
+                attempt = RetryLoopAttempt::Retry(attempt_count, delay, prev_error);
+                continue;
+            }
         }
         attempt_count += 1;
         match inner(remaining_time).await {
@@ -76,26 +96,15 @@ where
                     .lock()
                     .expect("retry throttler lock is poisoned")
                     .on_retry_failure(&flow);
-                on_error(&sleep, flow, delay).await?;
+                match flow {
+                    LoopState::Permanent(e) | LoopState::Exhausted(e) => return Err(e),
+                    LoopState::Continue(e) => {
+                        attempt = RetryLoopAttempt::Retry(attempt_count, delay, e);
+                        continue;
+                    }
+                }
             }
         };
-    }
-}
-
-async fn on_error<B>(
-    backoff: &B,
-    retry_flow: LoopState,
-    backoff_delay: std::time::Duration,
-) -> Result<()>
-where
-    B: AsyncFn(std::time::Duration) -> (),
-{
-    match retry_flow {
-        LoopState::Permanent(e) | LoopState::Exhausted(e) => Err(e),
-        LoopState::Continue(_e) => {
-            backoff(backoff_delay).await;
-            Ok(())
-        }
     }
 }
 
@@ -103,8 +112,8 @@ where
 /// timeout and the overall timeout.
 pub fn effective_timeout(
     options: &crate::options::RequestOptions,
-    remaining_time: Option<std::time::Duration>,
-) -> Option<std::time::Duration> {
+    remaining_time: Option<Duration>,
+) -> Option<Duration> {
     match (options.attempt_timeout(), remaining_time) {
         (None, None) => None,
         (None, Some(t)) => Some(t),
@@ -117,7 +126,6 @@ pub fn effective_timeout(
 mod test {
     use super::*;
     use crate::error::{Error, rpc::Code, rpc::Status};
-    use std::time::Duration;
     use test_case::test_case;
 
     #[test_case(None, None, None)]
@@ -679,13 +687,13 @@ mod test {
     }
 
     trait Sleep {
-        fn sleep(&self, d: std::time::Duration) -> impl Future<Output = ()>;
+        fn sleep(&self, d: Duration) -> impl Future<Output = ()>;
     }
 
     mockall::mock! {
         Sleep {}
         impl Sleep for Sleep {
-            fn sleep(&self, d: std::time::Duration) -> impl Future<Output = ()> + Send;
+            fn sleep(&self, d: Duration) -> impl Future<Output = ()> + Send;
         }
     }
 
@@ -695,7 +703,7 @@ mod test {
         impl RetryPolicy for RetryPolicy {
             fn on_error(&self, loop_start: std::time::Instant, attempt_count: u32, idempotent: bool, error: Error) -> LoopState;
             fn on_throttle(&self, loop_start: std::time::Instant, attempt_count: u32) -> Option<Error>;
-            fn remaining_time(&self, loop_start: std::time::Instant, attempt_count: u32) -> Option<std::time::Duration>;
+            fn remaining_time(&self, loop_start: std::time::Instant, attempt_count: u32) -> Option<Duration>;
         }
         impl std::clone::Clone for RetryPolicy {
             fn clone(&self) -> Self;
@@ -706,7 +714,7 @@ mod test {
         #[derive(Debug)]
         BackoffPolicy {}
         impl BackoffPolicy for BackoffPolicy {
-            fn on_failure(&self, loop_start: std::time::Instant, attempt_count: u32) -> std::time::Duration;
+            fn on_failure(&self, loop_start: std::time::Instant, attempt_count: u32) -> Duration;
         }
     }
 

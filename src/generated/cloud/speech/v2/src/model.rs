@@ -1289,6 +1289,7 @@ pub struct Recognizer {
     pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. The Recognizer lifecycle state.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::recognizer::State,
 
     /// Output only. Creation time.
@@ -1716,6 +1717,7 @@ impl wkt::message::Message for AutoDetectDecodingConfig {
 #[non_exhaustive]
 pub struct ExplicitDecodingConfig {
     /// Required. Encoding of the audio data sent for recognition.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub encoding: crate::model::explicit_decoding_config::AudioEncoding,
 
     /// Optional. Sample rate in Hertz of the audio data sent for recognition.
@@ -2079,6 +2081,7 @@ pub struct RecognitionFeatures {
     pub enable_spoken_emojis: bool,
 
     /// Mode for recognizing multi-channel audio.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub multi_channel_mode: crate::model::recognition_features::MultiChannelMode,
 
     /// Configuration to enable speaker diarization and set additional
@@ -3985,6 +3988,7 @@ pub struct BatchRecognizeRequest {
     pub recognition_output_config: std::option::Option<crate::model::RecognitionOutputConfig>,
 
     /// Processing strategy to use for this request.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub processing_strategy: crate::model::batch_recognize_request::ProcessingStrategy,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5495,6 +5499,7 @@ pub struct StreamingRecognizeResponse {
     pub results: std::vec::Vec<crate::model::StreamingRecognitionResult>,
 
     /// Indicates the type of speech event.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub speech_event_type: crate::model::streaming_recognize_response::SpeechEventType,
 
     /// Time offset between the beginning of the audio and event emission.
@@ -5947,6 +5952,7 @@ pub struct CustomClass {
     pub items: std::vec::Vec<crate::model::custom_class::ClassItem>,
 
     /// Output only. The CustomClass lifecycle state.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::custom_class::State,
 
     /// Output only. Creation time.
@@ -6369,6 +6375,7 @@ pub struct PhraseSet {
     pub display_name: std::string::String,
 
     /// Output only. The PhraseSet lifecycle state.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::phrase_set::State,
 
     /// Output only. Creation time.
@@ -7913,6 +7920,7 @@ impl wkt::message::Message for LanguageMetadata {
 #[non_exhaustive]
 pub struct AccessMetadata {
     /// Describes the different types of constraints that are applied.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub constraint_type: crate::model::access_metadata::ConstraintType,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

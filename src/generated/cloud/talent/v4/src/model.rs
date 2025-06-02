@@ -116,6 +116,7 @@ pub struct Location {
     /// [google.cloud.talent.v4.Location.LocationType.LOCALITY]: crate::model::location::LocationType::Locality
     /// [google.cloud.talent.v4.Location.LocationType.NEIGHBORHOOD]: crate::model::location::LocationType::Neighborhood
     /// [google.type.PostalAddress]: gtype::model::PostalAddress
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub location_type: crate::model::location::LocationType,
 
     /// Postal address of the location that includes human readable information,
@@ -594,6 +595,7 @@ impl wkt::message::Message for ResponseMetadata {
 #[non_exhaustive]
 pub struct DeviceInfo {
     /// Type of the device.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub device_type: crate::model::device_info::DeviceType,
 
     /// A device-specific ID. The ID must be a unique identifier that
@@ -1128,6 +1130,7 @@ pub mod compensation_info {
         ///
         /// [google.cloud.talent.v4.CompensationInfo.CompensationType.COMPENSATION_TYPE_UNSPECIFIED]: crate::model::compensation_info::CompensationType::Unspecified
         #[serde(rename = "type")]
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub r#type: crate::model::compensation_info::CompensationType,
 
         /// Frequency of the specified amount.
@@ -1136,6 +1139,7 @@ pub mod compensation_info {
         /// [CompensationUnit.COMPENSATION_UNIT_UNSPECIFIED][google.cloud.talent.v4.CompensationInfo.CompensationUnit.COMPENSATION_UNIT_UNSPECIFIED].
         ///
         /// [google.cloud.talent.v4.CompensationInfo.CompensationUnit.COMPENSATION_UNIT_UNSPECIFIED]: crate::model::compensation_info::CompensationUnit::Unspecified
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub unit: crate::model::compensation_info::CompensationUnit,
 
         /// Compensation description.  For example, could
@@ -1793,6 +1797,7 @@ pub mod compensation_info {
 #[non_exhaustive]
 pub struct BatchOperationMetadata {
     /// The state of a long running operation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::batch_operation_metadata::State,
 
     /// More detailed information about operation state.
@@ -2139,6 +2144,7 @@ pub struct Company {
     pub external_id: std::string::String,
 
     /// The employer's company size.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub size: crate::model::CompanySize,
 
     /// The street address of the company's main headquarters, which may be
@@ -2792,6 +2798,7 @@ pub struct CompleteQueryRequest {
     /// [CompletionScope.PUBLIC][google.cloud.talent.v4.CompleteQueryRequest.CompletionScope.PUBLIC].
     ///
     /// [google.cloud.talent.v4.CompleteQueryRequest.CompletionScope.PUBLIC]: crate::model::complete_query_request::CompletionScope::Public
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub scope: crate::model::complete_query_request::CompletionScope,
 
     /// The completion topic. The default is
@@ -2799,6 +2806,7 @@ pub struct CompleteQueryRequest {
     ///
     /// [google.cloud.talent.v4.CompleteQueryRequest.CompletionType.COMBINED]: crate::model::complete_query_request::CompletionType::Combined
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::complete_query_request::CompletionType,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3256,6 +3264,7 @@ pub mod complete_query_response {
 
         /// The completion topic.
         #[serde(rename = "type")]
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub r#type: crate::model::complete_query_request::CompletionType,
 
         /// The URI of the company image for
@@ -3465,6 +3474,7 @@ pub struct JobEvent {
     ///
     /// [google.cloud.talent.v4.JobEvent.JobEventType]: crate::model::job_event::JobEventType
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::job_event::JobEventType,
 
     /// Required. The [job name(s)][google.cloud.talent.v4.Job.name] associated
@@ -4330,6 +4340,7 @@ pub struct LocationFilter {
     /// [google.cloud.talent.v4.LocationFilter.address]: crate::model::LocationFilter::address
     /// [google.cloud.talent.v4.LocationFilter.lat_lng]: crate::model::LocationFilter::lat_lng
     /// [google.cloud.talent.v4.PostingRegion.TELECOMMUTE]: crate::model::PostingRegion::Telecommute
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub telecommute_preference: crate::model::location_filter::TelecommutePreference,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4554,6 +4565,7 @@ pub mod location_filter {
 pub struct CompensationFilter {
     /// Required. Type of filter.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::compensation_filter::FilterType,
 
     /// Required. Specify desired `base compensation entry's`
@@ -4835,6 +4847,7 @@ pub mod compensation_filter {
 #[non_exhaustive]
 pub struct CommuteFilter {
     /// Required. The method of transportation to calculate the commute time for.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub commute_method: crate::model::CommuteMethod,
 
     /// Required. The latitude and longitude of the location to calculate the
@@ -5445,6 +5458,7 @@ pub struct Job {
     pub language_code: std::string::String,
 
     /// The experience level associated with the job, such as "Entry Level".
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub job_level: crate::model::JobLevel,
 
     /// A promotion value of the job, as determined by the client.
@@ -5499,6 +5513,7 @@ pub struct Job {
     /// [google.cloud.talent.v4.PostingRegion]: crate::model::PostingRegion
     /// [google.cloud.talent.v4.PostingRegion.ADMINISTRATIVE_AREA]: crate::model::PostingRegion::AdministrativeArea
     /// [google.cloud.talent.v4.PostingRegion.NATION]: crate::model::PostingRegion::Nation
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub posting_region: crate::model::PostingRegion,
 
     /// Deprecated. The job is only visible to the owner.
@@ -5510,6 +5525,7 @@ pub struct Job {
     /// if not specified.
     ///
     /// [google.cloud.talent.v4.Visibility.ACCOUNT_ONLY]: crate::model::Visibility::AccountOnly
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[deprecated]
     pub visibility: crate::model::Visibility,
 
@@ -6136,6 +6152,7 @@ pub mod job {
         /// [HtmlSanitization.SIMPLE_FORMATTING_ONLY][google.cloud.talent.v4.HtmlSanitization.SIMPLE_FORMATTING_ONLY].
         ///
         /// [google.cloud.talent.v4.HtmlSanitization.SIMPLE_FORMATTING_ONLY]: crate::model::HtmlSanitization::SimpleFormattingOnly
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub html_sanitization: crate::model::HtmlSanitization,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6443,6 +6460,7 @@ pub struct ListJobsRequest {
     /// value is specified.
     ///
     /// [google.cloud.talent.v4.JobView.JOB_VIEW_FULL]: crate::model::JobView::Full
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub job_view: crate::model::JobView,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6597,6 +6615,7 @@ pub struct SearchJobsRequest {
     /// [SearchMode.JOB_SEARCH][google.cloud.talent.v4.SearchJobsRequest.SearchMode.JOB_SEARCH].
     ///
     /// [google.cloud.talent.v4.SearchJobsRequest.SearchMode.JOB_SEARCH]: crate::model::search_jobs_request::SearchMode::JobSearch
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub search_mode: crate::model::search_jobs_request::SearchMode,
 
     /// Required. The meta information collected about the job searcher, used to
@@ -6749,6 +6768,7 @@ pub struct SearchJobsRequest {
     /// no value is specified.
     ///
     /// [google.cloud.talent.v4.JobView.JOB_VIEW_SMALL]: crate::model::JobView::Small
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub job_view: crate::model::JobView,
 
     /// An integer that specifies the current offset (that is, starting result
@@ -6859,6 +6879,7 @@ pub struct SearchJobsRequest {
     /// if no value is specified.
     ///
     /// [google.cloud.talent.v4.SearchJobsRequest.DiversificationLevel.SIMPLE]: crate::model::search_jobs_request::DiversificationLevel::Simple
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub diversification_level: crate::model::search_jobs_request::DiversificationLevel,
 
     /// Controls over how job documents get ranked on top of existing relevance
@@ -6925,6 +6946,7 @@ pub struct SearchJobsRequest {
     /// if no value is specified.
     ///
     /// [google.cloud.talent.v4.SearchJobsRequest.KeywordMatchMode.KEYWORD_MATCH_ALL]: crate::model::search_jobs_request::KeywordMatchMode::KeywordMatchAll
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub keyword_match_mode: crate::model::search_jobs_request::KeywordMatchMode,
 
     /// Optional. The relevance threshold of the search results.
@@ -6932,6 +6954,7 @@ pub struct SearchJobsRequest {
     /// Default to Google defined threshold, leveraging a balance of
     /// precision and recall to deliver both highly accurate results and
     /// comprehensive coverage of relevant information.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub relevance_threshold: crate::model::search_jobs_request::RelevanceThreshold,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7127,6 +7150,7 @@ pub mod search_jobs_request {
         /// An error is thrown if not specified.
         ///
         /// [google.cloud.talent.v4.SearchJobsRequest.CustomRankingInfo.ranking_expression]: crate::model::search_jobs_request::CustomRankingInfo::ranking_expression
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub importance_level:
             crate::model::search_jobs_request::custom_ranking_info::ImportanceLevel,
 

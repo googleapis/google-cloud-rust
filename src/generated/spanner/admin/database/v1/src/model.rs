@@ -128,6 +128,7 @@ pub struct Backup {
     pub exclusive_size_bytes: i64,
 
     /// Output only. The current state of the backup.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::backup::State,
 
     /// Output only. The names of the restored databases that reference the backup.
@@ -154,6 +155,7 @@ pub struct Backup {
     pub encryption_information: std::vec::Vec<crate::model::EncryptionInfo>,
 
     /// Output only. The database dialect information for the backup.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub database_dialect: crate::model::DatabaseDialect,
 
     /// Output only. The names of the destination backups being created by copying
@@ -1683,6 +1685,7 @@ impl wkt::message::Message for BackupInfo {
 #[non_exhaustive]
 pub struct CreateBackupEncryptionConfig {
     /// Required. The encryption type of the backup.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub encryption_type: crate::model::create_backup_encryption_config::EncryptionType,
 
     /// Optional. The Cloud KMS key that will be used to protect the backup.
@@ -1922,6 +1925,7 @@ pub mod create_backup_encryption_config {
 #[non_exhaustive]
 pub struct CopyBackupEncryptionConfig {
     /// Required. The encryption type of the backup.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub encryption_type: crate::model::copy_backup_encryption_config::EncryptionType,
 
     /// Optional. The Cloud KMS key that will be used to protect the backup.
@@ -3161,6 +3165,7 @@ impl wkt::message::Message for EncryptionConfig {
 #[non_exhaustive]
 pub struct EncryptionInfo {
     /// Output only. The type of encryption.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub encryption_type: crate::model::encryption_info::Type,
 
     /// Output only. If present, the status of a recent encrypt/decrypt call on
@@ -3376,6 +3381,7 @@ pub mod encryption_info {
 #[non_exhaustive]
 pub struct RestoreInfo {
     /// The type of the restore source.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub source_type: crate::model::RestoreSourceType,
 
     /// Information about the source used to restore the database.
@@ -3478,6 +3484,7 @@ pub struct Database {
     pub name: std::string::String,
 
     /// Output only. The current database state.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::database::State,
 
     /// Output only. If exists, the time at which the database creation started.
@@ -3537,6 +3544,7 @@ pub struct Database {
     pub default_leader: std::string::String,
 
     /// Output only. The dialect of the Cloud Spanner Database.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub database_dialect: crate::model::DatabaseDialect,
 
     /// Whether drop protection is enabled for this database. Defaults to false,
@@ -4018,6 +4026,7 @@ pub struct CreateDatabaseRequest {
     pub encryption_config: std::option::Option<crate::model::EncryptionConfig>,
 
     /// Optional. The dialect of the Cloud Spanner Database.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub database_dialect: crate::model::DatabaseDialect,
 
     /// Optional. Proto descriptors used by CREATE/ALTER PROTO BUNDLE statements in
@@ -5156,6 +5165,7 @@ pub mod restore_database_request {
 #[non_exhaustive]
 pub struct RestoreDatabaseEncryptionConfig {
     /// Required. The encryption type of the restored database.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub encryption_type: crate::model::restore_database_encryption_config::EncryptionType,
 
     /// Optional. The Cloud KMS key that will be used to encrypt/decrypt the
@@ -5403,6 +5413,7 @@ pub struct RestoreDatabaseMetadata {
     pub name: std::string::String,
 
     /// The type of the restore source.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub source_type: crate::model::RestoreSourceType,
 
     /// The progress of the

@@ -316,6 +316,7 @@ pub struct Entitlement {
     pub max_request_duration: std::option::Option<wkt::Duration>,
 
     /// Output only. Current state of this entitlement.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::entitlement::State,
 
     /// Required. The manner in which the requester should provide a justification
@@ -1557,6 +1558,7 @@ pub struct SearchEntitlementsRequest {
 
     /// Required. Only entitlements where the calling user has this access are
     /// returned.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub caller_access_type: crate::model::search_entitlements_request::CallerAccessType,
 
     /// Optional. Only entitlements matching this filter are returned in the
@@ -2133,6 +2135,7 @@ pub struct Grant {
     pub justification: std::option::Option<crate::model::Justification>,
 
     /// Output only. Current state of this grant.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::grant::State,
 
     /// Output only. Timeline of this grant.
@@ -3718,6 +3721,7 @@ pub struct SearchGrantsRequest {
 
     /// Required. Only grants which the caller is related to by this relationship
     /// are returned in the response.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub caller_relationship: crate::model::search_grants_request::CallerRelationshipType,
 
     /// Optional. Only grants matching this filter are returned in the response.
