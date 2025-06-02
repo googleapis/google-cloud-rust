@@ -64,6 +64,9 @@ where
         let remaining_time = retry_policy.remaining_time(loop_start, attempt_count);
 
         if let RetryLoopAttempt::Retry(attempt_count, delay, prev_error) = attempt {
+            if remaining_time.is_some_and(|remaining| remaining < delay) {
+                return Err(Error::timeout(prev_error));
+            }
             sleep(delay).await;
 
             if retry_throttler
@@ -126,6 +129,7 @@ pub fn effective_timeout(
 mod test {
     use super::*;
     use crate::error::{Error, rpc::Code, rpc::Status};
+    use std::error::Error as _;
     use test_case::test_case;
 
     #[test_case(None, None, None)]
@@ -645,15 +649,218 @@ mod test {
         Ok(())
     }
 
+    #[tokio::test]
+    async fn no_sleep_past_overall_timeout() -> anyhow::Result<()> {
+        // This test simulates a server responding with a transient error. The
+        // backoff policy wants to sleep for longer than the overall timeout. No
+        // sleeps should be performed. The loop should terminate with a
+        // `timeout` error.
+        let mut seq = mockall::Sequence::new();
+        let mut call = MockCall::new();
+        let mut throttler = MockRetryThrottler::new();
+        let mut retry_policy = MockRetryPolicy::new();
+        let mut backoff_policy = MockBackoffPolicy::new();
+        let sleep = MockSleep::new();
+
+        // Calculate the attempt deadline
+        retry_policy
+            .expect_remaining_time()
+            .once()
+            .in_sequence(&mut seq)
+            .return_const(Duration::from_millis(100));
+
+        // Simulate a call to the server, responding with a transient error.
+        call.expect_call()
+            .once()
+            .in_sequence(&mut seq)
+            .returning(|_| transient());
+
+        // The retry policy says we should retry this error.
+        retry_policy
+            .expect_on_error()
+            .once()
+            .in_sequence(&mut seq)
+            .returning(|_, _, _, e| LoopState::Continue(e));
+
+        // The backoff policy wants to sleep for longer than the overall timeout.
+        backoff_policy
+            .expect_on_failure()
+            .once()
+            .in_sequence(&mut seq)
+            .return_const(Duration::from_secs(10));
+
+        // The throttler processes the result of the attempt.
+        throttler
+            .expect_on_retry_failure()
+            .once()
+            .in_sequence(&mut seq)
+            .return_const(());
+
+        // We recalculate how much time is left in the operation. This is
+        // compared against the delay returned by the backoff policy.
+        retry_policy
+            .expect_remaining_time()
+            .once()
+            .in_sequence(&mut seq)
+            .return_const(Duration::from_millis(100));
+
+        // There is not enough time left to sleep, and make another attempt, so
+        // the retry loop is terminated.
+
+        let inner = async move |d| call.call(d);
+        let backoff = async move |d| sleep.sleep(d).await;
+        let response = retry_loop(
+            inner,
+            backoff,
+            true,
+            to_retry_throttler(throttler),
+            to_retry_policy(retry_policy),
+            to_backoff_policy(backoff_policy),
+        )
+        .await;
+        let err = response.expect_err("retry loop should terminate");
+        assert!(err.is_timeout(), "{err:?}");
+        // Confirm that we expose the last seen status from the operation
+        let got = err
+            .source()
+            .and_then(|e| e.downcast_ref::<Error>())
+            .and_then(|e| e.status());
+        assert_eq!(got, Some(&transient_status()), "{err:?}");
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn no_sleep_past_overall_timeout_after_throttle() -> anyhow::Result<()> {
+        // This test simulates a server responding with a transient error. There
+        // is no immediate backoff. The retry throttler then decides we should
+        // backoff again before making another request. This time, the backoff
+        // policy wants to sleep for longer than the overall timeout. No sleeps
+        // should be performed. The loop should terminate with a `timeout`
+        // error.
+        let mut seq = mockall::Sequence::new();
+        let mut call = MockCall::new();
+        let mut throttler = MockRetryThrottler::new();
+        let mut retry_policy = MockRetryPolicy::new();
+        let mut backoff_policy = MockBackoffPolicy::new();
+        let mut sleep = MockSleep::new();
+
+        // Calculate the attempt deadline
+        retry_policy
+            .expect_remaining_time()
+            .once()
+            .in_sequence(&mut seq)
+            .return_const(Duration::from_millis(100));
+
+        // Simulate a call to the server, responding with a transient error.
+        call.expect_call()
+            .once()
+            .in_sequence(&mut seq)
+            .returning(|_| transient());
+
+        // The retry policy says we should retry this error.
+        retry_policy
+            .expect_on_error()
+            .once()
+            .in_sequence(&mut seq)
+            .returning(|_, _, _, e| LoopState::Continue(e));
+
+        // The backoff policy returns an instantaneous sleep.
+        backoff_policy
+            .expect_on_failure()
+            .once()
+            .in_sequence(&mut seq)
+            .return_const(Duration::ZERO);
+
+        // The throttler processes the result of the attempt.
+        throttler
+            .expect_on_retry_failure()
+            .once()
+            .in_sequence(&mut seq)
+            .return_const(());
+
+        // We recalculate how much time is left in the operation. This is
+        // compared against the delay returned by the backoff policy.
+        retry_policy
+            .expect_remaining_time()
+            .once()
+            .in_sequence(&mut seq)
+            .return_const(Duration::from_millis(100));
+
+        // There is enough time, so we perform the (instantaneous) sleep
+        sleep
+            .expect_sleep()
+            .once()
+            .in_sequence(&mut seq)
+            .withf(move |got| got == &Duration::ZERO)
+            .returning(|_| Box::pin(async {}));
+
+        // In the second attempt, the throttler kicks in. It tells us to backoff
+        // before sending this request out.
+        throttler
+            .expect_throttle_retry_attempt()
+            .once()
+            .in_sequence(&mut seq)
+            .return_const(true);
+
+        // The retry policy decides to continue the retry loop.
+        retry_policy
+            .expect_on_throttle()
+            .once()
+            .in_sequence(&mut seq)
+            .returning(|_, _| None);
+
+        // The backoff policy wants to sleep for longer than the overall timeout.
+        backoff_policy
+            .expect_on_failure()
+            .once()
+            .in_sequence(&mut seq)
+            .return_const(Duration::from_secs(10));
+
+        // We recalculate how much time is left in the operation. This is
+        // compared against the delay returned by the backoff policy.
+        retry_policy
+            .expect_remaining_time()
+            .once()
+            .in_sequence(&mut seq)
+            .return_const(Duration::from_millis(100));
+
+        // There is not enough time left to sleep, and make another attempt, so
+        // the retry loop is terminated.
+
+        let inner = async move |d| call.call(d);
+        let backoff = async move |d| sleep.sleep(d).await;
+        let response = retry_loop(
+            inner,
+            backoff,
+            true,
+            to_retry_throttler(throttler),
+            to_retry_policy(retry_policy),
+            to_backoff_policy(backoff_policy),
+        )
+        .await;
+        let err = response.expect_err("retry loop should terminate");
+        assert!(err.is_timeout(), "{err:?}");
+        // Confirm that we expose the last seen status from the operation
+        let got = err
+            .source()
+            .and_then(|e| e.downcast_ref::<Error>())
+            .and_then(|e| e.status());
+        assert_eq!(got, Some(&transient_status()), "{err:?}");
+        Ok(())
+    }
+
     fn success() -> Result<String> {
         Ok("success".into())
     }
 
-    fn transient() -> Result<String> {
-        let status = Status::default()
+    fn transient_status() -> Status {
+        Status::default()
             .set_code(Code::Unavailable)
-            .set_message("try-again");
-        Err(Error::service(status))
+            .set_message("try-again")
+    }
+
+    fn transient() -> Result<String> {
+        Err(Error::service(transient_status()))
     }
 
     fn permanent() -> Result<String> {
