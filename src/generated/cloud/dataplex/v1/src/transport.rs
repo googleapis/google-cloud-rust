@@ -96,9 +96,13 @@ impl super::stub::CatalogService for CatalogService {
         let builder = req
             .update_mask
             .as_ref()
-            .iter()
-            .flat_map(|p| p.paths.iter())
-            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
+            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .transpose()?
+            .into_iter()
+            .fold(builder, |builder, v| {
+                use gaxi::query_parameter::QueryParameter;
+                v.add(builder, "updateMask")
+            });
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);
         self.inner
             .execute(builder, Some(req.entry_type), options)
@@ -244,9 +248,13 @@ impl super::stub::CatalogService for CatalogService {
         let builder = req
             .update_mask
             .as_ref()
-            .iter()
-            .flat_map(|p| p.paths.iter())
-            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
+            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .transpose()?
+            .into_iter()
+            .fold(builder, |builder, v| {
+                use gaxi::query_parameter::QueryParameter;
+                v.add(builder, "updateMask")
+            });
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);
         self.inner
             .execute(builder, Some(req.aspect_type), options)
@@ -392,9 +400,13 @@ impl super::stub::CatalogService for CatalogService {
         let builder = req
             .update_mask
             .as_ref()
-            .iter()
-            .flat_map(|p| p.paths.iter())
-            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
+            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .transpose()?
+            .into_iter()
+            .fold(builder, |builder, v| {
+                use gaxi::query_parameter::QueryParameter;
+                v.add(builder, "updateMask")
+            });
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);
         self.inner
             .execute(builder, Some(req.entry_group), options)
@@ -537,9 +549,13 @@ impl super::stub::CatalogService for CatalogService {
         let builder = req
             .update_mask
             .as_ref()
-            .iter()
-            .flat_map(|p| p.paths.iter())
-            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
+            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .transpose()?
+            .into_iter()
+            .fold(builder, |builder, v| {
+                use gaxi::query_parameter::QueryParameter;
+                v.add(builder, "updateMask")
+            });
         let builder = builder.query(&[("allowMissing", &req.allow_missing)]);
         let builder = builder.query(&[("deleteMissingAspects", &req.delete_missing_aspects)]);
         let builder = req
@@ -1164,9 +1180,13 @@ impl super::stub::CmekService for CmekService {
         let builder = req
             .update_mask
             .as_ref()
-            .iter()
-            .flat_map(|p| p.paths.iter())
-            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
+            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .transpose()?
+            .into_iter()
+            .fold(builder, |builder, v| {
+                use gaxi::query_parameter::QueryParameter;
+                v.add(builder, "updateMask")
+            });
         self.inner
             .execute(builder, Some(req.encryption_config), options)
             .await
@@ -1600,9 +1620,13 @@ impl super::stub::ContentService for ContentService {
         let builder = req
             .update_mask
             .as_ref()
-            .iter()
-            .flat_map(|p| p.paths.iter())
-            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
+            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .transpose()?
+            .into_iter()
+            .fold(builder, |builder, v| {
+                use gaxi::query_parameter::QueryParameter;
+                v.add(builder, "updateMask")
+            });
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);
         self.inner
             .execute(builder, Some(req.content), options)
@@ -2027,9 +2051,13 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
         let builder = req
             .update_mask
             .as_ref()
-            .iter()
-            .flat_map(|p| p.paths.iter())
-            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
+            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .transpose()?
+            .into_iter()
+            .fold(builder, |builder, v| {
+                use gaxi::query_parameter::QueryParameter;
+                v.add(builder, "updateMask")
+            });
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);
         self.inner
             .execute(builder, Some(req.data_taxonomy), options)
@@ -2175,9 +2203,13 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
         let builder = req
             .update_mask
             .as_ref()
-            .iter()
-            .flat_map(|p| p.paths.iter())
-            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
+            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .transpose()?
+            .into_iter()
+            .fold(builder, |builder, v| {
+                use gaxi::query_parameter::QueryParameter;
+                v.add(builder, "updateMask")
+            });
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);
         self.inner
             .execute(builder, Some(req.data_attribute_binding), options)
@@ -2323,9 +2355,13 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
         let builder = req
             .update_mask
             .as_ref()
-            .iter()
-            .flat_map(|p| p.paths.iter())
-            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
+            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .transpose()?
+            .into_iter()
+            .fold(builder, |builder, v| {
+                use gaxi::query_parameter::QueryParameter;
+                v.add(builder, "updateMask")
+            });
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);
         self.inner
             .execute(builder, Some(req.data_attribute), options)
@@ -2761,9 +2797,13 @@ impl super::stub::DataScanService for DataScanService {
         let builder = req
             .update_mask
             .as_ref()
-            .iter()
-            .flat_map(|p| p.paths.iter())
-            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
+            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .transpose()?
+            .into_iter()
+            .fold(builder, |builder, v| {
+                use gaxi::query_parameter::QueryParameter;
+                v.add(builder, "updateMask")
+            });
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);
         self.inner
             .execute(builder, Some(req.data_scan), options)
@@ -3833,9 +3873,13 @@ impl super::stub::DataplexService for DataplexService {
         let builder = req
             .update_mask
             .as_ref()
-            .iter()
-            .flat_map(|p| p.paths.iter())
-            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
+            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .transpose()?
+            .into_iter()
+            .fold(builder, |builder, v| {
+                use gaxi::query_parameter::QueryParameter;
+                v.add(builder, "updateMask")
+            });
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);
         self.inner.execute(builder, Some(req.lake), options).await
     }
@@ -4004,9 +4048,13 @@ impl super::stub::DataplexService for DataplexService {
         let builder = req
             .update_mask
             .as_ref()
-            .iter()
-            .flat_map(|p| p.paths.iter())
-            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
+            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .transpose()?
+            .into_iter()
+            .fold(builder, |builder, v| {
+                use gaxi::query_parameter::QueryParameter;
+                v.add(builder, "updateMask")
+            });
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);
         self.inner.execute(builder, Some(req.zone), options).await
     }
@@ -4175,9 +4223,13 @@ impl super::stub::DataplexService for DataplexService {
         let builder = req
             .update_mask
             .as_ref()
-            .iter()
-            .flat_map(|p| p.paths.iter())
-            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
+            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .transpose()?
+            .into_iter()
+            .fold(builder, |builder, v| {
+                use gaxi::query_parameter::QueryParameter;
+                v.add(builder, "updateMask")
+            });
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);
         self.inner.execute(builder, Some(req.asset), options).await
     }
@@ -4346,9 +4398,13 @@ impl super::stub::DataplexService for DataplexService {
         let builder = req
             .update_mask
             .as_ref()
-            .iter()
-            .flat_map(|p| p.paths.iter())
-            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
+            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .transpose()?
+            .into_iter()
+            .fold(builder, |builder, v| {
+                use gaxi::query_parameter::QueryParameter;
+                v.add(builder, "updateMask")
+            });
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);
         self.inner.execute(builder, Some(req.task), options).await
     }
@@ -4598,9 +4654,13 @@ impl super::stub::DataplexService for DataplexService {
         let builder = req
             .update_mask
             .as_ref()
-            .iter()
-            .flat_map(|p| p.paths.iter())
-            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
+            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .transpose()?
+            .into_iter()
+            .fold(builder, |builder, v| {
+                use gaxi::query_parameter::QueryParameter;
+                v.add(builder, "updateMask")
+            });
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);
         self.inner
             .execute(builder, Some(req.environment), options)

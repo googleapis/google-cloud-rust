@@ -519,3 +519,97 @@ impl wkt::message::Message for MessageWithBytes {
         "type.googleapis.com/google.rust.sdk.test.MessageWithBytes"
     }
 }
+
+/// A test message for FieldMask.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct MessageWithFieldMask {
+
+    /// A singular field.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub singular: std::option::Option<wkt::FieldMask>,
+
+    /// An optional field.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub optional: std::option::Option<wkt::FieldMask>,
+
+    /// A repeated field.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub repeated: std::vec::Vec<wkt::FieldMask>,
+
+    /// A map field, messages cannot be keys.
+    #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    pub map: std::collections::HashMap<std::string::String,wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl MessageWithFieldMask {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [singular][crate::protos::MessageWithFieldMask::singular].
+    pub fn set_singular<T>(mut self, v: T) -> Self
+    where T: std::convert::Into<wkt::FieldMask>
+    {
+        self.singular = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [singular][crate::protos::MessageWithFieldMask::singular].
+    pub fn set_or_clear_singular<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<wkt::FieldMask>
+    {
+        self.singular = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [optional][crate::protos::MessageWithFieldMask::optional].
+    pub fn set_optional<T>(mut self, v: T) -> Self
+    where T: std::convert::Into<wkt::FieldMask>
+    {
+        self.optional = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [optional][crate::protos::MessageWithFieldMask::optional].
+    pub fn set_or_clear_optional<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<wkt::FieldMask>
+    {
+        self.optional = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [repeated][crate::protos::MessageWithFieldMask::repeated].
+    pub fn set_repeated<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<wkt::FieldMask>
+    {
+        use std::iter::Iterator;
+        self.repeated = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [map][crate::protos::MessageWithFieldMask::map].
+    pub fn set_map<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<wkt::FieldMask>,
+    {
+        use std::iter::Iterator;
+        self.map = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for MessageWithFieldMask {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.rust.sdk.test.MessageWithFieldMask"
+    }
+}

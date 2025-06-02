@@ -708,16 +708,6 @@ func addQueryParameter(f *api.Field) string {
 		}
 		return fmt.Sprintf(`let builder = builder.query(&[("%s", &req.%s)]);`, f.JSONName, fieldName)
 	case api.MESSAGE_TYPE:
-		if f.TypezID == ".google.protobuf.FieldMask" {
-			// `FieldMask` (and other well-known types) are special. Their JSON
-			// encoding is a string. That works well for `Timestamp`, `Empty`,
-			// `Duration`, and so forth, but is not what Google Cloud expects
-			// for query parameters.
-			if f.Optional || f.Repeated {
-				return fmt.Sprintf(`let builder = req.%s.as_ref().iter().flat_map(|p| p.paths.iter()).fold(builder, |builder, v| builder.query(&[("%s", v)]));`, fieldName, f.JSONName)
-			}
-			return fmt.Sprintf(`let builder = req.%s.paths.iter().fold(builder, |builder, v| builder.query(&[("%s", v)]));`, fieldName, f.JSONName)
-		}
 		// Query parameters in nested messages are first converted to a
 		// `serde_json::Value`` and then recursively merged into the request
 		// query. The conversion to `serde_json::Value` is expensive, but very
