@@ -18,10 +18,9 @@ limitations under the License.
 //{{{.}}}
 {{/Codec.BoilerPlate}}
 
-{{! Google APIs often use angle brackets for <PLACEHOLDERS>, rustdoc does not like those. }}
-#![allow(rustdoc::invalid_html_tags)]
-{{! We use explicit links because it is easier to generate the code with them. }}
-#![allow(rustdoc::redundant_explicit_links)]
+{{#Codec.DisabledRustdocWarnings}}
+#![allow(rustdoc::{{.}})]
+{{/Codec.DisabledRustdocWarnings}}
 {{#Codec.IsWktCrate}}
 {{!
 This file is used to bootstrap the `google-cloud-wkt` crate. In all other crates

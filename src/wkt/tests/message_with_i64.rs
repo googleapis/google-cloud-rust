@@ -17,20 +17,12 @@ mod test {
     use serde_json::json;
     type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 
-    #[serde_with::serde_as]
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(default, rename_all = "camelCase")]
-    pub struct MessageWithI64 {
-        #[serde(skip_serializing_if = "google_cloud_wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
-        pub singular: i64,
-        #[serde(skip_serializing_if = "Option::is_none")]
-        #[serde_as(as = "Option<serde_with::DisplayFromStr>")]
-        pub optional: Option<i64>,
-        #[serde(skip_serializing_if = "Vec::is_empty")]
-        #[serde_as(as = "Vec<serde_with::DisplayFromStr>")]
-        pub repeated: Vec<i64>,
+    #[allow(dead_code)]
+    mod protos {
+        use google_cloud_wkt as wkt;
+        include!("generated/mod.rs");
     }
+    use protos::MessageWithI64;
 
     // 1 << 60 is too large to be represented as a JSON number, those are
     // always IEEE 754 double precision floating point numbers, which only
@@ -39,10 +31,7 @@ mod test {
 
     #[test]
     fn test_singular() -> Result {
-        let msg = MessageWithI64 {
-            singular: TEST_VALUE,
-            ..Default::default()
-        };
+        let msg = MessageWithI64::new().set_singular(TEST_VALUE);
         let got = serde_json::to_value(&msg)?;
         let want = json!({"singular": format!("{TEST_VALUE}")});
         assert_eq!(want, got);
@@ -54,10 +43,7 @@ mod test {
 
     #[test]
     fn test_optional() -> Result {
-        let msg = MessageWithI64 {
-            optional: Some(TEST_VALUE),
-            ..Default::default()
-        };
+        let msg = MessageWithI64::new().set_optional(TEST_VALUE);
         let got = serde_json::to_value(&msg)?;
         let want = json!({"optional": format!("{TEST_VALUE}")});
         assert_eq!(want, got);
@@ -69,10 +55,7 @@ mod test {
 
     #[test]
     fn test_repeated() -> Result {
-        let msg = MessageWithI64 {
-            repeated: vec![TEST_VALUE],
-            ..Default::default()
-        };
+        let msg = MessageWithI64::new().set_repeated([TEST_VALUE]);
         let got = serde_json::to_value(&msg)?;
         let want = json!({"repeated": [format!("{TEST_VALUE}")]});
         assert_eq!(want, got);

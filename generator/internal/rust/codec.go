@@ -111,7 +111,11 @@ func newCodec(protobufSource bool, options map[string]string) (*codec, error) {
 				codec.packageMapping[source] = pkgOption.pkg
 			}
 		case key == "disabled-rustdoc-warnings":
-			codec.disabledRustdocWarnings = strings.Split(definition, ",")
+			if definition == "" {
+				codec.disabledRustdocWarnings = []string{}
+			} else {
+				codec.disabledRustdocWarnings = strings.Split(definition, ",")
+			}
 		case key == "template-override":
 			codec.templateOverride = definition
 		case key == "include-grpc-only-methods":
