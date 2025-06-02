@@ -150,9 +150,13 @@ impl super::stub::Aml for Aml {
         let builder = req
             .update_mask
             .as_ref()
-            .iter()
-            .flat_map(|p| p.paths.iter())
-            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
+            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .transpose()?
+            .into_iter()
+            .fold(builder, |builder, v| {
+                use gaxi::query_parameter::QueryParameter;
+                v.add(builder, "updateMask")
+            });
         let builder = builder.query(&[("requestId", &req.request_id)]);
         self.inner
             .execute(builder, Some(req.instance), options)
@@ -346,9 +350,13 @@ impl super::stub::Aml for Aml {
         let builder = req
             .update_mask
             .as_ref()
-            .iter()
-            .flat_map(|p| p.paths.iter())
-            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
+            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .transpose()?
+            .into_iter()
+            .fold(builder, |builder, v| {
+                use gaxi::query_parameter::QueryParameter;
+                v.add(builder, "updateMask")
+            });
         let builder = builder.query(&[("requestId", &req.request_id)]);
         self.inner
             .execute(builder, Some(req.dataset), options)
@@ -492,9 +500,13 @@ impl super::stub::Aml for Aml {
         let builder = req
             .update_mask
             .as_ref()
-            .iter()
-            .flat_map(|p| p.paths.iter())
-            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
+            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .transpose()?
+            .into_iter()
+            .fold(builder, |builder, v| {
+                use gaxi::query_parameter::QueryParameter;
+                v.add(builder, "updateMask")
+            });
         let builder = builder.query(&[("requestId", &req.request_id)]);
         self.inner.execute(builder, Some(req.model), options).await
     }
@@ -662,9 +674,13 @@ impl super::stub::Aml for Aml {
         let builder = req
             .update_mask
             .as_ref()
-            .iter()
-            .flat_map(|p| p.paths.iter())
-            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
+            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .transpose()?
+            .into_iter()
+            .fold(builder, |builder, v| {
+                use gaxi::query_parameter::QueryParameter;
+                v.add(builder, "updateMask")
+            });
         let builder = builder.query(&[("requestId", &req.request_id)]);
         self.inner
             .execute(builder, Some(req.engine_config), options)
@@ -890,9 +906,13 @@ impl super::stub::Aml for Aml {
         let builder = req
             .update_mask
             .as_ref()
-            .iter()
-            .flat_map(|p| p.paths.iter())
-            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
+            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .transpose()?
+            .into_iter()
+            .fold(builder, |builder, v| {
+                use gaxi::query_parameter::QueryParameter;
+                v.add(builder, "updateMask")
+            });
         let builder = builder.query(&[("requestId", &req.request_id)]);
         self.inner
             .execute(builder, Some(req.prediction_result), options)
@@ -1062,9 +1082,13 @@ impl super::stub::Aml for Aml {
         let builder = req
             .update_mask
             .as_ref()
-            .iter()
-            .flat_map(|p| p.paths.iter())
-            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
+            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .transpose()?
+            .into_iter()
+            .fold(builder, |builder, v| {
+                use gaxi::query_parameter::QueryParameter;
+                v.add(builder, "updateMask")
+            });
         let builder = builder.query(&[("requestId", &req.request_id)]);
         self.inner
             .execute(builder, Some(req.backtest_result), options)
