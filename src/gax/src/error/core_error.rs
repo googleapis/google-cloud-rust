@@ -219,7 +219,7 @@ impl Error {
     /// values, while JSON accepts both. The client libraries convert **known**
     /// enum value names to their integer representation, but unknown values
     /// cannot be sent over gRPC. Verify the enum value is valid, and if so:
-    /// - try using an integer value instead of the enum name, or 
+    /// - try using an integer value instead of the enum name, or
     /// - upgrade the client library: newer versions should include the new
     ///   value.
     ///
