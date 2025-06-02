@@ -246,7 +246,7 @@ impl<'de> serde::de::Deserialize<'de> for Any {
         use serde_json::Value;
         let value = ValueMap::deserialize(deserializer)?;
         match value.get("@type") {
-            None => Err(D::Error::missing_field("@type")),
+            None => Ok(Any(value)),
             Some(Value::String(s)) if validate_type_url(s) => Ok(Any(value)),
             Some(Value::String(s)) => Err(D::Error::invalid_value(Unexpected::Str(s), &EXPECTED)),
             Some(Value::Null) => Err(type_field_invalid_type("JSON null")),
@@ -366,6 +366,7 @@ mod test {
         Ok(())
     }
 
+    #[test_case(json!({"value": "7"}))]
     #[test_case(json!({"@type": "type.googleapis.com/foo"}))]
     #[test_case(json!({"@type": "type.googleapis.com/foo_bar"}))]
     #[test_case(json!({"@type": "type.googleapis.com/foo_bar.baz"}))]
@@ -377,7 +378,6 @@ mod test {
         assert!(any.is_ok(), "{any:?} from {input:?}");
     }
 
-    #[test_case(json!({"value": "7"}))]
     #[test_case(json!({"@type": "", "value": "7"}))]
     #[test_case(json!({"@type": "type.googleapis.com/", "value": "7"}))]
     #[test_case(json!({"@type": "/google.protobuf.Duration", "value": "7"}))]
