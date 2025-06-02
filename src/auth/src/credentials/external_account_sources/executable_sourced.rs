@@ -44,7 +44,7 @@ struct ExecutableResponse {
 
 impl ExecutableResponse {
     fn to_cred_error(&self) -> CredentialsError {
-        return match &self {
+        match &self {
             ExecutableResponse {
                 message: Some(message),
                 code: Some(code),
@@ -60,7 +60,7 @@ impl ExecutableResponse {
                 );
                 CredentialsError::from_msg(false, msg)
             }
-        };
+        }
     }
 }
 
@@ -101,7 +101,7 @@ impl ExecutableSourcedCredentials {
     async fn from_output_file(output_file: String) -> Result<String> {
         let content = std::fs::read_to_string(output_file)
             .map_err(|e| CredentialsError::from_source(false, e))?;
-        return Ok(content);
+        Ok(content)
     }
 
     async fn from_command(command: String) -> Result<String> {
@@ -187,11 +187,10 @@ mod test {
 
         let token_provider = ExecutableSourcedCredentials {
             executable: ExecutableConfig {
-                command: Some(format!("cat {}", path.to_str().unwrap()).into()),
+                command: Some(format!("cat {}", path.to_str().unwrap())),
                 ..ExecutableConfig::default()
             },
         };
-        println!("{}", token_provider.executable.command.clone().unwrap());
         let resp = token_provider.subject_token().await?;
 
         assert_eq!(resp, "an_example_token".to_string());
