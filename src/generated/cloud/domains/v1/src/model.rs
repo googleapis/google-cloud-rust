@@ -72,6 +72,7 @@ pub struct Registration {
     pub expire_time: std::option::Option<wkt::Timestamp>,
 
     /// Output only. The state of the `Registration`
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::registration::State,
 
     /// Output only. The set of issues with the `Registration` that require attention.
@@ -623,9 +624,11 @@ pub mod registration {
 #[non_exhaustive]
 pub struct ManagementSettings {
     /// Output only. The renewal method for this `Registration`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub renewal_method: crate::model::management_settings::RenewalMethod,
 
     /// Controls whether the domain can be transferred to another registrar.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub transfer_lock_state: crate::model::TransferLockState,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1006,6 +1009,7 @@ pub mod dns_settings {
 
         /// Required. The state of DS records for this domain. Used to enable or disable
         /// automatic DNSSEC.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub ds_state: crate::model::dns_settings::DsState,
 
         /// Output only. The list of DS records published for this domain. The list is
@@ -1074,9 +1078,11 @@ pub mod dns_settings {
         pub key_tag: i32,
 
         /// The algorithm used to generate the referenced DNSKEY.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub algorithm: crate::model::dns_settings::ds_record::Algorithm,
 
         /// The hash function used to generate the digest of the referenced DNSKEY.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub digest_type: crate::model::dns_settings::ds_record::DigestType,
 
         /// The digest generated from the referenced DNSKEY.
@@ -1762,6 +1768,7 @@ pub mod dns_settings {
 #[non_exhaustive]
 pub struct ContactSettings {
     /// Required. Privacy setting for the contacts associated with the `Registration`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub privacy: crate::model::ContactPrivacy,
 
     /// Required. The registrant contact for the `Registration`.
@@ -3123,6 +3130,7 @@ pub struct RegisterParameters {
     /// Indicates whether the domain is available for registration. This value is
     /// accurate when obtained by calling `RetrieveRegisterParameters`, but is
     /// approximate when obtained by calling `SearchDomains`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub availability: crate::model::register_parameters::Availability,
 
     /// Contact privacy options that the domain supports.
@@ -3386,6 +3394,7 @@ pub struct TransferParameters {
     /// Indicates whether the domain is protected by a transfer lock. For a
     /// transfer to succeed, this must show `UNLOCKED`. To unlock a domain,
     /// go to its current registrar.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub transfer_lock_state: crate::model::TransferLockState,
 
     /// Contact privacy options that the domain supports.

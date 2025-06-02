@@ -713,6 +713,7 @@ pub struct CloudSqlProperties {
 
     /// Type of the Cloud SQL database.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::cloud_sql_properties::DatabaseType,
 
     /// Input only. Cloud SQL credential.

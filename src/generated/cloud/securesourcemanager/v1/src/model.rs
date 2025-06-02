@@ -72,10 +72,12 @@ pub struct Instance {
     pub private_config: std::option::Option<crate::model::instance::PrivateConfig>,
 
     /// Output only. Current state of the instance.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::instance::State,
 
     /// Output only. An optional field providing information about the current
     /// instance state.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state_note: crate::model::instance::StateNote,
 
     /// Optional. Immutable. Customer-managed encryption key name, in the format

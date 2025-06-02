@@ -41,6 +41,7 @@ extern crate wkt;
 #[non_exhaustive]
 pub struct BigQueryConnectionSpec {
     /// The type of the BigQuery connection.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub connection_type: crate::model::big_query_connection_spec::ConnectionType,
 
     /// True if there are credentials attached to the BigQuery connection; false
@@ -289,6 +290,7 @@ pub struct CloudSqlBigQueryConnectionSpec {
 
     /// Type of the Cloud SQL database.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::cloud_sql_big_query_connection_spec::DatabaseType,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -566,6 +568,7 @@ impl wkt::message::Message for PersonalDetails {
 #[non_exhaustive]
 pub struct DataSource {
     /// Service that physically stores the data.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub service: crate::model::data_source::Service,
 
     /// Full name of a resource as defined by the service. For example:
@@ -3063,6 +3066,7 @@ pub mod entry {
 pub struct DatabaseTableSpec {
     /// Type of this table.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::database_table_spec::TableType,
 
     /// Output only. Fields specific to a Dataplex table and present only in the
@@ -3149,6 +3153,7 @@ pub mod database_table_spec {
     #[non_exhaustive]
     pub struct DatabaseViewSpec {
         /// Type of this view.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub view_type: crate::model::database_table_spec::database_view_spec::ViewType,
 
         /// Definition of the view.
@@ -3639,6 +3644,7 @@ impl wkt::message::Message for DataSourceConnectionSpec {
 #[non_exhaustive]
 pub struct RoutineSpec {
     /// The type of the routine.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub routine_type: crate::model::routine_spec::RoutineType,
 
     /// The language the routine is written in. The exact value depends on the
@@ -3783,6 +3789,7 @@ pub mod routine_spec {
         pub name: std::string::String,
 
         /// Specifies whether the argument is input or output.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub mode: crate::model::routine_spec::argument::Mode,
 
         /// Type of the argument. The exact value depends on the source system and
@@ -4627,6 +4634,7 @@ pub mod service_spec {
 #[non_exhaustive]
 pub struct VertexModelSourceInfo {
     /// Type of the model source.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub source_type: crate::model::vertex_model_source_info::ModelSourceType,
 
     /// If this Model is copy of another Model. If true then
@@ -4953,6 +4961,7 @@ pub struct VertexDatasetSpec {
     pub data_item_count: i64,
 
     /// Type of the dataset.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub data_type: crate::model::vertex_dataset_spec::DataType,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5297,6 +5306,7 @@ pub mod model_spec {
 #[non_exhaustive]
 pub struct FeatureOnlineStoreSpec {
     /// Output only. Type of underlying storage for the FeatureOnlineStore.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub storage_type: crate::model::feature_online_store_spec::StorageType,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6752,6 +6762,7 @@ impl wkt::message::Message for ReconcileTagsResponse {
 #[non_exhaustive]
 pub struct ReconcileTagsMetadata {
     /// State of the reconciliation operation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::reconcile_tags_metadata::ReconciliationState,
 
     /// Maps the name of each tagged column (or empty string for a
@@ -7411,6 +7422,7 @@ impl wkt::message::Message for ImportEntriesResponse {
 #[non_exhaustive]
 pub struct ImportEntriesMetadata {
     /// State of the import operation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::import_entries_metadata::ImportState,
 
     /// Partial errors that are encountered during the ImportEntries operation.
@@ -7980,9 +7992,11 @@ impl wkt::message::Message for OrganizationConfig {
 #[non_exhaustive]
 pub struct MigrationConfig {
     /// Opt-in status for the migration of Tag Templates to Dataplex.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub tag_template_migration: crate::model::TagTemplateMigration,
 
     /// Opt-in status for the UI switch to Dataplex.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub catalog_ui_experience: crate::model::CatalogUIExperience,
 
     /// The time when the Tag Template migration was enabled.
@@ -8255,6 +8269,7 @@ impl wkt::message::Message for DataplexTableSpec {
 #[non_exhaustive]
 pub struct DataplexExternalTable {
     /// Service in which the external table is registered.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub system: crate::model::IntegratedSystem,
 
     /// Fully qualified name (FQN) of the external table.
@@ -9230,6 +9245,7 @@ pub mod taxonomy {
     #[non_exhaustive]
     pub struct Service {
         /// The Google Cloud service name.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub name: crate::model::ManagingSystem,
 
         /// The service agent for the service.
@@ -10857,6 +10873,7 @@ pub struct ColumnSchema {
     pub ordinal_position: i32,
 
     /// Optional. Most important inclusion of this column.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub highest_indexing_type: crate::model::column_schema::IndexingType,
 
     /// Optional. Schema of sub-columns. A column can have zero or more
@@ -11040,6 +11057,7 @@ pub mod column_schema {
     pub struct LookerColumnSpec {
         /// Looker specific column type of this column.
         #[serde(rename = "type")]
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub r#type: crate::model::column_schema::looker_column_spec::LookerColumnType,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11438,6 +11456,7 @@ pub struct SearchCatalogResult {
     ///
     /// You can use this field to determine which get method to call to fetch the
     /// full resource.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub search_result_type: crate::model::SearchResultType,
 
     /// Sub-type of the search result.
@@ -11691,6 +11710,7 @@ pub mod search_catalog_result {
 #[non_exhaustive]
 pub struct BigQueryTableSpec {
     /// Output only. The table source type.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub table_source_type: crate::model::TableSourceType,
 
     /// Output only.
@@ -11999,6 +12019,7 @@ pub struct Tag {
     pub fields: std::collections::HashMap<std::string::String, crate::model::TagField>,
 
     /// Output only. Denotes the transfer status of the Tag Template.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub dataplex_transfer_status: crate::model::tag_template::DataplexTransferStatus,
 
     /// The scope within the parent resource that this tag is attached to. If not
@@ -12461,6 +12482,7 @@ pub struct TagTemplate {
     pub fields: std::collections::HashMap<std::string::String, crate::model::TagTemplateField>,
 
     /// Optional. Transfer status of the TagTemplate
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub dataplex_transfer_status: crate::model::tag_template::DataplexTransferStatus,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

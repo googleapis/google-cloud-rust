@@ -1787,6 +1787,7 @@ pub mod list_workloads_response {
 
         /// Type of a workload.
         #[serde(rename = "type")]
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub r#type: crate::model::list_workloads_response::ComposerWorkloadType,
 
         /// Output only. Status of a workload.
@@ -1852,6 +1853,7 @@ pub mod list_workloads_response {
     #[non_exhaustive]
     pub struct ComposerWorkloadStatus {
         /// Output only. Workload state.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub state: crate::model::list_workloads_response::ComposerWorkloadState,
 
         /// Output only. Text to provide more descriptive status.
@@ -2717,6 +2719,7 @@ pub struct EnvironmentConfig {
     ///
     /// This field is supported for Cloud Composer environments in versions
     /// composer-2.*.*-airflow-*.*.* and newer.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub environment_size: crate::model::environment_config::EnvironmentSize,
 
     /// Output only. The URI of the Apache Airflow Web UI hosted within this
@@ -2754,6 +2757,7 @@ pub struct EnvironmentConfig {
     ///
     /// This field is supported for Cloud Composer environments in versions
     /// composer-2.2.0-airflow-*.*.* and newer.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub resilience_mode: crate::model::environment_config::ResilienceMode,
 
     /// Optional. The configuration setting for Airflow database data retention
@@ -3754,6 +3758,7 @@ pub struct SoftwareConfig {
     ///
     /// This field is supported for Cloud Composer environments in versions
     /// composer-3-airflow-*.*.*-build.* and newer.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub web_server_plugins_mode: crate::model::software_config::WebServerPluginsMode,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4601,6 +4606,7 @@ pub struct NetworkingConfig {
     /// Optional. Indicates the user requested specific connection type between
     /// Tenant and Customer projects. You cannot set networking connection type in
     /// public IP environment.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub connection_type: crate::model::networking_config::ConnectionType,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5737,6 +5743,7 @@ pub struct Environment {
     pub uuid: std::string::String,
 
     /// The current state of the environment.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::environment::State,
 
     /// Output only. The time at which this environment was created.
@@ -6142,6 +6149,7 @@ pub struct CheckUpgradeResponse {
     pub build_log_uri: std::string::String,
 
     /// Output only. Whether build has succeeded or failed on modules conflicts.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub contains_pypi_modules_conflict: crate::model::check_upgrade_response::ConflictResult,
 
     /// Output only. Extract from a docker image build log containing information
@@ -6432,6 +6440,7 @@ impl wkt::message::Message for DataRetentionConfig {
 #[non_exhaustive]
 pub struct TaskLogsRetentionConfig {
     /// Optional. The mode of storage for Airflow workers task logs.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub storage_mode: crate::model::task_logs_retention_config::TaskLogsStorageMode,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6610,6 +6619,7 @@ pub mod task_logs_retention_config {
 #[non_exhaustive]
 pub struct AirflowMetadataRetentionPolicyConfig {
     /// Optional. Retention can be either enabled or disabled.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub retention_mode: crate::model::airflow_metadata_retention_policy_config::RetentionMode,
 
     /// Optional. How many days data should be retained for.
@@ -7022,9 +7032,11 @@ impl wkt::message::Message for ImageVersion {
 #[non_exhaustive]
 pub struct OperationMetadata {
     /// Output only. The current operation state.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::operation_metadata::State,
 
     /// Output only. The type of operation being performed.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub operation_type: crate::model::operation_metadata::Type,
 
     /// Output only. The resource being operated on, as a [relative resource name](

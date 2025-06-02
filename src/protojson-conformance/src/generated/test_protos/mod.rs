@@ -92,10 +92,13 @@ pub struct TestAllTypesProto3 {
     pub optional_foreign_message:
         std::option::Option<crate::generated::test_protos::ForeignMessage>,
 
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub optional_nested_enum: crate::generated::test_protos::test_all_types_proto_3::NestedEnum,
 
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub optional_foreign_enum: crate::generated::test_protos::ForeignEnum,
 
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub optional_aliased_enum: crate::generated::test_protos::test_all_types_proto_3::AliasedEnum,
 
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
@@ -454,6 +457,7 @@ pub struct TestAllTypesProto3 {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub optional_value: std::option::Option<wkt::Value>,
 
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub optional_null_value: wkt::NullValue,
 
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]

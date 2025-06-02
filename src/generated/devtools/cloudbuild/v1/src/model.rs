@@ -188,6 +188,7 @@ pub struct StorageSource {
     pub generation: i64,
 
     /// Option to specify the tool to fetch the source file for the build.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub source_fetcher: crate::model::storage_source::SourceFetcher,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1344,6 +1345,7 @@ pub struct BuildStep {
     /// Output only. Status of the build step. At this time, build step status is
     /// only updated on build completion; step status is not updated in real-time
     /// as the build progresses.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub status: crate::model::build::Status,
 
     /// Allow this build step to fail without failing the entire build.
@@ -1900,6 +1902,7 @@ pub struct Build {
     pub project_id: std::string::String,
 
     /// Output only. Status of the build.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub status: crate::model::build::Status,
 
     /// Output only. Customer-readable message about the current status.
@@ -2487,6 +2490,7 @@ pub mod build {
         pub text: std::string::String,
 
         /// The priority for this warning.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub priority: crate::model::build::warning::Priority,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2676,6 +2680,7 @@ pub mod build {
     pub struct FailureInfo {
         /// The name of the failure.
         #[serde(rename = "type")]
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub r#type: crate::model::build::failure_info::FailureType,
 
         /// Explains the failure issue in more detail using hard-coded text.
@@ -4282,6 +4287,7 @@ impl wkt::message::Message for FileHashes {
 pub struct Hash {
     /// The type of hash that was performed.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::hash::HashType,
 
     /// The hash value.
@@ -5058,6 +5064,7 @@ impl wkt::message::Message for ApproveBuildRequest {
 #[non_exhaustive]
 pub struct BuildApproval {
     /// Output only. The state of this build's approval.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::build_approval::State,
 
     /// Output only. Configuration for manual approval of this build.
@@ -5332,6 +5339,7 @@ pub struct ApprovalResult {
     pub approval_time: std::option::Option<wkt::Timestamp>,
 
     /// Required. The decision of this manual approval.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub decision: crate::model::approval_result::Decision,
 
     /// Optional. An optional comment for this manual approval result.
@@ -5565,6 +5573,7 @@ pub struct GitRepoSource {
     pub r#ref: std::string::String,
 
     /// See RepoType below.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub repo_type: crate::model::git_file_source::RepoType,
 
     /// The source of the SCM repo.
@@ -5741,6 +5750,7 @@ pub struct GitFileSource {
     pub uri: std::string::String,
 
     /// See RepoType above.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub repo_type: crate::model::git_file_source::RepoType,
 
     /// The branch, tag, arbitrary ref, or SHA version of the repo to use when
@@ -6587,6 +6597,7 @@ pub struct RepositoryEventConfig {
     pub repository: std::string::String,
 
     /// Output only. The type of the SCM vendor the repository points to.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub repository_type: crate::model::repository_event_config::RepositoryType,
 
     /// The types of filter to trigger a build.
@@ -7032,6 +7043,7 @@ pub struct PubsubConfig {
 
     /// Potential issues with the underlying Pub/Sub subscription configuration.
     /// Only populated on get requests.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::pubsub_config::State,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7244,6 +7256,7 @@ pub mod pubsub_config {
 pub struct WebhookConfig {
     /// Potential issues with the underlying Pub/Sub subscription configuration.
     /// Only populated on get requests.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::webhook_config::State,
 
     /// Auth method specifies how the webhook authenticates with GCP.
@@ -7475,6 +7488,7 @@ pub struct PullRequestFilter {
     /// If CommentControl is set to disabled, comments with `/gcbrun` from a user
     /// with repository write permission or above will
     /// still trigger builds to run.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub comment_control: crate::model::pull_request_filter::CommentControl,
 
     /// If true, branches that do NOT match the git_ref will trigger a build.
@@ -8245,9 +8259,11 @@ pub struct BuildOptions {
     pub source_provenance_hash: std::vec::Vec<crate::model::hash::HashType>,
 
     /// Requested verifiability options.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub requested_verify_option: crate::model::build_options::VerifyOption,
 
     /// Compute Engine machine type on which to run the build.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub machine_type: crate::model::build_options::MachineType,
 
     /// Requested disk size for the VM that runs the build. Note that this is *NOT*
@@ -8265,6 +8281,7 @@ pub struct BuildOptions {
     ///
     /// NOTE: this is always set to ALLOW_LOOSE for triggered builds and cannot
     /// be overridden in the build configuration file.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub substitution_option: crate::model::build_options::SubstitutionOption,
 
     /// Option to specify whether or not to apply bash style string
@@ -8282,6 +8299,7 @@ pub struct BuildOptions {
 
     /// Option to define build log streaming behavior to Cloud
     /// Storage.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub log_streaming_option: crate::model::build_options::LogStreamingOption,
 
     /// This field deprecated; please use `pool.name` instead.
@@ -8299,6 +8317,7 @@ pub struct BuildOptions {
 
     /// Option to specify the logging mode, which determines if and where build
     /// logs are stored.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub logging: crate::model::build_options::LoggingMode,
 
     /// A list of global environment variable definitions that will exist for all
@@ -8330,6 +8349,7 @@ pub struct BuildOptions {
     pub volumes: std::vec::Vec<crate::model::Volume>,
 
     /// Optional. Option to specify how default logs buckets are setup.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub default_logs_bucket_behavior: crate::model::build_options::DefaultLogsBucketBehavior,
 
     /// Optional. Option to specify whether structured logging is enabled.
@@ -9792,6 +9812,7 @@ pub struct WorkerPool {
     pub delete_time: std::option::Option<wkt::Timestamp>,
 
     /// Output only. `WorkerPool` state.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::worker_pool::State,
 
     /// Output only. Checksum computed by the server. May be sent on update and
@@ -10300,6 +10321,7 @@ pub mod private_pool_v_1_config {
         pub peered_network: std::string::String,
 
         /// Option to configure network egress for the workers.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub egress_option: crate::model::private_pool_v_1_config::network_config::EgressOption,
 
         /// Immutable. Subnet IP range within the peered network. This is specified

@@ -405,6 +405,7 @@ pub struct Case {
     pub subscriber_email_addresses: std::vec::Vec<std::string::String>,
 
     /// Output only. The current status of the support case.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::case::State,
 
     /// Output only. The time this case was created.
@@ -449,6 +450,7 @@ pub struct Case {
     pub language_code: std::string::String,
 
     /// The priority of this case.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub priority: crate::model::case::Priority,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1941,6 +1943,7 @@ impl wkt::message::Message for CreateCommentRequest {
 #[non_exhaustive]
 pub struct Escalation {
     /// Required. The reason why the Case is being escalated.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub reason: crate::model::escalation::Reason,
 
     /// Required. A free text description to accompany the `reason` field above.

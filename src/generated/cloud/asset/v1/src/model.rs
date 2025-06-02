@@ -164,6 +164,7 @@ pub struct ExportAssetsRequest {
 
     /// Asset content type. If not specified, no content but the asset name will be
     /// returned.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub content_type: crate::model::ContentType,
 
     /// Required. Output configuration indicating where the results will be output
@@ -422,6 +423,7 @@ pub struct ListAssetsRequest {
 
     /// Asset content type. If not specified, no content but the asset name will
     /// be returned.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub content_type: crate::model::ContentType,
 
     /// The maximum number of assets to be returned in a single response. Default
@@ -646,6 +648,7 @@ pub struct BatchGetAssetsHistoryRequest {
     pub asset_names: std::vec::Vec<std::string::String>,
 
     /// Optional. The content type.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub content_type: crate::model::ContentType,
 
     /// Optional. The time window for the asset history. Both start_time and
@@ -1576,6 +1579,7 @@ impl wkt::message::Message for BigQueryDestination {
 #[non_exhaustive]
 pub struct PartitionSpec {
     /// The partition key for BigQuery partitioned table.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub partition_key: crate::model::partition_spec::PartitionKey,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1915,6 +1919,7 @@ pub struct Feed {
 
     /// Asset content type. If not specified, no content but the asset name and
     /// type will be returned.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub content_type: crate::model::ContentType,
 
     /// Required. Feed output configuration defining where the asset updates are
@@ -3676,6 +3681,7 @@ pub mod iam_policy_analysis_output_config {
         pub table_prefix: std::string::String,
 
         /// The partition key for BigQuery partitioned table.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub partition_key:
             crate::model::iam_policy_analysis_output_config::big_query_destination::PartitionKey,
 
@@ -4662,6 +4668,7 @@ pub struct AnalyzeMoveRequest {
 
     /// Analysis view indicating what information should be included in the
     /// analysis response. If unspecified, the default view is FULL.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub view: crate::model::analyze_move_request::AnalysisView,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6733,6 +6740,7 @@ pub mod analyzer_org_policy_constraint {
         pub description: std::string::String,
 
         /// The evaluation behavior of this constraint in the absence of 'Policy'.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub constraint_default:
             crate::model::analyzer_org_policy_constraint::constraint::ConstraintDefault,
 
@@ -7170,6 +7178,7 @@ pub mod analyzer_org_policy_constraint {
         pub condition: std::string::String,
 
         /// Allow or deny type.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub action_type:
             crate::model::analyzer_org_policy_constraint::custom_constraint::ActionType,
 
@@ -8977,6 +8986,7 @@ pub struct TemporalAsset {
     pub asset: std::option::Option<crate::model::Asset>,
 
     /// State of prior_asset.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub prior_asset_state: crate::model::temporal_asset::PriorAssetState,
 
     /// Prior copy of the asset. Populated if prior_asset_state is PRESENT.
@@ -11531,6 +11541,7 @@ pub struct IamPolicyAnalysisState {
     /// - PERMISSION_DENIED means an access denied error is encountered;
     /// - DEADLINE_EXCEEDED means the analysis on this entity hasn't been started
     ///   in time;
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub code: rpc::model::Code,
 
     /// The human-readable description of the cause of failure.
@@ -11572,6 +11583,7 @@ impl wkt::message::Message for IamPolicyAnalysisState {
 #[non_exhaustive]
 pub struct ConditionEvaluation {
     /// The evaluation result.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub evaluation_value: crate::model::condition_evaluation::EvaluationValue,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

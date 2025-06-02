@@ -394,6 +394,10 @@ func TestMethodInOut(t *testing.T) {
 }
 
 func TestFieldAttributes(t *testing.T) {
+	enum := &api.Enum{
+		Name: "FakeEnum",
+		ID:   "..FakeNum",
+	}
 	message := &api.Message{
 		Name: "Fake",
 		ID:   "..Fake",
@@ -463,9 +467,33 @@ func TestFieldAttributes(t *testing.T) {
 				Optional: false,
 				Repeated: true,
 			},
+			{
+				Name:     "f_enum",
+				JSONName: "fEnum",
+				Typez:    api.ENUM_TYPE,
+				TypezID:  "..FakeEnum",
+				Optional: false,
+				Repeated: false,
+			},
+			{
+				Name:     "f_enum_optional",
+				JSONName: "fEnumOptional",
+				Typez:    api.ENUM_TYPE,
+				TypezID:  "..FakeEnum",
+				Optional: true,
+				Repeated: false,
+			},
+			{
+				Name:     "f_enum_repeated",
+				JSONName: "fEnumRepeated",
+				Typez:    api.ENUM_TYPE,
+				TypezID:  "..FakeEnum",
+				Optional: false,
+				Repeated: true,
+			},
 		},
 	}
-	model := api.NewTestAPI([]*api.Message{message}, []*api.Enum{}, []*api.Service{})
+	model := api.NewTestAPI([]*api.Message{message}, []*api.Enum{enum}, []*api.Service{})
 
 	expectedAttributes := map[string]string{
 		"f_int64":          `#[serde(skip_serializing_if = "wkt::internal::is_default")]` + "\n" + `#[serde_as(as = "serde_with::DisplayFromStr")]`,
@@ -479,6 +507,10 @@ func TestFieldAttributes(t *testing.T) {
 		"f_string":          `#[serde(skip_serializing_if = "std::string::String::is_empty")]`,
 		"f_string_optional": `#[serde(skip_serializing_if = "std::option::Option::is_none")]`,
 		"f_string_repeated": `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]`,
+
+		"f_enum":          `#[serde(skip_serializing_if = "wkt::internal::is_default")]`,
+		"f_enum_optional": `#[serde(skip_serializing_if = "std::option::Option::is_none")]`,
+		"f_enum_repeated": `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]`,
 	}
 	loadWellKnownTypes(model.State)
 	for _, field := range message.Fields {

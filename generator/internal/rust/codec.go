@@ -462,7 +462,8 @@ func fieldSkipAttributes(f *api.Field) []string {
 		api.SFIXED32_TYPE,
 		api.SFIXED64_TYPE,
 		api.SINT32_TYPE,
-		api.SINT64_TYPE:
+		api.SINT64_TYPE,
+		api.ENUM_TYPE:
 		return []string{`#[serde(skip_serializing_if = "wkt::internal::is_default")]`}
 	default:
 		return []string{}

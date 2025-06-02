@@ -69,6 +69,7 @@ pub struct Api {
     pub managed_service: std::string::String,
 
     /// Output only. State of the API.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::api::State,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -364,6 +365,7 @@ pub struct ApiConfig {
     pub service_config_id: std::string::String,
 
     /// Output only. State of the API Config.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::api_config::State,
 
     /// Optional. OpenAPI specification documents. If specified, grpc_services and
@@ -888,6 +890,7 @@ pub struct Gateway {
     pub api_config: std::string::String,
 
     /// Output only. The current state of the Gateway.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::gateway::State,
 
     /// Output only. The default API Gateway host name of the form
@@ -2015,6 +2018,7 @@ pub struct GetApiConfigRequest {
 
     /// Specifies which fields of the API Config are returned in the response.
     /// Defaults to `BASIC` view.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub view: crate::model::get_api_config_request::ConfigView,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

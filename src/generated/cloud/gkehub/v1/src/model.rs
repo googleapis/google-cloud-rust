@@ -288,6 +288,7 @@ impl wkt::message::Message for Feature {
 #[non_exhaustive]
 pub struct FeatureResourceState {
     /// The current state of the Feature resource in the Hub API.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::feature_resource_state::State,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -486,6 +487,7 @@ pub mod feature_resource_state {
 #[non_exhaustive]
 pub struct FeatureState {
     /// The high-level, machine-readable status of this Feature.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub code: crate::model::feature_state::Code,
 
     /// A human-readable description of the current status.
@@ -1919,6 +1921,7 @@ impl wkt::message::Message for MonitoringConfig {
 #[non_exhaustive]
 pub struct MembershipState {
     /// Output only. The current state of the Membership resource.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub code: crate::model::membership_state::Code,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

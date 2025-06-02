@@ -39,6 +39,7 @@ pub struct Document {
     /// Required. If the type is not set or is `TYPE_UNSPECIFIED`,
     /// returns an `INVALID_ARGUMENT` error.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::document::Type,
 
     /// Optional. The language of the document (if not specified, the language is
@@ -381,6 +382,7 @@ pub struct Entity {
 
     /// The entity type.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::entity::Type,
 
     /// Metadata associated with the entity.
@@ -776,6 +778,7 @@ pub struct EntityMention {
 
     /// The type of the entity mention.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::entity_mention::Type,
 
     /// For calls to [AnalyzeEntitySentiment][] or if
@@ -1113,6 +1116,7 @@ pub struct AnalyzeSentimentRequest {
     pub document: std::option::Option<crate::model::Document>,
 
     /// The encoding type used by the API to calculate sentence offsets.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub encoding_type: crate::model::EncodingType,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1252,6 +1256,7 @@ pub struct AnalyzeEntitiesRequest {
     pub document: std::option::Option<crate::model::Document>,
 
     /// The encoding type used by the API to calculate offsets.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub encoding_type: crate::model::EncodingType,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1474,6 +1479,7 @@ pub struct ModerateTextRequest {
     pub document: std::option::Option<crate::model::Document>,
 
     /// Optional. The model version to use for ModerateText.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub model_version: crate::model::moderate_text_request::ModelVersion,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1740,6 +1746,7 @@ pub struct AnnotateTextRequest {
     pub features: std::option::Option<crate::model::annotate_text_request::Features>,
 
     /// The encoding type used by the API to calculate offsets.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub encoding_type: crate::model::EncodingType,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

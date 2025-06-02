@@ -272,6 +272,7 @@ pub mod inventory {
         pub id: std::string::String,
 
         /// The origin of this inventory item.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub origin_type: crate::model::inventory::item::OriginType,
 
         /// When this inventory item was first detected.
@@ -284,6 +285,7 @@ pub mod inventory {
 
         /// The specific type of inventory, correlating to its specific details.
         #[serde(rename = "type")]
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub r#type: crate::model::inventory::item::Type,
 
         /// Specific details of this inventory item based on its type.
@@ -1628,6 +1630,7 @@ pub struct GetInventoryRequest {
 
     /// Inventory view indicating what information should be included in the
     /// inventory resource. If unspecified, the default view is BASIC.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub view: crate::model::InventoryView,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1675,6 +1678,7 @@ pub struct ListInventoriesRequest {
 
     /// Inventory view indicating what information should be included in the
     /// inventory resource. If unspecified, the default view is BASIC.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub view: crate::model::InventoryView,
 
     /// The maximum number of results to return.
@@ -1822,6 +1826,7 @@ pub struct OSPolicy {
     pub description: std::string::String,
 
     /// Required. Policy mode
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub mode: crate::model::os_policy::Mode,
 
     /// Required. List of resource groups for the policy.
@@ -2437,6 +2442,7 @@ pub mod os_policy {
         #[non_exhaustive]
         pub struct PackageResource {
             /// Required. The desired state the agent should maintain for this package.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub desired_state: crate::model::os_policy::resource::package_resource::DesiredState,
 
             /// A system package.
@@ -3480,6 +3486,7 @@ pub mod os_policy {
             pub struct AptRepository {
 
                 /// Required. Type of archive files in this repository.
+                #[serde(skip_serializing_if = "wkt::internal::is_default")]
                 pub archive_type: crate::model::os_policy::resource::repository_resource::apt_repository::ArchiveType,
 
                 /// Required. URI for this repository.
@@ -4049,6 +4056,7 @@ pub mod os_policy {
                 pub args: std::vec::Vec<std::string::String>,
 
                 /// Required. The script interpreter to use.
+                #[serde(skip_serializing_if = "wkt::internal::is_default")]
                 pub interpreter:
                     crate::model::os_policy::resource::exec_resource::exec::Interpreter,
 
@@ -4378,6 +4386,7 @@ pub mod os_policy {
             pub path: std::string::String,
 
             /// Required. Desired state of the file.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub state: crate::model::os_policy::resource::file_resource::DesiredState,
 
             /// Consists of three octal digits which represent, in
@@ -5227,6 +5236,7 @@ pub mod os_policy_assignment_report {
         pub os_policy_id: std::string::String,
 
         /// The compliance state of the OS policy.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub compliance_state: crate::model::os_policy_assignment_report::os_policy_compliance::ComplianceState,
 
         /// The reason for the OS policy to be in an unknown compliance state.
@@ -5330,6 +5340,7 @@ pub mod os_policy_assignment_report {
             pub config_steps: std::vec::Vec<crate::model::os_policy_assignment_report::os_policy_compliance::os_policy_resource_compliance::OSPolicyResourceConfigStep>,
 
             /// The compliance state of the resource.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub compliance_state: crate::model::os_policy_assignment_report::os_policy_compliance::os_policy_resource_compliance::ComplianceState,
 
             /// A reason for the resource to be in the given compliance state.
@@ -5454,6 +5465,7 @@ pub mod os_policy_assignment_report {
 
                 /// Configuration step type.
                 #[serde(rename = "type")]
+                #[serde(skip_serializing_if = "wkt::internal::is_default")]
                 pub r#type: crate::model::os_policy_assignment_report::os_policy_compliance::os_policy_resource_compliance::os_policy_resource_config_step::Type,
 
                 /// An error message recorded during the execution of this step.
@@ -6057,6 +6069,7 @@ pub struct OSPolicyAssignment {
     pub etag: std::string::String,
 
     /// Output only. OS policy assignment rollout state
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub rollout_state: crate::model::os_policy_assignment::RolloutState,
 
     /// Output only. Indicates that this revision has been successfully rolled out
@@ -6663,9 +6676,11 @@ pub struct OSPolicyAssignmentOperationMetadata {
     pub os_policy_assignment: std::string::String,
 
     /// The OS policy assignment API method.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub api_method: crate::model::os_policy_assignment_operation_metadata::APIMethod,
 
     /// State of the rollout
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub rollout_state: crate::model::os_policy_assignment_operation_metadata::RolloutState,
 
     /// Rollout start time
@@ -7650,6 +7665,7 @@ pub struct PatchDeployment {
     pub rollout: std::option::Option<crate::model::PatchRollout>,
 
     /// Output only. Current state of the patch deployment.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::patch_deployment::State,
 
     /// Schedule for the patch.
@@ -8119,6 +8135,7 @@ pub struct RecurringSchedule {
     pub time_of_day: std::option::Option<gtype::model::TimeOfDay>,
 
     /// Required. The frequency unit of this recurring schedule.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub frequency: crate::model::recurring_schedule::Frequency,
 
     /// Output only. The time the last patch job ran successfully.
@@ -8505,6 +8522,7 @@ pub mod recurring_schedule {
 #[non_exhaustive]
 pub struct WeeklySchedule {
     /// Required. Day of the week.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub day_of_week: gtype::model::DayOfWeek,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8658,6 +8676,7 @@ pub struct WeekDayOfMonth {
     pub week_ordinal: i32,
 
     /// Required. A day of the week.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub day_of_week: gtype::model::DayOfWeek,
 
     /// Optional. Represents the number of days before or after the given week day
@@ -9429,6 +9448,7 @@ pub struct PatchJobInstanceDetails {
     pub instance_system_id: std::string::String,
 
     /// Current state of instance patch.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::instance::PatchState,
 
     /// If the patch fails, this field provides the reason.
@@ -9655,6 +9675,7 @@ pub struct PatchJob {
     pub update_time: std::option::Option<wkt::Timestamp>,
 
     /// The current state of the PatchJob.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::patch_job::State,
 
     /// Instances to patch.
@@ -10287,6 +10308,7 @@ pub mod patch_job {
 #[non_exhaustive]
 pub struct PatchConfig {
     /// Post-patch reboot settings.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub reboot_config: crate::model::patch_config::RebootConfig,
 
     /// Apt update settings. Use this setting to override the default `apt` patch
@@ -10927,6 +10949,7 @@ pub struct AptSettings {
     /// By changing the type to DIST, the patching is performed
     /// using `apt-get dist-upgrade` instead.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::apt_settings::Type,
 
     /// List of packages to exclude from update. These packages will be excluded
@@ -11691,6 +11714,7 @@ pub struct ExecStepConfig {
     /// specified the script will be executed directly, which will likely
     /// only succeed for scripts with [shebang lines]
     /// (<https://en.wikipedia.org/wiki/Shebang_>\(Unix\)).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub interpreter: crate::model::exec_step_config::Interpreter,
 
     /// Location of the executable.
@@ -12171,6 +12195,7 @@ pub mod patch_instance_filter {
 #[non_exhaustive]
 pub struct PatchRollout {
     /// Mode of the patch rollout.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub mode: crate::model::patch_rollout::Mode,
 
     /// The maximum number (or percentage) of VMs per zone to disrupt at any given
@@ -13071,36 +13096,44 @@ pub struct CVSSv3 {
 
     /// This metric reflects the context by which vulnerability exploitation is
     /// possible.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub attack_vector: crate::model::cvs_sv_3::AttackVector,
 
     /// This metric describes the conditions beyond the attacker's control that
     /// must exist in order to exploit the vulnerability.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub attack_complexity: crate::model::cvs_sv_3::AttackComplexity,
 
     /// This metric describes the level of privileges an attacker must possess
     /// before successfully exploiting the vulnerability.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub privileges_required: crate::model::cvs_sv_3::PrivilegesRequired,
 
     /// This metric captures the requirement for a human user, other than the
     /// attacker, to participate in the successful compromise of the vulnerable
     /// component.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub user_interaction: crate::model::cvs_sv_3::UserInteraction,
 
     /// The Scope metric captures whether a vulnerability in one vulnerable
     /// component impacts resources in components beyond its security scope.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub scope: crate::model::cvs_sv_3::Scope,
 
     /// This metric measures the impact to the confidentiality of the information
     /// resources managed by a software component due to a successfully exploited
     /// vulnerability.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub confidentiality_impact: crate::model::cvs_sv_3::Impact,
 
     /// This metric measures the impact to integrity of a successfully exploited
     /// vulnerability.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub integrity_impact: crate::model::cvs_sv_3::Impact,
 
     /// This metric measures the impact to the availability of the impacted
     /// component resulting from a successfully exploited vulnerability.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub availability_impact: crate::model::cvs_sv_3::Impact,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

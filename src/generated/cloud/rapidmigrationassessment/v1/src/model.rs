@@ -142,6 +142,7 @@ pub struct Collector {
     pub expected_asset_count: i64,
 
     /// Output only. State of the Collector.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::collector::State,
 
     /// Output only. Client version.
@@ -538,6 +539,7 @@ pub struct Annotation {
 
     /// Type of an annotation.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::annotation::Type,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

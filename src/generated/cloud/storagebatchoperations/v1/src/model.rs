@@ -585,6 +585,7 @@ pub struct Job {
     pub error_summaries: std::vec::Vec<crate::model::ErrorSummary>,
 
     /// Output only. State of the job.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::job::State,
 
     /// Specifies objects to be transformed.
@@ -1342,11 +1343,13 @@ impl wkt::message::Message for PrefixList {
 pub struct PutObjectHold {
     /// Required. Updates object temporary holds state. When object temporary hold
     /// is set, object cannot be deleted or replaced.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub temporary_hold: crate::model::put_object_hold::HoldStatus,
 
     /// Required. Updates object event based holds state. When object event based
     /// hold is set, object cannot be deleted or replaced. Resets object's time in
     /// the bucket for the purposes of the retention period.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub event_based_hold: crate::model::put_object_hold::HoldStatus,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1820,6 +1823,7 @@ impl wkt::message::Message for PutMetadata {
 #[non_exhaustive]
 pub struct ErrorSummary {
     /// Required. The canonical error code.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub error_code: rpc::model::Code,
 
     /// Required. Number of errors encountered per `error_code`.

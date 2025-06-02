@@ -79,6 +79,7 @@ pub struct Api {
     pub mixins: std::vec::Vec<crate::Mixin>,
 
     /// The source syntax of the service.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub syntax: crate::Syntax,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -197,6 +198,7 @@ pub struct Method {
     pub options: std::vec::Vec<crate::Option>,
 
     /// The source syntax of this method.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub syntax: crate::Syntax,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -494,6 +496,7 @@ pub struct FileDescriptorProto {
     pub syntax: std::string::String,
 
     /// The edition of the proto file.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub edition: crate::Edition,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -945,6 +948,7 @@ pub struct ExtensionRangeOptions {
     /// The verification state of the range.
     /// TODO: flip the default to DECLARATION once all empty ranges
     /// are marked as UNVERIFIED.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub verification: crate::extension_range_options::VerificationState,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1234,11 +1238,13 @@ pub struct FieldDescriptorProto {
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub number: i32,
 
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub label: crate::field_descriptor_proto::Label,
 
     /// If type_name is set, this need not be set.  If both this and type_name
     /// are set, this must be one of TYPE_ENUM, TYPE_MESSAGE or TYPE_GROUP.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::field_descriptor_proto::Type,
 
     /// For message and enum types, this is the name of the type.  If the name
@@ -2236,6 +2242,7 @@ pub struct FileOptions {
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub java_string_check_utf8: bool,
 
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub optimize_for: crate::file_options::OptimizeMode,
 
     /// Sets the Go package where structs generated from this .proto will be
@@ -2819,6 +2826,7 @@ pub struct FieldOptions {
     /// [ctype=CORD] and [ctype=STRING] (the default) on non-repeated fields of
     /// type "bytes" in the open source release.
     /// TODO: make ctype actually deprecated.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub ctype: crate::field_options::CType,
 
     /// The packed option can be enabled for repeated primitive fields to enable
@@ -2842,6 +2850,7 @@ pub struct FieldOptions {
     ///
     /// This option is an enum to permit additional types to be added, e.g.
     /// goog.math.Integer.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub jstype: crate::field_options::JSType,
 
     /// Should this field be parsed lazily?  Lazy applies only to message-type
@@ -2891,6 +2900,7 @@ pub struct FieldOptions {
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub debug_redact: bool,
 
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub retention: crate::field_options::OptionRetention,
 
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
@@ -3062,6 +3072,7 @@ pub mod field_options {
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
     pub struct EditionDefault {
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub edition: crate::Edition,
 
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
@@ -3104,10 +3115,12 @@ pub mod field_options {
         /// The edition that this feature was first available in.  In editions
         /// earlier than this one, the default assigned to EDITION_LEGACY will be
         /// used, and proto files will not be able to override it.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub edition_introduced: crate::Edition,
 
         /// The edition this feature becomes deprecated in.  Using this after this
         /// edition may trigger warnings.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub edition_deprecated: crate::Edition,
 
         /// The deprecation warning text if this feature is used after the edition it
@@ -3118,6 +3131,7 @@ pub mod field_options {
         /// The edition this feature is no longer available in.  In editions after
         /// this one, the last default assigned will be used, and proto files will
         /// not be able to override it.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub edition_removed: crate::Edition,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4088,6 +4102,7 @@ pub struct MethodOptions {
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub deprecated: bool,
 
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub idempotency_level: crate::method_options::IdempotencyLevel,
 
     /// Any features defined in the specific edition.
@@ -4460,16 +4475,22 @@ pub mod uninterpreted_option {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct FeatureSet {
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub field_presence: crate::feature_set::FieldPresence,
 
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enum_type: crate::feature_set::EnumType,
 
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub repeated_field_encoding: crate::feature_set::RepeatedFieldEncoding,
 
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub utf8_validation: crate::feature_set::Utf8Validation,
 
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub message_encoding: crate::feature_set::MessageEncoding,
 
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub json_format: crate::feature_set::JsonFormat,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5338,10 +5359,12 @@ pub struct FeatureSetDefaults {
 
     /// The minimum supported edition (inclusive) when this was constructed.
     /// Editions before this will not have defaults.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub minimum_edition: crate::Edition,
 
     /// The maximum known edition (inclusive) when this was constructed. Editions
     /// after this will not have reliable defaults.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub maximum_edition: crate::Edition,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5397,6 +5420,7 @@ pub mod feature_set_defaults {
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
     pub struct FeatureSetEditionDefault {
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub edition: crate::Edition,
 
         /// Defaults of features that can be overridden in this edition.
@@ -5786,6 +5810,7 @@ pub mod generated_code_info {
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub end: i32,
 
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub semantic: crate::generated_code_info::annotation::Semantic,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6048,6 +6073,7 @@ pub struct Type {
     pub source_context: std::option::Option<crate::SourceContext>,
 
     /// The source syntax.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub syntax: crate::Syntax,
 
     /// The source edition string, only valid when syntax is SYNTAX_EDITIONS.
@@ -6146,9 +6172,11 @@ impl wkt::message::Message for Type {
 #[non_exhaustive]
 pub struct Field {
     /// The field type.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub kind: crate::field::Kind,
 
     /// The field cardinality.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub cardinality: crate::field::Cardinality,
 
     /// The field number.
@@ -6681,6 +6709,7 @@ pub struct Enum {
     pub source_context: std::option::Option<crate::SourceContext>,
 
     /// The source syntax.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub syntax: crate::Syntax,
 
     /// The source edition string, only valid when syntax is SYNTAX_EDITIONS.

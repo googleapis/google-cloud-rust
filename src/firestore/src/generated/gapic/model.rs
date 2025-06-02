@@ -4999,6 +4999,7 @@ pub mod target {
 #[non_exhaustive]
 pub struct TargetChange {
     /// The type of change that occurred.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub target_change_type: crate::model::target_change::TargetChangeType,
 
     /// The target IDs of targets that have changed.
@@ -6133,6 +6134,7 @@ pub mod structured_query {
     #[non_exhaustive]
     pub struct CompositeFilter {
         /// The operator for combining multiple filters.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub op: crate::model::structured_query::composite_filter::Operator,
 
         /// The list of filters to combine.
@@ -6333,6 +6335,7 @@ pub mod structured_query {
         pub field: std::option::Option<crate::model::structured_query::FieldReference>,
 
         /// The operator to filter by.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub op: crate::model::structured_query::field_filter::Operator,
 
         /// The value to compare to.
@@ -6648,6 +6651,7 @@ pub mod structured_query {
     #[non_exhaustive]
     pub struct UnaryFilter {
         /// The unary operator to apply.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub op: crate::model::structured_query::unary_filter::Operator,
 
         /// The argument to the filter.
@@ -6928,6 +6932,7 @@ pub mod structured_query {
         pub field: std::option::Option<crate::model::structured_query::FieldReference>,
 
         /// The direction to order by. Defaults to `ASCENDING`.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub direction: crate::model::structured_query::Direction,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7074,6 +7079,7 @@ pub mod structured_query {
         pub query_vector: std::option::Option<crate::model::Value>,
 
         /// Required. The distance measure to use, required.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub distance_measure: crate::model::structured_query::find_nearest::DistanceMeasure,
 
         /// Required. The number of nearest neighbors to return. Must be a positive

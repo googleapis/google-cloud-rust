@@ -201,6 +201,7 @@ pub struct ServiceConnectionMap {
 
     /// Output only. The infrastructure used for connections between
     /// consumers/producers.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub infrastructure: crate::model::Infrastructure,
 
     /// The PSC configurations on producer side.
@@ -453,6 +454,7 @@ pub mod service_connection_map {
 
         /// Output only. Overall state of PSC Connections management for this
         /// consumer psc config.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub state: crate::model::service_connection_map::consumer_psc_config::State,
 
         /// Immutable. Deprecated. Use producer_instance_metadata instead.
@@ -772,6 +774,7 @@ pub mod service_connection_map {
         pub service_attachment_uri: std::string::String,
 
         /// The state of the PSC connection.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub state: crate::model::service_connection_map::consumer_psc_connection::State,
 
         /// The consumer project whose PSC forwarding rule is connected to the
@@ -798,6 +801,7 @@ pub mod service_connection_map {
 
         /// The error type indicates whether the error is consumer facing, producer
         /// facing or system internal.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[deprecated]
         pub error_type: crate::model::ConnectionErrorType,
 
@@ -1689,6 +1693,7 @@ pub struct ServiceConnectionPolicy {
 
     /// Output only. The type of underlying resources used to create the
     /// connection.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub infrastructure: crate::model::Infrastructure,
 
     /// Configuration used for Private Service Connect connections. Used when
@@ -1877,6 +1882,7 @@ pub mod service_connection_policy {
         /// Required. ProducerInstanceLocation is used to specify which authorization
         /// mechanism to use to determine which projects the Producer instance can be
         /// within.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub producer_instance_location:
             crate::model::service_connection_policy::psc_config::ProducerInstanceLocation,
 
@@ -2119,6 +2125,7 @@ pub mod service_connection_policy {
     #[non_exhaustive]
     pub struct PscConnection {
         /// State of the PSC Connection
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub state: crate::model::service_connection_policy::State,
 
         /// The resource reference of the PSC Forwarding Rule within the consumer
@@ -2132,6 +2139,7 @@ pub mod service_connection_policy {
 
         /// The error type indicates whether the error is consumer facing, producer
         /// facing or system internal.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[deprecated]
         pub error_type: crate::model::ConnectionErrorType,
 
@@ -4032,6 +4040,7 @@ pub struct Hub {
     pub unique_id: std::string::String,
 
     /// Output only. The current lifecycle state of this hub.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::State,
 
     /// The VPC networks associated with this hub's spokes.
@@ -4061,6 +4070,7 @@ pub struct Hub {
     /// Optional. The policy mode of this hub. This field can be either
     /// PRESET or CUSTOM. If unspecified, the
     /// policy_mode defaults to PRESET.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub policy_mode: crate::model::PolicyMode,
 
     /// Optional. The topology implemented in this hub. Currently, this field is
@@ -4068,6 +4078,7 @@ pub struct Hub {
     /// MESH and STAR. If preset_topology is unspecified and policy_mode = PRESET,
     /// the preset_topology defaults to MESH. When policy_mode = CUSTOM,
     /// the preset_topology is set to PRESET_TOPOLOGY_UNSPECIFIED.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub preset_topology: crate::model::PresetTopology,
 
     /// Optional. Whether Private Service Connect connection propagation is enabled
@@ -4367,6 +4378,7 @@ pub struct Spoke {
     pub unique_id: std::string::String,
 
     /// Output only. The current lifecycle state of this spoke.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::State,
 
     /// Output only. The reasons for current state of the spoke.
@@ -4374,6 +4386,7 @@ pub struct Spoke {
     pub reasons: std::vec::Vec<crate::model::spoke::StateReason>,
 
     /// Output only. The type of resource associated with the spoke.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub spoke_type: crate::model::SpokeType,
 
     /// Optional. This checksum is computed by the server based on the value of
@@ -4628,6 +4641,7 @@ pub mod spoke {
     #[non_exhaustive]
     pub struct StateReason {
         /// The code associated with this reason.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub code: crate::model::spoke::state_reason::Code,
 
         /// Human-readable details about this reason.
@@ -4894,6 +4908,7 @@ pub struct RouteTable {
     pub uid: std::string::String,
 
     /// Output only. The current lifecycle state of this route table.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::State,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5012,6 +5027,7 @@ pub struct Route {
     /// Output only. The route's type. Its type is determined by the properties of
     /// its IP address range.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::RouteType,
 
     /// Immutable. The destination VPC network for packets on this route.
@@ -5036,6 +5052,7 @@ pub struct Route {
     pub uid: std::string::String,
 
     /// Output only. The current lifecycle state of the route.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::State,
 
     /// Immutable. The spoke that this route leads to.
@@ -5305,6 +5322,7 @@ pub struct Group {
     pub uid: std::string::String,
 
     /// Output only. The current lifecycle state of this group.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::State,
 
     /// Optional. The auto-accept setting for this group.
@@ -5957,6 +5975,7 @@ pub struct ListHubSpokesRequest {
     /// The view of the spoke to return.
     /// The view that you use determines which spoke fields are included in the
     /// response.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub view: crate::model::list_hub_spokes_request::SpokeView,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6524,6 +6543,7 @@ pub struct PscPropagationStatus {
     pub target_group: std::string::String,
 
     /// The propagation status.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub code: crate::model::psc_propagation_status::Code,
 
     /// The human-readable summary of the Private Service Connect connection
@@ -9114,6 +9134,7 @@ pub mod spoke_summary {
     #[non_exhaustive]
     pub struct SpokeTypeCount {
         /// Output only. The type of the spokes.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub spoke_type: crate::model::SpokeType,
 
         /// Output only. The total number of spokes of this type that are
@@ -9161,6 +9182,7 @@ pub mod spoke_summary {
     #[non_exhaustive]
     pub struct SpokeStateCount {
         /// Output only. The state of the spokes.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub state: crate::model::State,
 
         /// Output only. The total number of spokes that are in this state
@@ -9204,6 +9226,7 @@ pub mod spoke_summary {
     #[non_exhaustive]
     pub struct SpokeStateReasonCount {
         /// Output only. The reason that a spoke is inactive.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub state_reason_code: crate::model::spoke::state_reason::Code,
 
         /// Output only. The total number of spokes that are inactive for a
@@ -9832,6 +9855,7 @@ pub mod policy_based_route {
 
         /// Required. Internet protocol versions this policy-based route applies to.
         /// For this version, only IPV4 is supported. IPV6 is supported in preview.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub protocol_version: crate::model::policy_based_route::filter::ProtocolVersion,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10020,6 +10044,7 @@ pub mod policy_based_route {
     #[non_exhaustive]
     pub struct Warnings {
         /// Output only. A warning code, if applicable.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub code: crate::model::policy_based_route::warnings::Code,
 
         /// Output only. Metadata about this warning in key: value format. The key

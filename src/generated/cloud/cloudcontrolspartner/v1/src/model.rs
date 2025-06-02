@@ -294,6 +294,7 @@ impl gax::paginator::internal::PageableResponse for ListAccessApprovalRequestsRe
 pub struct AccessReason {
     /// Type of access justification.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::access_reason::Type,
 
     /// More detail about certain reason types. See comments for each type above.
@@ -686,6 +687,7 @@ pub struct Workload {
     pub location: std::string::String,
 
     /// Partner associated with this workload.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub partner: crate::model::workload::Partner,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1197,6 +1199,7 @@ impl wkt::message::Message for WorkloadOnboardingState {
 #[non_exhaustive]
 pub struct WorkloadOnboardingStep {
     /// The onboarding step.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub step: crate::model::workload_onboarding_step::Step,
 
     /// The starting time of the onboarding step.
@@ -1208,6 +1211,7 @@ pub struct WorkloadOnboardingStep {
     pub completion_time: std::option::Option<wkt::Timestamp>,
 
     /// Output only. The completion state of the onboarding step.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub completion_state: crate::model::CompletionState,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1805,6 +1809,7 @@ impl wkt::message::Message for CustomerOnboardingState {
 #[non_exhaustive]
 pub struct CustomerOnboardingStep {
     /// The onboarding step
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub step: crate::model::customer_onboarding_step::Step,
 
     /// The starting time of the onboarding step
@@ -1816,6 +1821,7 @@ pub struct CustomerOnboardingStep {
     pub completion_time: std::option::Option<wkt::Timestamp>,
 
     /// Output only. Current state of the step
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub completion_state: crate::model::CompletionState,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2220,6 +2226,7 @@ pub struct EkmConnection {
     pub connection_name: std::string::String,
 
     /// Output only. The connection state
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub connection_state: crate::model::ekm_connection::ConnectionState,
 
     /// The connection error that occurred if any
@@ -2958,6 +2965,7 @@ impl wkt::message::Message for Sku {
 #[non_exhaustive]
 pub struct EkmMetadata {
     /// The Cloud EKM partner.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub ekm_solution: crate::model::ekm_metadata::EkmSolution,
 
     /// Endpoint for sending requests to the EKM for key provisioning during
@@ -3189,6 +3197,7 @@ pub struct Violation {
     pub category: std::string::String,
 
     /// Output only. State of the violation
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::violation::State,
 
     /// Output only. Immutable. Name of the OrgPolicy which was modified with
@@ -3362,6 +3371,7 @@ pub mod violation {
 
         /// Output only. Remediation type based on the type of org policy values
         /// violated
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub remediation_type: crate::model::violation::remediation::RemediationType,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

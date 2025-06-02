@@ -86,6 +86,7 @@ pub struct AttachedCluster {
     pub fleet: std::option::Option<crate::model::Fleet>,
 
     /// Output only. The current state of the cluster.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::attached_cluster::State,
 
     /// Output only. A globally unique identifier for the cluster.
@@ -2051,6 +2052,7 @@ pub struct AwsCluster {
     pub authorization: std::option::Option<crate::model::AwsAuthorization>,
 
     /// Output only. The current state of the cluster.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::aws_cluster::State,
 
     /// Output only. The endpoint of the cluster's API server.
@@ -3104,6 +3106,7 @@ pub struct AwsVolumeTemplate {
     /// Optional. Type of the EBS volume.
     ///
     /// When unspecified, it defaults to GP2 volume.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub volume_type: crate::model::aws_volume_template::VolumeType,
 
     /// Optional. The number of I/O operations per second (IOPS) to provision for
@@ -3445,6 +3448,7 @@ pub struct AwsNodePool {
     pub subnet_id: std::string::String,
 
     /// Output only. The lifecycle state of the node pool.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::aws_node_pool::State,
 
     /// Output only. A globally unique identifier for the node pool.
@@ -4844,6 +4848,7 @@ impl wkt::message::Message for AwsConfigEncryption {
 #[non_exhaustive]
 pub struct AwsInstancePlacement {
     /// Required. The tenancy for instance.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub tenancy: crate::model::aws_instance_placement::Tenancy,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6670,6 +6675,7 @@ pub struct AzureCluster {
         std::option::Option<crate::model::AzureServicesAuthentication>,
 
     /// Output only. The current state of the cluster.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::azure_cluster::State,
 
     /// Output only. The endpoint of the cluster's API server.
@@ -8199,6 +8205,7 @@ pub struct AzureNodePool {
     pub autoscaling: std::option::Option<crate::model::AzureNodePoolAutoscaling>,
 
     /// Output only. The current state of the node pool.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::azure_node_pool::State,
 
     /// Output only. A globally unique identifier for the node pool.
@@ -11419,6 +11426,7 @@ pub struct NodeTaint {
     pub value: std::string::String,
 
     /// Required. The taint effect.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub effect: crate::model::node_taint::Effect,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -12196,6 +12204,7 @@ impl wkt::message::Message for CloudMonitoringConfig {
 pub struct BinaryAuthorization {
     /// Mode of operation for binauthz policy evaluation. If unspecified, defaults
     /// to DISABLED.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub evaluation_mode: crate::model::binary_authorization::EvaluationMode,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -12374,6 +12383,7 @@ pub mod binary_authorization {
 #[non_exhaustive]
 pub struct SecurityPostureConfig {
     /// Sets which mode to use for vulnerability scanning.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub vulnerability_mode: crate::model::security_posture_config::VulnerabilityMode,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

@@ -60,6 +60,7 @@ pub struct Job {
     pub output_uri: std::string::String,
 
     /// Output only. The current state of the job.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::job::ProcessingState,
 
     /// Output only. The time the job was created.
@@ -92,6 +93,7 @@ pub struct Job {
 
     /// The processing mode of the job.
     /// The default is `PROCESSING_MODE_INTERACTIVE`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub mode: crate::model::job::ProcessingMode,
 
     /// The processing priority of a batch job.
@@ -103,6 +105,7 @@ pub struct Job {
 
     /// Optional. The optimization strategy of the job. The default is
     /// `AUTODETECT`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub optimization: crate::model::job::OptimizationStrategy,
 
     /// Specify the `job_config` for the transcoding job. If you don't specify the
@@ -1579,6 +1582,7 @@ pub struct Manifest {
 
     /// Required. Type of the manifest.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::manifest::ManifestType,
 
     /// Required. List of user given `MuxStream.key`s that should appear in this
@@ -1690,6 +1694,7 @@ pub mod manifest {
     pub struct DashConfig {
         /// The segment reference scheme for a `DASH` manifest. The default is
         /// `SEGMENT_LIST`.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub segment_reference_scheme: crate::model::manifest::dash_config::SegmentReferenceScheme,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2567,6 +2572,7 @@ pub mod overlay {
     #[non_exhaustive]
     pub struct AnimationFade {
         /// Required. Type of fade animation: `FADE_IN` or `FADE_OUT`.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub fade_type: crate::model::overlay::FadeType,
 
         /// Normalized coordinates based on output video resolution. Valid

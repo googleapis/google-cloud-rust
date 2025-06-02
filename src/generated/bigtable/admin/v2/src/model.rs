@@ -923,6 +923,7 @@ pub mod create_cluster_metadata {
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub estimated_copied_bytes: i64,
 
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub state: crate::model::create_cluster_metadata::table_progress::State,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3095,6 +3096,7 @@ pub struct RestoreTableMetadata {
     pub name: std::string::String,
 
     /// The type of the restore source.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub source_type: crate::model::RestoreSourceType,
 
     /// If exists, the name of the long-running operation that will be used to
@@ -3647,6 +3649,7 @@ pub struct ListTablesRequest {
 
     /// The view to be applied to the returned tables' fields.
     /// NAME_ONLY view (default) and REPLICATION_VIEW are supported.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub view: crate::model::table::View,
 
     /// Maximum number of results per page.
@@ -3788,6 +3791,7 @@ pub struct GetTableRequest {
 
     /// The view to be applied to the returned table's fields.
     /// Defaults to `SCHEMA_VIEW` if unspecified.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub view: crate::model::table::View,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6116,6 +6120,7 @@ pub struct ListAuthorizedViewsRequest {
 
     /// Optional. The resource_view to be applied to the returned views' fields.
     /// Default to NAME_ONLY.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub view: crate::model::authorized_view::ResponseView,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6244,6 +6249,7 @@ pub struct GetAuthorizedViewRequest {
 
     /// Optional. The resource_view to be applied to the returned AuthorizedView's
     /// fields. Default to BASIC.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub view: crate::model::authorized_view::ResponseView,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6611,10 +6617,12 @@ pub struct Instance {
     pub display_name: std::string::String,
 
     /// Output only. The current state of the instance.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::instance::State,
 
     /// The type of the instance. Defaults to `PRODUCTION`.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::instance::Type,
 
     /// Labels are a flexible and lightweight mechanism for organizing cloud
@@ -7146,6 +7154,7 @@ pub struct Cluster {
     pub location: std::string::String,
 
     /// Output only. The current state of the cluster.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::cluster::State,
 
     /// The number of nodes in the cluster. If no value is set,
@@ -7155,10 +7164,12 @@ pub struct Cluster {
     pub serve_nodes: i32,
 
     /// Immutable. The node scaling factor of this cluster.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub node_scaling_factor: crate::model::cluster::NodeScalingFactor,
 
     /// Immutable. The type of storage used by this cluster to serve its
     /// parent instance's tables, unless explicitly overridden.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub default_storage_type: crate::model::StorageType,
 
     /// Immutable. The encryption configuration for CMEK-protected clusters.
@@ -8234,6 +8245,7 @@ pub mod app_profile {
     #[non_exhaustive]
     pub struct StandardIsolation {
         /// The priority of requests sent using this app profile.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub priority: crate::model::app_profile::Priority,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8896,6 +8908,7 @@ impl wkt::message::Message for MaterializedView {
 #[non_exhaustive]
 pub struct RestoreInfo {
     /// The type of the restore source.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub source_type: crate::model::RestoreSourceType,
 
     /// Information about the source used to restore the table.
@@ -9062,6 +9075,7 @@ pub struct Table {
     /// in this table. Timestamps not matching the granularity will be rejected. If
     /// unspecified at creation time, the value will be set to `MILLIS`. Views:
     /// `SCHEMA_VIEW`, `FULL`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub granularity: crate::model::table::TimestampGranularity,
 
     /// Output only. If this table was restored from another data source (e.g. a
@@ -9322,6 +9336,7 @@ pub mod table {
     #[non_exhaustive]
     pub struct ClusterState {
         /// Output only. The state of replication for the table in this cluster.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub replication_state: crate::model::table::cluster_state::ReplicationState,
 
         /// Output only. The encryption information for the table in this cluster.
@@ -10609,6 +10624,7 @@ pub mod gc_rule {
 #[non_exhaustive]
 pub struct EncryptionInfo {
     /// Output only. The type of encryption used to protect this resource.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub encryption_type: crate::model::encryption_info::EncryptionType,
 
     /// Output only. The status of encrypt/decrypt calls on underlying data for
@@ -10864,6 +10880,7 @@ pub struct Snapshot {
     pub delete_time: std::option::Option<wkt::Timestamp>,
 
     /// Output only. The current state of the snapshot.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::snapshot::State,
 
     /// Description of the snapshot.
@@ -11168,6 +11185,7 @@ pub struct Backup {
     pub size_bytes: i64,
 
     /// Output only. The current state of the backup.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::backup::State,
 
     /// Output only. The encryption information for the backup.
@@ -11175,6 +11193,7 @@ pub struct Backup {
     pub encryption_info: std::option::Option<crate::model::EncryptionInfo>,
 
     /// Indicates the backup type of the backup.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub backup_type: crate::model::backup::BackupType,
 
     /// The time at which the hot backup will be converted to a standard backup.

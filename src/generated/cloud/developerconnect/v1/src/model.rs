@@ -463,6 +463,7 @@ impl wkt::message::Message for CryptoKeyConfig {
 #[non_exhaustive]
 pub struct InstallationState {
     /// Output only. Current step of the installation process.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub stage: crate::model::installation_state::Stage,
 
     /// Output only. Message of what the user should do next to continue the
@@ -673,6 +674,7 @@ pub mod installation_state {
 pub struct GitHubConfig {
     /// Required. Immutable. The GitHub Application that was installed to the
     /// GitHub user or organization.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub github_app: crate::model::git_hub_config::GitHubApp,
 
     /// Optional. OAuth credential of the account that authorized the GitHub App.
@@ -3042,6 +3044,7 @@ pub struct FetchGitRefsRequest {
     pub git_repository_link: std::string::String,
 
     /// Required. Type of refs to fetch.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub ref_type: crate::model::fetch_git_refs_request::RefType,
 
     /// Optional. Number of results to return in the list. Default to 20.

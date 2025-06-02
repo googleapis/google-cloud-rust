@@ -159,6 +159,7 @@ pub struct Run {
     pub end_time: std::option::Option<wkt::Timestamp>,
 
     /// Required. The state of the run.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::run::State,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -607,9 +608,11 @@ impl wkt::message::Message for EntityReference {
 #[non_exhaustive]
 pub struct OperationMetadata {
     /// Output only. The current operation state.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::operation_metadata::State,
 
     /// Output only. The type of the operation being performed.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub operation_type: crate::model::operation_metadata::Type,
 
     /// Output only. The [relative name]
@@ -2730,6 +2733,7 @@ pub struct Origin {
     /// Use of a source_type other than `CUSTOM` for process creation
     /// or updating is highly discouraged, and may be restricted in the future
     /// without notice.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub source_type: crate::model::origin::SourceType,
 
     /// If the source_type isn't CUSTOM, the value of this field should be a GCP

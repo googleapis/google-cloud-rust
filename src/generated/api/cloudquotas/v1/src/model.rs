@@ -628,6 +628,7 @@ pub struct QuotaInfo {
     pub refresh_interval: std::string::String,
 
     /// The container type of the QuotaInfo.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub container_type: crate::model::quota_info::ContainerType,
 
     /// The dimensions the quota is defined on.
@@ -977,6 +978,7 @@ pub struct QuotaIncreaseEligibility {
     /// The reason of why it is ineligible to request increased value of the quota.
     /// If the is_eligible field is true, it defaults to
     /// INELIGIBILITY_REASON_UNSPECIFIED.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub ineligibility_reason: crate::model::quota_increase_eligibility::IneligibilityReason,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1411,6 +1413,7 @@ pub struct QuotaConfig {
     pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. The origin of the quota preference request.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub request_origin: crate::model::quota_config::Origin,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

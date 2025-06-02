@@ -81,6 +81,7 @@ pub struct NetworkConfig {
 
     /// The network connect mode of the Filestore instance.
     /// If not provided, the connect mode defaults to DIRECT_PEERING.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub connect_mode: crate::model::network_config::ConnectMode,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -556,11 +557,13 @@ pub struct NfsExportOptions {
     /// Either READ_ONLY, for allowing only read requests on the exported
     /// directory, or READ_WRITE, for allowing both read and write requests.
     /// The default is READ_WRITE.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub access_mode: crate::model::nfs_export_options::AccessMode,
 
     /// Either NO_ROOT_SQUASH, for allowing root access on the exported directory,
     /// or ROOT_SQUASH, for not allowing root access. The default is
     /// NO_ROOT_SQUASH.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub squash_mode: crate::model::nfs_export_options::SquashMode,
 
     /// An integer representing the anonymous user id with a default value of
@@ -913,6 +916,7 @@ pub mod nfs_export_options {
 #[non_exhaustive]
 pub struct ReplicaConfig {
     /// Output only. The replica state.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::replica_config::State,
 
     /// Output only. Additional information about the replication state, if
@@ -1284,6 +1288,7 @@ pub mod replica_config {
 #[non_exhaustive]
 pub struct Replication {
     /// Optional. The replication role.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub role: crate::model::replication::Role,
 
     /// Optional. Replication configuration for the replica instance associated
@@ -1483,6 +1488,7 @@ pub struct Instance {
     pub description: std::string::String,
 
     /// Output only. The instance state.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::instance::State,
 
     /// Output only. Additional information about the instance state, if available.
@@ -1494,6 +1500,7 @@ pub struct Instance {
     pub create_time: std::option::Option<wkt::Timestamp>,
 
     /// The service tier of the instance.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub tier: crate::model::instance::Tier,
 
     /// Resource labels to represent user provided metadata.
@@ -1553,6 +1560,7 @@ pub struct Instance {
     /// Immutable. The protocol indicates the access protocol for all shares in the
     /// instance. This field is immutable and it cannot be changed after the
     /// instance has been created. Default value: `NFS_V3`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub protocol: crate::model::instance::FileProtocol,
 
     /// Output only. Indicates whether this instance supports configuring its
@@ -3305,6 +3313,7 @@ pub struct Snapshot {
     pub description: std::string::String,
 
     /// Output only. The snapshot state.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::snapshot::State,
 
     /// Output only. The time when the snapshot was created.
@@ -3944,6 +3953,7 @@ pub struct Backup {
     pub description: std::string::String,
 
     /// Output only. The backup state.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::backup::State,
 
     /// Output only. The time when the backup was created.
@@ -3978,6 +3988,7 @@ pub struct Backup {
 
     /// Output only. The service tier of the source Filestore instance that this
     /// backup is created from.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub source_instance_tier: crate::model::instance::Tier,
 
     /// Output only. Amount of bytes that will be downloaded if the backup is
@@ -4015,6 +4026,7 @@ pub struct Backup {
 
     /// Output only. The file system protocol of the source Filestore instance that
     /// this backup is created from.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub file_system_protocol: crate::model::instance::FileProtocol,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

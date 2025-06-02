@@ -95,6 +95,7 @@ pub struct Agent {
     pub enable_logging: bool,
 
     /// Optional. Determines how intents are detected from user queries.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[deprecated]
     pub match_mode: crate::model::agent::MatchMode,
 
@@ -113,9 +114,11 @@ pub struct Agent {
     /// V2 API is assumed. Clients are free to query different service endpoints
     /// for different API versions. However, bots connectors and webhook calls will
     /// follow the specified API version.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub api_version: crate::model::agent::ApiVersion,
 
     /// Optional. The agent tier. If not specified, TIER_STANDARD is assumed.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub tier: crate::model::agent::Tier,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1807,6 +1810,7 @@ impl wkt::message::Message for UpdateAnswerRecordRequest {
 #[non_exhaustive]
 pub struct AnswerFeedback {
     /// The correctness level of the specific answer.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub correctness_level: crate::model::answer_feedback::CorrectnessLevel,
 
     /// Indicates whether the answer/item was clicked by the human agent
@@ -2126,6 +2130,7 @@ pub struct AgentAssistantFeedback {
     ///
     /// [google.cloud.dialogflow.v2.AgentAssistantFeedback.AnswerRelevance.IRRELEVANT]: crate::model::agent_assistant_feedback::AnswerRelevance::Irrelevant
     /// [google.cloud.dialogflow.v2.AgentAssistantFeedback.answer_relevance]: crate::model::AgentAssistantFeedback::answer_relevance
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub answer_relevance: crate::model::agent_assistant_feedback::AnswerRelevance,
 
     /// Optional. Whether or not the information in the document is correct.
@@ -2140,6 +2145,7 @@ pub struct AgentAssistantFeedback {
     ///
     /// [google.cloud.dialogflow.v2.AgentAssistantFeedback.DocumentCorrectness.INCORRECT]: crate::model::agent_assistant_feedback::DocumentCorrectness::Incorrect
     /// [google.cloud.dialogflow.v2.AgentAssistantFeedback.document_correctness]: crate::model::AgentAssistantFeedback::document_correctness
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub document_correctness: crate::model::agent_assistant_feedback::DocumentCorrectness,
 
     /// Optional. Whether or not the suggested document is efficient. For example,
@@ -2151,6 +2157,7 @@ pub struct AgentAssistantFeedback {
     ///
     /// [google.cloud.dialogflow.v2.AgentAssistantFeedback.DocumentEfficiency.INEFFICIENT]: crate::model::agent_assistant_feedback::DocumentEfficiency::Inefficient
     /// [google.cloud.dialogflow.v2.AgentAssistantFeedback.document_efficiency]: crate::model::AgentAssistantFeedback::document_efficiency
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub document_efficiency: crate::model::agent_assistant_feedback::DocumentEfficiency,
 
     /// Optional. Feedback for conversation summarization.
@@ -3210,6 +3217,7 @@ impl wkt::message::Message for SpeechWordInfo {
 #[non_exhaustive]
 pub struct InputAudioConfig {
     /// Required. Audio encoding of the audio content to process.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub audio_encoding: crate::model::AudioEncoding,
 
     /// Required. Sample rate (in Hertz) of the audio content sent in the query.
@@ -3271,6 +3279,7 @@ pub struct InputAudioConfig {
     /// model][google.cloud.dialogflow.v2.InputAudioConfig.model] to use.
     ///
     /// [google.cloud.dialogflow.v2.InputAudioConfig.model]: crate::model::InputAudioConfig::model
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub model_variant: crate::model::SpeechModelVariant,
 
     /// If `false` (default), recognition does not cease until the
@@ -3456,6 +3465,7 @@ pub struct VoiceSelectionParams {
     /// different gender rather than failing the request.
     ///
     /// [google.cloud.dialogflow.v2.VoiceSelectionParams.name]: crate::model::VoiceSelectionParams::name
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub ssml_gender: crate::model::SsmlVoiceGender,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3604,6 +3614,7 @@ impl wkt::message::Message for SynthesizeSpeechConfig {
 #[non_exhaustive]
 pub struct OutputAudioConfig {
     /// Required. Audio encoding of the synthesized audio content.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub audio_encoding: crate::model::OutputAudioEncoding,
 
     /// The synthesis sample rate (in hertz) for this audio. If not
@@ -3725,6 +3736,7 @@ pub struct SpeechToTextConfig {
     ///
     /// [google.cloud.dialogflow.v2.AnalyzeContentRequest]: crate::model::AnalyzeContentRequest
     /// [google.cloud.dialogflow.v2.StreamingAnalyzeContentRequest]: crate::model::StreamingAnalyzeContentRequest
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub speech_model_variant: crate::model::SpeechModelVariant,
 
     /// Which Speech model to select. Select the
@@ -3759,6 +3771,7 @@ pub struct SpeechToTextConfig {
     pub phrase_sets: std::vec::Vec<std::string::String>,
 
     /// Audio encoding of the audio content to process.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub audio_encoding: crate::model::AudioEncoding,
 
     /// Sample rate (in Hertz) of the audio content sent in the query.
@@ -4372,6 +4385,7 @@ pub struct Conversation {
     pub name: std::string::String,
 
     /// Output only. The current state of the Conversation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub lifecycle_state: crate::model::conversation::LifecycleState,
 
     /// Required. The Conversation Profile to be used to configure this
@@ -4413,6 +4427,7 @@ pub struct Conversation {
     ///
     /// [google.cloud.dialogflow.v2.Conversation.ConversationStage.HUMAN_ASSIST_STAGE]: crate::model::conversation::ConversationStage::HumanAssistStage
     /// [google.cloud.dialogflow.v2.Conversation.ConversationStage.VIRTUAL_AGENT_STAGE]: crate::model::conversation::ConversationStage::VirtualAgentStage
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub conversation_stage: crate::model::conversation::ConversationStage,
 
     /// Output only. The telephony connection information.
@@ -4757,6 +4772,7 @@ pub mod conversation {
             std::vec::Vec<crate::model::conversation::context_reference::ContextContent>,
 
         /// Required. The mode in which context reference contents are updated.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub update_mode: crate::model::conversation::context_reference::UpdateMode,
 
         /// Optional. The language of the information ingested, defaults to "en-US"
@@ -4849,6 +4865,7 @@ pub mod conversation {
             pub content: std::string::String,
 
             /// Required. The format of the ingested string.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub content_format:
                 crate::model::conversation::context_reference::context_content::ContentFormat,
 
@@ -6874,6 +6891,7 @@ pub struct SearchKnowledgeRequest {
     pub latest_message: std::string::String,
 
     /// Optional. The source of the query in the request.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub query_source: crate::model::search_knowledge_request::QuerySource,
 
     /// Optional. Information about the end-user to improve the relevance and
@@ -7334,10 +7352,12 @@ pub mod search_knowledge_request {
                         /// straightforward i.e. attribute_value = numerical_field_value. In
                         /// the case of freshness however, attribute_value = (time.now() -
                         /// datetime_field_value).
+                        #[serde(skip_serializing_if = "wkt::internal::is_default")]
                         pub attribute_type: crate::model::search_knowledge_request::search_config::boost_specs::boost_spec::condition_boost_spec::boost_control_spec::AttributeType,
 
                         /// Optional. The interpolation type to be applied to connect the
                         /// control points listed below.
+                        #[serde(skip_serializing_if = "wkt::internal::is_default")]
                         pub interpolation_type: crate::model::search_knowledge_request::search_config::boost_specs::boost_spec::condition_boost_spec::boost_control_spec::InterpolationType,
 
                         /// Optional. The control points used to define the curve. The
@@ -8012,6 +8032,7 @@ pub struct SearchKnowledgeAnswer {
     pub answer: std::string::String,
 
     /// The type of the answer.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub answer_type: crate::model::search_knowledge_answer::AnswerType,
 
     /// All sources used to generate the answer.
@@ -9178,6 +9199,7 @@ pub struct ConversationEvent {
 
     /// The type of the event that this notification refers to.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::conversation_event::Type,
 
     /// More detailed information about an error. Only set for type
@@ -9540,6 +9562,7 @@ pub struct ConversationModel {
 
     /// Output only. State of the model. A model can only serve prediction requests
     /// after it gets deployed.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::conversation_model::State,
 
     /// Language code for the conversation model. If not specified, the language
@@ -10554,6 +10577,7 @@ impl wkt::message::Message for InputDataset {
 pub struct ArticleSuggestionModelMetadata {
     /// Optional. Type of the article suggestion model. If not provided, model_type
     /// is used.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub training_model_type: crate::model::conversation_model::ModelType,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10591,6 +10615,7 @@ impl wkt::message::Message for ArticleSuggestionModelMetadata {
 pub struct SmartReplyModelMetadata {
     /// Optional. Type of the smart reply model. If not provided, model_type is
     /// used.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub training_model_type: crate::model::conversation_model::ModelType,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11297,6 +11322,7 @@ pub struct CreateConversationModelOperationMetadata {
     pub conversation_model: std::string::String,
 
     /// State of CreateConversationModel operation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::create_conversation_model_operation_metadata::State,
 
     /// Timestamp when the request to create conversation model is submitted. The
@@ -11738,6 +11764,7 @@ pub struct CreateConversationModelEvaluationOperationMetadata {
     pub conversation_model: std::string::String,
 
     /// State of CreateConversationModel operation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::create_conversation_model_evaluation_operation_metadata::State,
 
     /// Timestamp when the request to create conversation model was submitted. The
@@ -14381,6 +14408,7 @@ pub struct NotificationConfig {
     pub topic: std::string::String,
 
     /// Format of message.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub message_format: crate::model::notification_config::MessageFormat,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -14602,6 +14630,7 @@ impl wkt::message::Message for LoggingConfig {
 pub struct SuggestionFeature {
     /// Type of Human Agent Assistant API feature to request.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::suggestion_feature::Type,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -14814,6 +14843,7 @@ pub struct SetSuggestionFeatureConfigRequest {
 
     /// Required. The participant role to add or update the suggestion feature
     /// config. Only HUMAN_AGENT or END_USER can be used.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub participant_role: crate::model::participant::Role,
 
     /// Required. The suggestion feature config to add or update.
@@ -14890,9 +14920,11 @@ pub struct ClearSuggestionFeatureConfigRequest {
 
     /// Required. The participant role to remove the suggestion feature
     /// config. Only HUMAN_AGENT or END_USER can be used.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub participant_role: crate::model::participant::Role,
 
     /// Required. The type of the suggestion feature to remove.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub suggestion_feature_type: crate::model::suggestion_feature::Type,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -14958,9 +14990,11 @@ pub struct SetSuggestionFeatureConfigOperationMetadata {
 
     /// Required. The participant role to add or update the suggestion feature
     /// config. Only HUMAN_AGENT or END_USER can be used.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub participant_role: crate::model::participant::Role,
 
     /// Required. The type of the suggestion feature to add or update.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub suggestion_feature_type: crate::model::suggestion_feature::Type,
 
     /// Timestamp whe the request was created. The time is measured on server side.
@@ -15048,9 +15082,11 @@ pub struct ClearSuggestionFeatureConfigOperationMetadata {
 
     /// Required. The participant role to remove the suggestion feature
     /// config. Only HUMAN_AGENT or END_USER can be used.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub participant_role: crate::model::participant::Role,
 
     /// Required. The type of the suggestion feature to remove.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub suggestion_feature_type: crate::model::suggestion_feature::Type,
 
     /// Timestamp whe the request was created. The time is measured on server side.
@@ -15188,6 +15224,7 @@ pub struct Document {
     pub metadata: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. The current state of the document.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::document::State,
 
     /// Required. The source of this document.
@@ -16669,6 +16706,7 @@ impl wkt::message::Message for ExportOperationMetadata {
 #[non_exhaustive]
 pub struct KnowledgeOperationMetadata {
     /// Output only. The current state of this operation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::knowledge_operation_metadata::State,
 
     /// The name of the knowledge base interacted with during the operation.
@@ -17143,10 +17181,12 @@ pub struct EntityType {
     pub display_name: std::string::String,
 
     /// Required. Indicates the kind of entity type.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub kind: crate::model::entity_type::Kind,
 
     /// Optional. Indicates whether the entity type can be automatically
     /// expanded.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub auto_expansion_mode: crate::model::entity_type::AutoExpansionMode,
 
     /// Optional. The collection of entity entries associated with the entity type.
@@ -18525,6 +18565,7 @@ pub struct Environment {
 
     /// Output only. The state of this environment. This field is read-only, i.e.,
     /// it cannot be set by create and update methods.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::environment::State,
 
     /// Output only. The last update time of this environment. This field is
@@ -18798,6 +18839,7 @@ pub struct TextToSpeechSettings {
     pub enable_text_to_speech: bool,
 
     /// Required. Audio encoding of the synthesized audio content.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub output_audio_encoding: crate::model::OutputAudioEncoding,
 
     /// Optional. The synthesis sample rate (in hertz) for this audio. If not
@@ -19691,6 +19733,7 @@ pub mod fulfillment {
     pub struct Feature {
         /// The type of the feature that enabled for fulfillment.
         #[serde(rename = "type")]
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub r#type: crate::model::fulfillment::feature::Type,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -20375,6 +20418,7 @@ impl wkt::message::Message for UpdateGeneratorRequest {
 #[non_exhaustive]
 pub struct MessageEntry {
     /// Optional. Participant role of the message.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub role: crate::model::message_entry::Role,
 
     /// Optional. Transcript content of the message.
@@ -20963,6 +21007,7 @@ pub struct SummarizationSection {
 
     /// Optional. Type of the summarization section.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::summarization_section::Type,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -21333,6 +21378,7 @@ pub struct Generator {
 
     /// Optional. The trigger event of the generator. It defines when the generator
     /// is triggered in a conversation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub trigger_event: crate::model::TriggerEvent,
 
     /// Output only. Creation time of this generator.
@@ -21924,6 +21970,7 @@ pub struct Intent {
     pub display_name: std::string::String,
 
     /// Optional. Indicates whether webhooks are enabled for the intent.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub webhook_state: crate::model::intent::WebhookState,
 
     /// Optional. The priority of this intent. Higher numbers represent higher
@@ -22243,6 +22290,7 @@ pub mod intent {
 
         /// Required. The type of the training phrase.
         #[serde(rename = "type")]
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub r#type: crate::model::intent::training_phrase::Type,
 
         /// Required. The ordered list of training phrase parts.
@@ -22685,6 +22733,7 @@ pub mod intent {
     #[non_exhaustive]
     pub struct Message {
         /// Optional. The platform that this message is intended for.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub platform: crate::model::intent::message::Platform,
 
         /// Required. The rich response message.
@@ -24214,6 +24263,7 @@ pub mod intent {
         #[non_exhaustive]
         pub struct MediaContent {
             /// Optional. What type of media is the content (ie "audio").
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub media_type: crate::model::intent::message::media_content::ResponseMediaType,
 
             /// Required. List of media objects.
@@ -24575,6 +24625,7 @@ pub mod intent {
             /// [items][google.cloud.dialogflow.v2.Intent.Message.BrowseCarouselCard.items].
             ///
             /// [google.cloud.dialogflow.v2.Intent.Message.BrowseCarouselCard.items]: crate::model::intent::message::BrowseCarouselCard::items
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub image_display_options:
                 crate::model::intent::message::browse_carousel_card::ImageDisplayOptions,
 
@@ -24751,6 +24802,7 @@ pub mod intent {
 
                     /// Optional. Specifies the type of viewer that is used when opening
                     /// the URL. Defaults to opening via web browser.
+                    #[serde(skip_serializing_if = "wkt::internal::is_default")]
                     pub url_type_hint: crate::model::intent::message::browse_carousel_card::browse_carousel_card_item::open_url_action::UrlTypeHint,
 
                     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -25219,6 +25271,7 @@ pub mod intent {
             pub header: std::string::String,
 
             /// Optional. Defines text alignment for all cells in this column.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub horizontal_alignment:
                 crate::model::intent::message::column_properties::HorizontalAlignment,
 
@@ -25931,6 +25984,7 @@ pub struct ListIntentsRequest {
     pub language_code: std::string::String,
 
     /// Optional. The resource view to apply to the returned intent.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub intent_view: crate::model::IntentView,
 
     /// Optional. The maximum number of items to return in a single page. By
@@ -26080,6 +26134,7 @@ pub struct GetIntentRequest {
     pub language_code: std::string::String,
 
     /// Optional. The resource view to apply to the returned intent.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub intent_view: crate::model::IntentView,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -26146,6 +26201,7 @@ pub struct CreateIntentRequest {
     pub language_code: std::string::String,
 
     /// Optional. The resource view to apply to the returned intent.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub intent_view: crate::model::IntentView,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -26229,6 +26285,7 @@ pub struct UpdateIntentRequest {
     pub update_mask: std::option::Option<wkt::FieldMask>,
 
     /// Optional. The resource view to apply to the returned intent.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub intent_view: crate::model::IntentView,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -26358,6 +26415,7 @@ pub struct BatchUpdateIntentsRequest {
     pub update_mask: std::option::Option<wkt::FieldMask>,
 
     /// Optional. The resource view to apply to the returned intent.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub intent_view: crate::model::IntentView,
 
     /// The source of the intent batch.
@@ -27096,6 +27154,7 @@ pub struct Participant {
 
     /// Immutable. The role this participant plays in the conversation. This field
     /// must be set during participant creation and is then immutable.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub role: crate::model::participant::Role,
 
     /// Optional. Label applied to streams representing this participant in SIPREC
@@ -27407,6 +27466,7 @@ pub struct Message {
     pub participant: std::string::String,
 
     /// Output only. The role of the participant.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub participant_role: crate::model::participant::Role,
 
     /// Output only. The time when the message was created in Contact Center AI.
@@ -29830,6 +29890,7 @@ pub struct AutomatedAgentReply {
     pub detect_intent_response: std::option::Option<crate::model::DetectIntentResponse>,
 
     /// AutomatedAgentReply type.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub automated_agent_reply_type: crate::model::automated_agent_reply::AutomatedAgentReplyType,
 
     /// Indicates whether the partial automated agent reply is interruptible when a
@@ -33403,6 +33464,7 @@ impl wkt::message::Message for StreamingDetectIntentResponse {
 #[non_exhaustive]
 pub struct StreamingRecognitionResult {
     /// Type of the result message.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub message_type: crate::model::streaming_recognition_result::MessageType,
 
     /// Transcript text representing the words that the user spoke.
@@ -33982,6 +34044,7 @@ pub struct SessionEntityType {
 
     /// Required. Indicates whether the additional data should override or
     /// supplement the custom entity type definition.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub entity_override_mode: crate::model::session_entity_type::EntityOverrideMode,
 
     /// Required. The collection of entities associated with this session entity
@@ -34530,6 +34593,7 @@ impl wkt::message::Message for DeleteSessionEntityTypeRequest {
 #[non_exhaustive]
 pub struct ValidationError {
     /// The severity of the error.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub severity: crate::model::validation_error::Severity,
 
     /// The names of the entries that the error is associated with.
@@ -34832,6 +34896,7 @@ pub struct Version {
 
     /// Output only. The status of this version. This field is read-only and cannot
     /// be set by create and update methods.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub status: crate::model::version::VersionStatus,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

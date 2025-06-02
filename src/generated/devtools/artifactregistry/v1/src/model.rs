@@ -53,6 +53,7 @@ pub struct AptArtifact {
     pub package_name: std::string::String,
 
     /// Output only. An artifact is a binary or source package.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub package_type: crate::model::apt_artifact::PackageType,
 
     /// Output only. Operating system architecture of the artifact.
@@ -2154,6 +2155,7 @@ impl wkt::message::Message for DeleteAttachmentRequest {
 pub struct Hash {
     /// The algorithm used to compute the hash value.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::hash::HashType,
 
     /// The hash value.
@@ -3838,6 +3840,7 @@ pub struct CleanupPolicy {
     pub id: std::string::String,
 
     /// Policy action.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub action: crate::model::cleanup_policy::Action,
 
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
@@ -5976,6 +5979,7 @@ pub mod remote_repository_config {
         pub struct PublicRepository {
 
             /// A common public repository base for Apt.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub repository_base: crate::model::remote_repository_config::apt_repository::public_repository::RepositoryBase,
 
             /// A custom field to define a path to a specific repository from the base.
@@ -6356,6 +6360,7 @@ pub mod remote_repository_config {
         pub struct PublicRepository {
 
             /// A common public repository base for Yum.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub repository_base: crate::model::remote_repository_config::yum_repository::public_repository::RepositoryBase,
 
             /// A custom field to define a path to a specific repository from the base.
@@ -6689,6 +6694,7 @@ pub struct Repository {
     pub name: std::string::String,
 
     /// Optional. The format of packages that are stored in the repository.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub format: crate::model::repository::Format,
 
     /// The user-provided description of the repository.
@@ -6719,6 +6725,7 @@ pub struct Repository {
     pub kms_key_name: std::string::String,
 
     /// Optional. The mode of the repository.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub mode: crate::model::repository::Mode,
 
     /// Optional. Cleanup policies for this repository. Cleanup policies indicate
@@ -7113,6 +7120,7 @@ pub mod repository {
         pub allow_snapshot_overwrites: bool,
 
         /// Version policy defines the versions that the registry will accept.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub version_policy: crate::model::repository::maven_repository_config::VersionPolicy,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7335,6 +7343,7 @@ pub mod repository {
     pub struct VulnerabilityScanningConfig {
         /// Optional. Config for whether this repository has vulnerability scanning
         /// disabled.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub enablement_config:
             crate::model::repository::vulnerability_scanning_config::EnablementConfig,
 
@@ -7344,6 +7353,7 @@ pub mod repository {
 
         /// Output only. State of feature enablement, combining repository enablement
         /// config and API enablement state.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub enablement_state:
             crate::model::repository::vulnerability_scanning_config::EnablementState,
 
@@ -8416,8 +8426,10 @@ pub struct Rule {
     pub name: std::string::String,
 
     /// The action this rule takes.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub action: crate::model::rule::Action,
 
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub operation: crate::model::rule::Operation,
 
     /// Optional. A CEL expression for conditions that must be met in order for the
@@ -9105,6 +9117,7 @@ pub struct ProjectSettings {
     pub name: std::string::String,
 
     /// The redirection state of the legacy repositories in this project.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub legacy_redirection_state: crate::model::project_settings::RedirectionState,
 
     /// The percentage of pull traffic to redirect from GCR to AR when using
@@ -9992,6 +10005,7 @@ pub struct ListVersionsRequest {
     pub page_token: std::string::String,
 
     /// The view that should be returned in the response.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub view: crate::model::VersionView,
 
     /// Optional. The field to order the results by.
@@ -10171,6 +10185,7 @@ pub struct GetVersionRequest {
     pub name: std::string::String,
 
     /// The view that should be returned in the response.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub view: crate::model::VersionView,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10426,6 +10441,7 @@ pub struct VPCSCConfig {
 
     /// The project per location VPC SC policy that defines the VPC SC behavior for
     /// the Remote Repository (Allow/Deny).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub vpcsc_policy: crate::model::vpcsc_config::VPCSCPolicy,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10714,6 +10730,7 @@ pub struct YumArtifact {
     pub package_name: std::string::String,
 
     /// Output only. An artifact is a binary or source package.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub package_type: crate::model::yum_artifact::PackageType,
 
     /// Output only. Operating system architecture of the artifact.

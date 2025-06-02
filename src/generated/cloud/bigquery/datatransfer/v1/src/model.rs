@@ -52,6 +52,7 @@ pub struct DataSourceParameter {
 
     /// Parameter type.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::data_source_parameter::Type,
 
     /// Is parameter required.
@@ -471,6 +472,7 @@ pub struct DataSource {
     pub scopes: std::vec::Vec<std::string::String>,
 
     /// Deprecated. This field has no effect.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[deprecated]
     pub transfer_type: crate::model::TransferType,
 
@@ -507,12 +509,14 @@ pub struct DataSource {
     pub help_url: std::string::String,
 
     /// Indicates the type of authorization.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub authorization_type: crate::model::data_source::AuthorizationType,
 
     /// Specifies whether the data source supports automatic data refresh for the
     /// past few days, and how it's supported.
     /// For some data sources, data might not be complete until a few days later,
     /// so it's useful to refresh data automatically.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub data_refresh_type: crate::model::data_source::DataRefreshType,
 
     /// Default data refresh window on days.
@@ -1729,6 +1733,7 @@ pub struct ListTransferRunsRequest {
     pub page_size: i32,
 
     /// Indicates how run attempts are to be pulled.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub run_attempt: crate::model::list_transfer_runs_request::RunAttempt,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3231,6 +3236,7 @@ pub struct TransferConfig {
     pub next_run_time: std::option::Option<wkt::Timestamp>,
 
     /// Output only. State of the most recently updated transfer run.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::TransferState,
 
     /// Deprecated. Unique ID of the user on whose behalf transfer is done.
@@ -3674,6 +3680,7 @@ pub struct TransferRun {
     pub data_source_id: std::string::String,
 
     /// Data transfer run state. Ignored for input requests.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::TransferState,
 
     /// Deprecated. Unique ID of the user on whose behalf transfer is done.
@@ -3975,6 +3982,7 @@ pub struct TransferMessage {
     pub message_time: std::option::Option<wkt::Timestamp>,
 
     /// Message severity.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub severity: crate::model::transfer_message::MessageSeverity,
 
     /// Message text.

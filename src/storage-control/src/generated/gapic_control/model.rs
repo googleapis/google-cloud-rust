@@ -2586,6 +2586,7 @@ pub struct IntelligenceConfig {
     pub name: std::string::String,
 
     /// Optional. The edition configuration of the `IntelligenceConfig` resource.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub edition_config: crate::model::intelligence_config::EditionConfig,
 
     /// Output only. The time at which the `IntelligenceConfig` resource is last
@@ -3111,6 +3112,7 @@ pub mod intelligence_config {
     pub struct EffectiveIntelligenceConfig {
         /// Output only. The `IntelligenceConfig` edition that is applicable for the
         /// resource.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub effective_edition:
             crate::model::intelligence_config::effective_intelligence_config::EffectiveEdition,
 

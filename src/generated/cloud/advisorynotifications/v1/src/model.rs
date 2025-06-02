@@ -57,6 +57,7 @@ pub struct Notification {
     pub create_time: std::option::Option<wkt::Timestamp>,
 
     /// Type of notification
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub notification_type: crate::model::NotificationType,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -152,6 +153,7 @@ pub struct Text {
     pub localized_text: std::string::String,
 
     /// Status of the localization.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub localization_state: crate::model::LocalizationState,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -601,6 +603,7 @@ pub struct ListNotificationsRequest {
 
     /// Specifies which parts of the notification resource should be returned
     /// in the response.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub view: crate::model::NotificationView,
 
     /// ISO code for requested localization language.  If unset, will be

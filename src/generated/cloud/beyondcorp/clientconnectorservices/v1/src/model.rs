@@ -70,6 +70,7 @@ pub struct ClientConnectorService {
     pub egress: std::option::Option<crate::model::client_connector_service::Egress>,
 
     /// Output only. The operational state of the ClientConnectorService.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::client_connector_service::State,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -280,6 +281,7 @@ pub mod client_connector_service {
         pub struct Config {
             /// Required. Immutable. The transport protocol used between the client and
             /// the server.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub transport_protocol:
                 crate::model::client_connector_service::ingress::config::TransportProtocol,
 

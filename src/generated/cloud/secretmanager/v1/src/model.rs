@@ -481,6 +481,7 @@ pub struct SecretVersion {
     /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
     ///
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::secret_version::State,
 
     /// The replication status of the

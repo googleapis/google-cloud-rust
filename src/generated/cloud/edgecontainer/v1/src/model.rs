@@ -119,6 +119,7 @@ pub struct Cluster {
         std::option::Option<crate::model::cluster::ControlPlaneEncryption>,
 
     /// Output only. The current status of the cluster.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub status: crate::model::cluster::Status,
 
     /// Output only. All the maintenance events scheduled for the cluster,
@@ -132,6 +133,7 @@ pub struct Cluster {
     pub target_version: std::string::String,
 
     /// Optional. The release channel a cluster is subscribed to.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub release_channel: crate::model::cluster::ReleaseChannel,
 
     /// Optional. Configuration of the cluster survivability, e.g., for the case
@@ -645,6 +647,7 @@ pub mod cluster {
             pub machine_filter: std::string::String,
 
             /// Policy configuration about how user applications are deployed.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub shared_deployment_policy:
                 crate::model::cluster::control_plane::SharedDeploymentPolicy,
 
@@ -1049,6 +1052,7 @@ pub mod cluster {
         /// `KEY_AVAILABLE`, then nodes may go offline as they cannot access their
         /// local data. This can be caused by a lack of permissions to use the key,
         /// or if the key is disabled or deleted.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub kms_key_state: crate::model::KmsKeyState,
 
         /// Output only. Error status returned by Cloud KMS when using this key. This
@@ -1059,6 +1063,7 @@ pub mod cluster {
         pub kms_status: std::option::Option<rpc::model::Status>,
 
         /// Output only. The current resource state associated with the cmek.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub resource_state: crate::model::ResourceState,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1154,12 +1159,15 @@ pub mod cluster {
 
         /// Output only. The type of the maintenance event.
         #[serde(rename = "type")]
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub r#type: crate::model::cluster::maintenance_event::Type,
 
         /// Output only. The schedule of the maintenance event.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub schedule: crate::model::cluster::maintenance_event::Schedule,
 
         /// Output only. The state of the maintenance event.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub state: crate::model::cluster::maintenance_event::State,
 
         /// Output only. The time when the maintenance event request was created.
@@ -1786,6 +1794,7 @@ pub mod cluster {
     #[non_exhaustive]
     pub struct ConnectionState {
         /// Output only. The current connection state.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub state: crate::model::cluster::connection_state::State,
 
         /// Output only. The time when the connection state was last changed.
@@ -2667,6 +2676,7 @@ pub mod node_pool {
         /// `KEY_AVAILABLE`, then nodes may go offline as they cannot access their
         /// local data. This can be caused by a lack of permissions to use the key,
         /// or if the key is disabled or deleted.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub kms_key_state: crate::model::KmsKeyState,
 
         /// Output only. Error status returned by Cloud KMS when using this key. This
@@ -2677,6 +2687,7 @@ pub mod node_pool {
         pub kms_status: std::option::Option<rpc::model::Status>,
 
         /// Output only. The current resource state associated with the cmek.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub resource_state: crate::model::ResourceState,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2972,6 +2983,7 @@ pub struct VpnConnection {
     pub nat_gateway_ip: std::string::String,
 
     /// Dynamic routing mode of the VPC network, `regional` or `global`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[deprecated]
     pub bgp_routing_mode: crate::model::vpn_connection::BgpRoutingMode,
 
@@ -3210,6 +3222,7 @@ pub mod vpn_connection {
     #[non_exhaustive]
     pub struct Details {
         /// The state of this connection.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub state: crate::model::vpn_connection::details::State,
 
         /// The error message. This is only populated when state=ERROR.
@@ -4448,6 +4461,7 @@ pub struct OperationMetadata {
     pub warnings: std::vec::Vec<std::string::String>,
 
     /// Machine-readable status of the operation, if any.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub status_reason: crate::model::operation_metadata::StatusReason,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5039,6 +5053,7 @@ pub struct UpgradeClusterRequest {
     pub target_version: std::string::String,
 
     /// The schedule for the upgrade.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub schedule: crate::model::upgrade_cluster_request::Schedule,
 
     /// A unique identifier for this request. Restricted to 36 ASCII characters. A

@@ -40,6 +40,7 @@ extern crate wkt;
 #[non_exhaustive]
 pub struct InputConfig {
     /// The input data format that used to store the model in Cloud Storage.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub data_format: crate::model::DataFormat,
 
     /// The location of the input model in cloud storage.
@@ -136,6 +137,7 @@ pub mod input_config {
 #[non_exhaustive]
 pub struct OutputConfig {
     /// The output data format that used to store the results in Cloud Storage.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub data_format: crate::model::DataFormat,
 
     /// The location of the output result in cloud storage.
@@ -302,6 +304,7 @@ impl wkt::message::Message for GcsDestination {
 #[non_exhaustive]
 pub struct AsyncModelMetadata {
     /// The state of the current operation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::async_model_metadata::State,
 
     /// A message providing more details about the current state of the operation.
@@ -565,9 +568,11 @@ pub struct OptimizeToursRequest {
     pub model: std::option::Option<crate::model::ShipmentModel>,
 
     /// By default, the solving mode is `DEFAULT_SOLVE` (0).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub solving_mode: crate::model::optimize_tours_request::SolvingMode,
 
     /// Search mode used to solve the request.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub search_mode: crate::model::optimize_tours_request::SearchMode,
 
     /// Guide the optimization algorithm in finding a first solution that is
@@ -3421,6 +3426,7 @@ pub struct ShipmentTypeIncompatibility {
     pub types: std::vec::Vec<std::string::String>,
 
     /// Mode applied to the incompatibility.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub incompatibility_mode: crate::model::shipment_type_incompatibility::IncompatibilityMode,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3634,6 +3640,7 @@ pub struct ShipmentTypeRequirement {
     pub dependent_shipment_types: std::vec::Vec<std::string::String>,
 
     /// Mode applied to the requirement.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub requirement_mode: crate::model::shipment_type_requirement::RequirementMode,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3930,6 +3937,7 @@ impl wkt::message::Message for RouteModifiers {
 pub struct Vehicle {
     /// The travel mode which affects the roads usable by the vehicle and its
     /// speed. See also `travel_duration_multiple`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub travel_mode: crate::model::vehicle::TravelMode,
 
     /// Optional. A set of conditions to satisfy that affect the way routes are
@@ -4033,6 +4041,7 @@ pub struct Vehicle {
     pub travel_duration_multiple: std::option::Option<f64>,
 
     /// Unloading policy enforced on the vehicle.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub unloading_policy: crate::model::vehicle::UnloadingPolicy,
 
     /// Capacities of the vehicle (weight, volume, # of pallets for example).
@@ -7789,6 +7798,7 @@ pub mod skipped_shipment {
     #[non_exhaustive]
     pub struct Reason {
         /// Refer to the comments of Code.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub code: crate::model::skipped_shipment::reason::Code,
 
         /// If the reason is related to a shipment-vehicle incompatibility, this
@@ -8546,6 +8556,7 @@ pub mod injected_solution_constraint {
             /// The constraint relaxation level that applies when the conditions
             /// at or after `threshold_time` AND at least `threshold_visit_count` are
             /// satisfied.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub level: crate::model::injected_solution_constraint::constraint_relaxation::relaxation::Level,
 
             /// The time at or after which the relaxation `level` may be applied.

@@ -278,6 +278,7 @@ pub mod policy {
         pub denied_values: std::vec::Vec<std::string::String>,
 
         /// The policy all_values state.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub all_values: crate::model::policy::list_policy::AllValues,
 
         /// Optional. The Google Cloud Console will try to default to a configuration

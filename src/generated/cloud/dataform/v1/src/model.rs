@@ -334,6 +334,7 @@ pub mod repository {
 
         /// Output only. Deprecated: The field does not contain any token status
         /// information.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[deprecated]
         pub token_status: crate::model::repository::git_remote_settings::TokenStatus,
 
@@ -1913,6 +1914,7 @@ impl wkt::message::Message for ComputeRepositoryAccessTokenStatusRequest {
 #[non_exhaustive]
 pub struct ComputeRepositoryAccessTokenStatusResponse {
     /// Indicates the status of the Git access token.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub token_status: crate::model::compute_repository_access_token_status_response::TokenStatus,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2834,6 +2836,7 @@ pub mod fetch_file_git_statuses_response {
         pub path: std::string::String,
 
         /// Output only. Indicates the status of the file.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub state: crate::model::fetch_file_git_statuses_response::uncommitted_file_change::State,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6534,6 +6537,7 @@ pub mod compilation_result_action {
         pub relation_descriptor: std::option::Option<crate::model::RelationDescriptor>,
 
         /// The type of this relation.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub relation_type: crate::model::compilation_result_action::relation::RelationType,
 
         /// The SELECT query which returns rows which this relation should contain.
@@ -8894,6 +8898,7 @@ pub struct WorkflowInvocation {
     pub invocation_config: std::option::Option<crate::model::InvocationConfig>,
 
     /// Output only. This workflow invocation's current state.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::workflow_invocation::State,
 
     /// Output only. This workflow invocation's timing details.
@@ -9626,6 +9631,7 @@ pub struct WorkflowInvocationAction {
     pub canonical_target: std::option::Option<crate::model::Target>,
 
     /// Output only. This action's current state.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::workflow_invocation_action::State,
 
     /// Output only. If and only if action's state is FAILED a failure reason is

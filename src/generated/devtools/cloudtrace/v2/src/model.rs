@@ -127,6 +127,7 @@ pub struct Span {
     /// Optional. Distinguishes between spans generated in a particular context.
     /// For example, two spans with the same name may be distinguished using
     /// `CLIENT` (caller) and `SERVER` (callee) to identify an RPC call.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub span_kind: crate::model::span::SpanKind,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -627,6 +628,7 @@ pub mod span {
             /// Type of MessageEvent. Indicates whether the message was sent or
             /// received.
             #[serde(rename = "type")]
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub r#type: crate::model::span::time_event::message_event::Type,
 
             /// An identifier for the MessageEvent's message that can be used to match
@@ -930,6 +932,7 @@ pub mod span {
 
         /// The relationship of the current span relative to the linked span.
         #[serde(rename = "type")]
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub r#type: crate::model::span::link::Type,
 
         /// A set of attributes on the link. Up to 32 attributes can be

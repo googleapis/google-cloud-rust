@@ -1030,6 +1030,7 @@ pub struct GetServiceAccountKeyRequest {
 
     /// Optional. The output format of the public key. The default is `TYPE_NONE`, which
     /// means that the public key is not returned.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub public_key_type: crate::model::ServiceAccountPublicKeyType,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1103,9 +1104,11 @@ pub struct ServiceAccountKey {
     ///
     /// Google never exposes system-managed private keys, and never retains
     /// user-managed private keys.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub private_key_type: crate::model::ServiceAccountPrivateKeyType,
 
     /// Specifies the algorithm (and possibly key size) for the key.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub key_algorithm: crate::model::ServiceAccountKeyAlgorithm,
 
     /// The private key data. Only provided in `CreateServiceAccountKey`
@@ -1136,9 +1139,11 @@ pub struct ServiceAccountKey {
     pub valid_before_time: std::option::Option<wkt::Timestamp>,
 
     /// The key origin.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub key_origin: crate::model::ServiceAccountKeyOrigin,
 
     /// The key type.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub key_type: crate::model::list_service_account_keys_request::KeyType,
 
     /// The key status.
@@ -1278,11 +1283,13 @@ pub struct CreateServiceAccountKeyRequest {
     /// The output format of the private key. The default value is
     /// `TYPE_GOOGLE_CREDENTIALS_FILE`, which is the Google Credentials File
     /// format.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub private_key_type: crate::model::ServiceAccountPrivateKeyType,
 
     /// Which type of key and algorithm to use for the key.
     /// The default is currently a 2K RSA key.  However this may change in the
     /// future.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub key_algorithm: crate::model::ServiceAccountKeyAlgorithm,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1758,6 +1765,7 @@ pub struct Role {
     /// The current launch stage of the role. If the `ALPHA` launch stage has been
     /// selected for a role, the `stage` field will not be included in the
     /// returned definition for the role.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub stage: crate::model::role::RoleLaunchStage,
 
     /// Used to perform a consistent read-modify-write.
@@ -2012,6 +2020,7 @@ pub struct QueryGrantableRolesRequest {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub full_resource_name: std::string::String,
 
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub view: crate::model::RoleView,
 
     /// Optional limit on the number of roles to include in the response.
@@ -2184,6 +2193,7 @@ pub struct ListRolesRequest {
     /// the `includedPermissions` field is returned, which includes a list of all
     /// permissions in the role. The default value is `BASIC`, which does not
     /// return the `includedPermissions` field.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub view: crate::model::RoleView,
 
     /// Include Roles that have been deleted.
@@ -2707,9 +2717,11 @@ pub struct Permission {
     pub only_in_predefined_roles: bool,
 
     /// The current launch stage of the permission.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub stage: crate::model::permission::PermissionLaunchStage,
 
     /// The current custom role support level.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub custom_roles_support_level: crate::model::permission::CustomRolesSupportLevel,
 
     /// The service API associated with the permission is not enabled.
@@ -3429,6 +3441,7 @@ pub mod lint_policy_request {
 #[non_exhaustive]
 pub struct LintResult {
     /// The validation unit level.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub level: crate::model::lint_result::Level,
 
     /// The validation unit name, for instance
@@ -3437,6 +3450,7 @@ pub struct LintResult {
     pub validation_unit_name: std::string::String,
 
     /// The validation unit severity.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub severity: crate::model::lint_result::Severity,
 
     /// The name of the field for which this lint result is about.

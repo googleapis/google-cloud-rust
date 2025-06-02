@@ -107,6 +107,7 @@ pub struct Reservation {
     pub multi_region_auxiliary: bool,
 
     /// Edition of the reservation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub edition: crate::model::Edition,
 
     /// Output only. The current location of the reservation's primary replica.
@@ -467,9 +468,11 @@ pub struct CapacityCommitment {
     pub slot_count: i64,
 
     /// Capacity commitment commitment plan.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub plan: crate::model::capacity_commitment::CommitmentPlan,
 
     /// Output only. State of the commitment.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::capacity_commitment::State,
 
     /// Output only. The start of the current commitment period. It is applicable
@@ -494,6 +497,7 @@ pub struct CapacityCommitment {
     /// The plan this capacity commitment is converted to after commitment_end_time
     /// passes. Once the plan is changed, committed period is extended according to
     /// commitment plan. Only applicable for ANNUAL and TRIAL commitments.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub renewal_plan: crate::model::capacity_commitment::CommitmentPlan,
 
     /// Applicable only for commitments located within one of the BigQuery
@@ -509,6 +513,7 @@ pub struct CapacityCommitment {
     pub multi_region_auxiliary: bool,
 
     /// Edition of the capacity commitment.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub edition: crate::model::Edition,
 
     /// Output only. If true, the commitment is a flat-rate commitment, otherwise,
@@ -1918,9 +1923,11 @@ pub struct Assignment {
     pub assignee: std::string::String,
 
     /// Which type of jobs will use the reservation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub job_type: crate::model::assignment::JobType,
 
     /// Output only. State of the assignment.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::assignment::State,
 
     /// Optional. This field controls if "Gemini in BigQuery"

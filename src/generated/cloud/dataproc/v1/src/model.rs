@@ -1207,6 +1207,7 @@ pub struct Batch {
     pub runtime_info: std::option::Option<crate::model::RuntimeInfo>,
 
     /// Output only. The state of the batch.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::batch::State,
 
     /// Output only. Batch state details, such as a failure
@@ -1551,6 +1552,7 @@ pub mod batch {
     #[non_exhaustive]
     pub struct StateHistory {
         /// Output only. The state of the batch at this point in history.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub state: crate::model::batch::State,
 
         /// Output only. Details about the state at this point in history.
@@ -3250,6 +3252,7 @@ pub struct GceClusterConfig {
     pub internal_ip_only: std::option::Option<bool>,
 
     /// Optional. The type of IPv6 access for a cluster.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub private_ipv6_google_access: crate::model::gce_cluster_config::PrivateIpv6GoogleAccess,
 
     /// Optional. The [Dataproc service
@@ -3895,6 +3898,7 @@ pub struct InstanceGroupConfig {
     ///
     /// The default value for secondary instances is
     /// `PREEMPTIBLE`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub preemptibility: crate::model::instance_group_config::Preemptibility,
 
     /// Output only. The config for Compute Engine Instance Group
@@ -5295,6 +5299,7 @@ impl wkt::message::Message for NodeInitializationAction {
 #[non_exhaustive]
 pub struct ClusterStatus {
     /// Output only. The cluster's state.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::cluster_status::State,
 
     /// Optional. Output only. Details of cluster's state.
@@ -5308,6 +5313,7 @@ pub struct ClusterStatus {
 
     /// Output only. Additional state information that includes
     /// status reported by the agent.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub substate: crate::model::cluster_status::Substate,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6435,6 +6441,7 @@ pub mod dataproc_metric_config {
         /// are specified for the metric source (see [Custom metrics]
         /// (<https://cloud.google.com/dataproc/docs/guides/dataproc-metrics#custom_metrics>)
         /// for more information).
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub metric_source: crate::model::dataproc_metric_config::MetricSource,
 
         /// Optional. Specify one or more [Custom metrics]
@@ -6726,6 +6733,7 @@ pub struct CreateClusterRequest {
     pub request_id: std::string::String,
 
     /// Optional. Failure action when primary worker creation fails.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub action_on_failed_primary_workers: crate::model::FailureAction,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7470,6 +7478,7 @@ pub struct DiagnoseClusterRequest {
 
     /// Optional. (Optional) The access type to the diagnostic tarball. If not
     /// specified, falls back to default access of the bucket
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub tarball_access: crate::model::diagnose_cluster_request::TarballAccess,
 
     /// Optional. Time interval in which diagnosis should be carried out on the
@@ -7761,6 +7770,7 @@ impl wkt::message::Message for DiagnoseClusterResults {
 #[non_exhaustive]
 pub struct ReservationAffinity {
     /// Optional. Type of reservation to consume
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub consume_reservation_type: crate::model::reservation_affinity::Type,
 
     /// Optional. Corresponds to the label key of reservation resource.
@@ -10189,6 +10199,7 @@ impl wkt::message::Message for JobPlacement {
 #[non_exhaustive]
 pub struct JobStatus {
     /// Output only. A state message specifying the overall job state.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::job_status::State,
 
     /// Optional. Output only. Job state details, such as an error
@@ -10202,6 +10213,7 @@ pub struct JobStatus {
 
     /// Output only. Additional state information, which includes
     /// status reported by the agent.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub substate: crate::model::job_status::Substate,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10666,6 +10678,7 @@ pub struct YarnApplication {
     pub name: std::string::String,
 
     /// Required. The application state.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::yarn_application::State,
 
     /// Required. The numerical progress of the application, from 1 to 100.
@@ -11808,6 +11821,7 @@ pub struct ListJobsRequest {
     /// (default = match ALL jobs).
     ///
     /// If `filter` is provided, `jobStateMatcher` will be ignored.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub job_state_matcher: crate::model::list_jobs_request::JobStateMatcher,
 
     /// Optional. A filter constraining the jobs to list. Filters are
@@ -12574,6 +12588,7 @@ pub struct BatchOperationMetadata {
     pub done_time: std::option::Option<wkt::Timestamp>,
 
     /// The operation type.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub operation_type: crate::model::batch_operation_metadata::BatchOperationType,
 
     /// Short description of the operation.
@@ -12846,6 +12861,7 @@ pub struct SessionOperationMetadata {
     pub done_time: std::option::Option<wkt::Timestamp>,
 
     /// The operation type.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub operation_type: crate::model::session_operation_metadata::SessionOperationType,
 
     /// Short description of the operation.
@@ -13118,6 +13134,7 @@ pub mod session_operation_metadata {
 #[non_exhaustive]
 pub struct ClusterOperationStatus {
     /// Output only. A message containing the operation state.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::cluster_operation_status::State,
 
     /// Output only. A message containing the detailed operation state.
@@ -13500,6 +13517,7 @@ pub struct NodeGroupOperationMetadata {
     pub status_history: std::vec::Vec<crate::model::ClusterOperationStatus>,
 
     /// The operation type.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub operation_type: crate::model::node_group_operation_metadata::NodeGroupOperationType,
 
     /// Output only. Short description of operation.
@@ -14718,6 +14736,7 @@ pub struct Session {
     pub runtime_info: std::option::Option<crate::model::RuntimeInfo>,
 
     /// Output only. A state of the session.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::session::State,
 
     /// Output only. Session state details, such as the failure
@@ -15040,6 +15059,7 @@ pub mod session {
     pub struct SessionStateHistory {
         /// Output only. The state of the session at this point in the session
         /// history.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub state: crate::model::session::State,
 
         /// Output only. Details about the state at this point in the session
@@ -15276,6 +15296,7 @@ pub mod session {
 #[non_exhaustive]
 pub struct JupyterConfig {
     /// Optional. Kernel
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub kernel: crate::model::jupyter_config::Kernel,
 
     /// Optional. Display name, shown in the Jupyter kernelspec card.
@@ -17172,6 +17193,7 @@ pub mod gke_node_pool_config {
 #[non_exhaustive]
 pub struct AuthenticationConfig {
     /// Optional. Authentication type for the user workload running in containers.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub user_workload_authentication_type: crate::model::authentication_config::AuthenticationType,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -18962,6 +18984,7 @@ pub struct WorkflowMetadata {
     pub delete_cluster: std::option::Option<crate::model::ClusterOperation>,
 
     /// Output only. The workflow state.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::workflow_metadata::State,
 
     /// Output only. The name of the target cluster.
@@ -19464,6 +19487,7 @@ pub struct WorkflowNode {
     pub job_id: std::string::String,
 
     /// Output only. The node state.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub state: crate::model::workflow_node::NodeState,
 
     /// Output only. The error detail.

@@ -1006,6 +1006,7 @@ pub struct LineItemChange {
     pub change_id: std::string::String,
 
     /// Required. Type of the change to make.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub change_type: crate::model::LineItemChangeType,
 
     /// Output only. Line item info before the change.
@@ -1017,6 +1018,7 @@ pub struct LineItemChange {
     pub new_line_item_info: std::option::Option<crate::model::LineItemInfo>,
 
     /// Output only. State of the change.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub change_state: crate::model::LineItemChangeState,
 
     /// Output only. Provider-supplied message explaining the LineItemChange's
@@ -1031,6 +1033,7 @@ pub struct LineItemChange {
     /// `LINE_ITEM_CHANGE_STATE_COMPLETED` because of end-of-term expiration,
     /// immediate cancellation initiated by the user, or system-initiated
     /// cancellation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub change_state_reason_type: crate::model::LineItemChangeStateReasonType,
 
     /// Output only. A time at which the change became or will become (in case of
@@ -1915,6 +1918,7 @@ pub mod modify_order_request {
         pub line_item_id: std::string::String,
 
         /// Required. Type of change to make.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub change_type: crate::model::LineItemChangeType,
 
         /// Optional. The line item to update to.
@@ -1928,6 +1932,7 @@ pub mod modify_order_request {
         /// Applied when change_type is
         /// [LineItemChangeType.LINE_ITEM_CHANGE_TYPE_UPDATE]. Follows plan default
         /// config when this field is not specified.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub auto_renewal_behavior: crate::model::AutoRenewalBehavior,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2039,6 +2044,7 @@ pub struct CancelOrderRequest {
     pub etag: std::string::String,
 
     /// Optional. Cancellation policy of this request.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub cancellation_policy: crate::model::cancel_order_request::CancellationPolicy,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

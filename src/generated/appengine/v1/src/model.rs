@@ -41,10 +41,12 @@ extern crate wkt;
 pub struct ApiConfigHandler {
     /// Action to take when users access resources that require
     /// authentication. Defaults to `redirect`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub auth_fail_action: crate::model::AuthFailAction,
 
     /// Level of login required to access this resource. Defaults to
     /// `optional`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub login: crate::model::LoginRequirement,
 
     /// Path to the script from the application root directory.
@@ -52,6 +54,7 @@ pub struct ApiConfigHandler {
     pub script: std::string::String,
 
     /// Security (HTTPS) enforcement for this URL.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub security_level: crate::model::SecurityLevel,
 
     /// URL to serve the endpoint at.
@@ -120,6 +123,7 @@ impl wkt::message::Message for ApiConfigHandler {
 #[non_exhaustive]
 pub struct ErrorHandler {
     /// Error condition this handler applies to.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub error_code: crate::model::error_handler::ErrorCode,
 
     /// Static file content to be served for this error.
@@ -335,18 +339,22 @@ pub struct UrlMap {
     pub url_regex: std::string::String,
 
     /// Security (HTTPS) enforcement for this URL.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub security_level: crate::model::SecurityLevel,
 
     /// Level of login required to access this resource. Not supported for Node.js
     /// in the App Engine standard environment.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub login: crate::model::LoginRequirement,
 
     /// Action to take when users access resources that require
     /// authentication. Defaults to `redirect`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub auth_fail_action: crate::model::AuthFailAction,
 
     /// `30x` code to use when performing redirects for the `secure` field.
     /// Defaults to `302`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub redirect_http_response_code: crate::model::url_map::RedirectHttpResponseCode,
 
     /// Type of handler for this URL pattern.
@@ -1783,6 +1791,7 @@ pub struct ListVersionsRequest {
     pub parent: std::string::String,
 
     /// Controls the set of fields returned in the `List` response.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub view: crate::model::VersionView,
 
     /// Maximum results to return per page.
@@ -1906,6 +1915,7 @@ pub struct GetVersionRequest {
     pub name: std::string::String,
 
     /// Controls the set of fields returned in the `Get` response.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub view: crate::model::VersionView,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2876,6 +2886,7 @@ pub struct ListAuthorizedCertificatesRequest {
     pub parent: std::string::String,
 
     /// Controls the set of fields returned in the `LIST` response.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub view: crate::model::AuthorizedCertificateView,
 
     /// Maximum results to return per page.
@@ -3002,6 +3013,7 @@ pub struct GetAuthorizedCertificateRequest {
     pub name: std::string::String,
 
     /// Controls the set of fields returned in the `GET` response.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub view: crate::model::AuthorizedCertificateView,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3363,6 +3375,7 @@ pub struct CreateDomainMappingRequest {
 
     /// Whether the domain creation should override any existing mappings for this
     /// domain. By default, overrides are rejected.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub override_strategy: crate::model::DomainOverrideStrategy,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3583,6 +3596,7 @@ pub struct Application {
     pub default_cookie_expiration: std::option::Option<wkt::Duration>,
 
     /// Serving status of this application.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub serving_status: crate::model::application::ServingStatus,
 
     /// Hostname used to reach this application, as resolved by App Engine.
@@ -3614,6 +3628,7 @@ pub struct Application {
 
     /// The type of the Cloud Firestore or Cloud Datastore database associated with
     /// this application.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub database_type: crate::model::application::DatabaseType,
 
     /// The feature specific settings to be used in the application.
@@ -4728,6 +4743,7 @@ pub struct ManagedCertificate {
     /// acquisition or renewal attempt.
     ///
     /// @OutputOnly
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub status: crate::model::ManagementStatus,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5243,6 +5259,7 @@ pub struct SslSettings {
     /// SSL management type for this domain. If `AUTOMATIC`, a managed certificate
     /// is automatically provisioned. If `MANUAL`, `certificate_id` must be
     /// manually specified in order to configure SSL for this domain.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub ssl_management_type: crate::model::ssl_settings::SslManagementType,
 
     /// ID of the managed `AuthorizedCertificate` resource currently being
@@ -5458,6 +5475,7 @@ pub struct ResourceRecord {
 
     /// Resource record type. Example: `AAAA`.
     #[serde(rename = "type")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub r#type: crate::model::resource_record::RecordType,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5659,6 +5677,7 @@ pub struct FirewallRule {
     pub priority: i32,
 
     /// The action to take on matched requests.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub action: crate::model::firewall_rule::Action,
 
     /// IP address or range, defined using CIDR notation, of requests that this
@@ -5876,6 +5895,7 @@ pub struct Instance {
     pub app_engine_release: std::string::String,
 
     /// Output only. Availability of the instance.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub availability: crate::model::instance::Availability,
 
     /// Output only. Name of the virtual machine where this instance lives. Only applicable
@@ -5938,6 +5958,7 @@ pub struct Instance {
 
     /// Output only. The liveness health check of this instance. Only applicable for instances
     /// in App Engine flexible environment.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub vm_liveness: crate::model::instance::liveness::LivenessState,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6473,6 +6494,7 @@ impl wkt::message::Message for LocationMetadata {
 #[non_exhaustive]
 pub struct NetworkSettings {
     /// The ingress settings for version or service.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub ingress_traffic_allowed: crate::model::network_settings::IngressTrafficAllowed,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7029,6 +7051,7 @@ pub struct TrafficSplit {
     /// Mechanism used to determine which version a request is sent to.
     /// The traffic selection algorithm will
     /// be stable for either type until allocations are changed.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub shard_by: crate::model::traffic_split::ShardBy,
 
     /// Mapping from version IDs within the service to fractional
@@ -7316,6 +7339,7 @@ pub struct Version {
     /// `SERVING` status create instances and can be billed.
     ///
     /// `SERVING_STATUS_UNSPECIFIED` is an invalid value. Defaults to `SERVING`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub serving_status: crate::model::ServingStatus,
 
     /// Email address of the user who created this version.
@@ -8065,6 +8089,7 @@ pub struct EndpointsApiService {
 
     /// Endpoints rollout strategy. If `FIXED`, `config_id` must be specified. If
     /// `MANAGED`, `config_id` must be omitted.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub rollout_strategy: crate::model::endpoints_api_service::RolloutStrategy,
 
     /// Enable or disable trace sampling. By default, this is set to false for
@@ -9165,6 +9190,7 @@ pub struct VpcAccessConnector {
 
     /// The egress setting for the connector, controlling what traffic is diverted
     /// through it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub egress_setting: crate::model::vpc_access_connector::EgressSetting,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
