@@ -177,6 +177,71 @@ impl Error {
         matches!(self.kind, ErrorKind::Deserialization)
     }
 
+    /// Not part of the public API, subject to change without notice.
+    ///
+    /// Creates an error representing a serialization problem.
+    ///
+    /// Applications should have no need to use this function. The exception
+    /// could be mocks, but this error is too rare to merit mocks. If you are
+    /// writing a mock that stores values into [wkt::Any], consider using
+    /// `.expect()` calls instead.
+    ///
+    /// # Example
+    /// ```
+    /// use std::error::Error as _;
+    /// use google_cloud_gax::error::Error;
+    /// let error = Error::ser("simulated problem");
+    /// assert!(error.is_serialization());
+    /// assert!(error.source().is_some());
+    /// ```
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+    pub fn ser<T: Into<BoxError>>(source: T) -> Self {
+        Self {
+            kind: ErrorKind::Serialization,
+            source: Some(source.into()),
+        }
+    }
+
+    /// The request could not be serialized.
+    ///
+    /// This is always a client-side generated error, generated before the
+    /// request is made. This error is never transient: the serialization is
+    /// deterministic (modulo out of memory conditions), and will fail on future
+    /// attempts with the same input data.
+    ///
+    /// # Troubleshooting
+    ///
+    /// Most client libraries use HTTP and JSON as the transport, though some
+    /// client libraries use gRPC for some, or all RPCs.
+    ///
+    /// The most common cause for serialization problems is using an unknown
+    /// enum value name with a gRPC-based RPC. gRPC requires integer enum
+    /// values, while JSON accepts both. The client libraries convert **known**
+    /// enum value names to their integer representation, but unknown values
+    /// cannot be sent over gRPC. Verify the enum value is valid, and if so:
+    /// - try using an integer value instead of the enum name, or
+    /// - upgrade the client library: newer versions should include the new
+    ///   value.
+    ///
+    /// In all other cases please [open an issue]. While we do not expect these
+    /// problems to be common, we would like to hear if they are so we can
+    /// prevent them. If you cannot use a public issue tracker, contact
+    /// [Google Cloud support].
+    ///
+    /// A less common cause for serialization problems may be an out of memory
+    /// condition, or any other runtime error. Use `format!("{:?}", ...)` to
+    /// examine the error as it should include the original problem.
+    ///
+    /// Finally, sending a [wkt::Any] with a gRPC-based client is unsupported.
+    /// As of this writing, no client libraries sends `Any` via gRPC, but this
+    /// could be a problem in the future.
+    ///
+    /// [open an issue]: https://github.com/googleapis/google-cloud-rust/issues/new/choose
+    /// [Google Cloud support]: https://cloud.google.com/support
+    pub fn is_serialization(&self) -> bool {
+        matches!(self.kind, ErrorKind::Serialization)
+    }
+
     /// The [Status] payload associated with this error.
     ///
     /// # Examples
@@ -522,10 +587,7 @@ impl Error {
     // TODO(#2221) - remove once the migration is completed.
     #[doc(hidden)]
     pub fn serde<T: Into<BoxError>>(source: T) -> Self {
-        Self {
-            kind: ErrorKind::Serialization,
-            source: Some(source.into()),
-        }
+        Self::ser(source)
     }
 
     /// Not part of the public API, subject to change without notice.
@@ -769,8 +831,8 @@ mod test {
     #[test]
     fn ser() {
         let source = wkt::TimestampError::OutOfRange;
-        let error = Error::serde(source);
-        assert!(error.is_serde(), "{error:?}");
+        let error = Error::ser(source);
+        assert!(error.is_serialization(), "{error:?}");
         assert!(error.source().is_some(), "{error:?}");
         let got = error
             .source()
@@ -782,6 +844,11 @@ mod test {
         let source = wkt::TimestampError::OutOfRange;
         assert!(error.to_string().contains(&source.to_string()), "{error}");
         assert!(!error.is_transient_and_before_rpc(), "{error:?}");
+
+        // TODO(#2312) - remove once the migration is done
+        let error = Error::serde(source);
+        assert!(error.is_serialization(), "{error:?}");
+        assert!(error.is_serde(), "{error:?}");
     }
 
     #[test]

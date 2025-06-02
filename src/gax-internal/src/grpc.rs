@@ -218,7 +218,7 @@ impl Client {
             //
             headers.append(
                 http::header::HeaderName::from_static("x-goog-request-params"),
-                http::header::HeaderValue::from_str(request_params).map_err(Error::serde)?,
+                http::header::HeaderValue::from_str(request_params).map_err(Error::ser)?,
             );
         }
         Ok(headers)
