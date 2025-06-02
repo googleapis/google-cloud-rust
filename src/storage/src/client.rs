@@ -16,6 +16,7 @@ pub use crate::Error;
 pub use crate::Result;
 use auth::credentials::CacheableResource;
 use base64::Engine;
+use base64::prelude::*;
 pub use control::model::Object;
 use http::Extensions;
 
@@ -569,11 +570,11 @@ impl ReadObject {
                 )
                 .header(
                     "x-goog-encryption-key",
-                    base64::prelude::BASE64_STANDARD.encode(v.encryption_key_bytes.clone()),
+                    BASE64_STANDARD.encode(v.encryption_key_bytes.clone()),
                 )
                 .header(
                     "x-goog-encryption-key-sha256",
-                    base64::prelude::BASE64_STANDARD.encode(v.encryption_key_sha256_bytes.clone()),
+                    BASE64_STANDARD.encode(v.encryption_key_sha256_bytes.clone()),
                 )
             });
 
@@ -725,6 +726,54 @@ mod tests {
             new_builder().set_read_mask(wkt::FieldMask::default().set_paths(["abc"])),
         )
         .await;
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_read_object_headers() -> Result {
+        let client = Storage::builder()
+            .with_credentials(auth::credentials::testing::test_credentials())
+            .build()
+            .await?;
+        let key_base64 = "V8knzq04ASfjVn7eNM/UGsXnHEvpRByfCRE/gkNJfK0=";
+        let key_sha256_base64 = "0hA2ubfDbe2m0t8tZIDKYGd53WYJkoWSXGCPvYESW58=";
+        let key: Vec<u8> = BASE64_STANDARD.decode(key_base64)?;
+        let sha256: Vec<u8> = BASE64_STANDARD.decode(key_sha256_base64)?;
+        let read_object_builder = client
+            .read_object()
+            .set_bucket("projects/_/buckets/bucket")
+            .set_object("object")
+            // TODO: this is a bad interface, algorithm is always AES256 and the sha256 is calculated from the key bytes.
+            // Other client libraries allow user to simply specify "key", we should do that.
+            .set_common_object_request_params(
+                control::model::CommonObjectRequestParams::new()
+                    .set_encryption_algorithm("AES256")
+                    // Random key generated for this test.
+                    .set_encryption_key_bytes(key)
+                    .set_encryption_key_sha256_bytes(sha256),
+            )
+            .http_request_builder()
+            .await?
+            .build()?;
+
+        assert_eq!(read_object_builder.method(), reqwest::Method::GET);
+        assert_eq!(
+            read_object_builder.url().as_str(),
+            "https://storage.googleapis.com/storage/v1/b/bucket/o/object?alt=media"
+        );
+
+        let want = vec![
+            ("x-goog-encryption-algorithm", "AES256"),
+            ("x-goog-encryption-key", key_base64),
+            ("x-goog-encryption-key-sha256", key_sha256_base64),
+        ];
+
+        for (name, value) in want {
+            assert_eq!(
+                read_object_builder.headers().get(name).unwrap().as_bytes(),
+                bytes::Bytes::from(value)
+            );
+        }
         Ok(())
     }
 }
