@@ -226,7 +226,7 @@ mod test {
                 *p != "requiredString="
                     && *p != "requiredInt32=0"
                     && *p != "requiredEnumValue="
-                    && *p != "requiredFieldMask.paths="
+                    && *p != "requiredFieldMask="
             })
             .collect()
     }
@@ -469,7 +469,7 @@ mod test {
 
         let r = builder.build()?;
         // TODO(#736) - the `.paths` field here may not be correct, investigate
-        assert_eq!(split_query(&r), vec!["fieldMask.paths=a%2Cb"]);
+        assert_eq!(split_query(&r), vec!["fieldMask=a%2Cb"]);
 
         Ok(())
     }
@@ -486,7 +486,7 @@ mod test {
 
         let r = builder.build()?;
         // TODO(#736) - the `.paths` field here may not be correct, investigate
-        assert_eq!(split_query(&r), vec!["requiredFieldMask.paths=a%2Cb"]);
+        assert_eq!(split_query(&r), vec!["requiredFieldMask=a%2Cb"]);
 
         Ok(())
     }
