@@ -249,28 +249,20 @@ impl<'de> serde::de::Deserialize<'de> for Any {
             None => Err(D::Error::missing_field("@type")),
             Some(Value::String(s)) if validate_type_url(s) => Ok(Any(value)),
             Some(Value::String(s)) => Err(D::Error::invalid_value(Unexpected::Str(s), &EXPECTED)),
-            Some(Value::Null) => Err(D::Error::invalid_type(
-                Unexpected::Other("JSON null"),
-                &EXPECTED,
-            )),
-            Some(Value::Object(_)) => Err(D::Error::invalid_type(
-                Unexpected::Other("JSON object"),
-                &EXPECTED,
-            )),
-            Some(Value::Array(_)) => Err(D::Error::invalid_type(
-                Unexpected::Other("JSON array"),
-                &EXPECTED,
-            )),
-            Some(Value::Number(_)) => Err(D::Error::invalid_type(
-                Unexpected::Other("JSON number"),
-                &EXPECTED,
-            )),
-            Some(Value::Bool(_)) => Err(D::Error::invalid_type(
-                Unexpected::Other("JSON boolean"),
-                &EXPECTED,
-            )),
+            Some(Value::Null) => Err(type_field_invalid_type("JSON null")),
+            Some(Value::Object(_)) => Err(type_field_invalid_type("JSON object")),
+            Some(Value::Array(_)) => Err(type_field_invalid_type("JSON array")),
+            Some(Value::Number(_)) => Err(type_field_invalid_type("JSON number")),
+            Some(Value::Bool(_)) => Err(type_field_invalid_type("JSON boolean")),
         }
     }
+}
+
+fn type_field_invalid_type<E>(reason: &str) -> E
+where
+    E: serde::de::Error,
+{
+    E::invalid_type(Unexpected::Other(reason), &EXPECTED)
 }
 
 fn validate_type_url(type_url: &str) -> bool {
