@@ -877,7 +877,7 @@ pub struct HttpResponse {
     /// is "HEAD", values >= 0 indicate that the given number of bytes may
     /// be read from Body.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub content_length: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

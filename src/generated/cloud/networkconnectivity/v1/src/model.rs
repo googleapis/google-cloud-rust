@@ -1877,7 +1877,7 @@ pub mod service_connection_policy {
 
         /// Optional. Max number of PSC connections for this policy.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
-        #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+        #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
         pub limit: std::option::Option<i64>,
 
         /// Required. ProducerInstanceLocation is used to specify which authorization
@@ -5074,7 +5074,7 @@ pub struct Route {
     /// cases where a destination matches more than one route. In these cases the
     /// route with the lowest-numbered priority value wins.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub priority: i64,
 
     /// Immutable. The next-hop VPN tunnel for packets on this route.
@@ -9152,7 +9152,7 @@ pub mod spoke_summary {
         /// Output only. The total number of spokes of this type that are
         /// associated with the hub.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub count: i64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9200,7 +9200,7 @@ pub mod spoke_summary {
         /// Output only. The total number of spokes that are in this state
         /// and associated with a given hub.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub count: i64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9244,7 +9244,7 @@ pub mod spoke_summary {
         /// Output only. The total number of spokes that are inactive for a
         /// particular reason and associated with a given hub.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub count: i64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

@@ -14,8 +14,10 @@
 
 #[cfg(test)]
 mod test {
-    use serde_json::json;
-    type Result = std::result::Result<(), Box<dyn std::error::Error>>;
+    use serde_json::{Value, json};
+    use test_case::test_case;
+
+    type Result = anyhow::Result<()>;
 
     #[allow(dead_code)]
     mod protos {
@@ -24,44 +26,196 @@ mod test {
     }
     use protos::MessageWithI64;
 
-    // 1 << 60 is too large to be represented as a JSON number, those are
-    // always IEEE 754 double precision floating point numbers, which only
-    // has about 52 bits of mantissa.
-    const TEST_VALUE: i64 = 1_i64 << 60;
-
-    #[test]
-    fn test_singular() -> Result {
-        let msg = MessageWithI64::new().set_singular(TEST_VALUE);
-        let got = serde_json::to_value(&msg)?;
-        let want = json!({"singular": format!("{TEST_VALUE}")});
-        assert_eq!(want, got);
-
-        let roundtrip = serde_json::from_value::<MessageWithI64>(got)?;
-        assert_eq!(msg, roundtrip);
+    #[test_case(123, 123)]
+    #[test_case(-234, -234)]
+    #[test_case("345", 345)]
+    #[test_case("-456", -456)]
+    #[test_case("567.0", 567)]
+    #[test_case("-789.0", -789)]
+    fn test_singular<T>(input: T, want: i64) -> Result
+    where
+        T: serde::ser::Serialize,
+    {
+        let value = json!({"singular": input});
+        let got = serde_json::from_value::<MessageWithI64>(value)?;
+        let output = json!({"singular": want.to_string()});
+        assert_eq!(got, MessageWithI64::new().set_singular(want));
+        let trip = serde_json::to_value(&got)?;
+        assert_eq!(trip, output);
         Ok(())
     }
 
-    #[test]
-    fn test_optional() -> Result {
-        let msg = MessageWithI64::new().set_optional(TEST_VALUE);
-        let got = serde_json::to_value(&msg)?;
-        let want = json!({"optional": format!("{TEST_VALUE}")});
-        assert_eq!(want, got);
-
-        let roundtrip = serde_json::from_value::<MessageWithI64>(got)?;
-        assert_eq!(msg, roundtrip);
+    #[test_case(json!({}))]
+    #[test_case(json!({"singular": 0}))]
+    fn test_singular_default(input: Value) -> Result {
+        let want = MessageWithI64::new().set_singular(0);
+        let got = serde_json::from_value::<MessageWithI64>(input)?;
+        assert_eq!(got, want);
+        let output = serde_json::to_value(&got)?;
+        assert_eq!(output, json!({}));
         Ok(())
     }
 
-    #[test]
-    fn test_repeated() -> Result {
-        let msg = MessageWithI64::new().set_repeated([TEST_VALUE]);
-        let got = serde_json::to_value(&msg)?;
-        let want = json!({"repeated": [format!("{TEST_VALUE}")]});
-        assert_eq!(want, got);
+    #[test_case(0, 0)]
+    #[test_case(123, 123)]
+    #[test_case(-234, -234)]
+    #[test_case("345", 345)]
+    #[test_case("-456", -456)]
+    #[test_case("567.0", 567)]
+    #[test_case("-789.0", -789)]
+    fn test_optional<T>(input: T, want: i64) -> Result
+    where
+        T: serde::ser::Serialize,
+    {
+        let value = json!({"optional": input});
+        let got = serde_json::from_value::<MessageWithI64>(value)?;
+        let output = json!({"optional": want.to_string()});
+        assert_eq!(got, MessageWithI64::new().set_optional(want));
+        let trip = serde_json::to_value(&got)?;
+        assert_eq!(trip, output);
+        Ok(())
+    }
 
-        let roundtrip = serde_json::from_value::<MessageWithI64>(got)?;
-        assert_eq!(msg, roundtrip);
+    #[test_case(json!({}))]
+    #[test_case(json!({"optional": null}))]
+    fn test_optional_none(input: Value) -> Result {
+        let want = MessageWithI64::new().set_or_clear_optional(None::<i64>);
+        let got = serde_json::from_value::<MessageWithI64>(input)?;
+        assert_eq!(got, want);
+        Ok(())
+    }
+
+    #[test_case(0, 0)]
+    #[test_case(123, 123)]
+    #[test_case(-234, -234)]
+    #[test_case("345", 345)]
+    #[test_case("-456", -456)]
+    #[test_case("567.0", 567)]
+    #[test_case("-789.0", -789)]
+    fn test_repeated<T>(input: T, want: i64) -> Result
+    where
+        T: serde::ser::Serialize,
+    {
+        let value = json!({"repeated": [input]});
+        let got = serde_json::from_value::<MessageWithI64>(value)?;
+        let output = json!({"repeated": [want.to_string()]});
+        assert_eq!(got, MessageWithI64::new().set_repeated([want]));
+        let trip = serde_json::to_value(&got)?;
+        assert_eq!(trip, output);
+        Ok(())
+    }
+
+    #[test_case(json!({}))]
+    #[test_case(json!({"repeated": []}))]
+    fn test_repeated_default(input: Value) -> Result {
+        let want = MessageWithI64::new();
+        let got = serde_json::from_value::<MessageWithI64>(input)?;
+        assert_eq!(got, want);
+        let output = serde_json::to_value(&got)?;
+        assert_eq!(output, json!({}));
+        Ok(())
+    }
+
+    #[test_case(0, 0)]
+    #[test_case(123, 123)]
+    #[test_case(-234, -234)]
+    #[test_case("345", 345)]
+    #[test_case("-456", -456)]
+    #[test_case("567.0", 567)]
+    #[test_case("-789.0", -789)]
+    fn test_map_value<T>(input: T, want: i64) -> Result
+    where
+        T: serde::ser::Serialize,
+    {
+        let value = json!({"mapValue": {"test": input}});
+        let got = serde_json::from_value::<MessageWithI64>(value)?;
+        let output = json!({"mapValue": {"test": want.to_string()}});
+        assert_eq!(
+            got,
+            MessageWithI64::new().set_map_value([("test".to_string(), want)])
+        );
+        let trip = serde_json::to_value(&got)?;
+        assert_eq!(trip, output);
+        Ok(())
+    }
+
+    #[test_case(json!({}))]
+    #[test_case(json!({"mapValue": {}}))]
+    fn test_map_value_default(input: Value) -> Result {
+        let want = MessageWithI64::default();
+        let got = serde_json::from_value::<MessageWithI64>(input)?;
+        assert_eq!(got, want);
+        let output = serde_json::to_value(&got)?;
+        assert_eq!(output, json!({}));
+        Ok(())
+    }
+
+    #[test_case("0", 0)]
+    #[test_case("123", 123)]
+    #[test_case("-234", -234)]
+    #[test_case("345", 345)]
+    #[test_case("-456", -456)]
+    #[test_case("567.0", 567)]
+    #[test_case("-789.0", -789)]
+    fn test_map_key<T>(input: T, want: i64) -> Result
+    where
+        T: Into<String>,
+    {
+        let value = json!({"mapKey": {input: "test"}});
+        let got = serde_json::from_value::<MessageWithI64>(value)?;
+        let output = json!({"mapKey": {want.to_string(): "test"}});
+        assert_eq!(
+            got,
+            MessageWithI64::new().set_map_key([(want, "test".to_string())])
+        );
+        let trip = serde_json::to_value(&got)?;
+        assert_eq!(trip, output);
+        Ok(())
+    }
+
+    #[test_case(json!({}))]
+    #[test_case(json!({"mapKey": {}}))]
+    fn test_map_key_default(input: Value) -> Result {
+        let want = MessageWithI64::default();
+        let got = serde_json::from_value::<MessageWithI64>(input)?;
+        assert_eq!(got, want);
+        let output = serde_json::to_value(&got)?;
+        assert_eq!(output, json!({}));
+        Ok(())
+    }
+
+    #[test_case("0", "0", 0, 0; "string zero")]
+    #[test_case("0", 0, 0, 0)]
+    #[test_case("0.0", 0, 0, 0)]
+    #[test_case("123", 234, 123, 234)]
+    #[test_case("123.0", "345", 123, 345)]
+    #[test_case("-789", 456, -789, 456)]
+    #[test_case("-789.0", "567", -789, 567)]
+    fn test_map_key_value<K, V>(key: K, value: V, want_key: i64, want_value: i64) -> Result
+    where
+        K: ToString,
+        V: ToString,
+    {
+        let value = json!({"mapKeyValue": {key.to_string(): value.to_string()}});
+        let got = serde_json::from_value::<MessageWithI64>(value)?;
+        let output = json!({"mapKeyValue": {want_key.to_string(): want_value.to_string()}});
+        assert_eq!(
+            got,
+            MessageWithI64::new().set_map_key_value([(want_key, want_value)])
+        );
+        let trip = serde_json::to_value(&got)?;
+        assert_eq!(trip, output);
+        Ok(())
+    }
+
+    #[test_case(json!({}))]
+    #[test_case(json!({"mapKeyValue": {}}))]
+    fn test_map_key_value_default(input: Value) -> Result {
+        let want = MessageWithI64::default();
+        let got = serde_json::from_value::<MessageWithI64>(input)?;
+        assert_eq!(got, want);
+        let output = serde_json::to_value(&got)?;
+        assert_eq!(output, json!({}));
         Ok(())
     }
 }

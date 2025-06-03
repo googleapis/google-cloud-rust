@@ -556,7 +556,7 @@ pub struct NodeKubeletConfig {
     /// Controls the maximum number of processes allowed to run in a pod. The value
     /// must be greater than or equal to 1024 and less than 4194304.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub pod_pids_limit: i64,
 
     /// Enable or disable Kubelet read only port.
@@ -1802,7 +1802,7 @@ pub struct AdvancedMachineFeatures {
     /// multithreading (SMT) set this to 1. If unset, the maximum number of threads
     /// supported per core by the underlying processor is assumed.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub threads_per_core: std::option::Option<i64>,
 
     /// Whether or not to enable nested virtualization (defaults to false).
@@ -11524,7 +11524,7 @@ pub mod operation_progress {
         #[non_exhaustive]
         pub enum Value {
             /// For metrics with integer value.
-            IntValue(#[serde_as(as = "serde_with::DisplayFromStr")] i64),
+            IntValue(#[serde_as(as = "wkt::internal::I64")] i64),
             /// For metrics with floating point value.
             DoubleValue(#[serde_as(as = "wkt::internal::F64")] f64),
             /// For metrics with custom values (ratios, visual progress, etc.).
@@ -11956,7 +11956,7 @@ pub struct UpdateNodePoolRequest {
     /// Initiates an upgrade operation that migrates the nodes in the
     /// node pool to the specified disk size.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub disk_size_gb: i64,
 
     /// Desired resource manager tag keys and values to be attached to the nodes
@@ -17544,12 +17544,12 @@ pub struct ResourceLimit {
 
     /// Minimum amount of the resource in the cluster.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub minimum: i64,
 
     /// Maximum amount of the resource in the cluster.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub maximum: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -18202,7 +18202,7 @@ impl wkt::message::Message for CompleteIPRotationRequest {
 pub struct AcceleratorConfig {
     /// The number of the accelerator cards exposed to an instance.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub accelerator_count: i64,
 
     /// The accelerator type resource name. List of supported accelerators
@@ -18313,7 +18313,7 @@ impl wkt::message::Message for AcceleratorConfig {
 pub struct GPUSharingConfig {
     /// The max number of containers that can share a physical GPU.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub max_shared_clients_per_gpu: i64,
 
     /// The type of GPU sharing strategy to enable on the GPU node.
@@ -21359,7 +21359,7 @@ pub mod dns_config {
 pub struct MaxPodsConstraint {
     /// Constraint enforced on the max num of pods per node.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub max_pods_per_node: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

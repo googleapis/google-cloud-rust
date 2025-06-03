@@ -8497,7 +8497,7 @@ pub struct Node {
 
     /// Output only. Customized number of cores
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub custom_core_count: i64,
 
     /// Output only. The state of the appliance.
@@ -12797,7 +12797,7 @@ pub struct PeeringRoute {
 
     /// Output only. The priority of the peering route.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub priority: i64,
 
     /// Output only. True if the peering route has been imported from a peered

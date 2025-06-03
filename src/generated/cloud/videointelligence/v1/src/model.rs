@@ -3305,7 +3305,7 @@ pub mod object_tracking_annotation {
         /// Instead, we provide a unique identifiable integer track_id so that
         /// the customers can correlate the results of the ongoing
         /// ObjectTrackAnnotation of the same track_id over time.
-        TrackId(#[serde_as(as = "serde_with::DisplayFromStr")] i64),
+        TrackId(#[serde_as(as = "wkt::internal::I64")] i64),
     }
 }
 

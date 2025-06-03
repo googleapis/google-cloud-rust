@@ -3867,6 +3867,7 @@ pub mod certificate_map {
 
             /// Output only. Ports.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            #[serde_as(as = "std::vec::Vec<wkt::internal::U32>")]
             pub ports: std::vec::Vec<u32>,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

@@ -2264,7 +2264,7 @@ pub struct DocumentLocation {
     /// Offset of the line, from the beginning of the file, where the finding
     /// is located.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub file_offset: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2390,7 +2390,7 @@ pub struct TableLocation {
     /// when you store the findings the value of those columns will be stored
     /// inside of Finding.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub row_index: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2550,12 +2550,12 @@ impl wkt::message::Message for Container {
 pub struct Range {
     /// Index of the first character of the range (inclusive).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub start: i64,
 
     /// Index of the last character of the range (exclusive).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub end: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4019,7 +4019,7 @@ pub struct InfoTypeStats {
 
     /// Number of findings for this infoType.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub count: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4212,12 +4212,12 @@ pub mod inspect_data_source_details {
     pub struct Result {
         /// Total size in bytes that were processed.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub processed_bytes: i64,
 
         /// Estimate of the number of bytes to process.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub total_estimated_bytes: i64,
 
         /// Statistics of how many instances of each info type were found during
@@ -4228,7 +4228,7 @@ pub mod inspect_data_source_details {
         /// Number of rows scanned after sampling and time filtering (applicable for
         /// row based stores such as BigQuery).
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub num_rows_processed: i64,
 
         /// Statistics related to the processing of hybrid inspect.
@@ -4469,13 +4469,13 @@ pub mod data_profile_big_query_row_schema {
 pub struct HybridInspectStatistics {
     /// The number of hybrid inspection requests processed within this job.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub processed_count: i64,
 
     /// The number of hybrid inspection requests aborted because the job ran
     /// out of quota or was ended before they could be processed.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub aborted_count: i64,
 
     /// The number of hybrid requests currently being processed. Only populated
@@ -4484,7 +4484,7 @@ pub struct HybridInspectStatistics {
     /// Processing will take place as quickly as possible, but resource limitations
     /// may impact how long a request is enqueued for.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub pending_count: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4619,17 +4619,17 @@ pub mod action_details {
 pub struct DeidentifyDataSourceStats {
     /// Total size in bytes that were transformed in some way.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub transformed_bytes: i64,
 
     /// Number of successfully applied transformations.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub transformation_count: i64,
 
     /// Number of errors encountered while trying to apply transformations.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub transformation_error_count: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7955,17 +7955,17 @@ pub mod analyze_data_source_risk_details {
         pub struct CategoricalStatsHistogramBucket {
             /// Lower bound on the value frequency of the values in this bucket.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "wkt::internal::I64")]
             pub value_frequency_lower_bound: i64,
 
             /// Upper bound on the value frequency of the values in this bucket.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "wkt::internal::I64")]
             pub value_frequency_upper_bound: i64,
 
             /// Total number of values in this bucket.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "wkt::internal::I64")]
             pub bucket_size: i64,
 
             /// Sample of value frequencies in this bucket. The total number of
@@ -7975,7 +7975,7 @@ pub mod analyze_data_source_risk_details {
 
             /// Total number of distinct values in this bucket.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "wkt::internal::I64")]
             pub bucket_value_count: i64,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8094,7 +8094,7 @@ pub mod analyze_data_source_risk_details {
             /// Size of the equivalence class, for example number of rows with the
             /// above set of values.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "wkt::internal::I64")]
             pub equivalence_class_size: i64,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8139,17 +8139,17 @@ pub mod analyze_data_source_risk_details {
 
             /// Lower bound on the size of the equivalence classes in this bucket.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "wkt::internal::I64")]
             pub equivalence_class_size_lower_bound: i64,
 
             /// Upper bound on the size of the equivalence classes in this bucket.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "wkt::internal::I64")]
             pub equivalence_class_size_upper_bound: i64,
 
             /// Total number of equivalence classes in this bucket.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "wkt::internal::I64")]
             pub bucket_size: i64,
 
             /// Sample of equivalence classes in this bucket. The total number of
@@ -8159,7 +8159,7 @@ pub mod analyze_data_source_risk_details {
 
             /// Total number of distinct equivalence classes in this bucket.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "wkt::internal::I64")]
             pub bucket_value_count: i64,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8277,12 +8277,12 @@ pub mod analyze_data_source_risk_details {
 
             /// Size of the k-anonymity equivalence class.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "wkt::internal::I64")]
             pub equivalence_class_size: i64,
 
             /// Number of distinct sensitive values in this equivalence class.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "wkt::internal::I64")]
             pub num_distinct_sensitive_values: i64,
 
             /// Estimated frequencies of top sensitive values.
@@ -8352,18 +8352,18 @@ pub mod analyze_data_source_risk_details {
             /// Lower bound on the sensitive value frequencies of the equivalence
             /// classes in this bucket.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "wkt::internal::I64")]
             pub sensitive_value_frequency_lower_bound: i64,
 
             /// Upper bound on the sensitive value frequencies of the equivalence
             /// classes in this bucket.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "wkt::internal::I64")]
             pub sensitive_value_frequency_upper_bound: i64,
 
             /// Total number of equivalence classes in this bucket.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "wkt::internal::I64")]
             pub bucket_size: i64,
 
             /// Sample of equivalence classes in this bucket. The total number of
@@ -8373,7 +8373,7 @@ pub mod analyze_data_source_risk_details {
 
             /// Total number of distinct equivalence classes in this bucket.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "wkt::internal::I64")]
             pub bucket_value_count: i64,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8497,7 +8497,7 @@ pub mod analyze_data_source_risk_details {
 
             /// The estimated anonymity for these quasi-identifier values.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "wkt::internal::I64")]
             pub estimated_anonymity: i64,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8549,17 +8549,17 @@ pub mod analyze_data_source_risk_details {
 
             /// Always positive.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "wkt::internal::I64")]
             pub min_anonymity: i64,
 
             /// Always greater than or equal to min_anonymity.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "wkt::internal::I64")]
             pub max_anonymity: i64,
 
             /// Number of records within these anonymity bounds.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "wkt::internal::I64")]
             pub bucket_size: i64,
 
             /// Sample of quasi-identifier tuple values in this bucket. The total
@@ -8569,7 +8569,7 @@ pub mod analyze_data_source_risk_details {
 
             /// Total number of distinct quasi-identifier tuple values in this bucket.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "wkt::internal::I64")]
             pub bucket_value_count: i64,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8757,7 +8757,7 @@ pub mod analyze_data_source_risk_details {
 
             /// Number of records within these probability bounds.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "wkt::internal::I64")]
             pub bucket_size: i64,
 
             /// Sample of quasi-identifier tuple values in this bucket. The total
@@ -8767,7 +8767,7 @@ pub mod analyze_data_source_risk_details {
 
             /// Total number of distinct quasi-identifier tuple values in this bucket.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "wkt::internal::I64")]
             pub bucket_value_count: i64,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8913,7 +8913,7 @@ pub struct ValueFrequency {
 
     /// How many times the value is contained in the field.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub count: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9193,7 +9193,7 @@ pub mod value {
     #[non_exhaustive]
     pub enum Type {
         /// integer
-        IntegerValue(#[serde_as(as = "serde_with::DisplayFromStr")] i64),
+        IntegerValue(#[serde_as(as = "wkt::internal::I64")] i64),
         /// float
         FloatValue(#[serde_as(as = "wkt::internal::F64")] f64),
         /// string
@@ -13465,7 +13465,7 @@ pub mod record_condition {
 pub struct TransformationOverview {
     /// Total size in bytes that were transformed in some way.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub transformed_bytes: i64,
 
     /// Transformations applied to the dataset.
@@ -13541,7 +13541,7 @@ pub struct TransformationSummary {
 
     /// Total size in bytes that were transformed in some way.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub transformed_bytes: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -13674,7 +13674,7 @@ pub mod transformation_summary {
     pub struct SummaryResult {
         /// Number of transformations counted by this result.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub count: i64,
 
         /// Outcome of the transformation.
@@ -13989,7 +13989,7 @@ pub struct TransformationDetails {
     /// unsuccessful or did not take place because there was no content to
     /// transform, this will be zero.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub transformed_bytes: i64,
 
     /// The precise location of the transformed content in the original container.
@@ -19577,9 +19577,9 @@ pub mod data_profile_location {
     #[non_exhaustive]
     pub enum Location {
         /// The ID of an organization to scan.
-        OrganizationId(#[serde_as(as = "serde_with::DisplayFromStr")] i64),
+        OrganizationId(#[serde_as(as = "wkt::internal::I64")] i64),
         /// The ID of the folder within an organization to scan.
-        FolderId(#[serde_as(as = "serde_with::DisplayFromStr")] i64),
+        FolderId(#[serde_as(as = "wkt::internal::I64")] i64),
     }
 }
 
@@ -25343,9 +25343,9 @@ pub mod discovery_starting_location {
     #[non_exhaustive]
     pub enum Location {
         /// The ID of an organization to scan.
-        OrganizationId(#[serde_as(as = "serde_with::DisplayFromStr")] i64),
+        OrganizationId(#[serde_as(as = "wkt::internal::I64")] i64),
         /// The ID of the folder within an organization to be scanned.
-        FolderId(#[serde_as(as = "serde_with::DisplayFromStr")] i64),
+        FolderId(#[serde_as(as = "wkt::internal::I64")] i64),
     }
 }
 
@@ -27619,7 +27619,7 @@ pub mod large_custom_dictionary_config {
 pub struct LargeCustomDictionaryStats {
     /// Approximate number of distinct phrases in the dictionary.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub approx_num_phrases: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -28717,14 +28717,14 @@ pub struct HybridFindingDetails {
     /// bigger item, such as a shard of a file and you want to track the absolute
     /// position of the finding.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub file_offset: i64,
 
     /// Offset of the row for tables. Populate if the row(s) being scanned are
     /// part of a bigger dataset and you want to keep track of their absolute
     /// position.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub row_offset: i64,
 
     /// If the container is a table, additional information to make findings
@@ -29620,12 +29620,12 @@ pub struct ProjectDataProfile {
 
     /// The number of table data profiles generated for this project.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub table_data_profile_count: i64,
 
     /// The number of file store data profiles generated for this project.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub file_store_data_profile_count: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -29955,23 +29955,23 @@ pub struct TableDataProfile {
 
     /// The number of columns profiled in the table.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub scanned_column_count: i64,
 
     /// The number of columns skipped in the table because of an error.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub failed_column_count: i64,
 
     /// The size of the table when the profile was generated.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub table_size_bytes: i64,
 
     /// Number of rows in the table when the profile was generated.
     /// This will not be populated for BigLake tables.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub row_count: i64,
 
     /// How the table is encrypted.
@@ -36581,7 +36581,7 @@ pub struct CloudStorageOptions {
     /// on bytes scanned per
     /// file](https://cloud.google.com/sensitive-data-protection/docs/supported-file-types#max-byte-size-per-file).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub bytes_limit_per_file: i64,
 
     /// Max percentage of bytes to scan from a file. The rest are omitted. The
@@ -36985,7 +36985,7 @@ pub struct BigQueryOptions {
     /// scanned. Only one of rows_limit and rows_limit_percent can be specified.
     /// Cannot be used in conjunction with TimespanConfig.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub rows_limit: i64,
 
     /// Max percentage of rows to scan. The rest are omitted. The number of rows
@@ -37733,7 +37733,7 @@ pub struct BigQueryKey {
     /// `inspect_job.storage_config.big_query_options.identifying_fields` in
     /// `CreateDlpJobRequest`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub row_number: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -38011,7 +38011,7 @@ pub mod key {
             /// The auto-allocated ID of the entity.
             /// Never equal to zero. Values less than zero are discouraged and may not
             /// be supported in the future.
-            Id(#[serde_as(as = "serde_with::DisplayFromStr")] i64),
+            Id(#[serde_as(as = "wkt::internal::I64")] i64),
             /// The name of the entity.
             /// A name matching regex `__.*__` is reserved/read-only.
             /// A name must not be more than 1500 bytes when UTF-8 encoded.

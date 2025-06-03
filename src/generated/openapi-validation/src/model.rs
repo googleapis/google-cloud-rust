@@ -408,7 +408,7 @@ pub struct Secret {
     /// UpdateSecret. Access by alias is only be supported on
     /// GetSecretVersion and AccessSecretVersion.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    #[serde_as(as = "std::collections::HashMap<_, serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::collections::HashMap<_, wkt::internal::I64>")]
     pub version_aliases: std::collections::HashMap<std::string::String, i64>,
 
     /// Optional. Custom metadata about the secret.
@@ -1153,7 +1153,7 @@ pub struct SecretPayload {
     /// <https://cloud.google.com/apis/design/design_patterns#integer_types>
     #[serde(rename = "dataCrc32c")]
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub data_crc_32_c: std::option::Option<i64>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

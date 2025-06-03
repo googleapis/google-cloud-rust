@@ -362,7 +362,7 @@ pub mod quota_failure {
         /// `QuotaFailure` on the number of CPUs is "10", then the value of this
         /// field would reflect this quantity.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub quota_value: i64,
 
         /// The new quota value being rolled out at the time of the violation. At the
@@ -374,7 +374,7 @@ pub mod quota_failure {
         /// changing the number of CPUs quota from 10 to 20, 20 would be the value of
         /// this field.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
-        #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+        #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
         pub future_quota_value: std::option::Option<i64>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

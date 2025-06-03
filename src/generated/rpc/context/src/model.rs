@@ -259,7 +259,7 @@ pub mod attribute_context {
 
         /// The network port of the peer.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub port: i64,
 
         /// The labels associated with the peer.
@@ -584,7 +584,7 @@ pub mod attribute_context {
 
         /// The HTTP request size in bytes. If unknown, it must be -1.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub size: i64,
 
         /// The network protocol used with the request, such as "http/1.1",
@@ -731,12 +731,12 @@ pub mod attribute_context {
     pub struct Response {
         /// The HTTP response status code, such as `200` and `404`.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub code: i64,
 
         /// The HTTP response size in bytes. If unknown, it must be -1.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub size: i64,
 
         /// The HTTP response headers. If multiple headers share the same key, they

@@ -482,7 +482,7 @@ pub struct ReportDetail {
 
     /// Total shards generated for the report.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub shards_count: i64,
 
     /// Status of the ReportDetail.
@@ -636,7 +636,7 @@ pub mod report_detail {
     pub struct Metrics {
         /// Count of Cloud Storage objects which are part of the report.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub processed_records_count: i64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2021,7 +2021,7 @@ pub struct DatasetConfig {
     /// to. Projects that do not belong to the provided organization are not
     /// considered when creating the dataset.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub organization_number: i64,
 
     /// If set to `true`, the request includes all the newly created buckets in the
@@ -2561,7 +2561,7 @@ pub mod dataset_config {
     #[non_exhaustive]
     pub struct SourceProjects {
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-        #[serde_as(as = "std::vec::Vec<serde_with::DisplayFromStr>")]
+        #[serde_as(as = "std::vec::Vec<wkt::internal::I64>")]
         pub project_numbers: std::vec::Vec<i64>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2599,7 +2599,7 @@ pub mod dataset_config {
     pub struct SourceFolders {
         /// Optional. The list of folder numbers to include in the dataset.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-        #[serde_as(as = "std::vec::Vec<serde_with::DisplayFromStr>")]
+        #[serde_as(as = "std::vec::Vec<wkt::internal::I64>")]
         pub folder_numbers: std::vec::Vec<i64>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2870,12 +2870,12 @@ pub mod dataset_config {
     pub struct BucketErrors {
         /// Optional. Count of successfully validated buckets.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub validated_count: i64,
 
         /// Optional. Count of buckets with permission denied errors.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub permission_denied_count: i64,
 
         /// Optional. Subset of bucket names that have permission denied.
@@ -2885,7 +2885,7 @@ pub mod dataset_config {
         /// Optional. Count of buckets that are not subscribed to Storage
         /// Intelligence.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         #[deprecated]
         pub non_management_hub_entitled_count: i64,
 
@@ -2893,13 +2893,13 @@ pub mod dataset_config {
         /// validation process. These buckets are automatically retried in subsequent
         /// validation attempts.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub internal_error_count: i64,
 
         /// Optional. Count of buckets that are not subscribed to Storage
         /// Intelligence.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub non_storage_intelligence_entitled_count: i64,
 
         /// Optional. Subset of bucket names that are not subscribed to Storage
@@ -2991,50 +2991,50 @@ pub mod dataset_config {
     pub struct ProjectErrors {
         /// Optional. Count of successfully validated projects.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
-        #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+        #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
         pub validated_count: std::option::Option<i64>,
 
         /// Optional. Count of projects which are not in the same organization.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
-        #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+        #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
         pub outside_org_error_count: std::option::Option<i64>,
 
         /// Optional. Subset of project numbers which are not in the same
         /// organization.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-        #[serde_as(as = "std::vec::Vec<serde_with::DisplayFromStr>")]
+        #[serde_as(as = "std::vec::Vec<wkt::internal::I64>")]
         pub outside_org_project_numbers: std::vec::Vec<i64>,
 
         /// Optional. Count of projects that are not subscribed to Storage
         /// Intelligence.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
-        #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+        #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
         #[deprecated]
         pub non_management_hub_entitled_error_count: std::option::Option<i64>,
 
         /// Optional. Subset of project numbers that are not subscribed to Storage
         /// Intelligence.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-        #[serde_as(as = "std::vec::Vec<serde_with::DisplayFromStr>")]
+        #[serde_as(as = "std::vec::Vec<wkt::internal::I64>")]
         #[deprecated]
         pub non_management_hub_entitled_project_numbers: std::vec::Vec<i64>,
 
         /// Optional. Count of projects that are not subscribed to Storage
         /// Intelligence.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
-        #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+        #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
         pub non_storage_intelligence_entitled_error_count: std::option::Option<i64>,
 
         /// Optional. Subset of project numbers that are not subscribed to Storage
         /// Intelligence.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-        #[serde_as(as = "std::vec::Vec<serde_with::DisplayFromStr>")]
+        #[serde_as(as = "std::vec::Vec<wkt::internal::I64>")]
         pub non_storage_intelligence_entitled_project_numbers: std::vec::Vec<i64>,
 
         /// Optional. Number of projects that encountered internal errors during
         /// validation and are automatically retried.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
-        #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+        #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
         pub internal_error_count: std::option::Option<i64>,
 
         /// The destination project check result. It indicates whether the project

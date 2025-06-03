@@ -52,7 +52,7 @@ pub struct CloudSQLBackupRunSource {
 
     /// Required. The CloudSQL backup run ID.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub backup_run_id: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3013,7 +3013,7 @@ pub mod cluster {
         /// Output only. The project number that needs to be allowlisted on the
         /// network attachment to enable outbound connectivity.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub service_owned_project_number: i64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4160,12 +4160,14 @@ pub mod instance {
         /// Query string length. The default value is 1024.
         /// Any integer between 256 and 4500 is considered valid.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::U32")]
         pub query_string_length: u32,
 
         /// Number of query execution plans captured by Insights per minute
         /// for all queries combined. The default value is 5.
         /// Any integer between 0 and 20 is considered valid.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::U32>")]
         pub query_plans_per_minute: std::option::Option<u32>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5504,7 +5506,7 @@ pub struct Backup {
 
     /// Output only. The size of the backup in bytes.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub size_bytes: i64,
 
     /// Output only. The time at which after the backup is eligible to be garbage
@@ -6494,12 +6496,12 @@ pub mod supported_database_flag {
     pub struct IntegerRestrictions {
         /// The minimum value that can be specified, if applicable.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
-        #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+        #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
         pub min_value: std::option::Option<wkt::Int64Value>,
 
         /// The maximum value that can be specified, if applicable.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
-        #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+        #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
         pub max_value: std::option::Option<wkt::Int64Value>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6860,7 +6862,7 @@ pub mod supported_database_flag {
         RecommendedStringValue(std::string::String),
         /// The recommended value for an INTEGER flag.
         RecommendedIntegerValue(
-            #[serde_as(as = "std::boxed::Box<serde_with::DisplayFromStr>")]
+            #[serde_as(as = "std::boxed::Box<wkt::internal::I64>")]
             std::boxed::Box<wkt::Int64Value>,
         ),
     }
@@ -8470,7 +8472,7 @@ pub mod import_cluster_request {
 pub struct ImportClusterResponse {
     /// Required. Size of the object downloaded from Google Cloud Storage in bytes.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub bytes_downloaded: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

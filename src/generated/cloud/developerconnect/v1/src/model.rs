@@ -685,7 +685,7 @@ pub struct GitHubConfig {
 
     /// Optional. GitHub App installation id.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub app_installation_id: i64,
 
     /// Output only. The URI to navigate to in order to manage the installation
@@ -902,7 +902,7 @@ pub struct GitHubEnterpriseConfig {
 
     /// Optional. ID of the GitHub App created from the manifest.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub app_id: i64,
 
     /// Output only. The URL-friendly name of the GitHub App.
@@ -921,7 +921,7 @@ pub struct GitHubEnterpriseConfig {
 
     /// Optional. ID of the installation of the GitHub App.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub app_installation_id: i64,
 
     /// Output only. The URI to navigate to in order to manage the installation
@@ -2988,7 +2988,7 @@ pub mod fetch_git_hub_installations_response {
     pub struct Installation {
         /// ID of the installation in GitHub.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub id: i64,
 
         /// Name of the GitHub user or organization that owns this installation.

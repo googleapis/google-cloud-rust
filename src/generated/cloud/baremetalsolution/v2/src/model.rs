@@ -1528,7 +1528,7 @@ pub struct Lun {
 
     /// The size of this LUN, in gigabytes.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub size_gb: i64,
 
     /// The LUN multiprotocol type ensures the characteristics of the LUN are
@@ -2976,7 +2976,7 @@ pub mod vrf {
     pub struct VlanAttachment {
         /// The peer vlan ID of the attachment.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub peer_vlan_id: i64,
 
         /// The peer IP of the attachment.
@@ -3877,7 +3877,7 @@ pub struct NfsShare {
 
     /// The requested size, in GiB.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub requested_size_gib: i64,
 
     /// Immutable. The storage type of the underlying volume.
@@ -5947,11 +5947,11 @@ pub mod provisioning_quota {
     #[non_exhaustive]
     pub enum Availability {
         /// Server count.
-        ServerCount(#[serde_as(as = "serde_with::DisplayFromStr")] i64),
+        ServerCount(#[serde_as(as = "wkt::internal::I64")] i64),
         /// Network bandwidth, Gbps
-        NetworkBandwidth(#[serde_as(as = "serde_with::DisplayFromStr")] i64),
+        NetworkBandwidth(#[serde_as(as = "wkt::internal::I64")] i64),
         /// Storage size (GB).
-        StorageGib(#[serde_as(as = "serde_with::DisplayFromStr")] i64),
+        StorageGib(#[serde_as(as = "wkt::internal::I64")] i64),
     }
 }
 
@@ -8432,42 +8432,42 @@ pub struct Volume {
 
     /// The requested size of this storage volume, in GiB.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub requested_size_gib: i64,
 
     /// Originally requested size, in GiB.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub originally_requested_size_gib: i64,
 
     /// The current size of this storage volume, in GiB, including space reserved
     /// for snapshots. This size might be different than the requested size if the
     /// storage volume has been configured with auto grow or auto shrink.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub current_size_gib: i64,
 
     /// Additional emergency size that was requested for this Volume, in GiB.
     /// current_size_gib includes this value.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub emergency_size_gib: i64,
 
     /// Maximum size volume can be expanded to in case of evergency, in GiB.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub max_size_gib: i64,
 
     /// The size, in GiB, that this storage volume has expanded as a result of an
     /// auto grow policy. In the absence of auto-grow, the value is 0.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub auto_grown_size_gib: i64,
 
     /// The space remaining in the storage volume for new LUNs, in GiB, excluding
     /// space reserved for snapshots.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub remaining_space_gib: i64,
 
     /// Details about snapshot space reservation and usage on the storage volume.
@@ -8755,7 +8755,7 @@ pub mod volume {
     pub struct SnapshotReservationDetail {
         /// The space on this storage volume reserved for snapshots, shown in GiB.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub reserved_space_gib: i64,
 
         /// The percent of snapshot space on this storage volume actually being used
@@ -8769,7 +8769,7 @@ pub mod volume {
         /// The amount, in GiB, of available space in this storage volume's reserved
         /// snapshot space.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub reserved_space_remaining_gib: i64,
 
         /// Percent of the total Volume size reserved for snapshot copies.
@@ -9851,7 +9851,7 @@ pub struct ResizeVolumeRequest {
 
     /// New Volume size, in GiB.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub size_gib: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

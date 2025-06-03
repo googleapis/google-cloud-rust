@@ -8552,7 +8552,7 @@ pub struct ConversationDataset {
     /// Output only. The number of conversations this conversation dataset
     /// contains.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub conversation_count: i64,
 
     /// Output only. A read only boolean field reflecting Zone Isolation status of
@@ -10682,7 +10682,7 @@ pub struct SmartReplyMetrics {
 
     /// Total number of conversations used to generate this metric.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub conversation_count: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

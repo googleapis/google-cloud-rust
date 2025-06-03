@@ -2220,7 +2220,7 @@ pub mod alert_policy {
 
                 /// Required. The value against which to compare the row count.
                 #[serde(skip_serializing_if = "wkt::internal::is_default")]
-                #[serde_as(as = "serde_with::DisplayFromStr")]
+                #[serde_as(as = "wkt::internal::I64")]
                 pub threshold: i64,
 
                 #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3757,7 +3757,7 @@ pub mod typed_value {
         /// A Boolean value: `true` or `false`.
         BoolValue(bool),
         /// A 64-bit integer. Its range is approximately &plusmn;9.2x10\<sup\>18\</sup\>.
-        Int64Value(#[serde_as(as = "serde_with::DisplayFromStr")] i64),
+        Int64Value(#[serde_as(as = "wkt::internal::I64")] i64),
         /// A 64-bit double-precision floating-point number. Its magnitude
         /// is approximately &plusmn;10\<sup\>&plusmn;300\</sup\> and it has 16
         /// significant digits of precision.
@@ -6115,7 +6115,7 @@ pub mod label_value {
         /// A bool label value.
         BoolValue(bool),
         /// An int64 label value.
-        Int64Value(#[serde_as(as = "serde_with::DisplayFromStr")] i64),
+        Int64Value(#[serde_as(as = "wkt::internal::I64")] i64),
         /// A string label value.
         StringValue(std::string::String),
     }

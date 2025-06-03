@@ -1082,7 +1082,7 @@ pub mod value {
         /// A boolean value.
         BooleanValue(bool),
         /// An integer value.
-        IntegerValue(#[serde_as(as = "serde_with::DisplayFromStr")] i64),
+        IntegerValue(#[serde_as(as = "wkt::internal::I64")] i64),
         /// A double value.
         DoubleValue(#[serde_as(as = "wkt::internal::F64")] f64),
         /// A timestamp value.
@@ -3628,7 +3628,7 @@ pub struct PartitionQueryRequest {
     /// queries to be run, or in running a data pipeline job, one fewer than the
     /// number of workers or compute instances available.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub partition_count: i64,
 
     /// The `next_page_token` value returned from a previous call to
@@ -7853,7 +7853,7 @@ pub mod structured_aggregation_query {
             ///
             /// * Must be greater than zero when present.
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
-            #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+            #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
             pub up_to: std::option::Option<wkt::Int64Value>,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8281,7 +8281,7 @@ pub struct ExecutionStats {
     /// Total number of results returned, including documents, projections,
     /// aggregation results, keys.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub results_returned: i64,
 
     /// Total time to execute the query in the backend.
@@ -8290,7 +8290,7 @@ pub struct ExecutionStats {
 
     /// Total billable read operations.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub read_operations: i64,
 
     /// Debugging statistics from the execution of the query. Note that the

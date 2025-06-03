@@ -688,7 +688,7 @@ pub mod workload {
         /// Resource identifier.
         /// For a project this represents project_number.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub resource_id: i64,
 
         /// Indicates the type of resource.

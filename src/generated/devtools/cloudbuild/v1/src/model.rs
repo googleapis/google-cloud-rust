@@ -184,7 +184,7 @@ pub struct StorageSource {
     /// Cloud Storage generation for the object. If the generation is
     /// omitted, the latest generation will be used.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub generation: i64,
 
     /// Option to specify the tool to fetch the source file for the build.
@@ -659,7 +659,7 @@ pub struct StorageSourceManifest {
     /// Cloud Storage generation for the object. If the generation is
     /// omitted, the latest generation will be used.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub generation: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1654,7 +1654,7 @@ pub struct Results {
     /// Number of non-container artifacts uploaded to Cloud Storage. Only populated
     /// when artifacts are uploaded to Cloud Storage.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub num_artifacts: i64,
 
     /// List of build step outputs, produced by builder images, in the order
@@ -3187,7 +3187,7 @@ pub mod dependency {
         /// Optional. How much history should be fetched for the build (default 1, -1
         /// for all history).
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub depth: i64,
 
         /// Required. Where should the files be placed on the worker.
@@ -6878,7 +6878,7 @@ pub mod repository_event_config {
 pub struct GitHubEventsConfig {
     /// The installationID that emits the GitHub event.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     #[deprecated]
     pub installation_id: i64,
 
@@ -8277,7 +8277,7 @@ pub struct BuildOptions {
     /// requested. At present, the maximum disk size is 4000GB; builds that request
     /// more than the maximum are rejected with an error.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub disk_size_gb: i64,
 
     /// Option to specify behavior when there is an error in the substitution
@@ -9553,7 +9553,7 @@ pub struct GitHubEnterpriseConfig {
     /// Required. The GitHub app id of the Cloud Build app on the GitHub Enterprise
     /// server.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub app_id: i64,
 
     /// Output only. Time when the installation was associated with the project.
@@ -10273,7 +10273,7 @@ pub mod private_pool_v_1_config {
         /// Specify a value of up to 2000. If `0` is specified, Cloud Build will use
         /// a standard disk size.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub disk_size_gb: i64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

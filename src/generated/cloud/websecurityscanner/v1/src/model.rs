@@ -3024,7 +3024,7 @@ pub struct ScanRun {
     /// Output only. The number of URLs crawled during this ScanRun. If the scan is in progress,
     /// the value represents the number of URLs crawled up to now.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub urls_crawled_count: i64,
 
     /// Output only. The number of URLs tested during this ScanRun. If the scan is in progress,
@@ -3032,7 +3032,7 @@ pub struct ScanRun {
     /// URLs tested is usually larger than the number URLS crawled because
     /// typically a crawled URL is tested with multiple test payloads.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub urls_tested_count: i64,
 
     /// Output only. Whether the scan run has found any vulnerabilities.
@@ -3748,11 +3748,11 @@ pub struct ScanRunLog {
     pub result_state: crate::model::scan_run::ResultState,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub urls_crawled_count: i64,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub urls_tested_count: i64,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]

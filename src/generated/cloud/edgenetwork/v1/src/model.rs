@@ -1355,12 +1355,14 @@ pub mod router {
         /// Peer BGP Autonomous System Number (ASN). Each BGP interface may use
         /// a different value.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::U32")]
         pub peer_asn: u32,
 
         /// Output only. Local BGP Autonomous System Number (ASN).
         /// This field is ST_NOT_REQUIRED because it stores private ASNs, which are
         /// meaningless outside the zone in which they are being used.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::U32")]
         pub local_asn: u32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1447,11 +1449,13 @@ pub mod router {
     pub struct Bgp {
         /// Locally assigned BGP ASN.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::U32")]
         pub asn: u32,
 
         /// The interval in seconds between BGP keepalive messages that are
         /// sent to the peer. Default is 20 with value between 20 and 60.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::U32")]
         pub keepalive_interval_in_seconds: u32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1759,35 +1763,35 @@ pub mod interconnect_diagnostics {
     pub struct PacketCounts {
         /// The number of packets that are delivered.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub inbound_unicast: i64,
 
         /// The number of inbound packets that contained errors.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub inbound_errors: i64,
 
         /// The number of inbound packets that were chosen to be discarded even
         /// though no errors had been detected to prevent their being deliverable.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub inbound_discards: i64,
 
         /// The total number of packets that are requested be transmitted.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub outbound_unicast: i64,
 
         /// The number of outbound packets that could not be transmitted because of
         /// errors.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub outbound_errors: i64,
 
         /// The number of outbound packets that were chosen to be discarded even
         /// though no errors had been detected to prevent their being transmitted.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub outbound_discards: i64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2272,7 +2276,7 @@ pub mod router_status {
 
         /// Time this session has been up, in seconds.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub uptime_seconds: i64,
 
         /// A collection of counts for prefixes.
@@ -2512,32 +2516,32 @@ pub mod router_status {
     pub struct PrefixCounter {
         /// Number of prefixes advertised.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub advertised: i64,
 
         /// Number of prefixes denied.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub denied: i64,
 
         /// Number of prefixes received.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub received: i64,
 
         /// Number of prefixes sent.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub sent: i64,
 
         /// Number of prefixes suppressed.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub suppressed: i64,
 
         /// Number of prefixes withdrawn.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub withdrawn: i64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

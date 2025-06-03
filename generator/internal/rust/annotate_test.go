@@ -492,7 +492,7 @@ func TestOneOfAnnotations(t *testing.T) {
 		BranchName:         "OneofFieldInteger",
 		FQMessageName:      "crate::model::Message",
 		DocLines:           nil,
-		Attributes:         []string{`#[serde_as(as = "serde_with::DisplayFromStr")]`},
+		Attributes:         []string{`#[serde_as(as = "wkt::internal::I64")]`},
 		FieldType:          "i64",
 		PrimitiveFieldType: "i64",
 		AddQueryParameter:  `let builder = req.oneof_field_integer().iter().fold(builder, |builder, p| builder.query(&[("oneofFieldInteger", p)]));`,
@@ -1049,7 +1049,7 @@ func TestFieldAnnotations(t *testing.T) {
 		FQMessageName: "crate::model::TestMessage",
 		Attributes: []string{
 			`#[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]`,
-			`#[serde_as(as = "std::collections::HashMap<wkt::internal::I32, serde_with::DisplayFromStr>")]`,
+			`#[serde_as(as = "std::collections::HashMap<wkt::internal::I32, wkt::internal::I64>")]`,
 		},
 		FieldType:          "std::collections::HashMap<i32,i64>",
 		PrimitiveFieldType: "std::collections::HashMap<i32,i64>",

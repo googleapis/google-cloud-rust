@@ -1807,12 +1807,12 @@ impl wkt::message::Message for AdaptiveProtection {
 pub struct Attack {
     /// Total PPS (packets per second) volume of attack.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub volume_pps_long: i64,
 
     /// Total BPS (bytes per second) volume of attack.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub volume_bps_long: i64,
 
     /// Type of attack, for example, 'SYN-flood', 'NTP-udp', or 'CHARGEN-udp'.
@@ -2090,7 +2090,7 @@ pub struct CloudDlpInspection {
     /// The number of times Cloud DLP found this infoType within this job
     /// and resource.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub info_type_count: i64,
 
     /// Whether Cloud DLP scanned the complete resource or a sampled subset.
@@ -3079,7 +3079,7 @@ pub struct DataRetentionDeletionEvent {
     /// the number of objects that violated the policy is greater than or equal to
     /// 1,000, then the value of this field is 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub data_object_count: i64,
 
     /// Maximum duration of retention allowed from the DRD control. This comes
@@ -3454,7 +3454,7 @@ pub struct Exfiltration {
 
     /// Total exfiltrated bytes processed for the entire job.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub total_exfiltrated_bytes: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3882,7 +3882,7 @@ pub struct File {
 
     /// Size of the file in bytes.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub size: i64,
 
     /// SHA256 hash of the first hashed_size bytes of the file encoded as a
@@ -3895,7 +3895,7 @@ pub struct File {
     /// hashed_size == size, any hashes reported represent the entire
     /// file.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub hashed_size: i64,
 
     /// True when the hash covers only a prefix of the file.
@@ -9943,12 +9943,12 @@ pub struct Process {
 
     /// The process ID.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub pid: i64,
 
     /// The parent process ID.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub parent_pid: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -13126,7 +13126,7 @@ pub struct GroupResult {
 
     /// Total count of resources for the given properties.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub count: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

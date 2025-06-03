@@ -40,7 +40,7 @@ pub struct SqlBackupRunsDeleteRequest {
     /// [list](https://cloud.google.com/sql/docs/mysql/admin-api/rest/v1/backupRuns/list)
     /// method.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub id: i64,
 
     /// Cloud SQL instance ID. This does not include the project ID.
@@ -93,7 +93,7 @@ impl wkt::message::Message for SqlBackupRunsDeleteRequest {
 pub struct SqlBackupRunsGetRequest {
     /// The ID of this backup run.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub id: i64,
 
     /// Cloud SQL instance ID. This does not include the project ID.
@@ -289,7 +289,7 @@ pub struct BackupRun {
     /// The identifier for this backup run. Unique only for a specific Cloud SQL
     /// instance.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub id: i64,
 
     /// The time the backup operation actually started in UTC timezone in
@@ -358,7 +358,7 @@ pub struct BackupRun {
 
     /// Output only. The maximum chargeable bytes for the backup.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub max_chargeable_bytes: std::option::Option<i64>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1622,12 +1622,12 @@ pub struct Flag {
 
     /// For `INTEGER` flags, the minimum allowed value.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub min_value: std::option::Option<wkt::Int64Value>,
 
     /// For `INTEGER` flags, the maximum allowed value.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub max_value: std::option::Option<wkt::Int64Value>,
 
     /// Indicates whether changing this flag will trigger a database restart. Only
@@ -1646,7 +1646,7 @@ pub struct Flag {
     /// Use this field if only certain integers are accepted. Can be combined
     /// with min_value and max_value to add additional values.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "std::vec::Vec<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::vec::Vec<wkt::internal::I64>")]
     pub allowed_int_values: std::vec::Vec<i64>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2371,6 +2371,7 @@ pub struct SqlInstancesListRequest {
     /// If unspecified, at most 500 instances are returned.
     /// The maximum value is 1000; values above 1000 are coerced to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::U32")]
     pub max_results: u32,
 
     /// A previously-returned page token representing part of the larger set of
@@ -4986,7 +4987,7 @@ pub struct SqlInstancesGetDiskShrinkConfigResponse {
 
     /// The minimum size to which a disk can be shrunk in GigaBytes.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub minimal_target_size_gb: i64,
 
     /// Additional message to customers.
@@ -5135,7 +5136,7 @@ pub struct CloneContext {
 
     /// Reserved for future use.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub pitr_timestamp_ms: i64,
 
     /// Name of the Cloud SQL instance to be created as a clone.
@@ -5297,7 +5298,7 @@ pub struct BinLogCoordinates {
 
     /// Position (offset) within the binary log file.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub bin_log_position: i64,
 
     /// This is always `sql#binLogCoordinates`.
@@ -5384,7 +5385,7 @@ pub struct DatabaseInstance {
 
     /// The maximum disk size of the instance in bytes.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     #[deprecated]
     pub max_disk_size: std::option::Option<wkt::Int64Value>,
 
@@ -5395,7 +5396,7 @@ pub struct DatabaseInstance {
     /// announcement](https://groups.google.com/d/msg/google-cloud-sql-announce/I_7-F9EBhT0/BtvFtdFeAgAJ)
     /// for details.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     #[deprecated]
     pub current_disk_size: std::option::Option<wkt::Int64Value>,
 
@@ -7633,7 +7634,7 @@ pub struct FailoverContext {
     /// The current settings version of this instance. Request will be rejected if
     /// this version doesn't match the current settings version.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub settings_version: i64,
 
     /// This is always `sql#failoverContext`.
@@ -7681,7 +7682,7 @@ pub struct RestoreBackupContext {
 
     /// The ID of the backup run to restore from.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub backup_run_id: i64,
 
     /// The ID of the instance that the backup was taken from.
@@ -8893,6 +8894,7 @@ pub struct SqlOperationsListRequest {
 
     /// Maximum number of operations per response.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::U32")]
     pub max_results: u32,
 
     /// A previously-returned page token representing part of the larger set of
@@ -9941,7 +9943,7 @@ pub mod backup_configuration {
 pub struct PerformDiskShrinkContext {
     /// The target disk shrink size in GigaBytes.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub target_size_gb: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9974,7 +9976,7 @@ impl wkt::message::Message for PerformDiskShrinkContext {
 pub struct BackupContext {
     /// The identifier of the backup.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub backup_id: i64,
 
     /// This is always `sql#backupContext`.
@@ -12850,7 +12852,7 @@ pub struct MySqlReplicaConfiguration {
 
     /// Interval in milliseconds between replication heartbeats.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub master_heartbeat_period: std::option::Option<wkt::Int64Value>,
 
     /// PEM representation of the trusted CA's x509 certificate.
@@ -14549,7 +14551,7 @@ pub struct Settings {
     /// use the most recent settingsVersion value for this instance and do not try
     /// to update this value.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub settings_version: std::option::Option<wkt::Int64Value>,
 
     /// The App Engine app IDs that can access this instance.
@@ -14599,7 +14601,7 @@ pub struct Settings {
     /// The maximum size to which storage capacity can be automatically increased.
     /// The default value is 0, which specifies that there is no limit.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub storage_auto_resize_limit: std::option::Option<wkt::Int64Value>,
 
     /// The activation policy specifies when the instance is activated; it is
@@ -14663,7 +14665,7 @@ pub struct Settings {
 
     /// The size of data disk, in GB. The data disk size minimum is 10GB.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub data_disk_size_gb: std::option::Option<wkt::Int64Value>,
 
     /// Active Directory configuration, relevant only for Cloud SQL for SQL Server.
@@ -16611,7 +16613,7 @@ pub struct Tier {
     /// The maximum RAM usage of this tier in bytes.
     #[serde(rename = "RAM")]
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub ram: i64,
 
     /// This is always `sql#tier`.
@@ -16621,7 +16623,7 @@ pub struct Tier {
     /// The maximum disk size of this tier in bytes.
     #[serde(rename = "DiskQuota")]
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub disk_quota: i64,
 
     /// The applicable regions for this tier.

@@ -1079,7 +1079,7 @@ pub struct RiceDeltaEncoding {
     /// integer was encoded, that single integer's value. If the field is empty or
     /// missing, assume zero.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub first_value: i64,
 
     /// The Golomb-Rice parameter, which is a number between 2 and 28. This field

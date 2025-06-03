@@ -4483,6 +4483,7 @@ pub mod grpc_route {
         /// Specifies the allowed number of retries. This number must be > 0. If not
         /// specified, default to 1.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::U32")]
         pub num_retries: u32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

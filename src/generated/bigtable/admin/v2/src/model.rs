@@ -913,14 +913,14 @@ pub mod create_cluster_metadata {
     pub struct TableProgress {
         /// Estimate of the size of the table to be copied.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub estimated_size_bytes: i64,
 
         /// Estimate of the number of bytes copied so far for this table.
         /// This will eventually reach 'estimated_size_bytes' unless the table copy
         /// is CANCELLED.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub estimated_copied_bytes: i64,
 
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
@@ -10880,7 +10880,7 @@ pub struct Snapshot {
     /// asynchronously via a background process and a placeholder of 0 will be used
     /// in the meantime.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub data_size_bytes: i64,
 
     /// Output only. The time when the snapshot is created.
@@ -11195,7 +11195,7 @@ pub struct Backup {
 
     /// Output only. Size of the backup in bytes.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub size_bytes: i64,
 
     /// Output only. The current state of the backup.

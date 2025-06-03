@@ -2422,7 +2422,7 @@ pub struct GridLayout {
     /// The number of columns into which the view's width is divided. If omitted
     /// or set to zero, a system default will be used while rendering.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub columns: i64,
 
     /// The informational elements that are arranged into the columns row-first.
@@ -2667,7 +2667,7 @@ pub mod row_layout {
         /// greater the height of the row on the screen. If omitted, a value
         /// of 1 is used while rendering.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub weight: i64,
 
         /// The display widgets arranged horizontally in this row.
@@ -2762,7 +2762,7 @@ pub mod column_layout {
         /// Greater the weight, greater the width of the column on the screen.
         /// If omitted, a value of 1 is used while rendering.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub weight: i64,
 
         /// The display widgets arranged vertically in this column.

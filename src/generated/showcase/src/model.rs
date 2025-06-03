@@ -62,7 +62,7 @@ pub struct RepeatRequest {
     pub f_int32: i32,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub f_int64: i64,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
@@ -74,7 +74,7 @@ pub struct RepeatRequest {
     pub p_int32: std::option::Option<i32>,
 
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub p_int64: std::option::Option<i64>,
 
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -391,29 +391,31 @@ pub struct ComplianceData {
     pub f_sfixed32: i32,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::U32")]
     pub f_uint32: u32,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::U32")]
     pub f_fixed32: u32,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub f_int64: i64,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub f_sint64: i64,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub f_sfixed64: i64,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::U64")]
     pub f_uint64: u64,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::U64")]
     pub f_fixed64: u64,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]

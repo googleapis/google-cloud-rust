@@ -514,7 +514,7 @@ pub struct StorageSource {
     /// Optional. Google Cloud Storage generation for the object. If the generation
     /// is omitted, the latest generation will be used.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub generation: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1966,7 +1966,7 @@ pub struct Execution {
     /// Output only. A number that monotonically increases every time the user
     /// modifies the desired state.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub generation: i64,
 
     /// Output only. Unstructured key value map that can be used to organize and
@@ -2069,7 +2069,7 @@ pub struct Execution {
     /// `reconciling` for additional information on reconciliation process in Cloud
     /// Run.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub observed_generation: i64,
 
     /// Output only. The number of actively running tasks.
@@ -3139,7 +3139,7 @@ pub struct Job {
     /// Output only. A number that monotonically increases every time the user
     /// modifies the desired state.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub generation: i64,
 
     /// Unstructured key value map that can be used to organize and categorize
@@ -3217,7 +3217,7 @@ pub struct Job {
     /// Output only. The generation of this Job. See comments in `reconciling` for
     /// additional information on reconciliation process in Cloud Run.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub observed_generation: i64,
 
     /// Output only. The Condition of this Job, containing its readiness status,
@@ -5903,7 +5903,7 @@ pub struct Revision {
     /// Output only. A number that monotonically increases every time the user
     /// modifies the desired state.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub generation: i64,
 
     /// Output only. Unstructured key value map that can be used to organize and
@@ -6029,7 +6029,7 @@ pub struct Revision {
     /// comments in `reconciling` for additional information on reconciliation
     /// process in Cloud Run.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub observed_generation: i64,
 
     /// Output only. The Google Console URI to obtain logs for the Revision.
@@ -7255,7 +7255,7 @@ pub struct Service {
     /// Please note that unlike v1, this is an int64 value. As with most Google
     /// APIs, its JSON representation will be a `string` instead of an `integer`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub generation: i64,
 
     /// Optional. Unstructured key value map that can be used to organize and
@@ -7373,7 +7373,7 @@ pub struct Service {
     /// As with most Google APIs, its JSON representation will be a `string`
     /// instead of an `integer`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub observed_generation: i64,
 
     /// Output only. The Condition of this Service, containing its readiness
@@ -8048,7 +8048,7 @@ pub struct Task {
     /// Output only. A number that monotonically increases every time the user
     /// modifies the desired state.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub generation: i64,
 
     /// Output only. Unstructured key value map that can be used to organize and
@@ -8158,7 +8158,7 @@ pub struct Task {
     /// Output only. The generation of this Task. See comments in `Job.reconciling`
     /// for additional information on reconciliation process in Cloud Run.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub observed_generation: i64,
 
     /// Output only. Index of the Task, unique per execution, and beginning at 0.

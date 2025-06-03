@@ -102,7 +102,7 @@ pub struct Backup {
 
     /// Output only. Size of the backup in bytes.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub size_bytes: i64,
 
     /// Output only. The number of bytes that will be freed by deleting this
@@ -112,7 +112,7 @@ pub struct Backup {
     /// always the size of the backup. This value may change if backups on the same
     /// chain get created, deleted or expired.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub freeable_size_bytes: i64,
 
     /// Output only. For a backup in an incremental backup chain, this is the
@@ -124,7 +124,7 @@ pub struct Backup {
     /// of backups. For example, the total space used by all backups of a database
     /// can be computed by summing up this field.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub exclusive_size_bytes: i64,
 
     /// Output only. The current state of the backup.

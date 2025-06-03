@@ -35,14 +35,15 @@ pub struct TestAllTypesProto3 {
     pub optional_int32: i32,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub optional_int64: i64,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::U32")]
     pub optional_uint32: u32,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::U64")]
     pub optional_uint64: u64,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
@@ -50,14 +51,15 @@ pub struct TestAllTypesProto3 {
     pub optional_sint32: i32,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub optional_sint64: i64,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::U32")]
     pub optional_fixed32: u32,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::U64")]
     pub optional_fixed64: u64,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
@@ -65,7 +67,7 @@ pub struct TestAllTypesProto3 {
     pub optional_sfixed32: i32,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub optional_sfixed64: i64,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
@@ -120,14 +122,15 @@ pub struct TestAllTypesProto3 {
     pub repeated_int32: std::vec::Vec<i32>,
 
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "std::vec::Vec<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::vec::Vec<wkt::internal::I64>")]
     pub repeated_int64: std::vec::Vec<i64>,
 
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "std::vec::Vec<wkt::internal::U32>")]
     pub repeated_uint32: std::vec::Vec<u32>,
 
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "std::vec::Vec<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::vec::Vec<wkt::internal::U64>")]
     pub repeated_uint64: std::vec::Vec<u64>,
 
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
@@ -135,14 +138,15 @@ pub struct TestAllTypesProto3 {
     pub repeated_sint32: std::vec::Vec<i32>,
 
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "std::vec::Vec<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::vec::Vec<wkt::internal::I64>")]
     pub repeated_sint64: std::vec::Vec<i64>,
 
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "std::vec::Vec<wkt::internal::U32>")]
     pub repeated_fixed32: std::vec::Vec<u32>,
 
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "std::vec::Vec<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::vec::Vec<wkt::internal::U64>")]
     pub repeated_fixed64: std::vec::Vec<u64>,
 
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
@@ -150,7 +154,7 @@ pub struct TestAllTypesProto3 {
     pub repeated_sfixed32: std::vec::Vec<i32>,
 
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "std::vec::Vec<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::vec::Vec<wkt::internal::I64>")]
     pub repeated_sfixed64: std::vec::Vec<i64>,
 
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
@@ -197,14 +201,15 @@ pub struct TestAllTypesProto3 {
     pub packed_int32: std::vec::Vec<i32>,
 
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "std::vec::Vec<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::vec::Vec<wkt::internal::I64>")]
     pub packed_int64: std::vec::Vec<i64>,
 
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "std::vec::Vec<wkt::internal::U32>")]
     pub packed_uint32: std::vec::Vec<u32>,
 
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "std::vec::Vec<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::vec::Vec<wkt::internal::U64>")]
     pub packed_uint64: std::vec::Vec<u64>,
 
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
@@ -212,14 +217,15 @@ pub struct TestAllTypesProto3 {
     pub packed_sint32: std::vec::Vec<i32>,
 
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "std::vec::Vec<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::vec::Vec<wkt::internal::I64>")]
     pub packed_sint64: std::vec::Vec<i64>,
 
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "std::vec::Vec<wkt::internal::U32>")]
     pub packed_fixed32: std::vec::Vec<u32>,
 
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "std::vec::Vec<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::vec::Vec<wkt::internal::U64>")]
     pub packed_fixed64: std::vec::Vec<u64>,
 
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
@@ -227,7 +233,7 @@ pub struct TestAllTypesProto3 {
     pub packed_sfixed32: std::vec::Vec<i32>,
 
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "std::vec::Vec<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::vec::Vec<wkt::internal::I64>")]
     pub packed_sfixed64: std::vec::Vec<i64>,
 
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
@@ -251,14 +257,15 @@ pub struct TestAllTypesProto3 {
     pub unpacked_int32: std::vec::Vec<i32>,
 
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "std::vec::Vec<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::vec::Vec<wkt::internal::I64>")]
     pub unpacked_int64: std::vec::Vec<i64>,
 
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "std::vec::Vec<wkt::internal::U32>")]
     pub unpacked_uint32: std::vec::Vec<u32>,
 
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "std::vec::Vec<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::vec::Vec<wkt::internal::U64>")]
     pub unpacked_uint64: std::vec::Vec<u64>,
 
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
@@ -266,14 +273,15 @@ pub struct TestAllTypesProto3 {
     pub unpacked_sint32: std::vec::Vec<i32>,
 
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "std::vec::Vec<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::vec::Vec<wkt::internal::I64>")]
     pub unpacked_sint64: std::vec::Vec<i64>,
 
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "std::vec::Vec<wkt::internal::U32>")]
     pub unpacked_fixed32: std::vec::Vec<u32>,
 
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "std::vec::Vec<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::vec::Vec<wkt::internal::U64>")]
     pub unpacked_fixed64: std::vec::Vec<u64>,
 
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
@@ -281,7 +289,7 @@ pub struct TestAllTypesProto3 {
     pub unpacked_sfixed32: std::vec::Vec<i32>,
 
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "std::vec::Vec<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::vec::Vec<wkt::internal::I64>")]
     pub unpacked_sfixed64: std::vec::Vec<i64>,
 
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
@@ -305,18 +313,15 @@ pub struct TestAllTypesProto3 {
     pub map_int32_int32: std::collections::HashMap<i32, i32>,
 
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    #[serde_as(
-        as = "std::collections::HashMap<serde_with::DisplayFromStr, serde_with::DisplayFromStr>"
-    )]
+    #[serde_as(as = "std::collections::HashMap<wkt::internal::I64, wkt::internal::I64>")]
     pub map_int64_int64: std::collections::HashMap<i64, i64>,
 
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "std::collections::HashMap<wkt::internal::U32, wkt::internal::U32>")]
     pub map_uint32_uint32: std::collections::HashMap<u32, u32>,
 
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    #[serde_as(
-        as = "std::collections::HashMap<serde_with::DisplayFromStr, serde_with::DisplayFromStr>"
-    )]
+    #[serde_as(as = "std::collections::HashMap<wkt::internal::U64, wkt::internal::U64>")]
     pub map_uint64_uint64: std::collections::HashMap<u64, u64>,
 
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
@@ -324,18 +329,15 @@ pub struct TestAllTypesProto3 {
     pub map_sint32_sint32: std::collections::HashMap<i32, i32>,
 
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    #[serde_as(
-        as = "std::collections::HashMap<serde_with::DisplayFromStr, serde_with::DisplayFromStr>"
-    )]
+    #[serde_as(as = "std::collections::HashMap<wkt::internal::I64, wkt::internal::I64>")]
     pub map_sint64_sint64: std::collections::HashMap<i64, i64>,
 
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "std::collections::HashMap<wkt::internal::U32, wkt::internal::U32>")]
     pub map_fixed32_fixed32: std::collections::HashMap<u32, u32>,
 
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    #[serde_as(
-        as = "std::collections::HashMap<serde_with::DisplayFromStr, serde_with::DisplayFromStr>"
-    )]
+    #[serde_as(as = "std::collections::HashMap<wkt::internal::U64, wkt::internal::U64>")]
     pub map_fixed64_fixed64: std::collections::HashMap<u64, u64>,
 
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
@@ -343,9 +345,7 @@ pub struct TestAllTypesProto3 {
     pub map_sfixed32_sfixed32: std::collections::HashMap<i32, i32>,
 
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    #[serde_as(
-        as = "std::collections::HashMap<serde_with::DisplayFromStr, serde_with::DisplayFromStr>"
-    )]
+    #[serde_as(as = "std::collections::HashMap<wkt::internal::I64, wkt::internal::I64>")]
     pub map_sfixed64_sfixed64: std::collections::HashMap<i64, i64>,
 
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
@@ -398,15 +398,15 @@ pub struct TestAllTypesProto3 {
     pub optional_int32_wrapper: std::option::Option<wkt::Int32Value>,
 
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub optional_int64_wrapper: std::option::Option<wkt::Int64Value>,
 
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<_>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::U32>")]
     pub optional_uint32_wrapper: std::option::Option<wkt::UInt32Value>,
 
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::U64>")]
     pub optional_uint64_wrapper: std::option::Option<wkt::UInt64Value>,
 
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -432,15 +432,15 @@ pub struct TestAllTypesProto3 {
     pub repeated_int32_wrapper: std::vec::Vec<wkt::Int32Value>,
 
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "std::vec::Vec<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::vec::Vec<wkt::internal::I64>")]
     pub repeated_int64_wrapper: std::vec::Vec<wkt::Int64Value>,
 
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "std::vec::Vec<_>")]
+    #[serde_as(as = "std::vec::Vec<wkt::internal::U32>")]
     pub repeated_uint32_wrapper: std::vec::Vec<wkt::UInt32Value>,
 
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "std::vec::Vec<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::vec::Vec<wkt::internal::U64>")]
     pub repeated_uint64_wrapper: std::vec::Vec<wkt::UInt64Value>,
 
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
@@ -2755,14 +2755,14 @@ pub mod test_all_types_proto_3 {
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
     pub enum OneofField {
-        OneofUint32(u32),
+        OneofUint32(#[serde_as(as = "wkt::internal::U32")] u32),
         OneofNestedMessage(
             std::boxed::Box<crate::generated::test_protos::test_all_types_proto_3::NestedMessage>,
         ),
         OneofString(std::string::String),
         OneofBytes(#[serde_as(as = "serde_with::base64::Base64")] ::bytes::Bytes),
         OneofBool(bool),
-        OneofUint64(#[serde_as(as = "serde_with::DisplayFromStr")] u64),
+        OneofUint64(#[serde_as(as = "wkt::internal::U64")] u64),
         OneofFloat(#[serde_as(as = "wkt::internal::F32")] f32),
         OneofDouble(#[serde_as(as = "wkt::internal::F64")] f64),
         OneofEnum(crate::generated::test_protos::test_all_types_proto_3::NestedEnum),

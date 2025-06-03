@@ -6221,20 +6221,20 @@ pub struct BatchTranslateMetadata {
 
     /// Number of successfully translated characters so far (Unicode codepoints).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub translated_characters: i64,
 
     /// Number of characters that have failed to process so far (Unicode
     /// codepoints).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub failed_characters: i64,
 
     /// Total number of characters (Unicode codepoints).
     /// This is the total number of codepoints from input files times the number of
     /// target languages and appears here shortly after the call is submitted.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub total_characters: i64,
 
     /// Time when the operation was submitted.
@@ -6478,17 +6478,17 @@ pub mod batch_translate_metadata {
 pub struct BatchTranslateResponse {
     /// Total number of characters (Unicode codepoints).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub total_characters: i64,
 
     /// Number of successfully translated characters (Unicode codepoints).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub translated_characters: i64,
 
     /// Number of characters that have failed to process (Unicode codepoints).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub failed_characters: i64,
 
     /// Time when the operation was submitted.
@@ -8866,48 +8866,48 @@ pub struct BatchTranslateDocumentResponse {
     /// Total number of pages to translate in all documents. Documents without
     /// clear page definition (such as XLSX) are not counted.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub total_pages: i64,
 
     /// Number of successfully translated pages in all documents. Documents without
     /// clear page definition (such as XLSX) are not counted.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub translated_pages: i64,
 
     /// Number of pages that failed to process in all documents. Documents without
     /// clear page definition (such as XLSX) are not counted.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub failed_pages: i64,
 
     /// Number of billable pages in documents with clear page definition (such as
     /// PDF, DOCX, PPTX)
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub total_billable_pages: i64,
 
     /// Total number of characters (Unicode codepoints) in all documents.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub total_characters: i64,
 
     /// Number of successfully translated characters (Unicode codepoints) in all
     /// documents.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub translated_characters: i64,
 
     /// Number of characters that have failed to process (Unicode codepoints) in
     /// all documents.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub failed_characters: i64,
 
     /// Number of billable characters (Unicode codepoints) in documents without
     /// clear page definition, such as XLSX.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub total_billable_characters: i64,
 
     /// Time when the operation was submitted.
@@ -9035,48 +9035,48 @@ pub struct BatchTranslateDocumentMetadata {
     /// Total number of pages to translate in all documents so far. Documents
     /// without clear page definition (such as XLSX) are not counted.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub total_pages: i64,
 
     /// Number of successfully translated pages in all documents so far. Documents
     /// without clear page definition (such as XLSX) are not counted.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub translated_pages: i64,
 
     /// Number of pages that failed to process in all documents so far. Documents
     /// without clear page definition (such as XLSX) are not counted.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub failed_pages: i64,
 
     /// Number of billable pages in documents with clear page definition (such as
     /// PDF, DOCX, PPTX) so far.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub total_billable_pages: i64,
 
     /// Total number of characters (Unicode codepoints) in all documents so far.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub total_characters: i64,
 
     /// Number of successfully translated characters (Unicode codepoints) in all
     /// documents so far.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub translated_characters: i64,
 
     /// Number of characters that have failed to process (Unicode codepoints) in
     /// all documents so far.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub failed_characters: i64,
 
     /// Number of billable characters (Unicode codepoints) in documents without
     /// clear page definition (such as XLSX) so far.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub total_billable_characters: i64,
 
     /// Time when the operation was submitted.

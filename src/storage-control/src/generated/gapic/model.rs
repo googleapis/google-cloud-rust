@@ -29,13 +29,13 @@ pub struct DeleteBucketRequest {
 
     /// If set, only deletes the bucket if its metageneration matches this value.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub if_metageneration_match: std::option::Option<i64>,
 
     /// If set, only deletes the bucket if its metageneration does not match this
     /// value.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub if_metageneration_not_match: std::option::Option<i64>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -109,13 +109,13 @@ pub struct GetBucketRequest {
     /// If set, and if the bucket's current metageneration does not match the
     /// specified value, the request will return an error.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub if_metageneration_match: std::option::Option<i64>,
 
     /// If set, and if the bucket's current metageneration matches the specified
     /// value, the request will return an error.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub if_metageneration_not_match: std::option::Option<i64>,
 
     /// Mask specifying which fields to read.
@@ -469,7 +469,7 @@ pub struct LockBucketRetentionPolicyRequest {
     /// Required. Makes the operation conditional on whether bucket's current
     /// metageneration matches the given value. Must be positive.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub if_metageneration_match: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -514,13 +514,13 @@ pub struct UpdateBucketRequest {
     /// If set, will only modify the bucket if its metageneration matches this
     /// value.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub if_metageneration_match: std::option::Option<i64>,
 
     /// If set, will only modify the bucket if its metageneration does not match
     /// this value.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub if_metageneration_not_match: std::option::Option<i64>,
 
     /// Optional. Apply a predefined set of access controls to this bucket.
@@ -674,13 +674,13 @@ pub struct ComposeObjectRequest {
     /// matches the given value. Setting to 0 makes the operation succeed only if
     /// there are no live versions of the object.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub if_generation_match: std::option::Option<i64>,
 
     /// Makes the operation conditional on whether the object's current
     /// metageneration matches the given value.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub if_metageneration_match: std::option::Option<i64>,
 
     /// Optional. Resource name of the Cloud KMS key, of the form
@@ -850,7 +850,7 @@ pub mod compose_object_request {
 
         /// Optional. The generation of this object to use as the source.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub generation: i64,
 
         /// Optional. Conditions that must be met for this operation to execute.
@@ -924,7 +924,7 @@ pub mod compose_object_request {
             /// that would be used matches this value.  If this value and a generation
             /// are both specified, they must be the same value or the call will fail.
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
-            #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+            #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
             pub if_generation_match: std::option::Option<i64>,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -983,14 +983,14 @@ pub struct DeleteObjectRequest {
     /// Optional. If present, permanently deletes a specific revision of this
     /// object (as opposed to the latest version, the default).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub generation: i64,
 
     /// Makes the operation conditional on whether the object's current generation
     /// matches the given value. Setting to 0 makes the operation succeed only if
     /// there are no live versions of the object.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub if_generation_match: std::option::Option<i64>,
 
     /// Makes the operation conditional on whether the object's live generation
@@ -998,19 +998,19 @@ pub struct DeleteObjectRequest {
     /// fails. Setting to 0 makes the operation succeed only if there is a live
     /// version of the object.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub if_generation_not_match: std::option::Option<i64>,
 
     /// Makes the operation conditional on whether the object's current
     /// metageneration matches the given value.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub if_metageneration_match: std::option::Option<i64>,
 
     /// Makes the operation conditional on whether the object's current
     /// metageneration does not match the given value.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub if_metageneration_not_match: std::option::Option<i64>,
 
     /// Optional. A set of parameters common to Storage API requests concerning an
@@ -1159,7 +1159,7 @@ pub struct RestoreObjectRequest {
 
     /// Required. The specific revision of the object to restore.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub generation: i64,
 
     /// Optional. Restore token used to differentiate soft-deleted objects with the
@@ -1174,7 +1174,7 @@ pub struct RestoreObjectRequest {
     /// matches the given value. Setting to 0 makes the operation succeed only if
     /// there are no live versions of the object.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub if_generation_match: std::option::Option<i64>,
 
     /// Makes the operation conditional on whether the object's live generation
@@ -1182,19 +1182,19 @@ pub struct RestoreObjectRequest {
     /// fails. Setting to 0 makes the operation succeed only if there is a live
     /// version of the object.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub if_generation_not_match: std::option::Option<i64>,
 
     /// Makes the operation conditional on whether the object's current
     /// metageneration matches the given value.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub if_metageneration_match: std::option::Option<i64>,
 
     /// Makes the operation conditional on whether the object's current
     /// metageneration does not match the given value.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub if_metageneration_not_match: std::option::Option<i64>,
 
     /// If false or unset, the bucket's default object ACL will be used.
@@ -1407,7 +1407,7 @@ pub struct ReadObjectRequest {
     /// Optional. If present, selects a specific revision of this object (as
     /// opposed to the latest version, the default).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub generation: i64,
 
     /// Optional. The offset for the first byte to return in the read, relative to
@@ -1420,7 +1420,7 @@ pub struct ReadObjectRequest {
     /// a negative offset with magnitude larger than the size of the object will
     /// return the entire object.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub read_offset: i64,
 
     /// Optional. The maximum number of `data` bytes the server is allowed to
@@ -1432,14 +1432,14 @@ pub struct ReadObjectRequest {
     /// error occurred, the stream includes all data from the `read_offset` to the
     /// end of the resource.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub read_limit: i64,
 
     /// Makes the operation conditional on whether the object's current generation
     /// matches the given value. Setting to 0 makes the operation succeed only if
     /// there are no live versions of the object.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub if_generation_match: std::option::Option<i64>,
 
     /// Makes the operation conditional on whether the object's live generation
@@ -1447,19 +1447,19 @@ pub struct ReadObjectRequest {
     /// fails. Setting to 0 makes the operation succeed only if there is a live
     /// version of the object.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub if_generation_not_match: std::option::Option<i64>,
 
     /// Makes the operation conditional on whether the object's current
     /// metageneration matches the given value.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub if_metageneration_match: std::option::Option<i64>,
 
     /// Makes the operation conditional on whether the object's current
     /// metageneration does not match the given value.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub if_metageneration_not_match: std::option::Option<i64>,
 
     /// Optional. A set of parameters common to Storage API requests concerning an
@@ -1647,7 +1647,7 @@ pub struct GetObjectRequest {
     /// Optional. If present, selects a specific revision of this object (as
     /// opposed to the latest version, the default).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub generation: i64,
 
     /// If true, return the soft-deleted version of this object.
@@ -1658,7 +1658,7 @@ pub struct GetObjectRequest {
     /// matches the given value. Setting to 0 makes the operation succeed only if
     /// there are no live versions of the object.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub if_generation_match: std::option::Option<i64>,
 
     /// Makes the operation conditional on whether the object's live generation
@@ -1666,19 +1666,19 @@ pub struct GetObjectRequest {
     /// fails. Setting to 0 makes the operation succeed only if there is a live
     /// version of the object.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub if_generation_not_match: std::option::Option<i64>,
 
     /// Makes the operation conditional on whether the object's current
     /// metageneration matches the given value.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub if_metageneration_match: std::option::Option<i64>,
 
     /// Makes the operation conditional on whether the object's current
     /// metageneration does not match the given value.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub if_metageneration_not_match: std::option::Option<i64>,
 
     /// Optional. A set of parameters common to Storage API requests concerning an
@@ -1888,7 +1888,7 @@ pub struct WriteObjectSpec {
     /// generation matches the given value. Setting to 0 makes the operation
     /// succeed only if there are no live versions of the object.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub if_generation_match: std::option::Option<i64>,
 
     /// Makes the operation conditional on whether the object's live
@@ -1896,19 +1896,19 @@ pub struct WriteObjectSpec {
     /// precondition fails. Setting to 0 makes the operation succeed only if
     /// there is a live version of the object.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub if_generation_not_match: std::option::Option<i64>,
 
     /// Makes the operation conditional on whether the object's current
     /// metageneration matches the given value.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub if_metageneration_match: std::option::Option<i64>,
 
     /// Makes the operation conditional on whether the object's current
     /// metageneration does not match the given value.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub if_metageneration_not_match: std::option::Option<i64>,
 
     /// The expected final object size being uploaded.
@@ -1919,7 +1919,7 @@ pub struct WriteObjectSpec {
     /// you must start the upload over from scratch, this time sending the correct
     /// number of bytes.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub object_size: std::option::Option<i64>,
 
     /// If true, the object will be created in appendable mode.
@@ -2387,7 +2387,7 @@ pub struct RewriteObjectRequest {
     /// Optional. If present, selects a specific revision of the source object (as
     /// opposed to the latest version, the default).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub source_generation: i64,
 
     /// Optional. Include this field (from the previous rewrite response) on each
@@ -2408,7 +2408,7 @@ pub struct RewriteObjectRequest {
     /// matches the given value. Setting to 0 makes the operation succeed only if
     /// there are no live versions of the object.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub if_generation_match: std::option::Option<i64>,
 
     /// Makes the operation conditional on whether the object's live generation
@@ -2416,43 +2416,43 @@ pub struct RewriteObjectRequest {
     /// fails. Setting to 0 makes the operation succeed only if there is a live
     /// version of the object.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub if_generation_not_match: std::option::Option<i64>,
 
     /// Makes the operation conditional on whether the destination object's current
     /// metageneration matches the given value.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub if_metageneration_match: std::option::Option<i64>,
 
     /// Makes the operation conditional on whether the destination object's current
     /// metageneration does not match the given value.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub if_metageneration_not_match: std::option::Option<i64>,
 
     /// Makes the operation conditional on whether the source object's live
     /// generation matches the given value.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub if_source_generation_match: std::option::Option<i64>,
 
     /// Makes the operation conditional on whether the source object's live
     /// generation does not match the given value.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub if_source_generation_not_match: std::option::Option<i64>,
 
     /// Makes the operation conditional on whether the source object's current
     /// metageneration matches the given value.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub if_source_metageneration_match: std::option::Option<i64>,
 
     /// Makes the operation conditional on whether the source object's current
     /// metageneration does not match the given value.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub if_source_metageneration_not_match: std::option::Option<i64>,
 
     /// Optional. The maximum number of bytes that will be rewritten per rewrite
@@ -2463,7 +2463,7 @@ pub struct RewriteObjectRequest {
     /// Finally, this value must not change across rewrite calls else you'll get an
     /// error that the `rewriteToken` is invalid.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub max_bytes_rewritten_per_call: i64,
 
     /// Optional. The algorithm used to encrypt the source object, if any. Used if
@@ -2820,13 +2820,13 @@ pub struct RewriteResponse {
     /// The total bytes written so far, which can be used to provide a waiting user
     /// with a progress indicator. This property is always present in the response.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub total_bytes_rewritten: i64,
 
     /// The total size of the object being copied in bytes. This property is always
     /// present in the response.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub object_size: i64,
 
     /// `true` if the copy is finished; otherwise, `false` if
@@ -2925,7 +2925,7 @@ pub struct MoveObjectRequest {
     /// and `if_source_generation_not_match` conditions are mutually exclusive:
     /// it's an error for both of them to be set in the request.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub if_source_generation_match: std::option::Option<i64>,
 
     /// Optional. Makes the operation conditional on whether the source object's
@@ -2934,7 +2934,7 @@ pub struct MoveObjectRequest {
     /// conditions are mutually exclusive: it's an error for both of them to be set
     /// in the request.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub if_source_generation_not_match: std::option::Option<i64>,
 
     /// Optional. Makes the operation conditional on whether the source object's
@@ -2943,7 +2943,7 @@ pub struct MoveObjectRequest {
     /// conditions are mutually exclusive: it's an error for both of them to be set
     /// in the request.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub if_source_metageneration_match: std::option::Option<i64>,
 
     /// Optional. Makes the operation conditional on whether the source object's
@@ -2952,7 +2952,7 @@ pub struct MoveObjectRequest {
     /// conditions are mutually exclusive: it's an error for both of them to be set
     /// in the request.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub if_source_metageneration_not_match: std::option::Option<i64>,
 
     /// Optional. Makes the operation conditional on whether the destination
@@ -2961,7 +2961,7 @@ pub struct MoveObjectRequest {
     /// `if_generation_match` and `if_generation_not_match` conditions are mutually
     /// exclusive: it's an error for both of them to be set in the request.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub if_generation_match: std::option::Option<i64>,
 
     /// Optional. Makes the operation conditional on whether the destination
@@ -2971,7 +2971,7 @@ pub struct MoveObjectRequest {
     /// `if_generation_match` and `if_generation_not_match` conditions are mutually
     /// exclusive: it's an error for both of them to be set in the request.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub if_generation_not_match: std::option::Option<i64>,
 
     /// Optional. Makes the operation conditional on whether the destination
@@ -2980,7 +2980,7 @@ pub struct MoveObjectRequest {
     /// mutually exclusive: it's an error for both of them to be set in the
     /// request.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub if_metageneration_match: std::option::Option<i64>,
 
     /// Optional. Makes the operation conditional on whether the destination
@@ -2989,7 +2989,7 @@ pub struct MoveObjectRequest {
     /// mutually exclusive: it's an error for both of them to be set in the
     /// request.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub if_metageneration_not_match: std::option::Option<i64>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3293,7 +3293,7 @@ pub struct UpdateObjectRequest {
     /// matches the given value. Setting to 0 makes the operation succeed only if
     /// there are no live versions of the object.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub if_generation_match: std::option::Option<i64>,
 
     /// Makes the operation conditional on whether the object's live generation
@@ -3301,19 +3301,19 @@ pub struct UpdateObjectRequest {
     /// fails. Setting to 0 makes the operation succeed only if there is a live
     /// version of the object.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub if_generation_not_match: std::option::Option<i64>,
 
     /// Makes the operation conditional on whether the object's current
     /// metageneration matches the given value.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub if_metageneration_match: std::option::Option<i64>,
 
     /// Makes the operation conditional on whether the object's current
     /// metageneration does not match the given value.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub if_metageneration_not_match: std::option::Option<i64>,
 
     /// Optional. Apply a predefined set of access controls to this object.
@@ -3898,7 +3898,7 @@ pub struct Bucket {
 
     /// Output only. The metadata generation of this bucket.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub metageneration: i64,
 
     /// Immutable. The location of the bucket. Object data for objects in the
@@ -6058,6 +6058,7 @@ pub struct ObjectChecksums {
     /// object matches this checksum.
     #[serde(rename = "crc32c")]
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::U32>")]
     pub crc32c: std::option::Option<u32>,
 
     /// Optional. 128 bit MD5 hash of the object data.
@@ -6189,7 +6190,7 @@ pub struct Object {
     /// Immutable. The content generation of this object. Used for object
     /// versioning.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub generation: i64,
 
     /// Output only. Restore token used to differentiate deleted objects with the
@@ -6203,7 +6204,7 @@ pub struct Object {
     /// metageneration number is only meaningful in the context of a particular
     /// generation of a particular object.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub metageneration: i64,
 
     /// Optional. Storage class of the object.
@@ -6213,7 +6214,7 @@ pub struct Object {
     /// Output only. Content-Length of the object data in bytes, matching
     /// [<https://tools.ietf.org/html/rfc7230#section-3.3.2>][RFC 7230 §3.3.2].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub size: i64,
 
     /// Optional. Content-Encoding of the object data, matching
@@ -7305,17 +7306,17 @@ impl wkt::message::Message for Owner {
 pub struct ContentRange {
     /// The starting offset of the object data. This value is inclusive.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub start: i64,
 
     /// The ending offset of the object data. This value is exclusive.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub end: i64,
 
     /// The complete length of the object data.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub complete_length: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

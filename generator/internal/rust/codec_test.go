@@ -496,9 +496,9 @@ func TestFieldAttributes(t *testing.T) {
 	model := api.NewTestAPI([]*api.Message{message}, []*api.Enum{enum}, []*api.Service{})
 
 	expectedAttributes := map[string]string{
-		"f_int64":          `#[serde(skip_serializing_if = "wkt::internal::is_default")]` + "\n" + `#[serde_as(as = "serde_with::DisplayFromStr")]`,
-		"f_int64_optional": `#[serde(skip_serializing_if = "std::option::Option::is_none")]` + "\n" + `#[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]`,
-		"f_int64_repeated": `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]` + "\n" + `#[serde_as(as = "std::vec::Vec<serde_with::DisplayFromStr>")]`,
+		"f_int64":          `#[serde(skip_serializing_if = "wkt::internal::is_default")]` + "\n" + `#[serde_as(as = "wkt::internal::I64")]`,
+		"f_int64_optional": `#[serde(skip_serializing_if = "std::option::Option::is_none")]` + "\n" + `#[serde_as(as = "std::option::Option<wkt::internal::I64>")]`,
+		"f_int64_repeated": `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]` + "\n" + `#[serde_as(as = "std::vec::Vec<wkt::internal::I64>")]`,
 
 		"f_bytes":          `#[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]` + "\n" + `#[serde_as(as = "serde_with::base64::Base64")]`,
 		"f_bytes_optional": `#[serde(skip_serializing_if = "std::option::Option::is_none")]` + "\n" + `#[serde_as(as = "std::option::Option<serde_with::base64::Base64>")]`,
@@ -656,8 +656,8 @@ func TestMapFieldAttributes(t *testing.T) {
 	expectedAttributes := map[string]string{
 		"target":      `#[serde(skip_serializing_if = "std::option::Option::is_none")]`,
 		"map":         `#[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]`,
-		"map_i64":     `#[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]` + "\n" + `#[serde_as(as = "std::collections::HashMap<_, serde_with::DisplayFromStr>")]`,
-		"map_i64_key": `#[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]` + "\n" + `#[serde_as(as = "std::collections::HashMap<serde_with::DisplayFromStr, _>")]`,
+		"map_i64":     `#[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]` + "\n" + `#[serde_as(as = "std::collections::HashMap<_, wkt::internal::I64>")]`,
+		"map_i64_key": `#[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]` + "\n" + `#[serde_as(as = "std::collections::HashMap<wkt::internal::I64, _>")]`,
 		"map_bytes":   `#[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]` + "\n" + `#[serde_as(as = "std::collections::HashMap<_, serde_with::base64::Base64>")]`,
 		"map_bool":    `#[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]` + "\n" + `#[serde_as(as = "std::collections::HashMap<serde_with::DisplayFromStr, _>")]`,
 	}
@@ -754,10 +754,10 @@ func TestWktFieldAttributes(t *testing.T) {
 	model := api.NewTestAPI([]*api.Message{message}, []*api.Enum{}, []*api.Service{})
 
 	expectedAttributes := map[string]string{
-		"f_int64":           `#[serde(skip_serializing_if = "std::option::Option::is_none")]` + "\n" + `#[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]`,
-		"f_int64_repeated":  `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]` + "\n" + `#[serde_as(as = "std::vec::Vec<serde_with::DisplayFromStr>")]`,
-		"f_uint64":          `#[serde(skip_serializing_if = "std::option::Option::is_none")]` + "\n" + `#[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]`,
-		"f_uint64_repeated": `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]` + "\n" + `#[serde_as(as = "std::vec::Vec<serde_with::DisplayFromStr>")]`,
+		"f_int64":           `#[serde(skip_serializing_if = "std::option::Option::is_none")]` + "\n" + `#[serde_as(as = "std::option::Option<wkt::internal::I64>")]`,
+		"f_int64_repeated":  `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]` + "\n" + `#[serde_as(as = "std::vec::Vec<wkt::internal::I64>")]`,
+		"f_uint64":          `#[serde(skip_serializing_if = "std::option::Option::is_none")]` + "\n" + `#[serde_as(as = "std::option::Option<wkt::internal::U64>")]`,
+		"f_uint64_repeated": `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]` + "\n" + `#[serde_as(as = "std::vec::Vec<wkt::internal::U64>")]`,
 		"f_bytes":           `#[serde(skip_serializing_if = "std::option::Option::is_none")]` + "\n" + `#[serde_as(as = "std::option::Option<serde_with::base64::Base64>")]`,
 		"f_bytes_repeated":  `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]` + "\n" + `#[serde_as(as = "std::vec::Vec<serde_with::base64::Base64>")]`,
 		"f_string":          `#[serde(skip_serializing_if = "std::option::Option::is_none")]`,
@@ -808,7 +808,7 @@ func TestFieldLossyName(t *testing.T) {
 			`#[serde_as(as = "serde_with::base64::Base64")]`,
 		"dataCrc32c": `#[serde(rename = "dataCrc32c")]` + "\n" +
 			`#[serde(skip_serializing_if = "std::option::Option::is_none")]` + "\n" +
-			`#[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]`,
+			`#[serde_as(as = "std::option::Option<wkt::internal::I64>")]`,
 	}
 	loadWellKnownTypes(model.State)
 	for _, field := range message.Fields {

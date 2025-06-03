@@ -138,7 +138,7 @@ pub struct Collector {
 
     /// User specified expected asset count.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub expected_asset_count: i64,
 
     /// Output only. State of the Collector.

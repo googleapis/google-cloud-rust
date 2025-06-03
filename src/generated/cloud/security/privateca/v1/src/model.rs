@@ -1931,14 +1931,14 @@ pub mod ca_pool {
                 /// If this is not set, or if set to zero, the service-level min RSA
                 /// modulus size will continue to apply.
                 #[serde(skip_serializing_if = "wkt::internal::is_default")]
-                #[serde_as(as = "serde_with::DisplayFromStr")]
+                #[serde_as(as = "wkt::internal::I64")]
                 pub min_modulus_size: i64,
 
                 /// Optional. The maximum allowed RSA modulus size (inclusive), in bits.
                 /// If this is not set, or if set to zero, the service will not enforce
                 /// an explicit upper bound on RSA modulus sizes.
                 #[serde(skip_serializing_if = "wkt::internal::is_default")]
-                #[serde_as(as = "serde_with::DisplayFromStr")]
+                #[serde_as(as = "wkt::internal::I64")]
                 pub max_modulus_size: i64,
 
                 #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2410,7 +2410,7 @@ pub struct CertificateRevocationList {
 
     /// Output only. The CRL sequence number that appears in pem_crl.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub sequence_number: i64,
 
     /// Output only. The revoked serial numbers that appear in pem_crl.

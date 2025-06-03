@@ -318,6 +318,7 @@ axum           = { default-features = false, version = "0.8" }
 httptest       = { default-features = false, version = "0.16.3" }
 mockall        = { default-features = false, version = "0.13" }
 mutants        = { default-features = false, version = "0.0.3" }
+paste          = { default-features = false, version = "1" }
 regex          = { default-features = false, version = "1" }
 rsa            = { default-features = false, version = "0.9" }
 rustc_version  = { default-features = false, version = "0.4" }

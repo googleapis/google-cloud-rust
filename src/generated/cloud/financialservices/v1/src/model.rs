@@ -258,7 +258,7 @@ pub mod backtest_result {
         /// investigated in an average month, based on alerts from your existing
         /// automated alerting system.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub party_investigations_per_period_hint: i64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2180,7 +2180,7 @@ pub mod engine_config {
         /// investigated in an average month, based on alerts from your existing
         /// automated alerting system.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub party_investigations_per_period_hint: i64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4436,37 +4436,37 @@ pub mod import_registered_parties_request {
 pub struct ImportRegisteredPartiesResponse {
     /// Number of parties added by this operation.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub parties_added: i64,
 
     /// Number of parties removed by this operation.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub parties_removed: i64,
 
     /// Total number of parties that are registered in this instance, after the
     /// update operation was completed.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub parties_total: i64,
 
     /// Number of parties that failed to be removed by this operation.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub parties_failed_to_remove: i64,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub parties_uptiered: i64,
 
     /// Total number of parties that are downtiered in this instance
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub parties_downtiered: i64,
 
     /// Number of parties that failed to be downtiered
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub parties_failed_to_downtier: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
