@@ -379,24 +379,12 @@ impl ReadObject {
         self
     }
 
-    /// Sets the value of [read_offset][control::model::ReadObjectRequest::read_offset].
-    pub fn set_read_offset<T: Into<i64>>(mut self, v: T) -> Self {
-        self.request.read_offset = v.into();
-        self
-    }
-
-    /// Sets the value of [read_limit][control::model::ReadObjectRequest::read_limit].
-    pub fn set_read_limit<T: Into<i64>>(mut self, v: T) -> Self {
-        self.request.read_limit = v.into();
-        self
-    }
-
     /// Sets the value of [if_generation_match][control::model::ReadObjectRequest::if_generation_match].
     pub fn set_if_generation_match<T>(mut self, v: T) -> Self
     where
         T: Into<i64>,
     {
-        self.request.if_generation_match = Option::Some(v.into());
+        self.request.if_generation_match = Some(v.into());
         self
     }
 
@@ -414,7 +402,7 @@ impl ReadObject {
     where
         T: Into<i64>,
     {
-        self.request.if_generation_not_match = Option::Some(v.into());
+        self.request.if_generation_not_match = Some(v.into());
         self
     }
 
@@ -432,7 +420,7 @@ impl ReadObject {
     where
         T: Into<i64>,
     {
-        self.request.if_metageneration_match = Option::Some(v.into());
+        self.request.if_metageneration_match = Some(v.into());
         self
     }
 
@@ -450,7 +438,7 @@ impl ReadObject {
     where
         T: Into<i64>,
     {
-        self.request.if_metageneration_not_match = Option::Some(v.into());
+        self.request.if_metageneration_not_match = Some(v.into());
         self
     }
 
@@ -468,7 +456,7 @@ impl ReadObject {
     where
         T: Into<control::model::CommonObjectRequestParams>,
     {
-        self.request.common_object_request_params = Option::Some(v.into());
+        self.request.common_object_request_params = Some(v.into());
         self
     }
 
@@ -478,24 +466,6 @@ impl ReadObject {
         T: Into<control::model::CommonObjectRequestParams>,
     {
         self.request.common_object_request_params = v.map(|x| x.into());
-        self
-    }
-
-    /// Sets the value of [read_mask][control::model::ReadObjectRequest::read_mask].
-    pub fn set_read_mask<T>(mut self, v: T) -> Self
-    where
-        T: Into<wkt::FieldMask>,
-    {
-        self.request.read_mask = Option::Some(v.into());
-        self
-    }
-
-    /// Sets or clears the value of [read_mask][control::model::ReadObjectRequest::read_mask].
-    pub fn set_or_clear_read_mask<T>(mut self, v: Option<T>) -> Self
-    where
-        T: Into<wkt::FieldMask>,
-    {
-        self.request.read_mask = v.map(|x| x.into());
         self
     }
 
@@ -531,23 +501,6 @@ impl ReadObject {
                 ))
             })?;
         let object: String = self.request.object;
-
-        // Check for parameters that are set that do not apply for the JSON API.
-        if let Some(read_mask) = self.request.read_mask {
-            return Err(ReadObject::unimplemented_err("read_mask", read_mask));
-        }
-        if self.request.read_offset != 0 {
-            return Err(ReadObject::unimplemented_err(
-                "read_offset",
-                self.request.read_offset,
-            ));
-        }
-        if self.request.read_limit != 0 {
-            return Err(ReadObject::unimplemented_err(
-                "read_limit",
-                self.request.read_limit,
-            ));
-        }
 
         // Build the request.
         let builder = self
@@ -595,13 +548,6 @@ impl ReadObject {
 
         let builder = self.inner.apply_auth_headers(builder).await?;
         Ok(builder)
-    }
-
-    fn unimplemented_err<T: std::fmt::Debug>(name: &str, value: T) -> Error {
-        Error::other(format!(
-            "unimplemented parameter {} set to {:?}",
-            name, value
-        ))
     }
 }
 
@@ -702,32 +648,6 @@ mod tests {
             .collect();
         assert_eq!(query_pairs.len(), want_pairs.len());
         assert_eq!(query_pairs, want_pairs);
-        Ok(())
-    }
-
-    #[tokio::test]
-    async fn test_read_object_unimplemented() -> Result {
-        let client = Storage::builder()
-            .with_credentials(auth::credentials::testing::test_credentials())
-            .build()
-            .await?;
-
-        let new_builder = || client.read_object("projects/_/buckets/bucket", "object");
-
-        let expect_unimplemented_error = async |read_obj: ReadObject| {
-            read_obj
-                .http_request_builder()
-                .await
-                .inspect_err(|e| assert!(e.to_string().contains("unimplemented")))
-                .expect_err("unimplemented field should error")
-        };
-
-        expect_unimplemented_error(new_builder().set_read_limit(5)).await;
-        expect_unimplemented_error(new_builder().set_read_offset(5)).await;
-        expect_unimplemented_error(
-            new_builder().set_read_mask(wkt::FieldMask::default().set_paths(["abc"])),
-        )
-        .await;
         Ok(())
     }
 }
