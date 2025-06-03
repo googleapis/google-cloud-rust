@@ -323,7 +323,7 @@ impl InsertObject {
             .as_str()
             .strip_prefix("projects/_/buckets/")
             .ok_or_else(|| {
-                Error::other(format!(
+                Error::binding(format!(
                     "malformed bucket name, it must start with `projects/_/buckets/`: {bucket}"
                 ))
             })?;
@@ -479,7 +479,7 @@ impl ReadObject {
             .as_str()
             .strip_prefix("projects/_/buckets/")
             .ok_or_else(|| {
-                Error::other(format!(
+                Error::binding(format!(
                     "malformed bucket name, it must start with `projects/_/buckets/`: {bucket}"
                 ))
             })?;
