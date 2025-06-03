@@ -417,6 +417,8 @@ func fieldFormatter(typez api.Typez) string {
 		return "serde_with::DisplayFromStr"
 	case api.INT32_TYPE, api.SINT32_TYPE, api.SFIXED32_TYPE:
 		return "wkt::internal::I32"
+	case api.UINT32_TYPE, api.FIXED32_TYPE:
+		return "wkt::internal::U32"
 	case api.FLOAT_TYPE:
 		return "wkt::internal::F32"
 	case api.DOUBLE_TYPE:
@@ -542,10 +544,8 @@ func fieldAttributes(f *api.Field, state *api.APIState) []string {
 	}
 	attributes := fieldBaseAttributes(f)
 	switch f.Typez {
-	case api.FIXED32_TYPE,
-		api.BOOL_TYPE,
+	case api.BOOL_TYPE,
 		api.STRING_TYPE,
-		api.UINT32_TYPE,
 		api.ENUM_TYPE,
 		api.GROUP_TYPE:
 		return append(attributes, fieldSkipAttributes(f)...)
@@ -553,6 +553,8 @@ func fieldAttributes(f *api.Field, state *api.APIState) []string {
 	case api.INT32_TYPE,
 		api.SFIXED32_TYPE,
 		api.SINT32_TYPE,
+		api.UINT32_TYPE,
+		api.FIXED32_TYPE,
 		api.INT64_TYPE,
 		api.UINT64_TYPE,
 		api.FIXED64_TYPE,

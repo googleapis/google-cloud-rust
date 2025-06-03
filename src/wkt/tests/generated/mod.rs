@@ -315,6 +315,128 @@ impl wkt::message::Message for MessageWithI32 {
     }
 }
 
+/// A test message for u32.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct MessageWithU32 {
+
+    /// A singular field.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::U32")]
+    pub singular: u32,
+
+    /// An optional field.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::U32>")]
+    pub optional: std::option::Option<u32>,
+
+    /// A repeated field.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "std::vec::Vec<wkt::internal::U32>")]
+    pub repeated: std::vec::Vec<u32>,
+
+    /// Test u32 as values.
+    #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "std::collections::HashMap<_, wkt::internal::U32>")]
+    pub map_value: std::collections::HashMap<std::string::String,u32>,
+
+    /// Test u32 as keys.
+    #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "std::collections::HashMap<wkt::internal::U32, _>")]
+    pub map_key: std::collections::HashMap<u32,std::string::String>,
+
+    /// Test u32 as both keys and values.
+    #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "std::collections::HashMap<wkt::internal::U32, wkt::internal::U32>")]
+    pub map_key_value: std::collections::HashMap<u32,u32>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl MessageWithU32 {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [singular][crate::protos::MessageWithU32::singular].
+    pub fn set_singular<T: std::convert::Into<u32>>(mut self, v: T) -> Self {
+        self.singular = v.into();
+        self
+    }
+
+    /// Sets the value of [optional][crate::protos::MessageWithU32::optional].
+    pub fn set_optional<T>(mut self, v: T) -> Self
+    where T: std::convert::Into<u32>
+    {
+        self.optional = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [optional][crate::protos::MessageWithU32::optional].
+    pub fn set_or_clear_optional<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<u32>
+    {
+        self.optional = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [repeated][crate::protos::MessageWithU32::repeated].
+    pub fn set_repeated<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<u32>
+    {
+        use std::iter::Iterator;
+        self.repeated = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [map_value][crate::protos::MessageWithU32::map_value].
+    pub fn set_map_value<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<u32>,
+    {
+        use std::iter::Iterator;
+        self.map_value = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [map_key][crate::protos::MessageWithU32::map_key].
+    pub fn set_map_key<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<u32>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.map_key = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [map_key_value][crate::protos::MessageWithU32::map_key_value].
+    pub fn set_map_key_value<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<u32>,
+        V: std::convert::Into<u32>,
+    {
+        use std::iter::Iterator;
+        self.map_key_value = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for MessageWithU32 {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.rust.sdk.test.MessageWithU32"
+    }
+}
+
 /// A test message for i64.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
