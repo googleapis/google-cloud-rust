@@ -15,7 +15,11 @@
 use auth::credentials::{
     Builder as AccessTokenCredentialBuilder,
     api_key_credentials::Builder as ApiKeyCredentialsBuilder,
+    external_account::Builder as ExternalAccountCredentialsBuilder,
 };
+use bigquery::client::DatasetService;
+use httptest::{Expectation, Server, matchers::*, responders::*};
+use iamcredentials::client::IAMCredentials;
 use language::client::LanguageService;
 use language::model::Document;
 use scoped_env::ScopedEnv;
@@ -114,4 +118,112 @@ pub async fn api_key() -> anyhow::Result<()> {
     client.analyze_sentiment().set_document(d).send().await?;
 
     Ok(())
+}
+
+pub async fn workload_identity_provider_url_sourced() -> anyhow::Result<()> {
+    let project = std::env::var("GOOGLE_CLOUD_PROJECT").expect("GOOGLE_CLOUD_PROJECT not set");
+    let audience = get_oidc_audience();
+    let service_account = get_byoid_service_account();
+    let client_email = match service_account.get("client_email") {
+        Some(serde_json::Value::String(v)) => v.clone(),
+        None | Some(_) => {
+            panic!("missing `client_email` string in service account: {service_account:?}")
+        }
+    };
+
+    let id_token = generate_id_token(audience.clone(), client_email, service_account).await?;
+
+    let source_token_response_body = serde_json::json!({
+        "id_token": id_token,
+    });
+
+    let server = Server::run();
+    server.expect(
+        Expectation::matching(all_of![
+            request::method_path("GET", "/source_token"),
+            request::headers(contains(("metadata", "True",))),
+        ])
+        .respond_with(json_encoded(source_token_response_body)),
+    );
+
+    let contents = serde_json::json!({
+      "type": "external_account",
+      "audience": audience,
+      "subject_token_type": "urn:ietf:params:oauth:token-type:jwt",
+      "token_url": "https://sts.googleapis.com/v1/token",
+      "credential_source": {
+        "url": server.url("/source_token").to_string(),
+        "headers": {
+          "Metadata": "True"
+        },
+        "format": {
+          "type": "json",
+          "subject_token_field_name": "id_token"
+        }
+      }
+    });
+
+    // Create external account with Url sourced creds
+    let creds = ExternalAccountCredentialsBuilder::new(contents).build()?;
+
+    // Construct a BigQuery client using the credentials.
+    // Using BigQuery as it doesn't require a billing account.
+    let client = DatasetService::builder()
+        .with_credentials(creds)
+        .build()
+        .await?;
+
+    // Make a request using the external account credentials
+    client
+        .list_datasets()
+        .set_project_id(project)
+        .send()
+        .await?;
+
+    Ok(())
+}
+
+/// Generates a Google ID token using the iamcredentials generateIdToken API.
+/// https://cloud.google.com/iam/docs/creating-short-lived-service-account-credentials#sa-credentials-oidc
+async fn generate_id_token(
+    audience: String,
+    client_email: String,
+    service_account: serde_json::Value,
+) -> anyhow::Result<String> {
+    let creds = AccessTokenCredentialBuilder::new(service_account.clone())
+        .build()
+        .expect("failed to setup service account credentials for IAM");
+
+    let client = IAMCredentials::builder()
+        .with_credentials(creds)
+        .build()
+        .await
+        .expect("failed to setup IAM client");
+
+    let res = client
+        .generate_id_token()
+        .set_audience(audience)
+        .set_include_email(true)
+        .set_name(format!("projects/-/serviceAccounts/{client_email}"))
+        .send()
+        .await?;
+
+    Ok(res.token)
+}
+
+fn get_oidc_audience() -> String {
+    std::env::var("GOOGLE_WORKLOAD_IDENTITY_OIDC_AUDIENCE")
+        .expect("GOOGLE_WORKLOAD_IDENTITY_OIDC_AUDIENCE not set")
+}
+
+fn get_byoid_service_account() -> serde_json::Value {
+    let path = std::env::var("GOOGLE_WORKLOAD_IDENTITY_CREDENTIALS")
+        .expect("GOOGLE_WORKLOAD_IDENTITY_CREDENTIALS not set");
+
+    let service_account_content =
+        std::fs::read_to_string(path).expect("unable to read service account");
+    let service_account: serde_json::Value = serde_json::from_str(service_account_content.as_str())
+        .expect("unable to parse service account");
+
+    service_account
 }
