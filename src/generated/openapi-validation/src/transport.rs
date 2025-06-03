@@ -449,7 +449,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         let builder = {
             use gaxi::query_parameter::QueryParameter;
             serde_json::to_value(&req.update_mask)
-                .map_err(Error::serde)?
+                .map_err(Error::ser)?
                 .add(builder, "updateMask")
         };
         self.inner
@@ -588,7 +588,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         let builder = {
             use gaxi::query_parameter::QueryParameter;
             serde_json::to_value(&req.update_mask)
-                .map_err(Error::serde)?
+                .map_err(Error::ser)?
                 .add(builder, "updateMask")
         };
         self.inner

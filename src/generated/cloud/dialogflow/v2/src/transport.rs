@@ -94,7 +94,7 @@ impl super::stub::Agents for Agents {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .map(|p| serde_json::to_value(p).map_err(Error::ser))
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
@@ -519,7 +519,7 @@ impl super::stub::AnswerRecords for AnswerRecords {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .map(|p| serde_json::to_value(p).map_err(Error::ser))
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
@@ -802,7 +802,7 @@ impl super::stub::Contexts for Contexts {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .map(|p| serde_json::to_value(p).map_err(Error::ser))
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
@@ -2310,7 +2310,7 @@ impl super::stub::ConversationProfiles for ConversationProfiles {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .map(|p| serde_json::to_value(p).map_err(Error::ser))
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
@@ -2736,7 +2736,7 @@ impl super::stub::Documents for Documents {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .map(|p| serde_json::to_value(p).map_err(Error::ser))
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
@@ -3316,7 +3316,7 @@ impl super::stub::EntityTypes for EntityTypes {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .map(|p| serde_json::to_value(p).map_err(Error::ser))
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
@@ -3764,7 +3764,7 @@ impl super::stub::Environments for Environments {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .map(|p| serde_json::to_value(p).map_err(Error::ser))
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
@@ -4055,7 +4055,7 @@ impl super::stub::Fulfillments for Fulfillments {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .map(|p| serde_json::to_value(p).map_err(Error::ser))
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
@@ -4369,7 +4369,7 @@ impl super::stub::Generators for Generators {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .map(|p| serde_json::to_value(p).map_err(Error::ser))
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
@@ -4657,7 +4657,7 @@ impl super::stub::Intents for Intents {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .map(|p| serde_json::to_value(p).map_err(Error::ser))
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
@@ -5063,7 +5063,7 @@ impl super::stub::KnowledgeBases for KnowledgeBases {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .map(|p| serde_json::to_value(p).map_err(Error::ser))
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
@@ -5346,7 +5346,7 @@ impl super::stub::Participants for Participants {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .map(|p| serde_json::to_value(p).map_err(Error::ser))
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
@@ -5936,7 +5936,7 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .map(|p| serde_json::to_value(p).map_err(Error::ser))
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
@@ -6249,7 +6249,7 @@ impl super::stub::Versions for Versions {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .map(|p| serde_json::to_value(p).map_err(Error::ser))
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {

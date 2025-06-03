@@ -234,7 +234,7 @@ impl super::stub::InstanceAdmin for InstanceAdmin {
         let builder = req
             .instance_deadline
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .map(|p| serde_json::to_value(p).map_err(Error::ser))
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
@@ -272,7 +272,7 @@ impl super::stub::InstanceAdmin for InstanceAdmin {
         let builder = req
             .instance_partition_deadline
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .map(|p| serde_json::to_value(p).map_err(Error::ser))
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
@@ -308,7 +308,7 @@ impl super::stub::InstanceAdmin for InstanceAdmin {
         let builder = req
             .field_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .map(|p| serde_json::to_value(p).map_err(Error::ser))
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
@@ -611,7 +611,7 @@ impl super::stub::InstanceAdmin for InstanceAdmin {
         let builder = req
             .instance_partition_deadline
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .map(|p| serde_json::to_value(p).map_err(Error::ser))
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {

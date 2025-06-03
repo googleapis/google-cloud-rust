@@ -284,7 +284,7 @@ impl super::stub::ProductSearch for ProductSearch {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .map(|p| serde_json::to_value(p).map_err(Error::ser))
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
@@ -435,7 +435,7 @@ impl super::stub::ProductSearch for ProductSearch {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .map(|p| serde_json::to_value(p).map_err(Error::ser))
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {

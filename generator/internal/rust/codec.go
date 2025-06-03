@@ -720,9 +720,9 @@ func addQueryParameter(f *api.Field) string {
 		// few requests use nested objects as query parameters. Furthermore,
 		// the conversion is skipped if the object field is `None`.`
 		if f.Optional || f.Repeated {
-			return fmt.Sprintf(`let builder = req.%s.as_ref().map(|p| serde_json::to_value(p).map_err(Error::serde) ).transpose()?.into_iter().fold(builder, |builder, v| { use gaxi::query_parameter::QueryParameter; v.add(builder, "%s") });`, fieldName, f.JSONName)
+			return fmt.Sprintf(`let builder = req.%s.as_ref().map(|p| serde_json::to_value(p).map_err(Error::ser) ).transpose()?.into_iter().fold(builder, |builder, v| { use gaxi::query_parameter::QueryParameter; v.add(builder, "%s") });`, fieldName, f.JSONName)
 		}
-		return fmt.Sprintf(`let builder = { use gaxi::query_parameter::QueryParameter; serde_json::to_value(&req.%s).map_err(Error::serde)?.add(builder, "%s") };`, fieldName, f.JSONName)
+		return fmt.Sprintf(`let builder = { use gaxi::query_parameter::QueryParameter; serde_json::to_value(&req.%s).map_err(Error::ser)?.add(builder, "%s") };`, fieldName, f.JSONName)
 	default:
 		if f.Optional || f.Repeated {
 			return fmt.Sprintf(`let builder = req.%s.iter().fold(builder, |builder, p| builder.query(&[("%s", p)]));`, fieldName, f.JSONName)
@@ -742,7 +742,7 @@ func addQueryParameterOneOf(f *api.Field) string {
 		// query. The conversion to `serde_json::Value` is expensive, but very
 		// few requests use nested objects as query parameters. Furthermore,
 		// the conversion is skipped if the object field is `None`.`
-		return fmt.Sprintf(`let builder = req.%s().map(|p| serde_json::to_value(p).map_err(Error::serde) ).transpose()?.into_iter().fold(builder, |builder, p| { use gaxi::query_parameter::QueryParameter; p.add(builder, "%s") });`, fieldName, f.JSONName)
+		return fmt.Sprintf(`let builder = req.%s().map(|p| serde_json::to_value(p).map_err(Error::ser) ).transpose()?.into_iter().fold(builder, |builder, p| { use gaxi::query_parameter::QueryParameter; p.add(builder, "%s") });`, fieldName, f.JSONName)
 	default:
 		return fmt.Sprintf(`let builder = req.%s().iter().fold(builder, |builder, p| builder.query(&[("%s", p)]));`, fieldName, f.JSONName)
 	}
