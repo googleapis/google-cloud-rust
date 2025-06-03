@@ -353,7 +353,7 @@ impl InsertObject {
         Ok(builder)
     }
 
-    /// Optional. The encryption key used with the Customer-Supplied Encryption Keys
+    /// The encryption key used with the Customer-Supplied Encryption Keys
     /// feature. In raw bytes format (not base64-encoded).
     pub fn with_key<T>(mut self, v: T) -> Self
     where
@@ -398,7 +398,7 @@ impl ReadObject {
         }
     }
 
-    /// Optional. If present, selects a specific revision of this object (as
+    /// If present, selects a specific revision of this object (as
     /// opposed to the latest version, the default).
     pub fn with_generation<T: Into<i64>>(mut self, v: T) -> Self {
         self.request.generation = v.into();
@@ -448,7 +448,7 @@ impl ReadObject {
         self
     }
 
-    /// Optional. The encryption key used with the Customer-Supplied Encryption Keys
+    /// The encryption key used with the Customer-Supplied Encryption Keys
     /// feature. In raw bytes format (not base64-encoded).
     pub fn with_key<T>(mut self, v: T) -> Self
     where
@@ -475,12 +475,6 @@ impl ReadObject {
     }
 
     async fn http_request_builder(self) -> Result<reqwest::RequestBuilder> {
-<<<<<<< Updated upstream
-        // TODO(#2103): map additional parameters to the JSON request.
-        // - map relevant parameters to remaining: softDelete, projection, restoreToken
-
-=======
->>>>>>> Stashed changes
         // Collect the required bucket and object parameters.
         let bucket: String = self.request.bucket;
         let bucket_id = bucket
