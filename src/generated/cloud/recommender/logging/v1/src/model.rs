@@ -33,19 +33,23 @@ extern crate wkt;
 pub struct ActionLog {
     /// Required. User that executed this action. Eg, foo@gmail.com
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub actor: std::string::String,
 
     /// Required. State change that was made by the actor. Eg, SUCCEEDED.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: recommender::model::recommendation_state_info::State,
 
     /// Optional. Metadata that was included with the action that was taken.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub state_metadata: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Required. Name of the recommendation which was acted on. Eg, :
     /// 'projects/123/locations/global/recommenders/roleReco/recommendations/r1'
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub recommendation_name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -110,19 +114,23 @@ impl wkt::message::Message for ActionLog {
 pub struct InsightActionLog {
     /// Required. User that executed this action. Eg, foo@gmail.com
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub actor: std::string::String,
 
     /// Required. State change that was made by the actor. Eg, ACCEPTED.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: recommender::model::insight_state_info::State,
 
     /// Optional. Metadata that was included with the action that was taken.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub state_metadata: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Required. Name of the insight which was acted on. Eg, :
     /// 'projects/123/locations/global/insightTypes/roleInsight/insights/i1'
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub insight: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

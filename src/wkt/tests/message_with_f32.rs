@@ -66,7 +66,7 @@ mod test {
     }
 
     #[test_case(json!({}))]
-    // TODO(#2349) - #[test_case(json!({"singular": null}))]
+    #[test_case(json!({"singular": null}))]
     #[test_case(json!({"singular": 0}))]
     #[test_case(json!({"singular": 0.0}))]
     #[test_case(json!({"singular": 0e0}))]
@@ -129,8 +129,8 @@ mod test {
     }
 
     #[test_case(json!({}))]
-    // TODO(#2349) - #[test_case(json!({"repeated": null}))]
     #[test_case(json!({"repeated": []}))]
+    #[test_case(json!({"repeated": null}))]
     fn test_repeated_default(input: Value) -> Result {
         let got = serde_json::from_value::<MessageWithF32>(input)?;
         assert_eq!(got, MessageWithF32::default());
@@ -178,8 +178,8 @@ mod test {
     }
 
     #[test_case(json!({}))]
-    // TODO(#2349) - #[test_case(json!({"map": null}))]
     #[test_case(json!({"map": {}}))]
+    #[test_case(json!({"map": null}))]
     fn test_map_default(input: Value) -> Result {
         let got = serde_json::from_value::<MessageWithF32>(input)?;
         assert_eq!(got, MessageWithF32::default());

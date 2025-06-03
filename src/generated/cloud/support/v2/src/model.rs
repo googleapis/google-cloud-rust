@@ -43,6 +43,7 @@ pub struct Actor {
     /// display name must also be provided. This will be obfuscated if the user
     /// is a Google Support agent.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// The email address of the actor. If not provided, it is inferred from the
@@ -52,11 +53,13 @@ pub struct Actor {
     ///
     /// This field is deprecated. Use `username` instead.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     #[deprecated]
     pub email: std::string::String,
 
     /// Output only. Whether the actor is a Google support actor.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub google_support: bool,
 
     /// Output only. The username of the actor. It may look like an email or other
@@ -65,6 +68,7 @@ pub struct Actor {
     /// also be provided. If the user is a Google Support agent, this will not be
     /// set.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub username: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -123,6 +127,7 @@ impl wkt::message::Message for Actor {
 pub struct Attachment {
     /// Output only. Identifier. The resource name of the attachment.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. The time at which the attachment was created.
@@ -136,15 +141,17 @@ pub struct Attachment {
 
     /// The filename of the attachment (e.g. `"graph.jpg"`).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filename: std::string::String,
 
     /// Output only. The MIME type of the attachment (e.g. text/plain).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub mime_type: std::string::String,
 
     /// Output only. The size of the attachment in bytes.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub size_bytes: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -231,6 +238,7 @@ impl wkt::message::Message for Attachment {
 pub struct ListAttachmentsRequest {
     /// Required. The name of the case for which attachments should be listed.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The maximum number of attachments fetched with each request.
@@ -242,12 +250,13 @@ pub struct ListAttachmentsRequest {
     /// include zero. For example, you could request 100 attachments on one page,
     /// receive 0, and then on the next page, receive 90.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// A token identifying the page of results to return. If unspecified, the
     /// first page is retrieved.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -292,12 +301,14 @@ impl wkt::message::Message for ListAttachmentsRequest {
 pub struct ListAttachmentsResponse {
     /// The list of attachments associated with a case.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub attachments: std::vec::Vec<crate::model::Attachment>,
 
     /// A token to retrieve the next page of results. Set this in the `page_token`
     /// field of subsequent `cases.attachments.list` requests. If unspecified,
     /// there are no more results to retrieve.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -381,14 +392,17 @@ impl gax::paginator::internal::PageableResponse for ListAttachmentsResponse {
 pub struct Case {
     /// Identifier. The resource name for the case.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The short summary of the issue reported in this case.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// A broad description of the issue.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// The issue classification applicable to this case.
@@ -399,14 +413,17 @@ pub struct Case {
     /// It should be in a format IANA recognizes: <https://www.iana.org/time-zones>.
     /// There is no additional validation done by the API.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub time_zone: std::string::String,
 
     /// The email addresses to receive updates on this case.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub subscriber_email_addresses: std::vec::Vec<std::string::String>,
 
     /// Output only. The current status of the support case.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::case::State,
 
     /// Output only. The time this case was created.
@@ -428,15 +445,18 @@ pub struct Case {
     /// should only be used in BYOID flows, where we cannot infer the user's email
     /// address directly from their EUCs.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub contact_email: std::string::String,
 
     /// Whether the case is currently escalated.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub escalated: bool,
 
     /// Whether this case was created for internal API testing and should not be
     /// acted on by the support team.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub test_case: bool,
 
     /// The language the user has requested to receive support in. This should be a
@@ -448,10 +468,12 @@ pub struct Case {
     /// options. For a list of supported languages and their support working hours,
     /// see: <https://cloud.google.com/support/docs/language-working-hours>
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub language_code: std::string::String,
 
     /// The priority of this case.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub priority: crate::model::case::Priority,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -954,6 +976,7 @@ pub struct CaseClassification {
     /// deactiveated, it will immediately stop being returned. After 6 months,
     /// `case.create` requests using the classification ID will fail.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub id: std::string::String,
 
     /// A display name for the classification.
@@ -961,6 +984,7 @@ pub struct CaseClassification {
     /// The display name is not static and can change. To uniquely and consistently
     /// identify classifications, use the `CaseClassification.id` field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -999,6 +1023,7 @@ impl wkt::message::Message for CaseClassification {
 pub struct GetCaseRequest {
     /// Required. The full name of a case to be retrieved.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1031,6 +1056,7 @@ impl wkt::message::Message for GetCaseRequest {
 pub struct CreateCaseRequest {
     /// Required. The name of the parent under which the case should be created.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The case to be created.
@@ -1085,6 +1111,7 @@ impl wkt::message::Message for CreateCaseRequest {
 pub struct ListCasesRequest {
     /// Required. The name of a parent to list cases under.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// An expression used to filter cases.
@@ -1107,16 +1134,18 @@ pub struct ListCasesRequest {
     /// - `state=OPEN AND creator.email="tester@example.com"`
     /// - `state=OPEN AND (priority=P0 OR priority=P1)`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// The maximum number of cases fetched with each request. Defaults to 10.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// A token identifying the page of results to return. If unspecified, the
     /// first page is retrieved.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1168,12 +1197,14 @@ pub struct ListCasesResponse {
     /// The list of cases associated with the parent after any
     /// filters have been applied.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub cases: std::vec::Vec<crate::model::Case>,
 
     /// A token to retrieve the next page of results. Set this in the `page_token`
     /// field of subsequent `cases.list` requests. If unspecified, there are no
     /// more results to retrieve.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1231,6 +1262,7 @@ impl gax::paginator::internal::PageableResponse for ListCasesResponse {
 pub struct SearchCasesRequest {
     /// The name of the parent resource to search for cases under.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// An expression used to filter cases.
@@ -1266,17 +1298,19 @@ pub struct SearchCasesRequest {
     /// - `project="projects/my-project-id" AND creator.email="tester@example.com"`
     /// - `project="projects/my-project-id" AND (priority=P0 OR priority=P1)`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub query: std::string::String,
 
     /// The maximum number of cases fetched with each request. The default page
     /// size is 10.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// A token identifying the page of results to return. If unspecified, the
     /// first page is retrieved.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1328,12 +1362,14 @@ pub struct SearchCasesResponse {
     /// The list of cases associated with the parent after any
     /// filters have been applied.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub cases: std::vec::Vec<crate::model::Case>,
 
     /// A token to retrieve the next page of results. Set this in the
     /// `page_token` field of subsequent `cases.search` requests. If unspecified,
     /// there are no more results to retrieve.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1391,6 +1427,7 @@ impl gax::paginator::internal::PageableResponse for SearchCasesResponse {
 pub struct EscalateCaseRequest {
     /// Required. The name of the case to be escalated.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The escalation information to be sent with the escalation request.
@@ -1518,6 +1555,7 @@ impl wkt::message::Message for UpdateCaseRequest {
 pub struct CloseCaseRequest {
     /// Required. The name of the case to close.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1553,16 +1591,18 @@ pub struct SearchCaseClassificationsRequest {
     /// If it's an empty string, then no filtering happens. Otherwise, case
     /// classifications will be returned that match the filter.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub query: std::string::String,
 
     /// The maximum number of classifications fetched with each request.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// A token identifying the page of results to return. If unspecified, the
     /// first page is retrieved.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1607,12 +1647,14 @@ impl wkt::message::Message for SearchCaseClassificationsRequest {
 pub struct SearchCaseClassificationsResponse {
     /// The classifications retrieved.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub case_classifications: std::vec::Vec<crate::model::CaseClassification>,
 
     /// A token to retrieve the next page of results. Set this in the `page_token`
     /// field of subsequent `caseClassifications.list` requests. If unspecified,
     /// there are no more results to retrieve.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1674,6 +1716,7 @@ impl gax::paginator::internal::PageableResponse for SearchCaseClassificationsRes
 pub struct Comment {
     /// Output only. Identifier. The resource name of the comment.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. The time when the comment was created.
@@ -1688,6 +1731,7 @@ pub struct Comment {
     ///
     /// Maximum of 12800 characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub body: std::string::String,
 
     /// Output only. DEPRECATED. DO NOT USE.
@@ -1696,6 +1740,7 @@ pub struct Comment {
     ///
     /// This field is only present for legacy reasons.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     #[deprecated]
     pub plain_text_body: std::string::String,
 
@@ -1778,16 +1823,18 @@ impl wkt::message::Message for Comment {
 pub struct ListCommentsRequest {
     /// Required. The name of the case for which to list comments.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The maximum number of comments to fetch. Defaults to 10.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// A token identifying the page of results to return. If unspecified, the
     /// first page is returned.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1832,12 +1879,14 @@ impl wkt::message::Message for ListCommentsRequest {
 pub struct ListCommentsResponse {
     /// List of the comments associated with the case.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub comments: std::vec::Vec<crate::model::Comment>,
 
     /// A token to retrieve the next page of results. Set this in the `page_token`
     /// field of subsequent `cases.comments.list` requests. If unspecified, there
     /// are no more results to retrieve.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1895,6 +1944,7 @@ impl gax::paginator::internal::PageableResponse for ListCommentsResponse {
 pub struct CreateCommentRequest {
     /// Required. The name of the case to which the comment should be added.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The comment to be added.
@@ -1949,11 +1999,13 @@ impl wkt::message::Message for CreateCommentRequest {
 pub struct Escalation {
     /// Required. The reason why the Case is being escalated.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub reason: crate::model::escalation::Reason,
 
     /// Required. A free text description to accompany the `reason` field above.
     /// Provides additional context on why the case is being escalated.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub justification: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

@@ -161,17 +161,17 @@ extern crate wkt;
 pub struct Color {
     /// The amount of red in the color as a value in the interval [0, 1].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub red: f32,
 
     /// The amount of green in the color as a value in the interval [0, 1].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub green: f32,
 
     /// The amount of blue in the color as a value in the interval [0, 1].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub blue: f32,
 
     /// The fraction of this color that should be applied to the pixel. That is,
@@ -264,20 +264,20 @@ pub struct Date {
     /// Year of the date. Must be from 1 to 9999, or 0 to specify a date without
     /// a year.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub year: i32,
 
     /// Month of a year. Must be from 1 to 12, or 0 to specify a year without a
     /// month and day.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub month: i32,
 
     /// Day of a month. Must be from 1 to 31 and valid for the year and month, or 0
     /// to specify a year by itself or a year and month where the day isn't
     /// significant.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub day: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -346,42 +346,42 @@ pub struct DateTime {
     /// Optional. Year of date. Must be from 1 to 9999, or 0 if specifying a
     /// datetime without a year.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub year: i32,
 
     /// Required. Month of year. Must be from 1 to 12.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub month: i32,
 
     /// Required. Day of month. Must be from 1 to 31 and valid for the year and
     /// month.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub day: i32,
 
     /// Required. Hours of day in 24 hour format. Should be from 0 to 23. An API
     /// may choose to allow the value "24:00:00" for scenarios like business
     /// closing time.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub hours: i32,
 
     /// Required. Minutes of hour of day. Must be from 0 to 59.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub minutes: i32,
 
     /// Required. Seconds of minutes of the time. Must normally be from 0 to 59. An
     /// API may allow the value 60 if it allows leap-seconds.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub seconds: i32,
 
     /// Required. Fractions of seconds in nanoseconds. Must be from 0 to
     /// 999,999,999.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub nanos: i32,
 
     /// Optional. Specifies either the UTC offset or the time zone of the DateTime.
@@ -547,10 +547,12 @@ pub mod date_time {
 pub struct TimeZone {
     /// IANA Time Zone Database time zone, e.g. "America/New_York".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub id: std::string::String,
 
     /// Optional. IANA Time Zone Database version number, e.g. "2019a".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub version: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -657,6 +659,7 @@ pub struct Decimal {
     /// Services **should** error with `400 Bad Request` (`INVALID_ARGUMENT` in
     /// gRPC) if the service receives a value outside of the supported range.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub value: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -728,22 +731,26 @@ pub struct Expr {
     /// Textual representation of an expression in Common Expression Language
     /// syntax.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub expression: std::string::String,
 
     /// Optional. Title for the expression, i.e. a short string describing
     /// its purpose. This can be used e.g. in UIs which allow to enter the
     /// expression.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub title: std::string::String,
 
     /// Optional. Description of the expression. This is a longer text which
     /// describes the expression, e.g. when hovered over it in a UI.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Optional. String indicating the location of the expression for error
     /// reporting, e.g. a file name and a position in the file.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub location: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -794,13 +801,13 @@ impl wkt::message::Message for Expr {
 pub struct Fraction {
     /// The numerator in the fraction, e.g. 2 in 2/3.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub numerator: i64,
 
     /// The value by which the numerator is divided, e.g. 3 in 2/3. Must be
     /// positive.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub denominator: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -920,12 +927,12 @@ impl wkt::message::Message for Interval {
 pub struct LatLng {
     /// The latitude in degrees. It must be in the range [-90.0, +90.0].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
     pub latitude: f64,
 
     /// The longitude in degrees. It must be in the range [-180.0, +180.0].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
     pub longitude: f64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -964,6 +971,7 @@ impl wkt::message::Message for LatLng {
 pub struct LocalizedText {
     /// Localized string in the language corresponding to `language_code' below.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub text: std::string::String,
 
     /// The text's BCP-47 language code, such as "en-US" or "sr-Latn".
@@ -971,6 +979,7 @@ pub struct LocalizedText {
     /// For more information, see
     /// <http://www.unicode.org/reports/tr35/#Unicode_locale_identifier>.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub language_code: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1009,12 +1018,13 @@ impl wkt::message::Message for LocalizedText {
 pub struct Money {
     /// The three-letter currency code defined in ISO 4217.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub currency_code: std::string::String,
 
     /// The whole units of the amount.
     /// For example if `currencyCode` is `"USD"`, then 1 unit is one US dollar.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub units: i64,
 
     /// Number of nano (10^-9) units of the amount.
@@ -1024,7 +1034,7 @@ pub struct Money {
     /// If `units` is negative, `nanos` must be negative or zero.
     /// For example $-1.75 is represented as `units`=-1 and `nanos`=-750,000,000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub nanos: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1105,6 +1115,7 @@ pub struct PhoneNumber {
     /// separately from the E.164 number to allow for short code extensions in the
     /// future.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub extension: std::string::String,
 
     /// Required.  Either a regular number, or a short code.  New fields may be
@@ -1226,11 +1237,13 @@ pub mod phone_number {
         ///
         /// - <http://www.unicode.org/reports/tr35/#unicode_region_subtag>
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub region_code: std::string::String,
 
         /// Required. The short code digits, without a leading plus ('+') or country
         /// calling code, e.g. "611".
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub number: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1286,7 +1299,7 @@ pub mod phone_number {
         /// - <https://www.itu.int/rec/T-REC-E.164-201011-I>
         /// - <https://en.wikipedia.org/wiki/E.164>.
         /// - <https://en.wikipedia.org/wiki/List_of_country_calling_codes>
-        E164Number(std::string::String),
+        E164Number(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// A short code.
         ///
         /// Reference(s):
@@ -1324,7 +1337,7 @@ pub struct PostalAddress {
     ///
     /// All new revisions **must** be backward compatible with old revisions.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub revision: i32,
 
     /// Required. CLDR region code of the country/region of the address. This
@@ -1333,6 +1346,7 @@ pub struct PostalAddress {
     /// <http://www.unicode.org/cldr/charts/30/supplemental/territory_information.html>
     /// for details. Example: "CH" for Switzerland.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub region_code: std::string::String,
 
     /// Optional. BCP-47 language code of the contents of this address (if
@@ -1348,6 +1362,7 @@ pub struct PostalAddress {
     ///
     /// Examples: "zh-Hant", "ja", "ja-Latn", "en".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub language_code: std::string::String,
 
     /// Optional. Postal code of the address. Not all countries use or require
@@ -1355,6 +1370,7 @@ pub struct PostalAddress {
     /// additional validation with other parts of the address (e.g. state/zip
     /// validation in the U.S.A.).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub postal_code: std::string::String,
 
     /// Optional. Additional, country-specific, sorting code. This is not used
@@ -1363,6 +1379,7 @@ pub struct PostalAddress {
     /// alone, representing the "sector code" (Jamaica), "delivery area indicator"
     /// (Malawi) or "post office indicator" (e.g. Côte d'Ivoire).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub sorting_code: std::string::String,
 
     /// Optional. Highest administrative subdivision which is used for postal
@@ -1373,6 +1390,7 @@ pub struct PostalAddress {
     /// Many countries don't use an administrative area in postal addresses. E.g.
     /// in Switzerland this should be left unpopulated.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub administrative_area: std::string::String,
 
     /// Optional. Generally refers to the city/town portion of the address.
@@ -1380,11 +1398,13 @@ pub struct PostalAddress {
     /// In regions of the world where localities are not well defined or do not fit
     /// into this structure well, leave locality empty and use address_lines.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub locality: std::string::String,
 
     /// Optional. Sublocality of the address.
     /// For example, this can be neighborhoods, boroughs, districts.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub sublocality: std::string::String,
 
     /// Unstructured address lines describing the lower levels of an address.
@@ -1410,16 +1430,19 @@ pub struct PostalAddress {
     /// addresses (as opposed to guessing which parts of the address should be
     /// localities or administrative areas).
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub address_lines: std::vec::Vec<std::string::String>,
 
     /// Optional. The recipient at the address.
     /// This field may, under certain circumstances, contain multiline information.
     /// For example, it might contain "care of" information.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub recipients: std::vec::Vec<std::string::String>,
 
     /// Optional. The name of the organization at the address.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub organization: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1583,22 +1606,22 @@ impl wkt::message::Message for PostalAddress {
 pub struct Quaternion {
     /// The x component.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
     pub x: f64,
 
     /// The y component.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
     pub y: f64,
 
     /// The z component.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
     pub z: f64,
 
     /// The scalar component.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
     pub w: f64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1655,23 +1678,23 @@ pub struct TimeOfDay {
     /// Hours of day in 24 hour format. Should be from 0 to 23. An API may choose
     /// to allow the value "24:00:00" for scenarios like business closing time.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub hours: i32,
 
     /// Minutes of hour of day. Must be from 0 to 59.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub minutes: i32,
 
     /// Seconds of minutes of the time. Must normally be from 0 to 59. An API may
     /// allow the value 60 if it allows leap-seconds.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub seconds: i32,
 
     /// Fractions of seconds in nanoseconds. Must be from 0 to 999,999,999.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub nanos: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

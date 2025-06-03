@@ -43,10 +43,12 @@ pub struct Feature {
     /// Output only. The full, unique name of this Feature resource in the format
     /// `projects/*/locations/*/features/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// GCP labels for this Feature.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. State of the Feature resource itself.
@@ -78,6 +80,7 @@ pub struct Feature {
     /// reason, it is recommended the same format be used for all entries when
     /// mutating a Feature.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub membership_specs:
         std::collections::HashMap<std::string::String, crate::model::MembershipFeatureSpec>,
 
@@ -98,6 +101,7 @@ pub struct Feature {
     /// Membership in this project at that location. {p} MUST match the Feature's
     /// project number.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub membership_states:
         std::collections::HashMap<std::string::String, crate::model::MembershipFeatureState>,
 
@@ -289,6 +293,7 @@ impl wkt::message::Message for Feature {
 pub struct FeatureResourceState {
     /// The current state of the Feature resource in the Hub API.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::feature_resource_state::State,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -488,10 +493,12 @@ pub mod feature_resource_state {
 pub struct FeatureState {
     /// The high-level, machine-readable status of this Feature.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub code: crate::model::feature_state::Code,
 
     /// A human-readable description of the current status.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// The time this status and any related Feature-specific details were updated.
@@ -1048,10 +1055,12 @@ pub struct Membership {
     /// Which can be expressed as the regex: `[a-z0-9]([-a-z0-9]*[a-z0-9])?`,
     /// with a maximum length of 63 characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. Labels for this membership.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. Description of this membership, limited to 63 characters.
@@ -1059,6 +1068,7 @@ pub struct Membership {
     ///
     /// This field is present for legacy purposes.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Output only. State of the Membership resource.
@@ -1085,6 +1095,7 @@ pub struct Membership {
     /// If this Membership represents a Kubernetes cluster, this value should be
     /// set to the UID of the `kube-system` namespace object.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub external_id: std::string::String,
 
     /// Output only. For clusters using Connect, the timestamp of the most recent
@@ -1099,6 +1110,7 @@ pub struct Membership {
     /// all Membership resources. If a Membership resource is deleted and another
     /// resource with the same name is created, it gets a different unique_id.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub unique_id: std::string::String,
 
     /// Optional. How to identify workloads from this Membership.
@@ -1378,6 +1390,7 @@ pub struct MembershipEndpoint {
     /// Output only. Whether the lifecycle of this membership is managed by a
     /// google cluster platform service.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub google_managed: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1472,6 +1485,7 @@ pub struct KubernetesResource {
     /// none exists. The CR manifest is used to validate the cluster has not been
     /// registered with another Membership.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub membership_cr_manifest: std::string::String,
 
     /// Output only. Additional Kubernetes resources that need to be applied to the
@@ -1483,6 +1497,7 @@ pub struct KubernetesResource {
     /// the resource manifest after the initial registration, the caller should
     /// make a UpdateMembership call with an empty field mask.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub membership_resources: std::vec::Vec<crate::model::ResourceManifest>,
 
     /// Output only. The Kubernetes resources for installing the GKE Connect agent
@@ -1493,6 +1508,7 @@ pub struct KubernetesResource {
     /// the resource manifest after the initial registration, the caller should
     /// make a UpdateMembership call with an empty field mask.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub connect_resources: std::vec::Vec<crate::model::ResourceManifest>,
 
     /// Optional. Options for Kubernetes resource generation.
@@ -1574,6 +1590,7 @@ pub struct ResourceOptions {
     /// to the latest GKE Connect version. The version must be a currently
     /// supported version, obsolete versions will be rejected.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub connect_version: std::string::String,
 
     /// Optional. Use `apiextensions/v1beta1` instead of `apiextensions/v1` for
@@ -1582,6 +1599,7 @@ pub struct ResourceOptions {
     /// <1.16.
     #[serde(rename = "v1beta1Crd")]
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub v1beta1_crd: bool,
 
     /// Optional. Major version of the Kubernetes cluster. This is only used to
@@ -1589,6 +1607,7 @@ pub struct ResourceOptions {
     /// `apiextensions/v1beta1` or`apiextensions/v1`.
     #[serde(rename = "k8sVersion")]
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub k8s_version: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1634,6 +1653,7 @@ impl wkt::message::Message for ResourceOptions {
 pub struct ResourceManifest {
     /// YAML manifest of the resource.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub manifest: std::string::String,
 
     /// Whether the resource provided in the manifest is `cluster_scoped`.
@@ -1642,6 +1662,7 @@ pub struct ResourceManifest {
     /// This field is used for REST mapping when applying the resource in a
     /// cluster.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub cluster_scoped: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1685,11 +1706,13 @@ pub struct GkeCluster {
     ///
     /// Zonal clusters are also supported.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub resource_link: std::string::String,
 
     /// Output only. If cluster_missing is set then it denotes that the GKE cluster
     /// no longer exists in the GKE Control Plane.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub cluster_missing: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1730,6 +1753,7 @@ pub struct KubernetesMetadata {
     /// Output only. Kubernetes API server version string as reported by
     /// `/version`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub kubernetes_api_server_version: std::string::String,
 
     /// Output only. Node providerID as reported by the first node in the list of
@@ -1737,22 +1761,23 @@ pub struct KubernetesMetadata {
     /// zero-node clusters (like GKE-on-GCP), the node_count will be zero and the
     /// node_provider_id will be empty.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub node_provider_id: std::string::String,
 
     /// Output only. Node count as reported by Kubernetes nodes resources.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub node_count: i32,
 
     /// Output only. vCPU count as reported by Kubernetes nodes resources.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub vcpu_count: i32,
 
     /// Output only. The total memory capacity as reported by the sum of all
     /// Kubernetes nodes resources, defined in MB.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub memory_mb: i32,
 
     /// Output only. The time at which these details were last updated. This
@@ -1840,10 +1865,12 @@ impl wkt::message::Message for KubernetesMetadata {
 pub struct MonitoringConfig {
     /// Immutable. Project used to report Metrics
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub project_id: std::string::String,
 
     /// Immutable. Location used to report Metrics
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub location: std::string::String,
 
     /// Immutable. Cluster name used to report metrics.
@@ -1852,6 +1879,7 @@ pub struct MonitoringConfig {
     /// format
     /// `{azureClusters, awsClusters}/cluster_name`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub cluster: std::string::String,
 
     /// Kubernetes system metrics, if available, are written to this prefix.
@@ -1859,6 +1887,7 @@ pub struct MonitoringConfig {
     /// eventually. Noted: Anthos MultiCloud will have kubernetes.io prefix today
     /// but will migration to be under kubernetes.io/anthos
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub kubernetes_metrics_prefix: std::string::String,
 
     /// Immutable. Cluster hash, this is a unique string generated by google code,
@@ -1866,6 +1895,7 @@ pub struct MonitoringConfig {
     /// This is expected to be created by the monitoring stack and persisted into
     /// the Cluster object as well as to GKE-Hub.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub cluster_hash: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1925,6 +1955,7 @@ impl wkt::message::Message for MonitoringConfig {
 pub struct MembershipState {
     /// Output only. The current state of the Membership resource.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub code: crate::model::membership_state::Code,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2130,6 +2161,7 @@ pub struct Authority {
     /// modified; it must be cleared (and Workload Identity disabled) before using
     /// a new issuer (and re-enabling Workload Identity).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub issuer: std::string::String,
 
     /// Output only. The name of the workload identity pool in which `issuer` will
@@ -2140,11 +2172,13 @@ pub struct Authority {
     /// {PROJECT_ID}, the workload pool format is `{PROJECT_ID}.hub.id.goog`,
     /// although this is subject to change in newer versions of this API.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub workload_identity_pool: std::string::String,
 
     /// Output only. An identity provider that reflects the `issuer` in the
     /// workload identity pool.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub identity_provider: std::string::String,
 
     /// Optional. OIDC verification keys for this Membership in JWKS format (RFC
@@ -2153,7 +2187,7 @@ pub struct Authority {
     /// When this field is set, OIDC discovery will NOT be performed on `issuer`,
     /// and instead OIDC tokens will be validated using this field.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub oidc_jwks: ::bytes::Bytes,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2212,19 +2246,21 @@ pub struct ListMembershipsRequest {
     /// listed. Specified in the format `projects/*/locations/*`.
     /// `projects/*/locations/-` list memberships in all the regions.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. When requesting a 'page' of resources, `page_size` specifies
     /// number of resources to return. If unspecified or set to 0, all resources
     /// will be returned.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. Token returned by previous call to `ListMemberships` which
     /// specifies the position in the list from where to continue listing the
     /// resources.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. Lists Memberships that match the filter expression, following the
@@ -2249,11 +2285,13 @@ pub struct ListMembershipsRequest {
     /// - state = CREATING
     ///
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Optional. One or more fields to compare and use to sort the output.
     /// See <https://google.aip.dev/132#ordering>.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2310,16 +2348,19 @@ impl wkt::message::Message for ListMembershipsRequest {
 pub struct ListMembershipsResponse {
     /// The list of matching Memberships.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub resources: std::vec::Vec<crate::model::Membership>,
 
     /// A token to request the next page of resources from the
     /// `ListMemberships` method. The value of an empty string means that
     /// there are no more resources to return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// List of locations that could not be reached while fetching this list.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2389,6 +2430,7 @@ pub struct GetMembershipRequest {
     /// Required. The Membership resource name in the format
     /// `projects/*/locations/*/memberships/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2422,6 +2464,7 @@ pub struct CreateMembershipRequest {
     /// Required. The parent (project and location) where the Memberships will be
     /// created. Specified in the format `projects/*/locations/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. Client chosen ID for the membership. `membership_id` must be a
@@ -2434,6 +2477,7 @@ pub struct CreateMembershipRequest {
     /// Which can be expressed as the regex: `[a-z0-9]([-a-z0-9]*[a-z0-9])?`,
     /// with a maximum length of 63 characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub membership_id: std::string::String,
 
     /// Required. The membership to create.
@@ -2454,6 +2498,7 @@ pub struct CreateMembershipRequest {
     /// The request ID must be a valid UUID with the exception that zero UUID is
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2517,6 +2562,7 @@ pub struct DeleteMembershipRequest {
     /// Required. The Membership resource name in the format
     /// `projects/*/locations/*/memberships/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. A request ID to identify requests. Specify a unique request ID
@@ -2533,12 +2579,14 @@ pub struct DeleteMembershipRequest {
     /// The request ID must be a valid UUID with the exception that zero UUID is
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     /// Optional. If set to true, any subresource from this Membership will also be
     /// deleted. Otherwise, the request will only work if the Membership has no
     /// subresource.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2584,6 +2632,7 @@ pub struct UpdateMembershipRequest {
     /// Required. The Membership resource name in the format
     /// `projects/*/locations/*/memberships/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. Mask of fields to update.
@@ -2615,6 +2664,7 @@ pub struct UpdateMembershipRequest {
     /// The request ID must be a valid UUID with the exception that zero UUID is
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2692,6 +2742,7 @@ pub struct GenerateConnectManifestRequest {
     /// Required. The Membership resource name the Agent will associate with, in
     /// the format `projects/*/locations/*/memberships/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. Namespace for GKE Connect agent resources. Defaults to
@@ -2701,6 +2752,7 @@ pub struct GenerateConnectManifestRequest {
     /// namespace. Otherwise, explicit authorization must be granted with an
     /// additional IAM binding.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub namespace: std::string::String,
 
     /// Optional. URI of a proxy if connectivity from the agent to
@@ -2709,27 +2761,30 @@ pub struct GenerateConnectManifestRequest {
     /// supported by the proxy. This will direct the connect agent's outbound
     /// traffic through a HTTP(S) proxy.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub proxy: ::bytes::Bytes,
 
     /// Optional. The Connect agent version to use. Defaults to the most current
     /// version.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub version: std::string::String,
 
     /// Optional. If true, generate the resources for upgrade only. Some resources
     /// generated only for installation (e.g. secrets) will be excluded.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub is_upgrade: bool,
 
     /// Optional. The registry to fetch the connect agent image from. Defaults to
     /// gcr.io/gkeconnect.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub registry: std::string::String,
 
     /// Optional. The image pull secret content for the registry, if not public.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub image_pull_secret_content: ::bytes::Bytes,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2803,6 +2858,7 @@ pub struct GenerateConnectManifestResponse {
     /// The ordered list of Kubernetes resources that need to be applied to the
     /// cluster for GKE Connect agent installation/upgrade.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub manifest: std::vec::Vec<crate::model::ConnectAgentResource>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2846,6 +2902,7 @@ pub struct ConnectAgentResource {
 
     /// YAML manifest of the resource.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub manifest: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2897,10 +2954,12 @@ impl wkt::message::Message for ConnectAgentResource {
 pub struct TypeMeta {
     /// Kind of the resource (e.g. Deployment).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub kind: std::string::String,
 
     /// APIVersion of the resource (e.g. v1).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub api_version: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2940,19 +2999,21 @@ pub struct ListFeaturesRequest {
     /// Required. The parent (project and location) where the Features will be listed.
     /// Specified in the format `projects/*/locations/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// When requesting a 'page' of resources, `page_size` specifies number of
     /// resources to return. If unspecified or set to 0, all resources will
     /// be returned.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Token returned by previous call to `ListFeatures` which
     /// specifies the position in the list from where to continue listing the
     /// resources.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Lists Features that match the filter expression, following the syntax
@@ -2973,11 +3034,13 @@ pub struct ListFeaturesRequest {
     /// - labels.foo = bar
     ///
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// One or more fields to compare and use to sort the output.
     /// See <https://google.aip.dev/132#ordering>.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3034,12 +3097,14 @@ impl wkt::message::Message for ListFeaturesRequest {
 pub struct ListFeaturesResponse {
     /// The list of matching Features
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub resources: std::vec::Vec<crate::model::Feature>,
 
     /// A token to request the next page of resources from the
     /// `ListFeatures` method. The value of an empty string means
     /// that there are no more resources to return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3098,6 +3163,7 @@ pub struct GetFeatureRequest {
     /// Required. The Feature resource name in the format
     /// `projects/*/locations/*/features/*`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3131,10 +3197,12 @@ pub struct CreateFeatureRequest {
     /// Required. The parent (project and location) where the Feature will be created.
     /// Specified in the format `projects/*/locations/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The ID of the feature to create.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub feature_id: std::string::String,
 
     /// The Feature resource to create.
@@ -3155,6 +3223,7 @@ pub struct CreateFeatureRequest {
     /// The request ID must be a valid UUID with the exception that zero UUID is
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3218,12 +3287,14 @@ pub struct DeleteFeatureRequest {
     /// Required. The Feature resource name in the format
     /// `projects/*/locations/*/features/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// If set to true, the delete will ignore any outstanding resources for
     /// this Feature (that is, `FeatureState.has_resources` is set to true). These
     /// resources will NOT be cleaned up or modified in any way.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub force: bool,
 
     /// Optional. A request ID to identify requests. Specify a unique request ID
@@ -3240,6 +3311,7 @@ pub struct DeleteFeatureRequest {
     /// The request ID must be a valid UUID with the exception that zero UUID is
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3285,6 +3357,7 @@ pub struct UpdateFeatureRequest {
     /// Required. The Feature resource name in the format
     /// `projects/*/locations/*/features/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Mask of fields to update.
@@ -3316,6 +3389,7 @@ pub struct UpdateFeatureRequest {
     /// The request ID must be a valid UUID with the exception that zero UUID is
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3398,14 +3472,17 @@ pub struct OperationMetadata {
 
     /// Output only. Server-defined resource path for the target of the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub target: std::string::String,
 
     /// Output only. Name of the verb executed by the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub verb: std::string::String,
 
     /// Output only. Human-readable status of the operation, if any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub status_detail: std::string::String,
 
     /// Output only. Identifies whether the user has requested cancellation
@@ -3415,10 +3492,12 @@ pub struct OperationMetadata {
     ///
     /// [google.rpc.Status.code]: rpc::model::Status::code
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub cancel_requested: bool,
 
     /// Output only. API version used to start the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub api_version: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

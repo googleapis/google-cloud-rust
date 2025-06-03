@@ -75,6 +75,7 @@ pub struct ProductLevelConfig {
     /// [google.cloud.retail.v2.Product.primary_product_id]: crate::model::Product::primary_product_id
     /// [google.cloud.retail.v2.ProductLevelConfig.merchant_center_product_id_field]: crate::model::ProductLevelConfig::merchant_center_product_id_field
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub ingestion_product_type: std::string::String,
 
     /// Which field of [Merchant Center
@@ -101,6 +102,7 @@ pub struct ProductLevelConfig {
     /// [google.cloud.retail.v2.Product.id]: crate::model::Product::id
     /// [google.cloud.retail.v2.ProductLevelConfig.ingestion_product_type]: crate::model::ProductLevelConfig::ingestion_product_type
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub merchant_center_product_id_field: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -156,6 +158,7 @@ pub struct CatalogAttribute {
     /// custom attribute. Attributes such as `brands`, `patterns`, and `title` are
     /// built-in and called system attributes.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub key: std::string::String,
 
     /// Output only. Indicates whether this attribute has been used by any
@@ -188,6 +191,7 @@ pub struct CatalogAttribute {
     /// [google.cloud.retail.v2.Product]: crate::model::Product
     /// [google.cloud.retail.v2.Product.attributes]: crate::model::Product::attributes
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub in_use: bool,
 
     /// Output only. The type of this attribute. This is derived from the attribute
@@ -196,6 +200,7 @@ pub struct CatalogAttribute {
     /// [google.cloud.retail.v2.Product.attributes]: crate::model::Product::attributes
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub r#type: crate::model::catalog_attribute::AttributeType,
 
     /// When
@@ -211,6 +216,7 @@ pub struct CatalogAttribute {
     /// [google.cloud.retail.v2.AttributesConfig.attribute_config_level]: crate::model::AttributesConfig::attribute_config_level
     /// [google.cloud.retail.v2.SearchService.Search]: crate::client::SearchService::search
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub indexable_option: crate::model::catalog_attribute::IndexableOption,
 
     /// If DYNAMIC_FACETABLE_ENABLED, attribute values are available for dynamic
@@ -222,6 +228,7 @@ pub struct CatalogAttribute {
     ///
     /// [google.cloud.retail.v2.CatalogAttribute.indexable_option]: crate::model::CatalogAttribute::indexable_option
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub dynamic_facetable_option: crate::model::catalog_attribute::DynamicFacetableOption,
 
     /// When
@@ -242,6 +249,7 @@ pub struct CatalogAttribute {
     /// [google.cloud.retail.v2.AttributesConfig.attribute_config_level]: crate::model::AttributesConfig::attribute_config_level
     /// [google.cloud.retail.v2.SearchService.Search]: crate::client::SearchService::search
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub searchable_option: crate::model::catalog_attribute::SearchableOption,
 
     /// If EXACT_SEARCHABLE_ENABLED, attribute values will be exact searchable.
@@ -252,6 +260,7 @@ pub struct CatalogAttribute {
     ///
     /// [google.cloud.retail.v2.CatalogAttribute.ExactSearchableOption.EXACT_SEARCHABLE_DISABLED]: crate::model::catalog_attribute::ExactSearchableOption::ExactSearchableDisabled
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub exact_searchable_option: crate::model::catalog_attribute::ExactSearchableOption,
 
     /// If RETRIEVABLE_ENABLED, attribute values are retrievable in the search
@@ -260,6 +269,7 @@ pub struct CatalogAttribute {
     ///
     /// [google.cloud.retail.v2.CatalogAttribute.RetrievableOption.RETRIEVABLE_DISABLED]: crate::model::catalog_attribute::RetrievableOption::RetrievableDisabled
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub retrievable_option: crate::model::catalog_attribute::RetrievableOption,
 
     /// Contains facet options.
@@ -403,6 +413,7 @@ pub mod catalog_attribute {
         /// [google.cloud.retail.v2.CatalogAttribute]: crate::model::CatalogAttribute
         /// [google.cloud.retail.v2.SearchRequest.FacetSpec.FacetKey.intervals]: crate::model::search_request::facet_spec::FacetKey::intervals
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub facet_intervals: std::vec::Vec<crate::model::Interval>,
 
         /// Each instance represents a list of attribute values to ignore as facet
@@ -411,6 +422,7 @@ pub mod catalog_attribute {
         ///
         /// [google.cloud.retail.v2.CatalogAttribute]: crate::model::CatalogAttribute
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub ignored_facet_values:
             std::vec::Vec<crate::model::catalog_attribute::facet_config::IgnoredFacetValues>,
 
@@ -425,6 +437,7 @@ pub mod catalog_attribute {
         ///
         /// [google.cloud.retail.v2.CatalogAttribute]: crate::model::CatalogAttribute
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub merged_facet_values:
             std::vec::Vec<crate::model::catalog_attribute::facet_config::MergedFacetValue>,
 
@@ -552,6 +565,7 @@ pub mod catalog_attribute {
             /// values per instance of IgnoredFacetValues. Each value can have at most
             /// 128 characters.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
             pub values: std::vec::Vec<std::string::String>,
 
             /// Time range for the current list of facet values to ignore.
@@ -650,11 +664,13 @@ pub mod catalog_attribute {
             ///
             /// [google.cloud.retail.v2.CatalogAttribute.FacetConfig.MergedFacetValue.merged_value]: crate::model::catalog_attribute::facet_config::MergedFacetValue::merged_value
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
             pub values: std::vec::Vec<std::string::String>,
 
             /// All the previous values are replaced by this merged facet value.
             /// This merged_value must be non-empty and can have up to 128 characters.
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub merged_value: std::string::String,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -712,6 +728,7 @@ pub mod catalog_attribute {
             /// directed path of length 2). This merged facet key needs to be either a
             /// textual custom attribute or a numerical custom attribute.
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub merged_facet_key: std::string::String,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -756,11 +773,13 @@ pub mod catalog_attribute {
             /// facet values engaged by the user for the current attribute key during
             /// serving.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub rerank_facet: bool,
 
             /// If empty, rerank on all facet values for the current key. Otherwise,
             /// will rerank on the facet values from this list only.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
             pub facet_values: std::vec::Vec<std::string::String>,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1616,6 +1635,7 @@ pub struct AttributesConfig {
     /// Required. Immutable. The fully qualified resource name of the attribute
     /// config. Format: `projects/*/locations/*/catalogs/*/attributesConfig`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Enable attribute(s) config at catalog level.
@@ -1628,6 +1648,7 @@ pub struct AttributesConfig {
     ///
     /// The maximum number of catalog attributes allowed in a request is 1000.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub catalog_attributes:
         std::collections::HashMap<std::string::String, crate::model::CatalogAttribute>,
 
@@ -1637,6 +1658,7 @@ pub struct AttributesConfig {
     ///
     /// [google.cloud.retail.v2.AttributeConfigLevel]: crate::model::AttributeConfigLevel
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub attribute_config_level: crate::model::AttributeConfigLevel,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1692,6 +1714,7 @@ pub struct CompletionConfig {
     /// Required. Immutable. Fully qualified name
     /// `projects/*/locations/*/catalogs/*/completionConfig`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Specifies the matching order for autocomplete suggestions, e.g., a query
@@ -1704,6 +1727,7 @@ pub struct CompletionConfig {
     ///
     /// Default value: 'exact-prefix'.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub matching_order: std::string::String,
 
     /// The maximum number of autocomplete suggestions returned per term. Default
@@ -1712,7 +1736,7 @@ pub struct CompletionConfig {
     ///
     /// Value range is 1 to 20.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub max_suggestions: i32,
 
     /// The minimum number of characters needed to be typed in order to get
@@ -1721,7 +1745,7 @@ pub struct CompletionConfig {
     ///
     /// Value range is 1 to 20.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub min_prefix_length: i32,
 
     /// If set to true, the auto learning function is enabled. Auto learning uses
@@ -1732,6 +1756,7 @@ pub struct CompletionConfig {
     ///
     /// [google.cloud.retail.v2.CompleteQueryRequest]: crate::model::CompleteQueryRequest
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub auto_learning: bool,
 
     /// Output only. The source data for the latest import of the autocomplete
@@ -1745,6 +1770,7 @@ pub struct CompletionConfig {
     /// Can use [GetOperation][google.longrunning.Operations.GetOperation] API
     /// method to retrieve the latest state of the Long Running Operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub last_suggestions_import_operation: std::string::String,
 
     /// Output only. The source data for the latest import of the autocomplete
@@ -1757,6 +1783,7 @@ pub struct CompletionConfig {
     /// Can use [GetOperation][google.longrunning.Operations.GetOperation] API to
     /// retrieve the latest state of the Long Running Operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub last_denylist_import_operation: std::string::String,
 
     /// Output only. The source data for the latest import of the autocomplete
@@ -1769,6 +1796,7 @@ pub struct CompletionConfig {
     /// Can use [GetOperation][google.longrunning.Operations.GetOperation] API to
     /// retrieve the latest state of the Long Running Operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub last_allowlist_import_operation: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1906,6 +1934,7 @@ impl wkt::message::Message for CompletionConfig {
 pub struct Catalog {
     /// Required. Immutable. The fully qualified resource name of the catalog.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. Immutable. The catalog display name.
@@ -1913,6 +1942,7 @@ pub struct Catalog {
     /// This field must be a UTF-8 encoded string with a length limit of 128
     /// characters. Otherwise, an INVALID_ARGUMENT error is returned.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// Required. The product level configuration.
@@ -1984,6 +2014,7 @@ pub struct ListCatalogsRequest {
     ///
     /// [google.cloud.retail.v2.Catalog]: crate::model::Catalog
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Maximum number of [Catalog][google.cloud.retail.v2.Catalog]s to return. If
@@ -1994,7 +2025,7 @@ pub struct ListCatalogsRequest {
     ///
     /// [google.cloud.retail.v2.Catalog]: crate::model::Catalog
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// A page token
@@ -2011,6 +2042,7 @@ pub struct ListCatalogsRequest {
     /// [google.cloud.retail.v2.CatalogService.ListCatalogs]: crate::client::CatalogService::list_catalogs
     /// [google.cloud.retail.v2.ListCatalogsResponse.next_page_token]: crate::model::ListCatalogsResponse::next_page_token
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2061,6 +2093,7 @@ pub struct ListCatalogsResponse {
     ///
     /// [google.cloud.retail.v2.Catalog]: crate::model::Catalog
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub catalogs: std::vec::Vec<crate::model::Catalog>,
 
     /// A token that can be sent as
@@ -2070,6 +2103,7 @@ pub struct ListCatalogsResponse {
     ///
     /// [google.cloud.retail.v2.ListCatalogsRequest.page_token]: crate::model::ListCatalogsRequest::page_token
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2213,6 +2247,7 @@ pub struct SetDefaultBranchRequest {
     /// Full resource name of the catalog, such as
     /// `projects/*/locations/global/catalogs/default_catalog`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub catalog: std::string::String,
 
     /// The final component of the resource name of a branch.
@@ -2226,6 +2261,7 @@ pub struct SetDefaultBranchRequest {
     ///
     /// [google.cloud.retail.v2.SetDefaultBranchRequest.force]: crate::model::SetDefaultBranchRequest::force
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub branch_id: std::string::String,
 
     /// Some note on this request, this can be retrieved by
@@ -2237,6 +2273,7 @@ pub struct SetDefaultBranchRequest {
     ///
     /// [google.cloud.retail.v2.CatalogService.GetDefaultBranch]: crate::client::CatalogService::get_default_branch
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub note: std::string::String,
 
     /// If set to true, it permits switching to a branch with
@@ -2245,6 +2282,7 @@ pub struct SetDefaultBranchRequest {
     ///
     /// [google.cloud.retail.v2.SetDefaultBranchRequest.branch_id]: crate::model::SetDefaultBranchRequest::branch_id
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2296,6 +2334,7 @@ pub struct GetDefaultBranchRequest {
     /// The parent catalog resource name, such as
     /// `projects/*/locations/global/catalogs/default_catalog`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub catalog: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2331,6 +2370,7 @@ impl wkt::message::Message for GetDefaultBranchRequest {
 pub struct GetDefaultBranchResponse {
     /// Full resource name of the branch id currently set as default branch.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub branch: std::string::String,
 
     /// The time when this branch is set to default.
@@ -2343,6 +2383,7 @@ pub struct GetDefaultBranchResponse {
     ///
     /// [google.cloud.retail.v2.SetDefaultBranchRequest.note]: crate::model::SetDefaultBranchRequest::note
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub note: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2404,6 +2445,7 @@ pub struct GetCompletionConfigRequest {
     /// Required. Full CompletionConfig resource name. Format:
     /// `projects/{project_number}/locations/{location_id}/catalogs/{catalog_id}/completionConfig`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2536,6 +2578,7 @@ pub struct GetAttributesConfigRequest {
     /// Required. Full AttributesConfig resource name. Format:
     /// `projects/{project_number}/locations/{location_id}/catalogs/{catalog_id}/attributesConfig`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2655,6 +2698,7 @@ pub struct AddCatalogAttributeRequest {
     /// Required. Full AttributesConfig resource name. Format:
     /// `projects/{project_number}/locations/{location_id}/catalogs/{catalog_id}/attributesConfig`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub attributes_config: std::string::String,
 
     /// Required. The [CatalogAttribute][google.cloud.retail.v2.CatalogAttribute]
@@ -2720,6 +2764,7 @@ pub struct RemoveCatalogAttributeRequest {
     /// Required. Full AttributesConfig resource name. Format:
     /// `projects/{project_number}/locations/{location_id}/catalogs/{catalog_id}/attributesConfig`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub attributes_config: std::string::String,
 
     /// Required. The attribute name key of the
@@ -2727,6 +2772,7 @@ pub struct RemoveCatalogAttributeRequest {
     ///
     /// [google.cloud.retail.v2.CatalogAttribute]: crate::model::CatalogAttribute
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub key: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2773,6 +2819,7 @@ pub struct ReplaceCatalogAttributeRequest {
     /// Required. Full AttributesConfig resource name. Format:
     /// `projects/{project_number}/locations/{location_id}/catalogs/{catalog_id}/attributesConfig`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub attributes_config: std::string::String,
 
     /// Required. The updated
@@ -2872,11 +2919,13 @@ pub struct Condition {
     /// If many query terms are specified, the condition
     /// is matched if any of the terms is a match (i.e. using the OR operator).
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub query_terms: std::vec::Vec<crate::model::condition::QueryTerm>,
 
     /// Range of time(s) specifying when Condition is active.
     /// Condition true if any time range matches.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub active_time_range: std::vec::Vec<crate::model::condition::TimeRange>,
 
     /// Used to support browse uses cases.
@@ -2886,6 +2935,7 @@ pub struct Condition {
     ///
     /// [google.cloud.retail.v2.UserEvent.page_categories]: crate::model::UserEvent::page_categories
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub page_categories: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2955,10 +3005,12 @@ pub mod condition {
         /// For example, "a b c" is 3 terms and allowed, but " a b c d" is 4 terms
         /// and not allowed for a partial match.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub value: std::string::String,
 
         /// Whether this is supposed to be a full or partial match.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub full_match: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3468,7 +3520,7 @@ pub mod rule {
         /// Setting to 0.0 means no boost applied. The boosting condition is
         /// ignored.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::F32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
         pub boost: f32,
 
         /// The filter can have a max size of 5000 characters.
@@ -3488,6 +3540,7 @@ pub mod rule {
         ///
         /// [google.cloud.retail.v2.SearchRequest.filter]: crate::model::SearchRequest::filter
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub products_filter: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3562,6 +3615,7 @@ pub mod rule {
         /// [google.cloud.retail.v2.Rule.FilterAction.filter]: crate::model::rule::FilterAction::filter
         /// [google.cloud.retail.v2.SearchRequest.filter]: crate::model::SearchRequest::filter
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub filter: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3602,6 +3656,7 @@ pub mod rule {
     pub struct RedirectAction {
         /// URL must have length equal or less than 2000 characters.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub redirect_uri: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3643,6 +3698,7 @@ pub mod rule {
         /// Can specify up to 100 synonyms.
         /// Must specify at least 2 synonyms.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub synonyms: std::vec::Vec<std::string::String>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3687,16 +3743,19 @@ pub mod rule {
         /// Not themselves synonyms of the synonyms.
         /// Can specify up to 100 terms.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub query_terms: std::vec::Vec<std::string::String>,
 
         /// Defines a set of synonyms.
         /// Cannot contain duplicates.
         /// Can specify up to 100 synonyms.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub synonyms: std::vec::Vec<std::string::String>,
 
         /// Will be [deprecated = true] post migration;
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub oneway_terms: std::vec::Vec<std::string::String>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3760,15 +3819,18 @@ pub mod rule {
         /// Will not consider do_not_associate_terms for search if in search query.
         /// Can specify up to 100 terms.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub query_terms: std::vec::Vec<std::string::String>,
 
         /// Cannot contain duplicates or the query term.
         /// Can specify up to 100 terms.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub do_not_associate_terms: std::vec::Vec<std::string::String>,
 
         /// Will be [deprecated = true] post migration;
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub terms: std::vec::Vec<std::string::String>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3832,14 +3894,17 @@ pub mod rule {
         /// Will be replaced by replacement term.
         /// Can specify up to 100 terms.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub query_terms: std::vec::Vec<std::string::String>,
 
         /// Term that will be used for replacement.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub replacement_term: std::string::String,
 
         /// Will be [deprecated = true] post migration;
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub term: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3893,6 +3958,7 @@ pub mod rule {
     pub struct IgnoreAction {
         /// Terms to ignore in the search query.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub ignore_terms: std::vec::Vec<std::string::String>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3963,6 +4029,7 @@ pub mod rule {
         /// Each instance corresponds to a force return attribute for the given
         /// condition. There can't be more 15 instances here.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub facet_position_adjustments:
             std::vec::Vec<crate::model::rule::force_return_facet_action::FacetPositionAdjustment>,
 
@@ -4011,12 +4078,13 @@ pub mod rule {
             /// should be a valid attribute name, be non-empty and contain at most 80
             /// characters long.
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub attribute_name: std::string::String,
 
             /// This is the position in the request as explained above. It should be
             /// strictly positive be at most 100.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "wkt::internal::I32")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
             pub position: i32,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4083,6 +4151,7 @@ pub mod rule {
         /// Each attribute name should be a valid attribute name, be non-empty and
         /// contain at most 80 characters.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub attribute_names: std::vec::Vec<std::string::String>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4160,7 +4229,9 @@ pub mod rule {
         /// The max size of this map is 120, equivalent to the max [request page
         /// size](https://cloud.google.com/retail/docs/reference/rest/v2/projects.locations.catalogs.placements/search#request-body).
         #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-        #[serde_as(as = "std::collections::HashMap<wkt::internal::I64, _>")]
+        #[serde_as(
+            as = "serde_with::DefaultOnNull<std::collections::HashMap<wkt::internal::I64, _>>"
+        )]
         pub pin_map: std::collections::HashMap<i64, std::string::String>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4245,6 +4316,7 @@ pub struct Audience {
     /// property
     /// [Product.audience.suggestedGender](https://schema.org/suggestedGender).
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub genders: std::vec::Vec<std::string::String>,
 
     /// The age groups of the audience. Strongly encouraged to use the standard
@@ -4262,6 +4334,7 @@ pub struct Audience {
     /// [Product.audience.suggestedMinAge](https://schema.org/suggestedMinAge) and
     /// [Product.audience.suggestedMaxAge](https://schema.org/suggestedMaxAge).
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub age_groups: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4328,6 +4401,7 @@ pub struct ColorInfo {
     /// strongly recommended to be specified. Google Search models treat this field
     /// as more important than a custom product attribute when specified.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub color_families: std::vec::Vec<std::string::String>,
 
     /// The color display names, which may be different from standard color family
@@ -4343,6 +4417,7 @@ pub struct ColorInfo {
     /// [color](https://support.google.com/merchants/answer/6324487). Schema.org
     /// property [Product.color](https://schema.org/color).
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub colors: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4405,6 +4480,7 @@ pub struct CustomAttribute {
     /// [google.cloud.retail.v2.CustomAttribute.numbers]: crate::model::CustomAttribute::numbers
     /// [google.cloud.retail.v2.CustomAttribute.text]: crate::model::CustomAttribute::text
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub text: std::vec::Vec<std::string::String>,
 
     /// The numerical values of this custom attribute. For example, `[2.3, 15.4]`
@@ -4417,7 +4493,7 @@ pub struct CustomAttribute {
     /// [google.cloud.retail.v2.CustomAttribute.numbers]: crate::model::CustomAttribute::numbers
     /// [google.cloud.retail.v2.CustomAttribute.text]: crate::model::CustomAttribute::text
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "std::vec::Vec<wkt::internal::F64>")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<wkt::internal::F64>>")]
     pub numbers: std::vec::Vec<f64>,
 
     /// This field is normally ignored unless
@@ -4577,6 +4653,7 @@ pub struct FulfillmentInfo {
     /// INVALID_ARGUMENT error is returned.
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub r#type: std::string::String,
 
     /// The IDs for this [type][google.cloud.retail.v2.FulfillmentInfo.type], such
@@ -4592,6 +4669,7 @@ pub struct FulfillmentInfo {
     ///
     /// [google.cloud.retail.v2.FulfillmentInfo.type]: crate::model::FulfillmentInfo::type
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub place_ids: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4648,6 +4726,7 @@ pub struct Image {
     /// [image_link](https://support.google.com/merchants/answer/6324350).
     /// Schema.org property [Product.image](https://schema.org/image).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub uri: std::string::String,
 
     /// Height of the image in number of pixels.
@@ -4655,7 +4734,7 @@ pub struct Image {
     /// This field must be nonnegative. Otherwise, an INVALID_ARGUMENT error is
     /// returned.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub height: i32,
 
     /// Width of the image in number of pixels.
@@ -4663,7 +4742,7 @@ pub struct Image {
     /// This field must be nonnegative. Otherwise, an INVALID_ARGUMENT error is
     /// returned.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub width: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4864,9 +4943,9 @@ pub mod interval {
     #[non_exhaustive]
     pub enum Min {
         /// Inclusive lower bound.
-        Minimum(#[serde_as(as = "wkt::internal::F64")] f64),
+        Minimum(#[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")] f64),
         /// Exclusive lower bound.
-        ExclusiveMinimum(#[serde_as(as = "wkt::internal::F64")] f64),
+        ExclusiveMinimum(#[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")] f64),
     }
 
     /// The upper bound of the interval. If neither of the max fields are set, then
@@ -4880,9 +4959,9 @@ pub mod interval {
     #[non_exhaustive]
     pub enum Max {
         /// Inclusive upper bound.
-        Maximum(#[serde_as(as = "wkt::internal::F64")] f64),
+        Maximum(#[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")] f64),
         /// Exclusive upper bound.
-        ExclusiveMaximum(#[serde_as(as = "wkt::internal::F64")] f64),
+        ExclusiveMaximum(#[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")] f64),
     }
 }
 
@@ -4912,6 +4991,7 @@ pub struct PriceInfo {
     /// [google.cloud.retail.v2.Product.Type.VARIANT]: crate::model::product::Type::Variant
     /// [google.cloud.retail.v2.Product.primary_product_id]: crate::model::Product::primary_product_id
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub currency_code: std::string::String,
 
     /// Price of the product.
@@ -4920,7 +5000,7 @@ pub struct PriceInfo {
     /// [price](https://support.google.com/merchants/answer/6324371). Schema.org
     /// property [Offer.price](https://schema.org/price).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub price: f32,
 
     /// Price of the product without any discount. If zero, by default set to be
@@ -4932,7 +5012,7 @@ pub struct PriceInfo {
     /// [google.cloud.retail.v2.PriceInfo.original_price]: crate::model::PriceInfo::original_price
     /// [google.cloud.retail.v2.PriceInfo.price]: crate::model::PriceInfo::price
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub original_price: f32,
 
     /// The costs associated with the sale of a particular product. Used for gross
@@ -4947,7 +5027,7 @@ pub struct PriceInfo {
     /// [google.cloud.retail.v2.PriceInfo.cost]: crate::model::PriceInfo::cost
     /// [google.cloud.retail.v2.PriceInfo.price]: crate::model::PriceInfo::price
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub cost: f32,
 
     /// The timestamp when the [price][google.cloud.retail.v2.PriceInfo.price]
@@ -5215,7 +5295,7 @@ pub struct Rating {
     ///
     /// [google.cloud.retail.v2.Rating.rating_histogram]: crate::model::Rating::rating_histogram
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub rating_count: i32,
 
     /// The average rating of the [Product][google.cloud.retail.v2.Product].
@@ -5225,7 +5305,7 @@ pub struct Rating {
     ///
     /// [google.cloud.retail.v2.Product]: crate::model::Product
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub average_rating: f32,
 
     /// List of rating counts per rating value (index = rating - 1). The list is
@@ -5238,7 +5318,7 @@ pub struct Rating {
     ///
     /// [google.cloud.retail.v2.Product]: crate::model::Product
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "std::vec::Vec<wkt::internal::I32>")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<wkt::internal::I32>>")]
     pub rating_histogram: std::vec::Vec<i32>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5298,6 +5378,7 @@ pub struct UserInfo {
     /// The field must be a UTF-8 encoded string with a length limit of 128
     /// characters. Otherwise, an INVALID_ARGUMENT error is returned.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub user_id: std::string::String,
 
     /// The end user's IP address. This field is used to extract location
@@ -5321,6 +5402,7 @@ pub struct UserInfo {
     /// [google.cloud.retail.v2.UserEventService.CollectUserEvent]: crate::client::UserEventService::collect_user_event
     /// [google.cloud.retail.v2.UserInfo.direct_user_request]: crate::model::UserInfo::direct_user_request
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub ip_address: std::string::String,
 
     /// User agent as included in the HTTP header.
@@ -5337,6 +5419,7 @@ pub struct UserInfo {
     /// [google.cloud.retail.v2.UserEventService.CollectUserEvent]: crate::client::UserEventService::collect_user_event
     /// [google.cloud.retail.v2.UserInfo.direct_user_request]: crate::model::UserInfo::direct_user_request
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub user_agent: std::string::String,
 
     /// True if the request is made directly from the end user, in which case the
@@ -5353,6 +5436,7 @@ pub struct UserInfo {
     /// [google.cloud.retail.v2.UserInfo.ip_address]: crate::model::UserInfo::ip_address
     /// [google.cloud.retail.v2.UserInfo.user_agent]: crate::model::UserInfo::user_agent
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub direct_user_request: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5404,6 +5488,7 @@ impl wkt::message::Message for UserInfo {
 pub struct LocalInventory {
     /// Optional. The place ID for the current set of inventory information.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub place_id: std::string::String,
 
     /// Optional. Product price and cost information.
@@ -5432,6 +5517,7 @@ pub struct LocalInventory {
     /// * The max summed total bytes of custom attribute keys and values per
     ///   product is 5MiB.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub attributes: std::collections::HashMap<std::string::String, crate::model::CustomAttribute>,
 
     /// Optional. Supported fulfillment types. Valid fulfillment type values
@@ -5457,6 +5543,7 @@ pub struct LocalInventory {
     /// All the elements must be distinct. Otherwise, an INVALID_ARGUMENT error is
     /// returned.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub fulfillment_types: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5531,14 +5618,14 @@ impl wkt::message::Message for LocalInventory {
 pub struct PinControlMetadata {
     /// Map of all matched pins, keyed by pin position.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    #[serde_as(as = "std::collections::HashMap<wkt::internal::I64, _>")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<wkt::internal::I64, _>>")]
     pub all_matched_pins:
         std::collections::HashMap<i64, crate::model::pin_control_metadata::ProductPins>,
 
     /// Map of pins that were dropped due to overlap with other matching pins,
     /// keyed by pin position.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    #[serde_as(as = "std::collections::HashMap<wkt::internal::I64, _>")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<wkt::internal::I64, _>>")]
     pub dropped_pins:
         std::collections::HashMap<i64, crate::model::pin_control_metadata::ProductPins>,
 
@@ -5595,6 +5682,7 @@ pub mod pin_control_metadata {
     pub struct ProductPins {
         /// List of product ids which have associated pins.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub product_id: std::vec::Vec<std::string::String>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5636,12 +5724,14 @@ pub struct CompleteQueryRequest {
     /// Full resource name of catalog, such as
     /// `projects/*/locations/global/catalogs/default_catalog`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub catalog: std::string::String,
 
     /// Required. The query used to generate suggestions.
     ///
     /// The maximum number of allowed characters is 255.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub query: std::string::String,
 
     /// Recommended field. A unique identifier for tracking visitors. For example,
@@ -5652,6 +5742,7 @@ pub struct CompleteQueryRequest {
     /// The field must be a UTF-8 encoded string with a length limit of 128
     /// characters. Otherwise, an INVALID_ARGUMENT error is returned.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub visitor_id: std::string::String,
 
     /// Note that this field applies for `user-data` dataset only. For requests
@@ -5664,6 +5755,7 @@ pub struct CompleteQueryRequest {
     /// Identifying Languages](https://tools.ietf.org/html/bcp47). The maximum
     /// number of language codes is 3.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub language_codes: std::vec::Vec<std::string::String>,
 
     /// The device type context for completion suggestions. We recommend that you
@@ -5684,6 +5776,7 @@ pub struct CompleteQueryRequest {
     /// * A customized string starts with `OTHER_`, e.g. `OTHER_IPHONE`.
     ///
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub device_type: std::string::String,
 
     /// Determines which dataset to use for fetching completion. "user-data" will
@@ -5704,6 +5797,7 @@ pub struct CompleteQueryRequest {
     ///
     /// [google.cloud.retail.v2.CompletionService.ImportCompletionData]: crate::client::CompletionService::import_completion_data
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub dataset: std::string::String,
 
     /// Completion max suggestions. If left unset or set to 0, then will fallback
@@ -5715,13 +5809,14 @@ pub struct CompleteQueryRequest {
     ///
     /// [google.cloud.retail.v2.CompletionConfig.max_suggestions]: crate::model::CompletionConfig::max_suggestions
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub max_suggestions: i32,
 
     /// If true, attribute suggestions are enabled and provided in the response.
     ///
     /// This field is only available for the `cloud-retail` dataset.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub enable_attribute_suggestions: bool,
 
     /// The entity for customers who run multiple entities, domains, sites, or
@@ -5738,6 +5833,7 @@ pub struct CompleteQueryRequest {
     ///
     /// [google.cloud.retail.v2.UserEvent.entity]: crate::model::UserEvent::entity
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub entity: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5824,6 +5920,7 @@ pub struct CompleteQueryResponse {
     /// Results of the matching suggestions. The result list is ordered and the
     /// first result is top suggestion.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub completion_results: std::vec::Vec<crate::model::complete_query_response::CompletionResult>,
 
     /// A unique complete token. This should be included in the
@@ -5833,6 +5930,7 @@ pub struct CompleteQueryResponse {
     ///
     /// [google.cloud.retail.v2.UserEvent.completion_detail]: crate::model::UserEvent::completion_detail
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub attribution_token: std::string::String,
 
     /// Deprecated. Matched recent searches of this user. The maximum number of
@@ -5862,6 +5960,7 @@ pub struct CompleteQueryResponse {
     /// [google.cloud.retail.v2.CompleteQueryRequest.visitor_id]: crate::model::CompleteQueryRequest::visitor_id
     /// [google.cloud.retail.v2.UserEvent]: crate::model::UserEvent
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     #[deprecated]
     pub recent_search_results:
         std::vec::Vec<crate::model::complete_query_response::RecentSearchResult>,
@@ -5876,6 +5975,7 @@ pub struct CompleteQueryResponse {
     /// * `categories`
     ///
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub attribute_results: std::collections::HashMap<
         std::string::String,
         crate::model::complete_query_response::AttributeResult,
@@ -5954,6 +6054,7 @@ pub mod complete_query_response {
     pub struct CompletionResult {
         /// The suggestion for the query.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub suggestion: std::string::String,
 
         /// Custom attributes for the suggestion term.
@@ -5969,6 +6070,7 @@ pub mod complete_query_response {
         ///
         /// [google.cloud.retail.v2.UserEvent.product_details]: crate::model::UserEvent::product_details
         #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
         pub attributes:
             std::collections::HashMap<std::string::String, crate::model::CustomAttribute>,
 
@@ -6015,6 +6117,7 @@ pub mod complete_query_response {
     pub struct RecentSearchResult {
         /// The recent search query.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub recent_search: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6050,6 +6153,7 @@ pub mod complete_query_response {
     pub struct AttributeResult {
         /// The list of suggestions for the attribute.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub suggestions: std::vec::Vec<std::string::String>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6093,6 +6197,7 @@ pub struct Control {
     /// Immutable. Fully qualified name
     /// `projects/*/locations/global/catalogs/*/controls/*`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. The human readable control display name. Used in Retail UI.
@@ -6100,6 +6205,7 @@ pub struct Control {
     /// This field must be a UTF-8 encoded string with a length limit of 128
     /// characters. Otherwise, an INVALID_ARGUMENT error is thrown.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// Output only. List of [serving config][google.cloud.retail.v2.ServingConfig]
@@ -6113,6 +6219,7 @@ pub struct Control {
     /// [google.cloud.retail.v2.Catalog]: crate::model::Catalog
     /// [google.cloud.retail.v2.ServingConfig]: crate::model::ServingConfig
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub associated_serving_config_ids: std::vec::Vec<std::string::String>,
 
     /// Required. Immutable. The solution types that the control is used for.
@@ -6124,6 +6231,7 @@ pub struct Control {
     ///
     /// [google.cloud.retail.v2.SolutionType.SOLUTION_TYPE_SEARCH]: crate::model::SolutionType::Search
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub solution_types: std::vec::Vec<crate::model::SolutionType>,
 
     /// Specifies the use case for the control.
@@ -6136,6 +6244,7 @@ pub struct Control {
     ///
     /// [google.cloud.retail.v2.SearchSolutionUseCase.SEARCH_SOLUTION_USE_CASE_SEARCH]: crate::model::SearchSolutionUseCase::Search
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub search_solution_use_case: std::vec::Vec<crate::model::SearchSolutionUseCase>,
 
     /// The behavior/type of the control
@@ -6276,6 +6385,7 @@ pub struct CreateControlRequest {
     /// Required. Full resource name of parent catalog. Format:
     /// `projects/{project_number}/locations/{location_id}/catalogs/{catalog_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The Control to create.
@@ -6288,6 +6398,7 @@ pub struct CreateControlRequest {
     /// This value should be 4-63 characters, and valid characters
     /// are /[a-z][0-9]-_/.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub control_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6420,6 +6531,7 @@ pub struct DeleteControlRequest {
     /// Required. The resource name of the Control to delete. Format:
     /// `projects/{project_number}/locations/{location_id}/catalogs/{catalog_id}/controls/{control_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6453,6 +6565,7 @@ pub struct GetControlRequest {
     /// Required. The resource name of the Control to get. Format:
     /// `projects/{project_number}/locations/{location_id}/catalogs/{catalog_id}/controls/{control_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6486,17 +6599,19 @@ pub struct ListControlsRequest {
     /// Required. The catalog resource name. Format:
     /// `projects/{project_number}/locations/{location_id}/catalogs/{catalog_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. Maximum number of results to return. If unspecified, defaults
     /// to 50. Max allowed value is 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous `ListControls` call.
     /// Provide this to retrieve the subsequent page.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. A filter to apply on the list results. Supported features:
@@ -6508,6 +6623,7 @@ pub struct ListControlsRequest {
     ///
     /// [google.cloud.retail.v2.ListControlsRequest.filter]: crate::model::ListControlsRequest::filter
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6558,10 +6674,12 @@ impl wkt::message::Message for ListControlsRequest {
 pub struct ListControlsResponse {
     /// All the Controls for a given catalog.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub controls: std::vec::Vec<crate::model::Control>,
 
     /// Pagination token, if not returned indicates the last page.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6735,6 +6853,7 @@ pub mod output_config {
         /// gs://bucket/folder/       gs://bucket/folder/foo.json
         /// gs://bucket/folder/item_  gs://bucket/folder/item_foo.json
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub output_uri_prefix: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6770,10 +6889,12 @@ pub mod output_config {
     pub struct BigQueryDestination {
         /// Required. The ID of a BigQuery Dataset.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub dataset_id: std::string::String,
 
         /// Required. The prefix of exported BigQuery tables.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub table_id_prefix: std::string::String,
 
         /// Required. Describes the table type. The following values are supported:
@@ -6781,6 +6902,7 @@ pub mod output_config {
         /// * `table`: A BigQuery native table.
         /// * `view`: A virtual table defined by a SQL query.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub table_type: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6913,7 +7035,7 @@ pub mod export_errors_config {
         /// existing Cloud Storage bucket. Export errors will be written to a file in
         /// this bucket, one per line, as a JSON-encoded
         /// `google.rpc.Status` message.
-        GcsPrefix(std::string::String),
+        GcsPrefix(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
     }
 }
 
@@ -6926,6 +7048,7 @@ pub struct ExportAnalyticsMetricsRequest {
     /// Required. Full resource name of the parent catalog.
     /// Expected format: `projects/*/locations/*/catalogs/*`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub catalog: std::string::String,
 
     /// Required. The output location of the data.
@@ -6950,6 +7073,7 @@ pub struct ExportAnalyticsMetricsRequest {
     ///   timestamp < "2012-04-23T18:30:43.511Z"`
     /// * Example 2: `timestamp > "2012-04-23T18:25:43.511Z"`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7076,6 +7200,7 @@ impl wkt::message::Message for ExportMetadata {
 pub struct ExportAnalyticsMetricsResponse {
     /// A sample of errors encountered while processing the request.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub error_samples: std::vec::Vec<rpc::model::Status>,
 
     /// This field is never set.
@@ -7158,10 +7283,12 @@ impl wkt::message::Message for ExportAnalyticsMetricsResponse {
 pub struct OutputResult {
     /// The BigQuery location where the result is stored.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub bigquery_result: std::vec::Vec<crate::model::BigQueryOutputResult>,
 
     /// The Google Cloud Storage location where the result is stored.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub gcs_result: std::vec::Vec<crate::model::GcsOutputResult>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7210,10 +7337,12 @@ impl wkt::message::Message for OutputResult {
 pub struct BigQueryOutputResult {
     /// The ID of a BigQuery Dataset.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub dataset_id: std::string::String,
 
     /// The ID of a BigQuery Table.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub table_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7252,6 +7381,7 @@ impl wkt::message::Message for BigQueryOutputResult {
 pub struct GcsOutputResult {
     /// The uri of Gcs output
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub output_uri: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7285,18 +7415,20 @@ pub struct GenerativeQuestionsFeatureConfig {
     /// Required. Resource name of the affected catalog.
     /// Format: projects/{project}/locations/{location}/catalogs/{catalog}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub catalog: std::string::String,
 
     /// Optional. Determines whether questions will be used at serving time.
     /// Note: This feature cannot be enabled until initial data requirements are
     /// satisfied.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub feature_enabled: bool,
 
     /// Optional. Minimum number of products in the response to trigger follow-up
     /// questions. Value must be 0 or positive.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub minimum_products: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7342,33 +7474,39 @@ pub struct GenerativeQuestionConfig {
     /// Required. Resource name of the catalog.
     /// Format: projects/{project}/locations/{location}/catalogs/{catalog}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub catalog: std::string::String,
 
     /// Required. The facet to which the question is associated.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub facet: std::string::String,
 
     /// Output only. The LLM generated question.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub generated_question: std::string::String,
 
     /// Optional. The question that will be used at serving time.
     /// Question can have a max length of 300 bytes.
     /// When not populated, generated_question should be used.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub final_question: std::string::String,
 
     /// Output only. Values that can be used to answer the question.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub example_values: std::vec::Vec<std::string::String>,
 
     /// Output only. The ratio of how often a question was asked.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub frequency: f32,
 
     /// Optional. Whether the question is asked at serving time.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub allowed_in_conversation: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7520,6 +7658,7 @@ pub struct GetGenerativeQuestionsFeatureConfigRequest {
     /// Required. Resource name of the parent catalog.
     /// Format: projects/{project}/locations/{location}/catalogs/{catalog}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub catalog: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7553,6 +7692,7 @@ pub struct ListGenerativeQuestionConfigsRequest {
     /// Required. Resource name of the parent catalog.
     /// Format: projects/{project}/locations/{location}/catalogs/{catalog}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7585,6 +7725,7 @@ impl wkt::message::Message for ListGenerativeQuestionConfigsRequest {
 pub struct ListGenerativeQuestionConfigsResponse {
     /// All the questions for a given catalog.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub generative_question_configs: std::vec::Vec<crate::model::GenerativeQuestionConfig>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7698,10 +7839,12 @@ pub struct BatchUpdateGenerativeQuestionConfigsRequest {
     /// Optional. Resource name of the parent catalog.
     /// Format: projects/{project}/locations/{location}/catalogs/{catalog}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The updates question configs.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub requests: std::vec::Vec<crate::model::UpdateGenerativeQuestionConfigRequest>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7745,6 +7888,7 @@ impl wkt::message::Message for BatchUpdateGenerativeQuestionConfigsRequest {
 pub struct BatchUpdateGenerativeQuestionConfigsResponse {
     /// Optional. The updates question configs.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub generative_question_configs: std::vec::Vec<crate::model::GenerativeQuestionConfig>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7789,6 +7933,7 @@ pub struct GcsSource {
     /// information](https://cloud.google.com/retail/recommendations-ai/docs/upload-catalog)
     /// for the expected file format and setup instructions.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub input_uris: std::vec::Vec<std::string::String>,
 
     /// The schema to use when parsing the data from the source.
@@ -7824,6 +7969,7 @@ pub struct GcsSource {
     /// [google.cloud.retail.v2.Product.id]: crate::model::Product::id
     /// [google.cloud.retail.v2.UserEvent]: crate::model::UserEvent
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub data_schema: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7869,22 +8015,26 @@ pub struct BigQuerySource {
     /// a length limit of 128 characters. If not specified, inherits the project
     /// ID from the parent request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub project_id: std::string::String,
 
     /// Required. The BigQuery data set to copy the data from with a length limit
     /// of 1,024 characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub dataset_id: std::string::String,
 
     /// Required. The BigQuery table to copy the data from with a length limit of
     /// 1,024 characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub table_id: std::string::String,
 
     /// Intermediate Cloud Storage directory used for the import with a length
     /// limit of 2,000 characters. Can be specified if one wants to have the
     /// BigQuery export to a specific Cloud Storage directory.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub gcs_staging_dir: std::string::String,
 
     /// The schema to use when parsing the data from the source.
@@ -7918,6 +8068,7 @@ pub struct BigQuerySource {
     /// [google.cloud.retail.v2.Product.id]: crate::model::Product::id
     /// [google.cloud.retail.v2.UserEvent]: crate::model::UserEvent
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub data_schema: std::string::String,
 
     /// BigQuery table partition info. Leave this empty if the BigQuery table
@@ -8042,6 +8193,7 @@ pub struct ProductInlineSource {
     ///
     /// [google.cloud.retail.v2.Product.id]: crate::model::Product::id
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub products: std::vec::Vec<crate::model::Product>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8079,6 +8231,7 @@ impl wkt::message::Message for ProductInlineSource {
 pub struct UserEventInlineSource {
     /// Required. A list of user events to import. Recommended max of 10k items.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub user_events: std::vec::Vec<crate::model::UserEvent>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8188,7 +8341,7 @@ pub mod import_errors_config {
         /// existing Cloud Storage directory. Import errors are written to
         /// sharded files in this directory, one per line, as a JSON-encoded
         /// `google.rpc.Status` message.
-        GcsPrefix(std::string::String),
+        GcsPrefix(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
     }
 }
 
@@ -8204,10 +8357,12 @@ pub struct ImportProductsRequest {
     /// If no updateMask is specified, requires products.create permission.
     /// If updateMask is specified, requires products.update permission.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Deprecated. This field has no effect.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     #[deprecated]
     pub request_id: std::string::String,
 
@@ -8231,6 +8386,7 @@ pub struct ImportProductsRequest {
     ///
     /// [google.cloud.retail.v2.ImportProductsRequest.ReconciliationMode.INCREMENTAL]: crate::model::import_products_request::ReconciliationMode::Incremental
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub reconciliation_mode: crate::model::import_products_request::ReconciliationMode,
 
     /// Full Pub/Sub topic name for receiving notification. If this field is set,
@@ -8254,6 +8410,7 @@ pub struct ImportProductsRequest {
     /// [google.cloud.retail.v2.ImportProductsRequest.reconciliation_mode]: crate::model::ImportProductsRequest::reconciliation_mode
     /// [google.longrunning.Operation]: longrunning::model::Operation
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub notification_pubsub_topic: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8507,6 +8664,7 @@ pub mod import_products_request {
 pub struct ImportUserEventsRequest {
     /// Required. `projects/1234/locations/global/catalogs/default_catalog`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The desired input location of the data.
@@ -8586,6 +8744,7 @@ pub struct ImportCompletionDataRequest {
     ///
     /// Format: `projects/1234/locations/global/catalogs/default_catalog`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The desired input location of the data.
@@ -8600,6 +8759,7 @@ pub struct ImportCompletionDataRequest {
     ///
     /// [google.longrunning.Operation]: longrunning::model::Operation
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub notification_pubsub_topic: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9085,16 +9245,17 @@ pub struct ImportMetadata {
 
     /// Count of entries that were processed successfully.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub success_count: i64,
 
     /// Count of entries that encountered errors while processing.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub failure_count: i64,
 
     /// Deprecated. This field is never set.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     #[deprecated]
     pub request_id: std::string::String,
 
@@ -9106,6 +9267,7 @@ pub struct ImportMetadata {
     ///
     /// [google.longrunning.Operation]: longrunning::model::Operation
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub notification_pubsub_topic: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9201,6 +9363,7 @@ impl wkt::message::Message for ImportMetadata {
 pub struct ImportProductsResponse {
     /// A sample of errors encountered while processing the request.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub error_samples: std::vec::Vec<rpc::model::Status>,
 
     /// Echoes the destination for the complete errors in the request if set.
@@ -9262,6 +9425,7 @@ impl wkt::message::Message for ImportProductsResponse {
 pub struct ImportUserEventsResponse {
     /// A sample of errors encountered while processing the request.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub error_samples: std::vec::Vec<rpc::model::Status>,
 
     /// Echoes the destination for the complete errors if this field was set in
@@ -9345,13 +9509,13 @@ impl wkt::message::Message for ImportUserEventsResponse {
 pub struct UserEventImportSummary {
     /// Count of user events imported with complete existing catalog information.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub joined_events_count: i64,
 
     /// Count of user events imported, but with catalog information not found
     /// in the imported catalog.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub unjoined_events_count: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9395,6 +9559,7 @@ impl wkt::message::Message for UserEventImportSummary {
 pub struct ImportCompletionDataResponse {
     /// A sample of errors encountered while processing the request.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub error_samples: std::vec::Vec<rpc::model::Status>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9444,6 +9609,7 @@ pub struct Model {
     /// catalog_id has char limit of 50.
     /// recommendation_model_id has char limit of 40.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. The display name of the model.
@@ -9452,6 +9618,7 @@ pub struct Model {
     /// Retail Cloud Console Dashboard. UTF-8 encoded string with limit of 1024
     /// characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// Optional. The training state that the model is in (e.g.
@@ -9463,10 +9630,12 @@ pub struct Model {
     /// `CreateModel` method is `TRAINING`. The default value for
     /// `UpdateModel` method is to keep the state the same as before.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub training_state: crate::model::model::TrainingState,
 
     /// Output only. The serving state of the model: `ACTIVE`, `NOT_ACTIVE`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub serving_state: crate::model::model::ServingState,
 
     /// Output only. Timestamp the Recommendation Model was created at.
@@ -9498,6 +9667,7 @@ pub struct Model {
     /// [google.cloud.retail.v2.Model.optimization_objective]: crate::model::Model::optimization_objective
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub r#type: std::string::String,
 
     /// Optional. The optimization objective e.g. `cvr`.
@@ -9526,6 +9696,7 @@ pub struct Model {
     ///
     /// [google.cloud.retail.v2.Model.type]: crate::model::Model::type
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub optimization_objective: std::string::String,
 
     /// Optional. The state of periodic tuning.
@@ -9534,6 +9705,7 @@ pub struct Model {
     /// one-off tune earlier use the `TuneModel` method. Default value
     /// is `PERIODIC_TUNING_ENABLED`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub periodic_tuning_state: crate::model::model::PeriodicTuningState,
 
     /// Output only. The timestamp when the latest successful tune finished.
@@ -9545,6 +9717,7 @@ pub struct Model {
     /// Can be used to determine if there is an ongoing tune for this
     /// recommendation. Empty field implies no tune is goig on.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub tuning_operation: std::string::String,
 
     /// Output only. The state of data requirements for this model: `DATA_OK` and
@@ -9556,16 +9729,19 @@ pub struct Model {
     /// cannot be refreshed because model no longer has sufficient
     /// data for training.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub data_state: crate::model::model::DataState,
 
     /// Optional. If `RECOMMENDATIONS_FILTERING_ENABLED`, recommendation filtering
     /// by attributes is enabled for the model.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filtering_option: crate::model::RecommendationsFilteringOption,
 
     /// Output only. The list of valid serving configs associated with the
     /// PageOptimizationConfig.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub serving_config_lists: std::vec::Vec<crate::model::model::ServingConfigList>,
 
     /// Optional. Additional model features config.
@@ -9771,6 +9947,7 @@ pub mod model {
         /// Optional. A set of valid serving configs that may be used for
         /// `PAGE_OPTIMIZATION`.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub serving_config_ids: std::vec::Vec<std::string::String>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9813,6 +9990,7 @@ pub mod model {
         ///
         /// [google.cloud.retail.v2.Model.ContextProductsType.MULTIPLE_CONTEXT_PRODUCTS]: crate::model::model::ContextProductsType::MultipleContextProducts
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub context_products_type: crate::model::model::ContextProductsType,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10647,6 +10825,7 @@ pub struct CreateModelRequest {
     /// Required. The parent resource under which to create the model. Format:
     /// `projects/{project_number}/locations/{location_id}/catalogs/{catalog_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The payload of the [Model][google.cloud.retail.v2.Model]  to
@@ -10659,6 +10838,7 @@ pub struct CreateModelRequest {
     /// Optional. Whether to run a dry run to validate the request (without
     /// actually creating the model).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub dry_run: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10788,6 +10968,7 @@ pub struct GetModelRequest {
     ///
     /// [google.cloud.retail.v2.Model]: crate::model::Model
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10822,6 +11003,7 @@ pub struct PauseModelRequest {
     /// Format:
     /// `projects/{project_number}/locations/{location_id}/catalogs/{catalog_id}/models/{model_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10856,6 +11038,7 @@ pub struct ResumeModelRequest {
     /// Format:
     /// `projects/{project_number}/locations/{location_id}/catalogs/{catalog_id}/models/{model_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10890,17 +11073,19 @@ pub struct ListModelsRequest {
     /// Format:
     /// `projects/{project_number}/locations/{location_id}/catalogs/{catalog_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. Maximum number of results to return. If unspecified, defaults
     /// to 50. Max allowed value is 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous `ListModels`
     /// call. Provide this to retrieve the subsequent page.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10949,6 +11134,7 @@ pub struct DeleteModelRequest {
     ///
     /// [google.cloud.retail.v2.Model]: crate::model::Model
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10981,10 +11167,12 @@ impl wkt::message::Message for DeleteModelRequest {
 pub struct ListModelsResponse {
     /// List of Models.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub models: std::vec::Vec<crate::model::Model>,
 
     /// Pagination token, if not returned indicates the last page.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11045,6 +11233,7 @@ pub struct TuneModelRequest {
     /// Format:
     /// `projects/{project_number}/locations/{location_id}/catalogs/{catalog_id}/models/{model_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11079,6 +11268,7 @@ pub struct CreateModelMetadata {
     /// Format:
     /// `projects/{project_number}/locations/{location_id}/catalogs/{catalog_id}/models/{model_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub model: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11113,6 +11303,7 @@ pub struct TuneModelMetadata {
     /// Format:
     /// `projects/{project_number}/locations/{location_id}/catalogs/{catalog_id}/models/{model_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub model: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11180,6 +11371,7 @@ pub struct PredictRequest {
     /// The full list of available serving configs can be seen at
     /// <https://console.cloud.google.com/ai/retail/catalogs/default_catalog/configs>
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub placement: std::string::String,
 
     /// Required. Context about the user, what they are looking at and what action
@@ -11207,11 +11399,12 @@ pub struct PredictRequest {
     /// default. The maximum allowed value is 100. Values above 100 will be coerced
     /// to 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// This field is not used; leave it unset.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     #[deprecated]
     pub page_token: std::string::String,
 
@@ -11256,6 +11449,7 @@ pub struct PredictRequest {
     /// For more information, see
     /// [Filter recommendations](https://cloud.google.com/retail/docs/filter-recs).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Use validate only mode for this prediction query. If set to true, a
@@ -11263,6 +11457,7 @@ pub struct PredictRequest {
     /// Note that the validate only mode should only be used for testing the API,
     /// or if the model is not ready.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     /// Additional domain specific parameters for the predictions.
@@ -11293,6 +11488,7 @@ pub struct PredictRequest {
     /// * `filterSyntaxV2`: Boolean. False by default. If set to true, the `filter`
     ///   field is interpreteted according to the new, attribute-based syntax.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub params: std::collections::HashMap<std::string::String, wkt::Value>,
 
     /// The labels applied to a resource must meet the following requirements:
@@ -11313,6 +11509,7 @@ pub struct PredictRequest {
     /// Document](https://cloud.google.com/resource-manager/docs/creating-managing-labels#requirements)
     /// for more details.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11413,6 +11610,7 @@ pub struct PredictResponse {
     /// A list of recommended products. The order represents the ranking (from the
     /// most relevant product to the least).
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub results: std::vec::Vec<crate::model::predict_response::PredictionResult>,
 
     /// A unique attribution token. This should be included in the
@@ -11422,14 +11620,17 @@ pub struct PredictResponse {
     ///
     /// [google.cloud.retail.v2.UserEvent]: crate::model::UserEvent
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub attribution_token: std::string::String,
 
     /// IDs of products in the request that were missing from the inventory.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub missing_ids: std::vec::Vec<std::string::String>,
 
     /// True if the validateOnly property was set in the request.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11498,6 +11699,7 @@ pub mod predict_response {
     pub struct PredictionResult {
         /// ID of the recommended product
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub id: std::string::String,
 
         /// Additional product metadata / annotations.
@@ -11509,6 +11711,7 @@ pub mod predict_response {
         /// * `score`: Prediction score in double value. Is set if
         ///   `returnScore` is set to true in `PredictRequest.params`.
         #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
         pub metadata: std::collections::HashMap<std::string::String, wkt::Value>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11556,6 +11759,7 @@ pub struct Product {
     /// Immutable. Full resource name of the product, such as
     /// `projects/*/locations/global/catalogs/default_catalog/branches/default_branch/products/product_id`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Immutable. [Product][google.cloud.retail.v2.Product] identifier, which is
@@ -11574,6 +11778,7 @@ pub struct Product {
     /// [google.cloud.retail.v2.Product]: crate::model::Product
     /// [google.cloud.retail.v2.Product.name]: crate::model::Product::name
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub id: std::string::String,
 
     /// Immutable. The type of the product. Default to
@@ -11583,6 +11788,7 @@ pub struct Product {
     /// [google.cloud.retail.v2.ProductLevelConfig.ingestion_product_type]: crate::model::ProductLevelConfig::ingestion_product_type
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub r#type: crate::model::product::Type,
 
     /// Variant group identifier. Must be an
@@ -11608,6 +11814,7 @@ pub struct Product {
     /// [google.cloud.retail.v2.Product.Type.PRIMARY]: crate::model::product::Type::Primary
     /// [google.cloud.retail.v2.Product.id]: crate::model::Product::id
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub primary_product_id: std::string::String,
 
     /// The [id][google.cloud.retail.v2.Product.id] of the collection members when
@@ -11628,6 +11835,7 @@ pub struct Product {
     /// [google.cloud.retail.v2.Product.id]: crate::model::Product::id
     /// [google.cloud.retail.v2.Product.type]: crate::model::Product::type
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub collection_member_ids: std::vec::Vec<std::string::String>,
 
     /// The Global Trade Item Number (GTIN) of the product.
@@ -11649,6 +11857,7 @@ pub struct Product {
     ///
     /// If the value is not a valid GTIN, an INVALID_ARGUMENT error is returned.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub gtin: std::string::String,
 
     /// Product categories. This field is repeated for supporting one product
@@ -11688,6 +11897,7 @@ pub struct Product {
     /// [google.cloud.retail.v2.Product]: crate::model::Product
     /// [google.cloud.retail.v2.Product.Type.PRIMARY]: crate::model::product::Type::Primary
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub categories: std::vec::Vec<std::string::String>,
 
     /// Required. Product title.
@@ -11699,6 +11909,7 @@ pub struct Product {
     /// [title](https://support.google.com/merchants/answer/6324415). Schema.org
     /// property [Product.name](https://schema.org/name).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub title: std::string::String,
 
     /// The brands of the product.
@@ -11712,6 +11923,7 @@ pub struct Product {
     /// [brand](https://support.google.com/merchants/answer/6324351). Schema.org
     /// property [Product.brand](https://schema.org/brand).
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub brands: std::vec::Vec<std::string::String>,
 
     /// Product description.
@@ -11723,6 +11935,7 @@ pub struct Product {
     /// [description](https://support.google.com/merchants/answer/6324468).
     /// Schema.org property [Product.description](https://schema.org/description).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Language of the title/description and other string attributes. Use language
@@ -11738,6 +11951,7 @@ pub struct Product {
     ///
     /// [google.cloud.retail.v2.Product]: crate::model::Product
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub language_code: std::string::String,
 
     /// Highly encouraged. Extra product attributes to be included. For example,
@@ -11770,6 +11984,7 @@ pub struct Product {
     ///   length limit of 256 characters.
     /// * For number attributes, at most 400 values are allowed.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub attributes: std::collections::HashMap<std::string::String, crate::model::CustomAttribute>,
 
     /// Custom tags associated with the product.
@@ -11789,6 +12004,7 @@ pub struct Product {
     /// [google.cloud.retail.v2.PredictRequest.filter]: crate::model::PredictRequest::filter
     /// [google.cloud.retail.v2.Product]: crate::model::Product
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub tags: std::vec::Vec<std::string::String>,
 
     /// Product price and cost information.
@@ -11839,6 +12055,7 @@ pub struct Product {
     /// [google.cloud.retail.v2.Product.Availability.IN_STOCK]: crate::model::product::Availability::InStock
     /// [google.cloud.retail.v2.Product.Availability.OUT_OF_STOCK]: crate::model::product::Availability::OutOfStock
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub availability: crate::model::product::Availability,
 
     /// The available quantity of the item.
@@ -11855,6 +12072,7 @@ pub struct Product {
     ///
     /// [google.cloud.retail.v2.FulfillmentInfo.type]: crate::model::FulfillmentInfo::type
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub fulfillment_info: std::vec::Vec<crate::model::FulfillmentInfo>,
 
     /// Canonical URL directly linking to the product detail page.
@@ -11869,6 +12087,7 @@ pub struct Product {
     /// [link](https://support.google.com/merchants/answer/6324416). Schema.org
     /// property [Offer.url](https://schema.org/url).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub uri: std::string::String,
 
     /// Product images for the product. We highly recommend putting the main
@@ -11880,6 +12099,7 @@ pub struct Product {
     /// [image_link](https://support.google.com/merchants/answer/6324350).
     /// Schema.org property [Product.image](https://schema.org/image).
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub images: std::vec::Vec<crate::model::Image>,
 
     /// The target group associated with a given audience (e.g. male, veterans,
@@ -11916,6 +12136,7 @@ pub struct Product {
     ///
     /// [google.cloud.retail.v2.Product]: crate::model::Product
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub sizes: std::vec::Vec<std::string::String>,
 
     /// The material of the product. For example, "leather", "wooden".
@@ -11928,6 +12149,7 @@ pub struct Product {
     /// [material](https://support.google.com/merchants/answer/6324410). Schema.org
     /// property [Product.material](https://schema.org/material).
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub materials: std::vec::Vec<std::string::String>,
 
     /// The pattern or graphic print of the product. For example, "striped", "polka
@@ -11944,6 +12166,7 @@ pub struct Product {
     ///
     /// [google.cloud.retail.v2.Product]: crate::model::Product
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub patterns: std::vec::Vec<std::string::String>,
 
     /// The condition of the product. Strongly encouraged to use the standard
@@ -11961,6 +12184,7 @@ pub struct Product {
     ///
     /// [google.cloud.retail.v2.Product]: crate::model::Product
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub conditions: std::vec::Vec<std::string::String>,
 
     /// The promotions applied to the product. A maximum of 10 values are allowed
@@ -11971,6 +12195,7 @@ pub struct Product {
     /// [google.cloud.retail.v2.Product]: crate::model::Product
     /// [google.cloud.retail.v2.Promotion.promotion_id]: crate::model::Promotion::promotion_id
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub promotions: std::vec::Vec<crate::model::Promotion>,
 
     /// The timestamp when the product is published by the retailer for the first
@@ -12085,6 +12310,7 @@ pub struct Product {
     /// [google.cloud.retail.v2.Product.primary_product_id]: crate::model::Product::primary_product_id
     /// [google.cloud.retail.v2.ProductService.GetProduct]: crate::client::ProductService::get_product
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub variants: std::vec::Vec<crate::model::Product>,
 
     /// Output only. A list of local inventories specific to different places.
@@ -12098,6 +12324,7 @@ pub struct Product {
     /// [google.cloud.retail.v2.ProductService.AddLocalInventories]: crate::client::ProductService::add_local_inventories
     /// [google.cloud.retail.v2.ProductService.RemoveLocalInventories]: crate::client::ProductService::remove_local_inventories
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub local_inventories: std::vec::Vec<crate::model::LocalInventory>,
 
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
@@ -12964,6 +13191,7 @@ pub struct CreateProductRequest {
     /// Required. The parent catalog resource name, such as
     /// `projects/*/locations/global/catalogs/default_catalog/branches/default_branch`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The [Product][google.cloud.retail.v2.Product] to create.
@@ -12992,6 +13220,7 @@ pub struct CreateProductRequest {
     /// [google.cloud.retail.v2.Product]: crate::model::Product
     /// [google.cloud.retail.v2.Product.name]: crate::model::Product::name
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub product_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -13063,6 +13292,7 @@ pub struct GetProductRequest {
     ///
     /// [google.cloud.retail.v2.Product]: crate::model::Product
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -13136,6 +13366,7 @@ pub struct UpdateProductRequest {
     ///
     /// [google.cloud.retail.v2.Product]: crate::model::Product
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub allow_missing: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -13233,6 +13464,7 @@ pub struct DeleteProductRequest {
     /// [google.cloud.retail.v2.Product.Type.PRIMARY]: crate::model::product::Type::Primary
     /// [google.cloud.retail.v2.Product.Type.VARIANT]: crate::model::product::Type::Variant
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -13278,6 +13510,7 @@ pub struct ListProductsRequest {
     ///
     /// [google.cloud.retail.v2.Product]: crate::model::Product
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Maximum number of [Product][google.cloud.retail.v2.Product]s to return. If
@@ -13288,7 +13521,7 @@ pub struct ListProductsRequest {
     ///
     /// [google.cloud.retail.v2.Product]: crate::model::Product
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// A page token
@@ -13305,6 +13538,7 @@ pub struct ListProductsRequest {
     /// [google.cloud.retail.v2.ListProductsResponse.next_page_token]: crate::model::ListProductsResponse::next_page_token
     /// [google.cloud.retail.v2.ProductService.ListProducts]: crate::client::ProductService::list_products
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// A filter to apply on the list results. Supported features:
@@ -13342,6 +13576,7 @@ pub struct ListProductsRequest {
     /// [google.cloud.retail.v2.Product.Type.PRIMARY]: crate::model::product::Type::Primary
     /// [google.cloud.retail.v2.Product.Type.VARIANT]: crate::model::product::Type::Variant
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// The fields of [Product][google.cloud.retail.v2.Product] to return in the
@@ -13445,6 +13680,7 @@ pub struct ListProductsResponse {
     ///
     /// [google.cloud.retail.v2.Product]: crate::model::Product
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub products: std::vec::Vec<crate::model::Product>,
 
     /// A token that can be sent as
@@ -13454,6 +13690,7 @@ pub struct ListProductsResponse {
     ///
     /// [google.cloud.retail.v2.ListProductsRequest.page_token]: crate::model::ListProductsRequest::page_token
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -13614,6 +13851,7 @@ pub struct SetInventoryRequest {
     /// [google.cloud.retail.v2.Product]: crate::model::Product
     /// [google.cloud.retail.v2.Product.name]: crate::model::Product::name
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub allow_missing: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -13766,6 +14004,7 @@ pub struct AddFulfillmentPlacesRequest {
     ///
     /// [google.cloud.retail.v2.Product]: crate::model::Product
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub product: std::string::String,
 
     /// Required. The fulfillment type, including commonly used types (such as
@@ -13792,6 +14031,7 @@ pub struct AddFulfillmentPlacesRequest {
     /// [google.cloud.retail.v2.FulfillmentInfo.type]: crate::model::FulfillmentInfo::type
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub r#type: std::string::String,
 
     /// Required. The IDs for this
@@ -13812,6 +14052,7 @@ pub struct AddFulfillmentPlacesRequest {
     ///
     /// [google.cloud.retail.v2.AddFulfillmentPlacesRequest.type]: crate::model::AddFulfillmentPlacesRequest::type
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub place_ids: std::vec::Vec<std::string::String>,
 
     /// The time when the fulfillment updates are issued, used to prevent
@@ -13829,6 +14070,7 @@ pub struct AddFulfillmentPlacesRequest {
     ///
     /// [google.cloud.retail.v2.Product]: crate::model::Product
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub allow_missing: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -13968,12 +14210,14 @@ pub struct AddLocalInventoriesRequest {
     ///
     /// [google.cloud.retail.v2.Product]: crate::model::Product
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub product: std::string::String,
 
     /// Required. A list of inventory information at difference places. Each place
     /// is identified by its place ID. At most 3000 inventories are allowed per
     /// request.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub local_inventories: std::vec::Vec<crate::model::LocalInventory>,
 
     /// Indicates which inventory fields in the provided list of
@@ -14010,6 +14254,7 @@ pub struct AddLocalInventoriesRequest {
     ///
     /// [google.cloud.retail.v2.Product]: crate::model::Product
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub allow_missing: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -14163,11 +14408,13 @@ pub struct RemoveLocalInventoriesRequest {
     ///
     /// [google.cloud.retail.v2.Product]: crate::model::Product
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub product: std::string::String,
 
     /// Required. A list of place IDs to have their inventory deleted.
     /// At most 3000 place IDs are allowed per request.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub place_ids: std::vec::Vec<std::string::String>,
 
     /// The time when the inventory deletions are issued. Used to prevent
@@ -14185,6 +14432,7 @@ pub struct RemoveLocalInventoriesRequest {
     ///
     /// [google.cloud.retail.v2.Product]: crate::model::Product
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub allow_missing: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -14320,6 +14568,7 @@ pub struct RemoveFulfillmentPlacesRequest {
     ///
     /// [google.cloud.retail.v2.Product]: crate::model::Product
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub product: std::string::String,
 
     /// Required. The fulfillment type, including commonly used types (such as
@@ -14346,6 +14595,7 @@ pub struct RemoveFulfillmentPlacesRequest {
     /// [google.cloud.retail.v2.FulfillmentInfo.type]: crate::model::FulfillmentInfo::type
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub r#type: std::string::String,
 
     /// Required. The IDs for this
@@ -14361,6 +14611,7 @@ pub struct RemoveFulfillmentPlacesRequest {
     ///
     /// [google.cloud.retail.v2.RemoveFulfillmentPlacesRequest.type]: crate::model::RemoveFulfillmentPlacesRequest::type
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub place_ids: std::vec::Vec<std::string::String>,
 
     /// The time when the fulfillment updates are issued, used to prevent
@@ -14378,6 +14629,7 @@ pub struct RemoveFulfillmentPlacesRequest {
     ///
     /// [google.cloud.retail.v2.Product]: crate::model::Product
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub allow_missing: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -14513,6 +14765,7 @@ pub struct Promotion {
     /// Corresponds to Google Merchant Center property
     /// [promotion_id](https://support.google.com/merchants/answer/7050148).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub promotion_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -14578,12 +14831,12 @@ pub struct PurgeProductsMetadata {
 
     /// Count of entries that were deleted successfully.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub success_count: i64,
 
     /// Count of entries that encountered errors while processing.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub failure_count: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -14660,6 +14913,7 @@ pub struct PurgeProductsRequest {
     /// created. The format is
     /// `projects/${projectId}/locations/global/catalogs/${catalogId}/branches/${branchId}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The filter string to specify the products to be deleted with a
@@ -14706,12 +14960,14 @@ pub struct PurgeProductsRequest {
     ///
     /// [google.cloud.retail.v2.Product.availability]: crate::model::Product::availability
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Actually perform the purge.
     /// If `force` is set to false, the method will return the expected purge count
     /// without deleting any products.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -14758,13 +15014,14 @@ impl wkt::message::Message for PurgeProductsRequest {
 pub struct PurgeProductsResponse {
     /// The total count of products purged as a result of the operation.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub purge_count: i64,
 
     /// A sample of the product names that will be deleted.
     /// Only populated if `force` is set to false. A max of 100 names will be
     /// returned and the names are chosen at random.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub purge_sample: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -14810,6 +15067,7 @@ pub struct PurgeUserEventsRequest {
     /// created. The format is
     /// `projects/${projectId}/locations/global/catalogs/${catalogId}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The filter string to specify the events to be deleted with a
@@ -14838,12 +15096,14 @@ pub struct PurgeUserEventsRequest {
     ///
     /// [google.cloud.retail.v2.UserEvent.event_type]: crate::model::UserEvent::event_type
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Actually perform the purge.
     /// If `force` is set to false, the method will return the expected purge count
     /// without deleting any user events.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -14890,7 +15150,7 @@ impl wkt::message::Message for PurgeUserEventsRequest {
 pub struct PurgeUserEventsResponse {
     /// The total count of events purged as a result of the operation.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub purged_events_count: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -14925,10 +15185,12 @@ impl wkt::message::Message for PurgeUserEventsResponse {
 pub struct ProductAttributeValue {
     /// The attribute name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The attribute value.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub value: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -14967,6 +15229,7 @@ impl wkt::message::Message for ProductAttributeValue {
 pub struct ProductAttributeInterval {
     /// The attribute name (e.g. "length")
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The numeric interval (e.g. [10, 20))
@@ -15023,6 +15286,7 @@ impl wkt::message::Message for ProductAttributeInterval {
 pub struct Tile {
     /// The representative product id for this tile.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub representative_product_id: std::string::String,
 
     /// The attribute key and value for the tile.
@@ -15166,6 +15430,7 @@ pub struct SearchRequest {
     /// This field is used to identify the serving config name and the set
     /// of models that are used to make the search.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub placement: std::string::String,
 
     /// The branch resource name, such as
@@ -15174,6 +15439,7 @@ pub struct SearchRequest {
     /// Use "default_branch" as the branch ID or leave this field empty, to search
     /// products under the default branch.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub branch: std::string::String,
 
     /// Raw search query.
@@ -15186,6 +15452,7 @@ pub struct SearchRequest {
     /// [google.cloud.retail.v2.SearchRequest.filter]: crate::model::SearchRequest::filter
     /// [google.cloud.retail.v2.SearchRequest.page_categories]: crate::model::SearchRequest::page_categories
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub query: std::string::String,
 
     /// Required. A unique identifier for tracking visitors. For example, this
@@ -15201,6 +15468,7 @@ pub struct SearchRequest {
     ///
     /// [google.cloud.retail.v2.UserEvent.visitor_id]: crate::model::UserEvent::visitor_id
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub visitor_id: std::string::String,
 
     /// User information.
@@ -15215,7 +15483,7 @@ pub struct SearchRequest {
     ///
     /// [google.cloud.retail.v2.Product]: crate::model::Product
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// A page token
@@ -15232,6 +15500,7 @@ pub struct SearchRequest {
     /// [google.cloud.retail.v2.SearchResponse.next_page_token]: crate::model::SearchResponse::next_page_token
     /// [google.cloud.retail.v2.SearchService.Search]: crate::client::SearchService::search
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// A 0-indexed integer that specifies the current offset (that is, starting
@@ -15245,7 +15514,7 @@ pub struct SearchRequest {
     /// [google.cloud.retail.v2.Product]: crate::model::Product
     /// [google.cloud.retail.v2.SearchRequest.page_token]: crate::model::SearchRequest::page_token
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub offset: i32,
 
     /// The filter syntax consists of an expression language for constructing a
@@ -15255,6 +15524,7 @@ pub struct SearchRequest {
     ///
     /// If this field is unrecognizable, an INVALID_ARGUMENT is returned.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// The default filter that is applied when a user performs a search without
@@ -15272,6 +15542,7 @@ pub struct SearchRequest {
     ///
     /// [google.cloud.retail.v2.SearchRequest.filter]: crate::model::SearchRequest::filter
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub canonical_filter: std::string::String,
 
     /// The order in which products are returned. Products can be ordered by
@@ -15284,6 +15555,7 @@ pub struct SearchRequest {
     ///
     /// [google.cloud.retail.v2.Product]: crate::model::Product
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     /// Facet specifications for faceted search. If empty, no facets are returned.
@@ -15291,6 +15563,7 @@ pub struct SearchRequest {
     /// A maximum of 200 values are allowed. Otherwise, an INVALID_ARGUMENT error
     /// is returned.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub facet_specs: std::vec::Vec<crate::model::search_request::FacetSpec>,
 
     /// Deprecated. Refer to <https://cloud.google.com/retail/docs/configs#dynamic>
@@ -15404,6 +15677,7 @@ pub struct SearchRequest {
     /// [google.cloud.retail.v2.Product.Type.VARIANT]: crate::model::product::Type::Variant
     /// [google.cloud.retail.v2.Product.attributes]: crate::model::Product::attributes
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub variant_rollup_keys: std::vec::Vec<std::string::String>,
 
     /// The categories associated with a category page. Must be set for category
@@ -15421,11 +15695,13 @@ pub struct SearchRequest {
     ///
     /// [google.cloud.retail.v2.UserEvent.page_categories]: crate::model::UserEvent::page_categories
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub page_categories: std::vec::Vec<std::string::String>,
 
     /// The search mode of the search request. If not specified, a single search
     /// request triggers both product search and faceted search.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub search_mode: crate::model::search_request::SearchMode,
 
     /// The specification for personalization.
@@ -15463,6 +15739,7 @@ pub struct SearchRequest {
     /// labels](https://cloud.google.com/resource-manager/docs/creating-managing-labels#requirements)
     /// in the Resource Manager documentation.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// The spell correction specification that specifies the mode under
@@ -15480,6 +15757,7 @@ pub struct SearchRequest {
     ///
     /// [google.cloud.retail.v2.UserEvent.entity]: crate::model::UserEvent::entity
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub entity: std::string::String,
 
     /// Optional. This field specifies all conversational related parameters
@@ -15498,6 +15776,7 @@ pub struct SearchRequest {
     /// field helps to better interpret the query. If a value isn't specified, the
     /// query language code is automatically detected, which may not be accurate.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub language_code: std::string::String,
 
     /// Optional. The Unicode country/region code (CLDR) of a location, such as
@@ -15506,6 +15785,7 @@ pub struct SearchRequest {
     /// For more information, see [Standardized codes](https://google.aip.dev/143).
     /// If set, then results will be boosted based on the region_code provided.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub region_code: std::string::String,
 
     /// Optional. An id corresponding to a place, such as a store id or region id.
@@ -15516,6 +15796,7 @@ pub struct SearchRequest {
     ///
     /// [google.cloud.retail.v2.LocalInventory.place_id]: crate::model::LocalInventory::place_id
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub place_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -15842,7 +16123,7 @@ pub mod search_request {
         ///
         /// If this field is negative, an INVALID_ARGUMENT is returned.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub limit: i32,
 
         /// List of keys to exclude when faceting.
@@ -15875,6 +16156,7 @@ pub mod search_request {
         ///
         /// [google.cloud.retail.v2.SearchRequest.FacetSpec.FacetKey.key]: crate::model::search_request::facet_spec::FacetKey::key
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub excluded_filter_keys: std::vec::Vec<std::string::String>,
 
         /// Enables dynamic position for this facet. If set to true, the position of
@@ -15907,6 +16189,7 @@ pub mod search_request {
         /// ranked at first and second position because their enable_dynamic_position
         /// values are false.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub enable_dynamic_position: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -16023,6 +16306,7 @@ pub mod search_request {
             /// [google.cloud.retail.v2.Product]: crate::model::Product
             /// [google.cloud.retail.v2.SearchRequest.FacetSpec.FacetKey.query]: crate::model::search_request::facet_spec::FacetKey::query
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub key: std::string::String,
 
             /// Set only if values should be bucketized into intervals. Must be set
@@ -16038,6 +16322,7 @@ pub mod search_request {
             /// facet key intervals are specified in the request, then the specified
             /// intervals are returned instead.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
             pub intervals: std::vec::Vec<crate::model::Interval>,
 
             /// Only get facet for the given restricted values. For example, when using
@@ -16067,6 +16352,7 @@ pub mod search_request {
             /// * customFulfillment5
             ///
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
             pub restricted_values: std::vec::Vec<std::string::String>,
 
             /// Only get facet values that start with the given string prefix. For
@@ -16075,6 +16361,7 @@ pub mod search_request {
             /// "categories" facet gives only "Women > Shoe" and "Women > Dress".
             /// Only supported on textual fields. Maximum is 10.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
             pub prefixes: std::vec::Vec<std::string::String>,
 
             /// Only get facet values that contains the given strings. For example,
@@ -16083,11 +16370,13 @@ pub mod search_request {
             /// "categories" facet gives only "Women > Shoe" and "Men > Shoe".
             /// Only supported on textual fields. Maximum is 10.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
             pub contains: std::vec::Vec<std::string::String>,
 
             /// True to make facet keys case insensitive when getting faceting
             /// values with prefixes or contains; false otherwise.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub case_insensitive: bool,
 
             /// The order in which
@@ -16121,6 +16410,7 @@ pub mod search_request {
             /// [google.cloud.retail.v2.SearchResponse.Facet.FacetValue.value]: crate::model::search_response::facet::FacetValue::facet_value
             /// [google.cloud.retail.v2.SearchResponse.Facet.values]: crate::model::search_response::Facet::values
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub order_by: std::string::String,
 
             /// The query that is used to compute facet for the given facet key.
@@ -16152,11 +16442,13 @@ pub mod search_request {
             /// [google.cloud.retail.v2.SearchResponse.Facet.FacetValue.count]: crate::model::search_response::facet::FacetValue::count
             /// [google.cloud.retail.v2.SearchResponse.Facet.FacetValue.value]: crate::model::search_response::facet::FacetValue::facet_value
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub query: std::string::String,
 
             /// Returns the min and max value for each numerical facet intervals.
             /// Ignored for textual facets.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub return_min_max: bool,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -16266,6 +16558,7 @@ pub mod search_request {
         ///
         /// [google.cloud.retail.v2.SearchRequest.DynamicFacetSpec.Mode.DISABLED]: crate::model::search_request::dynamic_facet_spec::Mode::Disabled
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub mode: crate::model::search_request::dynamic_facet_spec::Mode,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -16447,6 +16740,7 @@ pub mod search_request {
         /// applied and combined in a non-linear way. Maximum number of
         /// specifications is 20.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub condition_boost_specs:
             std::vec::Vec<crate::model::search_request::boost_spec::ConditionBoostSpec>,
 
@@ -16535,6 +16829,7 @@ pub mod search_request {
             ///
             /// [google.cloud.retail.v2.SearchRequest.filter]: crate::model::SearchRequest::filter
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub condition: std::string::String,
 
             /// Strength of the condition boost, which should be in [-1, 1]. Negative
@@ -16555,7 +16850,7 @@ pub mod search_request {
             /// Setting to 0.0 means no boost applied. The boosting condition is
             /// ignored.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "wkt::internal::F32")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
             pub boost: f32,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -16602,12 +16897,14 @@ pub mod search_request {
         ///
         /// [google.cloud.retail.v2.SearchRequest.QueryExpansionSpec.Condition.DISABLED]: crate::model::search_request::query_expansion_spec::Condition::Disabled
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub condition: crate::model::search_request::query_expansion_spec::Condition,
 
         /// Whether to pin unexpanded results. If this field is set to true,
         /// unexpanded products are always at the top of the search results, followed
         /// by the expanded results.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub pin_unexpanded_results: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -16803,6 +17100,7 @@ pub mod search_request {
         ///
         /// [google.cloud.retail.v2.SearchRequest.PersonalizationSpec.Mode.AUTO]: crate::model::search_request::personalization_spec::Mode::Auto
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub mode: crate::model::search_request::personalization_spec::Mode,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -16989,6 +17287,7 @@ pub mod search_request {
         ///
         /// [google.cloud.retail.v2.SearchRequest.SpellCorrectionSpec.Mode.AUTO]: crate::model::search_request::spell_correction_spec::Mode::Auto
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub mode: crate::model::search_request::spell_correction_spec::Mode,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -17181,6 +17480,7 @@ pub mod search_request {
         /// information will be returned from server side, including follow-up
         /// question, answer options, etc.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub followup_conversation_requested: bool,
 
         /// This field specifies the conversation id, which maintains the state of
@@ -17188,6 +17488,7 @@ pub mod search_request {
         /// the previous [ConversationalSearchResult.conversation_id][]. For the
         /// initial request, this should be empty.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub conversation_id: std::string::String,
 
         /// This field specifies the current user answer during the conversational
@@ -17366,6 +17667,7 @@ pub mod search_request {
             pub struct SelectedAnswer {
                 /// This field is deprecated and should not be set.
                 #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+                #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
                 #[deprecated]
                 pub product_attribute_values: std::vec::Vec<crate::model::ProductAttributeValue>,
 
@@ -17432,7 +17734,7 @@ pub mod search_request {
             pub enum Type {
                 /// This field specifies the incremental input text from the user during
                 /// the conversational search.
-                TextAnswer(std::string::String),
+                TextAnswer(#[serde_as(as = "serde_with::DefaultOnNull<_>")]std::string::String),
                 /// This field specifies the selected attributes during the
                 /// conversational search. This should be a subset of
                 /// [ConversationalSearchResult.suggested_answers][].
@@ -17450,6 +17752,7 @@ pub mod search_request {
         /// This field specifies whether the customer would like to request tile
         /// navigation.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub tile_navigation_requested: bool,
 
         /// This optional field specifies the tiles which are already clicked in
@@ -17464,6 +17767,7 @@ pub mod search_request {
         ///
         /// [google.cloud.retail.v2.SearchRequest.filter]: crate::model::SearchRequest::filter
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub applied_tiles: std::vec::Vec<crate::model::Tile>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -17682,10 +17986,12 @@ pub mod search_request {
 pub struct SearchResponse {
     /// A list of matched items. The order represents the ranking.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub results: std::vec::Vec<crate::model::search_response::SearchResult>,
 
     /// Results of facets requested by user.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub facets: std::vec::Vec<crate::model::search_response::Facet>,
 
     /// The estimated total count of matched items irrespective of pagination. The
@@ -17697,13 +18003,14 @@ pub struct SearchResponse {
     /// [google.cloud.retail.v2.SearchResponse.results]: crate::model::SearchResponse::results
     /// [google.cloud.retail.v2.SearchResponse.total_size]: crate::model::SearchResponse::total_size
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub total_size: i32,
 
     /// Contains the spell corrected query, if found. If the spell correction type
     /// is AUTOMATIC, then the search results are based on corrected_query.
     /// Otherwise the original query is used for search.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub corrected_query: std::string::String,
 
     /// A unique search token. This should be included in the
@@ -17712,6 +18019,7 @@ pub struct SearchResponse {
     ///
     /// [google.cloud.retail.v2.UserEvent]: crate::model::UserEvent
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub attribution_token: std::string::String,
 
     /// A token that can be sent as
@@ -17721,6 +18029,7 @@ pub struct SearchResponse {
     ///
     /// [google.cloud.retail.v2.SearchRequest.page_token]: crate::model::SearchRequest::page_token
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// Query expansion information for the returned results.
@@ -17737,11 +18046,13 @@ pub struct SearchResponse {
     /// [google.cloud.retail.v2.SearchResponse.attribution_token]: crate::model::SearchResponse::attribution_token
     /// [google.cloud.retail.v2.SearchResponse.redirect_uri]: crate::model::SearchResponse::redirect_uri
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub redirect_uri: std::string::String,
 
     /// The fully qualified resource name of applied
     /// [controls](https://cloud.google.com/retail/docs/serving-control-rules).
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub applied_controls: std::vec::Vec<std::string::String>,
 
     /// Metadata for pin controls which were applicable to the request.
@@ -17759,12 +18070,14 @@ pub struct SearchResponse {
     ///
     /// [google.cloud.retail.v2.SearchRequest.BoostSpec.condition_boost_specs]: crate::model::search_request::BoostSpec::condition_boost_specs
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub invalid_condition_boost_specs:
         std::vec::Vec<crate::model::search_request::boost_spec::ConditionBoostSpec>,
 
     /// Metadata related to A/B testing experiment associated with this
     /// response. Only exists when an experiment is triggered.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub experiment_info: std::vec::Vec<crate::model::ExperimentInfo>,
 
     /// This field specifies all related information that is needed on client
@@ -17986,6 +18299,7 @@ pub mod search_response {
         /// [google.cloud.retail.v2.Product]: crate::model::Product
         /// [google.cloud.retail.v2.Product.id]: crate::model::Product::id
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub id: std::string::String,
 
         /// The product data snippet in the search response. Only
@@ -18016,7 +18330,7 @@ pub mod search_response {
         /// [google.cloud.retail.v2.Product]: crate::model::Product
         /// [google.cloud.retail.v2.Product.Type.VARIANT]: crate::model::product::Type::Variant
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub matching_variant_count: i32,
 
         /// If a [variant][google.cloud.retail.v2.Product.Type.VARIANT]
@@ -18036,6 +18350,7 @@ pub mod search_response {
         /// [google.cloud.retail.v2.Product.Type.VARIANT]: crate::model::product::Type::Variant
         /// [google.cloud.retail.v2.Product.name]: crate::model::Product::name
         #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
         pub matching_variant_fields: std::collections::HashMap<std::string::String, wkt::FieldMask>,
 
         /// The rollup matching
@@ -18079,6 +18394,7 @@ pub mod search_response {
         /// [google.protobuf.ListValue]: wkt::ListValue
         /// [google.protobuf.Value]: wkt::Value
         #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
         pub variant_rollup_values: std::collections::HashMap<std::string::String, wkt::Value>,
 
         /// Specifies previous events related to this product for this user based on
@@ -18101,6 +18417,7 @@ pub mod search_response {
         /// [google.cloud.retail.v2.UserEvent]: crate::model::UserEvent
         /// [google.cloud.retail.v2.UserInfo.user_id]: crate::model::UserInfo::user_id
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub personal_labels: std::vec::Vec<std::string::String>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -18194,14 +18511,17 @@ pub mod search_response {
         /// The key for this facet. E.g., "colorFamilies" or "price" or
         /// "attributes.attr1".
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub key: std::string::String,
 
         /// The facet values for this field.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub values: std::vec::Vec<crate::model::search_response::facet::FacetValue>,
 
         /// Whether the facet is dynamically generated.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub dynamic_facet: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -18256,7 +18576,7 @@ pub mod search_response {
         pub struct FacetValue {
             /// Number of items that have this facet value.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "wkt::internal::I64")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
             pub count: i64,
 
             /// The minimum value in the
@@ -18268,7 +18588,7 @@ pub mod search_response {
             /// [google.cloud.retail.v2.SearchRequest.FacetSpec.FacetKey.return_min_max]: crate::model::search_request::facet_spec::FacetKey::return_min_max
             /// [google.cloud.retail.v2.SearchResponse.Facet.FacetValue.interval]: crate::model::search_response::facet::FacetValue::facet_value
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "wkt::internal::F64")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
             pub min_value: f64,
 
             /// The maximum value in the
@@ -18280,7 +18600,7 @@ pub mod search_response {
             /// [google.cloud.retail.v2.SearchRequest.FacetSpec.FacetKey.return_min_max]: crate::model::search_request::facet_spec::FacetKey::return_min_max
             /// [google.cloud.retail.v2.SearchResponse.Facet.FacetValue.interval]: crate::model::search_response::facet::FacetValue::facet_value
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "wkt::internal::F64")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
             pub max_value: f64,
 
             /// A facet value which contains values.
@@ -18409,7 +18729,7 @@ pub mod search_response {
             #[non_exhaustive]
             pub enum FacetValue {
                 /// Text value of a facet, such as "Black" for facet "colorFamilies".
-                Value(std::string::String),
+                Value(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
                 /// Interval value for a facet, such as [10, 20) for facet "price".
                 Interval(std::boxed::Box<crate::model::Interval>),
             }
@@ -18425,6 +18745,7 @@ pub mod search_response {
     pub struct QueryExpansionInfo {
         /// Bool describing whether query expansion has occurred.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub expanded_query: bool,
 
         /// Number of pinned results. This field will only be set when expansion
@@ -18434,7 +18755,7 @@ pub mod search_response {
         ///
         /// [google.cloud.retail.v2.SearchRequest.QueryExpansionSpec.pin_unexpanded_results]: crate::model::search_request::QueryExpansionSpec::pin_unexpanded_results
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I64")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
         pub pinned_result_count: i64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -18480,6 +18801,7 @@ pub mod search_response {
         ///
         /// [google.cloud.retail.v2.SearchRequest.ConversationalSearchSpec.conversation_id]: crate::model::search_request::ConversationalSearchSpec::conversation_id
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub conversation_id: std::string::String,
 
         /// The current refined query for the conversational search. This field
@@ -18494,12 +18816,14 @@ pub mod search_response {
         /// [google.cloud.retail.v2.SearchRequest.ConversationalSearchSpec.UserAnswer.text_answer]: crate::model::search_request::conversational_search_spec::UserAnswer::type
         /// [google.cloud.retail.v2.SearchRequest.query]: crate::model::SearchRequest::query
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub refined_query: std::string::String,
 
         /// This field is deprecated but will be kept for backward compatibility.
         /// There is expected to have only one additional filter and the value will
         /// be the same to the same as field `additional_filter`.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         #[deprecated]
         pub additional_filters: std::vec::Vec<
             crate::model::search_response::conversational_search_result::AdditionalFilter,
@@ -18507,10 +18831,12 @@ pub mod search_response {
 
         /// The follow-up question. e.g., `What is the color?`
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub followup_question: std::string::String,
 
         /// The answer options provided to client for the follow-up question.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub suggested_answers: std::vec::Vec<
             crate::model::search_response::conversational_search_result::SuggestedAnswer,
         >,
@@ -18731,6 +19057,7 @@ pub mod search_response {
         /// The current tiles that are used for tile navigation, sorted by
         /// engagement.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub tiles: std::vec::Vec<crate::model::Tile>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -18771,6 +19098,7 @@ pub struct ExperimentInfo {
     /// serving config under test, should an active experiment exist. For example:
     /// `projects/*/locations/global/catalogs/default_catalog/experiments/experiment_id`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub experiment: std::string::String,
 
     /// Information associated with the specific experiment entity being recorded.
@@ -18864,6 +19192,7 @@ pub mod experiment_info {
         ///
         /// [google.cloud.retail.v2.SearchRequest.placement]: crate::model::SearchRequest::placement
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub original_serving_config: std::string::String,
 
         /// The fully qualified resource name of the serving config
@@ -18871,6 +19200,7 @@ pub mod experiment_info {
         /// the search response. For example:
         /// `projects/*/locations/*/catalogs/*/servingConfigs/*`.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub experiment_serving_config: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -18933,6 +19263,7 @@ pub struct ServingConfig {
     /// Immutable. Fully qualified name
     /// `projects/*/locations/global/catalogs/*/servingConfig/*`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. The human readable serving config display name. Used in Retail
@@ -18941,6 +19272,7 @@ pub struct ServingConfig {
     /// This field must be a UTF-8 encoded string with a length limit of 128
     /// characters. Otherwise, an INVALID_ARGUMENT error is returned.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// The id of the model in the same [Catalog][google.cloud.retail.v2.Catalog]
@@ -18957,6 +19289,7 @@ pub struct ServingConfig {
     /// [google.cloud.retail.v2.ServingConfig.solution_types]: crate::model::ServingConfig::solution_types
     /// [google.cloud.retail.v2.SolutionType.SOLUTION_TYPE_RECOMMENDATION]: crate::model::SolutionType::Recommendation
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub model_id: std::string::String,
 
     /// How much price ranking we want in serving results.
@@ -18981,6 +19314,7 @@ pub struct ServingConfig {
     /// [google.cloud.retail.v2.ServingConfig.solution_types]: crate::model::ServingConfig::solution_types
     /// [google.cloud.retail.v2.SolutionType.SOLUTION_TYPE_RECOMMENDATION]: crate::model::SolutionType::Recommendation
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub price_reranking_level: std::string::String,
 
     /// Facet specifications for faceted search. If empty, no facets are returned.
@@ -19001,6 +19335,7 @@ pub struct ServingConfig {
     /// [google.cloud.retail.v2.ServingConfig.solution_types]: crate::model::ServingConfig::solution_types
     /// [google.cloud.retail.v2.SolutionType.SOLUTION_TYPE_SEARCH]: crate::model::SolutionType::Search
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub facet_control_ids: std::vec::Vec<std::string::String>,
 
     /// The specification for dynamically generated facets. Notice that only
@@ -19037,6 +19372,7 @@ pub struct ServingConfig {
     /// [google.cloud.retail.v2.ServingConfig.solution_types]: crate::model::ServingConfig::solution_types
     /// [google.cloud.retail.v2.SolutionType.SOLUTION_TYPE_SEARCH]: crate::model::SolutionType::Search
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub boost_control_ids: std::vec::Vec<std::string::String>,
 
     /// Condition filter specifications. If a product matches multiple conditions
@@ -19051,6 +19387,7 @@ pub struct ServingConfig {
     /// [google.cloud.retail.v2.ServingConfig.solution_types]: crate::model::ServingConfig::solution_types
     /// [google.cloud.retail.v2.SolutionType.SOLUTION_TYPE_SEARCH]: crate::model::SolutionType::Search
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub filter_control_ids: std::vec::Vec<std::string::String>,
 
     /// Condition redirect specifications. Only the first triggered redirect action
@@ -19064,6 +19401,7 @@ pub struct ServingConfig {
     /// [google.cloud.retail.v2.ServingConfig.solution_types]: crate::model::ServingConfig::solution_types
     /// [google.cloud.retail.v2.SolutionType.SOLUTION_TYPE_SEARCH]: crate::model::SolutionType::Search
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub redirect_control_ids: std::vec::Vec<std::string::String>,
 
     /// Condition synonyms specifications. If multiple syonyms conditions match,
@@ -19078,6 +19416,7 @@ pub struct ServingConfig {
     /// [google.cloud.retail.v2.ServingConfig.solution_types]: crate::model::ServingConfig::solution_types
     /// [google.cloud.retail.v2.SolutionType.SOLUTION_TYPE_SEARCH]: crate::model::SolutionType::Search
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub twoway_synonyms_control_ids: std::vec::Vec<std::string::String>,
 
     /// Condition oneway synonyms specifications. If multiple oneway synonyms
@@ -19092,6 +19431,7 @@ pub struct ServingConfig {
     /// [google.cloud.retail.v2.ServingConfig.solution_types]: crate::model::ServingConfig::solution_types
     /// [google.cloud.retail.v2.SolutionType.SOLUTION_TYPE_SEARCH]: crate::model::SolutionType::Search
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub oneway_synonyms_control_ids: std::vec::Vec<std::string::String>,
 
     /// Condition do not associate specifications. If multiple do not associate
@@ -19108,6 +19448,7 @@ pub struct ServingConfig {
     /// [google.cloud.retail.v2.ServingConfig.solution_types]: crate::model::ServingConfig::solution_types
     /// [google.cloud.retail.v2.SolutionType.SOLUTION_TYPE_SEARCH]: crate::model::SolutionType::Search
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub do_not_associate_control_ids: std::vec::Vec<std::string::String>,
 
     /// Condition replacement specifications.
@@ -19123,6 +19464,7 @@ pub struct ServingConfig {
     /// [google.cloud.retail.v2.ServingConfig.solution_types]: crate::model::ServingConfig::solution_types
     /// [google.cloud.retail.v2.SolutionType.SOLUTION_TYPE_SEARCH]: crate::model::SolutionType::Search
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub replacement_control_ids: std::vec::Vec<std::string::String>,
 
     /// Condition ignore specifications. If multiple ignore
@@ -19139,6 +19481,7 @@ pub struct ServingConfig {
     /// [google.cloud.retail.v2.ServingConfig.solution_types]: crate::model::ServingConfig::solution_types
     /// [google.cloud.retail.v2.SolutionType.SOLUTION_TYPE_SEARCH]: crate::model::SolutionType::Search
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub ignore_control_ids: std::vec::Vec<std::string::String>,
 
     /// How much diversity to use in recommendation model results e.g.
@@ -19160,6 +19503,7 @@ pub struct ServingConfig {
     /// [google.cloud.retail.v2.ServingConfig.solution_types]: crate::model::ServingConfig::solution_types
     /// [google.cloud.retail.v2.SolutionType.SOLUTION_TYPE_RECOMMENDATION]: crate::model::SolutionType::Recommendation
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub diversity_level: std::string::String,
 
     /// What kind of diversity to use - data driven or rule based. If unset, the
@@ -19168,6 +19512,7 @@ pub struct ServingConfig {
     ///
     /// [google.cloud.retail.v2.ServingConfig.DiversityType.RULE_BASED_DIVERSITY]: crate::model::serving_config::DiversityType::RuleBasedDiversity
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub diversity_type: crate::model::serving_config::DiversityType,
 
     /// Whether to add additional category filters on the `similar-items` model.
@@ -19188,11 +19533,13 @@ pub struct ServingConfig {
     /// [google.cloud.retail.v2.ServingConfig.solution_types]: crate::model::ServingConfig::solution_types
     /// [google.cloud.retail.v2.SolutionType.SOLUTION_TYPE_RECOMMENDATION]: crate::model::SolutionType::Recommendation
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub enable_category_filter_level: std::string::String,
 
     /// When the flag is enabled, the products in the denylist will not be filtered
     /// out in the recommendation filtering results.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub ignore_recs_denylist: bool,
 
     /// The specification for personalization spec.
@@ -19221,6 +19568,7 @@ pub struct ServingConfig {
     /// Required. Immutable. Specifies the solution types that a serving config can
     /// be associated with. Currently we support setting only one type of solution.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub solution_types: std::vec::Vec<crate::model::SolutionType>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -19591,6 +19939,7 @@ pub struct CreateServingConfigRequest {
     /// Required. Full resource name of parent. Format:
     /// `projects/{project_number}/locations/{location_id}/catalogs/{catalog_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The ServingConfig to create.
@@ -19603,6 +19952,7 @@ pub struct CreateServingConfigRequest {
     /// This value should be 4-63 characters, and valid characters
     /// are /[a-z][0-9]-_/.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub serving_config_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -19738,6 +20088,7 @@ pub struct DeleteServingConfigRequest {
     /// Required. The resource name of the ServingConfig to delete. Format:
     /// `projects/{project_number}/locations/{location_id}/catalogs/{catalog_id}/servingConfigs/{serving_config_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -19771,6 +20122,7 @@ pub struct GetServingConfigRequest {
     /// Required. The resource name of the ServingConfig to get. Format:
     /// `projects/{project_number}/locations/{location_id}/catalogs/{catalog_id}/servingConfigs/{serving_config_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -19804,18 +20156,20 @@ pub struct ListServingConfigsRequest {
     /// Required. The catalog resource name. Format:
     /// `projects/{project_number}/locations/{location_id}/catalogs/{catalog_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. Maximum number of results to return. If unspecified, defaults
     /// to 100. If a value greater than 100 is provided, at most 100 results are
     /// returned.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous `ListServingConfigs` call.
     /// Provide this to retrieve the subsequent page.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -19860,10 +20214,12 @@ impl wkt::message::Message for ListServingConfigsRequest {
 pub struct ListServingConfigsResponse {
     /// All the ServingConfigs for a given catalog.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub serving_configs: std::vec::Vec<crate::model::ServingConfig>,
 
     /// Pagination token, if not returned indicates the last page.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -19922,11 +20278,13 @@ pub struct AddControlRequest {
     /// Required. The source ServingConfig resource name . Format:
     /// `projects/{project_number}/locations/{location_id}/catalogs/{catalog_id}/servingConfigs/{serving_config_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub serving_config: std::string::String,
 
     /// Required. The id of the control to apply. Assumed to be in the same catalog
     /// as the serving config - if id is not found a NOT_FOUND error is returned.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub control_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -19966,11 +20324,13 @@ pub struct RemoveControlRequest {
     /// Required. The source ServingConfig resource name . Format:
     /// `projects/{project_number}/locations/{location_id}/catalogs/{catalog_id}/servingConfigs/{serving_config_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub serving_config: std::string::String,
 
     /// Required. The id of the control to apply. Assumed to be in the same catalog
     /// as the serving config.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub control_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -20020,6 +20380,7 @@ pub struct UserEvent {
     /// * `search`: Product search.
     /// * `shopping-cart-page-view`: User viewing a shopping cart.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub event_type: std::string::String,
 
     /// Required. A unique identifier for tracking visitors.
@@ -20040,6 +20401,7 @@ pub struct UserEvent {
     /// ID](https://developers.google.com/analytics/devguides/collection/analyticsjs/field-reference#clientId)
     /// for this field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub visitor_id: std::string::String,
 
     /// A unique identifier for tracking a visitor session with a length limit of
@@ -20052,6 +20414,7 @@ pub struct UserEvent {
     /// . The session_id should be unique across users, suggest use uuid or add
     ///   visitor_id as prefix.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub session_id: std::string::String,
 
     /// Only required for
@@ -20067,6 +20430,7 @@ pub struct UserEvent {
     /// different experiment setups (e.g. using Retail API, using different
     /// recommendation models).
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub experiment_ids: std::vec::Vec<std::string::String>,
 
     /// Highly recommended for user events that are the result of
@@ -20098,6 +20462,7 @@ pub struct UserEvent {
     /// [google.cloud.retail.v2.SearchResponse.attribution_token]: crate::model::SearchResponse::attribution_token
     /// [google.cloud.retail.v2.SearchService.Search]: crate::client::SearchService::search
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub attribution_token: std::string::String,
 
     /// The main product details related to the event.
@@ -20118,6 +20483,7 @@ pub struct UserEvent {
     ///
     /// [google.cloud.retail.v2.UserEvent.product_details]: crate::model::UserEvent::product_details
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub product_details: std::vec::Vec<crate::model::ProductDetail>,
 
     /// The main auto-completion details related to the event.
@@ -20151,6 +20517,7 @@ pub struct UserEvent {
     /// at the site by coming to the site directly, coming through Google
     /// search, or in other ways.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub attributes: std::collections::HashMap<std::string::String, crate::model::CustomAttribute>,
 
     /// The ID or name of the associated shopping cart. This ID is used
@@ -20159,6 +20526,7 @@ pub struct UserEvent {
     /// This can only be set for `add-to-cart`, `purchase-complete`, or
     /// `shopping-cart-page-view` events.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub cart_id: std::string::String,
 
     /// A transaction represents the entire purchase transaction.
@@ -20186,6 +20554,7 @@ pub struct UserEvent {
     /// [google.cloud.retail.v2.UserEvent.page_categories]: crate::model::UserEvent::page_categories
     /// [google.cloud.retail.v2.UserEvent.search_query]: crate::model::UserEvent::search_query
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub search_query: std::string::String,
 
     /// The filter syntax consists of an expression language for constructing a
@@ -20199,6 +20568,7 @@ pub struct UserEvent {
     ///
     /// [google.cloud.retail.v2.SearchRequest.filter]: crate::model::SearchRequest::filter
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// The order in which products are returned.
@@ -20214,6 +20584,7 @@ pub struct UserEvent {
     ///
     /// [google.cloud.retail.v2.SearchRequest.order_by]: crate::model::SearchRequest::order_by
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     /// An integer that specifies the current offset for pagination (the 0-indexed
@@ -20229,7 +20600,7 @@ pub struct UserEvent {
     ///
     /// [google.cloud.retail.v2.SearchRequest.offset]: crate::model::SearchRequest::offset
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub offset: i32,
 
     /// The categories associated with a category page.
@@ -20251,6 +20622,7 @@ pub struct UserEvent {
     /// [google.cloud.retail.v2.UserEvent.page_categories]: crate::model::UserEvent::page_categories
     /// [google.cloud.retail.v2.UserEvent.search_query]: crate::model::UserEvent::search_query
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub page_categories: std::vec::Vec<std::string::String>,
 
     /// User information.
@@ -20263,6 +20635,7 @@ pub struct UserEvent {
     /// Tag Manager, this value is filled in automatically. Maximum length 5,000
     /// characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub uri: std::string::String,
 
     /// The referrer URL of the current page.
@@ -20270,6 +20643,7 @@ pub struct UserEvent {
     /// When using the client side event reporting with JavaScript pixel and Google
     /// Tag Manager, this value is filled in automatically.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub referrer_uri: std::string::String,
 
     /// A unique ID of a web page view.
@@ -20283,6 +20657,7 @@ pub struct UserEvent {
     /// When using the client side event reporting with JavaScript pixel and Google
     /// Tag Manager, this value is filled in automatically.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_view_id: std::string::String,
 
     /// The entity for customers that may run multiple different entities, domains,
@@ -20291,6 +20666,7 @@ pub struct UserEvent {
     /// We recommend that you set this field to get better per-entity search,
     /// completion, and prediction results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub entity: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -20610,6 +20986,7 @@ pub struct CompletionDetail {
     ///
     /// [google.cloud.retail.v2.CompleteQueryResponse.attribution_token]: crate::model::CompleteQueryResponse::attribution_token
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub completion_attribution_token: std::string::String,
 
     /// End user selected
@@ -20617,6 +20994,7 @@ pub struct CompletionDetail {
     ///
     /// [google.cloud.retail.v2.CompleteQueryResponse.CompletionResult.suggestion]: crate::model::complete_query_response::CompletionResult::suggestion
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub selected_suggestion: std::string::String,
 
     /// End user selected
@@ -20625,7 +21003,7 @@ pub struct CompletionDetail {
     ///
     /// [google.cloud.retail.v2.CompleteQueryResponse.CompletionResult.suggestion]: crate::model::complete_query_response::CompletionResult::suggestion
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub selected_position: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -20676,6 +21054,7 @@ impl wkt::message::Message for CompletionDetail {
 pub struct PurchaseTransaction {
     /// The transaction ID with a length limit of 128 characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub id: std::string::String,
 
     /// Required. Total non-zero revenue or grand total associated with the
@@ -20683,12 +21062,12 @@ pub struct PurchaseTransaction {
     /// total revenue that you want to include as part of your revenue
     /// calculations.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub revenue: f32,
 
     /// All the taxes associated with the transaction.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub tax: f32,
 
     /// All the costs associated with the products. These can be manufacturing
@@ -20703,11 +21082,12 @@ pub struct PurchaseTransaction {
     /// [google.cloud.retail.v2.PurchaseTransaction.revenue]: crate::model::PurchaseTransaction::revenue
     /// [google.cloud.retail.v2.PurchaseTransaction.tax]: crate::model::PurchaseTransaction::tax
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub cost: f32,
 
     /// Required. Currency code. Use three-character ISO-4217 code.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub currency_code: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -20765,6 +21145,7 @@ pub struct WriteUserEventRequest {
     /// Required. The parent catalog resource name, such as
     /// `projects/1234/locations/global/catalogs/default_catalog`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. User event to write.
@@ -20776,6 +21157,7 @@ pub struct WriteUserEventRequest {
     /// Therefore, silent failures can occur even if the API returns success. In
     /// case of silent failures, error messages can be found in Stackdriver logs.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub write_async: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -20833,11 +21215,13 @@ pub struct CollectUserEventRequest {
     /// Required. The parent catalog name, such as
     /// `projects/1234/locations/global/catalogs/default_catalog`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. URL encoded UserEvent proto with a length limit of 2,000,000
     /// characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub user_event: std::string::String,
 
     /// The URL including cgi-parameters but excluding the hash fragment with a
@@ -20845,13 +21229,14 @@ pub struct CollectUserEventRequest {
     /// referer URL, because many browsers only send the domain for 3rd party
     /// requests.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub uri: std::string::String,
 
     /// The event timestamp in milliseconds. This prevents browser caching of
     /// otherwise identical get requests. The name is abbreviated to reduce the
     /// payload bytes.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub ets: i64,
 
     /// An arbitrary serialized JSON string that contains necessary information
@@ -20859,6 +21244,7 @@ pub struct CollectUserEventRequest {
     /// user_event field will be ignored. Note: line-delimited JSON is not
     /// supported, a single JSON only.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub raw_json: std::string::String,
 
     /// The rule that can convert the raw_json to a user event. It is needed
@@ -20968,7 +21354,7 @@ pub mod collect_user_event_request {
     pub enum ConversionRule {
         /// The prebuilt rule name that can convert a specific type of raw_json.
         /// For example: "ga4_bq" rule for the GA4 user event schema.
-        PrebuiltRule(std::string::String),
+        PrebuiltRule(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
     }
 }
 
@@ -20981,6 +21367,7 @@ pub struct RejoinUserEventsRequest {
     /// Required. The parent catalog resource name, such as
     /// `projects/1234/locations/global/catalogs/default_catalog`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The type of the user event rejoin to define the scope and range of the user
@@ -20988,6 +21375,7 @@ pub struct RejoinUserEventsRequest {
     /// `USER_EVENT_REJOIN_SCOPE_UNSPECIFIED` if this field is not set, or set to
     /// an invalid integer value.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub user_event_rejoin_scope: crate::model::rejoin_user_events_request::UserEventRejoinScope,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -21178,7 +21566,7 @@ pub mod rejoin_user_events_request {
 pub struct RejoinUserEventsResponse {
     /// Number of user events that were joined with latest product catalog.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub rejoined_user_events_count: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

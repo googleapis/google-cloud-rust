@@ -45,16 +45,19 @@ pub struct Workflow {
     /// Format: projects/{project}/locations/{location}/workflows/{workflow}.
     /// This is a workflow-wide field and is not tied to a specific revision.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Description of the workflow provided by the user.
     /// Must be at most 1000 Unicode characters long.
     /// This is a workflow-wide field and is not tied to a specific revision.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Output only. State of the workflow deployment.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::workflow::State,
 
     /// Output only. The revision of the workflow.
@@ -72,6 +75,7 @@ pub struct Workflow {
     /// [google.cloud.workflows.v1.Workflow.service_account]: crate::model::Workflow::service_account
     /// [google.cloud.workflows.v1.Workflow.source_contents]: crate::model::Workflow::source_code
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub revision_id: std::string::String,
 
     /// Output only. The timestamp for when the workflow was created.
@@ -96,6 +100,7 @@ pub struct Workflow {
     /// International characters are allowed.
     /// This is a workflow-wide field and is not tied to a specific revision.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// The service account associated with the latest workflow version.
@@ -111,6 +116,7 @@ pub struct Workflow {
     /// Modifying this field for an existing workflow results in a new workflow
     /// revision.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub service_account: std::string::String,
 
     /// Optional. The resource name of a KMS crypto key used to encrypt or decrypt
@@ -125,6 +131,7 @@ pub struct Workflow {
     /// If not provided, data associated with the workflow will not be
     /// CMEK-encrypted.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub crypto_key_name: std::string::String,
 
     /// Output only. Error regarding the state of the workflow. For example, this
@@ -138,6 +145,7 @@ pub struct Workflow {
     /// the execution specify a logging level, the execution level takes
     /// precedence.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub call_log_level: crate::model::workflow::CallLogLevel,
 
     /// Optional. User-defined environment variables associated with this workflow
@@ -145,20 +153,24 @@ pub struct Workflow {
     /// 4KiB. Keys cannot be empty strings and cannot start with "GOOGLE" or
     /// "WORKFLOWS".
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub user_env_vars: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Optional. Describes the execution history level to apply to this workflow.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub execution_history_level: crate::model::ExecutionHistoryLevel,
 
     /// Output only. A list of all KMS crypto keys used to encrypt or decrypt the
     /// data associated with the workflow.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub all_kms_keys: std::vec::Vec<std::string::String>,
 
     /// Output only. A list of all KMS crypto key versions used to encrypt or
     /// decrypt the data associated with the workflow.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub all_kms_keys_versions: std::vec::Vec<std::string::String>,
 
     /// Output only. The resource name of a KMS crypto key version used to encrypt
@@ -167,10 +179,12 @@ pub struct Workflow {
     /// Format:
     /// projects/{project}/locations/{location}/keyRings/{keyRing}/cryptoKeys/{cryptoKey}/cryptoKeyVersions/{cryptoKeyVersion}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub crypto_key_version: std::string::String,
 
     /// Optional. Input only. Immutable. Tags associated with this workflow.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub tags: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Required. Location of the workflow source code.
@@ -439,11 +453,13 @@ pub mod workflow {
     pub struct StateError {
         /// Provides specifics about the error.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub details: std::string::String,
 
         /// The type of this state error.
         #[serde(rename = "type")]
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub r#type: crate::model::workflow::state_error::Type,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -893,7 +909,7 @@ pub mod workflow {
     #[non_exhaustive]
     pub enum SourceCode {
         /// Workflow code to be executed. The size limit is 128KB.
-        SourceContents(std::string::String),
+        SourceContents(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
     }
 }
 
@@ -910,6 +926,7 @@ pub struct ListWorkflowsRequest {
     /// Required. Project and location from which the workflows should be listed.
     /// Format: projects/{project}/locations/{location}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Maximum number of workflows to return per call. The service might return
@@ -917,7 +934,7 @@ pub struct ListWorkflowsRequest {
     /// is not specified, a default value of 500 is used. The maximum permitted
     /// value is 1000 and values greater than 1000 are coerced down to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListWorkflows` call.
@@ -926,6 +943,7 @@ pub struct ListWorkflowsRequest {
     /// When paginating, all other parameters provided to `ListWorkflows` must
     /// match the call that provided the page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Filter to restrict results to specific workflows.
@@ -940,6 +958,7 @@ pub struct ListWorkflowsRequest {
     ///
     /// `createTime>"2023-08-01" AND state="FAILED"`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Comma-separated list of fields that specify the order of the results.
@@ -947,6 +966,7 @@ pub struct ListWorkflowsRequest {
     /// for a field, append a "desc" suffix.
     /// If not specified, the results are returned in an unspecified order.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1007,15 +1027,18 @@ impl wkt::message::Message for ListWorkflowsRequest {
 pub struct ListWorkflowsResponse {
     /// The workflows that match the request.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub workflows: std::vec::Vec<crate::model::Workflow>,
 
     /// A token, which can be sent as `page_token` to retrieve the next page.
     /// If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// Unreachable resources.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1088,6 +1111,7 @@ pub struct GetWorkflowRequest {
     /// Required. Name of the workflow for which information should be retrieved.
     /// Format: projects/{project}/locations/{location}/workflows/{workflow}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. The revision of the workflow to retrieve. If the revision_id is
@@ -1096,6 +1120,7 @@ pub struct GetWorkflowRequest {
     /// the zero-padded decimal revision number. They are followed by a hyphen and
     /// three hexadecimal characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub revision_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1139,6 +1164,7 @@ pub struct CreateWorkflowRequest {
     /// Required. Project and location in which the workflow should be created.
     /// Format:  projects/{project}/locations/{location}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. Workflow to be created.
@@ -1154,6 +1180,7 @@ pub struct CreateWorkflowRequest {
     /// * Must end with a number or a letter.
     /// * Must be unique within the customer project and location.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub workflow_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1215,6 +1242,7 @@ pub struct DeleteWorkflowRequest {
     /// Required. Name of the workflow to be deleted.
     /// Format: projects/{project}/locations/{location}/workflows/{workflow}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1326,14 +1354,17 @@ pub struct OperationMetadata {
 
     /// Server-defined resource path for the target of the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub target: std::string::String,
 
     /// Name of the verb executed by the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub verb: std::string::String,
 
     /// API version used to start the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub api_version: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1419,18 +1450,20 @@ pub struct ListWorkflowRevisionsRequest {
     /// Required. Workflow for which the revisions should be listed.
     /// Format: projects/{project}/locations/{location}/workflows/{workflow}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The maximum number of revisions to return per page. If a value is not
     /// specified, a default value of 20 is used. The maximum permitted value is
     /// 100. Values greater than 100 are coerced down to 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// The page token, received from a previous ListWorkflowRevisions call.
     /// Provide this to retrieve the subsequent page.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1479,11 +1512,13 @@ impl wkt::message::Message for ListWorkflowRevisionsRequest {
 pub struct ListWorkflowRevisionsResponse {
     /// The revisions of the workflow, ordered in reverse chronological order.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub workflows: std::vec::Vec<crate::model::Workflow>,
 
     /// A token, which can be sent as `page_token` to retrieve the next page.
     /// If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

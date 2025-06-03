@@ -103,6 +103,7 @@ pub struct DriveExtensionPoint {
     /// Required. The endpoint to execute when this extension point is
     /// activated.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub run_function: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

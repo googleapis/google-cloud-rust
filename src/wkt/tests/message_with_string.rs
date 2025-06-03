@@ -40,7 +40,7 @@ mod test {
 
     #[test_case(json!({}))]
     #[test_case(json!({"singular": ""}))]
-    // TODO(#2349) - #[test_cast(json!({"singular": null}))]
+    #[test_case(json!({"singular": null}))]
     fn test_singular_default(input: Value) -> Result {
         let want = MessageWithString::new().set_singular("");
         let got = serde_json::from_value::<MessageWithString>(input)?;
@@ -85,7 +85,7 @@ mod test {
 
     #[test_case(json!({}))]
     #[test_case(json!({"repeated": []}))]
-    // TODO(#2349) - #[test_case(json!({"repeated": null}))]
+    #[test_case(json!({"repeated": null}))]
     fn test_repeated_default(input: Value) -> Result {
         let want = MessageWithString::new();
         let got = serde_json::from_value::<MessageWithString>(input)?;
@@ -109,7 +109,7 @@ mod test {
 
     #[test_case(json!({}))]
     #[test_case(json!({"mapValue": {}}))]
-    // TODO(#2349) - #[test_case(json!({"mapValue": null}))]
+    #[test_case(json!({"mapValue": null}))]
     fn test_map_value_default(input: Value) -> Result {
         let want = MessageWithString::default();
         let got = serde_json::from_value::<MessageWithString>(input)?;
@@ -133,7 +133,7 @@ mod test {
 
     #[test_case(json!({}))]
     #[test_case(json!({"mapKey": {}}))]
-    // TODO(#2349) - #[test_case(json!({"mapKey": null}))]
+    #[test_case(json!({"mapKey": null}))]
     fn test_map_key_default(input: Value) -> Result {
         let want = MessageWithString::default();
         let got = serde_json::from_value::<MessageWithString>(input)?;
@@ -160,7 +160,7 @@ mod test {
 
     #[test_case(json!({}))]
     #[test_case(json!({"mapKeyValue": {}}))]
-    // TODO(#2349) - #[test_case(json!({"mapKeyValue": null}))]
+    #[test_case(json!({"mapKeyValue": null}))]
     fn test_map_key_value_default(input: Value) -> Result {
         let want = MessageWithString::default();
         let got = serde_json::from_value::<MessageWithString>(input)?;

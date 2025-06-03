@@ -40,13 +40,14 @@ pub struct ListConnectionsRequest {
     /// Required. Parent name of the form:
     /// `projects/{project_number or project_id}/endpoints/{endpoint}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The maximum number of connections to return. The service may return fewer
     /// than this value. If unspecified, at most 100 connections will be returned.
     /// The maximum value is 1000; values above 1000 will be coerced to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListConnections` call.
@@ -55,6 +56,7 @@ pub struct ListConnectionsRequest {
     /// When paginating, all other parameters provided to `ListConnections` must
     /// match the call that provided the page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -100,11 +102,13 @@ impl wkt::message::Message for ListConnectionsRequest {
 pub struct ListConnectionsResponse {
     /// A list of clients.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub connections: std::vec::Vec<crate::model::Connection>,
 
     /// A token that can be sent as `page_token` to retrieve the next page.
     /// If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -162,6 +166,7 @@ pub struct Connection {
     /// The endpoint that the connection is made against.
     /// Format: `projects/{project_number}/endpoints/{endpoint}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub endpoint: std::string::String,
 
     /// Cluster information.
@@ -170,7 +175,7 @@ pub struct Connection {
 
     /// The count of streams.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub stream_count: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -226,10 +231,12 @@ impl wkt::message::Message for Connection {
 pub struct Cluster {
     /// The name of the cluster.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The region of the cluster.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub region: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -268,6 +275,7 @@ impl wkt::message::Message for Cluster {
 pub struct EgressRequest {
     /// Unique identifier for the request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub id: std::string::String,
 
     /// Actual payload to send to agent.
@@ -276,15 +284,18 @@ pub struct EgressRequest {
 
     /// Tether Endpoint.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub endpoint: crate::model::TetherEndpoint,
 
     /// GCP Project.
     /// Format: `projects/{project_number}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub project: std::string::String,
 
     /// Unique identifier for clients to trace their request/response.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub trace_id: std::string::String,
 
     /// Timeout for the HTTP request.
@@ -493,7 +504,7 @@ pub mod payload {
         /// The information of stream.
         StreamInfo(std::boxed::Box<crate::model::StreamInfo>),
         /// The action taken by agent.
-        Action(crate::model::Action),
+        Action(#[serde_as(as = "serde_with::DefaultOnNull<_>")] crate::model::Action),
     }
 }
 
@@ -505,6 +516,7 @@ pub mod payload {
 pub struct StreamInfo {
     /// Unique identifier for the stream.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -537,6 +549,7 @@ impl wkt::message::Message for StreamInfo {
 pub struct EgressResponse {
     /// Unique identifier for the response. Matches the EgressRequest's id.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub id: std::string::String,
 
     /// HttpResponse.
@@ -550,20 +563,24 @@ pub struct EgressResponse {
     /// GCP Project.
     /// Format: `projects/{project_number}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub project: std::string::String,
 
     /// Unique identifier for clients to trace their request/response. Matches the
     /// EgressRequest's trace id
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub trace_id: std::string::String,
 
     /// Tether Endpoint.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub endpoint: crate::model::TetherEndpoint,
 
     /// Name is the full resource path of endpoint.
     /// Format: `projects/{project_number or project_id}/endpoints/{endpoint}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -659,11 +676,13 @@ impl wkt::message::Message for EgressResponse {
 pub struct HttpRequest {
     /// A unique identifier for the request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub id: std::string::String,
 
     /// The HTTP request method.
     /// Valid methods: "GET", "HEAD", "POST", "PUT", "PATCH","DELETE".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub method: std::string::String,
 
     /// The HTTP request URL.
@@ -672,11 +691,12 @@ pub struct HttpRequest {
 
     /// The HTTP request headers.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub headers: std::vec::Vec<crate::model::Header>,
 
     /// HTTP request body.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub body: ::bytes::Bytes,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -755,14 +775,17 @@ impl wkt::message::Message for HttpRequest {
 pub struct Url {
     /// Scheme.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub scheme: crate::model::Scheme,
 
     /// Host or Host:Port.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub host: std::string::String,
 
     /// Path starts with `/`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub path: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -806,9 +829,11 @@ impl wkt::message::Message for Url {
 #[non_exhaustive]
 pub struct Header {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub key: std::string::String,
 
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub values: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -852,24 +877,27 @@ impl wkt::message::Message for Header {
 pub struct HttpResponse {
     /// A unique identifier that matches the request ID.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub id: std::string::String,
 
     /// Status of http response, e.g. "200 OK".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub status: std::string::String,
 
     /// Status code of http response, e.g. 200.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub status_code: i32,
 
     /// The HTTP 1.1 response body.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub body: ::bytes::Bytes,
 
     /// The HTTP response headers.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub headers: std::vec::Vec<crate::model::Header>,
 
     /// Content length records the length of the associated content. The
@@ -877,7 +905,7 @@ pub struct HttpResponse {
     /// is "HEAD", values >= 0 indicate that the given number of bytes may
     /// be read from Body.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub content_length: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

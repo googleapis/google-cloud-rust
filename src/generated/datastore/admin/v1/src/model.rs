@@ -49,15 +49,18 @@ pub struct CommonMetadata {
     /// The type of the operation. Can be used as a filter in
     /// ListOperationsRequest.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub operation_type: crate::model::OperationType,
 
     /// The client-assigned labels which were provided when the operation was
     /// created. May also include additional labels.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// The current state of the Operation.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::common_metadata::State,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -326,13 +329,13 @@ pub struct Progress {
     /// The amount of work that has been completed. Note that this may be greater
     /// than work_estimated.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub work_completed: i64,
 
     /// An estimate of how much work needs to be performed. May be zero if the
     /// work estimate is unavailable.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub work_estimated: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -374,10 +377,12 @@ impl wkt::message::Message for Progress {
 pub struct ExportEntitiesRequest {
     /// Required. Project ID against which to make the request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub project_id: std::string::String,
 
     /// Client-assigned labels.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Description of what data from the project is included in the export.
@@ -405,6 +410,7 @@ pub struct ExportEntitiesRequest {
     ///
     /// [google.datastore.admin.v1.ExportEntitiesResponse.output_url]: crate::model::ExportEntitiesResponse::output_url
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub output_url_prefix: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -479,10 +485,12 @@ impl wkt::message::Message for ExportEntitiesRequest {
 pub struct ImportEntitiesRequest {
     /// Required. Project ID against which to make the request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub project_id: std::string::String,
 
     /// Client-assigned labels.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Required. The full resource URL of the external storage location.
@@ -502,6 +510,7 @@ pub struct ImportEntitiesRequest {
     ///
     /// [google.datastore.admin.v1.ExportEntitiesResponse.output_url]: crate::model::ExportEntitiesResponse::output_url
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub input_url: std::string::String,
 
     /// Optionally specify which kinds/namespaces are to be imported. If provided,
@@ -585,6 +594,7 @@ pub struct ExportEntitiesResponse {
     ///
     /// [google.datastore.admin.v1.ImportEntitiesRequest.input_url]: crate::model::ImportEntitiesRequest::input_url
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub output_url: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -640,6 +650,7 @@ pub struct ExportEntitiesMetadata {
     /// [google.datastore.admin.v1.ExportEntitiesRequest.output_url_prefix]: crate::model::ExportEntitiesRequest::output_url_prefix
     /// [google.datastore.admin.v1.ExportEntitiesResponse.output_url]: crate::model::ExportEntitiesResponse::output_url
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub output_url_prefix: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -768,6 +779,7 @@ pub struct ImportEntitiesMetadata {
     ///
     /// [google.datastore.admin.v1.ExportEntitiesResponse.output_url]: crate::model::ExportEntitiesResponse::output_url
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub input_url: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -890,6 +902,7 @@ impl wkt::message::Message for ImportEntitiesMetadata {
 pub struct EntityFilter {
     /// If empty, then this represents all kinds.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub kinds: std::vec::Vec<std::string::String>,
 
     /// An empty list represents all namespaces. This is the preferred
@@ -900,6 +913,7 @@ pub struct EntityFilter {
     /// include them.
     /// Each namespace in this list must be unique.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub namespace_ids: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -951,6 +965,7 @@ impl wkt::message::Message for EntityFilter {
 pub struct CreateIndexRequest {
     /// Project ID against which to make the request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub project_id: std::string::String,
 
     /// The index to create. The name and state fields are output only and will be
@@ -1009,10 +1024,12 @@ impl wkt::message::Message for CreateIndexRequest {
 pub struct DeleteIndexRequest {
     /// Project ID against which to make the request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub project_id: std::string::String,
 
     /// The resource ID of the index to delete.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub index_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1054,10 +1071,12 @@ impl wkt::message::Message for DeleteIndexRequest {
 pub struct GetIndexRequest {
     /// Project ID against which to make the request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub project_id: std::string::String,
 
     /// The resource ID of the index to get.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub index_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1099,19 +1118,22 @@ impl wkt::message::Message for GetIndexRequest {
 pub struct ListIndexesRequest {
     /// Project ID against which to make the request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub project_id: std::string::String,
 
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// The maximum number of items to return.  If zero, then all results will be
     /// returned.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous List request, if any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1165,10 +1187,12 @@ impl wkt::message::Message for ListIndexesRequest {
 pub struct ListIndexesResponse {
     /// The indexes.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub indexes: std::vec::Vec<crate::model::Index>,
 
     /// The standard List next-page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1234,6 +1258,7 @@ pub struct IndexOperationMetadata {
 
     /// The index resource ID that this operation is acting on.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub index_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1310,11 +1335,13 @@ pub struct DatastoreFirestoreMigrationMetadata {
     /// The current state of migration from Cloud Datastore to Cloud Firestore in
     /// Datastore mode.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub migration_state: crate::model::MigrationState,
 
     /// The current step of migration from Cloud Datastore to Cloud Firestore in
     /// Datastore mode.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub migration_step: crate::model::MigrationStep,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1359,19 +1386,23 @@ impl wkt::message::Message for DatastoreFirestoreMigrationMetadata {
 pub struct Index {
     /// Output only. Project ID.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub project_id: std::string::String,
 
     /// Output only. The resource ID of the index.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub index_id: std::string::String,
 
     /// Required. The entity kind to which this index applies.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub kind: std::string::String,
 
     /// Required. The index's ancestor mode.  Must not be
     /// ANCESTOR_MODE_UNSPECIFIED.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub ancestor: crate::model::index::AncestorMode,
 
     /// Required. An ordered sequence of property names and their index attributes.
@@ -1380,10 +1411,12 @@ pub struct Index {
     ///
     /// * A maximum of 100 properties.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub properties: std::vec::Vec<crate::model::index::IndexedProperty>,
 
     /// Output only. The state of the index.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::index::State,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1459,11 +1492,13 @@ pub mod index {
     pub struct IndexedProperty {
         /// Required. The property name to index.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub name: std::string::String,
 
         /// Required. The indexed property's direction.  Must not be
         /// DIRECTION_UNSPECIFIED.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub direction: crate::model::index::Direction,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1934,6 +1969,7 @@ pub mod index {
 pub struct MigrationStateEvent {
     /// The new state of the migration.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::MigrationState,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1971,6 +2007,7 @@ pub struct MigrationProgressEvent {
     /// An event with step set to `START` indicates that the migration
     /// has been reverted back to the initial pre-migration state.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub step: crate::model::MigrationStep,
 
     /// Details about this step.
@@ -2103,6 +2140,7 @@ pub mod migration_progress_event {
         /// The concurrency mode this database will use when it reaches the
         /// `REDIRECT_WRITES` step.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub concurrency_mode: crate::model::migration_progress_event::ConcurrencyMode,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2140,6 +2178,7 @@ pub mod migration_progress_event {
     pub struct RedirectWritesStepDetails {
         /// Ths concurrency mode for this database.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub concurrency_mode: crate::model::migration_progress_event::ConcurrencyMode,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

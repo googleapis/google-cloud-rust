@@ -43,6 +43,7 @@ pub struct Reservation {
     /// dashes. It must start with a letter and must not end with a dash. Its
     /// maximum length is 64 characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Baseline slots available to this reservation. A slot is a unit of
@@ -60,7 +61,7 @@ pub struct Reservation {
     /// slots exceed your committed slots. Otherwise, you can decrease your
     /// baseline slots every few minutes.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub slot_capacity: i64,
 
     /// If false, any query or pipeline job using this reservation will use idle
@@ -68,6 +69,7 @@ pub struct Reservation {
     /// query or pipeline job using this reservation will execute with the slot
     /// capacity specified in the slot_capacity field at most.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub ignore_idle_slots: bool,
 
     /// The configuration parameters for the auto scaling feature.
@@ -83,7 +85,7 @@ pub struct Reservation {
     /// NOTE: this field is exposed as target job concurrency in the Information
     /// Schema, DDL and BigQuery CLI.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub concurrency: i64,
 
     /// Output only. Creation time of the reservation.
@@ -104,16 +106,19 @@ pub struct Reservation {
     /// NOTE: this is a preview feature. Project must be allow-listed in order to
     /// set this field.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub multi_region_auxiliary: bool,
 
     /// Edition of the reservation.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub edition: crate::model::Edition,
 
     /// Output only. The current location of the reservation's primary replica.
     /// This field is only set for reservations using the managed disaster recovery
     /// feature.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub primary_location: std::string::String,
 
     /// Optional. The current location of the reservation's secondary replica. This
@@ -122,12 +127,14 @@ pub struct Reservation {
     /// to create a failover reservation or in update reservation calls to convert
     /// a non-failover reservation to a failover reservation(or vice versa).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub secondary_location: std::string::String,
 
     /// Output only. The location where the reservation was originally created.
     /// This is set only during the failover reservation's creation. All billing
     /// charges for the failover reservation will be applied to this location.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub original_primary_location: std::string::String,
 
     /// Output only. The Disaster Recovery(DR) replication status of the
@@ -309,12 +316,12 @@ pub mod reservation {
         /// current_slots may stay in the original value and could be larger than
         /// max_slots for that brief period (less than one minute)
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I64")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
         pub current_slots: i64,
 
         /// Number of slots to be scaled when needed.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I64")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
         pub max_slots: i64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -460,19 +467,22 @@ pub struct CapacityCommitment {
     /// dashes. It must start with a letter and must not end
     /// with a dash. Its maximum length is 64 characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Number of slots in this commitment.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub slot_count: i64,
 
     /// Capacity commitment commitment plan.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub plan: crate::model::capacity_commitment::CommitmentPlan,
 
     /// Output only. State of the commitment.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::capacity_commitment::State,
 
     /// Output only. The start of the current commitment period. It is applicable
@@ -498,6 +508,7 @@ pub struct CapacityCommitment {
     /// passes. Once the plan is changed, committed period is extended according to
     /// commitment plan. Only applicable for ANNUAL and TRIAL commitments.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub renewal_plan: crate::model::capacity_commitment::CommitmentPlan,
 
     /// Applicable only for commitments located within one of the BigQuery
@@ -510,15 +521,18 @@ pub struct CapacityCommitment {
     /// NOTE: this is a preview feature. Project must be allow-listed in order to
     /// set this field.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub multi_region_auxiliary: bool,
 
     /// Edition of the capacity commitment.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub edition: crate::model::Edition,
 
     /// Output only. If true, the commitment is a flat-rate commitment, otherwise,
     /// it's an edition commitment.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub is_flat_rate: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1016,12 +1030,14 @@ pub struct CreateReservationRequest {
     /// Required. Project, location. E.g.,
     /// `projects/myproject/locations/US`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The reservation ID. It must only contain lower case alphanumeric
     /// characters or dashes. It must start with a letter and must not end
     /// with a dash. Its maximum length is 64 characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub reservation_id: std::string::String,
 
     /// Definition of the new reservation to create.
@@ -1086,15 +1102,17 @@ pub struct ListReservationsRequest {
     /// Required. The parent resource name containing project and location, e.g.:
     /// `projects/myproject/locations/US`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The maximum number of items to return per page.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous List request, if any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1142,11 +1160,13 @@ impl wkt::message::Message for ListReservationsRequest {
 pub struct ListReservationsResponse {
     /// List of reservations visible to the user.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub reservations: std::vec::Vec<crate::model::Reservation>,
 
     /// Token to retrieve the next page of results, or empty if there are no
     /// more results in the list.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1208,6 +1228,7 @@ pub struct GetReservationRequest {
     /// Required. Resource name of the reservation to retrieve. E.g.,
     /// `projects/myproject/locations/US/reservations/team1-prod`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1244,6 +1265,7 @@ pub struct DeleteReservationRequest {
     /// Required. Resource name of the reservation to retrieve. E.g.,
     /// `projects/myproject/locations/US/reservations/team1-prod`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1346,6 +1368,7 @@ pub struct FailoverReservationRequest {
     /// Required. Resource name of the reservation to failover. E.g.,
     /// `projects/myproject/locations/US/reservations/team1-prod`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1382,6 +1405,7 @@ pub struct CreateCapacityCommitmentRequest {
     /// Required. Resource name of the parent reservation. E.g.,
     /// `projects/myproject/locations/US`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Content of the capacity commitment to create.
@@ -1391,6 +1415,7 @@ pub struct CreateCapacityCommitmentRequest {
     /// If true, fail the request if another project in the organization has a
     /// capacity commitment.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub enforce_single_admin_project_per_org: bool,
 
     /// The optional capacity commitment ID. Capacity commitment name will be
@@ -1399,6 +1424,7 @@ pub struct CreateCapacityCommitmentRequest {
     /// The first and last character cannot be a dash. Max length is 64 characters.
     /// NOTE: this ID won't be kept if the capacity commitment is split or merged.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub capacity_commitment_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1471,15 +1497,17 @@ pub struct ListCapacityCommitmentsRequest {
     /// Required. Resource name of the parent reservation. E.g.,
     /// `projects/myproject/locations/US`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The maximum number of items to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous List request, if any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1527,11 +1555,13 @@ impl wkt::message::Message for ListCapacityCommitmentsRequest {
 pub struct ListCapacityCommitmentsResponse {
     /// List of capacity commitments visible to the user.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub capacity_commitments: std::vec::Vec<crate::model::CapacityCommitment>,
 
     /// Token to retrieve the next page of results, or empty if there are no
     /// more results in the list.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1593,6 +1623,7 @@ pub struct GetCapacityCommitmentRequest {
     /// Required. Resource name of the capacity commitment to retrieve. E.g.,
     /// `projects/myproject/locations/US/capacityCommitments/123`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1629,12 +1660,14 @@ pub struct DeleteCapacityCommitmentRequest {
     /// Required. Resource name of the capacity commitment to delete. E.g.,
     /// `projects/myproject/locations/US/capacityCommitments/123`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Can be used to force delete commitments even if assignments exist. Deleting
     /// commitments with assignments may cause queries to fail if they no longer
     /// have access to slots.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1746,11 +1779,12 @@ pub struct SplitCapacityCommitmentRequest {
     /// Required. The resource name e.g.,:
     /// `projects/myproject/locations/US/capacityCommitments/123`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Number of slots in the capacity commitment after the split.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub slot_count: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1862,6 +1896,7 @@ pub struct MergeCapacityCommitmentsRequest {
     /// Parent resource that identifies admin project and location e.g.,
     /// `projects/myproject/locations/us`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Ids of capacity commitments to merge.
@@ -1870,6 +1905,7 @@ pub struct MergeCapacityCommitmentsRequest {
     /// ID is the last portion of capacity commitment name e.g., 'abc' for
     /// projects/myproject/locations/US/capacityCommitments/abc
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub capacity_commitment_ids: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1917,19 +1953,23 @@ pub struct Assignment {
     /// The assignment_id must only contain lower case alphanumeric characters or
     /// dashes and the max length is 64 characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The resource which will use the reservation. E.g.
     /// `projects/myproject`, `folders/123`, or `organizations/456`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub assignee: std::string::String,
 
     /// Which type of jobs will use the reservation.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub job_type: crate::model::assignment::JobType,
 
     /// Output only. State of the assignment.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::assignment::State,
 
     /// Optional. This field controls if "Gemini in BigQuery"
@@ -1941,6 +1981,7 @@ pub struct Assignment {
     /// give the grantee project/organization access to "Gemini in BigQuery"
     /// features.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub enable_gemini_in_bigquery: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2306,6 +2347,7 @@ pub struct CreateAssignmentRequest {
     /// Required. The parent resource name of the assignment
     /// E.g. `projects/myproject/locations/US/reservations/team1-prod`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Assignment resource to create.
@@ -2317,6 +2359,7 @@ pub struct CreateAssignmentRequest {
     /// This field must only contain lower case alphanumeric characters or dashes.
     /// Max length is 64 characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub assignment_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2382,15 +2425,17 @@ pub struct ListAssignmentsRequest {
     ///
     /// `projects/myproject/locations/US/reservations/-`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The maximum number of items to return per page.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous List request, if any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2438,11 +2483,13 @@ impl wkt::message::Message for ListAssignmentsRequest {
 pub struct ListAssignmentsResponse {
     /// List of assignments visible to the user.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub assignments: std::vec::Vec<crate::model::Assignment>,
 
     /// Token to retrieve the next page of results, or empty if there are no
     /// more results in the list.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2506,6 +2553,7 @@ pub struct DeleteAssignmentRequest {
     /// Required. Name of the resource, e.g.
     /// `projects/myproject/locations/US/reservations/team1-prod/assignments/123`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2545,6 +2593,7 @@ pub struct SearchAssignmentsRequest {
     /// location), e.g.:
     /// `projects/myproject/locations/US`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Please specify resource name as assignee in the query.
@@ -2555,15 +2604,17 @@ pub struct SearchAssignmentsRequest {
     /// * `assignee=folders/123`
     /// * `assignee=organizations/456`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub query: std::string::String,
 
     /// The maximum number of items to return per page.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous List request, if any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2621,6 +2672,7 @@ pub struct SearchAllAssignmentsRequest {
     /// wildcard '-'), e.g.:
     /// `projects/-/locations/US`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Please specify resource name as assignee in the query.
@@ -2631,15 +2683,17 @@ pub struct SearchAllAssignmentsRequest {
     /// * `assignee=folders/123`
     /// * `assignee=organizations/456`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub query: std::string::String,
 
     /// The maximum number of items to return per page.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous List request, if any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2693,11 +2747,13 @@ impl wkt::message::Message for SearchAllAssignmentsRequest {
 pub struct SearchAssignmentsResponse {
     /// List of assignments visible to the user.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub assignments: std::vec::Vec<crate::model::Assignment>,
 
     /// Token to retrieve the next page of results, or empty if there are no
     /// more results in the list.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2758,11 +2814,13 @@ impl gax::paginator::internal::PageableResponse for SearchAssignmentsResponse {
 pub struct SearchAllAssignmentsResponse {
     /// List of assignments visible to the user.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub assignments: std::vec::Vec<crate::model::Assignment>,
 
     /// Token to retrieve the next page of results, or empty if there are no
     /// more results in the list.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2832,11 +2890,13 @@ pub struct MoveAssignmentRequest {
     /// e.g.
     /// `projects/myproject/locations/US/reservations/team1-prod/assignments/123`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The new reservation ID, e.g.:
     /// `projects/myotherproject/locations/US/reservations/team2-prod`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub destination_id: std::string::String,
 
     /// The optional assignment ID. A new assignment name is generated if this
@@ -2845,6 +2905,7 @@ pub struct MoveAssignmentRequest {
     /// This field can contain only lowercase alphanumeric characters or dashes.
     /// Max length is 64 characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub assignment_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2959,14 +3020,17 @@ impl wkt::message::Message for UpdateAssignmentRequest {
 pub struct TableReference {
     /// The assigned project ID of the project.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub project_id: std::string::String,
 
     /// The ID of the dataset in the above project.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub dataset_id: std::string::String,
 
     /// The ID of the table in the above dataset.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub table_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3013,6 +3077,7 @@ pub struct BiReservation {
     /// Reservation names have the form
     /// `projects/{project_id}/locations/{location_id}/biReservation`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. The last update timestamp of a reservation.
@@ -3021,11 +3086,12 @@ pub struct BiReservation {
 
     /// Size of a reservation, in bytes.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub size: i64,
 
     /// Preferred tables to use BI capacity for.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub preferred_tables: std::vec::Vec<crate::model::TableReference>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3094,6 +3160,7 @@ pub struct GetBiReservationRequest {
     /// Required. Name of the requested reservation, for example:
     /// `projects/{project_id}/locations/{location_id}/biReservation`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

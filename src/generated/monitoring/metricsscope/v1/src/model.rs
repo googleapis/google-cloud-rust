@@ -48,6 +48,7 @@ pub struct MetricsScope {
     /// Example:
     /// `locations/global/metricsScopes/{SCOPING_PROJECT_ID_OR_NUMBER}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. The time when this `Metrics Scope` was created.
@@ -60,6 +61,7 @@ pub struct MetricsScope {
 
     /// Output only. The list of projects monitored by this `Metrics Scope`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub monitored_projects: std::vec::Vec<crate::model::MonitoredProject>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -145,6 +147,7 @@ pub struct MonitoredProject {
     /// Example:
     /// `locations/global/metricsScopes/{SCOPING_PROJECT_ID_OR_NUMBER}/projects/{MONITORED_PROJECT_ID_OR_NUMBER}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. The time when this `MonitoredProject` was created.
@@ -201,6 +204,7 @@ pub struct GetMetricsScopeRequest {
     /// Example:
     /// `locations/global/metricsScopes/{SCOPING_PROJECT_ID_OR_NUMBER}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -235,6 +239,7 @@ pub struct ListMetricsScopesByMonitoredProjectRequest {
     /// Example:
     /// `projects/{MONITORED_PROJECT_ID_OR_NUMBER}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub monitored_resource_container: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -271,6 +276,7 @@ pub struct ListMetricsScopesByMonitoredProjectResponse {
     /// A set of all metrics scopes that the specified monitored project has been
     /// added to.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub metrics_scopes: std::vec::Vec<crate::model::MetricsScope>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -311,6 +317,7 @@ pub struct CreateMonitoredProjectRequest {
     /// Example:
     /// `locations/global/metricsScopes/{SCOPING_PROJECT_ID_OR_NUMBER}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The initial `MonitoredProject` configuration.
@@ -374,6 +381,7 @@ pub struct DeleteMonitoredProjectRequest {
     /// IAM](https://cloud.google.com/iam) permissions on both the `Metrics Scope`
     /// and on the `MonitoredProject`: `monitoring.metricsScopes.link`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -407,6 +415,7 @@ impl wkt::message::Message for DeleteMonitoredProjectRequest {
 pub struct OperationMetadata {
     /// Current state of the batch operation.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::operation_metadata::State,
 
     /// The time when the batch request was received.

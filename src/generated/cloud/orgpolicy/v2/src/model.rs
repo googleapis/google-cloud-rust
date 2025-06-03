@@ -61,12 +61,14 @@ pub struct Constraint {
     ///
     /// For example, "/projects/123/constraints/compute.disableSerialPortAccess".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The human readable name.
     ///
     /// Mutable.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// Detailed description of what this constraint controls as well as how and
@@ -74,23 +76,28 @@ pub struct Constraint {
     ///
     /// Mutable.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// The evaluation behavior of this constraint in the absence of a policy.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub constraint_default: crate::model::constraint::ConstraintDefault,
 
     /// Shows if dry run is supported for this constraint or not.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub supports_dry_run: bool,
 
     /// Managed constraint and canned constraint sometimes can have
     /// equivalents. This field is used to store the equivalent constraint name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub equivalent_constraint: std::string::String,
 
     /// Shows if simulation is supported for this constraint or not.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub supports_simulation: bool,
 
     /// The type of restrictions for this `Constraint`.
@@ -262,6 +269,7 @@ pub mod constraint {
         /// `Policy.allowed_values` and `Policy.denied_values`. For example,
         /// `"in:Python"` would match any value in the 'Python' group.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub supports_in: bool,
 
         /// Indicates whether subtrees of the Resource Manager resource hierarchy
@@ -269,6 +277,7 @@ pub mod constraint {
         /// example, `"under:folders/123"` would match any resource under the
         /// 'folders/123' folder.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub supports_under: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -310,10 +319,12 @@ pub mod constraint {
         ///
         /// * `compute.googleapis.com/Instance`.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub resource_types: std::vec::Vec<std::string::String>,
 
         /// All the operations being applied for this constraint.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub method_types:
             std::vec::Vec<crate::model::constraint::custom_constraint_definition::MethodType>,
 
@@ -323,10 +334,12 @@ pub mod constraint {
         ///
         /// The max length of the condition is 1000 characters.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub condition: std::string::String,
 
         /// Allow or deny type.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub action_type: crate::model::constraint::custom_constraint_definition::ActionType,
 
         /// Stores the structure of
@@ -336,6 +349,7 @@ pub mod constraint {
         ///
         /// [google.cloud.orgpolicy.v2.Constraint.CustomConstraintDefinition.Parameter]: crate::model::constraint::custom_constraint_definition::Parameter
         #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
         pub parameters: std::collections::HashMap<
             std::string::String,
             crate::model::constraint::custom_constraint_definition::Parameter,
@@ -426,6 +440,7 @@ pub mod constraint {
             /// Type of the parameter.
             #[serde(rename = "type")]
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub r#type: crate::model::constraint::custom_constraint_definition::parameter::Type,
 
             /// Sets the value of the parameter in an assignment if no value is given.
@@ -436,6 +451,7 @@ pub mod constraint {
             /// during assignment.
             /// For example, parameterName in ("parameterValue1", "parameterValue2")
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub valid_values_expr: std::string::String,
 
             /// Defines subproperties primarily used by the UI to display user-friendly
@@ -449,6 +465,7 @@ pub mod constraint {
             /// For example, `LIST<STRING>` can be specified by defining `type: LIST`,
             /// and `item: STRING`.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub item: crate::model::constraint::custom_constraint_definition::parameter::Type,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -556,6 +573,7 @@ pub mod constraint {
                 /// Detailed description of what this `parameter` is and use of it.
                 /// Mutable.
                 #[serde(skip_serializing_if = "std::string::String::is_empty")]
+                #[serde_as(as = "serde_with::DefaultOnNull<_>")]
                 pub description: std::string::String,
 
                 #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1255,6 +1273,7 @@ pub struct CustomConstraint {
     /// The max length is 70 characters and the minimum length is 1. Note that the
     /// prefix `organizations/{organization_id}/customConstraints/` is not counted.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Immutable. The resource instance type on which this policy applies. Format
@@ -1262,10 +1281,12 @@ pub struct CustomConstraint {
     ///
     /// * `compute.googleapis.com/Instance`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub resource_types: std::vec::Vec<std::string::String>,
 
     /// All the operations being applied for this constraint.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub method_types: std::vec::Vec<crate::model::custom_constraint::MethodType>,
 
     /// A Common Expression Language (CEL) condition which is used in the
@@ -1275,20 +1296,24 @@ pub struct CustomConstraint {
     ///
     /// The max length of the condition is 1000 characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub condition: std::string::String,
 
     /// Allow or deny type.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub action_type: crate::model::custom_constraint::ActionType,
 
     /// One line display name for the UI.
     /// The max length of the display_name is 200 characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// Detailed information about this custom policy constraint.
     /// The max length of the description is 2000 characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Output only. The last time this custom constraint was updated. This
@@ -1707,6 +1732,7 @@ pub struct Policy {
     /// acceptable name for API requests, but responses will return the name using
     /// the equivalent project number.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Basic information about the organization policy.
@@ -1729,6 +1755,7 @@ pub struct Policy {
     /// value of other fields, and may be sent on update and delete requests to
     /// ensure the client has an up-to-date value before proceeding.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1826,6 +1853,7 @@ pub struct AlternatePolicySpec {
     /// control the launch.
     /// Should be set only in the alternate policy.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub launch: std::string::String,
 
     /// Specify constraint for configurations of Google Cloud resources.
@@ -1891,6 +1919,7 @@ pub struct PolicySpec {
     /// When the policy is returned from a `GetEffectivePolicy` request, the
     /// `etag` will be unset.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     /// Output only. The time stamp this was previously updated. This
@@ -1907,6 +1936,7 @@ pub struct PolicySpec {
     /// - During policy evaluation, policy rules with conditions that are
     ///   true for a target resource take precedence.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub rules: std::vec::Vec<crate::model::policy_spec::PolicyRule>,
 
     /// Determines the inheritance behavior for this policy.
@@ -1917,6 +1947,7 @@ pub struct PolicySpec {
     /// policy becomes the new root for evaluation.
     /// This field can be set only for policies which configure list constraints.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub inherit_from_parent: bool,
 
     /// Ignores policies set above this resource and restores the
@@ -1926,6 +1957,7 @@ pub struct PolicySpec {
     /// constraints. If set, `rules` must be empty and `inherit_from_parent`
     /// must be set to false.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub reset: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2237,10 +2269,12 @@ pub mod policy_spec {
         pub struct StringValues {
             /// List of values allowed at this resource.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
             pub allowed_values: std::vec::Vec<std::string::String>,
 
             /// List of values denied at this resource.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
             pub denied_values: std::vec::Vec<std::string::String>,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2291,14 +2325,14 @@ pub mod policy_spec {
             Values(std::boxed::Box<crate::model::policy_spec::policy_rule::StringValues>),
             /// Setting this to true means that all values are allowed. This field can
             /// be set only in policies for list constraints.
-            AllowAll(bool),
+            AllowAll(#[serde_as(as = "serde_with::DefaultOnNull<_>")] bool),
             /// Setting this to true means that all values are denied. This field can
             /// be set only in policies for list constraints.
-            DenyAll(bool),
+            DenyAll(#[serde_as(as = "serde_with::DefaultOnNull<_>")] bool),
             /// If `true`, then the policy is enforced. If `false`, then any
             /// configuration is acceptable.
             /// This field can be set only in policies for boolean constraints.
-            Enforce(bool),
+            Enforce(#[serde_as(as = "serde_with::DefaultOnNull<_>")] bool),
         }
     }
 }
@@ -2318,18 +2352,20 @@ pub struct ListConstraintsRequest {
     /// * `folders/{folder_id}`
     /// * `organizations/{organization_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Size of the pages to be returned. This is currently unsupported and will
     /// be ignored. The server may at any point start using this field to limit
     /// page size.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Page token used to retrieve the next page. This is currently unsupported
     /// and will be ignored. The server may at any point start using this field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2375,10 +2411,12 @@ impl wkt::message::Message for ListConstraintsRequest {
 pub struct ListConstraintsResponse {
     /// The collection of constraints that are available on the targeted resource.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub constraints: std::vec::Vec<crate::model::Constraint>,
 
     /// Page token used to retrieve the next page. This is currently not used.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2444,18 +2482,20 @@ pub struct ListPoliciesRequest {
     /// * `folders/{folder_id}`
     /// * `organizations/{organization_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Size of the pages to be returned. This is currently unsupported and will
     /// be ignored. The server may at any point start using this field to limit
     /// page size.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Page token used to retrieve the next page. This is currently unsupported
     /// and will be ignored. The server may at any point start using this field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2503,11 +2543,13 @@ pub struct ListPoliciesResponse {
     /// All policies that exist on the resource. It will be empty if no
     /// policies are set.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub policies: std::vec::Vec<crate::model::Policy>,
 
     /// Page token used to retrieve the next page. This is currently not used, but
     /// the server may at any point start supplying a valid token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2569,6 +2611,7 @@ pub struct GetPolicyRequest {
     ///
     /// [google.cloud.orgpolicy.v2.Policy]: crate::model::Policy
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2605,6 +2648,7 @@ pub struct GetEffectivePolicyRequest {
     ///
     /// [google.cloud.orgpolicy.v2.Policy]: crate::model::Policy
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2644,6 +2688,7 @@ pub struct CreatePolicyRequest {
     /// * `folders/{folder_id}`
     /// * `organizations/{organization_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. Policy to create.
@@ -2769,12 +2814,14 @@ pub struct DeletePolicyRequest {
     /// Required. Name of the policy to delete.
     /// See the policy entry for naming rules.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. The current etag of policy. If an etag is provided and does not
     /// match the current etag of the policy, deletion will be blocked and an
     /// ABORTED error will be returned.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2816,6 +2863,7 @@ pub struct CreateCustomConstraintRequest {
     ///
     /// * `organizations/{organization_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. Custom constraint to create.
@@ -2872,6 +2920,7 @@ pub struct GetCustomConstraintRequest {
     /// Required. Resource name of the custom or managed constraint. See the custom
     /// constraint entry for naming requirements.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2909,18 +2958,20 @@ pub struct ListCustomConstraintsRequest {
     ///
     /// * `organizations/{organization_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Size of the pages to be returned. This is currently unsupported and will
     /// be ignored. The server may at any point start using this field to limit
     /// page size.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Page token used to retrieve the next page. This is currently unsupported
     /// and will be ignored. The server may at any point start using this field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2969,11 +3020,13 @@ pub struct ListCustomConstraintsResponse {
     /// All custom and managed constraints that exist on the organization resource.
     /// It will be empty if no custom constraints are set.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub custom_constraints: std::vec::Vec<crate::model::CustomConstraint>,
 
     /// Page token used to retrieve the next page. This is currently not used, but
     /// the server may at any point start supplying a valid token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3078,6 +3131,7 @@ pub struct DeleteCustomConstraintRequest {
     /// Required. Name of the custom constraint to delete.
     /// See the custom constraint entry for naming rules.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

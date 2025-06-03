@@ -41,6 +41,7 @@ pub struct Execution {
     /// Format:
     /// projects/{project}/locations/{location}/workflows/{workflow}/executions/{execution}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. Marks the beginning of execution.
@@ -57,6 +58,7 @@ pub struct Execution {
 
     /// Output only. Current state of the execution.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::execution::State,
 
     /// Input parameters of the execution represented as a JSON string.
@@ -66,11 +68,13 @@ pub struct Execution {
     /// must escape any JSON string value of `argument`. Example:
     /// `'{"argument":"{\"firstName\":\"FIRST\",\"lastName\":\"LAST\"}"}'`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub argument: std::string::String,
 
     /// Output only. Output of the execution represented as a JSON string. The
     /// value can only be present if the execution's state is `SUCCEEDED`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub result: std::string::String,
 
     /// Output only. The error which caused the execution to finish prematurely.
@@ -81,10 +85,12 @@ pub struct Execution {
 
     /// Output only. Revision of the workflow this execution is using.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub workflow_revision_id: std::string::String,
 
     /// The call logging level associated to this execution.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub call_log_level: crate::model::execution::CallLogLevel,
 
     /// Output only. Status tracks the current steps and progress data of this
@@ -100,6 +106,7 @@ pub struct Execution {
     /// By default, labels are inherited from the workflow but are overridden by
     /// any labels associated with the execution.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. Error regarding the state of the Execution resource. For
@@ -302,10 +309,12 @@ pub mod execution {
     pub struct StackTraceElement {
         /// The step the error occurred at.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub step: std::string::String,
 
         /// The routine where the error occurred.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub routine: std::string::String,
 
         /// The source position information of the stack trace element.
@@ -373,18 +382,18 @@ pub mod execution {
         pub struct Position {
             /// The source code line number the current instruction was generated from.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "wkt::internal::I64")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
             pub line: i64,
 
             /// The source code column position (of the line) the current instruction
             /// was generated from.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "wkt::internal::I64")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
             pub column: i64,
 
             /// The number of bytes of source code making up this stack trace element.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "wkt::internal::I64")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
             pub length: i64,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -430,6 +439,7 @@ pub mod execution {
     pub struct StackTrace {
         /// An array of stack elements.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub elements: std::vec::Vec<crate::model::execution::StackTraceElement>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -467,10 +477,12 @@ pub mod execution {
     pub struct Error {
         /// Error message and data returned represented as a JSON string.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub payload: std::string::String,
 
         /// Human-readable stack trace string.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub context: std::string::String,
 
         /// Stack trace with detailed information of where error was generated.
@@ -537,6 +549,7 @@ pub mod execution {
         /// stack, starting with the outermost step in the `main` subworkflow, and
         /// ending with the most deeply nested step.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub current_steps: std::vec::Vec<crate::model::execution::status::Step>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -579,10 +592,12 @@ pub mod execution {
         pub struct Step {
             /// Name of a routine within the workflow.
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub routine: std::string::String,
 
             /// Name of a step within the routine.
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub step: std::string::String,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -622,11 +637,13 @@ pub mod execution {
     pub struct StateError {
         /// Provides specifics about the error.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub details: std::string::String,
 
         /// The type of this state error.
         #[serde(rename = "type")]
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub r#type: crate::model::execution::state_error::Type,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1108,6 +1125,7 @@ pub struct ListExecutionsRequest {
     /// Required. Name of the workflow for which the executions should be listed.
     /// Format: projects/{project}/locations/{location}/workflows/{workflow}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Maximum number of executions to return per call.
@@ -1116,7 +1134,7 @@ pub struct ListExecutionsRequest {
     /// specified is 100, regardless of the selected view. Values greater than
     /// the max value will be coerced down to it.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListExecutions` call.
@@ -1128,11 +1146,13 @@ pub struct ListExecutionsRequest {
     /// Note that pagination is applied to dynamic data. The list of executions
     /// returned can change between page requests.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. A view defining which fields should be filled in the returned
     /// executions. The API will default to the BASIC view.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub view: crate::model::ExecutionView,
 
     /// Optional. Filters applied to the [Executions.ListExecutions] results.
@@ -1140,6 +1160,7 @@ pub struct ListExecutionsRequest {
     /// executionID, state, startTime, endTime, duration, workflowRevisionID,
     /// stepName, and label.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Optional. The ordering applied to the [Executions.ListExecutions] results.
@@ -1147,6 +1168,7 @@ pub struct ListExecutionsRequest {
     /// The following fields are supported for order by:
     /// executionID, startTime, endTime, duration, state, and workflowRevisionID.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1213,11 +1235,13 @@ impl wkt::message::Message for ListExecutionsRequest {
 pub struct ListExecutionsResponse {
     /// The executions which match the request.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub executions: std::vec::Vec<crate::model::Execution>,
 
     /// A token, which can be sent as `page_token` to retrieve the next page.
     /// If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1281,6 +1305,7 @@ pub struct CreateExecutionRequest {
     /// Format: projects/{project}/locations/{location}/workflows/{workflow}
     /// The latest revision of the workflow will be used.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. Execution to be created.
@@ -1341,11 +1366,13 @@ pub struct GetExecutionRequest {
     /// Format:
     /// projects/{project}/locations/{location}/workflows/{workflow}/executions/{execution}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. A view defining which fields should be filled in the returned
     /// execution. The API will default to the FULL view.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub view: crate::model::ExecutionView,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1390,6 +1417,7 @@ pub struct CancelExecutionRequest {
     /// Format:
     /// projects/{project}/locations/{location}/workflows/{workflow}/executions/{execution}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

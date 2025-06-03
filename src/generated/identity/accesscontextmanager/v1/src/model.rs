@@ -47,16 +47,18 @@ pub struct ListAccessPoliciesRequest {
     /// Format:
     /// `organizations/{org_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Number of AccessPolicy instances to include in the list. Default 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Next page token for the next batch of AccessPolicy instances. Defaults to
     /// the first page of results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -101,11 +103,13 @@ impl wkt::message::Message for ListAccessPoliciesRequest {
 pub struct ListAccessPoliciesResponse {
     /// List of the AccessPolicy instances.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub access_policies: std::vec::Vec<crate::model::AccessPolicy>,
 
     /// The pagination token to retrieve the next page of results. If the value is
     /// empty, no further results remain.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -165,6 +169,7 @@ pub struct GetAccessPolicyRequest {
     ///
     /// Format `accessPolicies/{policy_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -265,6 +270,7 @@ pub struct DeleteAccessPolicyRequest {
     ///
     /// Format `accessPolicies/{policy_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -301,25 +307,28 @@ pub struct ListAccessLevelsRequest {
     /// Format:
     /// `accessPolicies/{policy_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Number of [Access Levels]
     /// [google.identity.accesscontextmanager.v1.AccessLevel] to include in
     /// the list. Default 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Next page token for the next batch of [Access Level]
     /// [google.identity.accesscontextmanager.v1.AccessLevel] instances.
     /// Defaults to the first page of results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Whether to return `BasicLevels` in the Cloud Common Expression language, as
     /// `CustomLevels`, rather than as `BasicLevels`. Defaults to returning
     /// `AccessLevels` in the format they were defined.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub access_level_format: crate::model::LevelFormat,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -374,11 +383,13 @@ pub struct ListAccessLevelsResponse {
     /// List of the [Access Level]
     /// [google.identity.accesscontextmanager.v1.AccessLevel] instances.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub access_levels: std::vec::Vec<crate::model::AccessLevel>,
 
     /// The pagination token to retrieve the next page of results. If the value is
     /// empty, no further results remain.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -440,6 +451,7 @@ pub struct GetAccessLevelRequest {
     /// Format:
     /// `accessPolicies/{policy_id}/accessLevels/{access_level_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Whether to return `BasicLevels` in the Cloud Common Expression
@@ -451,6 +463,7 @@ pub struct GetAccessLevelRequest {
     /// `CustomLevels`. In the CEL case, `BasicLevels` are translated to equivalent
     /// `CustomLevels`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub access_level_format: crate::model::LevelFormat,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -495,6 +508,7 @@ pub struct CreateAccessLevelRequest {
     ///
     /// Format: `accessPolicies/{policy_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The [Access Level]
@@ -627,6 +641,7 @@ pub struct DeleteAccessLevelRequest {
     /// Format:
     /// `accessPolicies/{policy_id}/accessLevels/{access_level_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -664,6 +679,7 @@ pub struct ReplaceAccessLevelsRequest {
     ///
     /// Format: `accessPolicies/{policy_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The desired [Access Levels]
@@ -673,6 +689,7 @@ pub struct ReplaceAccessLevelsRequest {
     /// [Access Policy]
     /// [google.identity.accesscontextmanager.v1.AccessPolicy].
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub access_levels: std::vec::Vec<crate::model::AccessLevel>,
 
     /// Optional. The etag for the version of the [Access Policy]
@@ -683,6 +700,7 @@ pub struct ReplaceAccessLevelsRequest {
     /// and the call will fail. This field is not required. If etag is not
     /// provided, the operation will be performed as if a valid etag is provided.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -734,6 +752,7 @@ pub struct ReplaceAccessLevelsResponse {
     /// List of the [Access Level]
     /// [google.identity.accesscontextmanager.v1.AccessLevel] instances.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub access_levels: std::vec::Vec<crate::model::AccessLevel>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -775,19 +794,21 @@ pub struct ListServicePerimetersRequest {
     /// Format:
     /// `accessPolicies/{policy_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Number of [Service Perimeters]
     /// [google.identity.accesscontextmanager.v1.ServicePerimeter] to include
     /// in the list. Default 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Next page token for the next batch of [Service Perimeter]
     /// [google.identity.accesscontextmanager.v1.ServicePerimeter] instances.
     /// Defaults to the first page of results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -833,11 +854,13 @@ pub struct ListServicePerimetersResponse {
     /// List of the [Service Perimeter]
     /// [google.identity.accesscontextmanager.v1.ServicePerimeter] instances.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub service_perimeters: std::vec::Vec<crate::model::ServicePerimeter>,
 
     /// The pagination token to retrieve the next page of results. If the value is
     /// empty, no further results remain.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -899,6 +922,7 @@ pub struct GetServicePerimeterRequest {
     /// Format:
     /// `accessPolicies/{policy_id}/servicePerimeters/{service_perimeters_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -934,6 +958,7 @@ pub struct CreateServicePerimeterRequest {
     ///
     /// Format: `accessPolicies/{policy_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The [Service Perimeter]
@@ -1063,6 +1088,7 @@ pub struct DeleteServicePerimeterRequest {
     /// Format:
     /// `accessPolicies/{policy_id}/servicePerimeters/{service_perimeter_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1100,6 +1126,7 @@ pub struct ReplaceServicePerimetersRequest {
     ///
     /// Format: `accessPolicies/{policy_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The desired [Service Perimeters]
@@ -1109,6 +1136,7 @@ pub struct ReplaceServicePerimetersRequest {
     /// [Access Policy]
     /// [google.identity.accesscontextmanager.v1.AccessPolicy].
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub service_perimeters: std::vec::Vec<crate::model::ServicePerimeter>,
 
     /// Optional. The etag for the version of the [Access Policy]
@@ -1119,6 +1147,7 @@ pub struct ReplaceServicePerimetersRequest {
     /// and the call will fail. This field is not required. If etag is not
     /// provided, the operation will be performed as if a valid etag is provided.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1170,6 +1199,7 @@ pub struct ReplaceServicePerimetersResponse {
     /// List of the [Service Perimeter]
     /// [google.identity.accesscontextmanager.v1.ServicePerimeter] instances.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub service_perimeters: std::vec::Vec<crate::model::ServicePerimeter>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1217,6 +1247,7 @@ pub struct CommitServicePerimetersRequest {
     ///
     /// Format: `accessPolicies/{policy_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. The etag for the version of the [Access Policy]
@@ -1227,6 +1258,7 @@ pub struct CommitServicePerimetersRequest {
     /// and the call will fail. This field is not required. If etag is not
     /// provided, the operation will be performed as if a valid etag is provided.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1269,6 +1301,7 @@ pub struct CommitServicePerimetersResponse {
     /// the [Access Policy]
     /// [google.identity.accesscontextmanager.v1.AccessPolicy].
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub service_perimeters: std::vec::Vec<crate::model::ServicePerimeter>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1307,12 +1340,13 @@ impl wkt::message::Message for CommitServicePerimetersResponse {
 pub struct ListGcpUserAccessBindingsRequest {
     /// Required. Example: "organizations/256"
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. Maximum number of items to return. The server may return fewer items.
     /// If left blank, the server may return any number of items.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. If left blank, returns the first page. To enumerate all items, use the
@@ -1320,6 +1354,7 @@ pub struct ListGcpUserAccessBindingsRequest {
     /// [google.identity.accesscontextmanager.v1.ListGcpUserAccessBindingsResponse.next_page_token]
     /// from your previous list operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1366,10 +1401,12 @@ pub struct ListGcpUserAccessBindingsResponse {
     /// [GcpUserAccessBinding]
     /// [google.identity.accesscontextmanager.v1.GcpUserAccessBinding]
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub gcp_user_access_bindings: std::vec::Vec<crate::model::GcpUserAccessBinding>,
 
     /// Token to get the next page of items. If blank, there are no more items.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1428,6 +1465,7 @@ impl gax::paginator::internal::PageableResponse for ListGcpUserAccessBindingsRes
 pub struct GetGcpUserAccessBindingRequest {
     /// Required. Example: "organizations/256/gcpUserAccessBindings/b3-BhcX_Ud5N"
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1461,6 +1499,7 @@ impl wkt::message::Message for GetGcpUserAccessBindingRequest {
 pub struct CreateGcpUserAccessBindingRequest {
     /// Required. Example: "organizations/256"
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. [GcpUserAccessBinding]
@@ -1590,6 +1629,7 @@ impl wkt::message::Message for UpdateGcpUserAccessBindingRequest {
 pub struct DeleteGcpUserAccessBindingRequest {
     /// Required. Example: "organizations/256/gcpUserAccessBindings/b3-BhcX_Ud5N"
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1673,14 +1713,17 @@ pub struct AccessLevel {
     /// `accessPolicies/{access_policy}/accessLevels/{access_level}`. The maximum
     /// length of the `access_level` component is 50 characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Human readable title. Must be unique within the Policy.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub title: std::string::String,
 
     /// Description of the `AccessLevel` and its use. Does not affect behavior.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Output only. Time the `AccessLevel` was created in UTC.
@@ -1853,6 +1896,7 @@ pub mod access_level {
 pub struct BasicLevel {
     /// Required. A list of requirements for the `AccessLevel` to be granted.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub conditions: std::vec::Vec<crate::model::Condition>,
 
     /// How the `conditions` list should be combined to determine if a request is
@@ -1861,6 +1905,7 @@ pub struct BasicLevel {
     /// is used, at least one `Condition` in `conditions` must be satisfied for the
     /// `AccessLevel` to be applied. Default behavior is AND.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub combining_function: crate::model::basic_level::ConditionCombiningFunction,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2051,6 +2096,7 @@ pub struct Condition {
     /// the listed subnets in order for this Condition to be true. If empty, all IP
     /// addresses are allowed.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub ip_subnetworks: std::vec::Vec<std::string::String>,
 
     /// Device specific restrictions, all restrictions must hold for the
@@ -2064,12 +2110,14 @@ pub struct Condition {
     /// to be true. Example:
     /// "`accessPolicies/MY_POLICY/accessLevels/LEVEL_NAME"`
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub required_access_levels: std::vec::Vec<std::string::String>,
 
     /// Whether to negate the Condition. If true, the Condition becomes a NAND over
     /// its non-empty fields, each field must be false for the Condition overall to
     /// be satisfied. Defaults to false.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub negate: bool,
 
     /// The request must be made by one of the provided user or service
@@ -2079,11 +2127,13 @@ pub struct Condition {
     /// `serviceAccount:{emailid}`
     /// If not specified, a request may come from any user.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub members: std::vec::Vec<std::string::String>,
 
     /// The request must originate from one of the provided countries/regions.
     /// Must be valid ISO 3166-1 alpha-2 codes.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub regions: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2233,29 +2283,35 @@ pub struct DevicePolicy {
     /// Whether or not screenlock is required for the DevicePolicy to be true.
     /// Defaults to `false`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub require_screenlock: bool,
 
     /// Allowed encryptions statuses, an empty list allows all statuses.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub allowed_encryption_statuses:
         std::vec::Vec<accesscontextmanager_type::model::DeviceEncryptionStatus>,
 
     /// Allowed OS versions, an empty list allows all types and all versions.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub os_constraints: std::vec::Vec<crate::model::OsConstraint>,
 
     /// Allowed device management levels, an empty list allows all management
     /// levels.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub allowed_device_management_levels:
         std::vec::Vec<accesscontextmanager_type::model::DeviceManagementLevel>,
 
     /// Whether the device needs to be approved by the customer admin.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub require_admin_approval: bool,
 
     /// Whether the device needs to be corp owned.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub require_corp_owned: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2333,12 +2389,14 @@ impl wkt::message::Message for DevicePolicy {
 pub struct OsConstraint {
     /// Required. The allowed OS type.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub os_type: accesscontextmanager_type::model::OsType,
 
     /// The minimum allowed OS version. If not set, any version of this OS
     /// satisfies the constraint. Format: `"major.minor.patch"`.
     /// Examples: `"10.5.301"`, `"9.2.1"`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub minimum_version: std::string::String,
 
     /// Only allows requests from devices with a verified Chrome OS.
@@ -2346,6 +2404,7 @@ pub struct OsConstraint {
     /// conformant to domain policies, and the caller has permission to call
     /// the API targeted by the request.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub require_verified_chrome_os: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2398,16 +2457,19 @@ pub struct AccessPolicy {
     /// Output only. Resource name of the `AccessPolicy`. Format:
     /// `accessPolicies/{access_policy}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. The parent of this `AccessPolicy` in the Cloud Resource
     /// Hierarchy. Currently immutable once created. Format:
     /// `organizations/{organization_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. Human readable title. Does not affect behavior.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub title: std::string::String,
 
     /// The scopes of a policy define which resources an ACM policy can restrict,
@@ -2426,6 +2488,7 @@ pub struct AccessPolicy {
     ///   Currently, policies can only have a single scope.
     ///   Format: list of `folders/{folder_number}` or `projects/{project_number}`
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub scopes: std::vec::Vec<std::string::String>,
 
     /// Output only. Time the `AccessPolicy` was created in UTC.
@@ -2441,6 +2504,7 @@ pub struct AccessPolicy {
     /// two Access Polices will be identical if and only if their etags are
     /// identical. Clients should not expect this to be in any specific format.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2543,6 +2607,7 @@ pub struct GcpUserAccessBinding {
     /// Should not be specified by the client during creation.
     /// Example: "organizations/256/gcpUserAccessBindings/b3-BhcX_Ud5N"
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. Immutable. Google Group id whose members are subject to this binding's restrictions.
@@ -2553,6 +2618,7 @@ pub struct GcpUserAccessBinding {
     /// addresses or aliases.
     /// Example: "01d520gv4vjcrht"
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub group_key: std::string::String,
 
     /// Required. Access level that a user must have to be granted access. Only one access
@@ -2560,6 +2626,7 @@ pub struct GcpUserAccessBinding {
     /// one element.
     /// Example: "accessPolicies/9522/accessLevels/device_trusted"
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub access_levels: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2621,15 +2688,18 @@ pub struct ServicePerimeter {
     /// Format:
     /// `accessPolicies/{access_policy}/servicePerimeters/{service_perimeter}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Human readable title. Must be unique within the Policy.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub title: std::string::String,
 
     /// Description of the `ServicePerimeter` and its use. Does not affect
     /// behavior.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Output only. Time the `ServicePerimeter` was created in UTC.
@@ -2647,6 +2717,7 @@ pub struct ServicePerimeter {
     /// the restricted service list as well as access level lists must be
     /// empty.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub perimeter_type: crate::model::service_perimeter::PerimeterType,
 
     /// Current ServicePerimeter configuration. Specifies sets of resources,
@@ -2673,6 +2744,7 @@ pub struct ServicePerimeter {
     /// restrictions. use_explicit_dry_run_spec must bet set to True if any of the
     /// fields in the spec are set to non-default values.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub use_explicit_dry_run_spec: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2953,6 +3025,7 @@ pub struct ServicePerimeterConfig {
     /// A list of Google Cloud resources that are inside of the service perimeter.
     /// Currently only projects are allowed. Format: `projects/{project_number}`
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub resources: std::vec::Vec<std::string::String>,
 
     /// A list of `AccessLevel` resource names that allow resources within the
@@ -2964,6 +3037,7 @@ pub struct ServicePerimeterConfig {
     /// `"accessPolicies/MY_POLICY/accessLevels/MY_LEVEL"`.
     /// For Service Perimeter Bridge, must be empty.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub access_levels: std::vec::Vec<std::string::String>,
 
     /// Google Cloud services that are subject to the Service Perimeter
@@ -2971,6 +3045,7 @@ pub struct ServicePerimeterConfig {
     /// to the storage buckets inside the perimeter must meet the perimeter's
     /// access restrictions.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub restricted_services: std::vec::Vec<std::string::String>,
 
     /// Configuration for APIs allowed within Perimeter.
@@ -2987,6 +3062,7 @@ pub struct ServicePerimeterConfig {
     /// [google.identity.accesscontextmanager.v1.ServicePerimeterConfig.IngressPolicy]
     /// grants it. Must be empty for a perimeter bridge.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub ingress_policies: std::vec::Vec<crate::model::service_perimeter_config::IngressPolicy>,
 
     /// List of [EgressPolicies]
@@ -2998,6 +3074,7 @@ pub struct ServicePerimeterConfig {
     /// [google.identity.accesscontextmanager.v1.ServicePerimeterConfig.EgressPolicy]
     /// grants it. Must be empty for a perimeter bridge.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub egress_policies: std::vec::Vec<crate::model::service_perimeter_config::EgressPolicy>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3104,6 +3181,7 @@ pub mod service_perimeter_config {
         /// Whether to restrict API calls within the Service Perimeter to the list of
         /// APIs specified in 'allowed_services'.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub enable_restriction: bool,
 
         /// The list of APIs usable within the Service Perimeter. Must be empty
@@ -3111,6 +3189,7 @@ pub mod service_perimeter_config {
         /// services, as well as include the 'RESTRICTED-SERVICES' value, which
         /// automatically includes all of the services protected by the perimeter.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub allowed_services: std::vec::Vec<std::string::String>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3258,11 +3337,11 @@ pub mod service_perimeter_config {
             /// [google.identity.accesscontextmanager.v1.ServicePerimeterConfig.ApiOperation].
             /// If `*` used as value for `method`, then ALL methods and permissions are
             /// allowed.
-            Method(std::string::String),
+            Method(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
             /// Value for `permission` should be a valid Cloud IAM permission for the
             /// corresponding `service_name` in [ApiOperation]
             /// [google.identity.accesscontextmanager.v1.ServicePerimeterConfig.ApiOperation].
-            Permission(std::string::String),
+            Permission(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         }
     }
 
@@ -3281,6 +3360,7 @@ pub mod service_perimeter_config {
         /// with `service_name` field set to `*` will allow all methods AND
         /// permissions for all services.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub service_name: std::string::String,
 
         /// API methods or permissions to allow. Method or permission must belong to
@@ -3289,6 +3369,7 @@ pub mod service_perimeter_config {
         /// entry with `*` specified for the `method` field will allow all methods
         /// AND permissions for the service specified in `service_name`.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub method_selectors: std::vec::Vec<crate::model::service_perimeter_config::MethodSelector>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3462,7 +3543,7 @@ pub mod service_perimeter_config {
             /// specified for `access_level`, then all [IngressSources]
             /// [google.identity.accesscontextmanager.v1.ServicePerimeterConfig.IngressSource]
             /// will be allowed.
-            AccessLevel(std::string::String),
+            AccessLevel(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
             /// A Google Cloud resource that is allowed to ingress the perimeter.
             /// Requests from these resources will be allowed to access perimeter data.
             /// Currently only projects are allowed.
@@ -3470,7 +3551,7 @@ pub mod service_perimeter_config {
             /// The project may be in any Google Cloud organization, not just the
             /// organization that the perimeter is defined in. `*` is not allowed, the
             /// case of allowing all Google Cloud resources only is not supported.
-            Resource(std::string::String),
+            Resource(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         }
     }
 
@@ -3488,18 +3569,21 @@ pub mod service_perimeter_config {
         /// [google.identity.accesscontextmanager.v1.ServicePerimeterConfig.IngressPolicy]
         /// authorizes access from.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub sources: std::vec::Vec<crate::model::service_perimeter_config::IngressSource>,
 
         /// A list of identities that are allowed access through this ingress
         /// policy. Should be in the format of email address. The email address
         /// should represent individual user or service account only.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub identities: std::vec::Vec<std::string::String>,
 
         /// Specifies the type of identities that are allowed access from outside the
         /// perimeter. If left unspecified, then members of `identities` field will
         /// be allowed access.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub identity_type: crate::model::service_perimeter_config::IdentityType,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3572,6 +3656,7 @@ pub mod service_perimeter_config {
         /// in this [ServicePerimeter]
         /// [google.identity.accesscontextmanager.v1.ServicePerimeter].
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub operations: std::vec::Vec<crate::model::service_perimeter_config::ApiOperation>,
 
         /// A list of resources, currently only projects in the form
@@ -3583,6 +3668,7 @@ pub mod service_perimeter_config {
         /// If a single `*` is specified, then access to all resources inside the
         /// perimeter are allowed.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub resources: std::vec::Vec<std::string::String>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3735,12 +3821,14 @@ pub mod service_perimeter_config {
         /// Should be in the format of email address. The email address should
         /// represent individual user or service account only.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub identities: std::vec::Vec<std::string::String>,
 
         /// Specifies the type of identities that are allowed access to outside the
         /// perimeter. If left unspecified, then members of `identities` field will
         /// be allowed access.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub identity_type: crate::model::service_perimeter_config::IdentityType,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3810,6 +3898,7 @@ pub mod service_perimeter_config {
         /// [google.identity.accesscontextmanager.v1.ServicePerimeterConfig.EgressTo]
         /// rule will authorize access to all resources outside the perimeter.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub resources: std::vec::Vec<std::string::String>,
 
         /// A list of [ApiOperations]
@@ -3819,6 +3908,7 @@ pub mod service_perimeter_config {
         /// [google.identity.accesscontextmanager.v1.ServicePerimeterConfig.EgressFrom].
         /// A request matches if it uses an operation/service in this list.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub operations: std::vec::Vec<crate::model::service_perimeter_config::ApiOperation>,
 
         /// A list of external resources that are allowed to be accessed. Only AWS
@@ -3828,6 +3918,7 @@ pub mod service_perimeter_config {
         /// if it contains an external resource in this list (Example:
         /// s3://bucket/path). Currently '*' is not allowed.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub external_resources: std::vec::Vec<std::string::String>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

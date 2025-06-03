@@ -41,33 +41,38 @@ extern crate wkt;
 pub struct Connector {
     /// The resource name in the format `projects/*/locations/*/connectors/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Name of a VPC network.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub network: std::string::String,
 
     /// The range of internal addresses that follows RFC 4632 notation.
     /// Example: `10.132.0.0/28`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub ip_cidr_range: std::string::String,
 
     /// Output only. State of the VPC access connector.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::connector::State,
 
     /// Minimum throughput of the connector in Mbps. Default and min is 200.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub min_throughput: i32,
 
     /// Maximum throughput of the connector in Mbps. Default is 300, max is 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub max_throughput: i32,
 
     /// Output only. List of projects using the connector.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub connected_projects: std::vec::Vec<std::string::String>,
 
     /// The subnet in which to house the VPC Access Connector.
@@ -76,16 +81,17 @@ pub struct Connector {
 
     /// Machine type of VM Instance underlying connector. Default is e2-micro
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub machine_type: std::string::String,
 
     /// Minimum value of instances in autoscaling group underlying the connector.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub min_instances: i32,
 
     /// Maximum value of instances in autoscaling group underlying the connector.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub max_instances: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -206,12 +212,14 @@ pub mod connector {
         /// <https://compute.googleapis.com/compute/v1/projects/{project}/regions/{region}/subnetworks/{subnetName}>
         /// the correct input for this field would be {subnetName}
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub name: std::string::String,
 
         /// Project in which the subnet exists.
         /// If not set, this project is assumed to be the project for which
         /// the connector create request was issued.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub project_id: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -405,10 +413,12 @@ pub struct CreateConnectorRequest {
     /// Required. The project and location in which the configuration should be created,
     /// specified in the format `projects/*/locations/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The ID to use for this connector.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub connector_id: std::string::String,
 
     /// Required. Resource to create.
@@ -469,6 +479,7 @@ impl wkt::message::Message for CreateConnectorRequest {
 pub struct GetConnectorRequest {
     /// Required. Name of a Serverless VPC Access connector to get.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -501,15 +512,17 @@ impl wkt::message::Message for GetConnectorRequest {
 pub struct ListConnectorsRequest {
     /// Required. The project and location from which the routes should be listed.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Maximum number of functions to return per call.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Continuation token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -554,10 +567,12 @@ impl wkt::message::Message for ListConnectorsRequest {
 pub struct ListConnectorsResponse {
     /// List of Serverless VPC Access connectors.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub connectors: std::vec::Vec<crate::model::Connector>,
 
     /// Continuation token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -615,6 +630,7 @@ impl gax::paginator::internal::PageableResponse for ListConnectorsResponse {
 pub struct DeleteConnectorRequest {
     /// Required. Name of a Serverless VPC Access connector to delete.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -648,6 +664,7 @@ pub struct OperationMetadata {
     /// Output only. Method that initiated the operation e.g.
     /// google.cloud.vpcaccess.v1.Connectors.CreateConnector.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub method: std::string::String,
 
     /// Output only. Time when the operation was created.
@@ -661,6 +678,7 @@ pub struct OperationMetadata {
     /// Output only. Name of the resource that this operation is acting on e.g.
     /// projects/my-project/locations/us-central1/connectors/v1.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub target: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

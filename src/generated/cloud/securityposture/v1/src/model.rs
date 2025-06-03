@@ -224,10 +224,12 @@ pub mod policy_rule {
     pub struct StringValues {
         /// List of values allowed at this resource.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub allowed_values: std::vec::Vec<std::string::String>,
 
         /// List of values denied at this resource.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub denied_values: std::vec::Vec<std::string::String>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -278,14 +280,14 @@ pub mod policy_rule {
         Values(std::boxed::Box<crate::model::policy_rule::StringValues>),
         /// Setting this to true means that all values are allowed. This field can
         /// be set only in policies for list constraints.
-        AllowAll(bool),
+        AllowAll(#[serde_as(as = "serde_with::DefaultOnNull<_>")] bool),
         /// Setting this to true means that all values are denied. This field can
         /// be set only in policies for list constraints.
-        DenyAll(bool),
+        DenyAll(#[serde_as(as = "serde_with::DefaultOnNull<_>")] bool),
         /// If `true`, then the policy is enforced. If `false`, then any
         /// configuration is acceptable.
         /// This field can be set only in policies for boolean constraints.
-        Enforce(bool),
+        Enforce(#[serde_as(as = "serde_with::DefaultOnNull<_>")] bool),
     }
 }
 
@@ -311,6 +313,7 @@ pub struct CustomConstraint {
     /// The max length is 70 characters and the minimum length is 1. Note that the
     /// prefix `organizations/{organization_id}/customConstraints/` is not counted.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Immutable. The resource instance type on which this policy applies. Format
@@ -318,10 +321,12 @@ pub struct CustomConstraint {
     ///
     /// - `compute.googleapis.com/Instance`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub resource_types: std::vec::Vec<std::string::String>,
 
     /// All the operations being applied for this constraint.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub method_types: std::vec::Vec<crate::model::custom_constraint::MethodType>,
 
     /// Org policy condition/expression. For example:
@@ -330,20 +335,24 @@ pub struct CustomConstraint {
     ///
     /// The max length of the condition is 1000 characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub condition: std::string::String,
 
     /// Allow or deny type.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub action_type: crate::model::custom_constraint::ActionType,
 
     /// One line display name for the UI.
     /// The max length of the display_name is 200 characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// Detailed information about this custom policy constraint.
     /// The max length of the description is 2000 characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Output only. The last time this custom constraint was updated. This
@@ -733,10 +742,12 @@ pub mod custom_constraint {
 pub struct OrgPolicyConstraint {
     /// Required. Org Policy Canned Constraint id.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub canned_constraint_id: std::string::String,
 
     /// Required. Org PolicySpec rules.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub policy_rules: std::vec::Vec<crate::model::PolicyRule>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -787,6 +798,7 @@ pub struct OrgPolicyConstraintCustom {
 
     /// Required. Org Policyspec rules.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub policy_rules: std::vec::Vec<crate::model::PolicyRule>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -850,14 +862,17 @@ pub struct OperationMetadata {
 
     /// Output only. Server-defined resource path for the target of the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub target: std::string::String,
 
     /// Output only. Name of the verb executed by the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub verb: std::string::String,
 
     /// Output only. Human-readable status of the operation, if any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub status_message: std::string::String,
 
     /// Output only. Identifies whether the user has requested cancellation
@@ -868,16 +883,19 @@ pub struct OperationMetadata {
     ///
     /// [google.rpc.Status.code]: rpc::model::Status::code
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub api_version: std::string::String,
 
     /// Output only. This is a output only optional field which will be filled only
     /// in cases where PostureDeployments enter failure states like UPDATE_FAILED
     /// or CREATE_FAILED or DELETE_FAILED.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub error_message: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -978,16 +996,19 @@ pub struct Posture {
     /// Required. Identifier. The name of this Posture resource, in the format of
     /// organizations/{org_id}/locations/{location_id}/postures/{posture}.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. State of Posture resource.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::posture::State,
 
     /// Output only. Immutable. The revision ID of the posture.
     /// The format is an 8-character hexadecimal string.
     /// <https://google.aip.dev/162>
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub revision_id: std::string::String,
 
     /// Output only. The timestamp that the posture was created.
@@ -1000,10 +1021,12 @@ pub struct Posture {
 
     /// Optional. User provided description of the posture.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Required. List of Policy sets.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub policy_sets: std::vec::Vec<crate::model::PolicySet>,
 
     /// Optional. An opaque tag indicating the current version of the Posture, used
@@ -1017,17 +1040,20 @@ pub struct Posture {
     /// `UpdatePosture` request will result in an unconditional write of the
     /// `Posture`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     /// Optional. User annotations. These attributes can only be set and used by
     /// the user, and not by Google Security Postures.
     /// .
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. Whether or not this Posture is in the process of being
     /// updated.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub reconciling: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1294,14 +1320,17 @@ pub mod posture {
 pub struct PolicySet {
     /// Required. ID of the Policy set.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub policy_set_id: std::string::String,
 
     /// Optional. Description of the Policy set.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Required. List of policies.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub policies: std::vec::Vec<crate::model::Policy>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1352,10 +1381,12 @@ pub struct Policy {
     /// Required. ID of the Policy that is user generated, immutable and unique
     /// within the scope of a policy set.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub policy_id: std::string::String,
 
     /// Optional. Contains list of mapping for a Policy to a standard and control.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub compliance_standards: std::vec::Vec<crate::model::policy::ComplianceStandard>,
 
     /// Required. Constraint details.
@@ -1364,6 +1395,7 @@ pub struct Policy {
 
     /// Optional. Description of the Policy.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1436,10 +1468,12 @@ pub mod policy {
     pub struct ComplianceStandard {
         /// Optional. The compliance standard that the Policy maps to, e.g.: CIS-2.0.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub standard: std::string::String,
 
         /// Optional. Control mapping provided by user for this Policy. e.g.: 1.5.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub control: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1670,16 +1704,18 @@ pub mod constraint {
 pub struct ListPosturesRequest {
     /// Required. Parent value for ListPosturesRequest.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Requested page size. Server may return fewer items than requested.
     /// If unspecified, server will pick an appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1724,14 +1760,17 @@ impl wkt::message::Message for ListPosturesRequest {
 pub struct ListPosturesResponse {
     /// The list of Posture.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub postures: std::vec::Vec<crate::model::Posture>,
 
     /// A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// Unreachable resources.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1800,16 +1839,18 @@ impl gax::paginator::internal::PageableResponse for ListPosturesResponse {
 pub struct ListPostureRevisionsRequest {
     /// Required. Name value for ListPostureRevisionsRequest.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. Requested page size. Server may return fewer items than
     /// requested. If unspecified, server will pick 100 as default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1854,10 +1895,12 @@ impl wkt::message::Message for ListPostureRevisionsRequest {
 pub struct ListPostureRevisionsResponse {
     /// The list of Posture revisions.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub revisions: std::vec::Vec<crate::model::Posture>,
 
     /// A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1915,10 +1958,12 @@ impl gax::paginator::internal::PageableResponse for ListPostureRevisionsResponse
 pub struct GetPostureRequest {
     /// Required. Name of the resource.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. Posture revision which needs to be retrieved.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub revision_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1957,11 +2002,13 @@ impl wkt::message::Message for GetPostureRequest {
 pub struct CreatePostureRequest {
     /// Required. Value for parent.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. User provided identifier. It should be unique in scope of an
     /// Organization and location.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub posture_id: std::string::String,
 
     /// Required. The resource being created.
@@ -2034,6 +2081,7 @@ pub struct UpdatePostureRequest {
 
     /// Required. Posture revision which needs to be updated.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub revision_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2102,10 +2150,12 @@ impl wkt::message::Message for UpdatePostureRequest {
 pub struct DeletePostureRequest {
     /// Required. Name of the resource.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. Etag value of the Posture to be deleted.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2145,11 +2195,13 @@ pub struct ExtractPostureRequest {
     /// Required. The parent resource name. The format of this value is as follows:
     /// `organizations/{organization}/locations/{location}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. User provided identifier. It should be unique in scope of an
     /// Organization and location.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub posture_id: std::string::String,
 
     /// Required. Workload from which the policies are to be extracted, it should
@@ -2160,6 +2212,7 @@ pub struct ExtractPostureRequest {
     /// - `project/projectNumber`
     /// - `organization/organizationNumber`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub workload: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2206,16 +2259,19 @@ pub struct PostureDeployment {
     /// Required. The name of this PostureDeployment resource, in the format of
     /// organizations/{organization}/locations/{location_id}/postureDeployments/{postureDeployment}.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. Target resource where the Posture will be deployed. Currently
     /// supported resources are of types: projects/projectNumber,
     /// folders/folderNumber, organizations/organizationNumber.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub target_resource: std::string::String,
 
     /// Output only. State of PostureDeployment resource.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::posture_deployment::State,
 
     /// Required. Posture that needs to be deployed.
@@ -2224,10 +2280,12 @@ pub struct PostureDeployment {
     /// Example:
     /// organizations/99/locations/global/postures/les-miserables.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub posture_id: std::string::String,
 
     /// Required. Revision_id of the Posture that is to be deployed.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub posture_revision_id: std::string::String,
 
     /// Output only. The timestamp that the PostureDeployment was created.
@@ -2240,6 +2298,7 @@ pub struct PostureDeployment {
 
     /// Optional. User provided description of the PostureDeployment.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Optional. An opaque tag indicating the current version of the
@@ -2254,34 +2313,40 @@ pub struct PostureDeployment {
     /// setting the `etag` in a `UpdatePostureDeployment` request will result in an
     /// unconditional write of the `PostureDeployment`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     /// Optional. User annotations. These attributes can only be set and used by
     /// the user, and not by Google Security Postures.
     /// .
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. Whether or not this Posture is in the process of being
     /// updated.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub reconciling: bool,
 
     /// Output only. This is a output only optional field which will be filled in
     /// case where PostureDeployment state is UPDATE_FAILED or CREATE_FAILED or
     /// DELETE_FAILED. It denotes the desired Posture.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub desired_posture_id: std::string::String,
 
     /// Output only. Output only optional field which provides revision_id of the
     /// desired_posture_id.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub desired_posture_revision_id: std::string::String,
 
     /// Output only. This is a output only optional field which will be filled in
     /// case where PostureDeployment enters a failure state like UPDATE_FAILED or
     /// CREATE_FAILED or DELETE_FAILED.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub failure_message: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2607,21 +2672,24 @@ pub mod posture_deployment {
 pub struct ListPostureDeploymentsRequest {
     /// Required. Parent value for ListPostureDeploymentsRequest.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. Requested page size. Server may return fewer items than
     /// requested. If unspecified, server will pick an appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. Filter to be applied on the resource, defined by EBNF grammar
     /// <https://google.aip.dev/assets/misc/ebnf-filtering.txt>.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2672,14 +2740,17 @@ impl wkt::message::Message for ListPostureDeploymentsRequest {
 pub struct ListPostureDeploymentsResponse {
     /// The list of PostureDeployment.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub posture_deployments: std::vec::Vec<crate::model::PostureDeployment>,
 
     /// A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2748,6 +2819,7 @@ impl gax::paginator::internal::PageableResponse for ListPostureDeploymentsRespon
 pub struct GetPostureDeploymentRequest {
     /// Required. Name of the resource.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2781,11 +2853,13 @@ pub struct CreatePostureDeploymentRequest {
     /// Required. Value for parent.
     /// Format: organizations/{org_id}/locations/{location}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. User provided identifier. It should be unique in scope of an
     /// Organization and location.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub posture_deployment_id: std::string::String,
 
     /// Required. The resource being created.
@@ -2919,10 +2993,12 @@ impl wkt::message::Message for UpdatePostureDeploymentRequest {
 pub struct DeletePostureDeploymentRequest {
     /// Required. Name of the resource.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. Etag value of the PostureDeployment to be deleted.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2964,22 +3040,27 @@ pub struct PostureTemplate {
     /// format
     /// organizations/{organization}/locations/{location}/postureTemplates/{postureTemplate}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. The revision_id of a PostureTemplate.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub revision_id: std::string::String,
 
     /// Output only. Description of the Posture template.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Output only. State of PostureTemplate resource.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::posture_template::State,
 
     /// Output only. Policy_sets to be used by the user.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub policy_sets: std::vec::Vec<crate::model::PolicySet>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3183,21 +3264,24 @@ pub mod posture_template {
 pub struct ListPostureTemplatesRequest {
     /// Required. Parent value for ListPostureTemplatesRequest.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. Requested page size. Server may return fewer items than
     /// requested. If unspecified, server will pick an appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. Filter to be applied on the resource, defined by EBNF grammar
     /// <https://google.aip.dev/assets/misc/ebnf-filtering.txt>.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3248,10 +3332,12 @@ impl wkt::message::Message for ListPostureTemplatesRequest {
 pub struct ListPostureTemplatesResponse {
     /// The list of PostureTemplate.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub posture_templates: std::vec::Vec<crate::model::PostureTemplate>,
 
     /// A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3309,11 +3395,13 @@ impl gax::paginator::internal::PageableResponse for ListPostureTemplatesResponse
 pub struct GetPostureTemplateRequest {
     /// Required. Name of the resource.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. Specific revision_id of a Posture Template.
     /// PostureTemplate revision_id which needs to be retrieved.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub revision_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3352,11 +3440,13 @@ impl wkt::message::Message for GetPostureTemplateRequest {
 pub struct SecurityHealthAnalyticsModule {
     /// Required. The name of the module eg: BIGQUERY_TABLE_CMEK_DISABLED.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub module_name: std::string::String,
 
     /// The state of enablement for the module at its level of the resource
     /// hierarchy.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub module_enablement_state: crate::model::EnablementState,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3400,6 +3490,7 @@ pub struct SecurityHealthAnalyticsCustomModule {
     /// The id is server-generated and is not user settable.
     /// It will be a numeric id containing 1-20 digits.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub id: std::string::String,
 
     /// Optional. The display name of the Security Health Analytics custom module.
@@ -3408,6 +3499,7 @@ pub struct SecurityHealthAnalyticsCustomModule {
     /// 128 characters, start with a lowercase letter, and contain alphanumeric
     /// characters or underscores only.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// Required. custom module details
@@ -3417,6 +3509,7 @@ pub struct SecurityHealthAnalyticsCustomModule {
     /// The state of enablement for the module at its level of the resource
     /// hierarchy.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub module_enablement_state: crate::model::EnablementState,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3498,6 +3591,7 @@ pub struct CustomConfig {
 
     /// Required. The severity to assign to findings generated by the module.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub severity: crate::model::custom_config::Severity,
 
     /// Optional. Text that describes the vulnerability or misconfiguration that
@@ -3505,6 +3599,7 @@ pub struct CustomConfig {
     /// instance to help investigators understand the detected issue. The text must
     /// be enclosed in quotation marks.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Optional. An explanation of the recommended steps that security teams can
@@ -3512,6 +3607,7 @@ pub struct CustomConfig {
     /// finding generated by this module in the `nextSteps` property of the finding
     /// JSON.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub recommendation: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3621,6 +3717,7 @@ pub mod custom_config {
     pub struct CustomOutputSpec {
         /// Optional. A list of custom output properties to add to the finding.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub properties: std::vec::Vec<crate::model::custom_config::custom_output_spec::Property>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3663,6 +3760,7 @@ pub mod custom_config {
         pub struct Property {
             /// Required. Name of the property for the custom output.
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub name: std::string::String,
 
             /// Optional. The CEL expression for the custom output. A resource property
@@ -3720,6 +3818,7 @@ pub mod custom_config {
     pub struct ResourceSelector {
         /// Required. The resource types to run the detector on.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub resource_types: std::vec::Vec<std::string::String>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

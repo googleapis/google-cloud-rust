@@ -43,10 +43,12 @@ pub struct LiveAdTagDetail {
     /// The resource name in the form of
     /// `projects/{project}/locations/{location}/liveSessions/{live_session}/liveAdTagDetails/{id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// A list of ad requests.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub ad_requests: std::vec::Vec<crate::model::AdRequest>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -93,10 +95,12 @@ pub struct VodAdTagDetail {
     /// The name of the ad tag detail for the specified VOD session, in the form of
     /// `projects/{project}/locations/{location}/vodSessions/{vod_session_id}/vodAdTagDetails/{id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// A list of ad requests for one ad tag.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub ad_requests: std::vec::Vec<crate::model::AdRequest>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -140,6 +144,7 @@ impl wkt::message::Message for VodAdTagDetail {
 pub struct AdRequest {
     /// The ad tag URI processed with integrated macros.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub uri: std::string::String,
 
     /// The request metadata used to make the ad request.
@@ -260,6 +265,7 @@ impl wkt::message::Message for RequestMetadata {
 pub struct ResponseMetadata {
     /// Error message received when making the ad request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub error: std::string::String,
 
     /// Headers from the response.
@@ -268,11 +274,12 @@ pub struct ResponseMetadata {
 
     /// Status code for the response.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub status_code: std::string::String,
 
     /// Size in bytes of the response.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub size_bytes: i32,
 
     /// Total time elapsed for the response.
@@ -281,6 +288,7 @@ pub struct ResponseMetadata {
 
     /// The body of the response.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub body: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -371,10 +379,12 @@ pub struct CdnKey {
     /// `projects/{project}/locations/{location}/cdnKeys/{id}`.
     /// The name is ignored when creating a CDN key.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The hostname this key applies to.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub hostname: std::string::String,
 
     /// Configuration associated with the CDN key.
@@ -536,11 +546,12 @@ pub mod cdn_key {
 pub struct GoogleCdnKey {
     /// Input only. Secret for this Google Cloud CDN key.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub private_key: ::bytes::Bytes,
 
     /// The public name of the Google Cloud CDN key.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub key_name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -579,7 +590,7 @@ impl wkt::message::Message for GoogleCdnKey {
 pub struct AkamaiCdnKey {
     /// Input only. Token key for the Akamai CDN edge configuration.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub token_key: ::bytes::Bytes,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -612,11 +623,12 @@ impl wkt::message::Message for AkamaiCdnKey {
 pub struct MediaCdnKey {
     /// Input only. 64-byte ed25519 private key for this Media CDN key.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub private_key: ::bytes::Bytes,
 
     /// The keyset name of the Media CDN key.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub key_name: std::string::String,
 
     /// Optional. If set, the URL will be signed using the Media CDN token.
@@ -690,6 +702,7 @@ pub mod media_cdn_key {
         ///
         /// Defaults to `edge-cache-token`.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub query_parameter: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -726,10 +739,12 @@ pub mod media_cdn_key {
 pub struct CompanionAds {
     /// Indicates how many of the companions should be displayed with the ad.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_requirement: crate::model::companion_ads::DisplayRequirement,
 
     /// List of companion ads.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub companions: std::vec::Vec<crate::model::Companion>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -923,46 +938,49 @@ pub mod companion_ads {
 pub struct Companion {
     /// The API necessary to communicate with the creative if available.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub api_framework: std::string::String,
 
     /// The pixel height of the placement slot for the intended creative.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub height_px: i32,
 
     /// The pixel width of the placement slot for the intended creative.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub width_px: i32,
 
     /// The pixel height of the creative.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub asset_height_px: i32,
 
     /// The maximum pixel height of the creative in its expanded state.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub expanded_height_px: i32,
 
     /// The pixel width of the creative.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub asset_width_px: i32,
 
     /// The maximum pixel width of the creative in its expanded state.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub expanded_width_px: i32,
 
     /// The ID used to identify the desired placement on a publisher's page.
     /// Values to be used should be discussed between publishers and
     /// advertisers.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub ad_slot_id: std::string::String,
 
     /// The list of tracking events for the companion.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub events: std::vec::Vec<crate::model::Event>,
 
     /// Ad resource associated with the companion ad.
@@ -1180,6 +1198,7 @@ pub mod companion {
 pub struct HtmlAdResource {
     /// The HTML to display for the ad resource.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub html_source: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1212,6 +1231,7 @@ impl wkt::message::Message for HtmlAdResource {
 pub struct IframeAdResource {
     /// URI source for an IFrame to display for the ad resource.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub uri: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1244,10 +1264,12 @@ impl wkt::message::Message for IframeAdResource {
 pub struct StaticAdResource {
     /// URI to the static file for the ad resource.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub uri: std::string::String,
 
     /// Describes the MIME type of the ad resource.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub creative_type: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1287,14 +1309,17 @@ pub struct Event {
     /// Describes the event that occurred.
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub r#type: crate::model::event::EventType,
 
     /// The URI to trigger for this event.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub uri: std::string::String,
 
     /// The ID of the event.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub id: std::string::String,
 
     /// The offset in seconds if the event type is `PROGRESS`.
@@ -1662,6 +1687,7 @@ pub struct ProgressEvent {
     /// `CREATIVE_VIEW`, `START`, `FIRST_QUARTILE`, `MIDPOINT`, `THIRD_QUARTILE`,
     /// `COMPLETE`, `PROGRESS`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub events: std::vec::Vec<crate::model::Event>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1720,6 +1746,7 @@ pub struct FetchOptions {
     /// Each key value pair must have a maximum of 256 characters per key and 256
     /// characters per value.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub headers: std::collections::HashMap<std::string::String, std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1759,14 +1786,17 @@ pub struct LiveConfig {
     /// Output only. The resource name of the live config, in the form of
     /// `projects/{project}/locations/{location}/liveConfigs/{id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. Source URI for the live stream manifest.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub source_uri: std::string::String,
 
     /// The default ad tag associated with this live stream config.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub ad_tag_uri: std::string::String,
 
     /// Additional metadata used to register a live stream with Google Ad Manager
@@ -1776,10 +1806,12 @@ pub struct LiveConfig {
 
     /// Output only. State of the live config.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::live_config::State,
 
     /// Required. Determines how the ads are tracked.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub ad_tracking: crate::model::AdTracking,
 
     /// This must refer to a slate in the same
@@ -1787,11 +1819,13 @@ pub struct LiveConfig {
     /// value of `slateCreativeId` in
     /// <https://developers.google.com/ad-manager/api/reference/v202211/LiveStreamEventService.LiveStreamEvent#slateCreativeId>
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub default_slate: std::string::String,
 
     /// Defines the stitcher behavior in case an ad does not align exactly with
     /// the ad break boundaries. If not specified, the default is `CUT_CURRENT`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub stitching_policy: crate::model::live_config::StitchingPolicy,
 
     /// The configuration for prefetching ads.
@@ -2212,6 +2246,7 @@ pub mod live_config {
 pub struct PrefetchConfig {
     /// Required. Indicates whether the option to prefetch ad requests is enabled.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub enabled: bool,
 
     /// The duration in seconds of the part of the break to be prefetched.
@@ -2271,14 +2306,17 @@ impl wkt::message::Message for PrefetchConfig {
 pub struct GamLiveConfig {
     /// Required. Ad Manager network code to associate with the live config.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub network_code: std::string::String,
 
     /// Output only. The asset key identifier generated for the live config.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub asset_key: std::string::String,
 
     /// Output only. The custom asset key identifier generated for the live config.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub custom_asset_key: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2327,6 +2365,7 @@ pub struct VodSession {
     /// Output only. The name of the VOD session, in the form of
     /// `projects/{project_number}/locations/{location}/vodSessions/{id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. Metadata of what was stitched into the content.
@@ -2335,6 +2374,7 @@ pub struct VodSession {
 
     /// Output only. The playback URI of the stitched content.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub play_uri: std::string::String,
 
     /// URI of the media to stitch. For most use cases, you should create a
@@ -2343,6 +2383,7 @@ pub struct VodSession {
     ///
     /// [google.cloud.video.stitcher.v1.VodConfig]: crate::model::VodConfig
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub source_uri: std::string::String,
 
     /// Ad tag URI. For most use cases, you should create a
@@ -2351,6 +2392,7 @@ pub struct VodSession {
     ///
     /// [google.cloud.video.stitcher.v1.VodConfig]: crate::model::VodConfig
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub ad_tag_uri: std::string::String,
 
     /// Key value pairs for ad tag macro replacement, only available for VOD
@@ -2367,6 +2409,7 @@ pub struct VodSession {
     /// Fully qualified ad tag:
     /// ``https://doubleclick.google.com/ad/1?geo_id=123``
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub ad_tag_macro_map: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Additional options that affect the output of the manifest.
@@ -2375,10 +2418,12 @@ pub struct VodSession {
 
     /// Output only. The generated ID of the VodSession's source media.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub asset_id: std::string::String,
 
     /// Required. Determines how the ad should be tracked.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub ad_tracking: crate::model::AdTracking,
 
     /// This field should be set with appropriate values if GAM is being used for
@@ -2389,6 +2434,7 @@ pub struct VodSession {
     /// The resource name of the VOD config for this session, in the form of
     /// `projects/{project}/locations/{location}/vodConfigs/{id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub vod_config: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2532,10 +2578,12 @@ pub mod vod_session {
     pub struct GamSettings {
         /// Required. Ad Manager network code.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub network_code: std::string::String,
 
         /// Required. The stream ID generated by Ad Manager.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub stream_id: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2578,6 +2626,7 @@ pub mod vod_session {
 pub struct Interstitials {
     /// List of ad breaks ordered by time.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub ad_breaks: std::vec::Vec<crate::model::VodSessionAdBreak>,
 
     /// Information related to the content of the VOD session.
@@ -2649,6 +2698,7 @@ pub struct VodSessionAd {
     /// `EXIT_FULLSCREEN`, `EXPAND`, `COLLAPSE`, `ACCEPT_INVITATION_LINEAR`,
     /// `CLOSE_LINEAR`, `SKIP`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub activity_events: std::vec::Vec<crate::model::Event>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2767,10 +2817,12 @@ impl wkt::message::Message for VodSessionContent {
 pub struct VodSessionAdBreak {
     /// List of events that are expected to be triggered, ordered by time.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub progress_events: std::vec::Vec<crate::model::ProgressEvent>,
 
     /// Ordered list of ads stitched into the ad break.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub ads: std::vec::Vec<crate::model::VodSessionAd>,
 
     /// Ad break end time in seconds relative to the start of the VOD asset.
@@ -2865,10 +2917,12 @@ pub struct LiveSession {
     /// Output only. The name of the live session, in the form of
     /// `projects/{project}/locations/{location}/liveSessions/{id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. The URI to play the live session's ad-stitched stream.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub play_uri: std::string::String,
 
     /// Key value pairs for ad tag macro replacement, only available for live
@@ -2885,6 +2939,7 @@ pub struct LiveSession {
     /// Fully qualified ad tag:
     /// ``https://doubleclick.google.com/ad/1?geo_id=123``
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub ad_tag_macros: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Additional options that affect the output of the manifest.
@@ -2899,11 +2954,13 @@ pub struct LiveSession {
     /// Required. The resource name of the live config for this session, in the
     /// form of `projects/{project}/locations/{location}/liveConfigs/{id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub live_config: std::string::String,
 
     /// Determines how the ad should be tracked. This overrides the value set in
     /// the live config for this session.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub ad_tracking: crate::model::AdTracking,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3011,6 +3068,7 @@ pub mod live_session {
         /// Required. The stream ID generated by Ad Manager. This must be set if GAM
         /// is being used for ads and the session uses client-side ad tracking.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub stream_id: std::string::String,
 
         /// [Targeting
@@ -3018,6 +3076,7 @@ pub mod live_session {
         /// to Ad Manager to generate a stream ID. This should only be set if the
         /// session uses server-side ad tracking.
         #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
         pub targeting_parameters:
             std::collections::HashMap<std::string::String, std::string::String>,
 
@@ -3065,11 +3124,13 @@ pub struct ManifestOptions {
     /// If specified, the output manifest will only return renditions matching the
     /// specified filters.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub include_renditions: std::vec::Vec<crate::model::RenditionFilter>,
 
     /// If specified, the output manifest will orders the video and muxed
     /// renditions by bitrate according to the ordering policy.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub bitrate_order: crate::model::manifest_options::OrderPolicy,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3255,12 +3316,13 @@ pub struct RenditionFilter {
     /// Bitrate in bits per second for the rendition. If set, only renditions with
     /// the exact bitrate will match.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub bitrate_bps: i32,
 
     /// Codecs for the rendition. If set, only renditions with the exact value
     /// will match.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub codecs: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3300,11 +3362,13 @@ pub struct Slate {
     /// Output only. The name of the slate, in the form of
     /// `projects/{project_number}/locations/{location}/slates/{id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The URI to fetch the source content for the slate. This URI must return an
     /// MP4 video with at least one audio track.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub uri: std::string::String,
 
     /// gam_slate has all the GAM-related attributes of slates.
@@ -3371,11 +3435,12 @@ pub mod slate {
     pub struct GamSlate {
         /// Required. Ad Manager network code to associate with the live config.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub network_code: std::string::String,
 
         /// Output only. The identifier generated for the slate by GAM.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I64")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
         pub gam_slate_id: i64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3421,10 +3486,12 @@ pub struct VodStitchDetail {
     /// The name of the stitch detail in the specified VOD session, in the form of
     /// `projects/{project}/locations/{location}/vodSessions/{vod_session_id}/vodStitchDetails/{id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// A list of ad processing details for the fetched ad playlist.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub ad_stitch_details: std::vec::Vec<crate::model::AdStitchDetail>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3468,10 +3535,12 @@ impl wkt::message::Message for VodStitchDetail {
 pub struct AdStitchDetail {
     /// Required. The ad break ID of the processed ad.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub ad_break_id: std::string::String,
 
     /// Required. The ad ID of the processed ad.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub ad_id: std::string::String,
 
     /// Required. The time offset of the processed ad.
@@ -3480,10 +3549,12 @@ pub struct AdStitchDetail {
 
     /// Optional. Indicates the reason why the ad has been skipped.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub skip_reason: std::string::String,
 
     /// Optional. The metadata of the chosen media file for the ad.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub media: std::collections::HashMap<std::string::String, wkt::Value>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3559,6 +3630,7 @@ pub struct CreateCdnKeyRequest {
     /// Required. The project in which the CDN key should be created, in the form
     /// of `projects/{project_number}/locations/{location}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The CDN key resource to create.
@@ -3572,6 +3644,7 @@ pub struct CreateCdnKeyRequest {
     /// lower-case letters, numbers, and hyphen, with the first character a
     /// letter, the last a letter or a number, and a 63 character maximum.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub cdn_key_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3629,24 +3702,28 @@ pub struct ListCdnKeysRequest {
     /// Required. The project that contains the list of CDN keys, in the form of
     /// `projects/{project_number}/locations/{location}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Requested page size. Server may return fewer items than requested.
     /// If unspecified, server will pick an appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Filtering results
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Hint for how to order the results
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3703,14 +3780,17 @@ impl wkt::message::Message for ListCdnKeysRequest {
 pub struct ListCdnKeysResponse {
     /// List of CDN keys.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub cdn_keys: std::vec::Vec<crate::model::CdnKey>,
 
     /// A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3780,6 +3860,7 @@ pub struct GetCdnKeyRequest {
     /// Required. The name of the CDN key to be retrieved, in the form of
     /// `projects/{project}/locations/{location}/cdnKeys/{id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3813,6 +3894,7 @@ pub struct DeleteCdnKeyRequest {
     /// Required. The name of the CDN key to be deleted, in the form of
     /// `projects/{project_number}/locations/{location}/cdnKeys/{id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3914,6 +3996,7 @@ pub struct CreateVodSessionRequest {
     /// Required. The project and location in which the VOD session should be
     /// created, in the form of `projects/{project_number}/locations/{location}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. Parameters for creating a session.
@@ -3969,6 +4052,7 @@ pub struct GetVodSessionRequest {
     /// Required. The name of the VOD session to be retrieved, in the form of
     /// `projects/{project_number}/locations/{location}/vodSessions/{id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4002,15 +4086,17 @@ pub struct ListVodStitchDetailsRequest {
     /// Required. The VOD session where the stitch details belong to, in the form
     /// of `projects/{project}/locations/{location}/vodSessions/{id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The maximum number of items to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous List request, if any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4055,10 +4141,12 @@ impl wkt::message::Message for ListVodStitchDetailsRequest {
 pub struct ListVodStitchDetailsResponse {
     /// A List of stitch Details.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub vod_stitch_details: std::vec::Vec<crate::model::VodStitchDetail>,
 
     /// The pagination token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4118,6 +4206,7 @@ pub struct GetVodStitchDetailRequest {
     /// the form of
     /// `projects/{project}/locations/{location}/vodSessions/{vod_session_id}/vodStitchDetails/{id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4151,15 +4240,17 @@ pub struct ListVodAdTagDetailsRequest {
     /// Required. The VOD session which the ad tag details belong to, in the form
     /// of `projects/{project}/locations/{location}/vodSessions/{vod_session_id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The maximum number of items to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous List request, if any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4204,10 +4295,12 @@ impl wkt::message::Message for ListVodAdTagDetailsRequest {
 pub struct ListVodAdTagDetailsResponse {
     /// A List of ad tag details.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub vod_ad_tag_details: std::vec::Vec<crate::model::VodAdTagDetail>,
 
     /// The pagination token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4267,6 +4360,7 @@ pub struct GetVodAdTagDetailRequest {
     /// the form of
     /// `projects/{project}/locations/{location}/vodSessions/{vod_session_id}/vodAdTagDetails/{vod_ad_tag_detail}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4300,15 +4394,17 @@ pub struct ListLiveAdTagDetailsRequest {
     /// Required. The resource parent in the form of
     /// `projects/{project}/locations/{location}/liveSessions/{live_session}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The maximum number of items to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// The pagination token returned from a previous List request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4353,10 +4449,12 @@ impl wkt::message::Message for ListLiveAdTagDetailsRequest {
 pub struct ListLiveAdTagDetailsResponse {
     /// A list of live session ad tag details.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub live_ad_tag_details: std::vec::Vec<crate::model::LiveAdTagDetail>,
 
     /// The pagination token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4415,6 +4513,7 @@ pub struct GetLiveAdTagDetailRequest {
     /// Required. The resource name in the form of
     /// `projects/{project}/locations/{location}/liveSessions/{live_session}/liveAdTagDetails/{live_ad_tag_detail}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4448,6 +4547,7 @@ pub struct CreateSlateRequest {
     /// Required. The project in which the slate should be created, in the form of
     /// `projects/{project_number}/locations/{location}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The unique identifier for the slate.
@@ -4455,6 +4555,7 @@ pub struct CreateSlateRequest {
     /// lower-case letters, numbers, and hyphen, with the first character a
     /// letter, the last a letter or a number, and a 63 character maximum.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub slate_id: std::string::String,
 
     /// Required. The slate to create.
@@ -4475,6 +4576,7 @@ pub struct CreateSlateRequest {
     /// The request ID must be a valid UUID with the exception that zero UUID is
     /// not supported `(00000000-0000-0000-0000-000000000000)`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4538,6 +4640,7 @@ pub struct GetSlateRequest {
     /// Required. The name of the slate to be retrieved, of the slate, in the form
     /// of `projects/{project_number}/locations/{location}/slates/{id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4571,24 +4674,28 @@ pub struct ListSlatesRequest {
     /// Required. The project to list slates, in the form of
     /// `projects/{project_number}/locations/{location}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Requested page size. Server may return fewer items than requested.
     /// If unspecified, server will pick an appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Filtering results
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Hint for how to order the results
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4645,14 +4752,17 @@ impl wkt::message::Message for ListSlatesRequest {
 pub struct ListSlatesResponse {
     /// The list of slates
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub slates: std::vec::Vec<crate::model::Slate>,
 
     /// A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4788,6 +4898,7 @@ pub struct DeleteSlateRequest {
     /// Required. The name of the slate to be deleted, in the form of
     /// `projects/{project_number}/locations/{location}/slates/{id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4821,6 +4932,7 @@ pub struct CreateLiveSessionRequest {
     /// Required. The project and location in which the live session should be
     /// created, in the form of `projects/{project_number}/locations/{location}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. Parameters for creating a live session.
@@ -4876,6 +4988,7 @@ pub struct GetLiveSessionRequest {
     /// Required. The name of the live session, in the form of
     /// `projects/{project_number}/locations/{location}/liveSessions/{id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4909,10 +5022,12 @@ pub struct CreateLiveConfigRequest {
     /// Required. The project in which the live config should be created, in
     /// the form of `projects/{project_number}/locations/{location}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The unique identifier ID to use for the live config.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub live_config_id: std::string::String,
 
     /// Required. The live config resource to create.
@@ -4933,6 +5048,7 @@ pub struct CreateLiveConfigRequest {
     /// The request ID must be a valid UUID with the exception that zero UUID is
     /// not supported `(00000000-0000-0000-0000-000000000000)`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4996,26 +5112,30 @@ pub struct ListLiveConfigsRequest {
     /// Required. The project that contains the list of live configs, in the
     /// form of `projects/{project_number}/locations/{location}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The maximum number of items to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous List request, if any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. The filter to apply to list results (see
     /// [Filtering](https://google.aip.dev/160)).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Optional. Specifies the ordering of results following
     /// [Cloud API
     /// syntax](https://cloud.google.com/apis/design/design_patterns#sorting_order).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5072,14 +5192,17 @@ impl wkt::message::Message for ListLiveConfigsRequest {
 pub struct ListLiveConfigsResponse {
     /// List of live configs.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub live_configs: std::vec::Vec<crate::model::LiveConfig>,
 
     /// The pagination token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5150,6 +5273,7 @@ pub struct GetLiveConfigRequest {
     /// of
     /// `projects/{project_number}/locations/{location}/liveConfigs/{id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5183,6 +5307,7 @@ pub struct DeleteLiveConfigRequest {
     /// Required. The name of the live config to be deleted, in the form of
     /// `projects/{project_number}/locations/{location}/liveConfigs/{id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5285,10 +5410,12 @@ pub struct CreateVodConfigRequest {
     /// Required. The project in which the VOD config should be created, in
     /// the form of `projects/{project_number}/locations/{location}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The unique identifier ID to use for the VOD config.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub vod_config_id: std::string::String,
 
     /// Required. The VOD config resource to create.
@@ -5309,6 +5436,7 @@ pub struct CreateVodConfigRequest {
     /// The request ID must be a valid UUID with the exception that zero UUID is
     /// not supported `(00000000-0000-0000-0000-000000000000)`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5372,27 +5500,31 @@ pub struct ListVodConfigsRequest {
     /// Required. The project that contains the list of VOD configs, in the
     /// form of `projects/{project_number}/locations/{location}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. The maximum number of items to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. The next_page_token value returned from a previous List request,
     /// if any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. The filter to apply to list results (see
     /// [Filtering](https://google.aip.dev/160)).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Optional. Specifies the ordering of results following
     /// [Cloud API
     /// syntax](https://cloud.google.com/apis/design/design_patterns#sorting_order).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5449,14 +5581,17 @@ impl wkt::message::Message for ListVodConfigsRequest {
 pub struct ListVodConfigsResponse {
     /// List of VOD configs.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub vod_configs: std::vec::Vec<crate::model::VodConfig>,
 
     /// The pagination token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5526,6 +5661,7 @@ pub struct GetVodConfigRequest {
     /// Required. The name of the VOD config to be retrieved, in the form
     /// of `projects/{project_number}/locations/{location}/vodConfigs/{id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5559,6 +5695,7 @@ pub struct DeleteVodConfigRequest {
     /// Required. The name of the VOD config to be deleted, in the form of
     /// `projects/{project_number}/locations/{location}/vodConfigs/{id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5668,10 +5805,12 @@ pub struct OperationMetadata {
 
     /// Server-defined resource path for the target of the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub target: std::string::String,
 
     /// Name of the verb executed by the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub verb: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5747,14 +5886,17 @@ pub struct VodConfig {
     /// Output only. The resource name of the VOD config, in the form of
     /// `projects/{project}/locations/{location}/vodConfigs/{id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. Source URI for the VOD stream manifest.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub source_uri: std::string::String,
 
     /// Required. The default ad tag associated with this VOD config.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub ad_tag_uri: std::string::String,
 
     /// Optional. Google Ad Manager (GAM) metadata.
@@ -5763,6 +5905,7 @@ pub struct VodConfig {
 
     /// Output only. State of the VOD config.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::vod_config::State,
 
     /// Options for fetching source manifests and segments.
@@ -6001,6 +6144,7 @@ pub mod vod_config {
 pub struct GamVodConfig {
     /// Required. Ad Manager network code to associate with the VOD config.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub network_code: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

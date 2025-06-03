@@ -44,6 +44,7 @@ pub struct ListJobsRequest {
     /// Required. The location name. For example:
     /// `projects/PROJECT_ID/locations/LOCATION_ID`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Requested page size.
@@ -53,7 +54,7 @@ pub struct ListJobsRequest {
     /// even if more jobs exist; use next_page_token to determine if more
     /// jobs exist.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// A token identifying a page of results the server will return. To
@@ -66,6 +67,7 @@ pub struct ListJobsRequest {
     /// [google.cloud.scheduler.v1.CloudScheduler.ListJobs]: crate::client::CloudScheduler::list_jobs
     /// [google.cloud.scheduler.v1.ListJobsResponse.next_page_token]: crate::model::ListJobsResponse::next_page_token
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -113,6 +115,7 @@ impl wkt::message::Message for ListJobsRequest {
 pub struct ListJobsResponse {
     /// The list of jobs.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub jobs: std::vec::Vec<crate::model::Job>,
 
     /// A token to retrieve next page of results. Pass this value in the
@@ -127,6 +130,7 @@ pub struct ListJobsResponse {
     /// [google.cloud.scheduler.v1.CloudScheduler.ListJobs]: crate::client::CloudScheduler::list_jobs
     /// [google.cloud.scheduler.v1.ListJobsRequest.page_token]: crate::model::ListJobsRequest::page_token
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -188,6 +192,7 @@ pub struct GetJobRequest {
     /// Required. The job name. For example:
     /// `projects/PROJECT_ID/locations/LOCATION_ID/jobs/JOB_ID`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -224,6 +229,7 @@ pub struct CreateJobRequest {
     /// Required. The location name. For example:
     /// `projects/PROJECT_ID/locations/LOCATION_ID`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The job to add. The user can optionally specify a name for the
@@ -364,6 +370,7 @@ pub struct DeleteJobRequest {
     /// Required. The job name. For example:
     /// `projects/PROJECT_ID/locations/LOCATION_ID/jobs/JOB_ID`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -400,6 +407,7 @@ pub struct PauseJobRequest {
     /// Required. The job name. For example:
     /// `projects/PROJECT_ID/locations/LOCATION_ID/jobs/JOB_ID`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -436,6 +444,7 @@ pub struct ResumeJobRequest {
     /// Required. The job name. For example:
     /// `projects/PROJECT_ID/locations/LOCATION_ID/jobs/JOB_ID`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -472,6 +481,7 @@ pub struct RunJobRequest {
     /// Required. The job name. For example:
     /// `projects/PROJECT_ID/locations/LOCATION_ID/jobs/JOB_ID`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -524,6 +534,7 @@ pub struct Job {
     ///
     /// [google.cloud.scheduler.v1.CloudScheduler.CreateJob]: crate::client::CloudScheduler::create_job
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optionally caller-specified in
@@ -536,6 +547,7 @@ pub struct Job {
     /// [google.cloud.scheduler.v1.CloudScheduler.CreateJob]: crate::client::CloudScheduler::create_job
     /// [google.cloud.scheduler.v1.CloudScheduler.UpdateJob]: crate::client::CloudScheduler::update_job
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Required, except when used with
@@ -570,6 +582,7 @@ pub struct Job {
     /// [google.cloud.scheduler.v1.CloudScheduler.UpdateJob]: crate::client::CloudScheduler::update_job
     /// [google.cloud.scheduler.v1.RetryConfig.retry_count]: crate::model::RetryConfig::retry_count
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub schedule: std::string::String,
 
     /// Specifies the time zone to be used in interpreting
@@ -585,6 +598,7 @@ pub struct Job {
     ///
     /// [google.cloud.scheduler.v1.Job.schedule]: crate::model::Job::schedule
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub time_zone: std::string::String,
 
     /// Output only. The creation time of the job.
@@ -593,6 +607,7 @@ pub struct Job {
 
     /// Output only. State of the job.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::job::State,
 
     /// Output only. The response from the target for the last attempted execution.
@@ -1107,7 +1122,7 @@ pub struct RetryConfig {
     ///
     /// [google.cloud.scheduler.v1.RetryConfig.max_doublings]: crate::model::RetryConfig::max_doublings
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub retry_count: i32,
 
     /// The time limit for retrying a failed job, measured from time when an
@@ -1165,7 +1180,7 @@ pub struct RetryConfig {
     /// [google.cloud.scheduler.v1.RetryConfig.min_backoff_duration]: crate::model::RetryConfig::min_backoff_duration
     /// [google.cloud.scheduler.v1.RetryConfig.retry_count]: crate::model::RetryConfig::retry_count
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub max_doublings: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1273,10 +1288,12 @@ pub struct HttpTarget {
     ///
     /// [google.cloud.scheduler.v1.HttpTarget.uri]: crate::model::HttpTarget::uri
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub uri: std::string::String,
 
     /// Which HTTP method to use for the request.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub http_method: crate::model::HttpMethod,
 
     /// HTTP request headers.
@@ -1318,6 +1335,7 @@ pub struct HttpTarget {
     /// [google.cloud.scheduler.v1.HttpTarget.body]: crate::model::HttpTarget::body
     /// [google.cloud.scheduler.v1.HttpTarget.uri]: crate::model::HttpTarget::uri
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub headers: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// HTTP request body. A request body is allowed only if the HTTP
@@ -1326,7 +1344,7 @@ pub struct HttpTarget {
     ///
     /// [google.cloud.scheduler.v1.HttpMethod]: crate::model::HttpMethod
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub body: ::bytes::Bytes,
 
     /// The mode for generating an `Authorization` header for HTTP requests.
@@ -1515,6 +1533,7 @@ pub struct AppEngineHttpTarget {
     /// The HTTP method to use for the request. PATCH and OPTIONS are not
     /// permitted.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub http_method: crate::model::HttpMethod,
 
     /// App Engine Routing setting for the job.
@@ -1528,6 +1547,7 @@ pub struct AppEngineHttpTarget {
     /// If the relative URL is empty, then the root path "/" will be used.
     /// No spaces are allowed, and the maximum length allowed is 2083 characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub relative_uri: std::string::String,
 
     /// HTTP request headers.
@@ -1568,6 +1588,7 @@ pub struct AppEngineHttpTarget {
     ///
     /// [google.cloud.scheduler.v1.AppEngineHttpTarget.body]: crate::model::AppEngineHttpTarget::body
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub headers: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Body.
@@ -1579,7 +1600,7 @@ pub struct AppEngineHttpTarget {
     ///
     /// [google.cloud.scheduler.v1.HttpMethod]: crate::model::HttpMethod
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub body: ::bytes::Bytes,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1664,6 +1685,7 @@ pub struct PubsubTarget {
     ///
     /// The topic must be in the same project as the Cloud Scheduler job.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub topic_name: std::string::String,
 
     /// The message payload for PubsubMessage.
@@ -1671,7 +1693,7 @@ pub struct PubsubTarget {
     /// Pubsub message must contain either non-empty data, or at least one
     /// attribute.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub data: ::bytes::Bytes,
 
     /// Attributes for PubsubMessage.
@@ -1679,6 +1701,7 @@ pub struct PubsubTarget {
     /// Pubsub message must contain either non-empty data, or at least one
     /// attribute.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub attributes: std::collections::HashMap<std::string::String, std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1742,6 +1765,7 @@ pub struct AppEngineRouting {
     /// By default, the job is sent to the service which is the default
     /// service when the job is attempted.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub service: std::string::String,
 
     /// App version.
@@ -1749,6 +1773,7 @@ pub struct AppEngineRouting {
     /// By default, the job is sent to the version which is the default
     /// version when the job is attempted.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub version: std::string::String,
 
     /// App instance.
@@ -1765,6 +1790,7 @@ pub struct AppEngineRouting {
     /// and [App Engine Flex request
     /// routing](https://cloud.google.com/appengine/docs/flexible/python/how-requests-are-routed).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub instance: std::string::String,
 
     /// Output only. The host that the job is sent to.
@@ -1834,6 +1860,7 @@ pub struct AppEngineRouting {
     /// [google.cloud.scheduler.v1.AppEngineRouting.service]: crate::model::AppEngineRouting::service
     /// [google.cloud.scheduler.v1.AppEngineRouting.version]: crate::model::AppEngineRouting::version
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub host: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1890,12 +1917,14 @@ pub struct OAuthToken {
     /// The service account must be within the same project as the job. The caller
     /// must have iam.serviceAccounts.actAs permission for the service account.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub service_account_email: std::string::String,
 
     /// OAuth scope to be used for generating OAuth access token.
     /// If not specified, `https://www.googleapis.com/auth/cloud-platform`
     /// will be used.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub scope: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1945,11 +1974,13 @@ pub struct OidcToken {
     /// The service account must be within the same project as the job. The caller
     /// must have iam.serviceAccounts.actAs permission for the service account.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub service_account_email: std::string::String,
 
     /// Audience to be used when generating OIDC token. If not specified, the URI
     /// specified in target will be used.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub audience: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

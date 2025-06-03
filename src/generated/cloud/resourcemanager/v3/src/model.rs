@@ -43,6 +43,7 @@ pub struct Folder {
     /// Output only. The resource name of the folder.
     /// Its format is `folders/{folder_id}`, for example: "folders/1234".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. The folder's parent's resource name.
@@ -51,6 +52,7 @@ pub struct Folder {
     ///
     /// [google.cloud.resourcemanager.v3.Folders.MoveFolder]: crate::client::Folders::move_folder
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The folder's display name.
@@ -61,6 +63,7 @@ pub struct Folder {
     /// than 30 characters. This is captured by the regular expression:
     /// `[\p{L}\p{N}]([\p{L}\p{N}_- ]{0,28}[\p{L}\p{N}])?`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// Output only. The lifecycle state of the folder.
@@ -71,6 +74,7 @@ pub struct Folder {
     /// [google.cloud.resourcemanager.v3.Folders.DeleteFolder]: crate::client::Folders::delete_folder
     /// [google.cloud.resourcemanager.v3.Folders.UndeleteFolder]: crate::client::Folders::undelete_folder
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::folder::State,
 
     /// Output only. Timestamp when the folder was created.
@@ -89,6 +93,7 @@ pub struct Folder {
     /// of the folder resource. This may be sent on update and delete requests to
     /// ensure the client has an up-to-date value before proceeding.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -338,6 +343,7 @@ pub struct GetFolderRequest {
     /// Required. The resource name of the folder to retrieve.
     /// Must be of the form `folders/{folder_id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -378,18 +384,20 @@ pub struct ListFoldersRequest {
     /// Access to this method is controlled by checking the
     /// `resourcemanager.folders.list` permission on the `parent`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. The maximum number of folders to return in the response. The
     /// server can return fewer folders than requested. If unspecified, server
     /// picks an appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. A pagination token returned from a previous call to `ListFolders`
     /// that indicates where this listing should continue from.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. Controls whether folders in the
@@ -398,6 +406,7 @@ pub struct ListFoldersRequest {
     ///
     /// [google.cloud.resourcemanager.v3.Folder.State.DELETE_REQUESTED]: crate::model::folder::State::DeleteRequested
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub show_deleted: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -449,11 +458,13 @@ pub struct ListFoldersResponse {
     /// A possibly paginated list of folders that are direct descendants of
     /// the specified parent resource.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub folders: std::vec::Vec<crate::model::Folder>,
 
     /// A pagination token returned from a previous call to `ListFolders`
     /// that indicates from where listing should continue.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -513,12 +524,13 @@ pub struct SearchFoldersRequest {
     /// server can return fewer folders than requested. If unspecified, server
     /// picks an appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. A pagination token returned from a previous call to
     /// `SearchFolders` that indicates from where search should continue.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. Search criteria used to select the folders to return.
@@ -553,6 +565,7 @@ pub struct SearchFoldersRequest {
     /// * Query `displayName=\\"Test String\\"` returns Folder resources with
     ///   display names that include both "Test" and "String".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub query: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -598,11 +611,13 @@ pub struct SearchFoldersResponse {
     /// A possibly paginated folder search results.
     /// the specified parent resource.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub folders: std::vec::Vec<crate::model::Folder>,
 
     /// A pagination token returned from a previous call to `SearchFolders`
     /// that indicates from where searching should continue.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -705,11 +720,13 @@ impl wkt::message::Message for CreateFolderRequest {
 pub struct CreateFolderMetadata {
     /// The display name of the folder.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// The resource name of the folder or organization we are creating the folder
     /// under.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -849,12 +866,14 @@ pub struct MoveFolderRequest {
     /// Required. The resource name of the Folder to move.
     /// Must be of the form folders/{folder_id}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. The resource name of the folder or organization which should be
     /// the folder's new parent. Must be of the form `folders/{folder_id}` or
     /// `organizations/{org_id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub destination_parent: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -896,14 +915,17 @@ impl wkt::message::Message for MoveFolderRequest {
 pub struct MoveFolderMetadata {
     /// The display name of the folder.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// The resource name of the folder's parent.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub source_parent: std::string::String,
 
     /// The resource name of the folder or organization to move the folder to.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub destination_parent: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -952,6 +974,7 @@ pub struct DeleteFolderRequest {
     /// Required. The resource name of the folder to be deleted.
     /// Must be of the form `folders/{folder_id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1008,6 +1031,7 @@ pub struct UndeleteFolderRequest {
     /// Required. The resource name of the folder to undelete.
     /// Must be of the form `folders/{folder_id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1066,6 +1090,7 @@ pub struct Organization {
     /// organization's relative path in the API. Its format is
     /// "organizations/[organization_id]". For example, "organizations/1234".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. A human-readable string that refers to the organization in the
@@ -1073,10 +1098,12 @@ pub struct Organization {
     /// changed. The string will be set to the primary domain (for example,
     /// "google.com") of the Google Workspace customer that owns the organization.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// Output only. The organization's current lifecycle state.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::organization::State,
 
     /// Output only. Timestamp when the Organization was created.
@@ -1095,6 +1122,7 @@ pub struct Organization {
     /// of the Organization resource. This may be sent on update and delete
     /// requests to ensure the client has an up-to-date value before proceeding.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     /// The owner of this organization. The owner should be specified on
@@ -1394,7 +1422,7 @@ pub mod organization {
     #[non_exhaustive]
     pub enum Owner {
         /// Immutable. The G Suite / Workspace customer id used in the Directory API.
-        DirectoryCustomerId(std::string::String),
+        DirectoryCustomerId(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
     }
 }
 
@@ -1409,6 +1437,7 @@ pub struct GetOrganizationRequest {
     /// organization's relative path in the API, formatted as
     /// "organizations/[organizationId]". For example, "organizations/1234".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1443,12 +1472,13 @@ pub struct SearchOrganizationsRequest {
     /// The server can return fewer organizations than requested. If unspecified,
     /// server picks an appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. A pagination token returned from a previous call to
     /// `SearchOrganizations` that indicates from where listing should continue.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. An optional query string used to filter the Organizations to
@@ -1470,6 +1500,7 @@ pub struct SearchOrganizationsRequest {
     /// * Query `domain:google.com` returns Organization resources corresponding
     ///   to the domain `google.com`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub query: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1515,6 +1546,7 @@ pub struct SearchOrganizationsResponse {
     /// The list of Organizations that matched the search query, possibly
     /// paginated.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub organizations: std::vec::Vec<crate::model::Organization>,
 
     /// A pagination token to be used to retrieve the next page of results. If the
@@ -1523,6 +1555,7 @@ pub struct SearchOrganizationsResponse {
     /// of results. If this field is empty, it indicates that this response
     /// contains the last page of results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1631,11 +1664,13 @@ pub struct Project {
     ///
     /// Example: `projects/415104041262`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. A reference to a parent Resource. eg., `organizations/123` or
     /// `folders/876`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Immutable. The unique, user-assigned id of the project.
@@ -1645,10 +1680,12 @@ pub struct Project {
     ///
     /// Example: `tokyo-rain-123`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub project_id: std::string::String,
 
     /// Output only. The project lifecycle state.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::project::State,
 
     /// Optional. A user-assigned display name of the project.
@@ -1658,6 +1695,7 @@ pub struct Project {
     ///
     /// Example: `My Project`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// Output only. Creation time.
@@ -1676,6 +1714,7 @@ pub struct Project {
     /// of the Project resource. This may be sent on update and delete requests to
     /// ensure the client has an up-to-date value before proceeding.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     /// Optional. The labels associated with this project.
@@ -1693,6 +1732,7 @@ pub struct Project {
     ///
     /// Example: `"myBusinessDimension" : "businessValue"`
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1971,6 +2011,7 @@ pub mod project {
 pub struct GetProjectRequest {
     /// Required. The name of the project (for example, `projects/415104041262`).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2012,24 +2053,27 @@ pub struct ListProjectsRequest {
     /// If the parent is a folder, use the value `folders/{folder_id}`. If the
     /// parent is an organization, use the value `organizations/{org_id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. A pagination token returned from a previous call to
     /// [ListProjects] [google.cloud.resourcemanager.v3.Projects.ListProjects] that
     /// indicates from where listing should continue.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. The maximum number of projects to return in the response.
     /// The server can return fewer projects than requested.
     /// If unspecified, server picks an appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. Indicate that projects in the `DELETE_REQUESTED` state should
     /// also be returned. Normally only `ACTIVE` projects are returned.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub show_deleted: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2091,6 +2135,7 @@ impl wkt::message::Message for ListProjectsRequest {
 pub struct ListProjectsResponse {
     /// The list of Projects under the parent. This list can be paginated.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub projects: std::vec::Vec<crate::model::Project>,
 
     /// Pagination token.
@@ -2105,6 +2150,7 @@ pub struct ListProjectsResponse {
     ///
     /// Pagination tokens have a limited lifetime.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2197,19 +2243,21 @@ pub struct SearchProjectsRequest {
     /// If no query is specified, the call will return projects for which the user
     /// has the `resourcemanager.projects.get` permission.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub query: std::string::String,
 
     /// Optional. A pagination token returned from a previous call to
     /// [ListProjects] [google.cloud.resourcemanager.v3.Projects.ListProjects] that
     /// indicates from where listing should continue.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. The maximum number of projects to return in the response.
     /// The server can return fewer projects than requested.
     /// If unspecified, server picks an appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2263,6 +2311,7 @@ pub struct SearchProjectsResponse {
     /// The list of Projects that matched the list filter query. This list can
     /// be paginated.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub projects: std::vec::Vec<crate::model::Project>,
 
     /// Pagination token.
@@ -2277,6 +2326,7 @@ pub struct SearchProjectsResponse {
     ///
     /// Pagination tokens have a limited lifetime.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2398,10 +2448,12 @@ pub struct CreateProjectMetadata {
     /// operations on the project are guaranteed to work until the project creation
     /// is complete.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub gettable: bool,
 
     /// True if the project creation process is complete.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub ready: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2560,10 +2612,12 @@ impl wkt::message::Message for UpdateProjectMetadata {
 pub struct MoveProjectRequest {
     /// Required. The name of the project to move.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. The new parent to move the Project under.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub destination_parent: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2631,6 +2685,7 @@ impl wkt::message::Message for MoveProjectMetadata {
 pub struct DeleteProjectRequest {
     /// Required. The name of the Project (for example, `projects/415104041262`).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2690,6 +2745,7 @@ pub struct UndeleteProjectRequest {
     ///
     /// Required.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2749,16 +2805,19 @@ pub struct TagBinding {
     /// `tagBindings/{full-resource-name}/{tag-value-name}` (e.g.
     /// `tagBindings/%2F%2Fcloudresourcemanager.googleapis.com%2Fprojects%2F123/tagValues/456`).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The full resource name of the resource the TagValue is bound to.
     /// E.g. `//cloudresourcemanager.googleapis.com/projects/123`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The TagValue of the TagBinding.
     /// Must be of the form `tagValues/456`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub tag_value: std::string::String,
 
     /// The namespaced name for the TagValue of the TagBinding.
@@ -2769,6 +2828,7 @@ pub struct TagBinding {
     /// tag_value_namespaced_name or tag_value may be filled. Requests with both
     /// fields will be rejected.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub tag_value_namespaced_name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2849,6 +2909,7 @@ pub struct CreateTagBindingRequest {
     /// Optional. Set to true to perform the validations necessary for creating the
     /// resource, but not actually perform the action.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2923,6 +2984,7 @@ pub struct DeleteTagBindingRequest {
     /// `tagBindings/{id}` (e.g.
     /// `tagBindings/%2F%2Fcloudresourcemanager.googleapis.com%2Fprojects%2F123/tagValues/456`).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2957,18 +3019,20 @@ pub struct ListTagBindingsRequest {
     /// existing TagBindings. E.g.
     /// "//cloudresourcemanager.googleapis.com/projects/123"
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. The maximum number of TagBindings to return in the response. The
     /// server allows a maximum of 300 TagBindings to return. If unspecified, the
     /// server will use 100 as the default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. A pagination token returned from a previous call to
     /// `ListTagBindings` that indicates where this listing should continue from.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3013,6 +3077,7 @@ impl wkt::message::Message for ListTagBindingsRequest {
 pub struct ListTagBindingsResponse {
     /// A possibly paginated list of TagBindings for the specified resource.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub tag_bindings: std::vec::Vec<crate::model::TagBinding>,
 
     /// Pagination token.
@@ -3027,6 +3092,7 @@ pub struct ListTagBindingsResponse {
     ///
     /// Pagination tokens have a limited lifetime.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3086,18 +3152,20 @@ pub struct ListEffectiveTagsRequest {
     /// the effective tags. E.g.
     /// "//cloudresourcemanager.googleapis.com/projects/123"
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. The maximum number of effective tags to return in the response.
     /// The server allows a maximum of 300 effective tags to return in a single
     /// page. If unspecified, the server will use 100 as the default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. A pagination token returned from a previous call to
     /// `ListEffectiveTags` that indicates from where this listing should continue.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3142,6 +3210,7 @@ impl wkt::message::Message for ListEffectiveTagsRequest {
 pub struct ListEffectiveTagsResponse {
     /// A possibly paginated list of effective tags for the specified resource.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub effective_tags: std::vec::Vec<crate::model::EffectiveTag>,
 
     /// Pagination token.
@@ -3156,6 +3225,7 @@ pub struct ListEffectiveTagsResponse {
     ///
     /// Pagination tokens have a limited lifetime.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3217,6 +3287,7 @@ impl gax::paginator::internal::PageableResponse for ListEffectiveTagsResponse {
 pub struct EffectiveTag {
     /// Resource name for TagValue in the format `tagValues/456`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub tag_value: std::string::String,
 
     /// The namespaced name of the TagValue. Can be in the form
@@ -3224,11 +3295,13 @@ pub struct EffectiveTag {
     /// `{project_id}/{tag_key_short_name}/{tag_value_short_name}` or
     /// `{project_number}/{tag_key_short_name}/{tag_value_short_name}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub namespaced_tag_value: std::string::String,
 
     /// The name of the TagKey, in the format `tagKeys/{id}`, such as
     /// `tagKeys/123`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub tag_key: std::string::String,
 
     /// The namespaced name of the TagKey. Can be in the form
@@ -3236,12 +3309,14 @@ pub struct EffectiveTag {
     /// `{project_id}/{tag_key_short_name}` or
     /// `{project_number}/{tag_key_short_name}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub namespaced_tag_key: std::string::String,
 
     /// The parent name of the tag key.
     /// Must be in the format `organizations/{organization_id}` or
     /// `projects/{project_number}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub tag_key_parent_name: std::string::String,
 
     /// Indicates the inheritance status of a tag value
@@ -3249,6 +3324,7 @@ pub struct EffectiveTag {
     /// the resource's ancestors, inherited will be true. If false, then the tag
     /// value is directly attached to the resource, inherited will be false.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub inherited: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3326,12 +3402,14 @@ pub struct TagHold {
     /// (e.g. `tagValues/123/tagHolds/456`). This resource name is generated by
     /// the server.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. The name of the resource where the TagValue is being used. Must
     /// be less than 200 characters. E.g.
     /// `//compute.googleapis.com/compute/projects/myproject/regions/us-east-1/instanceGroupManagers/instance-group`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub holder: std::string::String,
 
     /// Optional. An optional string representing the origin of this request. This
@@ -3339,12 +3417,14 @@ pub struct TagHold {
     /// origins from each other. Must be less than 200 characters. E.g.
     /// `migs-35678234`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub origin: std::string::String,
 
     /// Optional. A URL where an end user can learn more about removing this hold.
     /// E.g.
     /// `<https://cloud.google.com/resource-manager/docs/tags/tags-creating-and-managing>`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub help_link: std::string::String,
 
     /// Output only. The time this TagHold was created.
@@ -3418,6 +3498,7 @@ pub struct CreateTagHoldRequest {
     /// Required. The resource name of the TagHold's parent TagValue. Must be of
     /// the form: `tagValues/{tag-value-id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The TagHold to be created.
@@ -3427,6 +3508,7 @@ pub struct CreateTagHoldRequest {
     /// Optional. Set to true to perform the validations necessary for creating the
     /// resource, but not actually perform the action.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3508,11 +3590,13 @@ pub struct DeleteTagHoldRequest {
     /// Required. The resource name of the TagHold to delete. Must be of the form:
     /// `tagValues/{tag-value-id}/tagHolds/{tag-hold-id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. Set to true to perform the validations necessary for deleting the
     /// resource, but not actually perform the action.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3576,18 +3660,20 @@ pub struct ListTagHoldsRequest {
     /// Required. The resource name of the parent TagValue. Must be of the form:
     /// `tagValues/{tag-value-id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. The maximum number of TagHolds to return in the response. The
     /// server allows a maximum of 300 TagHolds to return. If unspecified, the
     /// server will use 100 as the default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. A pagination token returned from a previous call to
     /// `ListTagHolds` that indicates where this listing should continue from.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. Criteria used to select a subset of TagHolds parented by the
@@ -3602,6 +3688,7 @@ pub struct ListTagHoldsRequest {
     ///   //compute.googleapis.com/compute/projects/myproject/regions/us-east-1/instanceGroupManagers/instance-group
     ///   AND origin = 35678234`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3652,6 +3739,7 @@ impl wkt::message::Message for ListTagHoldsRequest {
 pub struct ListTagHoldsResponse {
     /// A possibly paginated list of TagHolds.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub tag_holds: std::vec::Vec<crate::model::TagHold>,
 
     /// Pagination token.
@@ -3666,6 +3754,7 @@ pub struct ListTagHoldsResponse {
     ///
     /// Pagination tokens have a limited lifetime.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3725,6 +3814,7 @@ pub struct TagKey {
     /// `tagKeys/{tag_key_id}`, where `tag_key_id` is the generated numeric id for
     /// the TagKey.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Immutable. The resource name of the TagKey's parent. A TagKey can be
@@ -3733,6 +3823,7 @@ pub struct TagKey {
     /// a TagKey parented by a Project, its parent can be in the form
     /// `projects/{project_id}` or `projects/{project_number}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. Immutable. The user friendly name for a TagKey. The short name
@@ -3742,10 +3833,12 @@ pub struct TagKey {
     /// an alphanumeric character ([a-z0-9A-Z]) with dashes (-), underscores (_),
     /// dots (.), and alphanumerics between.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub short_name: std::string::String,
 
     /// Output only. Immutable. Namespaced name of the TagKey.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub namespaced_name: std::string::String,
 
     /// Optional. User-assigned description of the TagKey. Must not exceed 256
@@ -3753,6 +3846,7 @@ pub struct TagKey {
     ///
     /// Read-write.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Output only. Creation time.
@@ -3767,6 +3861,7 @@ pub struct TagKey {
     /// field is always set in server responses. See UpdateTagKeyRequest for
     /// details.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     /// Optional. A purpose denotes that this Tag is intended for use in policies
@@ -3777,6 +3872,7 @@ pub struct TagKey {
     ///
     /// A purpose cannot be changed once set.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub purpose: crate::model::Purpose,
 
     /// Optional. Purpose data corresponds to the policy system that the tag is
@@ -3784,6 +3880,7 @@ pub struct TagKey {
     ///
     /// Purpose data cannot be changed once set.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub purpose_data: std::collections::HashMap<std::string::String, std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3902,18 +3999,20 @@ pub struct ListTagKeysRequest {
     /// Must be of the form `organizations/{org_id}` or `projects/{project_id}` or
     /// `projects/{project_number}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. The maximum number of TagKeys to return in the response. The
     /// server allows a maximum of 300 TagKeys to return. If unspecified, the
     /// server will use 100 as the default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. A pagination token returned from a previous call to `ListTagKey`
     /// that indicates where this listing should continue from.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3958,11 +4057,13 @@ impl wkt::message::Message for ListTagKeysRequest {
 pub struct ListTagKeysResponse {
     /// List of TagKeys that live under the specified parent in the request.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub tag_keys: std::vec::Vec<crate::model::TagKey>,
 
     /// A pagination token returned from a previous call to `ListTagKeys`
     /// that indicates from where listing should continue.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4021,6 +4122,7 @@ pub struct GetTagKeyRequest {
     /// Required. A resource name in the format `tagKeys/{id}`, such as
     /// `tagKeys/123`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4056,6 +4158,7 @@ pub struct GetNamespacedTagKeyRequest {
     /// "foo" under the organization with ID 42 or `r2-d2/bar` for a key with short
     /// name "bar" under the project `r2-d2`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4094,6 +4197,7 @@ pub struct CreateTagKeyRequest {
     /// Optional. Set to true to perform validations necessary for creating the
     /// resource, but not actually perform the action.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4180,6 +4284,7 @@ pub struct UpdateTagKeyRequest {
     /// Set as true to perform validations necessary for updating the resource, but
     /// not actually perform the action.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4272,16 +4377,19 @@ pub struct DeleteTagKeyRequest {
     /// `tagKeys/123`. The TagKey cannot be a parent of any existing TagValues or
     /// it will not be deleted successfully.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. Set as true to perform validations necessary for deletion, but
     /// not actually perform the action.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     /// Optional. The etag known to the client for the expected state of the
     /// TagKey. This is to be used for optimistic concurrency.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4349,11 +4457,13 @@ impl wkt::message::Message for DeleteTagKeyMetadata {
 pub struct TagValue {
     /// Immutable. Resource name for TagValue in the format `tagValues/456`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Immutable. The resource name of the new TagValue's parent TagKey.
     /// Must be of the form `tagKeys/{tag_key_id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. Immutable. User-assigned short name for TagValue. The short name
@@ -4363,6 +4473,7 @@ pub struct TagValue {
     /// an alphanumeric character ([a-z0-9A-Z]) with dashes (-), underscores (_),
     /// dots (.), and alphanumerics between.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub short_name: std::string::String,
 
     /// Output only. The namespaced name of the TagValue. Can be in the form
@@ -4370,6 +4481,7 @@ pub struct TagValue {
     /// `{project_id}/{tag_key_short_name}/{tag_value_short_name}` or
     /// `{project_number}/{tag_key_short_name}/{tag_value_short_name}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub namespaced_name: std::string::String,
 
     /// Optional. User-assigned description of the TagValue.
@@ -4377,6 +4489,7 @@ pub struct TagValue {
     ///
     /// Read-write.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Output only. Creation time.
@@ -4391,6 +4504,7 @@ pub struct TagValue {
     /// field is always set in server responses. See UpdateTagValueRequest for
     /// details.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4491,18 +4605,20 @@ impl wkt::message::Message for TagValue {
 pub struct ListTagValuesRequest {
     /// Required.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. The maximum number of TagValues to return in the response. The
     /// server allows a maximum of 300 TagValues to return. If unspecified, the
     /// server will use 100 as the default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. A pagination token returned from a previous call to
     /// `ListTagValues` that indicates where this listing should continue from.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4548,12 +4664,14 @@ pub struct ListTagValuesResponse {
     /// A possibly paginated list of TagValues that are direct descendants of
     /// the specified parent TagKey.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub tag_values: std::vec::Vec<crate::model::TagValue>,
 
     /// A pagination token returned from a previous call to `ListTagValues`
     /// that indicates from where listing should continue. This is currently not
     /// used, but the server may at any point start supplying a valid token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4612,6 +4730,7 @@ pub struct GetTagValueRequest {
     /// Required. Resource name for TagValue to be fetched in the format
     /// `tagValues/456`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4653,6 +4772,7 @@ pub struct GetNamespacedTagValueRequest {
     /// - `r2-d2/bar/xyz` for a value with short name "xyz" under the key with
     ///   short name "bar" under the project with ID "r2-d2"
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4691,6 +4811,7 @@ pub struct CreateTagValueRequest {
     /// Optional. Set as true to perform the validations necessary for creating the
     /// resource, but not actually perform the action.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4775,6 +4896,7 @@ pub struct UpdateTagValueRequest {
     /// Optional. True to perform validations necessary for updating the resource,
     /// but not actually perform the action.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4866,16 +4988,19 @@ pub struct DeleteTagValueRequest {
     /// Required. Resource name for TagValue to be deleted in the format
     /// tagValues/456.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. Set as true to perform the validations necessary for deletion,
     /// but not actually perform the action.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     /// Optional. The etag known to the client for the expected state of the
     /// TagValue. This is to be used for optimistic concurrency.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

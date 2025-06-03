@@ -36,6 +36,7 @@ pub struct AggregationResult {
     ///
     /// [google.firestore.v1.StructuredAggregationQuery.Aggregation.alias]: crate::model::structured_aggregation_query::Aggregation::alias
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub aggregate_fields: std::collections::HashMap<std::string::String, crate::model::Value>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -89,14 +90,14 @@ pub struct BitSequence {
     /// The bytes that encode the bit sequence.
     /// May have a length of zero.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub bitmap: ::bytes::Bytes,
 
     /// The number of bits of the last byte in `bitmap` to ignore as "padding".
     /// If the length of `bitmap` is zero, then this value must be `0`.
     /// Otherwise, this value must be between 0 and 7, inclusive.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub padding: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -153,7 +154,7 @@ pub struct BloomFilter {
 
     /// The number of hashes used by the algorithm.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub hash_count: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -216,6 +217,7 @@ pub struct DocumentMask {
     ///
     /// [google.firestore.v1.Document.fields]: crate::model::Document::fields
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub field_paths: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -348,7 +350,7 @@ pub mod precondition {
     pub enum ConditionType {
         /// When set to `true`, the target document must exist.
         /// When set to `false`, the target document must not exist.
-        Exists(bool),
+        Exists(#[serde_as(as = "serde_with::DefaultOnNull<_>")] bool),
         /// When set, the target document must exist and have been last updated at
         /// that time. Timestamp must be microsecond aligned.
         UpdateTime(std::boxed::Box<wkt::Timestamp>),
@@ -482,7 +484,7 @@ pub mod transaction_options {
     pub struct ReadWrite {
         /// An optional transaction to retry.
         #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-        #[serde_as(as = "serde_with::base64::Base64")]
+        #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
         pub retry_transaction: ::bytes::Bytes,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -657,6 +659,7 @@ pub struct Document {
     /// The resource name of the document, for example
     /// `projects/{project_id}/databases/{database_id}/documents/{document_path}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The document's fields.
@@ -684,6 +687,7 @@ pub struct Document {
     /// escaped using a `\`. For example, `` `x&y` `` represents `x&y` and
     /// `` `bak\`tik` `` represents `` bak`tik ``.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub fields: std::collections::HashMap<std::string::String, crate::model::Value>,
 
     /// Output only. The time at which the document was created.
@@ -1078,13 +1082,13 @@ pub mod value {
     #[non_exhaustive]
     pub enum ValueType {
         /// A null value.
-        NullValue(wkt::NullValue),
+        NullValue(#[serde_as(as = "serde_with::DefaultOnNull<_>")] wkt::NullValue),
         /// A boolean value.
-        BooleanValue(bool),
+        BooleanValue(#[serde_as(as = "serde_with::DefaultOnNull<_>")] bool),
         /// An integer value.
-        IntegerValue(#[serde_as(as = "wkt::internal::I64")] i64),
+        IntegerValue(#[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")] i64),
         /// A double value.
-        DoubleValue(#[serde_as(as = "wkt::internal::F64")] f64),
+        DoubleValue(#[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")] f64),
         /// A timestamp value.
         ///
         /// Precise only to microseconds. When stored, any additional precision is
@@ -1095,15 +1099,18 @@ pub mod value {
         /// The string, represented as UTF-8, must not exceed 1 MiB - 89 bytes.
         /// Only the first 1,500 bytes of the UTF-8 representation are considered by
         /// queries.
-        StringValue(std::string::String),
+        StringValue(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// A bytes value.
         ///
         /// Must not exceed 1 MiB - 89 bytes.
         /// Only the first 1,500 bytes are considered by queries.
-        BytesValue(#[serde_as(as = "serde_with::base64::Base64")] ::bytes::Bytes),
+        BytesValue(
+            #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
+            ::bytes::Bytes,
+        ),
         /// A reference to a document. For example:
         /// `projects/{project_id}/databases/{database_id}/documents/{document_path}`.
-        ReferenceValue(std::string::String),
+        ReferenceValue(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// A geo point value representing a point on the surface of Earth.
         GeoPointValue(std::boxed::Box<gtype::model::LatLng>),
         /// An array value.
@@ -1179,6 +1186,7 @@ pub mod value {
 pub struct ArrayValue {
     /// Values in the array.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub values: std::vec::Vec<crate::model::Value>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1221,6 +1229,7 @@ pub struct MapValue {
     /// in certain documented contexts. The map keys, represented as UTF-8, must
     /// not exceed 1,500 bytes and cannot be empty.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub fields: std::collections::HashMap<std::string::String, crate::model::Value>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1263,6 +1272,7 @@ pub struct GetDocumentRequest {
     /// Required. The resource name of the Document to get. In the format:
     /// `projects/{project_id}/databases/{database_id}/documents/{document_path}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The fields to return. If not set, returns all fields.
@@ -1400,7 +1410,10 @@ pub mod get_document_request {
     #[non_exhaustive]
     pub enum ConsistencySelector {
         /// Reads the document in a transaction.
-        Transaction(#[serde_as(as = "serde_with::base64::Base64")] ::bytes::Bytes),
+        Transaction(
+            #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
+            ::bytes::Bytes,
+        ),
         /// Reads the version of the document at the given time.
         ///
         /// This must be a microsecond precision timestamp within the past one hour,
@@ -1440,6 +1453,7 @@ pub struct ListDocumentsRequest {
     /// `projects/my-project/databases/my-database/documents` or
     /// `projects/my-project/databases/my-database/documents/chatrooms/my-chatroom`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. The collection ID, relative to `parent`, to list.
@@ -1449,13 +1463,14 @@ pub struct ListDocumentsRequest {
     /// This is optional, and when not provided, Firestore will list documents
     /// from all collections under the provided `parent`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub collection_id: std::string::String,
 
     /// Optional. The maximum number of documents to return in a single response.
     ///
     /// Firestore may return fewer than this value.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous `ListDocuments` response.
@@ -1464,6 +1479,7 @@ pub struct ListDocumentsRequest {
     /// parameters (with the exception of `page_size`) must match the values set
     /// in the request that generated the page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. The optional ordering of the documents to return.
@@ -1476,6 +1492,7 @@ pub struct ListDocumentsRequest {
     ///
     /// [google.firestore.v1.StructuredQuery.order_by]: crate::model::StructuredQuery::order_by
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     /// Optional. The fields to return. If not set, returns all fields.
@@ -1498,6 +1515,7 @@ pub struct ListDocumentsRequest {
     /// [google.firestore.v1.Document.create_time]: crate::model::Document::create_time
     /// [google.firestore.v1.Document.update_time]: crate::model::Document::update_time
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub show_missing: bool,
 
     /// The consistency mode for this transaction.
@@ -1658,7 +1676,10 @@ pub mod list_documents_request {
     #[non_exhaustive]
     pub enum ConsistencySelector {
         /// Perform the read as part of an already active transaction.
-        Transaction(#[serde_as(as = "serde_with::base64::Base64")] ::bytes::Bytes),
+        Transaction(
+            #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
+            ::bytes::Bytes,
+        ),
         /// Perform the read at the provided time.
         ///
         /// This must be a microsecond precision timestamp within the past one hour,
@@ -1692,12 +1713,14 @@ pub mod list_documents_request {
 pub struct ListDocumentsResponse {
     /// The Documents found.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub documents: std::vec::Vec<crate::model::Document>,
 
     /// A token to retrieve the next page of documents.
     ///
     /// If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1760,17 +1783,20 @@ pub struct CreateDocumentRequest {
     /// `projects/{project_id}/databases/{database_id}/documents` or
     /// `projects/{project_id}/databases/{database_id}/documents/chatrooms/{chatroom_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The collection ID, relative to `parent`, to list. For example:
     /// `chatrooms`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub collection_id: std::string::String,
 
     /// The client-assigned document ID to use for this document.
     ///
     /// Optional. If not specified, an ID will be assigned by the service.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub document_id: std::string::String,
 
     /// Required. The document to create. `name` must not be set.
@@ -1990,6 +2016,7 @@ pub struct DeleteDocumentRequest {
     /// Required. The resource name of the Document to delete. In the format:
     /// `projects/{project_id}/databases/{database_id}/documents/{document_path}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// An optional precondition on the document.
@@ -2047,6 +2074,7 @@ pub struct BatchGetDocumentsRequest {
     /// Required. The database name. In the format:
     /// `projects/{project_id}/databases/{database_id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub database: std::string::String,
 
     /// The names of the documents to retrieve. In the format:
@@ -2054,6 +2082,7 @@ pub struct BatchGetDocumentsRequest {
     /// The request will fail if any of the document is not a child resource of the
     /// given `database`. Duplicate names will be elided.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub documents: std::vec::Vec<std::string::String>,
 
     /// The fields to return. If not set, returns all fields.
@@ -2236,7 +2265,10 @@ pub mod batch_get_documents_request {
     #[non_exhaustive]
     pub enum ConsistencySelector {
         /// Reads documents in a transaction.
-        Transaction(#[serde_as(as = "serde_with::base64::Base64")] ::bytes::Bytes),
+        Transaction(
+            #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
+            ::bytes::Bytes,
+        ),
         /// Starts a new transaction and reads the documents.
         /// Defaults to a read-only transaction.
         /// The new transaction ID will be returned as the first response in the
@@ -2284,7 +2316,7 @@ pub struct BatchGetDocumentsResponse {
     ///
     /// [google.firestore.v1.BatchGetDocumentsRequest.new_transaction]: crate::model::BatchGetDocumentsRequest::consistency_selector
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub transaction: ::bytes::Bytes,
 
     /// The time at which the document was read.
@@ -2422,7 +2454,7 @@ pub mod batch_get_documents_response {
         Found(std::boxed::Box<crate::model::Document>),
         /// A document name that was requested but does not exist. In the format:
         /// `projects/{project_id}/databases/{database_id}/documents/{document_path}`.
-        Missing(std::string::String),
+        Missing(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
     }
 
     impl Result {
@@ -2451,6 +2483,7 @@ pub struct BeginTransactionRequest {
     /// Required. The database name. In the format:
     /// `projects/{project_id}/databases/{database_id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub database: std::string::String,
 
     /// The options for the transaction.
@@ -2509,7 +2542,7 @@ impl wkt::message::Message for BeginTransactionRequest {
 pub struct BeginTransactionResponse {
     /// The transaction that was started.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub transaction: ::bytes::Bytes,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2545,17 +2578,19 @@ pub struct CommitRequest {
     /// Required. The database name. In the format:
     /// `projects/{project_id}/databases/{database_id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub database: std::string::String,
 
     /// The writes to apply.
     ///
     /// Always executed atomically and in order.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub writes: std::vec::Vec<crate::model::Write>,
 
     /// If set, applies all writes in this transaction, and commits it.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub transaction: ::bytes::Bytes,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2610,6 +2645,7 @@ pub struct CommitResponse {
     /// This i-th write result corresponds to the i-th write in the
     /// request.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub write_results: std::vec::Vec<crate::model::WriteResult>,
 
     /// The time at which the commit occurred. Any read with an equal or greater
@@ -2673,11 +2709,12 @@ pub struct RollbackRequest {
     /// Required. The database name. In the format:
     /// `projects/{project_id}/databases/{database_id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub database: std::string::String,
 
     /// Required. The transaction to roll back.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub transaction: ::bytes::Bytes,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2721,6 +2758,7 @@ pub struct RunQueryRequest {
     /// `projects/my-project/databases/my-database/documents` or
     /// `projects/my-project/databases/my-database/documents/chatrooms/my-chatroom`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. Explain options for the query. If set, additional query
@@ -2959,7 +2997,10 @@ pub mod run_query_request {
         /// Run the query within an already active transaction.
         ///
         /// The value here is the opaque transaction ID to execute the query in.
-        Transaction(#[serde_as(as = "serde_with::base64::Base64")] ::bytes::Bytes),
+        Transaction(
+            #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
+            ::bytes::Bytes,
+        ),
         /// Starts a new transaction and reads the documents.
         /// Defaults to a read-only transaction.
         /// The new transaction ID will be returned as the first response in the
@@ -3008,7 +3049,7 @@ pub struct RunQueryResponse {
     ///
     /// [google.firestore.v1.RunQueryRequest.new_transaction]: crate::model::RunQueryRequest::consistency_selector
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub transaction: ::bytes::Bytes,
 
     /// A query result, not set when reporting partial progress.
@@ -3028,7 +3069,7 @@ pub struct RunQueryResponse {
     /// The number of results that have been skipped due to an offset between
     /// the last response and the current response.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub skipped_results: i32,
 
     /// Query explain metrics. This is only present when the
@@ -3184,7 +3225,7 @@ pub mod run_query_response {
     pub enum ContinuationSelector {
         /// If present, Firestore has completely finished the request and no more
         /// documents will be returned.
-        Done(bool),
+        Done(#[serde_as(as = "serde_with::DefaultOnNull<_>")] bool),
     }
 
     impl ContinuationSelector {
@@ -3209,6 +3250,7 @@ pub struct RunAggregationQueryRequest {
     /// `projects/my-project/databases/my-database/documents` or
     /// `projects/my-project/databases/my-database/documents/chatrooms/my-chatroom`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. Explain options for the query. If set, additional query
@@ -3453,7 +3495,10 @@ pub mod run_aggregation_query_request {
         /// Run the aggregation within an already active transaction.
         ///
         /// The value here is the opaque transaction ID to execute the query in.
-        Transaction(#[serde_as(as = "serde_with::base64::Base64")] ::bytes::Bytes),
+        Transaction(
+            #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
+            ::bytes::Bytes,
+        ),
         /// Starts a new transaction as part of the query, defaulting to read-only.
         ///
         /// The new transaction ID will be returned as the first response in the
@@ -3505,7 +3550,7 @@ pub struct RunAggregationQueryResponse {
     /// Only present on the first response when the request requested to start
     /// a new transaction.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub transaction: ::bytes::Bytes,
 
     /// The time at which the aggregate result was computed. This is always
@@ -3617,6 +3662,7 @@ pub struct PartitionQueryRequest {
     /// Document resource names are not supported; only database resource names
     /// can be specified.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The desired maximum number of partition points.
@@ -3628,7 +3674,7 @@ pub struct PartitionQueryRequest {
     /// queries to be run, or in running a data pipeline job, one fewer than the
     /// number of workers or compute instances available.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub partition_count: i64,
 
     /// The `next_page_token` value returned from a previous call to
@@ -3645,6 +3691,7 @@ pub struct PartitionQueryRequest {
     /// query supplied to PartitionQuery, the results sets should be merged:
     /// cursor A, cursor B, cursor M, cursor Q, cursor U, cursor W
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// The maximum number of partitions to return in this call, subject to
@@ -3655,7 +3702,7 @@ pub struct PartitionQueryRequest {
     /// if more results exist. A second call to PartitionQuery will return up to
     /// 2 partitions, to complete the total of 10 specified in `partition_count`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// The query to partition.
@@ -3877,12 +3924,14 @@ pub struct PartitionQueryResponse {
     /// An empty result may indicate that the query has too few results to be
     /// partitioned, or that the query is not yet supported for partitioning.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub partitions: std::vec::Vec<crate::model::Cursor>,
 
     /// A page token that may be used to request an additional set of results, up
     /// to the number specified by `partition_count` in the PartitionQuery request.
     /// If blank, there are no more results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3951,12 +4000,14 @@ pub struct WriteRequest {
     /// `projects/{project_id}/databases/{database_id}`.
     /// This is only required in the first message.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub database: std::string::String,
 
     /// The ID of the write stream to resume.
     /// This may only be set in the first message. When left empty, a new write
     /// stream will be created.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub stream_id: std::string::String,
 
     /// The writes to apply.
@@ -3966,6 +4017,7 @@ pub struct WriteRequest {
     /// This may be empty on the last request.
     /// This must not be empty on all other requests.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub writes: std::vec::Vec<crate::model::Write>,
 
     /// A stream token that was previously sent by the server.
@@ -3985,11 +4037,12 @@ pub struct WriteRequest {
     ///
     /// [google.firestore.v1.WriteResponse]: crate::model::WriteResponse
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub stream_token: ::bytes::Bytes,
 
     /// Labels associated with this write request.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4058,6 +4111,7 @@ pub struct WriteResponse {
     /// The ID of the stream.
     /// Only set on the first message, when a new stream was created.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub stream_id: std::string::String,
 
     /// A token that represents the position of this response in the stream.
@@ -4065,7 +4119,7 @@ pub struct WriteResponse {
     ///
     /// This field is always set.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub stream_token: ::bytes::Bytes,
 
     /// The result of applying the writes.
@@ -4073,6 +4127,7 @@ pub struct WriteResponse {
     /// This i-th write result corresponds to the i-th write in the
     /// request.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub write_results: std::vec::Vec<crate::model::WriteResult>,
 
     /// The time at which the commit occurred. Any read with an equal or greater
@@ -4146,10 +4201,12 @@ pub struct ListenRequest {
     /// Required. The database name. In the format:
     /// `projects/{project_id}/databases/{database_id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub database: std::string::String,
 
     /// Labels associated with this target change.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// The supported target changes.
@@ -4271,7 +4328,7 @@ pub mod listen_request {
         /// A target to add to this stream.
         AddTarget(std::boxed::Box<crate::model::Target>),
         /// The ID of a target to remove from this stream.
-        RemoveTarget(#[serde_as(as = "wkt::internal::I32")] i32),
+        RemoveTarget(#[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")] i32),
     }
 
     impl TargetChange {
@@ -4572,11 +4629,12 @@ pub struct Target {
     /// If `target_id` is non-zero, there must not be an existing active target on
     /// this stream with the same ID.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub target_id: i32,
 
     /// If the target should be removed once it is current and consistent.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub once: bool,
 
     /// The number of documents that last matched the query at the resume token or
@@ -4794,6 +4852,7 @@ pub mod target {
         /// The request will fail if any of the document is not a child resource of
         /// the given `database`. Duplicate names will be elided.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub documents: std::vec::Vec<std::string::String>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4836,6 +4895,7 @@ pub mod target {
         /// `projects/my-project/databases/my-database/documents` or
         /// `projects/my-project/databases/my-database/documents/chatrooms/my-chatroom`
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub parent: std::string::String,
 
         /// The query to run.
@@ -4978,7 +5038,10 @@ pub mod target {
         /// Using a resume token with a different target is unsupported and may fail.
         ///
         /// [google.firestore.v1.TargetChange]: crate::model::TargetChange
-        ResumeToken(#[serde_as(as = "serde_with::base64::Base64")] ::bytes::Bytes),
+        ResumeToken(
+            #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
+            ::bytes::Bytes,
+        ),
         /// Start listening after a specific `read_time`.
         ///
         /// The client must know the state of matching documents at this time.
@@ -5007,6 +5070,7 @@ pub mod target {
 pub struct TargetChange {
     /// The type of change that occurred.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub target_change_type: crate::model::target_change::TargetChangeType,
 
     /// The target IDs of targets that have changed.
@@ -5015,7 +5079,7 @@ pub struct TargetChange {
     ///
     /// The order of the target IDs is not defined.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "std::vec::Vec<wkt::internal::I32>")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<wkt::internal::I32>>")]
     pub target_ids: std::vec::Vec<i32>,
 
     /// The error that resulted in this change, if applicable.
@@ -5027,7 +5091,7 @@ pub struct TargetChange {
     ///
     /// Not set on every target change.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub resume_token: ::bytes::Bytes,
 
     /// The consistent `read_time` for the given `target_ids` (omitted when the
@@ -5300,11 +5364,12 @@ pub struct ListCollectionIdsRequest {
     /// For example:
     /// `projects/my-project/databases/my-database/documents/chatrooms/my-chatroom`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The maximum number of results to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// A page token. Must be a value from
@@ -5312,6 +5377,7 @@ pub struct ListCollectionIdsRequest {
     ///
     /// [google.firestore.v1.ListCollectionIdsResponse]: crate::model::ListCollectionIdsResponse
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// The consistency mode for this request.
@@ -5439,10 +5505,12 @@ pub mod list_collection_ids_request {
 pub struct ListCollectionIdsResponse {
     /// The collection ids.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub collection_ids: std::vec::Vec<std::string::String>,
 
     /// A page token that may be used to continue the list.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5490,6 +5558,7 @@ pub struct BatchWriteRequest {
     /// Required. The database name. In the format:
     /// `projects/{project_id}/databases/{database_id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub database: std::string::String,
 
     /// The writes to apply.
@@ -5498,10 +5567,12 @@ pub struct BatchWriteRequest {
     /// Each write succeeds or fails independently. You cannot write to the same
     /// document more than once per request.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub writes: std::vec::Vec<crate::model::Write>,
 
     /// Labels associated with this batch write.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5563,6 +5634,7 @@ pub struct BatchWriteResponse {
     /// This i-th write result corresponds to the i-th write in the
     /// request.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub write_results: std::vec::Vec<crate::model::WriteResult>,
 
     /// The status of applying the writes.
@@ -5570,6 +5642,7 @@ pub struct BatchWriteResponse {
     /// This i-th write status corresponds to the i-th write in the
     /// request.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub status: std::vec::Vec<rpc::model::Status>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5638,6 +5711,7 @@ pub struct StructuredQuery {
 
     /// The collections to query.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub from: std::vec::Vec<crate::model::structured_query::CollectionSelector>,
 
     /// The filter to apply.
@@ -5666,6 +5740,7 @@ pub struct StructuredQuery {
     /// * `WHERE __name__ > ... AND a > 1` becomes
     ///   `WHERE __name__ > ... AND a > 1 ORDER BY a ASC, __name__ ASC`
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub order_by: std::vec::Vec<crate::model::structured_query::Order>,
 
     /// A potential prefix of a position in the result set to start the query at.
@@ -5723,7 +5798,7 @@ pub struct StructuredQuery {
     ///
     /// * The value must be greater than or equal to zero if specified.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub offset: i32,
 
     /// The maximum number of results to return.
@@ -5911,12 +5986,14 @@ pub mod structured_query {
         /// The collection ID.
         /// When set, selects only collections with this ID.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub collection_id: std::string::String,
 
         /// When false, selects only collections that are immediate children of
         /// the `parent` specified in the containing `RunQueryRequest`.
         /// When true, selects all descendant collections.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub all_descendants: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6146,6 +6223,7 @@ pub mod structured_query {
     pub struct CompositeFilter {
         /// The operator for combining multiple filters.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub op: crate::model::structured_query::composite_filter::Operator,
 
         /// The list of filters to combine.
@@ -6154,6 +6232,7 @@ pub mod structured_query {
         ///
         /// * At least one filter is present.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub filters: std::vec::Vec<crate::model::structured_query::Filter>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6347,6 +6426,7 @@ pub mod structured_query {
 
         /// The operator to filter by.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub op: crate::model::structured_query::field_filter::Operator,
 
         /// The value to compare to.
@@ -6663,6 +6743,7 @@ pub mod structured_query {
     pub struct UnaryFilter {
         /// The unary operator to apply.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub op: crate::model::structured_query::unary_filter::Operator,
 
         /// The argument to the filter.
@@ -6944,6 +7025,7 @@ pub mod structured_query {
 
         /// The direction to order by. Defaults to `ASCENDING`.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub direction: crate::model::structured_query::Direction,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7005,6 +7087,7 @@ pub mod structured_query {
         ///
         /// [google.firestore.v1.Document.fields]: crate::model::Document::fields
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub field_path: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7040,6 +7123,7 @@ pub mod structured_query {
         /// If empty, all fields are returned. To only return the name
         /// of the document, use `['__name__']`.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub fields: std::vec::Vec<crate::model::structured_query::FieldReference>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7091,6 +7175,7 @@ pub mod structured_query {
 
         /// Required. The distance measure to use, required.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub distance_measure: crate::model::structured_query::find_nearest::DistanceMeasure,
 
         /// Required. The number of nearest neighbors to return. Must be a positive
@@ -7105,6 +7190,7 @@ pub mod structured_query {
         ///
         /// [google.firestore.v1.Document.fields]: crate::model::Document::fields
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub distance_result_field: std::string::String,
 
         /// Optional. Option to specify a threshold for which no less similar
@@ -7536,6 +7622,7 @@ pub struct StructuredAggregationQuery {
     ///
     /// * A minimum of one and maximum of five aggregations per query.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub aggregations: std::vec::Vec<crate::model::structured_aggregation_query::Aggregation>,
 
     /// The base query to aggregate over.
@@ -7666,6 +7753,7 @@ pub mod structured_aggregation_query {
         ///
         /// [google.firestore.v1.Document.fields]: crate::model::Document::fields
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub alias: std::string::String,
 
         /// The type of aggregation to perform, required.
@@ -8083,11 +8171,13 @@ pub struct Cursor {
     ///
     /// Can contain fewer values than specified in the order by clause.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub values: std::vec::Vec<crate::model::Value>,
 
     /// If the position is just before or just after the given values, relative
     /// to the sort order defined by the query.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub before: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8137,6 +8227,7 @@ pub struct ExplainOptions {
     /// When true, the query will be planned and executed, returning the full
     /// query results along with both planning and execution stage metrics.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub analyze: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8243,6 +8334,7 @@ pub struct PlanSummary {
     /// {"query_scope": "Collection", "properties": "(bar ASC, __name__ ASC)"}
     /// ]
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub indexes_used: std::vec::Vec<wkt::Struct>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8281,7 +8373,7 @@ pub struct ExecutionStats {
     /// Total number of results returned, including documents, projections,
     /// aggregation results, keys.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub results_returned: i64,
 
     /// Total time to execute the query in the backend.
@@ -8290,7 +8382,7 @@ pub struct ExecutionStats {
 
     /// Total billable read operations.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub read_operations: i64,
 
     /// Debugging statistics from the execution of the query. Note that the
@@ -8397,6 +8489,7 @@ pub struct Write {
     /// write is equivalent to performing `update` and `transform` to the same
     /// document atomically and in order.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub update_transforms: std::vec::Vec<crate::model::document_transform::FieldTransform>,
 
     /// An optional precondition on the document.
@@ -8577,7 +8670,7 @@ pub mod write {
         Update(std::boxed::Box<crate::model::Document>),
         /// A document name to delete. In the format:
         /// `projects/{project_id}/databases/{database_id}/documents/{document_path}`.
-        Delete(std::string::String),
+        Delete(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// Applies a transformation to a document.
         Transform(std::boxed::Box<crate::model::DocumentTransform>),
     }
@@ -8610,12 +8703,14 @@ pub mod write {
 pub struct DocumentTransform {
     /// The name of the document to transform.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub document: std::string::String,
 
     /// The list of transformations to apply to the fields of the document, in
     /// order.
     /// This must not be empty.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub field_transforms: std::vec::Vec<crate::model::document_transform::FieldTransform>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8668,6 +8763,7 @@ pub mod document_transform {
         ///
         /// [google.firestore.v1.Document.fields]: crate::model::Document::fields
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub field_path: std::string::String,
 
         /// The transformation to apply on the field.
@@ -9040,7 +9136,10 @@ pub mod document_transform {
         #[non_exhaustive]
         pub enum TransformType {
             /// Sets the field to the given server value.
-            SetToServerValue(crate::model::document_transform::field_transform::ServerValue),
+            SetToServerValue(
+                #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+                crate::model::document_transform::field_transform::ServerValue,
+            ),
             /// Adds the given value to the field's current value.
             ///
             /// This must be an integer or a double value.
@@ -9167,6 +9266,7 @@ pub struct WriteResult {
     ///
     /// [google.firestore.v1.DocumentTransform.FieldTransform]: crate::model::document_transform::FieldTransform
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub transform_results: std::vec::Vec<crate::model::Value>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9241,12 +9341,12 @@ pub struct DocumentChange {
 
     /// A set of target IDs of targets that match this document.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "std::vec::Vec<wkt::internal::I32>")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<wkt::internal::I32>>")]
     pub target_ids: std::vec::Vec<i32>,
 
     /// A set of target IDs for targets that no longer match this document.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "std::vec::Vec<wkt::internal::I32>")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<wkt::internal::I32>>")]
     pub removed_target_ids: std::vec::Vec<i32>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9327,11 +9427,12 @@ pub struct DocumentDelete {
     ///
     /// [google.firestore.v1.Document]: crate::model::Document
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub document: std::string::String,
 
     /// A set of target IDs for targets that previously matched this entity.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "std::vec::Vec<wkt::internal::I32>")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<wkt::internal::I32>>")]
     pub removed_target_ids: std::vec::Vec<i32>,
 
     /// The read timestamp at which the delete was observed.
@@ -9414,11 +9515,12 @@ pub struct DocumentRemove {
     ///
     /// [google.firestore.v1.Document]: crate::model::Document
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub document: std::string::String,
 
     /// A set of target IDs for targets that previously matched this document.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "std::vec::Vec<wkt::internal::I32>")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<wkt::internal::I32>>")]
     pub removed_target_ids: std::vec::Vec<i32>,
 
     /// The read timestamp at which the remove was observed.
@@ -9486,7 +9588,7 @@ impl wkt::message::Message for DocumentRemove {
 pub struct ExistenceFilter {
     /// The target ID to which this filter applies.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub target_id: i32,
 
     /// The total count of documents that match
@@ -9502,7 +9604,7 @@ pub struct ExistenceFilter {
     ///
     /// [google.firestore.v1.ExistenceFilter.target_id]: crate::model::ExistenceFilter::target_id
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub count: i32,
 
     /// A bloom filter that, despite its name, contains the UTF-8 byte encodings of

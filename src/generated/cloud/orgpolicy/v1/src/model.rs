@@ -33,7 +33,7 @@ extern crate wkt;
 pub struct Policy {
     /// Version of the `Policy`. Default version is 0;
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub version: i32,
 
     /// The name of the `Constraint` the `Policy` is configuring, for example,
@@ -41,6 +41,7 @@ pub struct Policy {
     ///
     /// Immutable after creation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub constraint: std::string::String,
 
     /// An opaque tag indicating the current version of the `Policy`, used for
@@ -59,7 +60,7 @@ pub struct Policy {
     /// `SetOrgPolicy` request will result in an unconditional write of the
     /// `Policy`.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub etag: ::bytes::Bytes,
 
     /// The time stamp the `Policy` was previously updated. This is set by the
@@ -271,15 +272,18 @@ pub mod policy {
         /// List of values allowed  at this resource. Can only be set if `all_values`
         /// is set to `ALL_VALUES_UNSPECIFIED`.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub allowed_values: std::vec::Vec<std::string::String>,
 
         /// List of values denied at this resource. Can only be set if `all_values`
         /// is set to `ALL_VALUES_UNSPECIFIED`.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub denied_values: std::vec::Vec<std::string::String>,
 
         /// The policy all_values state.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub all_values: crate::model::policy::list_policy::AllValues,
 
         /// Optional. The Google Cloud Console will try to default to a configuration
@@ -287,6 +291,7 @@ pub mod policy {
         /// is not set, it will inherit the value specified higher in the hierarchy,
         /// unless `inherit_from_parent` is `false`.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub suggested_value: std::string::String,
 
         /// Determines the inheritance behavior for this `Policy`.
@@ -387,6 +392,7 @@ pub mod policy {
         /// The accepted values at `projects/bar` are `organizations/O1`,
         /// `folders/F1`, `projects/P1`.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub inherit_from_parent: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -655,6 +661,7 @@ pub mod policy {
         /// The constraint at `projects/bar` is not enforced, because
         /// `constraint_default` for the `Constraint` is `ALLOW`.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub enforced: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

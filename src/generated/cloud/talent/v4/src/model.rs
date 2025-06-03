@@ -117,6 +117,7 @@ pub struct Location {
     /// [google.cloud.talent.v4.Location.LocationType.NEIGHBORHOOD]: crate::model::location::LocationType::Neighborhood
     /// [google.type.PostalAddress]: gtype::model::PostalAddress
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub location_type: crate::model::location::LocationType,
 
     /// Postal address of the location that includes human readable information,
@@ -138,7 +139,7 @@ pub struct Location {
     ///
     /// [google.type.LatLng]: gtype::model::LatLng
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
     pub radius_miles: f64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -434,6 +435,7 @@ pub struct RequestMetadata {
     ///
     /// [google.cloud.talent.v4.RequestMetadata.allow_missing_ids]: crate::model::RequestMetadata::allow_missing_ids
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub domain: std::string::String,
 
     /// Required if
@@ -453,6 +455,7 @@ pub struct RequestMetadata {
     ///
     /// [google.cloud.talent.v4.RequestMetadata.allow_missing_ids]: crate::model::RequestMetadata::allow_missing_ids
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub session_id: std::string::String,
 
     /// Required if
@@ -472,6 +475,7 @@ pub struct RequestMetadata {
     ///
     /// [google.cloud.talent.v4.RequestMetadata.allow_missing_ids]: crate::model::RequestMetadata::allow_missing_ids
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub user_id: std::string::String,
 
     /// Only set when any of
@@ -488,6 +492,7 @@ pub struct RequestMetadata {
     /// [google.cloud.talent.v4.RequestMetadata.session_id]: crate::model::RequestMetadata::session_id
     /// [google.cloud.talent.v4.RequestMetadata.user_id]: crate::model::RequestMetadata::user_id
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub allow_missing_ids: bool,
 
     /// The type of device used by the job seeker at the time of the call to the
@@ -562,6 +567,7 @@ pub struct ResponseMetadata {
     /// A unique id associated with this call.
     /// This id is logged for tracking purposes.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -596,11 +602,13 @@ impl wkt::message::Message for ResponseMetadata {
 pub struct DeviceInfo {
     /// Type of the device.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub device_type: crate::model::device_info::DeviceType,
 
     /// A device-specific ID. The ID must be a unique identifier that
     /// distinguishes the device from other devices.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -826,6 +834,7 @@ pub struct CustomAttribute {
     /// [google.cloud.talent.v4.CustomAttribute.long_values]: crate::model::CustomAttribute::long_values
     /// [google.cloud.talent.v4.CustomAttribute.string_values]: crate::model::CustomAttribute::string_values
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub string_values: std::vec::Vec<std::string::String>,
 
     /// Exactly one of
@@ -843,7 +852,7 @@ pub struct CustomAttribute {
     /// [google.cloud.talent.v4.CustomAttribute.long_values]: crate::model::CustomAttribute::long_values
     /// [google.cloud.talent.v4.CustomAttribute.string_values]: crate::model::CustomAttribute::string_values
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "std::vec::Vec<wkt::internal::I64>")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<wkt::internal::I64>>")]
     pub long_values: std::vec::Vec<i64>,
 
     /// If the `filterable` flag is true, the custom field values may be used for
@@ -855,6 +864,7 @@ pub struct CustomAttribute {
     ///
     /// [google.cloud.talent.v4.JobQuery.custom_attribute_filter]: crate::model::JobQuery::custom_attribute_filter
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filterable: bool,
 
     /// If the `keyword_searchable` flag is true, the keywords in custom fields are
@@ -863,6 +873,7 @@ pub struct CustomAttribute {
     ///
     /// Default is false.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub keyword_searchable: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -923,10 +934,12 @@ impl wkt::message::Message for CustomAttribute {
 pub struct SpellingCorrection {
     /// Indicates if the query was corrected by the spell checker.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub corrected: bool,
 
     /// Correction output consisting of the corrected keyword string.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub corrected_text: std::string::String,
 
     /// Corrected output with html tags to highlight the corrected words.
@@ -937,6 +950,7 @@ pub struct SpellingCorrection {
     /// correction is enabled, this value is
     /// "software \<b\>\<i\>engineer\</i\>\</b\>".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub corrected_html: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -987,6 +1001,7 @@ pub struct CompensationInfo {
     ///
     /// [google.cloud.talent.v4.CompensationInfo.CompensationType.BASE]: crate::model::compensation_info::CompensationType::Base
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub entries: std::vec::Vec<crate::model::compensation_info::CompensationEntry>,
 
     /// Output only. Annualized base compensation range. Computed as base
@@ -1131,6 +1146,7 @@ pub mod compensation_info {
         /// [google.cloud.talent.v4.CompensationInfo.CompensationType.COMPENSATION_TYPE_UNSPECIFIED]: crate::model::compensation_info::CompensationType::Unspecified
         #[serde(rename = "type")]
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub r#type: crate::model::compensation_info::CompensationType,
 
         /// Frequency of the specified amount.
@@ -1140,12 +1156,14 @@ pub mod compensation_info {
         ///
         /// [google.cloud.talent.v4.CompensationInfo.CompensationUnit.COMPENSATION_UNIT_UNSPECIFIED]: crate::model::compensation_info::CompensationUnit::Unspecified
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub unit: crate::model::compensation_info::CompensationUnit,
 
         /// Compensation description.  For example, could
         /// indicate equity terms or provide additional context to an estimated
         /// bonus.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub description: std::string::String,
 
         /// Expected number of units paid each year. If not specified, when
@@ -1798,25 +1816,27 @@ pub mod compensation_info {
 pub struct BatchOperationMetadata {
     /// The state of a long running operation.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::batch_operation_metadata::State,
 
     /// More detailed information about operation state.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state_description: std::string::String,
 
     /// Count of successful item(s) inside an operation.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub success_count: i32,
 
     /// Count of failed item(s) inside an operation.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub failure_count: i32,
 
     /// Count of total item(s) inside an operation.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub total_count: i32,
 
     /// The time when the batch operation is created.
@@ -2133,10 +2153,12 @@ pub struct Company {
     /// "projects/{project_id}/tenants/{tenant_id}/companies/{company_id}", for
     /// example, "projects/foo/tenants/bar/companies/baz".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. The display name of the company, for example, "Google LLC".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// Required. Client side company identifier, used to uniquely identify the
@@ -2144,10 +2166,12 @@ pub struct Company {
     ///
     /// The maximum number of allowed characters is 255.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub external_id: std::string::String,
 
     /// The employer's company size.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub size: crate::model::CompanySize,
 
     /// The street address of the company's main headquarters, which may be
@@ -2158,6 +2182,7 @@ pub struct Company {
     ///
     /// [google.cloud.talent.v4.Company.DerivedInfo.headquarters_location]: crate::model::company::DerivedInfo::headquarters_location
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub headquarters_address: std::string::String,
 
     /// Set to true if it is the hiring agency that post jobs for other
@@ -2165,6 +2190,7 @@ pub struct Company {
     ///
     /// Defaults to false if not provided.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub hiring_agency: bool,
 
     /// Equal Employment Opportunity legal disclaimer text to be
@@ -2173,6 +2199,7 @@ pub struct Company {
     ///
     /// The maximum number of allowed characters is 500.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub eeo_text: std::string::String,
 
     /// The URI representing the company's primary web site or home page,
@@ -2180,15 +2207,18 @@ pub struct Company {
     ///
     /// The maximum number of allowed characters is 255.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub website_uri: std::string::String,
 
     /// The URI to employer's career site or careers page on the employer's web
     /// site, for example, `https://careers.google.com`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub career_site_uri: std::string::String,
 
     /// A URI that hosts the employer's company logo.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub image_uri: std::string::String,
 
     /// This field is deprecated. Please set the searchability of the custom
@@ -2206,6 +2236,7 @@ pub struct Company {
     ///
     /// [google.cloud.talent.v4.Job.custom_attributes]: crate::model::Job::custom_attributes
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     #[deprecated]
     pub keyword_searchable_job_custom_attributes: std::vec::Vec<std::string::String>,
 
@@ -2217,6 +2248,7 @@ pub struct Company {
     /// public availability by the service when job content appears suspicious,
     /// abusive, or spammy.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub suspended: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2399,6 +2431,7 @@ pub struct CreateCompanyRequest {
     /// The format is "projects/{project_id}/tenants/{tenant_id}", for example,
     /// "projects/foo/tenants/bar".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The company to be created.
@@ -2457,6 +2490,7 @@ pub struct GetCompanyRequest {
     /// "projects/{project_id}/tenants/{tenant_id}/companies/{company_id}", for
     /// example, "projects/api-test-project/tenants/foo/companies/bar".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2573,6 +2607,7 @@ pub struct DeleteCompanyRequest {
     /// "projects/{project_id}/tenants/{tenant_id}/companies/{company_id}", for
     /// example, "projects/foo/tenants/bar/companies/baz".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2608,16 +2643,18 @@ pub struct ListCompaniesRequest {
     /// The format is "projects/{project_id}/tenants/{tenant_id}", for example,
     /// "projects/foo/tenants/bar".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The starting indicator from which to return results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// The maximum number of companies to be returned, at most 100.
     /// Default is 100 if a non-positive number is provided.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Set to true if the companies requested must have open jobs.
@@ -2630,6 +2667,7 @@ pub struct ListCompaniesRequest {
     ///
     /// [google.cloud.talent.v4.ListCompaniesRequest.page_size]: crate::model::ListCompaniesRequest::page_size
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub require_open_jobs: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2680,10 +2718,12 @@ impl wkt::message::Message for ListCompaniesRequest {
 pub struct ListCompaniesResponse {
     /// Companies for the current client.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub companies: std::vec::Vec<crate::model::Company>,
 
     /// A token to retrieve the next page of results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// Additional information for the API invocation, such as the request
@@ -2767,12 +2807,14 @@ pub struct CompleteQueryRequest {
     /// The format is "projects/{project_id}/tenants/{tenant_id}", for example,
     /// "projects/foo/tenants/bar".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub tenant: std::string::String,
 
     /// Required. The query used to generate suggestions.
     ///
     /// The maximum number of allowed characters is 255.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub query: std::string::String,
 
     /// The list of languages of the query. This is
@@ -2782,13 +2824,14 @@ pub struct CompleteQueryRequest {
     ///
     /// The maximum number of allowed characters is 255.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub language_codes: std::vec::Vec<std::string::String>,
 
     /// Required. Completion result count.
     ///
     /// The maximum allowed page size is 10.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// If provided, restricts completion to specified company.
@@ -2797,6 +2840,7 @@ pub struct CompleteQueryRequest {
     /// "projects/{project_id}/tenants/{tenant_id}/companies/{company_id}", for
     /// example, "projects/foo/tenants/bar/companies/baz".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub company: std::string::String,
 
     /// The scope of the completion. The defaults is
@@ -2804,6 +2848,7 @@ pub struct CompleteQueryRequest {
     ///
     /// [google.cloud.talent.v4.CompleteQueryRequest.CompletionScope.PUBLIC]: crate::model::complete_query_request::CompletionScope::Public
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub scope: crate::model::complete_query_request::CompletionScope,
 
     /// The completion topic. The default is
@@ -2812,6 +2857,7 @@ pub struct CompleteQueryRequest {
     /// [google.cloud.talent.v4.CompleteQueryRequest.CompletionType.COMBINED]: crate::model::complete_query_request::CompletionType::Combined
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub r#type: crate::model::complete_query_request::CompletionType,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3200,6 +3246,7 @@ pub mod complete_query_request {
 pub struct CompleteQueryResponse {
     /// Results of the matching job/company candidates.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub completion_results: std::vec::Vec<crate::model::complete_query_response::CompletionResult>,
 
     /// Additional information for the API invocation, such as the request
@@ -3265,11 +3312,13 @@ pub mod complete_query_response {
     pub struct CompletionResult {
         /// The suggestion for the query.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub suggestion: std::string::String,
 
         /// The completion topic.
         #[serde(rename = "type")]
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub r#type: crate::model::complete_query_request::CompletionType,
 
         /// The URI of the company image for
@@ -3277,6 +3326,7 @@ pub mod complete_query_response {
         ///
         /// [google.cloud.talent.v4.CompleteQueryRequest.CompletionType.COMPANY_NAME]: crate::model::complete_query_request::CompletionType::CompanyName
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub image_uri: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3336,10 +3386,12 @@ pub struct ClientEvent {
     ///
     /// [google.cloud.talent.v4.ResponseMetadata.request_id]: crate::model::ResponseMetadata::request_id
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     /// Required. A unique identifier, generated by the client application.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub event_id: std::string::String,
 
     /// Required. The timestamp of the event.
@@ -3349,6 +3401,7 @@ pub struct ClientEvent {
     /// Notes about the event provided by recruiters or other users, for example,
     /// feedback on why a job was bookmarked.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub event_notes: std::string::String,
 
     /// Required.
@@ -3480,6 +3533,7 @@ pub struct JobEvent {
     /// [google.cloud.talent.v4.JobEvent.JobEventType]: crate::model::job_event::JobEventType
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub r#type: crate::model::job_event::JobEventType,
 
     /// Required. The [job name(s)][google.cloud.talent.v4.Job.name] associated
@@ -3498,6 +3552,7 @@ pub struct JobEvent {
     /// [google.cloud.talent.v4.JobEvent.JobEventType.IMPRESSION]: crate::model::job_event::JobEventType::Impression
     /// [google.cloud.talent.v4.JobEvent.JobEventType.VIEW]: crate::model::job_event::JobEventType::View
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub jobs: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3841,6 +3896,7 @@ pub struct CreateClientEventRequest {
     /// The format is "projects/{project_id}/tenants/{tenant_id}", for example,
     /// "projects/foo/tenants/bar".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. Events issued when end user interacts with customer's application
@@ -3899,6 +3955,7 @@ pub struct JobQuery {
     ///
     /// The maximum number of allowed characters is 255.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub query: std::string::String,
 
     /// The language code of [query][google.cloud.talent.v4.JobQuery.query]. For
@@ -3913,6 +3970,7 @@ pub struct JobQuery {
     ///
     /// [google.cloud.talent.v4.JobQuery.query]: crate::model::JobQuery::query
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub query_language_code: std::string::String,
 
     /// This filter specifies the company entities to search against.
@@ -3929,6 +3987,7 @@ pub struct JobQuery {
     ///
     /// At most 20 company filters are allowed.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub companies: std::vec::Vec<std::string::String>,
 
     /// The location filter specifies geo-regions containing the jobs to
@@ -3948,6 +4007,7 @@ pub struct JobQuery {
     /// [google.cloud.talent.v4.LocationFilter]: crate::model::LocationFilter
     /// [google.cloud.talent.v4.LocationFilter.distance_in_miles]: crate::model::LocationFilter::distance_in_miles
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub location_filters: std::vec::Vec<crate::model::LocationFilter>,
 
     /// The category filter specifies the categories of jobs to search against.
@@ -3960,6 +4020,7 @@ pub struct JobQuery {
     ///
     /// [google.cloud.talent.v4.JobCategory]: crate::model::JobCategory
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub job_categories: std::vec::Vec<crate::model::JobCategory>,
 
     /// Allows filtering jobs by commute time with different travel methods (for
@@ -4006,6 +4067,7 @@ pub struct JobQuery {
     ///
     /// [google.cloud.talent.v4.Company.display_name]: crate::model::Company::display_name
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub company_display_names: std::vec::Vec<std::string::String>,
 
     /// This search filter is applied only to
@@ -4044,6 +4106,7 @@ pub struct JobQuery {
     ///
     /// [google.cloud.talent.v4.Job.custom_attributes]: crate::model::Job::custom_attributes
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub custom_attribute_filter: std::string::String,
 
     /// This flag controls the spell-check feature. If false, the
@@ -4052,6 +4115,7 @@ pub struct JobQuery {
     ///
     /// Defaults to false: a spell check is performed.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub disable_spell_check: bool,
 
     /// The employment type filter specifies the employment type of jobs to
@@ -4066,6 +4130,7 @@ pub struct JobQuery {
     ///
     /// [google.cloud.talent.v4.EmploymentType.FULL_TIME]: crate::model::EmploymentType::FullTime
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub employment_types: std::vec::Vec<crate::model::EmploymentType>,
 
     /// This filter specifies the locale of jobs to search against,
@@ -4080,6 +4145,7 @@ pub struct JobQuery {
     ///
     /// At most 10 language code filters are allowed.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub language_codes: std::vec::Vec<std::string::String>,
 
     /// Jobs published within a range specified by this filter are searched
@@ -4091,6 +4157,7 @@ pub struct JobQuery {
     ///
     /// At most 400 excluded job names are allowed.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub excluded_jobs: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4278,6 +4345,7 @@ impl wkt::message::Message for JobQuery {
 pub struct LocationFilter {
     /// The address name, such as "Mountain View" or "Bay Area".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub address: std::string::String,
 
     /// CLDR region code of the country/region. This field may be used in two ways:
@@ -4297,6 +4365,7 @@ pub struct LocationFilter {
     /// <https://unicode-org.github.io/cldr-staging/charts/latest/supplemental/territory_information.html>
     /// for details. Example: "CH" for Switzerland.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub region_code: std::string::String,
 
     /// The latitude and longitude of the geographic center to search from. This
@@ -4308,7 +4377,7 @@ pub struct LocationFilter {
     /// identified as a city or smaller. This field is ignored if the location
     /// being searched for is a state or larger.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
     pub distance_in_miles: f64,
 
     /// Allows the client to return jobs without a
@@ -4346,6 +4415,7 @@ pub struct LocationFilter {
     /// [google.cloud.talent.v4.LocationFilter.lat_lng]: crate::model::LocationFilter::lat_lng
     /// [google.cloud.talent.v4.PostingRegion.TELECOMMUTE]: crate::model::PostingRegion::Telecommute
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub telecommute_preference: crate::model::location_filter::TelecommutePreference,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4571,6 +4641,7 @@ pub struct CompensationFilter {
     /// Required. Type of filter.
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub r#type: crate::model::compensation_filter::FilterType,
 
     /// Required. Specify desired `base compensation entry's`
@@ -4578,6 +4649,7 @@ pub struct CompensationFilter {
     ///
     /// [google.cloud.talent.v4.CompensationInfo.CompensationUnit]: crate::model::compensation_info::CompensationUnit
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub units: std::vec::Vec<crate::model::compensation_info::CompensationUnit>,
 
     /// Compensation range.
@@ -4587,6 +4659,7 @@ pub struct CompensationFilter {
     /// If set to true, jobs with unspecified compensation range fields are
     /// included.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub include_jobs_with_unspecified_compensation_range: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4853,6 +4926,7 @@ pub mod compensation_filter {
 pub struct CommuteFilter {
     /// Required. The method of transportation to calculate the commute time for.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub commute_method: crate::model::CommuteMethod,
 
     /// Required. The latitude and longitude of the location to calculate the
@@ -4871,6 +4945,7 @@ pub struct CommuteFilter {
     /// If this field is set to `false` or isn't specified, only jobs that include
     /// street level addresses will be returned by commute search.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub allow_imprecise_addresses: bool,
 
     /// Traffic factor to take into account while searching by commute.
@@ -5158,7 +5233,10 @@ pub mod commute_filter {
     #[non_exhaustive]
     pub enum TrafficOption {
         /// Specifies the traffic density to use when calculating commute time.
-        RoadTraffic(crate::model::commute_filter::RoadTraffic),
+        RoadTraffic(
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+            crate::model::commute_filter::RoadTraffic,
+        ),
         /// The departure time used to calculate traffic impact, represented as
         /// [google.type.TimeOfDay][google.type.TimeOfDay] in local time zone.
         ///
@@ -5184,6 +5262,7 @@ pub struct HistogramQuery {
     ///
     /// [google.cloud.talent.v4.SearchJobsRequest.histogram_queries]: crate::model::SearchJobsRequest::histogram_queries
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub histogram_query: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5220,6 +5299,7 @@ impl wkt::message::Message for HistogramQuery {
 pub struct HistogramQueryResult {
     /// Requested histogram expression.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub histogram_query: std::string::String,
 
     /// A map from the values of the facet associated with distinct values to the
@@ -5233,7 +5313,7 @@ pub struct HistogramQueryResult {
     /// * (for anonymous numeric bucket) range formatted as `<low>-<high>`, for
     ///   example, `0-1000`, `MIN-0`, and `0-MAX`.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    #[serde_as(as = "std::collections::HashMap<_, wkt::internal::I64>")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, wkt::internal::I64>>")]
     pub histogram: std::collections::HashMap<std::string::String, i64>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5296,6 +5376,7 @@ pub struct Job {
     ///
     /// [google.cloud.talent.v4.Job.requisition_id]: crate::model::Job::requisition_id
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. The resource name of the company listing the job.
@@ -5304,6 +5385,7 @@ pub struct Job {
     /// "projects/{project_id}/tenants/{tenant_id}/companies/{company_id}". For
     /// example, "projects/foo/tenants/bar/companies/baz".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub company: std::string::String,
 
     /// Required. The requisition ID, also referred to as the posting ID, is
@@ -5320,12 +5402,14 @@ pub struct Job {
     /// [google.cloud.talent.v4.Job.name]: crate::model::Job::name
     /// [google.cloud.talent.v4.Job.requisition_id]: crate::model::Job::requisition_id
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub requisition_id: std::string::String,
 
     /// Required. The title of the job, such as "Software Engineer"
     ///
     /// The maximum number of allowed characters is 500.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub title: std::string::String,
 
     /// Required. The description of the job, which typically includes a
@@ -5343,6 +5427,7 @@ pub struct Job {
     /// [google.cloud.talent.v4.Job.qualifications]: crate::model::Job::qualifications
     /// [google.cloud.talent.v4.Job.responsibilities]: crate::model::Job::responsibilities
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Strongly recommended for the best service experience.
@@ -5386,6 +5471,7 @@ pub struct Job {
     /// [google.cloud.talent.v4.Location.LocationType.LOCALITY]: crate::model::location::LocationType::Locality
     /// [google.cloud.talent.v4.Location.LocationType.STREET_ADDRESS]: crate::model::location::LocationType::StreetAddress
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub addresses: std::vec::Vec<std::string::String>,
 
     /// Job application information.
@@ -5394,6 +5480,7 @@ pub struct Job {
 
     /// The benefits included with the job.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub job_benefits: std::vec::Vec<crate::model::JobBenefit>,
 
     /// Job compensation information (a.k.a. "pay rate") i.e., the compensation
@@ -5414,11 +5501,13 @@ pub struct Job {
     /// `string_values`, the maximum total size of `string_values` across all keys
     /// is 50KB.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub custom_attributes:
         std::collections::HashMap<std::string::String, crate::model::CustomAttribute>,
 
     /// The desired education degrees for the job, such as Bachelors, Masters.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub degree_types: std::vec::Vec<crate::model::DegreeType>,
 
     /// The department or functional area within the company with the open
@@ -5426,6 +5515,7 @@ pub struct Job {
     ///
     /// The maximum number of allowed characters is 255.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub department: std::string::String,
 
     /// The employment type(s) of a job, for example,
@@ -5435,6 +5525,7 @@ pub struct Job {
     /// [google.cloud.talent.v4.EmploymentType.FULL_TIME]: crate::model::EmploymentType::FullTime
     /// [google.cloud.talent.v4.EmploymentType.PART_TIME]: crate::model::EmploymentType::PartTime
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub employment_types: std::vec::Vec<crate::model::EmploymentType>,
 
     /// A description of bonus, commission, and other compensation
@@ -5442,6 +5533,7 @@ pub struct Job {
     ///
     /// The maximum number of allowed characters is 10,000.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub incentives: std::string::String,
 
     /// The language of the posting. This field is distinct from
@@ -5460,10 +5552,12 @@ pub struct Job {
     ///
     /// [google.cloud.talent.v4.Job.description]: crate::model::Job::description
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub language_code: std::string::String,
 
     /// The experience level associated with the job, such as "Entry Level".
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub job_level: crate::model::JobLevel,
 
     /// A promotion value of the job, as determined by the client.
@@ -5474,7 +5568,7 @@ pub struct Job {
     ///
     /// Default value is 0, and negative values are treated as 0.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub promotion_value: i32,
 
     /// A description of the qualifications required to perform the
@@ -5489,6 +5583,7 @@ pub struct Job {
     ///
     /// [google.cloud.talent.v4.Job.description]: crate::model::Job::description
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub qualifications: std::string::String,
 
     /// A description of job responsibilities. The use of this field is
@@ -5502,6 +5597,7 @@ pub struct Job {
     ///
     /// [google.cloud.talent.v4.Job.description]: crate::model::Job::description
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub responsibilities: std::string::String,
 
     /// The job [PostingRegion][google.cloud.talent.v4.PostingRegion] (for example,
@@ -5520,6 +5616,7 @@ pub struct Job {
     /// [google.cloud.talent.v4.PostingRegion.ADMINISTRATIVE_AREA]: crate::model::PostingRegion::AdministrativeArea
     /// [google.cloud.talent.v4.PostingRegion.NATION]: crate::model::PostingRegion::Nation
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub posting_region: crate::model::PostingRegion,
 
     /// Deprecated. The job is only visible to the owner.
@@ -5532,6 +5629,7 @@ pub struct Job {
     ///
     /// [google.cloud.talent.v4.Visibility.ACCOUNT_ONLY]: crate::model::Visibility::AccountOnly
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     #[deprecated]
     pub visibility: crate::model::Visibility,
 
@@ -5627,6 +5725,7 @@ pub struct Job {
 
     /// Output only. Display name of the company listing the job.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub company_display_name: std::string::String,
 
     /// Output only. Derived details about the job posting.
@@ -6005,6 +6104,7 @@ pub mod job {
         ///
         /// The maximum number of allowed characters for each entry is 255.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub emails: std::vec::Vec<std::string::String>,
 
         /// Use this field to provide instructions, such as "Mail your application
@@ -6015,6 +6115,7 @@ pub mod job {
         ///
         /// The maximum number of allowed characters is 3,000.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub instruction: std::string::String,
 
         /// Use this URI field to direct an applicant to a website, for example to
@@ -6022,6 +6123,7 @@ pub mod job {
         ///
         /// The maximum number of allowed characters for each entry is 2,000.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub uris: std::vec::Vec<std::string::String>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6084,6 +6186,7 @@ pub mod job {
         /// [google.cloud.talent.v4.Job.DerivedInfo.locations]: crate::model::job::DerivedInfo::locations
         /// [google.cloud.talent.v4.Job.addresses]: crate::model::Job::addresses
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub locations: std::vec::Vec<crate::model::Location>,
 
         /// Job categories derived from [Job.title][google.cloud.talent.v4.Job.title]
@@ -6092,6 +6195,7 @@ pub mod job {
         /// [google.cloud.talent.v4.Job.description]: crate::model::Job::description
         /// [google.cloud.talent.v4.Job.title]: crate::model::Job::title
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub job_categories: std::vec::Vec<crate::model::JobCategory>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6141,6 +6245,7 @@ pub mod job {
         /// If set to `true`, the service does not attempt to resolve a
         /// more precise address for the job.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub disable_street_address_resolution: bool,
 
         /// Option for job HTML content sanitization. Applied fields are:
@@ -6159,6 +6264,7 @@ pub mod job {
         ///
         /// [google.cloud.talent.v4.HtmlSanitization.SIMPLE_FORMATTING_ONLY]: crate::model::HtmlSanitization::SimpleFormattingOnly
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub html_sanitization: crate::model::HtmlSanitization,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6207,6 +6313,7 @@ pub struct CreateJobRequest {
     /// The format is "projects/{project_id}/tenants/{tenant_id}". For example,
     /// "projects/foo/tenants/bar".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The Job to be created.
@@ -6265,6 +6372,7 @@ pub struct GetJobRequest {
     /// "projects/{project_id}/tenants/{tenant_id}/jobs/{job_id}". For
     /// example, "projects/foo/tenants/bar/jobs/baz".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6379,6 +6487,7 @@ pub struct DeleteJobRequest {
     /// "projects/{project_id}/tenants/{tenant_id}/jobs/{job_id}". For
     /// example, "projects/foo/tenants/bar/jobs/baz".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6414,6 +6523,7 @@ pub struct ListJobsRequest {
     /// The format is "projects/{project_id}/tenants/{tenant_id}". For example,
     /// "projects/foo/tenants/bar".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The filter string specifies the jobs to be enumerated.
@@ -6440,10 +6550,12 @@ pub struct ListJobsRequest {
     /// * requisitionId = "req-1"
     /// * requisitionId = "req-1" AND status = "EXPIRED"
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// The starting point of a query result.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// The maximum number of jobs to be returned per page of results.
@@ -6458,7 +6570,7 @@ pub struct ListJobsRequest {
     /// [google.cloud.talent.v4.JobView.JOB_VIEW_ID_ONLY]: crate::model::JobView::IdOnly
     /// [google.cloud.talent.v4.ListJobsRequest.job_view]: crate::model::ListJobsRequest::job_view
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// The desired job attributes returned for jobs in the
@@ -6468,6 +6580,7 @@ pub struct ListJobsRequest {
     ///
     /// [google.cloud.talent.v4.JobView.JOB_VIEW_FULL]: crate::model::JobView::Full
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub job_view: crate::model::JobView,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6527,10 +6640,12 @@ pub struct ListJobsResponse {
     /// The maximum number of items returned is based on the limit field
     /// provided in the request.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub jobs: std::vec::Vec<crate::model::Job>,
 
     /// A token to retrieve the next page of results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// Additional information for the API invocation, such as the request
@@ -6614,6 +6729,7 @@ pub struct SearchJobsRequest {
     /// The format is "projects/{project_id}/tenants/{tenant_id}". For example,
     /// "projects/foo/tenants/bar".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Mode of a search.
@@ -6623,6 +6739,7 @@ pub struct SearchJobsRequest {
     ///
     /// [google.cloud.talent.v4.SearchJobsRequest.SearchMode.JOB_SEARCH]: crate::model::search_jobs_request::SearchMode::JobSearch
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub search_mode: crate::model::search_jobs_request::SearchMode,
 
     /// Required. The meta information collected about the job searcher, used to
@@ -6641,6 +6758,7 @@ pub struct SearchJobsRequest {
     ///
     /// Defaults to false.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub enable_broadening: bool,
 
     /// An expression specifies a histogram request against matching jobs.
@@ -6767,6 +6885,7 @@ pub struct SearchJobsRequest {
     /// [google.cloud.talent.v4.Job.posting_publish_time]: crate::model::Job::posting_publish_time
     /// [google.cloud.talent.v4.JobCategory]: crate::model::JobCategory
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub histogram_queries: std::vec::Vec<crate::model::HistogramQuery>,
 
     /// The desired job attributes returned for jobs in the search response.
@@ -6776,6 +6895,7 @@ pub struct SearchJobsRequest {
     ///
     /// [google.cloud.talent.v4.JobView.JOB_VIEW_SMALL]: crate::model::JobView::Small
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub job_view: crate::model::JobView,
 
     /// An integer that specifies the current offset (that is, starting result
@@ -6792,14 +6912,14 @@ pub struct SearchJobsRequest {
     ///
     /// [google.cloud.talent.v4.SearchJobsRequest.page_token]: crate::model::SearchJobsRequest::page_token
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub offset: i32,
 
     /// A limit on the number of jobs returned in the search results.
     /// Increasing this value above the default value of 10 can increase search
     /// response time. The value can be between 1 and 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub max_page_size: i32,
 
     /// The token specifying the current offset within
@@ -6809,6 +6929,7 @@ pub struct SearchJobsRequest {
     ///
     /// [google.cloud.talent.v4.SearchJobsResponse.next_page_token]: crate::model::SearchJobsResponse::next_page_token
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// The criteria determining how search results are sorted. Default is
@@ -6874,6 +6995,7 @@ pub struct SearchJobsRequest {
     /// [google.cloud.talent.v4.SearchJobsRequest.CustomRankingInfo.ranking_expression]: crate::model::search_jobs_request::CustomRankingInfo::ranking_expression
     /// [google.cloud.talent.v4.SearchJobsRequest.diversification_level]: crate::model::SearchJobsRequest::diversification_level
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     /// Controls whether highly similar jobs are returned next to each other in
@@ -6889,6 +7011,7 @@ pub struct SearchJobsRequest {
     ///
     /// [google.cloud.talent.v4.SearchJobsRequest.DiversificationLevel.SIMPLE]: crate::model::search_jobs_request::DiversificationLevel::Simple
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub diversification_level: crate::model::search_jobs_request::DiversificationLevel,
 
     /// Controls over how job documents get ranked on top of existing relevance
@@ -6944,6 +7067,7 @@ pub struct SearchJobsRequest {
     /// [google.cloud.talent.v4.SearchJobsRequest.KeywordMatchMode.KEYWORD_MATCH_DISABLED]: crate::model::search_jobs_request::KeywordMatchMode::KeywordMatchDisabled
     /// [google.cloud.talent.v4.SearchJobsRequest.keyword_match_mode]: crate::model::SearchJobsRequest::keyword_match_mode
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     #[deprecated]
     pub disable_keyword_match: bool,
 
@@ -6956,6 +7080,7 @@ pub struct SearchJobsRequest {
     ///
     /// [google.cloud.talent.v4.SearchJobsRequest.KeywordMatchMode.KEYWORD_MATCH_ALL]: crate::model::search_jobs_request::KeywordMatchMode::KeywordMatchAll
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub keyword_match_mode: crate::model::search_jobs_request::KeywordMatchMode,
 
     /// Optional. The relevance threshold of the search results.
@@ -6964,6 +7089,7 @@ pub struct SearchJobsRequest {
     /// precision and recall to deliver both highly accurate results and
     /// comprehensive coverage of relevant information.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub relevance_threshold: crate::model::search_jobs_request::RelevanceThreshold,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7160,6 +7286,7 @@ pub mod search_jobs_request {
         ///
         /// [google.cloud.talent.v4.SearchJobsRequest.CustomRankingInfo.ranking_expression]: crate::model::search_jobs_request::CustomRankingInfo::ranking_expression
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub importance_level:
             crate::model::search_jobs_request::custom_ranking_info::ImportanceLevel,
 
@@ -7189,6 +7316,7 @@ pub mod search_jobs_request {
         ///
         /// [google.cloud.talent.v4.Job.custom_attributes]: crate::model::Job::custom_attributes
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub ranking_expression: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8078,6 +8206,7 @@ pub struct SearchJobsResponse {
     ///
     /// [google.cloud.talent.v4.SearchJobsRequest]: crate::model::SearchJobsRequest
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub matching_jobs: std::vec::Vec<crate::model::search_jobs_response::MatchingJob>,
 
     /// The histogram results that match with specified
@@ -8085,11 +8214,13 @@ pub struct SearchJobsResponse {
     ///
     /// [google.cloud.talent.v4.SearchJobsRequest.histogram_queries]: crate::model::SearchJobsRequest::histogram_queries
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub histogram_query_results: std::vec::Vec<crate::model::HistogramQueryResult>,
 
     /// The token that specifies the starting position of the next page of results.
     /// This field is empty if there are no more results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// The location filters that the service applied to the specified query. If
@@ -8100,13 +8231,14 @@ pub struct SearchJobsResponse {
     /// [google.cloud.talent.v4.Location.LocationType.LOCATION_TYPE_UNSPECIFIED]: crate::model::location::LocationType::Unspecified
     /// [google.cloud.talent.v4.Location.location_type]: crate::model::Location::location_type
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub location_filters: std::vec::Vec<crate::model::Location>,
 
     /// Number of jobs that match the specified query.
     ///
     /// Note: This size is precise only if the total is less than 100,000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub total_size: i32,
 
     /// Additional information for the API invocation, such as the request
@@ -8122,7 +8254,7 @@ pub struct SearchJobsResponse {
     /// (without broadening) query. If this field is non-zero, subsequent requests
     /// with offset after this result set should contain all broadened results.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub broadened_query_jobs_count: i32,
 
     /// The spell checking result, and correction.
@@ -8256,6 +8388,7 @@ pub mod search_jobs_response {
         /// A summary of the job with core information that's displayed on the search
         /// results listing page.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub job_summary: std::string::String,
 
         /// Contains snippets of text from the
@@ -8265,6 +8398,7 @@ pub mod search_jobs_response {
         ///
         /// [google.cloud.talent.v4.Job.title]: crate::model::Job::title
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub job_title_snippet: std::string::String,
 
         /// Contains snippets of text from the
@@ -8275,6 +8409,7 @@ pub mod search_jobs_response {
         ///
         /// [google.cloud.talent.v4.Job.description]: crate::model::Job::description
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub search_text_snippet: std::string::String,
 
         /// Commute information which is generated based on specified
@@ -8441,11 +8576,13 @@ pub struct BatchCreateJobsRequest {
     /// The format is "projects/{project_id}/tenants/{tenant_id}". For example,
     /// "projects/foo/tenants/bar".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The jobs to be created.
     /// A maximum of 200 jobs can be created in a batch.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub jobs: std::vec::Vec<crate::model::Job>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8492,11 +8629,13 @@ pub struct BatchUpdateJobsRequest {
     /// The format is "projects/{project_id}/tenants/{tenant_id}". For example,
     /// "projects/foo/tenants/bar".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The jobs to be updated.
     /// A maximum of 200 jobs can be updated in a batch.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub jobs: std::vec::Vec<crate::model::Job>,
 
     /// Strongly recommended for the best service experience. Be aware that it will
@@ -8586,6 +8725,7 @@ pub struct BatchDeleteJobsRequest {
     ///
     /// The parent of all of the jobs specified in `names` must match this field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The names of the jobs to delete.
@@ -8595,6 +8735,7 @@ pub struct BatchDeleteJobsRequest {
     ///
     /// A maximum of 200 jobs can be deleted in a batch.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub names: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8726,6 +8867,7 @@ pub struct BatchCreateJobsResponse {
     /// List of job mutation results from a batch create operation. It can change
     /// until operation status is FINISHED, FAILED or CANCELLED.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub job_results: std::vec::Vec<crate::model::JobResult>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8771,6 +8913,7 @@ pub struct BatchUpdateJobsResponse {
     /// List of job mutation results from a batch update operation. It can change
     /// until operation status is FINISHED, FAILED or CANCELLED.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub job_results: std::vec::Vec<crate::model::JobResult>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8816,6 +8959,7 @@ pub struct BatchDeleteJobsResponse {
     /// List of job mutation results from a batch delete operation. It can change
     /// until operation status is FINISHED, FAILED or CANCELLED.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub job_results: std::vec::Vec<crate::model::JobResult>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8862,6 +9006,7 @@ pub struct Tenant {
     /// The format is "projects/{project_id}/tenants/{tenant_id}", for example,
     /// "projects/foo/tenants/bar".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. Client side tenant identifier, used to uniquely identify the
@@ -8869,6 +9014,7 @@ pub struct Tenant {
     ///
     /// The maximum number of allowed characters is 255.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub external_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8910,6 +9056,7 @@ pub struct CreateTenantRequest {
     /// The format is "projects/{project_id}", for example,
     /// "projects/foo".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The tenant to be created.
@@ -8967,6 +9114,7 @@ pub struct GetTenantRequest {
     /// The format is "projects/{project_id}/tenants/{tenant_id}", for example,
     /// "projects/foo/tenants/bar".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9081,6 +9229,7 @@ pub struct DeleteTenantRequest {
     /// The format is "projects/{project_id}/tenants/{tenant_id}", for example,
     /// "projects/foo/tenants/bar".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9116,16 +9265,18 @@ pub struct ListTenantsRequest {
     /// The format is "projects/{project_id}", for example,
     /// "projects/foo".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The starting indicator from which to return results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// The maximum number of tenants to be returned, at most 100.
     /// Default is 100 if a non-positive number is provided.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9170,10 +9321,12 @@ impl wkt::message::Message for ListTenantsRequest {
 pub struct ListTenantsResponse {
     /// Tenants for the current client.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub tenants: std::vec::Vec<crate::model::Tenant>,
 
     /// A token to retrieve the next page of results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// Additional information for the API invocation, such as the request

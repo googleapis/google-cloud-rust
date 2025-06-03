@@ -51,17 +51,19 @@ pub struct AnnotateVideoRequest {
     /// '?' to match 1 character. If unset, the input video should be embedded
     /// in the request as `input_content`. If set, `input_content` must be unset.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub input_uri: std::string::String,
 
     /// The video data bytes.
     /// If unset, the input video(s) should be specified via the `input_uri`.
     /// If set, `input_uri` must be unset.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub input_content: ::bytes::Bytes,
 
     /// Required. Requested video annotation features.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub features: std::vec::Vec<crate::model::Feature>,
 
     /// Additional video context and/or feature-specific parameters.
@@ -76,6 +78,7 @@ pub struct AnnotateVideoRequest {
     /// more information, see [Request
     /// URIs](https://cloud.google.com/storage/docs/request-endpoints).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub output_uri: std::string::String,
 
     /// Optional. Cloud region where annotation should take place. Supported cloud
@@ -83,6 +86,7 @@ pub struct AnnotateVideoRequest {
     /// region is specified, the region will be determined based on video file
     /// location.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub location_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -164,6 +168,7 @@ pub struct VideoContext {
     /// to be contiguous or span the whole video. If unspecified, each video is
     /// treated as a single segment.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub segments: std::vec::Vec<crate::model::VideoSegment>,
 
     /// Config for LABEL_DETECTION.
@@ -383,18 +388,21 @@ pub struct LabelDetectionConfig {
     /// video-level labels or segment-level labels.
     /// If unspecified, defaults to `SHOT_MODE`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub label_detection_mode: crate::model::LabelDetectionMode,
 
     /// Whether the video has been shot from a stationary (i.e., non-moving)
     /// camera. When set to true, might improve detection accuracy for moving
     /// objects. Should be used with `SHOT_AND_FRAME_MODE` enabled.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub stationary_camera: bool,
 
     /// Model to use for label detection.
     /// Supported values: "builtin/stable" (the default if unset) and
     /// "builtin/latest".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub model: std::string::String,
 
     /// The confidence threshold we perform filtering on the labels from
@@ -404,7 +412,7 @@ pub struct LabelDetectionConfig {
     /// Note: For best results, follow the default threshold. We will update
     /// the default threshold everytime when we release a new model.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub frame_confidence_threshold: f32,
 
     /// The confidence threshold we perform filtering on the labels from
@@ -414,7 +422,7 @@ pub struct LabelDetectionConfig {
     /// Note: For best results, follow the default threshold. We will update
     /// the default threshold everytime when we release a new model.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub video_confidence_threshold: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -476,6 +484,7 @@ pub struct ShotChangeDetectionConfig {
     /// Supported values: "builtin/stable" (the default if unset) and
     /// "builtin/latest".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub model: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -510,6 +519,7 @@ pub struct ObjectTrackingConfig {
     /// Supported values: "builtin/stable" (the default if unset) and
     /// "builtin/latest".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub model: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -544,15 +554,18 @@ pub struct FaceDetectionConfig {
     /// Supported values: "builtin/stable" (the default if unset) and
     /// "builtin/latest".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub model: std::string::String,
 
     /// Whether bounding boxes are included in the face annotation output.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub include_bounding_boxes: bool,
 
     /// Whether to enable face attributes detection, such as glasses, dark_glasses,
     /// mouth_open etc. Ignored if 'include_bounding_boxes' is set to false.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub include_attributes: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -598,11 +611,13 @@ pub struct PersonDetectionConfig {
     /// Whether bounding boxes are included in the person detection annotation
     /// output.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub include_bounding_boxes: bool,
 
     /// Whether to enable pose landmarks detection. Ignored if
     /// 'include_bounding_boxes' is set to false.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub include_pose_landmarks: bool,
 
     /// Whether to enable person attributes detection, such as cloth color (black,
@@ -610,6 +625,7 @@ pub struct PersonDetectionConfig {
     /// etc.
     /// Ignored if 'include_bounding_boxes' is set to false.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub include_attributes: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -656,6 +672,7 @@ pub struct ExplicitContentDetectionConfig {
     /// Supported values: "builtin/stable" (the default if unset) and
     /// "builtin/latest".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub model: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -692,12 +709,14 @@ pub struct TextDetectionConfig {
     ///
     /// Automatic language detection is performed if no hint is provided.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub language_hints: std::vec::Vec<std::string::String>,
 
     /// Model to use for text detection.
     /// Supported values: "builtin/stable" (the default if unset) and
     /// "builtin/latest".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub model: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -813,7 +832,7 @@ pub struct LabelSegment {
 
     /// Confidence that the label is accurate. Range: [0, 1].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub confidence: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -869,7 +888,7 @@ pub struct LabelFrame {
 
     /// Confidence that the label is accurate. Range: [0, 1].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub confidence: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -922,14 +941,17 @@ pub struct Entity {
     /// [Google Knowledge Graph Search
     /// API](https://developers.google.com/knowledge-graph/).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub entity_id: std::string::String,
 
     /// Textual description, e.g., `Fixed-gear bicycle`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Language code for `description` in BCP-47 format.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub language_code: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -981,18 +1003,22 @@ pub struct LabelAnnotation {
     /// in some cases there might be more than one categories e.g., `Terrier` could
     /// also be a `pet`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub category_entities: std::vec::Vec<crate::model::Entity>,
 
     /// All video segments where a label was detected.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub segments: std::vec::Vec<crate::model::LabelSegment>,
 
     /// All video frames where a label was detected.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub frames: std::vec::Vec<crate::model::LabelFrame>,
 
     /// Feature version.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub version: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1081,6 +1107,7 @@ pub struct ExplicitContentFrame {
 
     /// Likelihood of the pornography content..
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub pornography_likelihood: crate::model::Likelihood,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1136,10 +1163,12 @@ impl wkt::message::Message for ExplicitContentFrame {
 pub struct ExplicitContentAnnotation {
     /// All video frames where explicit content was detected.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub frames: std::vec::Vec<crate::model::ExplicitContentFrame>,
 
     /// Feature version.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub version: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1185,22 +1214,22 @@ impl wkt::message::Message for ExplicitContentAnnotation {
 pub struct NormalizedBoundingBox {
     /// Left X coordinate.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub left: f32,
 
     /// Top Y coordinate.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub top: f32,
 
     /// Right X coordinate.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub right: f32,
 
     /// Bottom Y coordinate.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub bottom: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1251,15 +1280,17 @@ impl wkt::message::Message for NormalizedBoundingBox {
 pub struct FaceDetectionAnnotation {
     /// The face tracks with attributes.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub tracks: std::vec::Vec<crate::model::Track>,
 
     /// The thumbnail of a person's face.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub thumbnail: ::bytes::Bytes,
 
     /// Feature version.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub version: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1309,10 +1340,12 @@ impl wkt::message::Message for FaceDetectionAnnotation {
 pub struct PersonDetectionAnnotation {
     /// The detected tracks of a person.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub tracks: std::vec::Vec<crate::model::Track>,
 
     /// Feature version.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub version: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1403,6 +1436,7 @@ pub struct FaceFrame {
     /// There can be more than one boxes if the same face is detected in multiple
     /// locations within the current frame.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub normalized_bounding_boxes: std::vec::Vec<crate::model::NormalizedBoundingBox>,
 
     /// Time-offset, relative to the beginning of the video,
@@ -1464,15 +1498,17 @@ impl wkt::message::Message for FaceFrame {
 pub struct FaceAnnotation {
     /// Thumbnail of a representative face view (in JPEG format).
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub thumbnail: ::bytes::Bytes,
 
     /// All video segments where a face was detected.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub segments: std::vec::Vec<crate::model::FaceSegment>,
 
     /// All video frames where a face was detected.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub frames: std::vec::Vec<crate::model::FaceFrame>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1538,10 +1574,12 @@ pub struct TimestampedObject {
 
     /// Optional. The attributes of the object in the bounding box.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub attributes: std::vec::Vec<crate::model::DetectedAttribute>,
 
     /// Optional. The detected landmarks.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub landmarks: std::vec::Vec<crate::model::DetectedLandmark>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1630,15 +1668,17 @@ pub struct Track {
 
     /// The object with timestamp and attributes per frame in the track.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub timestamped_objects: std::vec::Vec<crate::model::TimestampedObject>,
 
     /// Optional. Attributes in the track level.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub attributes: std::vec::Vec<crate::model::DetectedAttribute>,
 
     /// Optional. The confidence score of the tracked object.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub confidence: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1712,16 +1752,18 @@ pub struct DetectedAttribute {
     /// The name of the attribute, for example, glasses, dark_glasses, mouth_open.
     /// A full list of supported type names will be provided in the document.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Detected attribute confidence. Range [0, 1].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub confidence: f32,
 
     /// Text value of the detection result. For example, the value for "HairColor"
     /// can be "black", "blonde", etc.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub value: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1767,6 +1809,7 @@ impl wkt::message::Message for DetectedAttribute {
 pub struct DetectedLandmark {
     /// The name of this landmark, for example, left_hand, right_shoulder.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The 2D point of the detected landmark using the normalized image
@@ -1776,7 +1819,7 @@ pub struct DetectedLandmark {
 
     /// The confidence score of the detected landmark. Range [0, 1].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub confidence: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1834,6 +1877,7 @@ pub struct VideoAnnotationResults {
     /// Video file location in
     /// [Cloud Storage](https://cloud.google.com/storage/).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub input_uri: std::string::String,
 
     /// Video segment on which the annotation is run.
@@ -1843,6 +1887,7 @@ pub struct VideoAnnotationResults {
     /// Topical label annotations on video level or user-specified segment level.
     /// There is exactly one element for each unique label.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub segment_label_annotations: std::vec::Vec<crate::model::LabelAnnotation>,
 
     /// Presence label annotations on video level or user-specified segment level.
@@ -1852,11 +1897,13 @@ pub struct VideoAnnotationResults {
     /// available only when the client sets `LabelDetectionConfig.model` to
     /// "builtin/latest" in the request.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub segment_presence_label_annotations: std::vec::Vec<crate::model::LabelAnnotation>,
 
     /// Topical label annotations on shot level.
     /// There is exactly one element for each unique label.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub shot_label_annotations: std::vec::Vec<crate::model::LabelAnnotation>,
 
     /// Presence label annotations on shot level. There is exactly one element for
@@ -1865,24 +1912,29 @@ pub struct VideoAnnotationResults {
     /// labels detected in video content and is made available only when the client
     /// sets `LabelDetectionConfig.model` to "builtin/latest" in the request.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub shot_presence_label_annotations: std::vec::Vec<crate::model::LabelAnnotation>,
 
     /// Label annotations on frame level.
     /// There is exactly one element for each unique label.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub frame_label_annotations: std::vec::Vec<crate::model::LabelAnnotation>,
 
     /// Deprecated. Please use `face_detection_annotations` instead.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     #[deprecated]
     pub face_annotations: std::vec::Vec<crate::model::FaceAnnotation>,
 
     /// Face detection annotations.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub face_detection_annotations: std::vec::Vec<crate::model::FaceDetectionAnnotation>,
 
     /// Shot annotations. Each shot is represented as a video segment.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub shot_annotations: std::vec::Vec<crate::model::VideoSegment>,
 
     /// Explicit content annotation.
@@ -1891,24 +1943,29 @@ pub struct VideoAnnotationResults {
 
     /// Speech transcription.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub speech_transcriptions: std::vec::Vec<crate::model::SpeechTranscription>,
 
     /// OCR text detection and tracking.
     /// Annotations for list of detected text snippets. Each will have list of
     /// frame information associated with it.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub text_annotations: std::vec::Vec<crate::model::TextAnnotation>,
 
     /// Annotations for list of objects detected and tracked in video.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub object_annotations: std::vec::Vec<crate::model::ObjectTrackingAnnotation>,
 
     /// Annotations for list of logos detected, tracked and recognized in video.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub logo_recognition_annotations: std::vec::Vec<crate::model::LogoRecognitionAnnotation>,
 
     /// Person detection annotations.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub person_detection_annotations: std::vec::Vec<crate::model::PersonDetectionAnnotation>,
 
     /// If set, indicates an error. Note that for a single `AnnotateVideoRequest`
@@ -2146,6 +2203,7 @@ impl wkt::message::Message for VideoAnnotationResults {
 pub struct AnnotateVideoResponse {
     /// Annotation results for all videos specified in `AnnotateVideoRequest`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub annotation_results: std::vec::Vec<crate::model::VideoAnnotationResults>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2184,12 +2242,13 @@ pub struct VideoAnnotationProgress {
     /// Video file location in
     /// [Cloud Storage](https://cloud.google.com/storage/).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub input_uri: std::string::String,
 
     /// Approximate percentage processed thus far. Guaranteed to be
     /// 100 when fully processed.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub progress_percent: i32,
 
     /// Time when the request was received.
@@ -2203,6 +2262,7 @@ pub struct VideoAnnotationProgress {
     /// Specifies which feature is being tracked if the request contains more than
     /// one feature.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub feature: crate::model::Feature,
 
     /// Specifies which segment is being tracked if the request contains more than
@@ -2308,6 +2368,7 @@ impl wkt::message::Message for VideoAnnotationProgress {
 pub struct AnnotateVideoProgress {
     /// Progress metadata for all videos specified in `AnnotateVideoRequest`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub annotation_progress: std::vec::Vec<crate::model::VideoAnnotationProgress>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2349,6 +2410,7 @@ pub struct SpeechTranscriptionConfig {
     /// See [Language Support](https://cloud.google.com/speech/docs/languages)
     /// for a list of the currently supported language codes.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub language_code: std::string::String,
 
     /// Optional. Maximum number of recognition hypotheses to be returned.
@@ -2357,7 +2419,7 @@ pub struct SpeechTranscriptionConfig {
     /// `max_alternatives`. Valid values are `0`-`30`. A value of `0` or `1` will
     /// return a maximum of one. If omitted, will return a maximum of one.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub max_alternatives: i32,
 
     /// Optional. If set to `true`, the server will attempt to filter out
@@ -2365,10 +2427,12 @@ pub struct SpeechTranscriptionConfig {
     /// with asterisks, e.g. "f***". If set to `false` or omitted, profanities
     /// won't be filtered out.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter_profanity: bool,
 
     /// Optional. A means to provide context to assist the speech recognition.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub speech_contexts: std::vec::Vec<crate::model::SpeechContext>,
 
     /// Optional. If 'true', adds punctuation to recognition result hypotheses.
@@ -2378,12 +2442,13 @@ pub struct SpeechTranscriptionConfig {
     /// offered as an experimental service, complimentary to all users. In the
     /// future this may be exclusively available as a premium feature."
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub enable_automatic_punctuation: bool,
 
     /// Optional. For file formats, such as MXF or MKV, supporting multiple audio
     /// tracks, specify up to two tracks. Default: track 0.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "std::vec::Vec<wkt::internal::I32>")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<wkt::internal::I32>>")]
     pub audio_tracks: std::vec::Vec<i32>,
 
     /// Optional. If 'true', enables speaker detection for each recognized word in
@@ -2394,19 +2459,21 @@ pub struct SpeechTranscriptionConfig {
     /// This is done in order to improve our speaker tags as our models learn to
     /// identify the speakers in the conversation over time.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub enable_speaker_diarization: bool,
 
     /// Optional. If set, specifies the estimated number of speakers in the
     /// conversation. If not set, defaults to '2'. Ignored unless
     /// enable_speaker_diarization is set to true.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub diarization_speaker_count: i32,
 
     /// Optional. If `true`, the top result includes a list of words and the
     /// confidence for those words. If `false`, no word-level confidence
     /// information is returned. The default is `false`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub enable_word_confidence: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2503,6 +2570,7 @@ pub struct SpeechContext {
     /// to add additional words to the vocabulary of the recognizer. See
     /// [usage limits](https://cloud.google.com/speech/limits#content).
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub phrases: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2543,12 +2611,14 @@ pub struct SpeechTranscription {
     /// accuracy, with the top (first) alternative being the most probable, as
     /// ranked by the recognizer.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub alternatives: std::vec::Vec<crate::model::SpeechRecognitionAlternative>,
 
     /// Output only. The [BCP-47](https://www.rfc-editor.org/rfc/bcp/bcp47.txt)
     /// language tag of the language in this result. This language code was
     /// detected to have the most likelihood of being spoken in the audio.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub language_code: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2592,6 +2662,7 @@ impl wkt::message::Message for SpeechTranscription {
 pub struct SpeechRecognitionAlternative {
     /// Transcript text representing the words that the user spoke.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub transcript: std::string::String,
 
     /// Output only. The confidence estimate between 0.0 and 1.0. A higher number
@@ -2601,13 +2672,14 @@ pub struct SpeechRecognitionAlternative {
     /// to be always provided.
     /// The default of 0.0 is a sentinel value indicating `confidence` was not set.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub confidence: f32,
 
     /// Output only. A list of word-specific information for each recognized word.
     /// Note: When `enable_speaker_diarization` is set to true, you will see all
     /// the words from the beginning of the audio.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub words: std::vec::Vec<crate::model::WordInfo>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2673,6 +2745,7 @@ pub struct WordInfo {
 
     /// The word corresponding to this set of information.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub word: std::string::String,
 
     /// Output only. The confidence estimate between 0.0 and 1.0. A higher number
@@ -2682,7 +2755,7 @@ pub struct WordInfo {
     /// to be always provided.
     /// The default of 0.0 is a sentinel value indicating `confidence` was not set.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub confidence: f32,
 
     /// Output only. A distinct integer value is assigned for every speaker within
@@ -2690,7 +2763,7 @@ pub struct WordInfo {
     /// have spoken this word. Value ranges from 1 up to diarization_speaker_count,
     /// and is only set if speaker diarization is enabled.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub speaker_tag: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2773,12 +2846,12 @@ impl wkt::message::Message for WordInfo {
 pub struct NormalizedVertex {
     /// X coordinate.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub x: f32,
 
     /// Y coordinate.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub y: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2833,6 +2906,7 @@ impl wkt::message::Message for NormalizedVertex {
 pub struct NormalizedBoundingPoly {
     /// Normalized vertices of the bounding polygon.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub vertices: std::vec::Vec<crate::model::NormalizedVertex>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2875,11 +2949,12 @@ pub struct TextSegment {
     /// Confidence for the track of detected text. It is calculated as the highest
     /// over all frames where OCR detected text appears.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub confidence: f32,
 
     /// Information related to the frames where OCR detected text appears.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub frames: std::vec::Vec<crate::model::TextFrame>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3011,14 +3086,17 @@ impl wkt::message::Message for TextFrame {
 pub struct TextAnnotation {
     /// The detected text.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub text: std::string::String,
 
     /// All video segments where OCR detected text appears.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub segments: std::vec::Vec<crate::model::TextSegment>,
 
     /// Feature version.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub version: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3139,7 +3217,7 @@ pub struct ObjectTrackingAnnotation {
 
     /// Object category's labeling confidence of this track.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub confidence: f32,
 
     /// Information corresponding to all frames where this object track appears.
@@ -3147,10 +3225,12 @@ pub struct ObjectTrackingAnnotation {
     /// messages in frames.
     /// Streaming mode: it can only be one ObjectTrackingFrame message in frames.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub frames: std::vec::Vec<crate::model::ObjectTrackingFrame>,
 
     /// Feature version.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub version: std::string::String,
 
     /// Different representation of tracking info in non-streaming batch
@@ -3305,7 +3385,7 @@ pub mod object_tracking_annotation {
         /// Instead, we provide a unique identifiable integer track_id so that
         /// the customers can correlate the results of the ongoing
         /// ObjectTrackAnnotation of the same track_id over time.
-        TrackId(#[serde_as(as = "wkt::internal::I64")] i64),
+        TrackId(#[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")] i64),
     }
 }
 
@@ -3323,11 +3403,13 @@ pub struct LogoRecognitionAnnotation {
     /// All logo tracks where the recognized logo appears. Each track corresponds
     /// to one logo instance appearing in consecutive frames.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub tracks: std::vec::Vec<crate::model::Track>,
 
     /// All video segments where the recognized logo appears. There might be
     /// multiple instances of the same logo class appearing in one VideoSegment.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub segments: std::vec::Vec<crate::model::VideoSegment>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

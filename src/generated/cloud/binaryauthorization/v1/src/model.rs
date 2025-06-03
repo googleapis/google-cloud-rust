@@ -42,10 +42,12 @@ pub struct Policy {
     /// Output only. The resource name, in the format `projects/*/policy`. There is
     /// at most one policy per project.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. A descriptive comment.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Optional. Controls the evaluation of a Google-maintained global admission
@@ -53,12 +55,14 @@ pub struct Policy {
     /// policy will be subject to the project admission policy. This setting
     /// has no effect when specified inside a global admission policy.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub global_policy_evaluation_mode: crate::model::policy::GlobalPolicyEvaluationMode,
 
     /// Optional. Admission policy allowlisting. A matching admission request will
     /// always be permitted. This feature is typically used to exclude Google or
     /// third-party infrastructure images from Binary Authorization policies.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub admission_whitelist_patterns: std::vec::Vec<crate::model::AdmissionWhitelistPattern>,
 
     /// Optional. Per-cluster admission rules. Cluster spec format:
@@ -69,18 +73,21 @@ pub struct Policy {
     /// For `clusterId` syntax restrictions see
     /// <https://cloud.google.com/container-engine/reference/rest/v1/projects.zones.clusters>.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub cluster_admission_rules:
         std::collections::HashMap<std::string::String, crate::model::AdmissionRule>,
 
     /// Optional. Per-kubernetes-namespace admission rules. K8s namespace spec format:
     /// [a-z.-]+, e.g. 'some-namespace'
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub kubernetes_namespace_admission_rules:
         std::collections::HashMap<std::string::String, crate::model::AdmissionRule>,
 
     /// Optional. Per-kubernetes-service-account admission rules. Service account
     /// spec format: `namespace:serviceaccount`. e.g. 'test-ns:default'
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub kubernetes_service_account_admission_rules:
         std::collections::HashMap<std::string::String, crate::model::AdmissionRule>,
 
@@ -90,6 +97,7 @@ pub struct Policy {
     /// \<domain\>/ns/\<namespace\>/sa/\<serviceaccount\>
     /// e.g. spiffe://example.com/ns/test-ns/sa/default
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub istio_service_identity_admission_rules:
         std::collections::HashMap<std::string::String, crate::model::AdmissionRule>,
 
@@ -395,6 +403,7 @@ pub struct AdmissionWhitelistPattern {
     /// text after the `registry/` part. This also supports a trailing `**`
     /// wildcard which matches subdirectories of a given entry.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name_pattern: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -437,6 +446,7 @@ impl wkt::message::Message for AdmissionWhitelistPattern {
 pub struct AdmissionRule {
     /// Required. How this admission rule will be evaluated.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub evaluation_mode: crate::model::admission_rule::EvaluationMode,
 
     /// Optional. The resource names of the attestors that must attest to
@@ -448,10 +458,12 @@ pub struct AdmissionRule {
     /// Note: this field must be non-empty when the evaluation_mode field specifies
     /// REQUIRE_ATTESTATION, otherwise it must be empty.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub require_attestations_by: std::vec::Vec<std::string::String>,
 
     /// Required. The action when a pod creation is denied by the admission rule.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub enforcement_mode: crate::model::admission_rule::EnforcementMode,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -798,11 +810,13 @@ pub struct Attestor {
     /// Required. The resource name, in the format:
     /// `projects/*/attestors/*`. This field may not be updated.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. A descriptive comment.  This field may be updated.
     /// The field may be displayed in chooser dialogs.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Output only. Time when the attestor was last updated.
@@ -937,6 +951,7 @@ pub struct UserOwnedGrafeasNote {
     /// Attestation.Authority Occurrence that names a container image and that
     /// links to this Note. Grafeas is an external dependency.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub note_reference: std::string::String,
 
     /// Optional. Public keys that verify attestations signed by this
@@ -949,6 +964,7 @@ pub struct UserOwnedGrafeasNote {
     /// If this field is empty, this attestor always returns that no
     /// valid attestations exist.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub public_keys: std::vec::Vec<crate::model::AttestorPublicKey>,
 
     /// Output only. This field will contain the service account email address
@@ -961,6 +977,7 @@ pub struct UserOwnedGrafeasNote {
     /// should not make any other assumptions about the service account email;
     /// future versions may use an email based on a different naming pattern.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub delegation_service_account_email: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1017,6 +1034,7 @@ pub struct PkixPublicKey {
     /// A PEM-encoded public key, as described in
     /// <https://tools.ietf.org/html/rfc7468#section-13>
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub public_key_pem: std::string::String,
 
     /// The signature algorithm used to verify a message against a signature using
@@ -1025,6 +1043,7 @@ pub struct PkixPublicKey {
     /// identifiers encoded in `public_key_pem` (i.e. this algorithm must match
     /// that of the public key).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub signature_algorithm: crate::model::pkix_public_key::SignatureAlgorithm,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1303,6 +1322,7 @@ pub mod pkix_public_key {
 pub struct AttestorPublicKey {
     /// Optional. A descriptive comment. This field may be updated.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub comment: std::string::String,
 
     /// The ID of this public key.
@@ -1313,6 +1333,7 @@ pub struct AttestorPublicKey {
     /// key type is encapsulated. See the documentation on `public_key` cases below
     /// for details.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
@@ -1438,7 +1459,9 @@ pub mod attestor_public_key {
         /// computes this ID as the OpenPGP RFC4880 V4 fingerprint, represented as
         /// upper-case hex.  If `id` is provided by the caller, it will be
         /// overwritten by the API-calculated ID.
-        AsciiArmoredPgpPublicKey(std::string::String),
+        AsciiArmoredPgpPublicKey(
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String,
+        ),
         /// A raw PKIX SubjectPublicKeyInfo format public key.
         ///
         /// NOTE: `id` may be explicitly provided by the caller when using this
@@ -1460,6 +1483,7 @@ pub struct GetPolicyRequest {
     ///
     /// [google.cloud.binaryauthorization.v1.Policy]: crate::model::Policy
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1543,12 +1567,14 @@ pub struct CreateAttestorRequest {
     ///
     /// [google.cloud.binaryauthorization.v1.Attestor]: crate::model::Attestor
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The [attestors][google.cloud.binaryauthorization.v1.Attestor] ID.
     ///
     /// [google.cloud.binaryauthorization.v1.Attestor]: crate::model::Attestor
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub attestor_id: std::string::String,
 
     /// Required. The initial [attestor][google.cloud.binaryauthorization.v1.Attestor] value. The service will
@@ -1617,6 +1643,7 @@ pub struct GetAttestorRequest {
     ///
     /// [google.cloud.binaryauthorization.v1.Attestor]: crate::model::Attestor
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1701,12 +1728,13 @@ pub struct ListAttestorsRequest {
     ///
     /// [google.cloud.binaryauthorization.v1.Attestor]: crate::model::Attestor
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Requested page size. The server may return fewer results than requested. If
     /// unspecified, the server will pick an appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// A token identifying a page of results the server should return. Typically,
@@ -1715,6 +1743,7 @@ pub struct ListAttestorsRequest {
     ///
     /// [google.cloud.binaryauthorization.v1.ListAttestorsResponse.next_page_token]: crate::model::ListAttestorsResponse::next_page_token
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1761,6 +1790,7 @@ pub struct ListAttestorsResponse {
     ///
     /// [google.cloud.binaryauthorization.v1.Attestor]: crate::model::Attestor
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub attestors: std::vec::Vec<crate::model::Attestor>,
 
     /// A token to retrieve the next page of results. Pass this value in the
@@ -1769,6 +1799,7 @@ pub struct ListAttestorsResponse {
     ///
     /// [google.cloud.binaryauthorization.v1.ListAttestorsRequest.page_token]: crate::model::ListAttestorsRequest::page_token
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1829,6 +1860,7 @@ pub struct DeleteAttestorRequest {
     ///
     /// [google.cloud.binaryauthorization.v1.Attestor]: crate::model::Attestor
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1862,6 +1894,7 @@ pub struct GetSystemPolicyRequest {
     /// Required. The resource name, in the format `locations/*/policy`.
     /// Note that the system policy is not associated with a project.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1901,6 +1934,7 @@ pub struct ValidateAttestationOccurrenceRequest {
     ///
     /// [google.cloud.binaryauthorization.v1.Attestor]: crate::model::Attestor
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub attestor: std::string::String,
 
     /// Required. An [AttestationOccurrence][grafeas.v1.AttestationOccurrence] to
@@ -1915,11 +1949,13 @@ pub struct ValidateAttestationOccurrenceRequest {
     /// Required. The resource name of the [Note][grafeas.v1.Note] to which the
     /// containing [Occurrence][grafeas.v1.Occurrence] is associated.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub occurrence_note: std::string::String,
 
     /// Required. The URI of the artifact (e.g. container image) that is the
     /// subject of the containing [Occurrence][grafeas.v1.Occurrence].
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub occurrence_resource_uri: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1988,10 +2024,12 @@ impl wkt::message::Message for ValidateAttestationOccurrenceRequest {
 pub struct ValidateAttestationOccurrenceResponse {
     /// The result of the Attestation validation.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub result: crate::model::validate_attestation_occurrence_response::Result,
 
     /// The reason for denial if the Attestation couldn't be validated.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub denial_reason: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

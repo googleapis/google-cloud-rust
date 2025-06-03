@@ -500,14 +500,18 @@ func wrapperFieldAttributes(f *api.Field, attributes []string) []string {
 	case ".google.protobuf.DoubleValue":
 		formatter = fieldFormatter(api.DOUBLE_TYPE)
 	default:
-		return attributes
+		formatter = "_"
 	}
-	// A few message types require ad-hoc treatment. Most are just managed with
-	// the default handler.
 	if f.IsOneOf {
+		if formatter == "_" {
+			return attributes
+		}
 		return append(attributes, fmt.Sprintf(`#[serde_as(as = "%s")]`, oneOfFieldTypeFormatter(f, false, formatter)))
 	}
 	if f.Optional {
+		if formatter == "_" {
+			return attributes
+		}
 		return append(
 			attributes,
 			fmt.Sprintf(`#[serde_as(as = "std::option::Option<%s>")]`, formatter))
@@ -515,11 +519,11 @@ func wrapperFieldAttributes(f *api.Field, attributes []string) []string {
 	if f.Repeated {
 		return append(
 			attributes,
-			fmt.Sprintf(`#[serde_as(as = "std::vec::Vec<%s>")]`, formatter))
+			fmt.Sprintf(`#[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<%s>>")]`, formatter))
 	}
 	return append(
 		attributes,
-		fmt.Sprintf(`#[serde_as(as = "%s")]`, formatter))
+		fmt.Sprintf(`#[serde_as(as = "serde_with::DefaultOnNull<%s>")]`, formatter))
 }
 
 func wrapperFieldSkipAttributes(f *api.Field, attributes []string) []string {
@@ -543,13 +547,13 @@ func fieldAttributes(f *api.Field, state *api.APIState) []string {
 	}
 	attributes := fieldBaseAttributes(f)
 	switch f.Typez {
+	case api.GROUP_TYPE:
+		return append(attributes, fieldSkipAttributes(f)...)
+
 	case api.BOOL_TYPE,
 		api.STRING_TYPE,
 		api.ENUM_TYPE,
-		api.GROUP_TYPE:
-		return append(attributes, fieldSkipAttributes(f)...)
-
-	case api.INT32_TYPE,
+		api.INT32_TYPE,
 		api.SFIXED32_TYPE,
 		api.SINT32_TYPE,
 		api.UINT32_TYPE,
@@ -565,12 +569,15 @@ func fieldAttributes(f *api.Field, state *api.APIState) []string {
 		formatter := fieldFormatter(f.Typez)
 		attributes = append(attributes, fieldSkipAttributes(f)...)
 		if f.Optional {
-			return append(attributes, fmt.Sprintf(`#[serde_as(as = "std::option::Option<%s>")]`, formatter))
+			if formatter != "_" {
+				attributes = append(attributes, fmt.Sprintf(`#[serde_as(as = "std::option::Option<%s>")]`, formatter))
+			}
+			return attributes
 		}
 		if f.Repeated {
-			return append(attributes, fmt.Sprintf(`#[serde_as(as = "std::vec::Vec<%s>")]`, formatter))
+			return append(attributes, fmt.Sprintf(`#[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<%s>>")]`, formatter))
 		}
-		return append(attributes, fmt.Sprintf(`#[serde_as(as = "%s")]`, formatter))
+		return append(attributes, fmt.Sprintf(`#[serde_as(as = "serde_with::DefaultOnNull<%s>")]`, formatter))
 
 	case api.MESSAGE_TYPE:
 		if message, ok := state.MessageByID[f.TypezID]; ok && message.IsMap {
@@ -594,10 +601,7 @@ func fieldAttributes(f *api.Field, state *api.APIState) []string {
 			}
 			keyFormat := keyFieldFormatter(key.Typez)
 			valFormat := fieldFormatter(value.Typez)
-			if keyFormat == "_" && valFormat == "_" {
-				return attributes
-			}
-			return append(attributes, fmt.Sprintf(`#[serde_as(as = "std::collections::HashMap<%s, %s>")]`, keyFormat, valFormat))
+			return append(attributes, fmt.Sprintf(`#[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<%s, %s>>")]`, keyFormat, valFormat))
 		}
 		return wrapperFieldAttributes(f, attributes)
 

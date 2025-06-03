@@ -44,12 +44,14 @@ pub struct Process {
     /// {process} must be not longer than 200 characters and only
     /// contain characters in a set: `a-zA-Z0-9_-:.`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. A human-readable name you can set to display in a user interface.
     /// Must be not longer than 200 characters and only contain UTF-8 letters
     /// or numbers, spaces or characters like `_-:&.`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// Optional. The attributes of the process. Should only be used for the
@@ -58,6 +60,7 @@ pub struct Process {
     ///
     /// Up to 100 attributes are allowed.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub attributes: std::collections::HashMap<std::string::String, wkt::Value>,
 
     /// Optional. The origin of this process and its runs and lineage events.
@@ -135,12 +138,14 @@ pub struct Run {
     /// {run} must be not longer than 200 characters and only
     /// contain characters in a set: `a-zA-Z0-9_-:.`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. A human-readable name you can set to display in a user interface.
     /// Must be not longer than 1024 characters and only contain UTF-8 letters
     /// or numbers, spaces or characters like `_-:&.`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// Optional. The attributes of the run. Should only be used for the purpose of
@@ -148,6 +153,7 @@ pub struct Run {
     ///
     /// Up to 100 attributes are allowed.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub attributes: std::collections::HashMap<std::string::String, wkt::Value>,
 
     /// Required. The timestamp of the start of the run.
@@ -160,6 +166,7 @@ pub struct Run {
 
     /// Required. The state of the run.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::run::State,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -411,10 +418,12 @@ pub struct LineageEvent {
     /// {lineage_event} must be not longer than 200 characters and only
     /// contain characters in a set: `a-zA-Z0-9_-:.`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. List of source-target pairs. Can't contain more than 100 tuples.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub links: std::vec::Vec<crate::model::EventLink>,
 
     /// Required. The beginning of the transformation which resulted in this
@@ -574,6 +583,7 @@ pub struct EntityReference {
     /// (FQN)](https://cloud.google.com/data-catalog/docs/fully-qualified-names)
     /// of the entity.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub fully_qualified_name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -609,20 +619,24 @@ impl wkt::message::Message for EntityReference {
 pub struct OperationMetadata {
     /// Output only. The current operation state.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::operation_metadata::State,
 
     /// Output only. The type of the operation being performed.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub operation_type: crate::model::operation_metadata::Type,
 
     /// Output only. The [relative name]
     /// (<https://cloud.google.com//apis/design/resource_names#relative_resource_name>)
     /// of the resource being operated on.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub resource: std::string::String,
 
     /// Output only. The UUID of the resource being operated on.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub resource_uuid: std::string::String,
 
     /// Output only. The timestamp of the operation submission to the server.
@@ -1010,6 +1024,7 @@ pub struct ProcessOpenLineageRunEventRequest {
     /// Required. The name of the project and its location that should own the
     /// process, run, and lineage event.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. OpenLineage message following OpenLineage format:
@@ -1021,6 +1036,7 @@ pub struct ProcessOpenLineageRunEventRequest {
     /// A random UUID is recommended. This request is idempotent only if a
     /// `request_id` is provided.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1079,18 +1095,21 @@ pub struct ProcessOpenLineageRunEventResponse {
     /// Created process name.
     /// Format: `projects/{project}/locations/{location}/processes/{process}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub process: std::string::String,
 
     /// Created run name.
     /// Format:
     /// `projects/{project}/locations/{location}/processes/{process}/runs/{run}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub run: std::string::String,
 
     /// Created lineage event names.
     /// Format:
     /// `projects/{project}/locations/{location}/processes/{process}/runs/{run}/lineageEvents/{lineage_event}`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub lineage_events: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1142,6 +1161,7 @@ pub struct CreateProcessRequest {
     /// Required. The name of the project and its location that should own the
     /// process.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The process to create.
@@ -1152,6 +1172,7 @@ pub struct CreateProcessRequest {
     /// A random UUID is recommended. This request is idempotent only if a
     /// `request_id` is provided.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1220,6 +1241,7 @@ pub struct UpdateProcessRequest {
 
     /// If set to true and the process is not found, the request inserts it.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub allow_missing: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1289,6 +1311,7 @@ impl wkt::message::Message for UpdateProcessRequest {
 pub struct GetProcessRequest {
     /// Required. The name of the process to get.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1323,6 +1346,7 @@ pub struct ListProcessesRequest {
     /// Required. The name of the project and its location that owns this
     /// collection of processes.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The maximum number of processes to return. The service may return
@@ -1330,7 +1354,7 @@ pub struct ListProcessesRequest {
     /// returned. The maximum value is 100; values greater than 100 are cut to
     /// 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// The page token received from a previous `ListProcesses` call. Specify
@@ -1339,6 +1363,7 @@ pub struct ListProcessesRequest {
     /// When paginating, all other parameters specified in this call must
     /// match the parameters of the call that provided the page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1384,11 +1409,13 @@ impl wkt::message::Message for ListProcessesRequest {
 pub struct ListProcessesResponse {
     /// The processes from the specified project and location.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub processes: std::vec::Vec<crate::model::Process>,
 
     /// The token to specify as `page_token` in the next call to get the next page.
     /// If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1447,11 +1474,13 @@ impl gax::paginator::internal::PageableResponse for ListProcessesResponse {
 pub struct DeleteProcessRequest {
     /// Required. The name of the process to delete.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// If set to true and the process is not found, the request
     /// succeeds but the server doesn't perform any actions.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub allow_missing: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1491,6 +1520,7 @@ impl wkt::message::Message for DeleteProcessRequest {
 pub struct CreateRunRequest {
     /// Required. The name of the process that should own the run.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The run to create.
@@ -1501,6 +1531,7 @@ pub struct CreateRunRequest {
     /// A random UUID is recommended. This request is idempotent only if a
     /// `request_id` is provided.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1572,6 +1603,7 @@ pub struct UpdateRunRequest {
 
     /// If set to true and the run is not found, the request creates it.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub allow_missing: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1641,6 +1673,7 @@ impl wkt::message::Message for UpdateRunRequest {
 pub struct GetRunRequest {
     /// Required. The name of the run to get.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1674,6 +1707,7 @@ impl wkt::message::Message for GetRunRequest {
 pub struct ListRunsRequest {
     /// Required. The name of process that owns this collection of runs.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The maximum number of runs to return. The service may return
@@ -1681,7 +1715,7 @@ pub struct ListRunsRequest {
     /// returned. The maximum value is 100; values greater than 100 are cut to
     /// 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// The page token received from a previous `ListRuns` call. Specify
@@ -1690,6 +1724,7 @@ pub struct ListRunsRequest {
     /// When paginating, all other parameters specified in this call must
     /// match the parameters of the call that provided the page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1735,11 +1770,13 @@ impl wkt::message::Message for ListRunsRequest {
 pub struct ListRunsResponse {
     /// The runs from the specified project and location.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub runs: std::vec::Vec<crate::model::Run>,
 
     /// The token to specify as `page_token` in the next call to get the next page.
     /// If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1798,11 +1835,13 @@ impl gax::paginator::internal::PageableResponse for ListRunsResponse {
 pub struct DeleteRunRequest {
     /// Required. The name of the run to delete.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// If set to true and the run is not found, the request
     /// succeeds but the server doesn't perform any actions.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub allow_missing: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1842,6 +1881,7 @@ impl wkt::message::Message for DeleteRunRequest {
 pub struct CreateLineageEventRequest {
     /// Required. The name of the run that should own the lineage event.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The lineage event to create.
@@ -1852,6 +1892,7 @@ pub struct CreateLineageEventRequest {
     /// A random UUID is recommended. This request is idempotent only if a
     /// `request_id` is provided.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1909,6 +1950,7 @@ impl wkt::message::Message for CreateLineageEventRequest {
 pub struct GetLineageEventRequest {
     /// Required. The name of the lineage event to get.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1943,6 +1985,7 @@ pub struct ListLineageEventsRequest {
     /// Required. The name of the run that owns the collection of lineage events to
     /// get.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The maximum number of lineage events to return.
@@ -1951,7 +1994,7 @@ pub struct ListLineageEventsRequest {
     /// If unspecified, at most 50 events are returned. The maximum value is 100;
     /// values greater than 100 are cut to 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// The page token received from a previous `ListLineageEvents` call. Specify
@@ -1960,6 +2003,7 @@ pub struct ListLineageEventsRequest {
     /// When paginating, all other parameters specified in this call must
     /// match the parameters of the call that provided the page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2005,11 +2049,13 @@ impl wkt::message::Message for ListLineageEventsRequest {
 pub struct ListLineageEventsResponse {
     /// Lineage events from the specified project and location.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub lineage_events: std::vec::Vec<crate::model::LineageEvent>,
 
     /// The token to specify as `page_token` in the next call to get the next page.
     /// If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2068,11 +2114,13 @@ impl gax::paginator::internal::PageableResponse for ListLineageEventsResponse {
 pub struct DeleteLineageEventRequest {
     /// Required. The name of the lineage event to delete.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// If set to true and the lineage event is not found, the request
     /// succeeds but the server doesn't perform any actions.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub allow_missing: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2114,6 +2162,7 @@ impl wkt::message::Message for DeleteLineageEventRequest {
 pub struct SearchLinksRequest {
     /// Required. The project and location you want search in.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. The maximum number of links to return in a single page of the
@@ -2122,7 +2171,7 @@ pub struct SearchLinksRequest {
     ///
     /// Maximum value is 100; values greater than 100 are reduced to 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. The page token received from a previous `SearchLinksRequest`
@@ -2132,6 +2181,7 @@ pub struct SearchLinksRequest {
     /// all parameters must match the values you provided
     /// in the original request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// The asset for which you want to retrieve links.
@@ -2270,11 +2320,13 @@ pub struct SearchLinksResponse {
     /// The list of links for a given asset. Can be empty if the asset has no
     /// relations of requested type (source or target).
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub links: std::vec::Vec<crate::model::Link>,
 
     /// The token to specify as `page_token` in the subsequent call to get the next
     /// page. Omitted if there are no more pages in the response.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2337,6 +2389,7 @@ pub struct Link {
     /// Output only. Immutable. The name of the link. Format:
     /// `projects/{project}/locations/{location}/links/{link}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The pointer to the entity that is the **source** of this link.
@@ -2460,6 +2513,7 @@ impl wkt::message::Message for Link {
 pub struct BatchSearchLinkProcessesRequest {
     /// Required. The project and location where you want to search.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. An array of links to check for their associated LineageProcesses.
@@ -2470,12 +2524,13 @@ pub struct BatchSearchLinkProcessesRequest {
     ///
     /// Format: `projects/{project}/locations/{location}/links/{link}`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub links: std::vec::Vec<std::string::String>,
 
     /// The maximum number of processes to return in a single page of the response.
     /// A page may contain fewer results than this value.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// The page token received from a previous `BatchSearchLinkProcesses` call.
@@ -2485,6 +2540,7 @@ pub struct BatchSearchLinkProcessesRequest {
     /// all parameters must match the values you provided
     /// in the original request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2543,11 +2599,13 @@ impl wkt::message::Message for BatchSearchLinkProcessesRequest {
 pub struct BatchSearchLinkProcessesResponse {
     /// An array of processes associated with the specified links.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub process_links: std::vec::Vec<crate::model::ProcessLinks>,
 
     /// The token to specify as `page_token` in the subsequent call to get the next
     /// page. Omitted if there are no more pages in the response.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2606,6 +2664,7 @@ pub struct ProcessLinks {
     /// The process name in the format of
     /// `projects/{project}/locations/{location}/processes/{process}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub process: std::string::String,
 
     /// An array containing link details objects of the links provided in
@@ -2615,6 +2674,7 @@ pub struct ProcessLinks {
     /// If any of the links you provide in the request are created by
     /// the same process, they all are included in this array.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub links: std::vec::Vec<crate::model::ProcessLinkInfo>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2659,6 +2719,7 @@ pub struct ProcessLinkInfo {
     /// The name of the link in the format of
     /// `projects/{project}/locations/{location}/links/{link}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub link: std::string::String,
 
     /// The start of the first event establishing this link-process tuple.
@@ -2739,6 +2800,7 @@ pub struct Origin {
     /// or updating is highly discouraged, and may be restricted in the future
     /// without notice.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub source_type: crate::model::origin::SourceType,
 
     /// If the source_type isn't CUSTOM, the value of this field should be a GCP
@@ -2751,6 +2813,7 @@ pub struct Origin {
     /// - `{source_type: BIGQUERY, name: "projects/foo/locations/eu"}`
     /// - `{source_type: CUSTOM,   name: "myCustomIntegration"}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

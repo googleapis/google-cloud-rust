@@ -24,7 +24,7 @@ pub struct MessageWithF32 {
 
     /// A singular field.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub singular: f32,
 
     /// An optional field.
@@ -34,13 +34,13 @@ pub struct MessageWithF32 {
 
     /// A repeated field.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "std::vec::Vec<wkt::internal::F32>")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<wkt::internal::F32>>")]
     pub repeated: std::vec::Vec<f32>,
 
     /// A map field, floats cannot be keys, so we only need to test them as
     /// values.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    #[serde_as(as = "std::collections::HashMap<_, wkt::internal::F32>")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, wkt::internal::F32>>")]
     pub map: std::collections::HashMap<std::string::String,f32>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -113,7 +113,7 @@ pub struct MessageWithF64 {
 
     /// A singular field.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
     pub singular: f64,
 
     /// An optional field.
@@ -123,13 +123,13 @@ pub struct MessageWithF64 {
 
     /// A repeated field.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "std::vec::Vec<wkt::internal::F64>")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<wkt::internal::F64>>")]
     pub repeated: std::vec::Vec<f64>,
 
     /// A map field, doubles cannot be keys, so we only need to test them as
     /// values.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    #[serde_as(as = "std::collections::HashMap<_, wkt::internal::F64>")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, wkt::internal::F64>>")]
     pub map: std::collections::HashMap<std::string::String,f64>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -202,7 +202,7 @@ pub struct MessageWithI32 {
 
     /// A singular field.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub singular: i32,
 
     /// An optional field.
@@ -212,22 +212,22 @@ pub struct MessageWithI32 {
 
     /// A repeated field.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "std::vec::Vec<wkt::internal::I32>")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<wkt::internal::I32>>")]
     pub repeated: std::vec::Vec<i32>,
 
     /// Test i32 as values.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    #[serde_as(as = "std::collections::HashMap<_, wkt::internal::I32>")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, wkt::internal::I32>>")]
     pub map_value: std::collections::HashMap<std::string::String,i32>,
 
     /// Test i32 as keys.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    #[serde_as(as = "std::collections::HashMap<wkt::internal::I32, _>")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<wkt::internal::I32, _>>")]
     pub map_key: std::collections::HashMap<i32,std::string::String>,
 
     /// Test i32 as both keys and values.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    #[serde_as(as = "std::collections::HashMap<wkt::internal::I32, wkt::internal::I32>")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<wkt::internal::I32, wkt::internal::I32>>")]
     pub map_key_value: std::collections::HashMap<i32,i32>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -324,7 +324,7 @@ pub struct MessageWithU32 {
 
     /// A singular field.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::U32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::U32>")]
     pub singular: u32,
 
     /// An optional field.
@@ -334,22 +334,22 @@ pub struct MessageWithU32 {
 
     /// A repeated field.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "std::vec::Vec<wkt::internal::U32>")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<wkt::internal::U32>>")]
     pub repeated: std::vec::Vec<u32>,
 
     /// Test u32 as values.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    #[serde_as(as = "std::collections::HashMap<_, wkt::internal::U32>")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, wkt::internal::U32>>")]
     pub map_value: std::collections::HashMap<std::string::String,u32>,
 
     /// Test u32 as keys.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    #[serde_as(as = "std::collections::HashMap<wkt::internal::U32, _>")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<wkt::internal::U32, _>>")]
     pub map_key: std::collections::HashMap<u32,std::string::String>,
 
     /// Test u32 as both keys and values.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    #[serde_as(as = "std::collections::HashMap<wkt::internal::U32, wkt::internal::U32>")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<wkt::internal::U32, wkt::internal::U32>>")]
     pub map_key_value: std::collections::HashMap<u32,u32>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -446,7 +446,7 @@ pub struct MessageWithI64 {
 
     /// A singular field.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub singular: i64,
 
     /// An optional field.
@@ -456,22 +456,22 @@ pub struct MessageWithI64 {
 
     /// A repeated field.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "std::vec::Vec<wkt::internal::I64>")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<wkt::internal::I64>>")]
     pub repeated: std::vec::Vec<i64>,
 
     /// Test i64 as values.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    #[serde_as(as = "std::collections::HashMap<_, wkt::internal::I64>")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, wkt::internal::I64>>")]
     pub map_value: std::collections::HashMap<std::string::String,i64>,
 
     /// Test i64 as keys.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    #[serde_as(as = "std::collections::HashMap<wkt::internal::I64, _>")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<wkt::internal::I64, _>>")]
     pub map_key: std::collections::HashMap<i64,std::string::String>,
 
     /// Test i64 as both keys and values.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    #[serde_as(as = "std::collections::HashMap<wkt::internal::I64, wkt::internal::I64>")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<wkt::internal::I64, wkt::internal::I64>>")]
     pub map_key_value: std::collections::HashMap<i64,i64>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -568,7 +568,7 @@ pub struct MessageWithU64 {
 
     /// A singular field.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::U64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::U64>")]
     pub singular: u64,
 
     /// An optional field.
@@ -578,22 +578,22 @@ pub struct MessageWithU64 {
 
     /// A repeated field.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "std::vec::Vec<wkt::internal::U64>")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<wkt::internal::U64>>")]
     pub repeated: std::vec::Vec<u64>,
 
     /// Test u64 as values.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    #[serde_as(as = "std::collections::HashMap<_, wkt::internal::U64>")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, wkt::internal::U64>>")]
     pub map_value: std::collections::HashMap<std::string::String,u64>,
 
     /// Test u64 as keys.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    #[serde_as(as = "std::collections::HashMap<wkt::internal::U64, _>")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<wkt::internal::U64, _>>")]
     pub map_key: std::collections::HashMap<u64,std::string::String>,
 
     /// Test u64 as both keys and values.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    #[serde_as(as = "std::collections::HashMap<wkt::internal::U64, wkt::internal::U64>")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<wkt::internal::U64, wkt::internal::U64>>")]
     pub map_key_value: std::collections::HashMap<u64,u64>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -690,7 +690,7 @@ pub struct MessageWithBytes {
 
     /// A singular field.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub singular: ::bytes::Bytes,
 
     /// An optional field.
@@ -700,13 +700,13 @@ pub struct MessageWithBytes {
 
     /// A repeated field.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "std::vec::Vec<serde_with::base64::Base64>")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<serde_with::base64::Base64>>")]
     pub repeated: std::vec::Vec<::bytes::Bytes>,
 
     /// A map field, bytes cannot be keys, so we only need to test them as
     /// values.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    #[serde_as(as = "std::collections::HashMap<_, serde_with::base64::Base64>")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, serde_with::base64::Base64>>")]
     pub map: std::collections::HashMap<std::string::String,::bytes::Bytes>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -779,6 +779,7 @@ pub struct MessageWithBool {
 
     /// A singular field.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub singular: bool,
 
     /// An optional field.
@@ -787,20 +788,22 @@ pub struct MessageWithBool {
 
     /// A repeated field.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub repeated: std::vec::Vec<bool>,
 
     /// Test bool as map values.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub map_value: std::collections::HashMap<std::string::String,bool>,
 
     /// Test bool as map keys.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    #[serde_as(as = "std::collections::HashMap<serde_with::DisplayFromStr, _>")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<serde_with::DisplayFromStr, _>>")]
     pub map_key: std::collections::HashMap<bool,std::string::String>,
 
     /// Test bool as map key and value.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    #[serde_as(as = "std::collections::HashMap<serde_with::DisplayFromStr, _>")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<serde_with::DisplayFromStr, _>>")]
     pub map_key_value: std::collections::HashMap<bool,bool>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -897,6 +900,7 @@ pub struct MessageWithString {
 
     /// A singular field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub singular: std::string::String,
 
     /// An optional field.
@@ -905,20 +909,22 @@ pub struct MessageWithString {
 
     /// A repeated field.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub repeated: std::vec::Vec<std::string::String>,
 
     /// Test string as map values.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    #[serde_as(as = "std::collections::HashMap<wkt::internal::I32, _>")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<wkt::internal::I32, _>>")]
     pub map_value: std::collections::HashMap<i32,std::string::String>,
 
     /// Test string as map keys.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    #[serde_as(as = "std::collections::HashMap<_, wkt::internal::I32>")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, wkt::internal::I32>>")]
     pub map_key: std::collections::HashMap<std::string::String,i32>,
 
     /// Test string as map key and value.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub map_key_value: std::collections::HashMap<std::string::String,std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1023,10 +1029,12 @@ pub struct MessageWithFieldMask {
 
     /// A repeated field.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub repeated: std::vec::Vec<wkt::FieldMask>,
 
     /// A map field, messages cannot be keys.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub map: std::collections::HashMap<std::string::String,wkt::FieldMask>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

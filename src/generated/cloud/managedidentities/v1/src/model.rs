@@ -48,10 +48,12 @@ pub struct OpMetadata {
 
     /// Output only. Server-defined resource path for the target of the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub target: std::string::String,
 
     /// Output only. Name of the verb executed by the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub verb: std::string::String,
 
     /// Output only. Identifies whether the user has requested cancellation
@@ -61,10 +63,12 @@ pub struct OpMetadata {
     ///
     /// [google.rpc.Status.code]: rpc::model::Status::code
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub api_version: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -153,6 +157,7 @@ pub struct CreateMicrosoftAdDomainRequest {
     /// Required. The resource project name and location using the form:
     /// `projects/{project_id}/locations/global`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The fully qualified domain name.
@@ -168,6 +173,7 @@ pub struct CreateMicrosoftAdDomainRequest {
     /// * The last segment cannot be fully numeric.
     /// * Must be unique within the customer project.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub domain_name: std::string::String,
 
     /// Required. A Managed Identity domain resource.
@@ -230,6 +236,7 @@ pub struct ResetAdminPasswordRequest {
     /// Required. The domain resource name using the form:
     /// `projects/{project_id}/locations/global/domains/{domain_name}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -265,6 +272,7 @@ pub struct ResetAdminPasswordResponse {
     ///
     /// [google.cloud.managedidentities.v1.Domain.admin]: crate::model::Domain::admin
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub password: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -299,6 +307,7 @@ pub struct ListDomainsRequest {
     /// Required. The resource name of the domain location using the form:
     /// `projects/{project_id}/locations/global`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. The maximum number of items to return.
@@ -310,17 +319,19 @@ pub struct ListDomainsRequest {
     ///
     /// [google.cloud.managedidentities.v1.ListDomainsResponse.next_page_token]: crate::model::ListDomainsResponse::next_page_token
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. The `next_page_token` value returned from a previous ListDomainsRequest
     /// request, if any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. A filter specifying constraints of a list operation.
     /// For example, `Domain.fqdn="mydomain.myorginization"`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Optional. Specifies the ordering of results. See
@@ -328,6 +339,7 @@ pub struct ListDomainsRequest {
     /// order](https://cloud.google.com/apis/design/design_patterns#sorting_order)
     /// for more information.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -385,15 +397,18 @@ impl wkt::message::Message for ListDomainsRequest {
 pub struct ListDomainsResponse {
     /// A list of Managed Identities Service domains in the project.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub domains: std::vec::Vec<crate::model::Domain>,
 
     /// A token to retrieve the next page of results, or empty if there are no more
     /// results in the list.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// A list of locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -463,6 +478,7 @@ pub struct GetDomainRequest {
     /// Required. The domain resource name using the form:
     /// `projects/{project_id}/locations/global/domains/{domain_name}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -573,6 +589,7 @@ pub struct DeleteDomainRequest {
     /// Required. The domain resource name using the form:
     /// `projects/{project_id}/locations/global/domains/{domain_name}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -607,6 +624,7 @@ pub struct AttachTrustRequest {
     /// Required. The resource domain name, project name and location using the form:
     /// `projects/{project_id}/locations/global/domains/{domain_name}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. The domain trust resource.
@@ -663,16 +681,19 @@ pub struct ReconfigureTrustRequest {
     /// Required. The resource domain name, project name and location using the form:
     /// `projects/{project_id}/locations/global/domains/{domain_name}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. The fully-qualified target domain name which will be in trust with current
     /// domain.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub target_domain_name: std::string::String,
 
     /// Required. The target DNS server IP addresses to resolve the remote domain involved
     /// in the trust.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub target_dns_ip_addresses: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -727,6 +748,7 @@ pub struct DetachTrustRequest {
     /// Required. The resource domain name, project name, and location using the form:
     /// `projects/{project_id}/locations/global/domains/{domain_name}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. The domain trust resource to removed.
@@ -783,6 +805,7 @@ pub struct ValidateTrustRequest {
     /// Required. The resource domain name, project name, and location using the form:
     /// `projects/{project_id}/locations/global/domains/{domain_name}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. The domain trust to validate trust state for.
@@ -838,10 +861,12 @@ pub struct Domain {
     /// Required. The unique name of the domain using the form:
     /// `projects/{project_id}/locations/global/domains/{domain_name}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. Resource labels that can contain user-provided metadata.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Optional. The full names of the Google Compute Engine
@@ -850,6 +875,7 @@ pub struct Domain {
     /// The domain is only available on networks listed in `authorized_networks`.
     /// If CIDR subnets overlap between networks, domain creation will fail.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub authorized_networks: std::vec::Vec<std::string::String>,
 
     /// Required. The CIDR range of internal addresses that are reserved for this
@@ -857,6 +883,7 @@ pub struct Domain {
     /// unique and non-overlapping with existing subnets in
     /// [Domain].[authorized_networks].
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub reserved_ip_range: std::string::String,
 
     /// Required. Locations where domain needs to be provisioned.
@@ -865,17 +892,20 @@ pub struct Domain {
     /// Service supports up to 4 locations at once. Each location will use a /26
     /// block.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub locations: std::vec::Vec<std::string::String>,
 
     /// Optional. The name of delegated administrator account used to perform
     /// Active Directory operations. If not specified, `setupadmin` will be used.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub admin: std::string::String,
 
     /// Output only. The fully-qualified domain name of the exposed domain used by
     /// clients to connect to the service. Similar to what would be chosen for an
     /// Active Directory set up on an internal network.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub fqdn: std::string::String,
 
     /// Output only. The time the instance was created.
@@ -888,15 +918,18 @@ pub struct Domain {
 
     /// Output only. The current state of this domain.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::domain::State,
 
     /// Output only. Additional information about the current status of this
     /// domain, if available.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub status_message: std::string::String,
 
     /// Output only. The current trusts associated with the domain.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub trusts: std::vec::Vec<crate::model::Trust>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1219,31 +1252,37 @@ pub struct Trust {
     /// Required. The fully qualified target domain name which will be in trust with the
     /// current domain.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub target_domain_name: std::string::String,
 
     /// Required. The type of trust represented by the trust resource.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub trust_type: crate::model::trust::TrustType,
 
     /// Required. The trust direction, which decides if the current domain is trusted,
     /// trusting, or both.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub trust_direction: crate::model::trust::TrustDirection,
 
     /// Optional. The trust authentication type, which decides whether the trusted side has
     /// forest/domain wide access or selective access to an approved set of
     /// resources.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub selective_authentication: bool,
 
     /// Required. The target DNS server IP addresses which can resolve the remote domain
     /// involved in the trust.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub target_dns_ip_addresses: std::vec::Vec<std::string::String>,
 
     /// Required. The trust secret used for the handshake with the target domain. This will
     /// not be stored.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub trust_handshake_secret: std::string::String,
 
     /// Output only. The time the instance was created.
@@ -1256,10 +1295,12 @@ pub struct Trust {
 
     /// Output only. The current state of the trust.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::trust::State,
 
     /// Output only. Additional information about the current state of the trust, if available.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state_description: std::string::String,
 
     /// Output only. The last heartbeat time when the trust was known to be connected.

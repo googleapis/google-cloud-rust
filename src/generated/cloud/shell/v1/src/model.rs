@@ -47,41 +47,48 @@ pub struct Environment {
     /// `{environment_id}` is the identifier of this environment. For example,
     /// `users/someone@example.com/environments/default`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. The environment's identifier, unique among the user's
     /// environments.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub id: std::string::String,
 
     /// Required. Immutable. Full path to the Docker image used to run this environment, e.g.
     /// "gcr.io/dev-con/cloud-devshell:latest".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub docker_image: std::string::String,
 
     /// Output only. Current execution state of this environment.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::environment::State,
 
     /// Output only. Host to which clients can connect to initiate HTTPS or WSS
     /// connections with the environment.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub web_host: std::string::String,
 
     /// Output only. Username that clients should use when initiating SSH sessions
     /// with the environment.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub ssh_username: std::string::String,
 
     /// Output only. Host to which clients can connect to initiate SSH sessions
     /// with the environment.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub ssh_host: std::string::String,
 
     /// Output only. Port to which clients can connect to initiate SSH sessions
     /// with the environment.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub ssh_port: i32,
 
     /// Output only. Public keys associated with the environment. Clients can
@@ -90,6 +97,7 @@ pub struct Environment {
     /// removed from the environment using the AddPublicKey and RemovePublicKey
     /// methods.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub public_keys: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -338,6 +346,7 @@ pub struct GetEnvironmentRequest {
     /// Required. Name of the requested resource, for example `users/me/environments/default`
     /// or `users/someone@example.com/environments/default`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -421,6 +430,7 @@ pub struct StartEnvironmentRequest {
     /// `users/me/environments/default` or
     /// `users/someone@example.com/environments/default`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The initial access token passed to the environment. If this is present and
@@ -428,10 +438,12 @@ pub struct StartEnvironmentRequest {
     /// user can run gcloud commands in Cloud Shell without having to log in. This
     /// code can be updated later by calling AuthorizeEnvironment.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub access_token: std::string::String,
 
     /// Public keys that should be added to the environment before it is started.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub public_keys: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -486,14 +498,17 @@ pub struct AuthorizeEnvironmentRequest {
     /// `users/me/environments/default` or
     /// `users/someone@example.com/environments/default`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The OAuth access token that should be sent to the environment.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub access_token: std::string::String,
 
     /// The OAuth ID token that should be sent to the environment.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub id_token: std::string::String,
 
     /// The time when the credentials expire. If not set, defaults to one hour from
@@ -614,6 +629,7 @@ impl wkt::message::Message for AuthorizeEnvironmentMetadata {
 pub struct StartEnvironmentMetadata {
     /// Current state of the environment being started.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::start_environment_metadata::State,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -867,6 +883,7 @@ pub struct AddPublicKeyRequest {
     /// Environment this key should be added to, e.g.
     /// `users/me/environments/default`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub environment: std::string::String,
 
     /// Key that should be added to the environment. Supported formats are
@@ -876,6 +893,7 @@ pub struct AddPublicKeyRequest {
     /// &lt;format&gt; &lt;content&gt;, where &lt;content&gt; part is encoded with
     /// Base64.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub key: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -917,6 +935,7 @@ impl wkt::message::Message for AddPublicKeyRequest {
 pub struct AddPublicKeyResponse {
     /// Key that was added to the environment.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub key: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -978,10 +997,12 @@ pub struct RemovePublicKeyRequest {
     /// Environment this key should be removed from, e.g.
     /// `users/me/environments/default`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub environment: std::string::String,
 
     /// Key that should be removed from the environment.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub key: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1071,6 +1092,7 @@ impl wkt::message::Message for RemovePublicKeyMetadata {
 pub struct CloudShellErrorDetails {
     /// Code indicating the specific error the occurred.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub code: crate::model::cloud_shell_error_details::CloudShellErrorCode,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

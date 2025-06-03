@@ -25,6 +25,7 @@
 pub struct DeleteBucketRequest {
     /// Required. Name of a bucket to delete.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// If set, only deletes the bucket if its metageneration matches this value.
@@ -104,6 +105,7 @@ impl wkt::message::Message for DeleteBucketRequest {
 pub struct GetBucketRequest {
     /// Required. Name of a bucket.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// If set, and if the bucket's current metageneration does not match the
@@ -210,6 +212,7 @@ pub struct CreateBucketRequest {
     /// either be empty or `projects/_`. The project ID that owns this bucket
     /// should be specified in the `bucket.project` field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. Properties of the new bucket being inserted.
@@ -226,18 +229,21 @@ pub struct CreateBucketRequest {
     /// component of the bucket's resource name. For example, the value `foo` might
     /// result in a bucket with the name `projects/123456/buckets/foo`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub bucket_id: std::string::String,
 
     /// Optional. Apply a predefined set of access controls to this bucket.
     /// Valid values are "authenticatedRead", "private", "projectPrivate",
     /// "publicRead", or "publicReadWrite".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub predefined_acl: std::string::String,
 
     /// Optional. Apply a predefined set of default object access controls to this
     /// bucket. Valid values are "authenticatedRead", "bucketOwnerFullControl",
     /// "bucketOwnerRead", "private", "projectPrivate", or "publicRead".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub predefined_default_object_acl: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -309,6 +315,7 @@ impl wkt::message::Message for CreateBucketRequest {
 pub struct ListBucketsRequest {
     /// Required. The project whose buckets we are listing.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. Maximum number of buckets to return in a single response. The
@@ -316,16 +323,18 @@ pub struct ListBucketsRequest {
     /// "acl" is present in the read_mask, the service will use this parameter of
     /// 200 items, whichever is smaller.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. A previously-returned page token representing part of the larger
     /// set of results to view.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. Filter results to buckets whose names begin with this prefix.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub prefix: std::string::String,
 
     /// Mask specifying which fields to read from each result.
@@ -402,11 +411,13 @@ impl wkt::message::Message for ListBucketsRequest {
 pub struct ListBucketsResponse {
     /// The list of items.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub buckets: std::vec::Vec<crate::model::Bucket>,
 
     /// The continuation token, used to page through large result sets. Provide
     /// this value in a subsequent request to return the next page of results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -464,12 +475,13 @@ impl gax::paginator::internal::PageableResponse for ListBucketsResponse {
 pub struct LockBucketRetentionPolicyRequest {
     /// Required. Name of a bucket.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub bucket: std::string::String,
 
     /// Required. Makes the operation conditional on whether bucket's current
     /// metageneration matches the given value. Must be positive.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub if_metageneration_match: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -527,12 +539,14 @@ pub struct UpdateBucketRequest {
     /// Valid values are "authenticatedRead", "private", "projectPrivate",
     /// "publicRead", or "publicReadWrite".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub predefined_acl: std::string::String,
 
     /// Optional. Apply a predefined set of default object access controls to this
     /// bucket. Valid values are "authenticatedRead", "bucketOwnerFullControl",
     /// "bucketOwnerRead", "private", "projectPrivate", or "publicRead".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub predefined_default_object_acl: std::string::String,
 
     /// Required. List of fields to be updated.
@@ -662,12 +676,14 @@ pub struct ComposeObjectRequest {
     /// Optional. The list of source objects that will be concatenated into a
     /// single object.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub source_objects: std::vec::Vec<crate::model::compose_object_request::SourceObject>,
 
     /// Optional. Apply a predefined set of access controls to the destination
     /// object. Valid values are "authenticatedRead", "bucketOwnerFullControl",
     /// "bucketOwnerRead", "private", "projectPrivate", or "publicRead".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub destination_predefined_acl: std::string::String,
 
     /// Makes the operation conditional on whether the object's current generation
@@ -688,6 +704,7 @@ pub struct ComposeObjectRequest {
     /// that will be used to encrypt the object. Overrides the object
     /// metadata's `kms_key_name` value, if any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub kms_key: std::string::String,
 
     /// Optional. A set of parameters common to Storage API requests concerning an
@@ -846,11 +863,12 @@ pub mod compose_object_request {
         /// Required. The source object's name. All source objects must reside in the
         /// same bucket.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub name: std::string::String,
 
         /// Optional. The generation of this object to use as the source.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I64")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
         pub generation: i64,
 
         /// Optional. Conditions that must be met for this operation to execute.
@@ -972,18 +990,20 @@ pub mod compose_object_request {
 pub struct DeleteObjectRequest {
     /// Required. Name of the bucket in which the object resides.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub bucket: std::string::String,
 
     /// Required. The name of the finalized object to delete.
     /// Note: If you want to delete an unfinalized resumable upload please use
     /// `CancelResumableWrite`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub object: std::string::String,
 
     /// Optional. If present, permanently deletes a specific revision of this
     /// object (as opposed to the latest version, the default).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub generation: i64,
 
     /// Makes the operation conditional on whether the object's current generation
@@ -1151,15 +1171,17 @@ impl wkt::message::Message for DeleteObjectRequest {
 pub struct RestoreObjectRequest {
     /// Required. Name of the bucket in which the object resides.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub bucket: std::string::String,
 
     /// Required. The name of the object to restore.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub object: std::string::String,
 
     /// Required. The specific revision of the object to restore.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub generation: i64,
 
     /// Optional. Restore token used to differentiate soft-deleted objects with the
@@ -1168,6 +1190,7 @@ pub struct RestoreObjectRequest {
     /// when there are multiple soft-deleted objects with the same name and
     /// generation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub restore_token: std::string::String,
 
     /// Makes the operation conditional on whether the object's current generation
@@ -1366,6 +1389,7 @@ pub struct CancelResumableWriteRequest {
     /// Required. The upload_id of the resumable upload to cancel. This should be
     /// copied from the `upload_id` field of `StartResumableWriteResponse`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub upload_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1398,16 +1422,18 @@ impl wkt::message::Message for CancelResumableWriteRequest {
 pub struct ReadObjectRequest {
     /// Required. The name of the bucket containing the object to read.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub bucket: std::string::String,
 
     /// Required. The name of the object to read.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub object: std::string::String,
 
     /// Optional. If present, selects a specific revision of this object (as
     /// opposed to the latest version, the default).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub generation: i64,
 
     /// Optional. The offset for the first byte to return in the read, relative to
@@ -1420,7 +1446,7 @@ pub struct ReadObjectRequest {
     /// a negative offset with magnitude larger than the size of the object will
     /// return the entire object.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub read_offset: i64,
 
     /// Optional. The maximum number of `data` bytes the server is allowed to
@@ -1432,7 +1458,7 @@ pub struct ReadObjectRequest {
     /// error occurred, the stream includes all data from the `read_offset` to the
     /// end of the resource.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub read_limit: i64,
 
     /// Makes the operation conditional on whether the object's current generation
@@ -1638,16 +1664,18 @@ impl wkt::message::Message for ReadObjectRequest {
 pub struct GetObjectRequest {
     /// Required. Name of the bucket in which the object resides.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub bucket: std::string::String,
 
     /// Required. Name of the object.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub object: std::string::String,
 
     /// Optional. If present, selects a specific revision of this object (as
     /// opposed to the latest version, the default).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub generation: i64,
 
     /// If true, return the soft-deleted version of this object.
@@ -1700,6 +1728,7 @@ pub struct GetObjectRequest {
     /// is only required in the rare case when there are multiple soft-deleted
     /// objects with the same name and generation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub restore_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1882,6 +1911,7 @@ pub struct WriteObjectSpec {
     /// Valid values are "authenticatedRead", "bucketOwnerFullControl",
     /// "bucketOwnerRead", "private", "projectPrivate", or "publicRead".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub predefined_acl: std::string::String,
 
     /// Makes the operation conditional on whether the object's current
@@ -2083,6 +2113,7 @@ impl wkt::message::Message for WriteObjectSpec {
 pub struct ListObjectsRequest {
     /// Required. Name of the bucket in which to look for objects.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. Maximum number of `items` plus `prefixes` to return
@@ -2090,12 +2121,13 @@ pub struct ListObjectsRequest {
     /// omitted, fewer total results may be returned than requested. The service
     /// will use this parameter or 1,000 items, whichever is smaller.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. A previously-returned page token representing part of the larger
     /// set of results to view.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. If set, returns results in a directory-like mode. `items` will
@@ -2104,16 +2136,19 @@ pub struct ListObjectsRequest {
     /// `delimiter` will have their name, truncated after the `delimiter`, returned
     /// in `prefixes`. Duplicate `prefixes` are omitted.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub delimiter: std::string::String,
 
     /// Optional. If true, objects that end in exactly one instance of `delimiter`
     /// will have their metadata included in `items` in addition to
     /// `prefixes`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub include_trailing_delimiter: bool,
 
     /// Optional. Filter results to objects whose names begin with this prefix.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub prefix: std::string::String,
 
     /// Optional. If `true`, lists all versions of an object as distinct results.
@@ -2121,6 +2156,7 @@ pub struct ListObjectsRequest {
     /// [Object
     /// Versioning](https://cloud.google.com/storage/docs/object-versioning).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub versions: bool,
 
     /// Mask specifying which fields to read from each result.
@@ -2136,6 +2172,7 @@ pub struct ListObjectsRequest {
     /// objects listed have names between lexicographic_start (inclusive) and
     /// lexicographic_end (exclusive).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub lexicographic_start: std::string::String,
 
     /// Optional. Filter results to objects whose names are lexicographically
@@ -2143,16 +2180,19 @@ pub struct ListObjectsRequest {
     /// listed have names between lexicographic_start (inclusive) and
     /// lexicographic_end (exclusive).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub lexicographic_end: std::string::String,
 
     /// Optional. If true, only list all soft-deleted versions of the object.
     /// Soft delete policy is required to set this option.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub soft_deleted: bool,
 
     /// Optional. If true, will also include folders and managed folders (besides
     /// objects) in the returned `prefixes`. Requires `delimiter` to be set to '/'.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub include_folders_as_prefixes: bool,
 
     /// Optional. Filter results to objects and prefixes that match this glob
@@ -2160,6 +2200,7 @@ pub struct ListObjectsRequest {
     /// Glob](https://cloud.google.com/storage/docs/json_api/v1/objects/list#list-objects-and-prefixes-using-glob)
     /// for the full syntax.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub match_glob: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2283,6 +2324,7 @@ pub struct QueryWriteStatusRequest {
     /// Required. The name of the resume token for the object whose write status is
     /// being requested.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub upload_id: std::string::String,
 
     /// Optional. A set of parameters common to Storage API requests concerning an
@@ -2351,11 +2393,13 @@ pub struct RewriteObjectRequest {
     /// object. A Cloud Storage object is uniquely identified by the tuple of
     /// (bucket, object, generation).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub destination_name: std::string::String,
 
     /// Required. Immutable. The name of the bucket containing the destination
     /// object.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub destination_bucket: std::string::String,
 
     /// Optional. The name of the Cloud KMS key that will be used to encrypt the
@@ -2364,6 +2408,7 @@ pub struct RewriteObjectRequest {
     /// destination bucket's default encryption key, if any, or else the
     /// Google-managed encryption key.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub destination_kms_key: std::string::String,
 
     /// Optional. Properties of the destination, post-rewrite object.
@@ -2378,16 +2423,18 @@ pub struct RewriteObjectRequest {
 
     /// Required. Name of the bucket in which to find the source object.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub source_bucket: std::string::String,
 
     /// Required. Name of the source object.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub source_object: std::string::String,
 
     /// Optional. If present, selects a specific revision of the source object (as
     /// opposed to the latest version, the default).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub source_generation: i64,
 
     /// Optional. Include this field (from the previous rewrite response) on each
@@ -2396,12 +2443,14 @@ pub struct RewriteObjectRequest {
     /// fields, but if included those fields must match the values provided in the
     /// first rewrite request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub rewrite_token: std::string::String,
 
     /// Optional. Apply a predefined set of access controls to the destination
     /// object. Valid values are "authenticatedRead", "bucketOwnerFullControl",
     /// "bucketOwnerRead", "private", "projectPrivate", or "publicRead".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub destination_predefined_acl: std::string::String,
 
     /// Makes the operation conditional on whether the object's current generation
@@ -2463,26 +2512,27 @@ pub struct RewriteObjectRequest {
     /// Finally, this value must not change across rewrite calls else you'll get an
     /// error that the `rewriteToken` is invalid.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub max_bytes_rewritten_per_call: i64,
 
     /// Optional. The algorithm used to encrypt the source object, if any. Used if
     /// the source object was encrypted with a Customer-Supplied Encryption Key.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub copy_source_encryption_algorithm: std::string::String,
 
     /// Optional. The raw bytes (not base64-encoded) AES-256 encryption key used to
     /// encrypt the source object, if it was encrypted with a Customer-Supplied
     /// Encryption Key.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub copy_source_encryption_key_bytes: ::bytes::Bytes,
 
     /// Optional. The raw bytes (not base64-encoded) SHA256 hash of the encryption
     /// key used to encrypt the source object, if it was encrypted with a
     /// Customer-Supplied Encryption Key.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub copy_source_encryption_key_sha256_bytes: ::bytes::Bytes,
 
     /// Optional. A set of parameters common to Storage API requests concerning an
@@ -2820,23 +2870,25 @@ pub struct RewriteResponse {
     /// The total bytes written so far, which can be used to provide a waiting user
     /// with a progress indicator. This property is always present in the response.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub total_bytes_rewritten: i64,
 
     /// The total size of the object being copied in bytes. This property is always
     /// present in the response.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub object_size: i64,
 
     /// `true` if the copy is finished; otherwise, `false` if
     /// the copy is in progress. This property is always present in the response.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub done: bool,
 
     /// A token to use in subsequent requests to continue copying data. This token
     /// is present in the response only when there is more data to copy.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub rewrite_token: std::string::String,
 
     /// A resource containing the metadata for the copied-to object. This property
@@ -2910,14 +2962,17 @@ impl wkt::message::Message for RewriteResponse {
 pub struct MoveObjectRequest {
     /// Required. Name of the bucket in which the object resides.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub bucket: std::string::String,
 
     /// Required. Name of the source object.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub source_object: std::string::String,
 
     /// Required. Name of the destination object.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub destination_object: std::string::String,
 
     /// Optional. Makes the operation conditional on whether the source object's
@@ -3320,6 +3375,7 @@ pub struct UpdateObjectRequest {
     /// Valid values are "authenticatedRead", "bucketOwnerFullControl",
     /// "bucketOwnerRead", "private", "projectPrivate", or "publicRead".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub predefined_acl: std::string::String,
 
     /// Required. List of fields to be updated.
@@ -3495,18 +3551,19 @@ pub struct CommonObjectRequestParams {
     /// Optional. Encryption algorithm used with the Customer-Supplied Encryption
     /// Keys feature.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub encryption_algorithm: std::string::String,
 
     /// Optional. Encryption key used with the Customer-Supplied Encryption Keys
     /// feature. In raw bytes format (not base64-encoded).
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub encryption_key_bytes: ::bytes::Bytes,
 
     /// Optional. SHA256 hash of encryption key used with the Customer-Supplied
     /// Encryption Keys feature.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub encryption_key_sha256_bytes: ::bytes::Bytes,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3875,18 +3932,21 @@ pub struct Bucket {
     /// Identifier. The name of the bucket.
     /// Format: `projects/{project}/buckets/{bucket}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. The user-chosen part of the bucket name. The `{bucket}`
     /// portion of the `name` field. For globally unique buckets, this is equal to
     /// the "bucket name" of other Cloud Storage APIs. Example: "pub".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub bucket_id: std::string::String,
 
     /// The etag of the bucket.
     /// If included in the metadata of an UpdateBucketRequest, the operation will
     /// only be performed if the etag matches that of the bucket.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     /// Immutable. The project which owns this bucket, in the format of
@@ -3894,11 +3954,12 @@ pub struct Bucket {
     /// {projectIdentifier} can be the project ID or project number.
     /// Output values will always be in project number format.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub project: std::string::String,
 
     /// Output only. The metadata generation of this bucket.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub metageneration: i64,
 
     /// Immutable. The location of the bucket. Object data for objects in the
@@ -3908,11 +3969,13 @@ pub struct Bucket {
     /// guide] for the authoritative list. Attempting to update this field after
     /// the bucket is created will result in an error.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub location: std::string::String,
 
     /// Output only. The location type of the bucket (region, dual-region,
     /// multi-region, etc).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub location_type: std::string::String,
 
     /// Optional. The bucket's default storage class, used whenever no storageClass
@@ -3922,6 +3985,7 @@ pub struct Bucket {
     /// to `STANDARD`. For more information, see
     /// <https://developers.google.com/storage/docs/storage-classes>.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub storage_class: std::string::String,
 
     /// Optional. The recovery point objective for cross-region replication of the
@@ -3931,18 +3995,21 @@ pub struct Bucket {
     /// created, it defaults to "DEFAULT". For more information, see
     /// <https://cloud.google.com/storage/docs/availability-durability#turbo-replication>.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub rpo: std::string::String,
 
     /// Optional. Access controls on the bucket.
     /// If iam_config.uniform_bucket_level_access is enabled on this bucket,
     /// requests to set, read, or modify acl is an error.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub acl: std::vec::Vec<crate::model::BucketAccessControl>,
 
     /// Optional. Default access controls to apply to new objects when no ACL is
     /// provided. If iam_config.uniform_bucket_level_access is enabled on this
     /// bucket, requests to set, read, or modify acl is an error.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub default_object_acl: std::vec::Vec<crate::model::ObjectAccessControl>,
 
     /// Optional. The bucket's lifecycle config. See
@@ -3958,6 +4025,7 @@ pub struct Bucket {
     /// Optional. The bucket's [<https://www.w3.org/TR/cors/>][Cross-Origin Resource
     /// Sharing] (CORS) config.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub cors: std::vec::Vec<crate::model::bucket::Cors>,
 
     /// Output only. The modification time of the bucket.
@@ -3978,10 +4046,12 @@ pub struct Bucket {
     /// event-based hold cannot be deleted, overwritten or archived until the hold
     /// is removed.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub default_event_based_hold: bool,
 
     /// Optional. User-provided labels, in key/value pairs.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Optional. The bucket's website config, controlling how the service behaves
@@ -4031,6 +4101,7 @@ pub struct Bucket {
 
     /// Optional. Reserved for future use.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub satisfies_pzs: bool,
 
     /// Optional. Configuration that, if present, specifies the data placement for
@@ -4489,6 +4560,7 @@ pub mod bucket {
     pub struct Billing {
         /// Optional. When set to true, Requester Pays is enabled for this bucket.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub requester_pays: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4526,6 +4598,7 @@ pub mod bucket {
         /// See [<https://tools.ietf.org/html/rfc6454>][RFC 6454] for more on origins.
         /// Note: "*" is permitted in the list of origins, and means "any Origin".
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub origin: std::vec::Vec<std::string::String>,
 
         /// Optional. The list of HTTP methods on which to include CORS response
@@ -4533,19 +4606,21 @@ pub mod bucket {
         /// (`GET`, `OPTIONS`, `POST`, etc) Note: "*" is permitted in the list of
         /// methods, and means "any method".
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub method: std::vec::Vec<std::string::String>,
 
         /// Optional. The list of HTTP headers other than the
         /// [<https://www.w3.org/TR/cors/#simple-response-header>][simple response
         /// headers] to give permission for the user-agent to share across domains.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub response_header: std::vec::Vec<std::string::String>,
 
         /// Optional. The value, in seconds, to return in the
         /// [<https://www.w3.org/TR/cors/#access-control-max-age-response-header>][Access-Control-Max-Age
         /// header] used in preflight responses.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub max_age_seconds: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4612,6 +4687,7 @@ pub mod bucket {
         /// Optional. The name of the Cloud KMS key that will be used to encrypt
         /// objects inserted into this bucket, if no encryption method is specified.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub default_kms_key: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4653,6 +4729,7 @@ pub mod bucket {
         /// Optional. Whether IAM will enforce public access prevention. Valid values
         /// are "enforced" or "inherited".
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub public_access_prevention: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4716,6 +4793,7 @@ pub mod bucket {
             /// Optional. If set, access checks only use bucket-level IAM policies or
             /// above.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub enabled: bool,
 
             /// Optional. The deadline time for changing
@@ -4776,6 +4854,7 @@ pub mod bucket {
         /// Optional. A lifecycle management rule, which is made of an action to take
         /// and the condition(s) under which the action will be taken.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub rule: std::vec::Vec<crate::model::bucket::lifecycle::Rule>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4893,11 +4972,13 @@ pub mod bucket {
                 /// supported.
                 #[serde(rename = "type")]
                 #[serde(skip_serializing_if = "std::string::String::is_empty")]
+                #[serde_as(as = "serde_with::DefaultOnNull<_>")]
                 pub r#type: std::string::String,
 
                 /// Optional. Target storage class. Required iff the type of the action
                 /// is SetStorageClass.
                 #[serde(skip_serializing_if = "std::string::String::is_empty")]
+                #[serde_as(as = "serde_with::DefaultOnNull<_>")]
                 pub storage_class: std::string::String,
 
                 #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4971,6 +5052,7 @@ pub mod bucket {
                 /// `REGIONAL`, `NEARLINE`, `COLDLINE`, `STANDARD`, and
                 /// `DURABLE_REDUCED_AVAILABILITY`.
                 #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+                #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
                 pub matches_storage_class: std::vec::Vec<std::string::String>,
 
                 /// Number of days that have elapsed since the custom timestamp set on an
@@ -5003,11 +5085,13 @@ pub mod bucket {
                 /// Optional. List of object name prefixes. If any prefix exactly matches
                 /// the beginning of the object name, the condition evaluates to true.
                 #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+                #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
                 pub matches_prefix: std::vec::Vec<std::string::String>,
 
                 /// Optional. List of object name suffixes. If any suffix exactly matches
                 /// the end of the object name, the condition evaluates to true.
                 #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+                #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
                 pub matches_suffix: std::vec::Vec<std::string::String>,
 
                 #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5229,10 +5313,12 @@ pub mod bucket {
         /// Optional. The destination bucket where the current bucket's logs should
         /// be placed, using path format (like `projects/123456/buckets/foo`).
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub log_bucket: std::string::String,
 
         /// Optional. A prefix for log object names.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub log_object_prefix: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5279,6 +5365,7 @@ pub mod bucket {
 
         /// Optional. Once locked, an object retention policy cannot be modified.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub is_locked: bool,
 
         /// Optional. The duration that objects need to be retained. Retention
@@ -5425,6 +5512,7 @@ pub mod bucket {
     pub struct Versioning {
         /// Optional. While set to true, versioning is fully enabled for this bucket.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub enabled: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5462,6 +5550,7 @@ pub mod bucket {
         /// retrieve the resulting object. This allows the creation of `index.html`
         /// objects to represent directory pages.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub main_page_suffix: std::string::String,
 
         /// Optional. If the requested object path is missing, and any
@@ -5470,6 +5559,7 @@ pub mod bucket {
         /// [<https://tools.ietf.org/html/rfc7231#section-6.5.4>][404 Not Found]
         /// result.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub not_found_page: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5516,6 +5606,7 @@ pub mod bucket {
     pub struct CustomPlacementConfig {
         /// Optional. List of locations to use for data placement.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub data_locations: std::vec::Vec<std::string::String>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5553,6 +5644,7 @@ pub mod bucket {
     pub struct Autoclass {
         /// Optional. Enables Autoclass.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub enabled: bool,
 
         /// Output only. Latest instant at which the `enabled` field was set to true
@@ -5677,6 +5769,7 @@ pub mod bucket {
         /// Optional. The list of network sources that are allowed to access
         /// operations on the bucket or the underlying objects.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub vpc_network_sources: std::vec::Vec<crate::model::bucket::ip_filter::VpcNetworkSource>,
 
         /// Optional. Whether or not to allow VPCs from orgs different than the
@@ -5685,6 +5778,7 @@ pub mod bucket {
         /// VPC network source will be checked to belong to the same org as the
         /// bucket as well as validated for existence.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub allow_cross_org_vpcs: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5771,6 +5865,7 @@ pub mod bucket {
             /// Optional. The list of IPv4 and IPv6 cidr blocks that are allowed to
             /// operate or access the bucket and its underlying objects.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
             pub allowed_ip_cidr_ranges: std::vec::Vec<std::string::String>,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5819,6 +5914,7 @@ pub mod bucket {
             /// `192.0.2.0/24` is accepted but `192.0.2.1/24` is not. Similarly, for
             /// IPv6, `2001:db8::/32` is accepted whereas `2001:db8::1/32` is not.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
             pub allowed_ip_cidr_ranges: std::vec::Vec<std::string::String>,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5875,6 +5971,7 @@ pub mod bucket {
     pub struct HierarchicalNamespace {
         /// Optional. Enables the hierarchical namespace feature.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub enabled: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5908,10 +6005,12 @@ pub mod bucket {
 pub struct BucketAccessControl {
     /// Optional. The access permission for the entity.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub role: std::string::String,
 
     /// Optional. The ID of the access-control entry.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub id: std::string::String,
 
     /// Optional. The entity holding the permission, in one of the following forms:
@@ -5934,15 +6033,18 @@ pub struct BucketAccessControl {
     ///   For project entities, `project-{team}-{projectnumber}` format will be
     ///   returned on response.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub entity: std::string::String,
 
     /// Output only. The alternative entity format, if exists. For project
     /// entities, `project-{team}-{projectid}` format will be returned on response.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub entity_alt: std::string::String,
 
     /// Optional. The ID for the entity, if any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub entity_id: std::string::String,
 
     /// Optional. The etag of the BucketAccessControl.
@@ -5950,14 +6052,17 @@ pub struct BucketAccessControl {
     /// operation operation will only be performed if the etag matches that of the
     /// bucket's BucketAccessControl.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     /// Optional. The email address associated with the entity, if any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub email: std::string::String,
 
     /// Optional. The domain associated with the entity, if any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub domain: std::string::String,
 
     /// Optional. The project team associated with the entity, if any.
@@ -6069,7 +6174,7 @@ pub struct ObjectChecksums {
     /// provide only crc32c hashes. This value is equivalent to running `cat
     /// object.txt | openssl md5 -binary`
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub md5_hash: ::bytes::Bytes,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6121,12 +6226,13 @@ impl wkt::message::Message for ObjectChecksums {
 pub struct CustomerEncryption {
     /// Optional. The encryption algorithm.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub encryption_algorithm: std::string::String,
 
     /// Optional. SHA256 hash value of the encryption key.
     /// In raw bytes format (not base64-encoded).
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub key_sha256_bytes: ::bytes::Bytes,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6174,10 +6280,12 @@ pub struct Object {
     /// object. A Cloud Storage object is uniquely identified by the tuple of
     /// (bucket, object, generation).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Immutable. The name of the bucket containing this object.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub bucket: std::string::String,
 
     /// Optional. The etag of the object.
@@ -6185,12 +6293,13 @@ pub struct Object {
     /// operation will only be performed if the etag matches that of the live
     /// object.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     /// Immutable. The content generation of this object. Used for object
     /// versioning.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub generation: i64,
 
     /// Output only. Restore token used to differentiate deleted objects with the
@@ -6204,27 +6313,30 @@ pub struct Object {
     /// metageneration number is only meaningful in the context of a particular
     /// generation of a particular object.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub metageneration: i64,
 
     /// Optional. Storage class of the object.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub storage_class: std::string::String,
 
     /// Output only. Content-Length of the object data in bytes, matching
     /// [<https://tools.ietf.org/html/rfc7230#section-3.3.2>][RFC 7230 §3.3.2].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub size: i64,
 
     /// Optional. Content-Encoding of the object data, matching
     /// [<https://tools.ietf.org/html/rfc7231#section-3.1.2.2>][RFC 7231 §3.1.2.2]
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub content_encoding: std::string::String,
 
     /// Optional. Content-Disposition of the object data, matching
     /// [<https://tools.ietf.org/html/rfc6266>][RFC 6266].
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub content_disposition: std::string::String,
 
     /// Optional. Cache-Control directive for the object data, matching
@@ -6232,17 +6344,20 @@ pub struct Object {
     /// If omitted, and the object is accessible to all anonymous users, the
     /// default will be `public, max-age=3600`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub cache_control: std::string::String,
 
     /// Optional. Access controls on the object.
     /// If iam_config.uniform_bucket_level_access is enabled on the parent
     /// bucket, requests to set, read, or modify acl is an error.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub acl: std::vec::Vec<crate::model::ObjectAccessControl>,
 
     /// Optional. Content-Language of the object data, matching
     /// [<https://tools.ietf.org/html/rfc7231#section-3.1.3.2>][RFC 7231 §3.1.3.2].
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub content_language: std::string::String,
 
     /// Output only. If this object is noncurrent, this is the time when the object
@@ -6259,6 +6374,7 @@ pub struct Object {
     /// If an object is stored without a Content-Type, it is served as
     /// `application/octet-stream`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub content_type: std::string::String,
 
     /// Output only. The creation time of the object.
@@ -6268,7 +6384,7 @@ pub struct Object {
     /// Output only. Number of underlying components that make up this object.
     /// Components are accumulated by compose operations.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub component_count: i32,
 
     /// Output only. Hashes for the data part of this object. This field is used
@@ -6291,6 +6407,7 @@ pub struct Object {
     /// Optional. Cloud KMS Key used to encrypt this object, if the object is
     /// encrypted by such a key.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub kms_key: std::string::String,
 
     /// Output only. The time at which the object's storage class was last changed.
@@ -6305,6 +6422,7 @@ pub struct Object {
     /// hold, temporary hold does not impact retention expiration time of an
     /// object.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub temporary_hold: bool,
 
     /// Optional. A server-determined value that specifies the earliest time that
@@ -6318,6 +6436,7 @@ pub struct Object {
 
     /// Optional. User-provided metadata, in key/value pairs.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub metadata: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Whether an object is under event-based hold.
@@ -6789,6 +6908,7 @@ pub mod object {
     pub struct Retention {
         /// Optional. The mode of the Retention.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub mode: crate::model::object::retention::Mode,
 
         /// Optional. The timestamp that the object needs to be retained until.
@@ -6998,10 +7118,12 @@ pub struct ObjectAccessControl {
     /// * `WRITER`
     /// * `OWNER`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub role: std::string::String,
 
     /// Optional. The ID of the access-control entry.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub id: std::string::String,
 
     /// Optional. The entity holding the permission, in one of the following forms:
@@ -7024,15 +7146,18 @@ pub struct ObjectAccessControl {
     ///   For project entities, `project-{team}-{projectnumber}` format will be
     ///   returned on response.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub entity: std::string::String,
 
     /// Output only. The alternative entity format, if exists. For project
     /// entities, `project-{team}-{projectid}` format will be returned on response.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub entity_alt: std::string::String,
 
     /// Optional. The ID for the entity, if any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub entity_id: std::string::String,
 
     /// Optional. The etag of the ObjectAccessControl.
@@ -7040,14 +7165,17 @@ pub struct ObjectAccessControl {
     /// operation will only be performed if the etag matches that of the live
     /// object's ObjectAccessControl.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     /// Optional. The email address associated with the entity, if any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub email: std::string::String,
 
     /// Optional. The domain associated with the entity, if any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub domain: std::string::String,
 
     /// Optional. The project team associated with the entity, if any.
@@ -7144,16 +7272,19 @@ impl wkt::message::Message for ObjectAccessControl {
 pub struct ListObjectsResponse {
     /// The list of items.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub objects: std::vec::Vec<crate::model::Object>,
 
     /// The list of prefixes of objects matching-but-not-listed up to and including
     /// the requested delimiter.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub prefixes: std::vec::Vec<std::string::String>,
 
     /// The continuation token, used to page through large result sets. Provide
     /// this value in a subsequent request to return the next page of results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7222,10 +7353,12 @@ impl gax::paginator::internal::PageableResponse for ListObjectsResponse {
 pub struct ProjectTeam {
     /// Optional. The project number.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub project_number: std::string::String,
 
     /// Optional. The team.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub team: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7264,10 +7397,12 @@ impl wkt::message::Message for ProjectTeam {
 pub struct Owner {
     /// Optional. The entity, in the form `user-`*userId*.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub entity: std::string::String,
 
     /// Optional. The ID for the entity.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub entity_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7306,17 +7441,17 @@ impl wkt::message::Message for Owner {
 pub struct ContentRange {
     /// The starting offset of the object data. This value is inclusive.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub start: i64,
 
     /// The ending offset of the object data. This value is exclusive.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub end: i64,
 
     /// The complete length of the object data.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub complete_length: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

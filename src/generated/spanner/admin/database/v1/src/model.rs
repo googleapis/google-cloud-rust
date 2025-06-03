@@ -48,6 +48,7 @@ pub struct Backup {
     ///
     /// [google.spanner.admin.database.v1.DatabaseAdmin.CreateBackup]: crate::client::DatabaseAdmin::create_backup
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub database: std::string::String,
 
     /// The backup will contain an externally consistent copy of the database at
@@ -89,6 +90,7 @@ pub struct Backup {
     /// [google.spanner.admin.database.v1.DatabaseAdmin.CreateBackup]: crate::client::DatabaseAdmin::create_backup
     /// [google.spanner.admin.database.v1.DatabaseAdmin.UpdateBackup]: crate::client::DatabaseAdmin::update_backup
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. The time the
@@ -102,7 +104,7 @@ pub struct Backup {
 
     /// Output only. Size of the backup in bytes.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub size_bytes: i64,
 
     /// Output only. The number of bytes that will be freed by deleting this
@@ -112,7 +114,7 @@ pub struct Backup {
     /// always the size of the backup. This value may change if backups on the same
     /// chain get created, deleted or expired.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub freeable_size_bytes: i64,
 
     /// Output only. For a backup in an incremental backup chain, this is the
@@ -124,11 +126,12 @@ pub struct Backup {
     /// of backups. For example, the total space used by all backups of a database
     /// can be computed by summing up this field.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub exclusive_size_bytes: i64,
 
     /// Output only. The current state of the backup.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::backup::State,
 
     /// Output only. The names of the restored databases that reference the backup.
@@ -139,6 +142,7 @@ pub struct Backup {
     /// restored database from the backup enters the `READY` state, the reference
     /// to the backup is removed.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub referencing_databases: std::vec::Vec<std::string::String>,
 
     /// Output only. The encryption information for the backup.
@@ -152,10 +156,12 @@ pub struct Backup {
     /// versions must be available for the backup to be restored. If a key version
     /// is revoked in the middle of a restore, the restore behavior is undefined.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub encryption_information: std::vec::Vec<crate::model::EncryptionInfo>,
 
     /// Output only. The database dialect information for the backup.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub database_dialect: crate::model::DatabaseDialect,
 
     /// Output only. The names of the destination backups being created by copying
@@ -166,6 +172,7 @@ pub struct Backup {
     /// copy operation is done (either successfully completed or cancelled or the
     /// destination backup is deleted), the reference to the backup is removed.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub referencing_backups: std::vec::Vec<std::string::String>,
 
     /// Output only. The max allowed expiration time of the backup, with
@@ -186,6 +193,7 @@ pub struct Backup {
     /// this backup. If collapsing is not done, then this field captures the
     /// single backup schedule URI associated with creating this backup.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub backup_schedules: std::vec::Vec<std::string::String>,
 
     /// Output only. Populated only for backups in an incremental backup chain.
@@ -194,6 +202,7 @@ pub struct Backup {
     /// part of the same incremental backup chain. The ordering of backups in the
     /// chain can be determined by ordering the backup `version_time`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub incremental_backup_chain_id: std::string::String,
 
     /// Output only. Data deleted at a time older than this is guaranteed not to be
@@ -210,6 +219,7 @@ pub struct Backup {
     /// This is the same as the list of the instance partition(s) that the database
     /// had footprint in at the backup's `version_time`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub instance_partitions: std::vec::Vec<crate::model::BackupInstancePartition>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -600,12 +610,14 @@ pub struct CreateBackupRequest {
     /// instance. Values are of the form
     /// `projects/<project>/instances/<instance>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The id of the backup to be created. The `backup_id` appended to
     /// `parent` forms the full backup name of the form
     /// `projects/<project>/instances/<instance>/backups/<backup_id>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub backup_id: std::string::String,
 
     /// Required. The backup to create.
@@ -697,10 +709,12 @@ impl wkt::message::Message for CreateBackupRequest {
 pub struct CreateBackupMetadata {
     /// The name of the backup being created.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The name of the database the backup is created from.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub database: std::string::String,
 
     /// The progress of the
@@ -805,12 +819,14 @@ pub struct CopyBackupRequest {
     /// Required. The name of the destination instance that will contain the backup
     /// copy. Values are of the form: `projects/<project>/instances/<instance>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The id of the backup copy.
     /// The `backup_id` appended to `parent` forms the full backup_uri of the form
     /// `projects/<project>/instances/<instance>/backups/<backup>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub backup_id: std::string::String,
 
     /// Required. The source backup to be copied.
@@ -820,6 +836,7 @@ pub struct CopyBackupRequest {
     /// Values are of the form:
     /// `projects/<project>/instances/<instance>/backups/<backup>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub source_backup: std::string::String,
 
     /// Required. The expiration time of the backup in microsecond granularity.
@@ -923,12 +940,14 @@ pub struct CopyBackupMetadata {
     /// Values are of the form
     /// `projects/<project>/instances/<instance>/backups/<backup>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The name of the source backup that is being copied.
     /// Values are of the form
     /// `projects/<project>/instances/<instance>/backups/<backup>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub source_backup: std::string::String,
 
     /// The progress of the
@@ -1111,6 +1130,7 @@ pub struct GetBackupRequest {
     /// Values are of the form
     /// `projects/<project>/instances/<instance>/backups/<backup>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1148,6 +1168,7 @@ pub struct DeleteBackupRequest {
     /// Values are of the form
     /// `projects/<project>/instances/<instance>/backups/<backup>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1184,6 +1205,7 @@ pub struct ListBackupsRequest {
     /// Required. The instance to list backups from.  Values are of the
     /// form `projects/<project>/instances/<instance>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// An expression that filters the list of returned backups.
@@ -1229,12 +1251,13 @@ pub struct ListBackupsRequest {
     ///
     /// [google.spanner.admin.database.v1.Backup]: crate::model::Backup
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Number of backups to be returned in the response. If 0 or
     /// less, defaults to the server's maximum allowed page size.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// If non-empty, `page_token` should contain a
@@ -1246,6 +1269,7 @@ pub struct ListBackupsRequest {
     /// [google.spanner.admin.database.v1.ListBackupsResponse]: crate::model::ListBackupsResponse
     /// [google.spanner.admin.database.v1.ListBackupsResponse.next_page_token]: crate::model::ListBackupsResponse::next_page_token
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1300,6 +1324,7 @@ pub struct ListBackupsResponse {
     /// The list of matching backups. Backups returned are ordered by `create_time`
     /// in descending order, starting from the most recent `create_time`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub backups: std::vec::Vec<crate::model::Backup>,
 
     /// `next_page_token` can be sent in a subsequent
@@ -1308,6 +1333,7 @@ pub struct ListBackupsResponse {
     ///
     /// [google.spanner.admin.database.v1.DatabaseAdmin.ListBackups]: crate::client::DatabaseAdmin::list_backups
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1369,6 +1395,7 @@ pub struct ListBackupOperationsRequest {
     /// Required. The instance of the backup operations. Values are of
     /// the form `projects/<project>/instances/<instance>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// An expression that filters the list of returned backup operations.
@@ -1446,12 +1473,13 @@ pub struct ListBackupOperationsRequest {
     /// [google.spanner.admin.database.v1.CopyBackupMetadata]: crate::model::CopyBackupMetadata
     /// [google.spanner.admin.database.v1.CreateBackupMetadata]: crate::model::CreateBackupMetadata
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Number of operations to be returned in the response. If 0 or
     /// less, defaults to the server's maximum allowed page size.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// If non-empty, `page_token` should contain a
@@ -1463,6 +1491,7 @@ pub struct ListBackupOperationsRequest {
     /// [google.spanner.admin.database.v1.ListBackupOperationsResponse]: crate::model::ListBackupOperationsResponse
     /// [google.spanner.admin.database.v1.ListBackupOperationsResponse.next_page_token]: crate::model::ListBackupOperationsResponse::next_page_token
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1527,6 +1556,7 @@ pub struct ListBackupOperationsResponse {
     /// [google.longrunning.Operation]: longrunning::model::Operation
     /// [google.longrunning.Operation.metadata]: longrunning::model::Operation::metadata
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub operations: std::vec::Vec<longrunning::model::Operation>,
 
     /// `next_page_token` can be sent in a subsequent
@@ -1535,6 +1565,7 @@ pub struct ListBackupOperationsResponse {
     ///
     /// [google.spanner.admin.database.v1.DatabaseAdmin.ListBackupOperations]: crate::client::DatabaseAdmin::list_backup_operations
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1592,6 +1623,7 @@ impl gax::paginator::internal::PageableResponse for ListBackupOperationsResponse
 pub struct BackupInfo {
     /// Name of the backup.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub backup: std::string::String,
 
     /// The backup contains an externally consistent copy of `source_database` at
@@ -1614,6 +1646,7 @@ pub struct BackupInfo {
 
     /// Name of the database the backup was created from.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub source_database: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1688,6 +1721,7 @@ impl wkt::message::Message for BackupInfo {
 pub struct CreateBackupEncryptionConfig {
     /// Required. The encryption type of the backup.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub encryption_type: crate::model::create_backup_encryption_config::EncryptionType,
 
     /// Optional. The Cloud KMS key that will be used to protect the backup.
@@ -1698,6 +1732,7 @@ pub struct CreateBackupEncryptionConfig {
     ///
     /// [google.spanner.admin.database.v1.CreateBackupEncryptionConfig.encryption_type]: crate::model::CreateBackupEncryptionConfig::encryption_type
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub kms_key_name: std::string::String,
 
     /// Optional. Specifies the KMS configuration for the one or more keys used to
@@ -1717,6 +1752,7 @@ pub struct CreateBackupEncryptionConfig {
     ///   Multi-regional location KMS keys are not supported for USER_MANAGED
     ///   instance configs.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub kms_key_names: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1928,6 +1964,7 @@ pub mod create_backup_encryption_config {
 pub struct CopyBackupEncryptionConfig {
     /// Required. The encryption type of the backup.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub encryption_type: crate::model::copy_backup_encryption_config::EncryptionType,
 
     /// Optional. The Cloud KMS key that will be used to protect the backup.
@@ -1938,6 +1975,7 @@ pub struct CopyBackupEncryptionConfig {
     ///
     /// [google.spanner.admin.database.v1.CopyBackupEncryptionConfig.encryption_type]: crate::model::CopyBackupEncryptionConfig::encryption_type
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub kms_key_name: std::string::String,
 
     /// Optional. Specifies the KMS configuration for the one or more keys used to
@@ -1958,6 +1996,7 @@ pub struct CopyBackupEncryptionConfig {
     ///   Multi-regional location KMS keys are not supported for USER_MANAGED
     ///   instance configs.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub kms_key_names: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2227,6 +2266,7 @@ pub struct BackupInstancePartition {
     /// A unique identifier for the instance partition. Values are of the form
     /// `projects/<project>/instances/<instance>/instancePartitions/<instance_partition_id>`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub instance_partition: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2358,6 +2398,7 @@ pub struct BackupSchedule {
     ///
     /// [google.spanner.admin.database.v1.DatabaseAdmin.UpdateBackupSchedule]: crate::client::DatabaseAdmin::update_backup_schedule
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. The schedule specification based on which the backup creations
@@ -2600,11 +2641,13 @@ pub struct CrontabSpec {
     /// * `0 2 * * 0 `    : once a week every Sunday at 2 past midnight in UTC.
     /// * `0 2 8 * * `    : once a month on 8th day at 2 past midnight in UTC.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub text: std::string::String,
 
     /// Output only. The time zone of the times in `CrontabSpec.text`. Currently
     /// only UTC is supported.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub time_zone: std::string::String,
 
     /// Output only. Schedule backups will contain an externally consistent copy
@@ -2674,12 +2717,14 @@ impl wkt::message::Message for CrontabSpec {
 pub struct CreateBackupScheduleRequest {
     /// Required. The name of the database that this backup schedule applies to.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The Id to use for the backup schedule. The `backup_schedule_id`
     /// appended to `parent` forms the full backup schedule name of the form
     /// `projects/<project>/instances/<instance>/databases/<database>/backupSchedules/<backup_schedule_id>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub backup_schedule_id: std::string::String,
 
     /// Required. The backup schedule to create.
@@ -2748,6 +2793,7 @@ pub struct GetBackupScheduleRequest {
     /// Values are of the form
     /// `projects/<project>/instances/<instance>/databases/<database>/backupSchedules/<backup_schedule_id>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2785,6 +2831,7 @@ pub struct DeleteBackupScheduleRequest {
     /// Values are of the form
     /// `projects/<project>/instances/<instance>/databases/<database>/backupSchedules/<backup_schedule_id>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2822,12 +2869,13 @@ pub struct ListBackupSchedulesRequest {
     /// listed. Values are of the form
     /// projects/\<project\>/instances/\<instance\>/databases/\<database\>
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. Number of backup schedules to be returned in the response. If 0
     /// or less, defaults to the server's maximum allowed page size.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. If non-empty, `page_token` should contain a
@@ -2839,6 +2887,7 @@ pub struct ListBackupSchedulesRequest {
     /// [google.spanner.admin.database.v1.ListBackupSchedulesResponse]: crate::model::ListBackupSchedulesResponse
     /// [google.spanner.admin.database.v1.ListBackupSchedulesResponse.next_page_token]: crate::model::ListBackupSchedulesResponse::next_page_token
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2886,6 +2935,7 @@ impl wkt::message::Message for ListBackupSchedulesRequest {
 pub struct ListBackupSchedulesResponse {
     /// The list of backup schedules for a database.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub backup_schedules: std::vec::Vec<crate::model::BackupSchedule>,
 
     /// `next_page_token` can be sent in a subsequent
@@ -2894,6 +2944,7 @@ pub struct ListBackupSchedulesResponse {
     ///
     /// [google.spanner.admin.database.v1.DatabaseAdmin.ListBackupSchedules]: crate::client::DatabaseAdmin::list_backup_schedules
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3028,7 +3079,7 @@ pub struct OperationProgress {
     /// Percent completion of the operation.
     /// Values are between 0 and 100 inclusive.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub progress_percent: i32,
 
     /// Time the request was received.
@@ -3108,6 +3159,7 @@ pub struct EncryptionConfig {
     /// the database. Values are of the form
     /// `projects/<project>/locations/<location>/keyRings/<key_ring>/cryptoKeys/<kms_key_name>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub kms_key_name: std::string::String,
 
     /// Specifies the KMS configuration for the one or more keys used to encrypt
@@ -3127,6 +3179,7 @@ pub struct EncryptionConfig {
     ///   Multi-regional location KMS keys are not supported for USER_MANAGED
     ///   instance configs.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub kms_key_names: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3170,6 +3223,7 @@ impl wkt::message::Message for EncryptionConfig {
 pub struct EncryptionInfo {
     /// Output only. The type of encryption.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub encryption_type: crate::model::encryption_info::Type,
 
     /// Output only. If present, the status of a recent encrypt/decrypt call on
@@ -3181,6 +3235,7 @@ pub struct EncryptionInfo {
     /// Output only. A Cloud KMS key version that is being used to protect the
     /// database or backup.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub kms_key_version: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3386,6 +3441,7 @@ pub mod encryption_info {
 pub struct RestoreInfo {
     /// The type of the restore source.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub source_type: crate::model::RestoreSourceType,
 
     /// Information about the source used to restore the database.
@@ -3485,10 +3541,12 @@ pub struct Database {
     /// statement. This name can be passed to other API methods to
     /// identify the database.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. The current database state.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::database::State,
 
     /// Output only. If exists, the time at which the database creation started.
@@ -3518,6 +3576,7 @@ pub struct Database {
     /// This field is propagated lazily from the backend. There might be a delay
     /// from when a key version is being used and when it appears in this field.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub encryption_info: std::vec::Vec<crate::model::EncryptionInfo>,
 
     /// Output only. The period in which Cloud Spanner retains all versions of data
@@ -3528,6 +3587,7 @@ pub struct Database {
     ///
     /// [google.spanner.admin.database.v1.DatabaseAdmin.UpdateDatabaseDdl]: crate::client::DatabaseAdmin::update_database_ddl
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub version_retention_period: std::string::String,
 
     /// Output only. Earliest timestamp at which older versions of the data can be
@@ -3545,10 +3605,12 @@ pub struct Database {
     /// database option set using DatabaseAdmin.CreateDatabase or
     /// DatabaseAdmin.UpdateDatabaseDdl. If not explicitly set, this is empty.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub default_leader: std::string::String,
 
     /// Output only. The dialect of the Cloud Spanner Database.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub database_dialect: crate::model::DatabaseDialect,
 
     /// Whether drop protection is enabled for this database. Defaults to false,
@@ -3556,11 +3618,13 @@ pub struct Database {
     /// database
     /// deletion](https://cloud.google.com/spanner/docs/prevent-database-deletion).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub enable_drop_protection: bool,
 
     /// Output only. If true, the database is being updated. If false, there are no
     /// ongoing update operations for the database.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub reconciling: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3875,12 +3939,13 @@ pub struct ListDatabasesRequest {
     /// Required. The instance whose databases should be listed.
     /// Values are of the form `projects/<project>/instances/<instance>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Number of databases to be returned in the response. If 0 or less,
     /// defaults to the server's maximum allowed page size.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// If non-empty, `page_token` should contain a
@@ -3891,6 +3956,7 @@ pub struct ListDatabasesRequest {
     /// [google.spanner.admin.database.v1.ListDatabasesResponse]: crate::model::ListDatabasesResponse
     /// [google.spanner.admin.database.v1.ListDatabasesResponse.next_page_token]: crate::model::ListDatabasesResponse::next_page_token
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3938,6 +4004,7 @@ impl wkt::message::Message for ListDatabasesRequest {
 pub struct ListDatabasesResponse {
     /// Databases that matched the request.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub databases: std::vec::Vec<crate::model::Database>,
 
     /// `next_page_token` can be sent in a subsequent
@@ -3946,6 +4013,7 @@ pub struct ListDatabasesResponse {
     ///
     /// [google.spanner.admin.database.v1.DatabaseAdmin.ListDatabases]: crate::client::DatabaseAdmin::list_databases
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4007,6 +4075,7 @@ pub struct CreateDatabaseRequest {
     /// Required. The name of the instance that will serve the new database.
     /// Values are of the form `projects/<project>/instances/<instance>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. A `CREATE DATABASE` statement, which specifies the ID of the
@@ -4015,6 +4084,7 @@ pub struct CreateDatabaseRequest {
     /// If the database ID is a reserved word or if it contains a hyphen, the
     /// database ID must be enclosed in backticks (`` ` ``).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub create_statement: std::string::String,
 
     /// Optional. A list of DDL statements to run inside the newly created
@@ -4022,6 +4092,7 @@ pub struct CreateDatabaseRequest {
     /// statements execute atomically with the creation of the database:
     /// if there is an error in any statement, the database is not created.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub extra_statements: std::vec::Vec<std::string::String>,
 
     /// Optional. The encryption configuration for the database. If this field is
@@ -4032,6 +4103,7 @@ pub struct CreateDatabaseRequest {
 
     /// Optional. The dialect of the Cloud Spanner Database.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub database_dialect: crate::model::DatabaseDialect,
 
     /// Optional. Proto descriptors used by CREATE/ALTER PROTO BUNDLE statements in
@@ -4052,7 +4124,7 @@ pub struct CreateDatabaseRequest {
     /// For more details, see protobuffer [self
     /// description](https://developers.google.com/protocol-buffers/docs/techniques#self-description).
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub proto_descriptors: ::bytes::Bytes,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4141,6 +4213,7 @@ impl wkt::message::Message for CreateDatabaseRequest {
 pub struct CreateDatabaseMetadata {
     /// The database being created.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub database: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4177,6 +4250,7 @@ pub struct GetDatabaseRequest {
     /// Required. The name of the requested database. Values are of the form
     /// `projects/<project>/instances/<instance>/databases/<database>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4398,10 +4472,12 @@ impl wkt::message::Message for UpdateDatabaseMetadata {
 pub struct UpdateDatabaseDdlRequest {
     /// Required. The database to update.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub database: std::string::String,
 
     /// Required. DDL statements to be applied to the database.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub statements: std::vec::Vec<std::string::String>,
 
     /// If empty, the new update request is assigned an
@@ -4431,6 +4507,7 @@ pub struct UpdateDatabaseDdlRequest {
     /// [google.spanner.admin.database.v1.DatabaseAdmin.UpdateDatabaseDdl]: crate::client::DatabaseAdmin::update_database_ddl
     /// [google.spanner.admin.database.v1.UpdateDatabaseDdlRequest.database]: crate::model::UpdateDatabaseDdlRequest::database
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub operation_id: std::string::String,
 
     /// Optional. Proto descriptors used by CREATE/ALTER PROTO BUNDLE statements.
@@ -4450,13 +4527,14 @@ pub struct UpdateDatabaseDdlRequest {
     /// For more details, see protobuffer [self
     /// description](https://developers.google.com/protocol-buffers/docs/techniques#self-description).
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub proto_descriptors: ::bytes::Bytes,
 
     /// Optional. This field is exposed to be used by the Spanner Migration Tool.
     /// For more details, see
     /// [SMT](https://github.com/GoogleCloudPlatform/spanner-migration-tool).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub throughput_mode: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4523,12 +4601,14 @@ pub struct DdlStatementActionInfo {
     /// The action for the DDL statement, e.g. CREATE, ALTER, DROP, GRANT, etc.
     /// This field is a non-empty string.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub action: std::string::String,
 
     /// The entity type for the DDL statement, e.g. TABLE, INDEX, VIEW, etc.
     /// This field can be empty string for some DDL statement,
     /// e.g. for statement "ANALYZE", `entity_type` = "".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub entity_type: std::string::String,
 
     /// The entity name(s) being operated on the DDL statement.
@@ -4538,6 +4618,7 @@ pub struct DdlStatementActionInfo {
     /// . For statement "GRANT ROLE r1, r2 ...", `entity_names` = ["r1", "r2"].
     /// . For statement "ANALYZE", `entity_names` = [].
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub entity_names: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4590,23 +4671,27 @@ impl wkt::message::Message for DdlStatementActionInfo {
 pub struct UpdateDatabaseDdlMetadata {
     /// The database being modified.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub database: std::string::String,
 
     /// For an update this list contains all the statements. For an
     /// individual statement, this list contains only that statement.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub statements: std::vec::Vec<std::string::String>,
 
     /// Reports the commit timestamps of all statements that have
     /// succeeded so far, where `commit_timestamps[i]` is the commit
     /// timestamp for the statement `statements[i]`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub commit_timestamps: std::vec::Vec<wkt::Timestamp>,
 
     /// Output only. When true, indicates that the operation is throttled e.g.
     /// due to resource constraints. When resources become available the operation
     /// will resume and this field will be false again.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub throttled: bool,
 
     /// The progress of the
@@ -4619,11 +4704,13 @@ pub struct UpdateDatabaseDdlMetadata {
     ///
     /// [google.spanner.admin.database.v1.DatabaseAdmin.UpdateDatabaseDdl]: crate::client::DatabaseAdmin::update_database_ddl
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub progress: std::vec::Vec<crate::model::OperationProgress>,
 
     /// The brief action info for the DDL statements.
     /// `actions[i]` is the brief info for `statements[i]`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub actions: std::vec::Vec<crate::model::DdlStatementActionInfo>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4709,6 +4796,7 @@ impl wkt::message::Message for UpdateDatabaseDdlMetadata {
 pub struct DropDatabaseRequest {
     /// Required. The database to be dropped.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub database: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4746,6 +4834,7 @@ pub struct GetDatabaseDdlRequest {
     /// Values are of the form
     /// `projects/<project>/instances/<instance>/databases/<database>`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub database: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4782,6 +4871,7 @@ pub struct GetDatabaseDdlResponse {
     /// A list of formatted DDL statements defining the schema of the database
     /// specified in the request.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub statements: std::vec::Vec<std::string::String>,
 
     /// Proto descriptors stored in the database.
@@ -4790,7 +4880,7 @@ pub struct GetDatabaseDdlResponse {
     /// For more details, see protobuffer [self
     /// description](https://developers.google.com/protocol-buffers/docs/techniques#self-description).
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub proto_descriptors: ::bytes::Bytes,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4838,6 +4928,7 @@ pub struct ListDatabaseOperationsRequest {
     /// Required. The instance of the database operations.
     /// Values are of the form `projects/<project>/instances/<instance>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// An expression that filters the list of returned operations.
@@ -4889,12 +4980,13 @@ pub struct ListDatabaseOperationsRequest {
     /// [google.longrunning.Operation]: longrunning::model::Operation
     /// [google.spanner.admin.database.v1.RestoreDatabaseMetadata]: crate::model::RestoreDatabaseMetadata
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Number of operations to be returned in the response. If 0 or
     /// less, defaults to the server's maximum allowed page size.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// If non-empty, `page_token` should contain a
@@ -4906,6 +4998,7 @@ pub struct ListDatabaseOperationsRequest {
     /// [google.spanner.admin.database.v1.ListDatabaseOperationsResponse]: crate::model::ListDatabaseOperationsResponse
     /// [google.spanner.admin.database.v1.ListDatabaseOperationsResponse.next_page_token]: crate::model::ListDatabaseOperationsResponse::next_page_token
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4966,6 +5059,7 @@ pub struct ListDatabaseOperationsResponse {
     /// [google.longrunning.Operation]: longrunning::model::Operation
     /// [google.longrunning.Operation.metadata]: longrunning::model::Operation::metadata
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub operations: std::vec::Vec<longrunning::model::Operation>,
 
     /// `next_page_token` can be sent in a subsequent
@@ -4974,6 +5068,7 @@ pub struct ListDatabaseOperationsResponse {
     ///
     /// [google.spanner.admin.database.v1.DatabaseAdmin.ListDatabaseOperations]: crate::client::DatabaseAdmin::list_database_operations
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5038,6 +5133,7 @@ pub struct RestoreDatabaseRequest {
     /// the source backup. Values are of the form
     /// `projects/<project>/instances/<instance>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The id of the database to create and restore to. This
@@ -5045,6 +5141,7 @@ pub struct RestoreDatabaseRequest {
     /// `parent` forms the full database name of the form
     /// `projects/<project>/instances/<instance>/databases/<database_id>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub database_id: std::string::String,
 
     /// Optional. An encryption configuration describing the encryption type and
@@ -5160,7 +5257,7 @@ pub mod restore_database_request {
     pub enum Source {
         /// Name of the backup from which to restore.  Values are of the form
         /// `projects/<project>/instances/<instance>/backups/<backup>`.
-        Backup(std::string::String),
+        Backup(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
     }
 }
 
@@ -5172,6 +5269,7 @@ pub mod restore_database_request {
 pub struct RestoreDatabaseEncryptionConfig {
     /// Required. The encryption type of the restored database.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub encryption_type: crate::model::restore_database_encryption_config::EncryptionType,
 
     /// Optional. The Cloud KMS key that will be used to encrypt/decrypt the
@@ -5182,6 +5280,7 @@ pub struct RestoreDatabaseEncryptionConfig {
     ///
     /// [google.spanner.admin.database.v1.RestoreDatabaseEncryptionConfig.encryption_type]: crate::model::RestoreDatabaseEncryptionConfig::encryption_type
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub kms_key_name: std::string::String,
 
     /// Optional. Specifies the KMS configuration for the one or more keys used to
@@ -5201,6 +5300,7 @@ pub struct RestoreDatabaseEncryptionConfig {
     ///   Multi-regional location KMS keys are not supported for USER_MANAGED
     ///   instance configs.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub kms_key_names: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5416,10 +5516,12 @@ pub mod restore_database_encryption_config {
 pub struct RestoreDatabaseMetadata {
     /// Name of the database being created and restored to.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The type of the restore source.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub source_type: crate::model::RestoreSourceType,
 
     /// The progress of the
@@ -5462,6 +5564,7 @@ pub struct RestoreDatabaseMetadata {
     ///
     /// [google.spanner.admin.database.v1.OptimizeRestoredDatabaseMetadata]: crate::model::OptimizeRestoredDatabaseMetadata
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub optimize_database_operation_name: std::string::String,
 
     /// Information about the source used to restore the database, as specified by
@@ -5623,6 +5726,7 @@ pub mod restore_database_metadata {
 pub struct OptimizeRestoredDatabaseMetadata {
     /// Name of the restored database being optimized.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The progress of the post-restore optimizations.
@@ -5679,6 +5783,7 @@ pub struct DatabaseRole {
     /// `projects/<project>/instances/<instance>/databases/<database>/databaseRoles/<role>`
     /// where `<role>` is as specified in the `CREATE ROLE` DDL statement.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5716,12 +5821,13 @@ pub struct ListDatabaseRolesRequest {
     /// Values are of the form
     /// `projects/<project>/instances/<instance>/databases/<database>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Number of database roles to be returned in the response. If 0 or less,
     /// defaults to the server's maximum allowed page size.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// If non-empty, `page_token` should contain a
@@ -5732,6 +5838,7 @@ pub struct ListDatabaseRolesRequest {
     /// [google.spanner.admin.database.v1.ListDatabaseRolesResponse]: crate::model::ListDatabaseRolesResponse
     /// [google.spanner.admin.database.v1.ListDatabaseRolesResponse.next_page_token]: crate::model::ListDatabaseRolesResponse::next_page_token
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5779,6 +5886,7 @@ impl wkt::message::Message for ListDatabaseRolesRequest {
 pub struct ListDatabaseRolesResponse {
     /// Database roles that matched the request.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub database_roles: std::vec::Vec<crate::model::DatabaseRole>,
 
     /// `next_page_token` can be sent in a subsequent
@@ -5787,6 +5895,7 @@ pub struct ListDatabaseRolesResponse {
     ///
     /// [google.spanner.admin.database.v1.DatabaseAdmin.ListDatabaseRoles]: crate::client::DatabaseAdmin::list_database_roles
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5849,10 +5958,12 @@ pub struct AddSplitPointsRequest {
     /// added. Values are of the form
     /// `projects/<project>/instances/<instance>/databases/<database>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub database: std::string::String,
 
     /// Required. The split points to add.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub split_points: std::vec::Vec<crate::model::SplitPoints>,
 
     /// Optional. A user-supplied tag associated with the split points.
@@ -5861,6 +5972,7 @@ pub struct AddSplitPointsRequest {
     /// The length of the tag must not exceed 50 characters,else will be trimmed.
     /// Only valid UTF8 characters are allowed.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub initiator: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5935,15 +6047,18 @@ impl wkt::message::Message for AddSplitPointsResponse {
 pub struct SplitPoints {
     /// The table to split.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub table: std::string::String,
 
     /// The index to split.
     /// If specified, the `table` field must refer to the index's base table.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub index: std::string::String,
 
     /// Required. The list of split keys, i.e., the split boundaries.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub keys: std::vec::Vec<crate::model::split_points::Key>,
 
     /// Optional. The expiration timestamp of the split points.
