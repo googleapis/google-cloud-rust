@@ -473,7 +473,8 @@ func fieldSkipAttributes(f *api.Field) []string {
 }
 
 func fieldBaseAttributes(f *api.Field) []string {
-	if toCamel(toSnake(f.Name)) != f.JSONName {
+	// Names starting with `_` are not handled quite right by serde.
+	if toCamel(f.Name) != f.JSONName || strings.HasPrefix(f.Name, "_") {
 		return []string{fmt.Sprintf(`#[serde(rename = "%s")]`, f.JSONName)}
 	}
 	return []string{}
