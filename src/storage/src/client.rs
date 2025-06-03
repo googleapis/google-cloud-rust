@@ -106,6 +106,12 @@ impl Storage {
 
     /// A simple upload from a buffer.
     ///
+    /// # Parameters
+    /// * `bucket` - the bucket name containing the object. In
+    ///   `projects/_/buckets/{bucket_id}` format.
+    /// * `object` - the object name.
+    /// * `payload` - the object data.
+    ///
     /// # Example
     /// ```
     /// # use google_cloud_storage::client::Storage;
@@ -128,6 +134,11 @@ impl Storage {
     }
 
     /// A simple download into a buffer.
+    ///
+    /// # Parameters
+    /// * `bucket` - the bucket name containing the object. In
+    ///   `projects/_/buckets/{bucket_id}` format.
+    /// * `object` - the object name.
     ///
     /// # Example
     /// ```
