@@ -1875,7 +1875,7 @@ pub mod typed_value {
         /// A Boolean value: `true` or `false`.
         BoolValue(bool),
         /// A 64-bit integer. Its range is approximately `+/-9.2x10^18`.
-        Int64Value(#[serde_as(as = "serde_with::DisplayFromStr")] i64),
+        Int64Value(#[serde_as(as = "wkt::internal::I64")] i64),
         /// A 64-bit double-precision floating-point number. Its magnitude
         /// is approximately `+/-10^(+/-300)` and it has 16 significant digits of
         /// precision.

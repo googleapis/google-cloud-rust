@@ -4032,7 +4032,7 @@ pub struct BackupVault {
 
     /// Output only. The number of backups in this backup vault.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub backup_count: i64,
 
     /// Output only. Service account used by the BackupVault Service for this
@@ -4043,7 +4043,7 @@ pub struct BackupVault {
 
     /// Output only. Total size of the storage used by all backup resources.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub total_stored_bytes: i64,
 
     /// Output only. Immutable after resource creation until resource deletion.
@@ -4620,7 +4620,7 @@ pub struct DataSource {
 
     /// Number of backups in the data source.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub backup_count: std::option::Option<i64>,
 
     /// Server specified ETag for the ManagementServer resource to prevent
@@ -4630,7 +4630,7 @@ pub struct DataSource {
 
     /// The number of bytes (metadata and data) stored in this datasource.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub total_stored_bytes: std::option::Option<i64>,
 
     /// Output only. The backup configuration state.
@@ -5479,12 +5479,12 @@ pub struct BackupApplianceBackupConfig {
 
     /// The ID of the backup appliance.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub backup_appliance_id: i64,
 
     /// The ID of the SLA of this application.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub sla_id: i64,
 
     /// The name of the application.
@@ -5717,7 +5717,7 @@ pub struct DataSourceBackupApplianceApplication {
 
     /// Appliance Id of the Backup Appliance.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub appliance_id: i64,
 
     /// The type of the application. e.g. VMBackup
@@ -5727,7 +5727,7 @@ pub struct DataSourceBackupApplianceApplication {
 
     /// The appid field of the application within the Backup Appliance.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub application_id: i64,
 
     /// Hostname of the host where the application is running.
@@ -5736,7 +5736,7 @@ pub struct DataSourceBackupApplianceApplication {
 
     /// Hostid of the application host.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub host_id: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5846,7 +5846,7 @@ impl wkt::message::Message for ServiceLockInfo {
 pub struct BackupApplianceLockInfo {
     /// Required. The ID of the backup/recovery appliance that created this lock.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub backup_appliance_id: i64,
 
     /// Required. The name of the backup/recovery appliance that created this lock.
@@ -6007,7 +6007,7 @@ pub mod backup_appliance_lock_info {
         /// The image name that depends on this Backup.
         BackupImage(std::string::String),
         /// The SLA on the backup/recovery appliance that owns the lock.
-        SlaId(#[serde_as(as = "serde_with::DisplayFromStr")] i64),
+        SlaId(#[serde_as(as = "wkt::internal::I64")] i64),
     }
 }
 
@@ -6227,7 +6227,7 @@ pub struct Backup {
 
     /// Output only. source resource size in bytes at the time of the backup.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub resource_size_bytes: i64,
 
     /// Workload specific backup properties.
@@ -9879,12 +9879,12 @@ pub struct ComputeInstanceDataSourceProperties {
 
     /// The total number of disks attached to the Instance.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub total_disk_count: i64,
 
     /// The sum of all the disk sizes.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub total_disk_size_gb: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -13055,7 +13055,7 @@ pub mod scheduling {
 pub struct SchedulingDuration {
     /// Optional. Span of time at a resolution of a second.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub seconds: std::option::Option<i64>,
 
     /// Optional. Span of time that's a fraction of a second at nanosecond
@@ -13250,7 +13250,7 @@ pub struct AttachedDisk {
     /// Optional. A zero-based index to this disk, where 0 is reserved for the
     /// boot disk.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub index: std::option::Option<i64>,
 
     /// Optional. Indicates that this is a boot disk. The virtual machine will use
@@ -13283,7 +13283,7 @@ pub struct AttachedDisk {
 
     /// Optional. The size of the disk in GB.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub disk_size_gb: std::option::Option<i64>,
 
     /// Optional. Output only. The state of the disk.

@@ -40,12 +40,12 @@ pub struct PosixAccount {
 
     /// The user ID.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub uid: i64,
 
     /// The default group ID.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub gid: i64,
 
     /// The path to the home directory for this account.
@@ -175,7 +175,7 @@ pub struct SshPublicKey {
 
     /// An expiration time in microseconds since epoch.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub expiration_time_usec: i64,
 
     /// Output only. The SHA-256 fingerprint of the SSH public key.

@@ -4432,7 +4432,7 @@ pub struct ImportStatefileRequest {
     /// Required. Lock ID of the lock file to verify that the user who is importing
     /// the state file previously locked the Deployment.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub lock_id: i64,
 
     /// Optional.
@@ -4487,7 +4487,7 @@ pub struct DeleteStatefileRequest {
     /// Required. Lock ID of the lock file to verify that the user who is deleting
     /// the state file previously locked the Deployment.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub lock_id: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4564,7 +4564,7 @@ pub struct UnlockDeploymentRequest {
 
     /// Required. Lock ID of the lock file to be unlocked.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub lock_id: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4636,7 +4636,7 @@ impl wkt::message::Message for ExportLockInfoRequest {
 pub struct LockInfo {
     /// Unique ID for the lock to be overridden with generation ID in the backend.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub lock_id: i64,
 
     /// Terraform operation, provided by the caller.

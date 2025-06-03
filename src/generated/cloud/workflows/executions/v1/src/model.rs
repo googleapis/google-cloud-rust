@@ -373,18 +373,18 @@ pub mod execution {
         pub struct Position {
             /// The source code line number the current instruction was generated from.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "wkt::internal::I64")]
             pub line: i64,
 
             /// The source code column position (of the line) the current instruction
             /// was generated from.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "wkt::internal::I64")]
             pub column: i64,
 
             /// The number of bytes of source code making up this stack trace element.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "wkt::internal::I64")]
             pub length: i64,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

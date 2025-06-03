@@ -184,7 +184,7 @@ pub struct Backup {
     /// Output only. The total size of the Backup in bytes = config backup size +
     /// sum(volume backup sizes)
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub size_bytes: i64,
 
     /// Output only. `etag` is used for optimistic concurrency control as a way to
@@ -209,7 +209,7 @@ pub struct Backup {
 
     /// Output only. The size of the config backup in bytes.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub config_backup_size_bytes: i64,
 
     /// Output only. If false, Backup will fail when Backup for GKE detects
@@ -10163,13 +10163,13 @@ pub struct VolumeBackup {
     /// location. In particular, this is likely to increase in size when
     /// the immediately preceding backup of the same volume is deleted.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub storage_bytes: i64,
 
     /// Output only. The minimum size of the disk to which this VolumeBackup can be
     /// restored.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub disk_size_bytes: i64,
 
     /// Output only. The timestamp when the associated underlying volume backup

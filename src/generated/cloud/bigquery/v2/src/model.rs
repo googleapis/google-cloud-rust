@@ -873,7 +873,7 @@ pub struct Dataset {
     /// table, that value takes precedence over the default expiration time
     /// indicated by this property.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub default_table_expiration_ms: std::option::Option<wkt::Int64Value>,
 
     /// This default partition expiration, expressed in milliseconds.
@@ -888,7 +888,7 @@ pub struct Dataset {
     /// is set, the `defaultTableExpirationMs` value is ignored and the table
     /// will not be inherit a table expiration deadline.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub default_partition_expiration_ms: std::option::Option<wkt::Int64Value>,
 
     /// The labels associated with this dataset. You can use these
@@ -917,13 +917,13 @@ pub struct Dataset {
     /// Output only. The time when this dataset was created, in milliseconds since
     /// the epoch.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub creation_time: i64,
 
     /// Output only. The date when this dataset was last modified, in milliseconds
     /// since the epoch.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub last_modified_time: i64,
 
     /// The geographic location where the dataset should reside. See
@@ -1018,7 +1018,7 @@ pub struct Dataset {
     /// to 168 hours (2 to 7 days). The default value is 168 hours if this is not
     /// set.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub max_time_travel_hours: std::option::Option<wkt::Int64Value>,
 
     /// Output only. Tags for the dataset. To provide tags as inputs, use the
@@ -3512,7 +3512,7 @@ pub struct CsvOptions {
     ///   headers in row N. If headers are not detected, row N is just skipped.
     ///   Otherwise row N is used to extract column names for the detected schema.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub skip_leading_rows: std::option::Option<wkt::Int64Value>,
 
     /// Optional. The value that is used to quote data sections in a CSV file.
@@ -4204,7 +4204,7 @@ pub struct GoogleSheetsOptions {
     ///   headers in row N. If headers are not detected, row N is just skipped.
     ///   Otherwise row N is used to extract column names for the detected schema.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub skip_leading_rows: std::option::Option<wkt::Int64Value>,
 
     /// Optional. Range of a sheet to query from. Only used when non-empty.
@@ -5372,7 +5372,7 @@ pub struct RemoteModelInfo {
     /// Output only. Max number of rows in each batch sent to the remote service.
     /// If unset, the number of rows in each batch is set dynamically.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub max_batching_rows: i64,
 
     /// Output only. The model version for LLM.
@@ -5767,13 +5767,13 @@ pub struct Model {
     /// Output only. The time when this model was created, in millisecs since the
     /// epoch.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub creation_time: i64,
 
     /// Output only. The time when this model was last modified, in millisecs since
     /// the epoch.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub last_modified_time: i64,
 
     /// Optional. A user-friendly description of this model.
@@ -5799,7 +5799,7 @@ pub struct Model {
     /// property of the encapsulating dataset can be used to set a default
     /// expirationTime on newly created models.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub expiration_time: i64,
 
     /// Output only. The geographic location where the model resides. This value
@@ -5850,7 +5850,7 @@ pub struct Model {
     /// tuning](https://cloud.google.com/bigquery-ml/docs/reference/standard-sql/bigqueryml-syntax-hp-tuning-overview)
     /// models, this is the smallest trial ID among all Pareto optimal trials.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub default_trial_id: i64,
 
     /// Output only. Trials of a [hyperparameter
@@ -5866,7 +5866,7 @@ pub struct Model {
     /// tuning](https://cloud.google.com/bigquery-ml/docs/reference/standard-sql/bigqueryml-syntax-hp-tuning-overview)
     /// models, it contains all Pareto optimal trials sorted by trial_id.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "std::vec::Vec<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::vec::Vec<wkt::internal::I64>")]
     pub optimal_trial_ids: std::vec::Vec<i64>,
 
     /// Output only. Remote model info
@@ -7653,22 +7653,22 @@ pub mod model {
 
             /// Number of true samples predicted as true.
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
-            #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+            #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
             pub true_positives: std::option::Option<wkt::Int64Value>,
 
             /// Number of false samples predicted as true.
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
-            #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+            #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
             pub false_positives: std::option::Option<wkt::Int64Value>,
 
             /// Number of true samples predicted as false.
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
-            #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+            #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
             pub true_negatives: std::option::Option<wkt::Int64Value>,
 
             /// Number of false samples predicted as false.
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
-            #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+            #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
             pub false_negatives: std::option::Option<wkt::Int64Value>,
 
             /// The fraction of actual positive predictions that had positive actual
@@ -8028,7 +8028,7 @@ pub mod model {
 
                 /// Number of items being predicted as this label.
                 #[serde(skip_serializing_if = "std::option::Option::is_none")]
-                #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+                #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
                 pub item_count: std::option::Option<wkt::Int64Value>,
 
                 #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8223,7 +8223,7 @@ pub mod model {
         pub struct Cluster {
             /// Centroid id.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "wkt::internal::I64")]
             pub centroid_id: i64,
 
             /// Values of highly variant features for this cluster.
@@ -8233,7 +8233,7 @@ pub mod model {
 
             /// Count of training data rows that were assigned to this cluster.
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
-            #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+            #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
             pub count: std::option::Option<wkt::Int64Value>,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8470,7 +8470,7 @@ pub mod model {
                         /// The count of training samples matching the category within the
                         /// cluster.
                         #[serde(skip_serializing_if = "std::option::Option::is_none")]
-                        #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+                        #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
                         pub count: std::option::Option<wkt::Int64Value>,
 
                         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9378,17 +9378,17 @@ pub mod model {
     pub struct ArimaOrder {
         /// Order of the autoregressive part.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
-        #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+        #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
         pub p: std::option::Option<wkt::Int64Value>,
 
         /// Order of the differencing part.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
-        #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+        #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
         pub d: std::option::Option<wkt::Int64Value>,
 
         /// Order of the moving-average part.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
-        #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+        #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
         pub q: std::option::Option<wkt::Int64Value>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10382,7 +10382,7 @@ pub mod model {
             /// The maximum number of iterations in training. Used only for iterative
             /// training algorithms.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "wkt::internal::I64")]
             pub max_iterations: i64,
 
             /// Type of loss function used during training run.
@@ -10481,7 +10481,7 @@ pub mod model {
 
             /// Number of clusters for clustering models.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "wkt::internal::I64")]
             pub num_clusters: i64,
 
             /// Google Cloud Storage URI from which the model was imported. Only
@@ -10495,12 +10495,12 @@ pub mod model {
 
             /// Hidden units for dnn models.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-            #[serde_as(as = "std::vec::Vec<serde_with::DisplayFromStr>")]
+            #[serde_as(as = "std::vec::Vec<wkt::internal::I64>")]
             pub hidden_units: std::vec::Vec<i64>,
 
             /// Batch size for dnn models.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "wkt::internal::I64")]
             pub batch_size: i64,
 
             /// Dropout probability for dnn models.
@@ -10510,7 +10510,7 @@ pub mod model {
 
             /// Maximum depth of a tree for boosted tree models.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "wkt::internal::I64")]
             pub max_tree_depth: i64,
 
             /// Subsample fraction of the training data to grow tree to prevent
@@ -10531,7 +10531,7 @@ pub mod model {
             /// Number of parallel trees constructed during each iteration for boosted
             /// tree models.
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
-            #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+            #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
             pub num_parallel_tree: std::option::Option<wkt::Int64Value>,
 
             /// Type of normalization algorithm for boosted tree models using
@@ -10547,7 +10547,7 @@ pub mod model {
             /// Minimum sum of instance weight needed in a child for boosted tree
             /// models.
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
-            #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+            #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
             pub min_tree_child_weight: std::option::Option<wkt::Int64Value>,
 
             /// Subsample ratio of columns when constructing each tree for boosted tree
@@ -10569,7 +10569,7 @@ pub mod model {
 
             /// Num factors specified for matrix factorization models.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "wkt::internal::I64")]
             pub num_factors: i64,
 
             /// Feedback type that specifies which algorithm to run for matrix
@@ -10657,27 +10657,27 @@ pub mod model {
 
             /// The number of periods ahead that need to be forecasted.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "wkt::internal::I64")]
             pub horizon: i64,
 
             /// The max value of the sum of non-seasonal p and q.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "wkt::internal::I64")]
             pub auto_arima_max_order: i64,
 
             /// The min value of the sum of non-seasonal p and q.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "wkt::internal::I64")]
             pub auto_arima_min_order: i64,
 
             /// Number of trials to run this hyperparameter tuning job.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "wkt::internal::I64")]
             pub num_trials: i64,
 
             /// Maximum number of trials to run in parallel.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "wkt::internal::I64")]
             pub max_parallel_trials: i64,
 
             /// The target evaluation metrics to optimize the hyperparameters for.
@@ -10704,12 +10704,12 @@ pub mod model {
 
             /// Number of paths for the sampled Shapley explain method.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "wkt::internal::I64")]
             pub sampled_shapley_num_paths: i64,
 
             /// Number of integral steps for the integrated gradients explain method.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "wkt::internal::I64")]
             pub integrated_gradients_num_steps: i64,
 
             /// Categorical feature encoding method.
@@ -10740,7 +10740,7 @@ pub mod model {
             /// element is padded to fill the smoothing window before the average is
             /// applied.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "wkt::internal::I64")]
             pub trend_smoothing_window_size: i64,
 
             /// The fraction of the interpolated length of the time series that's used
@@ -10763,14 +10763,14 @@ pub mod model {
             /// the `minTimeSeriesLength` value, then the query uses all available time
             /// points.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "wkt::internal::I64")]
             pub min_time_series_length: i64,
 
             /// The maximum number of time points in a time series that can be used in
             /// modeling the trend component of the time series. Don't use this option
             /// with the `timeSeriesLengthFraction` or `minTimeSeriesLength` options.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "wkt::internal::I64")]
             pub max_time_series_length: i64,
 
             /// User-selected XGBoost versions for training of XGBoost models.
@@ -10789,7 +10789,7 @@ pub mod model {
             /// Number of principal components to keep in the PCA model. Must be <= the
             /// number of features.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "wkt::internal::I64")]
             pub num_principal_components: i64,
 
             /// The minimum ratio of cumulative explained variance that needs to be
@@ -11992,7 +11992,7 @@ pub mod model {
 
             /// Time taken to run the iteration in milliseconds.
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
-            #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+            #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
             pub duration_ms: std::option::Option<wkt::Int64Value>,
 
             /// Loss computed on the training data at the end of iteration.
@@ -12182,7 +12182,7 @@ pub mod model {
             pub struct ClusterInfo {
                 /// Centroid id.
                 #[serde(skip_serializing_if = "wkt::internal::is_default")]
-                #[serde_as(as = "serde_with::DisplayFromStr")]
+                #[serde_as(as = "wkt::internal::I64")]
                 pub centroid_id: i64,
 
                 /// Cluster radius, the average distance from centroid
@@ -12193,7 +12193,7 @@ pub mod model {
 
                 /// Cluster size, the total number of points assigned to the cluster.
                 #[serde(skip_serializing_if = "std::option::Option::is_none")]
-                #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+                #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
                 pub cluster_size: std::option::Option<wkt::Int64Value>,
 
                 #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -12660,7 +12660,7 @@ pub mod model {
             pub struct PrincipalComponentInfo {
                 /// Id of the principal component.
                 #[serde(skip_serializing_if = "std::option::Option::is_none")]
-                #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+                #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
                 pub principal_component_id: std::option::Option<wkt::Int64Value>,
 
                 /// Explained variance by this principal component, which is simply the
@@ -13155,12 +13155,12 @@ pub mod model {
         pub struct IntRange {
             /// Min value of the int parameter.
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
-            #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+            #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
             pub min: std::option::Option<wkt::Int64Value>,
 
             /// Max value of the int parameter.
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
-            #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+            #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
             pub max: std::option::Option<wkt::Int64Value>,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -13223,7 +13223,7 @@ pub mod model {
         pub struct IntCandidates {
             /// Candidates for the int parameter in increasing order.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-            #[serde_as(as = "std::vec::Vec<serde_with::DisplayFromStr>")]
+            #[serde_as(as = "std::vec::Vec<wkt::internal::I64>")]
             pub candidates: std::vec::Vec<wkt::Int64Value>,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -13355,7 +13355,7 @@ pub mod model {
         pub struct IntArray {
             /// Elements in the int array.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-            #[serde_as(as = "std::vec::Vec<serde_with::DisplayFromStr>")]
+            #[serde_as(as = "std::vec::Vec<wkt::internal::I64>")]
             pub elements: std::vec::Vec<i64>,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -13907,17 +13907,17 @@ pub mod model {
     pub struct HparamTuningTrial {
         /// 1-based index of the trial.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub trial_id: i64,
 
         /// Starting time of the trial.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub start_time_ms: i64,
 
         /// Ending time of the trial.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub end_time_ms: i64,
 
         /// The hyperprameters selected for this trial.
@@ -16769,7 +16769,7 @@ impl wkt::message::Message for PartitionedColumn {
 pub struct AggregationThresholdPolicy {
     /// Optional. The threshold for the "aggregation threshold" policy.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub threshold: std::option::Option<i64>,
 
     /// Optional. The privacy unit column(s) associated with this policy.
@@ -16854,7 +16854,7 @@ pub struct DifferentialPrivacyPolicy {
     /// contribute. Changing this value does not improve or worsen privacy. The
     /// best value for accuracy and utility depends on the query and data.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub max_groups_contributed: std::option::Option<i64>,
 
     /// Optional. The privacy unit column associated with this policy. Differential
@@ -18233,13 +18233,13 @@ pub struct Routine {
     /// Output only. The time when this routine was created, in milliseconds since
     /// the epoch.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub creation_time: i64,
 
     /// Output only. The time when this routine was last modified, in milliseconds
     /// since the epoch.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub last_modified_time: i64,
 
     /// Optional. Defaults to "SQL" if remote_function_options field is absent, not
@@ -19014,7 +19014,7 @@ pub mod routine {
         /// If absent or if 0, BigQuery dynamically decides the number of rows in a
         /// batch.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub max_batching_rows: i64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -21886,13 +21886,13 @@ pub struct TableReplicationInfo {
     /// It's Optional. If not specified, default replication interval would be
     /// applied.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub replication_interval_ms: i64,
 
     /// Optional. Output only. If source is a materialized view, this field
     /// signifies the last refresh time of the source.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub replicated_source_last_refresh_time: i64,
 
     /// Optional. Output only. Replication status of configured replication.
@@ -22317,7 +22317,7 @@ pub struct MaterializedViewDefinition {
     /// Output only. The time when this materialized view was last refreshed, in
     /// milliseconds since the epoch.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub last_refresh_time: i64,
 
     /// Optional. Enable automatic refresh of the materialized view when the base
@@ -22328,7 +22328,7 @@ pub struct MaterializedViewDefinition {
     /// Optional. The maximum frequency at which this materialized view will be
     /// refreshed. The default value is "1800000" (30 minutes).
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::U64>")]
     pub refresh_interval_ms: std::option::Option<wkt::UInt64Value>,
 
     /// Optional. This option declares the intention to construct a materialized
@@ -22636,20 +22636,20 @@ pub struct Streamingbuffer {
     /// Output only. A lower-bound estimate of the number of bytes currently in
     /// the streaming buffer.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::U64")]
     pub estimated_bytes: u64,
 
     /// Output only. A lower-bound estimate of the number of rows currently in the
     /// streaming buffer.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::U64")]
     pub estimated_rows: u64,
 
     /// Output only. Contains the timestamp of the oldest entry in the streaming
     /// buffer, in milliseconds since the epoch, if the streaming buffer is
     /// available.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::U64")]
     pub oldest_entry_time: u64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -22763,31 +22763,31 @@ pub struct Table {
     /// Output only. The size of this table in logical bytes, excluding any data in
     /// the streaming buffer.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub num_bytes: std::option::Option<wkt::Int64Value>,
 
     /// Output only. The physical size of this table in bytes. This includes
     /// storage used for time travel.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub num_physical_bytes: std::option::Option<wkt::Int64Value>,
 
     /// Output only. The number of logical bytes in the table that are considered
     /// "long-term storage".
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub num_long_term_bytes: std::option::Option<wkt::Int64Value>,
 
     /// Output only. The number of rows of data in this table, excluding any data
     /// in the streaming buffer.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::U64>")]
     pub num_rows: std::option::Option<wkt::UInt64Value>,
 
     /// Output only. The time when this table was created, in milliseconds since
     /// the epoch.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub creation_time: i64,
 
     /// Optional. The time when this table expires, in milliseconds since the
@@ -22796,13 +22796,13 @@ pub struct Table {
     /// property of the encapsulating dataset can be used to set a default
     /// expirationTime on newly created tables.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub expiration_time: std::option::Option<wkt::Int64Value>,
 
     /// Output only. The time when this table was last modified, in milliseconds
     /// since the epoch.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::U64")]
     pub last_modified_time: u64,
 
     /// Output only. Describes the table type. The following values are supported:
@@ -22899,58 +22899,58 @@ pub struct Table {
     /// or changed data). This data is not kept in real time, and might be delayed
     /// by a few seconds to a few minutes.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub num_time_travel_physical_bytes: std::option::Option<wkt::Int64Value>,
 
     /// Output only. Total number of logical bytes in the table or materialized
     /// view.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub num_total_logical_bytes: std::option::Option<wkt::Int64Value>,
 
     /// Output only. Number of logical bytes that are less than 90 days old.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub num_active_logical_bytes: std::option::Option<wkt::Int64Value>,
 
     /// Output only. Number of logical bytes that are more than 90 days old.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub num_long_term_logical_bytes: std::option::Option<wkt::Int64Value>,
 
     /// Output only. Number of physical bytes used by current live data storage.
     /// This data is not kept in real time, and might be delayed by a few seconds
     /// to a few minutes.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub num_current_physical_bytes: std::option::Option<wkt::Int64Value>,
 
     /// Output only. The physical size of this table in bytes. This also includes
     /// storage used for time travel. This data is not kept in real time, and might
     /// be delayed by a few seconds to a few minutes.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub num_total_physical_bytes: std::option::Option<wkt::Int64Value>,
 
     /// Output only. Number of physical bytes less than 90 days old. This data is
     /// not kept in real time, and might be delayed by a few seconds to a few
     /// minutes.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub num_active_physical_bytes: std::option::Option<wkt::Int64Value>,
 
     /// Output only. Number of physical bytes more than 90 days old.
     /// This data is not kept in real time, and might be delayed by a few seconds
     /// to a few minutes.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub num_long_term_physical_bytes: std::option::Option<wkt::Int64Value>,
 
     /// Output only. The number of partitions present in the table or materialized
     /// view. This data is not kept in real time, and might be delayed by a few
     /// seconds to a few minutes.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub num_partitions: std::option::Option<wkt::Int64Value>,
 
     /// Optional. The maximum staleness of data that could be returned when the
@@ -24420,14 +24420,14 @@ pub struct ListFormatTable {
     /// Output only. The time when this table was created, in milliseconds since
     /// the epoch.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub creation_time: i64,
 
     /// The time when this table expires, in milliseconds since the
     /// epoch. If not present, the table will persist indefinitely. Expired tables
     /// will be deleted and their storage reclaimed.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub expiration_time: i64,
 
     /// Optional. If set to true, queries including this table must specify a
@@ -25332,7 +25332,7 @@ pub struct TableFieldSchema {
     ///
     /// It is invalid to set this field if type &ne; "STRING" and &ne; "BYTES".
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub max_length: i64,
 
     /// Optional. Precision (maximum number of total digits in base 10) and scale
@@ -25369,12 +25369,12 @@ pub struct TableFieldSchema {
     ///
     /// If scale is specified but not precision, then it is invalid.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub precision: i64,
 
     /// Optional. See documentation for precision.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub scale: i64,
 
     /// Optional. Specifies the rounding mode to be used when storing values of
@@ -25837,7 +25837,7 @@ pub struct TimePartitioning {
     /// partition.
     /// A wrapper is used here because 0 is an invalid value.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub expiration_ms: std::option::Option<wkt::Int64Value>,
 
     /// Optional. If not set, the table is partitioned by pseudo

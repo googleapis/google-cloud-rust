@@ -187,17 +187,17 @@ pub mod backup {
         /// Output only. Summation of the size of all documents and index entries in
         /// the backup, measured in bytes.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub size_bytes: i64,
 
         /// Output only. The total number of documents contained in the backup.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub document_count: i64,
 
         /// Output only. The total number of index entries contained in the backup.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub index_count: i64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7389,12 +7389,12 @@ impl wkt::message::Message for RestoreDatabaseMetadata {
 pub struct Progress {
     /// The amount of work estimated.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub estimated_work: i64,
 
     /// The amount of work completed.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub completed_work: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

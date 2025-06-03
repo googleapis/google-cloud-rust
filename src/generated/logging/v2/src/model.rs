@@ -599,7 +599,7 @@ pub struct LogEntrySourceLocation {
     /// Optional. Line within the source file. 1-based; 0 indicates no line number
     /// available.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub line: i64,
 
     /// Optional. Human-readable name of the function or method being invoked, with
@@ -5618,7 +5618,7 @@ impl wkt::message::Message for CopyLogEntriesMetadata {
 pub struct CopyLogEntriesResponse {
     /// Number of log entries copied.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub log_entries_copied_count: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

@@ -843,7 +843,7 @@ pub struct CustomAttribute {
     /// [google.cloud.talent.v4.CustomAttribute.long_values]: crate::model::CustomAttribute::long_values
     /// [google.cloud.talent.v4.CustomAttribute.string_values]: crate::model::CustomAttribute::string_values
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "std::vec::Vec<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::vec::Vec<wkt::internal::I64>")]
     pub long_values: std::vec::Vec<i64>,
 
     /// If the `filterable` flag is true, the custom field values may be used for
@@ -5233,7 +5233,7 @@ pub struct HistogramQueryResult {
     /// * (for anonymous numeric bucket) range formatted as `<low>-<high>`, for
     ///   example, `0-1000`, `MIN-0`, and `0-MAX`.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    #[serde_as(as = "std::collections::HashMap<_, serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::collections::HashMap<_, wkt::internal::I64>")]
     pub histogram: std::collections::HashMap<std::string::String, i64>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

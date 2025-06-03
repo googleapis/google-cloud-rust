@@ -5164,7 +5164,7 @@ pub struct CloudSqlSettings {
     /// The maximum size to which storage capacity can be automatically increased.
     /// The default value is 0, which specifies that there is no limit.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub storage_auto_resize_limit: std::option::Option<wkt::Int64Value>,
 
     /// The activation policy specifies when the instance is activated; it is
@@ -5205,7 +5205,7 @@ pub struct CloudSqlSettings {
     /// The storage capacity available to the database, in GB.
     /// The minimum (and default) size is 10GB.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub data_disk_size_gb: std::option::Option<wkt::Int64Value>,
 
     /// The Google Cloud Platform zone where your Cloud SQL database instance is
@@ -10660,7 +10660,7 @@ pub struct MappingRule {
     /// Required. The order in which the rule is applied. Lower order rules are
     /// applied before higher value rules so they may end up being overridden.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub rule_order: i64,
 
     /// Output only. The revision ID of the mapping rule.
@@ -11478,7 +11478,7 @@ pub struct SingleColumnChange {
 
     /// Optional. Column length - e.g. 50 as in varchar (50) - when relevant.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub length: i64,
 
     /// Optional. Column precision - e.g. 8 as in double (8,2) - when relevant.
@@ -11684,7 +11684,7 @@ pub struct MultiColumnDatatypeChange {
     /// Optional. Column length - e.g. varchar (50) - if not specified and relevant
     /// uses the source column length.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub override_length: i64,
 
     /// Optional. Column scale - when relevant - if not specified and relevant
@@ -11899,13 +11899,13 @@ pub struct SourceTextFilter {
     /// Optional. The filter will match columns with length greater than or equal
     /// to this number.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub source_min_length_filter: i64,
 
     /// Optional. The filter will match columns with length smaller than or equal
     /// to this number.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub source_max_length_filter: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -12901,7 +12901,7 @@ pub struct IntComparisonFilter {
 
     /// Required. Integer compare value to be used
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub value: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -13986,7 +13986,7 @@ pub struct ColumnEntity {
 
     /// Column length - e.g. varchar (50).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub length: i64,
 
     /// Column precision - when relevant.
@@ -14574,7 +14574,7 @@ impl wkt::message::Message for ViewEntity {
 pub struct SequenceEntity {
     /// Increment value for the sequence.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub increment: i64,
 
     /// Start number for the sequence represented as bytes to accommodate large.
@@ -14601,7 +14601,7 @@ pub struct SequenceEntity {
 
     /// Indicates number of entries to cache / precreate.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub cache: i64,
 
     /// Custom engine specific features.

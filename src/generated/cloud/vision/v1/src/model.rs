@@ -1396,7 +1396,7 @@ pub struct Property {
 
     /// Value of numeric properties.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::U64")]
     pub uint64_value: u64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

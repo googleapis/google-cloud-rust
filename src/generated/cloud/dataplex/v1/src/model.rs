@@ -5896,27 +5896,27 @@ pub mod metadata_job {
     pub struct ImportJobResult {
         /// Output only. The total number of entries that were deleted.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub deleted_entries: i64,
 
         /// Output only. The total number of entries that were updated.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub updated_entries: i64,
 
         /// Output only. The total number of entries that were created.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub created_entries: i64,
 
         /// Output only. The total number of entries that were unchanged.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub unchanged_entries: i64,
 
         /// Output only. The total number of entries that were recreated.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub recreated_entries: i64,
 
         /// Output only. The time when the status was updated.
@@ -5997,7 +5997,7 @@ pub mod metadata_job {
     pub struct ExportJobResult {
         /// Output only. The number of entries that were exported.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub exported_entries: i64,
 
         /// Output only. The error message if the metadata export job failed.
@@ -9289,7 +9289,7 @@ pub mod data_discovery_result {
 
         /// The data processed in bytes.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub data_processed_bytes: i64,
 
         /// The number of files excluded.
@@ -9677,7 +9677,7 @@ pub mod data_profile_spec {
 pub struct DataProfileResult {
     /// The count of rows scanned.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub row_count: i64,
 
     /// The profile information per field.
@@ -10083,12 +10083,12 @@ pub mod data_profile_result {
                 pub struct StringFieldInfo {
                     /// Minimum length of non-null values in the scanned data.
                     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-                    #[serde_as(as = "serde_with::DisplayFromStr")]
+                    #[serde_as(as = "wkt::internal::I64")]
                     pub min_length: i64,
 
                     /// Maximum length of non-null values in the scanned data.
                     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-                    #[serde_as(as = "serde_with::DisplayFromStr")]
+                    #[serde_as(as = "wkt::internal::I64")]
                     pub max_length: i64,
 
                     /// Average length of non-null values in the scanned data.
@@ -10153,7 +10153,7 @@ pub mod data_profile_result {
                     /// Minimum of non-null values in the scanned data. NaN, if the field
                     /// has a NaN.
                     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-                    #[serde_as(as = "serde_with::DisplayFromStr")]
+                    #[serde_as(as = "wkt::internal::I64")]
                     pub min: i64,
 
                     /// A quartile divides the number of data points into four parts, or
@@ -10169,13 +10169,13 @@ pub mod data_profile_result {
                     /// quartile values for the scanned data, occurring in order Q1,
                     /// median, Q3.
                     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-                    #[serde_as(as = "std::vec::Vec<serde_with::DisplayFromStr>")]
+                    #[serde_as(as = "std::vec::Vec<wkt::internal::I64>")]
                     pub quartiles: std::vec::Vec<i64>,
 
                     /// Maximum of non-null values in the scanned data. NaN, if the field
                     /// has a NaN.
                     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-                    #[serde_as(as = "serde_with::DisplayFromStr")]
+                    #[serde_as(as = "wkt::internal::I64")]
                     pub max: i64,
 
                     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10347,7 +10347,7 @@ pub mod data_profile_result {
 
                     /// Count of the corresponding value in the scanned data.
                     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-                    #[serde_as(as = "serde_with::DisplayFromStr")]
+                    #[serde_as(as = "wkt::internal::I64")]
                     pub count: i64,
 
                     /// Ratio of the corresponding value in the field against the total
@@ -11167,7 +11167,7 @@ pub struct DataQualityResult {
 
     /// Output only. The count of rows processed.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub row_count: i64,
 
     /// Output only. The data scanned for this result.
@@ -11568,7 +11568,7 @@ pub struct DataQualityRuleResult {
     ///
     /// This field is not set for rule SqlAssertion.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub evaluated_count: i64,
 
     /// Output only. The number of rows which passed a rule evaluation.
@@ -11577,12 +11577,12 @@ pub struct DataQualityRuleResult {
     ///
     /// This field is not set for rule SqlAssertion.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub passed_count: i64,
 
     /// Output only. The number of rows with null values in the specified column.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub null_count: i64,
 
     /// Output only. The ratio of **passed_count / evaluated_count**.
@@ -11603,7 +11603,7 @@ pub struct DataQualityRuleResult {
     ///
     /// This field is only valid for SQL assertion rules.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub assertion_row_count: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -18965,12 +18965,12 @@ pub mod session_event {
 
         /// The size of results the query produced.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub result_size_bytes: i64,
 
         /// The data processed by the query.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub data_processed_bytes: i64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -20243,7 +20243,7 @@ pub mod data_scan_event {
     pub struct DataProfileResult {
         /// The count of rows processed in the data scan job.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub row_count: i64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -20276,7 +20276,7 @@ pub mod data_scan_event {
     pub struct DataQualityResult {
         /// The count of rows processed in the data scan job.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub row_count: i64,
 
         /// Whether the data quality result was `pass` or not.
@@ -21370,24 +21370,24 @@ pub struct DataQualityScanRuleResult {
     /// The number of rows evaluated against the data quality rule.
     /// This field is only valid for rules of PER_ROW evaluation type.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub evaluated_row_count: i64,
 
     /// The number of rows which passed a rule evaluation.
     /// This field is only valid for rules of PER_ROW evaluation type.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub passed_row_count: i64,
 
     /// The number of rows with null values in the specified column.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub null_row_count: i64,
 
     /// The number of rows returned by the SQL statement in a SQL assertion rule.
     /// This field is only valid for SQL assertion rules.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub assertion_row_count: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -30040,22 +30040,22 @@ pub mod asset {
         pub struct Stats {
             /// The count of data items within the referenced resource.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "wkt::internal::I64")]
             pub data_items: i64,
 
             /// The number of stored data bytes within the referenced resource.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "wkt::internal::I64")]
             pub data_size: i64,
 
             /// The count of table entities within the referenced resource.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "wkt::internal::I64")]
             pub tables: i64,
 
             /// The count of fileset entities within the referenced resource.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "wkt::internal::I64")]
             pub filesets: i64,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

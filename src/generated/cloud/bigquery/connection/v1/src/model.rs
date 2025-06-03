@@ -391,12 +391,12 @@ pub struct Connection {
 
     /// Output only. The creation timestamp of the connection.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub creation_time: i64,
 
     /// Output only. The last update timestamp of the connection.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub last_modified_time: i64,
 
     /// Output only. True, if credential is configured for this connection.

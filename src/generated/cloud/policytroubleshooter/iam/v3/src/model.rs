@@ -654,7 +654,7 @@ pub mod condition_context {
 
         /// The network port of the peer.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub port: i64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

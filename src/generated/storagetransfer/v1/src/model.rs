@@ -2747,7 +2747,7 @@ pub mod agent_pool {
         /// Bandwidth rate in megabytes per second, distributed across all the agents
         /// in the pool.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub limit_mbps: i64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6180,7 +6180,7 @@ pub struct ErrorSummary {
 
     /// Required. Count of this type of error.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub error_count: i64,
 
     /// Error samples.
@@ -6239,88 +6239,88 @@ pub struct TransferCounters {
     /// excluding any that are filtered based on object conditions or skipped due
     /// to sync.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub objects_found_from_source: i64,
 
     /// Bytes found in the data source that are scheduled to be transferred,
     /// excluding any that are filtered based on object conditions or skipped due
     /// to sync.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub bytes_found_from_source: i64,
 
     /// Objects found only in the data sink that are scheduled to be deleted.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub objects_found_only_from_sink: i64,
 
     /// Bytes found only in the data sink that are scheduled to be deleted.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub bytes_found_only_from_sink: i64,
 
     /// Objects in the data source that are not transferred because they already
     /// exist in the data sink.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub objects_from_source_skipped_by_sync: i64,
 
     /// Bytes in the data source that are not transferred because they already
     /// exist in the data sink.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub bytes_from_source_skipped_by_sync: i64,
 
     /// Objects that are copied to the data sink.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub objects_copied_to_sink: i64,
 
     /// Bytes that are copied to the data sink.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub bytes_copied_to_sink: i64,
 
     /// Objects that are deleted from the data source.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub objects_deleted_from_source: i64,
 
     /// Bytes that are deleted from the data source.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub bytes_deleted_from_source: i64,
 
     /// Objects that are deleted from the data sink.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub objects_deleted_from_sink: i64,
 
     /// Bytes that are deleted from the data sink.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub bytes_deleted_from_sink: i64,
 
     /// Objects in the data source that failed to be transferred or that failed
     /// to be deleted after being transferred.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub objects_from_source_failed: i64,
 
     /// Bytes in the data source that failed to be transferred or that failed to
     /// be deleted after being transferred.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub bytes_from_source_failed: i64,
 
     /// Objects that failed to be deleted from the data sink.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub objects_failed_to_delete_from_sink: i64,
 
     /// Bytes that failed to be deleted from the data sink.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub bytes_failed_to_delete_from_sink: i64,
 
     /// For transfers involving PosixFilesystem only.
@@ -6330,7 +6330,7 @@ pub struct TransferCounters {
     /// `a/` and `b/` under this directory, the count after listing `base/`,
     /// `base/a/` and `base/b/` is 3.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub directories_found_from_source: i64,
 
     /// For transfers involving PosixFilesystem only.
@@ -6340,24 +6340,24 @@ pub struct TransferCounters {
     /// block failure. If listing a directory fails, no files in the directory are
     /// transferred.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub directories_failed_to_list_from_source: i64,
 
     /// For transfers involving PosixFilesystem only.
     ///
     /// Number of successful listings for each directory found at the source.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub directories_successfully_listed_from_source: i64,
 
     /// Number of successfully cleaned up intermediate objects.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub intermediate_objects_cleaned_up: i64,
 
     /// Number of intermediate objects failed cleaned up.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub intermediate_objects_failed_cleaned_up: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

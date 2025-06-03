@@ -3280,7 +3280,7 @@ pub struct Distribution {
     /// must equal the sum of the values in `bucket_counts` if a histogram is
     /// provided.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub count: i64,
 
     /// The arithmetic mean of the values in the population. If `count` is zero
@@ -3330,7 +3330,7 @@ pub struct Distribution {
     /// counts for the finite buckets (number 1 through N-2). The N'th value in
     /// `bucket_counts` is the count for the overflow bucket (number N-1).
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "std::vec::Vec<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::vec::Vec<wkt::internal::I64>")]
     pub bucket_counts: std::vec::Vec<i64>,
 
     /// Must be in increasing order of `value` field.
@@ -7401,7 +7401,7 @@ pub struct MetricRule {
     /// increased for the metric against which the quota limits are defined.
     /// The value must not be negative.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    #[serde_as(as = "std::collections::HashMap<_, serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::collections::HashMap<_, wkt::internal::I64>")]
     pub metric_costs: std::collections::HashMap<std::string::String, i64>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7472,7 +7472,7 @@ pub struct QuotaLimit {
     ///
     /// Used by group-based quotas only.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub default_limit: i64,
 
     /// Maximum number of tokens that can be consumed during the specified
@@ -7485,7 +7485,7 @@ pub struct QuotaLimit {
     ///
     /// Used by group-based quotas only.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub max_limit: i64,
 
     /// Free tier value displayed in the Developers Console for this limit.
@@ -7497,7 +7497,7 @@ pub struct QuotaLimit {
     ///
     /// Used by group-based quotas only.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub free_tier: i64,
 
     /// Duration of this limit in textual notation. Must be "100s" or "1d".
@@ -7531,7 +7531,7 @@ pub struct QuotaLimit {
     /// integer value that is the maximum number of requests allowed for the
     /// specified unit. Currently only STANDARD is supported.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    #[serde_as(as = "std::collections::HashMap<_, serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::collections::HashMap<_, wkt::internal::I64>")]
     pub values: std::collections::HashMap<std::string::String, i64>,
 
     /// User-visible display name for this limit.

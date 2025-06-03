@@ -4160,7 +4160,7 @@ pub mod rule {
         /// The max size of this map is 120, equivalent to the max [request page
         /// size](https://cloud.google.com/retail/docs/reference/rest/v2/projects.locations.catalogs.placements/search#request-body).
         #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-        #[serde_as(as = "std::collections::HashMap<serde_with::DisplayFromStr, _>")]
+        #[serde_as(as = "std::collections::HashMap<wkt::internal::I64, _>")]
         pub pin_map: std::collections::HashMap<i64, std::string::String>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5531,14 +5531,14 @@ impl wkt::message::Message for LocalInventory {
 pub struct PinControlMetadata {
     /// Map of all matched pins, keyed by pin position.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    #[serde_as(as = "std::collections::HashMap<serde_with::DisplayFromStr, _>")]
+    #[serde_as(as = "std::collections::HashMap<wkt::internal::I64, _>")]
     pub all_matched_pins:
         std::collections::HashMap<i64, crate::model::pin_control_metadata::ProductPins>,
 
     /// Map of pins that were dropped due to overlap with other matching pins,
     /// keyed by pin position.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    #[serde_as(as = "std::collections::HashMap<serde_with::DisplayFromStr, _>")]
+    #[serde_as(as = "std::collections::HashMap<wkt::internal::I64, _>")]
     pub dropped_pins:
         std::collections::HashMap<i64, crate::model::pin_control_metadata::ProductPins>,
 
@@ -9085,12 +9085,12 @@ pub struct ImportMetadata {
 
     /// Count of entries that were processed successfully.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub success_count: i64,
 
     /// Count of entries that encountered errors while processing.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub failure_count: i64,
 
     /// Deprecated. This field is never set.
@@ -9345,13 +9345,13 @@ impl wkt::message::Message for ImportUserEventsResponse {
 pub struct UserEventImportSummary {
     /// Count of user events imported with complete existing catalog information.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub joined_events_count: i64,
 
     /// Count of user events imported, but with catalog information not found
     /// in the imported catalog.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub unjoined_events_count: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -14578,12 +14578,12 @@ pub struct PurgeProductsMetadata {
 
     /// Count of entries that were deleted successfully.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub success_count: i64,
 
     /// Count of entries that encountered errors while processing.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub failure_count: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -14758,7 +14758,7 @@ impl wkt::message::Message for PurgeProductsRequest {
 pub struct PurgeProductsResponse {
     /// The total count of products purged as a result of the operation.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub purge_count: i64,
 
     /// A sample of the product names that will be deleted.
@@ -14890,7 +14890,7 @@ impl wkt::message::Message for PurgeUserEventsRequest {
 pub struct PurgeUserEventsResponse {
     /// The total count of events purged as a result of the operation.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub purged_events_count: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -18256,7 +18256,7 @@ pub mod search_response {
         pub struct FacetValue {
             /// Number of items that have this facet value.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "wkt::internal::I64")]
             pub count: i64,
 
             /// The minimum value in the
@@ -18434,7 +18434,7 @@ pub mod search_response {
         ///
         /// [google.cloud.retail.v2.SearchRequest.QueryExpansionSpec.pin_unexpanded_results]: crate::model::search_request::QueryExpansionSpec::pin_unexpanded_results
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub pinned_result_count: i64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -20851,7 +20851,7 @@ pub struct CollectUserEventRequest {
     /// otherwise identical get requests. The name is abbreviated to reduce the
     /// payload bytes.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub ets: i64,
 
     /// An arbitrary serialized JSON string that contains necessary information
@@ -21178,7 +21178,7 @@ pub mod rejoin_user_events_request {
 pub struct RejoinUserEventsResponse {
     /// Number of user events that were joined with latest product catalog.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub rejoined_user_events_count: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

@@ -734,7 +734,7 @@ pub struct AcceleratorConfig {
 
     /// Optional. Count of cores of this accelerator.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub core_count: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1086,7 +1086,7 @@ pub struct DataDisk {
     /// Optional. The size of the disk in GB attached to this VM instance, up to a
     /// maximum of 64000 GB (64 TB). If not specified, this defaults to 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub disk_size_gb: i64,
 
     /// Optional. Input only. Indicates the type of the disk.
@@ -1159,7 +1159,7 @@ pub struct BootDisk {
     /// a maximum of 64000 GB (64 TB). If not specified, this defaults to the
     /// recommended value of 150GB.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub disk_size_gb: i64,
 
     /// Optional. Indicates the type of the disk.

@@ -212,7 +212,7 @@ pub struct ProtectedResourcesSummary {
     /// The total number of protected resources in the same Cloud organization as
     /// the key.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub resource_count: i64,
 
     /// The number of distinct Cloud projects in the same Cloud organization as the
@@ -223,17 +223,17 @@ pub struct ProtectedResourcesSummary {
 
     /// The number of resources protected by the key grouped by resource type.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    #[serde_as(as = "std::collections::HashMap<_, serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::collections::HashMap<_, wkt::internal::I64>")]
     pub resource_types: std::collections::HashMap<std::string::String, i64>,
 
     /// The number of resources protected by the key grouped by Cloud product.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    #[serde_as(as = "std::collections::HashMap<_, serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::collections::HashMap<_, wkt::internal::I64>")]
     pub cloud_products: std::collections::HashMap<std::string::String, i64>,
 
     /// The number of resources protected by the key grouped by region.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    #[serde_as(as = "std::collections::HashMap<_, serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::collections::HashMap<_, wkt::internal::I64>")]
     pub locations: std::collections::HashMap<std::string::String, i64>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

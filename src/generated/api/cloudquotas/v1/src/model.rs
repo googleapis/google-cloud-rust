@@ -1388,7 +1388,7 @@ pub struct QuotaConfig {
     /// Required. The preferred value. Must be greater than or equal to -1. If set
     /// to -1, it means the value is "unlimited".
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub preferred_value: i64,
 
     /// Output only. Optional details about the state of this quota preference.
@@ -1397,7 +1397,7 @@ pub struct QuotaConfig {
 
     /// Output only. Granted quota value.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub granted_value: std::option::Option<wkt::Int64Value>,
 
     /// Output only. The trace id that the Google Cloud uses to provision the
@@ -1723,7 +1723,7 @@ impl wkt::message::Message for DimensionsInfo {
 pub struct QuotaDetails {
     /// The value currently in effect and being enforced.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub value: i64,
 
     /// Rollout information of this quota.

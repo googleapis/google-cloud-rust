@@ -794,13 +794,13 @@ impl wkt::message::Message for Expr {
 pub struct Fraction {
     /// The numerator in the fraction, e.g. 2 in 2/3.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub numerator: i64,
 
     /// The value by which the numerator is divided, e.g. 3 in 2/3. Must be
     /// positive.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub denominator: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1014,7 +1014,7 @@ pub struct Money {
     /// The whole units of the amount.
     /// For example if `currencyCode` is `"USD"`, then 1 unit is one US dollar.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub units: i64,
 
     /// Number of nano (10^-9) units of the amount.

@@ -4960,7 +4960,7 @@ pub struct VertexDatasetSpec {
     /// The number of DataItems in this Dataset. Only apply for non-structured
     /// Dataset.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub data_item_count: i64,
 
     /// Type of the dataset.
@@ -6707,17 +6707,17 @@ impl wkt::message::Message for ReconcileTagsRequest {
 pub struct ReconcileTagsResponse {
     /// Number of tags created in the request.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub created_tags_count: i64,
 
     /// Number of tags updated in the request.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub updated_tags_count: i64,
 
     /// Number of tags deleted in the request.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub deleted_tags_count: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7355,12 +7355,12 @@ pub struct ImportEntriesResponse {
     /// Cumulative number of entries created and entries updated as a result of
     /// import operation.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub upserted_entries_count: std::option::Option<i64>,
 
     /// Number of entries deleted as a result of import operation.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub deleted_entries_count: std::option::Option<i64>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8629,7 +8629,7 @@ pub struct GcsFileSpec {
 
     /// Output only. File size in bytes.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub size_bytes: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11938,7 +11938,7 @@ pub struct BigQueryDateShardedSpec {
 
     /// Output only. Total number of shards.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub shard_count: i64,
 
     /// Output only. BigQuery resource name of the latest shard.
@@ -13349,7 +13349,7 @@ impl wkt::message::Message for UsageStats {
 pub struct CommonUsageStats {
     /// View count in source system.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub view_count: std::option::Option<i64>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -13416,7 +13416,7 @@ pub struct UsageSignal {
 
     /// Favorite count in the source system.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub favorite_count: std::option::Option<i64>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

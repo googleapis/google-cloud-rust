@@ -448,12 +448,12 @@ pub mod document {
     pub struct ShardInfo {
         /// The 0-based index of this shard.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub shard_index: i64,
 
         /// Total number of shards.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub shard_count: i64,
 
         /// The index of the first character in
@@ -462,7 +462,7 @@ pub mod document {
         ///
         /// [google.cloud.documentai.v1.Document.text]: crate::model::Document::text
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub text_offset: i64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3767,7 +3767,7 @@ pub mod document {
             /// [google.cloud.documentai.v1.Document.TextAnchor.TextSegment]: crate::model::document::text_anchor::TextSegment
             /// [google.cloud.documentai.v1.Document.text]: crate::model::Document::text
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "wkt::internal::I64")]
             pub start_index: i64,
 
             /// [TextSegment][google.cloud.documentai.v1.Document.TextAnchor.TextSegment]
@@ -3777,7 +3777,7 @@ pub mod document {
             /// [google.cloud.documentai.v1.Document.TextAnchor.TextSegment]: crate::model::document::text_anchor::TextSegment
             /// [google.cloud.documentai.v1.Document.text]: crate::model::Document::text
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "wkt::internal::I64")]
             pub end_index: i64,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3871,7 +3871,7 @@ pub mod document {
             ///
             /// [google.cloud.documentai.v1.Document.pages]: crate::model::Document::pages
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "wkt::internal::I64")]
             pub page: i64,
 
             /// Optional. The type of the layout element that is being referenced if

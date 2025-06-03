@@ -875,7 +875,7 @@ pub struct Backup {
     /// creating a new volume from the backup, the volume capacity will have to be
     /// at least as big.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub volume_usage_bytes: i64,
 
     /// Output only. Type of backup, manually created or created by a backup
@@ -907,7 +907,7 @@ pub struct Backup {
     /// Output only. Total size of all backups in a chain in bytes = baseline
     /// backup size + sum(incremental backup size)
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub chain_storage_bytes: i64,
 
     /// Output only. Reserved for future use
@@ -5205,7 +5205,7 @@ pub mod quota_rule {
 pub struct TransferStats {
     /// Cumulative bytes transferred so far for the replication relationship.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub transfer_bytes: std::option::Option<i64>,
 
     /// Cumulative time taken across all transfers for the replication
@@ -5215,7 +5215,7 @@ pub struct TransferStats {
 
     /// Last transfer size in bytes.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub last_transfer_bytes: std::option::Option<i64>,
 
     /// Time taken during last transfer.
@@ -8296,12 +8296,12 @@ pub struct StoragePool {
 
     /// Required. Capacity in GIB of the pool
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub capacity_gib: i64,
 
     /// Output only. Allocated size of all volumes in GIB in the storage pool
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub volume_capacity_gib: i64,
 
     /// Output only. Volume count of the storage pool
@@ -8391,13 +8391,13 @@ pub struct StoragePool {
 
     /// Optional. Custom Performance Total Throughput of the pool (in MiB/s)
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub total_throughput_mibps: i64,
 
     /// Optional. Custom Performance Total IOPS of the pool
     /// If not provided, it will be calculated based on the total_throughput_mibps
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub total_iops: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9283,7 +9283,7 @@ pub struct Volume {
 
     /// Required. Capacity in GIB of the volume
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub capacity_gib: i64,
 
     /// Optional. Export policy of the volume
@@ -9334,7 +9334,7 @@ pub struct Volume {
     /// Output only. Used capacity in GIB of the volume. This is computed
     /// periodically and it does not represent the realtime usage.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub used_gib: i64,
 
     /// Optional. Security Style of the Volume
@@ -9404,7 +9404,7 @@ pub struct Volume {
 
     /// Output only. Size of the volume cold tier data in GiB.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub cold_tier_size_gib: i64,
 
     /// Optional. The Hybrid Replication parameters for the volume.
@@ -11027,7 +11027,7 @@ pub struct BackupConfig {
     /// Output only. Total size of all backups in a chain in bytes = baseline
     /// backup size + sum(incremental backup size).
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub backup_chain_bytes: std::option::Option<i64>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

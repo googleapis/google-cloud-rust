@@ -2520,7 +2520,7 @@ pub mod transaction_data {
 
         /// Optional. The epoch milliseconds of the user's account creation.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub creation_ms: i64,
 
         /// Optional. The email address of the user.
@@ -2614,7 +2614,7 @@ pub mod transaction_data {
 
         /// Optional. The quantity of this item that is being purchased.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub quantity: i64,
 
         /// Optional. When a merchant is specified, its corresponding account_id.
@@ -6587,7 +6587,7 @@ pub struct ScoreDistribution {
     /// between [0, 1]. The maximum number of buckets is on order of a few dozen,
     /// but typically much lower (ie. 10).
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    #[serde_as(as = "std::collections::HashMap<wkt::internal::I32, serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::collections::HashMap<wkt::internal::I32, wkt::internal::I64>")]
     pub score_buckets: std::collections::HashMap<i32, i64>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6689,25 +6689,25 @@ pub struct ChallengeMetrics {
     /// Count of reCAPTCHA checkboxes or badges rendered. This is mostly equivalent
     /// to a count of pageloads for pages that include reCAPTCHA.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub pageload_count: i64,
 
     /// Count of nocaptchas (successful verification without a challenge) issued.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub nocaptcha_count: i64,
 
     /// Count of submitted challenge solutions that were incorrect or otherwise
     /// deemed suspicious such that a subsequent challenge was triggered.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub failed_count: i64,
 
     /// Count of nocaptchas (successful verification without a challenge) plus
     /// submitted challenge solutions that were correct and resulted in
     /// verification.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub passed_count: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

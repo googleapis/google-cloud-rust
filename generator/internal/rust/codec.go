@@ -409,12 +409,10 @@ func scalarFieldType(f *api.Field) string {
 
 func fieldFormatter(typez api.Typez) string {
 	switch typez {
-	case api.INT64_TYPE,
-		api.UINT64_TYPE,
-		api.FIXED64_TYPE,
-		api.SFIXED64_TYPE,
-		api.SINT64_TYPE:
-		return "serde_with::DisplayFromStr"
+	case api.INT64_TYPE, api.SINT64_TYPE, api.SFIXED64_TYPE:
+		return "wkt::internal::I64"
+	case api.UINT64_TYPE, api.FIXED64_TYPE:
+		return "wkt::internal::U64"
 	case api.INT32_TYPE, api.SINT32_TYPE, api.SFIXED32_TYPE:
 		return "wkt::internal::I32"
 	case api.UINT32_TYPE, api.FIXED32_TYPE:

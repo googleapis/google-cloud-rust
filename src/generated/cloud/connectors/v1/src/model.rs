@@ -1462,7 +1462,7 @@ pub mod config_variable {
     #[non_exhaustive]
     pub enum Value {
         /// Value is an integer
-        IntValue(#[serde_as(as = "serde_with::DisplayFromStr")] i64),
+        IntValue(#[serde_as(as = "wkt::internal::I64")] i64),
         /// Value is a bool.
         BoolValue(bool),
         /// Value is a string.

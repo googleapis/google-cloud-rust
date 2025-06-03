@@ -326,13 +326,13 @@ pub struct Progress {
     /// The amount of work that has been completed. Note that this may be greater
     /// than work_estimated.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub work_completed: i64,
 
     /// An estimate of how much work needs to be performed. May be zero if the
     /// work estimate is unavailable.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub work_estimated: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

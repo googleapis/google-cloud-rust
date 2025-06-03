@@ -446,32 +446,32 @@ pub struct MessageWithI64 {
 
     /// A singular field.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub singular: i64,
 
     /// An optional field.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub optional: std::option::Option<i64>,
 
     /// A repeated field.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "std::vec::Vec<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::vec::Vec<wkt::internal::I64>")]
     pub repeated: std::vec::Vec<i64>,
 
     /// Test i64 as values.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    #[serde_as(as = "std::collections::HashMap<_, serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::collections::HashMap<_, wkt::internal::I64>")]
     pub map_value: std::collections::HashMap<std::string::String,i64>,
 
     /// Test i64 as keys.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    #[serde_as(as = "std::collections::HashMap<serde_with::DisplayFromStr, _>")]
+    #[serde_as(as = "std::collections::HashMap<wkt::internal::I64, _>")]
     pub map_key: std::collections::HashMap<i64,std::string::String>,
 
     /// Test i64 as both keys and values.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    #[serde_as(as = "std::collections::HashMap<serde_with::DisplayFromStr, serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::collections::HashMap<wkt::internal::I64, wkt::internal::I64>")]
     pub map_key_value: std::collections::HashMap<i64,i64>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -556,6 +556,128 @@ impl MessageWithI64 {
 impl wkt::message::Message for MessageWithI64 {
     fn typename() -> &'static str {
         "type.googleapis.com/google.rust.sdk.test.MessageWithI64"
+    }
+}
+
+/// A test message for u64.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct MessageWithU64 {
+
+    /// A singular field.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::U64")]
+    pub singular: u64,
+
+    /// An optional field.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::U64>")]
+    pub optional: std::option::Option<u64>,
+
+    /// A repeated field.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "std::vec::Vec<wkt::internal::U64>")]
+    pub repeated: std::vec::Vec<u64>,
+
+    /// Test u64 as values.
+    #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "std::collections::HashMap<_, wkt::internal::U64>")]
+    pub map_value: std::collections::HashMap<std::string::String,u64>,
+
+    /// Test u64 as keys.
+    #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "std::collections::HashMap<wkt::internal::U64, _>")]
+    pub map_key: std::collections::HashMap<u64,std::string::String>,
+
+    /// Test u64 as both keys and values.
+    #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "std::collections::HashMap<wkt::internal::U64, wkt::internal::U64>")]
+    pub map_key_value: std::collections::HashMap<u64,u64>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl MessageWithU64 {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [singular][crate::protos::MessageWithU64::singular].
+    pub fn set_singular<T: std::convert::Into<u64>>(mut self, v: T) -> Self {
+        self.singular = v.into();
+        self
+    }
+
+    /// Sets the value of [optional][crate::protos::MessageWithU64::optional].
+    pub fn set_optional<T>(mut self, v: T) -> Self
+    where T: std::convert::Into<u64>
+    {
+        self.optional = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [optional][crate::protos::MessageWithU64::optional].
+    pub fn set_or_clear_optional<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<u64>
+    {
+        self.optional = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [repeated][crate::protos::MessageWithU64::repeated].
+    pub fn set_repeated<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<u64>
+    {
+        use std::iter::Iterator;
+        self.repeated = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [map_value][crate::protos::MessageWithU64::map_value].
+    pub fn set_map_value<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<u64>,
+    {
+        use std::iter::Iterator;
+        self.map_value = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [map_key][crate::protos::MessageWithU64::map_key].
+    pub fn set_map_key<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<u64>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.map_key = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [map_key_value][crate::protos::MessageWithU64::map_key_value].
+    pub fn set_map_key_value<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<u64>,
+        V: std::convert::Into<u64>,
+    {
+        use std::iter::Iterator;
+        self.map_key_value = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for MessageWithU64 {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.rust.sdk.test.MessageWithU64"
     }
 }
 

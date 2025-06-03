@@ -44,7 +44,7 @@ pub struct AppConnectorInstanceConfig {
     /// by the API provider. Every time a config changes in the backend, the
     /// sequenceNumber should be bumped up to reflect the change.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub sequence_number: i64,
 
     /// The SLM instance agent configuration.

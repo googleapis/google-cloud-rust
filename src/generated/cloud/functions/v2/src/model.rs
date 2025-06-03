@@ -664,7 +664,7 @@ pub struct StorageSource {
     /// Google Cloud Storage generation for the object. If the generation is
     /// omitted, the latest generation will be used.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub generation: i64,
 
     /// When the specified storage bucket is a 1st gen function uploard url bucket,

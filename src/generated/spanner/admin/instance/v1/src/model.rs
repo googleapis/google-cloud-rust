@@ -478,7 +478,7 @@ pub struct InstanceConfig {
 
     /// Output only. The storage limit in bytes per processing unit.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub storage_limit_per_processing_unit: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

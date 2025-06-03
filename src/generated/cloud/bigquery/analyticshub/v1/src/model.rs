@@ -5622,13 +5622,13 @@ pub struct CloudStorageConfig {
     /// before a new file is created. Min 1 KB, max 10 GiB. The max_bytes limit may
     /// be exceeded in cases where messages are larger than the limit.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub max_bytes: i64,
 
     /// Optional. The maximum number of messages that can be written to a Cloud
     /// Storage file before a new file is created. Min 1000 messages.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub max_messages: i64,
 
     /// Optional. The service account to use to write to Cloud Storage. The

@@ -3394,7 +3394,7 @@ pub mod shipment {
         /// visit will vary. Since it is an integer, users are advised to choose an
         /// appropriate unit to avoid loss of precision. Must be ≥ 0.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub amount: i64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4614,7 +4614,7 @@ pub mod vehicle {
     pub struct LoadLimit {
         /// The maximum acceptable amount of load.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
-        #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+        #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
         pub max_load: std::option::Option<i64>,
 
         /// A soft limit of the load. See
@@ -4622,7 +4622,7 @@ pub mod vehicle {
         ///
         /// [google.cloud.optimization.v1.Vehicle.LoadLimit.cost_per_unit_above_soft_max]: crate::model::vehicle::LoadLimit::cost_per_unit_above_soft_max
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub soft_max_load: i64,
 
         /// If the load ever exceeds
@@ -4755,7 +4755,7 @@ pub mod vehicle {
             /// [google.cloud.optimization.v1.Vehicle.LoadLimit.Interval.max]: crate::model::vehicle::load_limit::Interval::max
             /// [google.cloud.optimization.v1.Vehicle.LoadLimit.Interval.min]: crate::model::vehicle::load_limit::Interval::min
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "wkt::internal::I64")]
             pub min: i64,
 
             /// A maximum acceptable load. Must be ≥ 0. If unspecified, the maximum
@@ -4768,7 +4768,7 @@ pub mod vehicle {
             /// [google.cloud.optimization.v1.Vehicle.LoadLimit.Interval.max]: crate::model::vehicle::load_limit::Interval::max
             /// [google.cloud.optimization.v1.Vehicle.LoadLimit.Interval.min]: crate::model::vehicle::load_limit::Interval::min
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
-            #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+            #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
             pub max: std::option::Option<i64>,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5491,7 +5491,7 @@ pub struct CapacityQuantity {
     pub r#type: std::string::String,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub value: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5538,11 +5538,11 @@ pub struct CapacityQuantityInterval {
     pub r#type: std::string::String,
 
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub min_value: std::option::Option<i64>,
 
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub max_value: std::option::Option<i64>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5616,7 +5616,7 @@ pub struct DistanceLimit {
     /// A hard limit constraining the distance to be at most max_meters. The limit
     /// must be nonnegative.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub max_meters: std::option::Option<i64>,
 
     /// A soft limit not enforcing a maximum distance limit, but when violated
@@ -5626,7 +5626,7 @@ pub struct DistanceLimit {
     /// If defined soft_max_meters must be less than max_meters and must be
     /// nonnegative.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub soft_max_meters: std::option::Option<i64>,
 
     /// Cost per kilometer incurred, increasing up to `soft_max_meters`, with
@@ -7464,7 +7464,7 @@ pub mod shipment_route {
         ///
         /// [google.cloud.optimization.v1.ShipmentRoute.Transition.vehicle_loads]: crate::model::shipment_route::Transition::vehicle_loads
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub amount: i64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

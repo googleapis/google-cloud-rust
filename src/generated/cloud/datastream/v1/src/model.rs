@@ -12387,7 +12387,7 @@ impl wkt::message::Message for SqlServerLsnPosition {
 pub struct OracleScnPosition {
     /// Required. SCN number from where Logs will be read
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub scn: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
