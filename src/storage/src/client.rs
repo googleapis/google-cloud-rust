@@ -353,11 +353,9 @@ impl InsertObject {
         Ok(builder)
     }
 
-    /// Sets the encryption key for downloading the object.
-    ///
     /// The encryption key used with the Customer-Supplied Encryption Keys
     /// feature. In raw bytes format (not base64-encoded).
-    pub fn set_key<T>(mut self, v: T) -> Self
+    pub fn with_key<T>(mut self, v: T) -> Self
     where
         T: Into<bytes::Bytes>,
     {
@@ -400,14 +398,17 @@ impl ReadObject {
         }
     }
 
-    /// Sets the value of [generation][control::model::ReadObjectRequest::generation].
-    pub fn set_generation<T: Into<i64>>(mut self, v: T) -> Self {
+    /// If present, selects a specific revision of this object (as
+    /// opposed to the latest version, the default).
+    pub fn with_generation<T: Into<i64>>(mut self, v: T) -> Self {
         self.request.generation = v.into();
         self
     }
 
-    /// Sets the value of [if_generation_match][control::model::ReadObjectRequest::if_generation_match].
-    pub fn set_if_generation_match<T>(mut self, v: T) -> Self
+    /// Makes the operation conditional on whether the object's current generation
+    /// matches the given value. Setting to 0 makes the operation succeed only if
+    /// there are no live versions of the object.
+    pub fn with_if_generation_match<T>(mut self, v: T) -> Self
     where
         T: Into<i64>,
     {
@@ -415,17 +416,11 @@ impl ReadObject {
         self
     }
 
-    /// Sets or clears the value of [if_generation_match][control::model::ReadObjectRequest::if_generation_match].
-    pub fn set_or_clear_if_generation_match<T>(mut self, v: Option<T>) -> Self
-    where
-        T: Into<i64>,
-    {
-        self.request.if_generation_match = v.map(|x| x.into());
-        self
-    }
-
-    /// Sets the value of [if_generation_not_match][control::model::ReadObjectRequest::if_generation_not_match].
-    pub fn set_if_generation_not_match<T>(mut self, v: T) -> Self
+    /// Makes the operation conditional on whether the object's live generation
+    /// does not match the given value. If no live object exists, the precondition
+    /// fails. Setting to 0 makes the operation succeed only if there is a live
+    /// version of the object.
+    pub fn with_if_generation_not_match<T>(mut self, v: T) -> Self
     where
         T: Into<i64>,
     {
@@ -433,17 +428,9 @@ impl ReadObject {
         self
     }
 
-    /// Sets or clears the value of [if_generation_not_match][control::model::ReadObjectRequest::if_generation_not_match].
-    pub fn set_or_clear_if_generation_not_match<T>(mut self, v: Option<T>) -> Self
-    where
-        T: Into<i64>,
-    {
-        self.request.if_generation_not_match = v.map(|x| x.into());
-        self
-    }
-
-    /// Sets the value of [if_metageneration_match][control::model::ReadObjectRequest::if_metageneration_match].
-    pub fn set_if_metageneration_match<T>(mut self, v: T) -> Self
+    /// Makes the operation conditional on whether the object's current
+    /// metageneration matches the given value.
+    pub fn with_if_metageneration_match<T>(mut self, v: T) -> Self
     where
         T: Into<i64>,
     {
@@ -451,17 +438,9 @@ impl ReadObject {
         self
     }
 
-    /// Sets or clears the value of [if_metageneration_match][control::model::ReadObjectRequest::if_metageneration_match].
-    pub fn set_or_clear_if_metageneration_match<T>(mut self, v: Option<T>) -> Self
-    where
-        T: Into<i64>,
-    {
-        self.request.if_metageneration_match = v.map(|x| x.into());
-        self
-    }
-
-    /// Sets the value of [if_metageneration_not_match][control::model::ReadObjectRequest::if_metageneration_not_match].
-    pub fn set_if_metageneration_not_match<T>(mut self, v: T) -> Self
+    /// Makes the operation conditional on whether the object's current
+    /// metageneration does not match the given value.
+    pub fn with_if_metageneration_not_match<T>(mut self, v: T) -> Self
     where
         T: Into<i64>,
     {
@@ -469,34 +448,14 @@ impl ReadObject {
         self
     }
 
-    /// Sets or clears the value of [if_metageneration_not_match][control::model::ReadObjectRequest::if_metageneration_not_match].
-    pub fn set_or_clear_if_metageneration_not_match<T>(mut self, v: Option<T>) -> Self
-    where
-        T: Into<i64>,
-    {
-        self.request.if_metageneration_not_match = v.map(|x| x.into());
-        self
-    }
-
-    /// Sets the encryption key for downloading the object.
-    ///
     /// The encryption key used with the Customer-Supplied Encryption Keys
     /// feature. In raw bytes format (not base64-encoded).
-    pub fn set_key<T>(mut self, v: T) -> Self
+    pub fn with_key<T>(mut self, v: T) -> Self
     where
         T: Into<bytes::Bytes>,
     {
         self.request.common_object_request_params =
             Some(key_to_common_object_request_params(v.into()));
-        self
-    }
-
-    /// Sets or clears the value of [common_object_request_params][control::model::ReadObjectRequest::common_object_request_params].
-    pub fn set_or_clear_common_object_request_params<T>(mut self, v: Option<T>) -> Self
-    where
-        T: Into<control::model::CommonObjectRequestParams>,
-    {
-        self.request.common_object_request_params = v.map(|x| x.into());
         self
     }
 
@@ -516,9 +475,6 @@ impl ReadObject {
     }
 
     async fn http_request_builder(self) -> Result<reqwest::RequestBuilder> {
-        // TODO(#2103): map additional parameters to the JSON request.
-        // - map relevant parameters to remaining: softDelete, projection, restoreToken
-
         // Collect the required bucket and object parameters.
         let bucket: String = self.request.bucket;
         let bucket_id = bucket
@@ -694,7 +650,7 @@ mod tests {
         // The API takes the unencoded byte array.
         let insert_object_builder = client
             .insert_object("projects/_/buckets/bucket", "object", "hello")
-            .set_key(key)
+            .with_key(key)
             .http_request_builder()
             .await?
             .build()?;
@@ -787,11 +743,11 @@ mod tests {
 
         let read_object_builder = client
             .read_object("projects/_/buckets/bucket", "object")
-            .set_generation(5)
-            .set_if_generation_match(10)
-            .set_if_generation_not_match(20)
-            .set_if_metageneration_match(30)
-            .set_if_metageneration_not_match(40)
+            .with_generation(5)
+            .with_if_generation_match(10)
+            .with_if_generation_not_match(20)
+            .with_if_metageneration_match(30)
+            .with_if_metageneration_not_match(40)
             .http_request_builder()
             .await?
             .build()?;
@@ -835,7 +791,7 @@ mod tests {
         // The API takes the unencoded byte array.
         let read_object_builder = client
             .read_object("projects/_/buckets/bucket", "object")
-            .set_key(key)
+            .with_key(key)
             .http_request_builder()
             .await?
             .build()?;

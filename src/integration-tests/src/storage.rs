@@ -103,7 +103,7 @@ pub async fn objects_customer_supplied_encryption(
     let key = vec![b'a'; 32];
     let insert = client
         .insert_object(&bucket.name, "quick.text", CONTENTS)
-        .set_key(key.clone())
+        .with_key(key.clone())
         .send()
         .await?;
     tracing::info!("success with insert={insert:?}");
@@ -111,7 +111,7 @@ pub async fn objects_customer_supplied_encryption(
     tracing::info!("testing read_object() with key");
     let contents = client
         .read_object(&bucket.name, &insert.name)
-        .set_key(key.clone())
+        .with_key(key.clone())
         .send()
         .await?;
     assert_eq!(contents, CONTENTS.as_bytes());
