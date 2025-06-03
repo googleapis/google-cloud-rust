@@ -389,7 +389,7 @@ pub mod discover_connection_profile_request {
         /// current level (FALSE).
         FullHierarchy(bool),
         /// The number of hierarchy levels below the current level to be retrieved.
-        HierarchyDepth(i32),
+        HierarchyDepth(#[serde_as(as = "wkt::internal::I32")] i32),
     }
 
     /// The data object to populate with child data objects and metadata.
@@ -611,6 +611,7 @@ pub struct FetchStaticIpsRequest {
 
     /// Maximum number of Ips to return, will likely not be specified.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListStaticIps` call.
@@ -714,6 +715,7 @@ pub struct ListConnectionProfilesRequest {
     /// If unspecified, at most 50 connection profiles will be returned.
     /// The maximum value is 1000; values above 1000 will be coerced to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Page token received from a previous `ListConnectionProfiles` call.
@@ -1178,6 +1180,7 @@ pub struct ListStreamsRequest {
     /// If unspecified, at most 50 streams will  be returned. The maximum
     /// value is 1000; values above 1000 will be coerced to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Page token received from a previous `ListStreams` call.
@@ -1946,6 +1949,7 @@ pub struct ListStreamObjectsRequest {
     /// Maximum number of objects to return. Default is 50.
     /// The maximum value is 1000; values above 1000 will be coerced to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Page token received from a previous `ListStreamObjectsRequest` call.
@@ -2313,6 +2317,7 @@ pub struct ListPrivateConnectionsRequest {
     /// returned. The maximum value is 1000; values above 1000 will be coerced to
     /// 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Page token received from a previous `ListPrivateConnections` call.
@@ -2653,6 +2658,7 @@ pub struct ListRoutesRequest {
     /// will be returned. The maximum value is 1000; values above 1000 will be
     /// coerced to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Page token received from a previous `ListRoutes` call.
@@ -2893,6 +2899,7 @@ pub struct OracleProfile {
 
     /// Port for the Oracle connection, default value is 1521.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub port: i32,
 
     /// Required. Username for the Oracle connection.
@@ -3043,6 +3050,7 @@ pub struct OracleAsmConfig {
 
     /// Required. Port for the Oracle ASM connection.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub port: i32,
 
     /// Required. Username for the Oracle ASM connection.
@@ -3168,6 +3176,7 @@ pub struct MysqlProfile {
 
     /// Port for the MySQL connection, default value is 3306.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub port: i32,
 
     /// Required. Username for the MySQL connection.
@@ -3267,6 +3276,7 @@ pub struct PostgresqlProfile {
 
     /// Port for the PostgreSQL connection, default value is 5432.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub port: i32,
 
     /// Required. Username for the PostgreSQL connection.
@@ -3380,6 +3390,7 @@ pub struct SqlServerProfile {
 
     /// Port for the SQLServer connection, default value is 1433.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub port: i32,
 
     /// Required. Username for the SQLServer connection.
@@ -3851,6 +3862,7 @@ pub struct ForwardSshTunnelConnectivity {
 
     /// Port for the SSH tunnel, default value is 22.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub port: i32,
 
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
@@ -4455,6 +4467,7 @@ pub struct Route {
 
     /// Destination port for connection
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub destination_port: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5492,14 +5505,17 @@ pub struct OracleColumn {
 
     /// Column length.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub length: i32,
 
     /// Column precision.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub precision: i32,
 
     /// Column scale.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub scale: i32,
 
     /// Column encoding.
@@ -5516,6 +5532,7 @@ pub struct OracleColumn {
 
     /// The ordinal position of the column in the table.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub ordinal_position: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5738,11 +5755,13 @@ pub struct OracleSourceConfig {
     /// Maximum number of concurrent CDC tasks. The number should be non-negative.
     /// If not set (or set to 0), the system's default value is used.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub max_concurrent_cdc_tasks: i32,
 
     /// Maximum number of concurrent backfill tasks. The number should be
     /// non-negative. If not set (or set to 0), the system's default value is used.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub max_concurrent_backfill_tasks: i32,
 
     /// The configuration for handle Oracle large objects.
@@ -6304,14 +6323,17 @@ pub struct PostgresqlColumn {
 
     /// Column length.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub length: i32,
 
     /// Column precision.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub precision: i32,
 
     /// Column scale.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub scale: i32,
 
     /// Whether or not the column represents a primary key.
@@ -6324,6 +6346,7 @@ pub struct PostgresqlColumn {
 
     /// The ordinal position of the column in the table.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub ordinal_position: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6551,6 +6574,7 @@ pub struct PostgresqlSourceConfig {
     /// negative. If not set (or set to 0), the system's default value will be
     /// used.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub max_concurrent_backfill_tasks: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6642,14 +6666,17 @@ pub struct SqlServerColumn {
 
     /// Column length.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub length: i32,
 
     /// Column precision.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub precision: i32,
 
     /// Column scale.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub scale: i32,
 
     /// Whether or not the column represents a primary key.
@@ -6662,6 +6689,7 @@ pub struct SqlServerColumn {
 
     /// The ordinal position of the column in the table.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub ordinal_position: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6877,10 +6905,12 @@ pub struct SqlServerSourceConfig {
 
     /// Max concurrent CDC tasks.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub max_concurrent_cdc_tasks: i32,
 
     /// Max concurrent backfill tasks.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub max_concurrent_backfill_tasks: i32,
 
     /// Configuration to select the CDC read method for the stream.
@@ -7108,6 +7138,7 @@ pub struct MysqlColumn {
 
     /// Column length.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub length: i32,
 
     /// Column collation.
@@ -7124,14 +7155,17 @@ pub struct MysqlColumn {
 
     /// The ordinal position of the column in the table.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub ordinal_position: i32,
 
     /// Column precision.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub precision: i32,
 
     /// Column scale.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub scale: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7354,12 +7388,14 @@ pub struct MysqlSourceConfig {
     /// Maximum number of concurrent CDC tasks. The number should be non negative.
     /// If not set (or set to 0), the system's default value will be used.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub max_concurrent_cdc_tasks: i32,
 
     /// Maximum number of concurrent backfill tasks. The number should be non
     /// negative. If not set (or set to 0), the system's default value will be
     /// used.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub max_concurrent_backfill_tasks: i32,
 
     /// The CDC method to use for the stream.
@@ -8391,6 +8427,7 @@ pub struct GcsDestinationConfig {
 
     /// The maximum file size to be saved in the bucket.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub file_rotation_mb: i32,
 
     /// The maximum duration for which new events are added before a file is
@@ -12387,6 +12424,7 @@ pub struct MysqlLogPosition {
 
     /// Optional. The position within the binary log file. Default is head of file.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
     pub log_position: std::option::Option<i32>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

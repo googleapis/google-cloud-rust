@@ -55,6 +55,12 @@ mod test {
             async fn resume_anywhere_cache( &self, _req: gcs::model::ResumeAnywhereCacheRequest, _options: gax::options::RequestOptions) -> gax::Result<gax::response::Response<gcs::model::AnywhereCache>>;
             async fn get_anywhere_cache( &self, _req: gcs::model::GetAnywhereCacheRequest, _options: gax::options::RequestOptions) -> gax::Result<gax::response::Response<gcs::model::AnywhereCache>>;
             async fn list_anywhere_caches( &self, _req: gcs::model::ListAnywhereCachesRequest, _options: gax::options::RequestOptions) -> gax::Result<gax::response::Response<gcs::model::ListAnywhereCachesResponse>>;
+            async fn get_folder_intelligence_config( &self, _req: gcs::model::GetFolderIntelligenceConfigRequest, _options: gax::options::RequestOptions) -> gax::Result<gax::response::Response<gcs::model::IntelligenceConfig>>;
+            async fn update_folder_intelligence_config( &self, _req: gcs::model::UpdateFolderIntelligenceConfigRequest, _options: gax::options::RequestOptions) -> gax::Result<gax::response::Response<gcs::model::IntelligenceConfig>>;
+            async fn get_project_intelligence_config( &self, _req: gcs::model::GetProjectIntelligenceConfigRequest, _options: gax::options::RequestOptions) -> gax::Result<gax::response::Response<gcs::model::IntelligenceConfig>>;
+            async fn update_project_intelligence_config( &self, _req: gcs::model::UpdateProjectIntelligenceConfigRequest, _options: gax::options::RequestOptions) -> gax::Result<gax::response::Response<gcs::model::IntelligenceConfig>>;
+            async fn get_organization_intelligence_config( &self, _req: gcs::model::GetOrganizationIntelligenceConfigRequest, _options: gax::options::RequestOptions) -> gax::Result<gax::response::Response<gcs::model::IntelligenceConfig>>;
+            async fn update_organization_intelligence_config( &self, _req: gcs::model::UpdateOrganizationIntelligenceConfigRequest, _options: gax::options::RequestOptions) -> gax::Result<gax::response::Response<gcs::model::IntelligenceConfig>>;
             async fn get_operation( &self, _req: longrunning::model::GetOperationRequest, _options: gax::options::RequestOptions) -> gax::Result<gax::response::Response<longrunning::model::Operation>>;
         }
     }
@@ -200,6 +206,30 @@ mod test {
             .times(1)
             .in_sequence(&mut seq)
             .returning(|_, _| Err(gax::error::Error::other("simulated failure")));
+        mock.expect_get_folder_intelligence_config()
+            .times(1)
+            .in_sequence(&mut seq)
+            .returning(|_, _| Err(gax::error::Error::other("simulated failure")));
+        mock.expect_update_folder_intelligence_config()
+            .times(1)
+            .in_sequence(&mut seq)
+            .returning(|_, _| Err(gax::error::Error::other("simulated failure")));
+        mock.expect_get_project_intelligence_config()
+            .times(1)
+            .in_sequence(&mut seq)
+            .returning(|_, _| Err(gax::error::Error::other("simulated failure")));
+        mock.expect_update_project_intelligence_config()
+            .times(1)
+            .in_sequence(&mut seq)
+            .returning(|_, _| Err(gax::error::Error::other("simulated failure")));
+        mock.expect_get_organization_intelligence_config()
+            .times(1)
+            .in_sequence(&mut seq)
+            .returning(|_, _| Err(gax::error::Error::other("simulated failure")));
+        mock.expect_update_organization_intelligence_config()
+            .times(1)
+            .in_sequence(&mut seq)
+            .returning(|_, _| Err(gax::error::Error::other("simulated failure")));
         mock.expect_get_operation()
             .times(1)
             .in_sequence(&mut seq)
@@ -246,6 +276,36 @@ mod test {
         let _ = client.resume_anywhere_cache().send().await.unwrap_err();
         let _ = client.get_anywhere_cache().send().await.unwrap_err();
         let _ = client.list_anywhere_caches().send().await.unwrap_err();
+        let _ = client
+            .get_folder_intelligence_config()
+            .send()
+            .await
+            .unwrap_err();
+        let _ = client
+            .update_folder_intelligence_config()
+            .send()
+            .await
+            .unwrap_err();
+        let _ = client
+            .get_project_intelligence_config()
+            .send()
+            .await
+            .unwrap_err();
+        let _ = client
+            .update_project_intelligence_config()
+            .send()
+            .await
+            .unwrap_err();
+        let _ = client
+            .get_organization_intelligence_config()
+            .send()
+            .await
+            .unwrap_err();
+        let _ = client
+            .update_organization_intelligence_config()
+            .send()
+            .await
+            .unwrap_err();
         let _ = client.get_operation().send().await.unwrap_err();
     }
 
@@ -304,6 +364,12 @@ mod test {
             resume_anywhere_cache,
             get_anywhere_cache,
             list_anywhere_caches,
+            get_folder_intelligence_config,
+            update_folder_intelligence_config,
+            get_project_intelligence_config,
+            update_project_intelligence_config,
+            get_organization_intelligence_config,
+            update_organization_intelligence_config,
             get_operation
         );
     }

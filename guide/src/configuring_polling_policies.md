@@ -151,10 +151,16 @@ conservative choice is [Aip194Strict]:
 If you are planning to use the same polling policy for all (or even most)
 requests with the same client then consider setting this as a client option.
 
-Initialize the client with the configuration you want:
+Add the polling policies that you will use for all long running operations:
 
 ```rust,ignore
 {{#include ../samples/src/polling_policies.rs:client-errors-client}}
+```
+
+You can also add retry policies to handle errors in the initial request:
+
+```rust,ignore
+{{#include ../samples/src/polling_policies.rs:client-errors-client-retry}}
 ```
 
 Unless you override the policy with a [per-request setting] this policy will be
@@ -209,6 +215,13 @@ You can issue this request as usual. For example:
 
 ```rust,ignore
 {{#include ../samples/src/polling_policies.rs:rpc-errors-print}}
+```
+
+Consider adding a retry policy in case the initial request to start the LRO
+fails:
+
+```rust,ignore
+{{#include ../samples/src/polling_policies.rs:rpc-errors-client}}
 ```
 
 See

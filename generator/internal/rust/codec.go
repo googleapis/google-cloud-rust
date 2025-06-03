@@ -415,6 +415,8 @@ func fieldFormatter(typez api.Typez) string {
 		api.SFIXED64_TYPE,
 		api.SINT64_TYPE:
 		return "serde_with::DisplayFromStr"
+	case api.INT32_TYPE, api.SINT32_TYPE, api.SFIXED32_TYPE:
+		return "wkt::internal::I32"
 	case api.FLOAT_TYPE:
 		return "wkt::internal::F32"
 	case api.DOUBLE_TYPE:
@@ -488,6 +490,10 @@ func wrapperFieldAttributes(f *api.Field, attributes []string) []string {
 		formatter = fieldFormatter(api.UINT64_TYPE)
 	case ".google.protobuf.Int64Value":
 		formatter = fieldFormatter(api.INT64_TYPE)
+	case ".google.protobuf.UInt32Value":
+		formatter = fieldFormatter(api.UINT32_TYPE)
+	case ".google.protobuf.Int32Value":
+		formatter = fieldFormatter(api.INT32_TYPE)
 	case ".google.protobuf.FloatValue":
 		formatter = fieldFormatter(api.FLOAT_TYPE)
 	case ".google.protobuf.DoubleValue":
@@ -536,18 +542,18 @@ func fieldAttributes(f *api.Field, state *api.APIState) []string {
 	}
 	attributes := fieldBaseAttributes(f)
 	switch f.Typez {
-	case api.INT32_TYPE,
-		api.FIXED32_TYPE,
+	case api.FIXED32_TYPE,
 		api.BOOL_TYPE,
 		api.STRING_TYPE,
 		api.UINT32_TYPE,
-		api.SFIXED32_TYPE,
-		api.SINT32_TYPE,
 		api.ENUM_TYPE,
 		api.GROUP_TYPE:
 		return append(attributes, fieldSkipAttributes(f)...)
 
-	case api.INT64_TYPE,
+	case api.INT32_TYPE,
+		api.SFIXED32_TYPE,
+		api.SINT32_TYPE,
+		api.INT64_TYPE,
 		api.UINT64_TYPE,
 		api.FIXED64_TYPE,
 		api.SFIXED64_TYPE,

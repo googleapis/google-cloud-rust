@@ -933,6 +933,7 @@ pub struct ListDataSetsRequest {
 
     /// Number of results to return in the list.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Token to provide to skip to a particular spot in the list.
@@ -2342,6 +2343,7 @@ pub struct QueryDataSetRequest {
     /// [google.cloud.timeseriesinsights.v1.EvaluatedSlice.anomaly_score]: crate::model::EvaluatedSlice::anomaly_score
     /// [google.cloud.timeseriesinsights.v1.QueryDataSetResponse.slices]: crate::model::QueryDataSetResponse::slices
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
     pub num_returned_slices: std::option::Option<i32>,
 
     /// Parameters controlling how we will split the dataset into the slices that

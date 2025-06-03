@@ -1568,6 +1568,7 @@ pub struct ServiceConfig {
     /// can be terminated if the function is not completed at the end of the
     /// timeout period. Defaults to 60 seconds.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub timeout_seconds: i32,
 
     /// The amount of memory available for a function.
@@ -1604,6 +1605,7 @@ pub struct ServiceConfig {
     /// Instances](https://cloud.google.com/functions/docs/max-instances) Guide for
     /// more details.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub max_instance_count: i32,
 
     /// The limit on the minimum number of function instances that may coexist at a
@@ -1616,6 +1618,7 @@ pub struct ServiceConfig {
     /// with cold start times when jump in incoming request count occurs after the
     /// idle instance would have been stopped in the default case.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub min_instance_count: i32,
 
     /// The Serverless VPC Access connector that this cloud function can connect
@@ -1665,6 +1668,7 @@ pub struct ServiceConfig {
     /// Sets the maximum number of concurrent requests that each instance
     /// can receive. Defaults to 1.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub max_instance_request_concurrency: i32,
 
     /// Security level configure whether the function only accepts https.
@@ -2893,6 +2897,7 @@ pub struct ListFunctionsRequest {
     /// than 1,000 then it will be replaced as 1,000. The size of the list
     /// response can be less than specified when used with filters.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The value returned by the last

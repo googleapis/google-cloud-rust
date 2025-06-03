@@ -46,6 +46,7 @@ pub struct ListConnectionsRequest {
     /// than this value. If unspecified, at most 100 connections will be returned.
     /// The maximum value is 1000; values above 1000 will be coerced to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListConnections` call.
@@ -169,6 +170,7 @@ pub struct Connection {
 
     /// The count of streams.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub stream_count: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -858,6 +860,7 @@ pub struct HttpResponse {
 
     /// Status code of http response, e.g. 200.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub status_code: i32,
 
     /// The HTTP 1.1 response body.

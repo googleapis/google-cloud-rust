@@ -2413,6 +2413,7 @@ pub struct ListInstancesRequest {
 
     /// Optional. Maximum return size of the list call.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A previous returned page token that can be used to continue
@@ -3085,6 +3086,7 @@ pub struct DiagnoseInstanceRequest {
 
     /// Optional. Maxmium amount of time in minutes before the operation times out.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub timeout_minutes: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

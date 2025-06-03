@@ -158,6 +158,7 @@ pub struct ListContactsRequest {
     /// response indicates that more results might be available.
     /// If not specified, the default page_size is 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. If present, retrieves the next batch of results from the
@@ -484,6 +485,7 @@ pub struct ComputeContactsRequest {
     /// response indicates that more results might be available.
     /// If not specified, the default page_size is 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. If present, retrieves the next batch of results from the

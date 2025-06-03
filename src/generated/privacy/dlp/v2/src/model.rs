@@ -815,6 +815,7 @@ pub mod inspect_config {
         ///
         /// [google.privacy.dlp.v2.InspectContentRequest]: crate::model::InspectContentRequest
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub max_findings_per_item: i32,
 
         /// Max number of findings that are returned per request or job.
@@ -831,6 +832,7 @@ pub mod inspect_config {
         ///
         /// [google.privacy.dlp.v2.InspectContentRequest]: crate::model::InspectContentRequest
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub max_findings_per_request: i32,
 
         /// Configuration of findings limit given for specified infoTypes.
@@ -898,6 +900,7 @@ pub mod inspect_config {
 
             /// Max findings limit for the given infoType.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::I32")]
             pub max_findings: i32,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2628,18 +2631,22 @@ impl wkt::message::Message for ImageLocation {
 pub struct BoundingBox {
     /// Top coordinate of the bounding box. (0,0) is upper left.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub top: i32,
 
     /// Left coordinate of the bounding box. (0,0) is upper left.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub left: i32,
 
     /// Width of the bounding box in pixels.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub width: i32,
 
     /// Height of the bounding box in pixels.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub height: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9399,6 +9406,7 @@ pub mod date_time {
         /// Set only if the offset can be determined. Positive for time ahead of UTC.
         /// E.g. For "UTC-9", this value is -540.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub offset_minutes: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11493,6 +11501,7 @@ pub struct CharacterMaskConfig {
     /// If `reverse_order` is `true`, all but the first four characters are masked
     /// as `1234-****-****-****`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub number_to_mask: i32,
 
     /// Mask characters in reverse order. For example, if `masking_character` is
@@ -12227,7 +12236,7 @@ pub mod crypto_replace_ffx_fpe_config {
         /// ``0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz~`!@#$%^&*()_-+={[}]|\:;"'<,>.?/``
         CustomAlphabet(std::string::String),
         /// The native way to select the alphabet. Must be in the range [2, 95].
-        Radix(i32),
+        Radix(#[serde_as(as = "wkt::internal::I32")] i32),
     }
 }
 
@@ -12523,11 +12532,13 @@ pub struct DateShiftConfig {
     ///
     /// For example, 3 means shift date to at most 3 days into the future.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub upper_bound_days: i32,
 
     /// Required. For example, -5 means shift date to at most 5 days back in the
     /// past.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub lower_bound_days: i32,
 
     /// Points to the field that contains the context, for example, an entity id.
@@ -16494,6 +16505,7 @@ pub struct ListInspectTemplatesRequest {
     /// Size of the page. This value can be limited by the server. If zero server
     /// returns a page of max size 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Comma-separated list of fields to order by,
@@ -17117,6 +17129,7 @@ pub struct ListDiscoveryConfigsRequest {
 
     /// Size of the page. This value can be limited by a server.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Comma-separated list of config fields to order by,
@@ -17476,6 +17489,7 @@ pub struct ListJobTriggersRequest {
 
     /// Size of the page. This value can be limited by a server.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Comma-separated list of triggeredJob fields to order by,
@@ -20946,6 +20960,7 @@ pub mod discovery_big_query_conditions {
         /// Minimum number of rows that should be present before Cloud DLP
         /// profiles a table
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub min_row_count: i32,
 
         /// Minimum age a table must have before Cloud DLP can profile it. Value must
@@ -26778,6 +26793,7 @@ pub struct ListDlpJobsRequest {
 
     /// The standard list page size.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The standard list page token.
@@ -27274,6 +27290,7 @@ pub struct ListDeidentifyTemplatesRequest {
     /// Size of the page. This value can be limited by the server. If zero server
     /// returns a page of max size 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Comma-separated list of fields to order by,
@@ -28342,6 +28359,7 @@ pub struct ListStoredInfoTypesRequest {
     /// Size of the page. This value can be limited by the server. If zero server
     /// returns a page of max size 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Comma-separated list of fields to order by,
@@ -28852,6 +28870,7 @@ pub struct ListProjectDataProfilesRequest {
     /// Size of the page. This value can be limited by the server. If zero, server
     /// returns a page of max size 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Comma-separated list of fields to order by, followed by `asc` or `desc`
@@ -29024,6 +29043,7 @@ pub struct ListTableDataProfilesRequest {
     /// Size of the page. This value can be limited by the server. If zero, server
     /// returns a page of max size 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Comma-separated list of fields to order by, followed by `asc` or `desc`
@@ -29207,6 +29227,7 @@ pub struct ListColumnDataProfilesRequest {
     /// Size of the page. This value can be limited by the server. If zero, server
     /// returns a page of max size 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Comma-separated list of fields to order by, followed by `asc` or `desc`
@@ -30561,6 +30582,7 @@ pub struct InfoTypeSummary {
 
     /// Not populated for predicted infotypes.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     #[deprecated]
     pub estimated_prevalence: i32,
 
@@ -30618,6 +30640,7 @@ pub struct OtherInfoTypeSummary {
     /// Approximate percentage of non-null rows that contained data detected by
     /// this infotype.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub estimated_prevalence: i32,
 
     /// Whether this infoType was excluded from sensitivity and risk analysis due
@@ -32548,6 +32571,7 @@ pub struct ListFileStoreDataProfilesRequest {
     /// Optional. Size of the page. This value can be limited by the server. If
     /// zero, server returns a page of max size 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. Comma-separated list of fields to order by, followed by `asc` or
@@ -33514,6 +33538,7 @@ pub struct ListConnectionsRequest {
 
     /// Optional. Number of results per page, max 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. Page token from a previous page to return the next set of
@@ -33579,6 +33604,7 @@ pub struct SearchConnectionsRequest {
 
     /// Optional. Number of results per page, max 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. Page token from a previous page to return the next set of
@@ -34085,6 +34111,7 @@ pub struct CloudSqlProperties {
     /// Required. The DLP API will limit its connections to max_connections.
     /// Must be 2 or greater.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub max_connections: i32,
 
     /// Required. The database engine used by the Cloud SQL instance that this
@@ -35664,6 +35691,7 @@ pub mod custom_info_type {
         /// The index of the submatch to extract as findings. When not
         /// specified, the entire match is returned. No more than 3 may be included.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "std::vec::Vec<wkt::internal::I32>")]
         pub group_indexes: std::vec::Vec<i32>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -35827,10 +35855,12 @@ pub mod custom_info_type {
             /// [Hotword example: Set the match likelihood of a table column]
             /// (<https://cloud.google.com/sensitive-data-protection/docs/creating-custom-infotypes-likelihood#match-column-values>).
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::I32")]
             pub window_before: i32,
 
             /// Number of characters after the finding to consider.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::I32")]
             pub window_after: i32,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -35974,7 +36004,7 @@ pub mod custom_info_type {
                 /// `VERY_LIKELY`, so applying an adjustment of 1 followed by an
                 /// adjustment of -1 when base likelihood is `VERY_LIKELY` will result in
                 /// a final likelihood of `LIKELY`.
-                RelativeLikelihood(i32),
+                RelativeLikelihood(#[serde_as(as = "wkt::internal::I32")] i32),
             }
         }
 
@@ -36563,6 +36593,7 @@ pub struct CloudStorageOptions {
     /// on bytes scanned per
     /// file](https://cloud.google.com/sensitive-data-protection/docs/supported-file-types#max-byte-size-per-file).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub bytes_limit_per_file_percent: i32,
 
     /// List of file type groups to include in the scan.
@@ -36583,6 +36614,7 @@ pub struct CloudStorageOptions {
     /// Number of files scanned is rounded down. Must be between 0 and 100,
     /// inclusively. Both 0 and 100 means no limit. Defaults to 0.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub files_limit_percent: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -36967,6 +36999,7 @@ pub struct BigQueryOptions {
     /// is causing the `rowsLimitPercent` field to behave unexpectedly. We
     /// recommend using `rowsLimit` instead.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub rows_limit_percent: i32,
 
     /// How to sample the data.

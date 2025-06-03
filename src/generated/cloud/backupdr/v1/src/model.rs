@@ -976,6 +976,7 @@ pub struct ListManagementServersRequest {
     /// Optional. Requested page size. Server may return fewer items than
     /// requested. If unspecified, server will pick an appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
@@ -1954,6 +1955,7 @@ pub struct BackupRule {
     /// Minimum value is 30 and maximum value is 732 for monthly backups.
     /// Minimum value is 365 and maximum value is 36159 for yearly backups.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub backup_retention_days: i32,
 
     /// The schedule that defines the automated backup workloads for this
@@ -2079,6 +2081,7 @@ pub struct StandardSchedule {
     /// of parallel backups and restore we are targeting, this will potentially
     /// take the backup time to mins and hours (in worst case scenario).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub hourly_frequency: i32,
 
     /// Optional. Specifies days of week like, MONDAY or TUESDAY, on which jobs
@@ -2096,6 +2099,7 @@ pub struct StandardSchedule {
     /// `MONTHLY` and `YEARLY`. A validation error will occur if other values are
     /// supplied.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "std::vec::Vec<wkt::internal::I32>")]
     pub days_of_month: std::vec::Vec<i32>,
 
     /// Optional. Specifies a week day of the month like, FIRST SUNDAY or LAST
@@ -2407,6 +2411,7 @@ pub struct BackupWindow {
     /// Required. The hour of day (0-23) when the window starts for e.g. if value
     /// of start hour of day is 6 that mean backup window start at 6:00.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub start_hour_of_day: i32,
 
     /// Required. The hour of day (1-24) when the window end for e.g. if value of
@@ -2418,6 +2423,7 @@ pub struct BackupWindow {
     /// End hour of day is not include in backup window that mean if
     /// end_hour_of_day= 10 jobs should start before 10:00.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub end_hour_of_day: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2771,6 +2777,7 @@ pub struct ListBackupPlansRequest {
     ///
     /// [google.cloud.backupdr.v1.ListBackupPlansResponse.next_page_token]: crate::model::ListBackupPlansResponse::next_page_token
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. The value of
@@ -3681,6 +3688,7 @@ pub struct ListBackupPlanAssociationsRequest {
     /// Optional. Requested page size. Server may return fewer items than
     /// requested. If unspecified, server will pick an appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
@@ -7031,6 +7039,7 @@ pub struct ListBackupVaultsRequest {
     /// Optional. Requested page size. Server may return fewer items than
     /// requested. If unspecified, server will pick an appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
@@ -7203,6 +7212,7 @@ pub struct FetchUsableBackupVaultsRequest {
     /// Optional. Requested page size. Server may return fewer items than
     /// requested. If unspecified, server will pick an appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
@@ -7632,6 +7642,7 @@ pub struct ListDataSourcesRequest {
     /// Optional. Requested page size. Server may return fewer items than
     /// requested. If unspecified, server will pick an appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
@@ -7928,6 +7939,7 @@ pub struct ListBackupsRequest {
     /// Optional. Requested page size. Server may return fewer items than
     /// requested. If unspecified, server will pick an appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
@@ -8659,6 +8671,7 @@ pub struct BackupApplianceBackupProperties {
     /// Output only. The numeric generation ID of the backup (monotonically
     /// increasing).
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
     pub generation_id: std::option::Option<i32>,
 
     /// Output only. The time when this backup object was finalized (if none,
@@ -9936,6 +9949,7 @@ pub struct AdvancedMachineFeatures {
     /// of threads supported per core by the underlying processor is
     /// assumed.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
     pub threads_per_core: std::option::Option<i32>,
 
     /// Optional. The number of physical cores to expose to an instance. Multiply
@@ -9944,6 +9958,7 @@ pub struct AdvancedMachineFeatures {
     /// inferred from the instance's nominal CPU count and the underlying
     /// platform's SMT width.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
     pub visible_core_count: std::option::Option<i32>,
 
     /// Optional. Whether to enable UEFI networking for instance creation.
@@ -10142,6 +10157,7 @@ pub struct AcceleratorConfig {
     /// Optional. The number of the guest accelerator cards exposed to this
     /// instance.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
     pub accelerator_count: std::option::Option<i32>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10496,6 +10512,7 @@ pub struct NetworkInterface {
 
     /// Optional. The prefix length of the primary internal IPv6 range.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
     pub internal_ipv6_prefix_length: std::option::Option<i32>,
 
     /// Output only. [Output Only] The name of the network interface, which is
@@ -10536,6 +10553,7 @@ pub struct NetworkInterface {
     /// network interface. Both Rx and Tx queues will be set to this number. It'll
     /// be empty if not specified by the users.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
     pub queue_count: std::option::Option<i32>,
 
     /// Optional. The type of vNIC to be used on this interface. This may be gVNIC
@@ -11413,6 +11431,7 @@ pub struct AccessConfig {
 
     /// Optional. The prefix length of the external IPv6 range.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
     pub external_ipv6_prefix_length: std::option::Option<i32>,
 
     /// Optional. Specifies whether a public DNS 'PTR' record should be created to
@@ -12222,6 +12241,7 @@ pub struct Scheduling {
     /// Optional. The minimum number of virtual CPUs this instance will consume
     /// when running on a sole-tenant node.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
     pub min_node_cpus: std::option::Option<i32>,
 
     /// Optional. Specifies the provisioning model of the instance.
@@ -13041,6 +13061,7 @@ pub struct SchedulingDuration {
     /// Optional. Span of time that's a fraction of a second at nanosecond
     /// resolution.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
     pub nanos: std::option::Option<i32>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

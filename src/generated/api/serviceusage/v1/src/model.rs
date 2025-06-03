@@ -759,6 +759,7 @@ pub struct ListServicesRequest {
     /// Requested page size cannot exceed 200.
     /// If not set, the default page size is 50.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Token identifying which result to start with, which is returned by a

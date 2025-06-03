@@ -231,15 +231,66 @@ impl serde::ser::Serialize for Any {
     }
 }
 
+use serde::de::Unexpected;
+type ValueMap = serde_json::Map<String, serde_json::Value>;
+
+const EXPECTED: &str = "a valid type URL string in the @type field";
+
 /// Implement [`serde`](::serde) deserialization for [Any].
 impl<'de> serde::de::Deserialize<'de> for Any {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
-        let value = serde_json::Map::<String, serde_json::Value>::deserialize(deserializer)?;
-        Ok(Any(value))
+        use serde::de::Error as _;
+        use serde_json::Value;
+        let value = ValueMap::deserialize(deserializer)?;
+        match value.get("@type") {
+            None => Ok(Any(value)),
+            Some(Value::String(s)) if validate_type_url(s) => Ok(Any(value)),
+            Some(Value::String(s)) => Err(D::Error::invalid_value(Unexpected::Str(s), &EXPECTED)),
+            Some(Value::Null) => Err(type_field_invalid_type("JSON null")),
+            Some(Value::Object(_)) => Err(type_field_invalid_type("JSON object")),
+            Some(Value::Array(_)) => Err(type_field_invalid_type("JSON array")),
+            Some(Value::Number(_)) => Err(type_field_invalid_type("JSON number")),
+            Some(Value::Bool(_)) => Err(type_field_invalid_type("JSON boolean")),
+        }
     }
+}
+
+fn type_field_invalid_type<E>(reason: &str) -> E
+where
+    E: serde::de::Error,
+{
+    E::invalid_type(Unexpected::Other(reason), &EXPECTED)
+}
+
+fn validate_type_url(type_url: &str) -> bool {
+    match type_url.split_once("/") {
+        None => false,
+        Some((host, path)) => is_host(host) && is_protobuf_id(path),
+    }
+}
+
+fn is_host(host: &str) -> bool {
+    if host == "type.googleapis.com" {
+        return true;
+    }
+    if host.contains("_") {
+        return false;
+    }
+    // Slow path, should not happen very often.
+    url::Url::parse(format!("https://{host}").as_str()).is_ok()
+}
+
+fn is_protobuf_id(path: &str) -> bool {
+    path.split(".").all(is_identifier)
+}
+
+fn is_identifier(id: &str) -> bool {
+    !id.is_empty()
+        && id.chars().all(|c: char| c.is_alphanumeric() || c == '_')
+        && !id.starts_with(|c: char| c.is_ascii_digit())
 }
 
 #[cfg(test)]
@@ -249,8 +300,10 @@ mod test {
     use crate::empty::Empty;
     use crate::field_mask::*;
     use crate::timestamp::*;
-    use serde_json::json;
-    type Result = std::result::Result<(), Box<dyn std::error::Error>>;
+    use serde_json::{Value, json};
+    use test_case::test_case;
+
+    type Result = anyhow::Result<()>;
 
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
@@ -311,6 +364,34 @@ mod test {
         let d = any.to_msg::<Duration>()?;
         assert_eq!(d, Duration::clamp(60, 0));
         Ok(())
+    }
+
+    #[test_case(json!({"value": "7"}))]
+    #[test_case(json!({"@type": "type.googleapis.com/foo"}))]
+    #[test_case(json!({"@type": "type.googleapis.com/foo_bar"}))]
+    #[test_case(json!({"@type": "type.googleapis.com/foo_bar.baz"}))]
+    #[test_case(json!({"@type": "type.googleapis.com/foo_bar.baz.Message"}))]
+    #[test_case(json!({"@type": "type.googleapis.com/foo_bar.baz.Message3"}))]
+    #[test_case(json!({"@type": "type.googleapis.com/foo2_bar.baz.Message3"}))]
+    fn deserialize_any_success(input: Value) {
+        let any = serde_json::from_value::<Any>(input.clone());
+        assert!(any.is_ok(), "{any:?} from {input:?}");
+    }
+
+    #[test_case(json!({"@type": "", "value": "7"}))]
+    #[test_case(json!({"@type": "type.googleapis.com/", "value": "7"}))]
+    #[test_case(json!({"@type": "/google.protobuf.Duration", "value": "7"}))]
+    #[test_case(json!({"@type": "type.googleapis.com/google.protobuf.7abc", "value": "7"}))]
+    #[test_case(json!({"@type": "type.googlea_pis.com/google.protobuf.Duration", "value": "7"}))]
+    #[test_case(json!({"@type": "abc_123/google.protobuf.Foo", "value": "7"}))]
+    #[test_case(json!({"@type": [], "value": "7"}); "type is array")]
+    #[test_case(json!({"@type": 7, "value": "7"}))]
+    #[test_case(json!({"@type": true, "value": "7"}))]
+    #[test_case(json!({"@type": null, "value": "7"}))]
+    #[test_case(json!({"@type": {}, "value": "7"}); "type is object")]
+    fn deserialize_bad_types(input: Value) {
+        let err = serde_json::from_value::<Any>(input).expect_err("should fail");
+        assert!(err.is_data(), "{err:?}");
     }
 
     #[test]
@@ -473,24 +554,6 @@ mod test {
         let got = Any::from_msg(&input);
         assert!(got.is_err(), "{got:?}");
 
-        Ok(())
-    }
-
-    #[test]
-    fn deserialize_missing_type_field() -> Result {
-        let input = json!({"@type-is-missing": ""});
-        let any = serde_json::from_value::<Any>(input)?;
-        let got = any.to_msg::<Stored>();
-        assert!(got.is_err());
-        Ok(())
-    }
-
-    #[test]
-    fn deserialize_invalid_type_field() -> Result {
-        let input = json!({"@type": [1, 2, 3]});
-        let any = serde_json::from_value::<Any>(input)?;
-        let got = any.to_msg::<Stored>();
-        assert!(got.is_err());
         Ok(())
     }
 

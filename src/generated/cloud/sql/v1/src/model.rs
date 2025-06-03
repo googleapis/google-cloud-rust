@@ -214,6 +214,7 @@ pub struct SqlBackupRunsListRequest {
 
     /// Maximum number of backup runs per response.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub max_results: i32,
 
     /// A previously-returned page token representing part of the larger set of
@@ -3313,6 +3314,7 @@ impl wkt::message::Message for InstancesReencryptRequest {
 pub struct BackupReencryptionConfig {
     /// Backup re-encryption limit
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
     pub backup_limit: std::option::Option<i32>,
 
     /// Type of backups users want to re-encrypt.
@@ -6381,6 +6383,7 @@ pub mod database_instance {
         /// * the proactive database wellness job for OOD.
         /// * Readers:
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
         pub sql_min_recommended_increase_size_gb: std::option::Option<i32>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9360,6 +9363,7 @@ pub struct BackupRetentionSettings {
     /// if a backup needs to be deleted.  If retention_unit is 'COUNT', we will
     /// retain this many backups.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
     pub retained_backups: std::option::Option<wkt::Int32Value>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9581,6 +9585,7 @@ pub struct BackupConfiguration {
     /// The number of days of transaction logs we retain for point in time
     /// restore, from 1-7.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
     pub transaction_log_retention_days: std::option::Option<wkt::Int32Value>,
 
     /// Output only. This value contains the storage location of transactional logs
@@ -10180,6 +10185,7 @@ pub mod database {
 pub struct SqlServerDatabaseDetails {
     /// The version of SQL Server with which the database is to be made compatible
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub compatibility_level: i32,
 
     /// The recovery model of a SQL Server database
@@ -10832,6 +10838,7 @@ pub mod export_context {
 
         /// Optional. The number of threads to use for parallel export.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
         pub threads: std::option::Option<wkt::Int32Value>,
 
         /// Optional. Whether or not the export should be parallel.
@@ -10987,6 +10994,7 @@ pub mod export_context {
             /// has no effect. If set to any value other than `1`, --set-gtid-purged
             /// is set to OFF.
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
+            #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
             pub master_data: std::option::Option<wkt::Int32Value>,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11107,6 +11115,7 @@ pub mod export_context {
         /// If blank, and the value of the striped field is true,
         /// the number of stripes is automatically chosen.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
         pub stripe_count: std::option::Option<wkt::Int32Value>,
 
         /// Type of this bak file will be export, FULL or DIFF, SQL Server only
@@ -11377,6 +11386,7 @@ pub mod import_context {
     pub struct SqlImportOptions {
         /// Optional. The number of threads to use for parallel import.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
         pub threads: std::option::Option<wkt::Int32Value>,
 
         /// Optional. Whether or not the import should be parallel.
@@ -12559,12 +12569,14 @@ impl wkt::message::Message for LocationPreference {
 pub struct MaintenanceWindow {
     /// Hour of day - 0 to 23. Specify in the UTC time zone.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
     pub hour: std::option::Option<wkt::Int32Value>,
 
     /// Day of week - `MONDAY`, `TUESDAY`, `WEDNESDAY`, `THURSDAY`, `FRIDAY`,
     /// `SATURDAY`, or `SUNDAY`. Specify in the UTC time zone.
     /// Returned in output as an integer, 1 to 7, where `1` equals Monday.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
     pub day: std::option::Option<wkt::Int32Value>,
 
     /// Maintenance timing settings: `canary`, `stable`, or `week5`.
@@ -12729,11 +12741,13 @@ pub struct InsightsConfig {
     /// truncated to this value. When unset, query length will be the default
     /// value. Changing query length will restart the database.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
     pub query_string_length: std::option::Option<wkt::Int32Value>,
 
     /// Number of query execution plans captured by Insights per minute
     /// for all queries combined. Default is 5.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
     pub query_plans_per_minute: std::option::Option<wkt::Int32Value>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -12831,6 +12845,7 @@ pub struct MySqlReplicaConfiguration {
 
     /// Seconds to wait between connect retries. MySQL's default is 60 seconds.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
     pub connect_retry_interval: std::option::Option<wkt::Int32Value>,
 
     /// Interval in milliseconds between replication heartbeats.
@@ -14188,6 +14203,7 @@ impl wkt::message::Message for OperationErrors {
 pub struct PasswordValidationPolicy {
     /// Minimum number of characters allowed.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
     pub min_length: std::option::Option<wkt::Int32Value>,
 
     /// The complexity of the password.
@@ -14196,6 +14212,7 @@ pub struct PasswordValidationPolicy {
 
     /// Number of previous passwords that cannot be reused.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
     pub reuse_interval: std::option::Option<wkt::Int32Value>,
 
     /// Disallow username as a part of the password.
@@ -15641,6 +15658,7 @@ pub mod settings {
 pub struct AdvancedMachineFeatures {
     /// The number of threads per physical core.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub threads_per_core: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -16977,6 +16995,7 @@ impl wkt::message::Message for SqlUsersUpdateRequest {
 pub struct UserPasswordValidationPolicy {
     /// Number of failed login attempts allowed before user get locked.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub allowed_failed_attempts: i32,
 
     /// Expiration duration after password is updated.

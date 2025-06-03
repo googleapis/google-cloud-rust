@@ -468,6 +468,7 @@ pub struct ListProfilesRequest {
     /// Default page_size is 1000.
     /// Max limit is 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The token to continue pagination and get profiles from a particular page.
@@ -531,6 +532,7 @@ pub struct ListProfilesResponse {
     /// non-zero value may indicate a transient failure, in which case if the
     /// number is too high for your use case, the call may be retried.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub skipped_profiles: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

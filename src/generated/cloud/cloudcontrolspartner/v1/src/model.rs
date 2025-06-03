@@ -147,6 +147,7 @@ pub struct ListAccessApprovalRequestsRequest {
     /// return fewer than this value. If unspecified, at most 500 access requests
     /// will be returned.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous
@@ -984,6 +985,7 @@ pub struct ListWorkloadsRequest {
     /// The maximum number of workloads to return. The service may return fewer
     /// than this value. If unspecified, at most 500 workloads will be returned.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListWorkloads` call.
@@ -1527,6 +1529,7 @@ pub struct ListCustomersRequest {
     /// The maximum number of Customers to return. The service may return fewer
     /// than this value. If unspecified, at most 500 Customers will be returned.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListCustomers` call.
@@ -3997,6 +4000,7 @@ pub struct ListViolationsRequest {
     /// return fewer than this value. If unspecified, at most 10 customers will be
     /// returned.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous `ListViolations` call.

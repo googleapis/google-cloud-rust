@@ -429,6 +429,7 @@ pub struct ListAssetsRequest {
     /// The maximum number of assets to be returned in a single response. Default
     /// is 100, minimum is 1, and maximum is 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The `next_page_token` returned from the previous `ListAssetsResponse`, or
@@ -2189,6 +2190,7 @@ pub struct SearchAllResourcesRequest {
     /// requested. When this happens, there could be more results as long as
     /// `next_page_token` is returned.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. If present, then retrieve the next batch of results from the
@@ -2463,6 +2465,7 @@ pub struct SearchAllIamPoliciesRequest {
     /// requested. When this happens, there could be more results as long as
     /// `next_page_token` is returned.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. If present, retrieve the next batch of results from the preceding
@@ -4423,6 +4426,7 @@ pub struct ListSavedQueriesRequest {
     /// be returned. The maximum value is 1000; values above 1000 will be coerced
     /// to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous `ListSavedQueries` call.
@@ -5240,6 +5244,7 @@ pub struct QueryAssetsRequest {
     ///
     /// The field will be ignored when [output_config] is specified.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A page token received from previous `QueryAssets`.
@@ -7629,6 +7634,7 @@ pub struct AnalyzeOrgPoliciesRequest {
     ///
     /// [google.cloud.asset.v1.AnalyzeOrgPoliciesResponse.org_policy_results]: crate::model::AnalyzeOrgPoliciesResponse::org_policy_results
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
     pub page_size: std::option::Option<i32>,
 
     /// The pagination token to retrieve the next page.
@@ -7958,6 +7964,7 @@ pub struct AnalyzeOrgPolicyGovernedContainersRequest {
     ///
     /// [google.cloud.asset.v1.AnalyzeOrgPolicyGovernedContainersResponse.governed_containers]: crate::model::AnalyzeOrgPolicyGovernedContainersResponse::governed_containers
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
     pub page_size: std::option::Option<i32>,
 
     /// The pagination token to retrieve the next page.
@@ -8351,6 +8358,7 @@ pub struct AnalyzeOrgPolicyGovernedAssetsRequest {
     ///
     /// [google.cloud.asset.v1.AnalyzeOrgPolicyGovernedAssetsResponse.governed_assets]: crate::model::AnalyzeOrgPolicyGovernedAssetsResponse::governed_assets
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
     pub page_size: std::option::Option<i32>,
 
     /// The pagination token to retrieve the next page.

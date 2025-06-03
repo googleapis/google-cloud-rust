@@ -255,6 +255,7 @@ pub struct ListSecretsResponse {
     /// The total number of Secrets but 0 when the
     /// ListSecretsRequest.filter field is set.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
     pub total_size: std::option::Option<i32>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1764,6 +1765,7 @@ pub struct ListSecretVersionsResponse {
     /// The total number of SecretVersions but 0 when the
     /// ListSecretsRequest.filter field is set.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
     pub total_size: std::option::Option<i32>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2378,6 +2380,7 @@ pub struct Policy {
     /// To learn which resources support conditions in their IAM policies, see the
     /// [IAM documentation](https://cloud.google.com/iam/help/conditions/resource-policies).
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
     pub version: std::option::Option<i32>,
 
     /// Associates a list of `members`, or principals, with a `role`. Optionally,

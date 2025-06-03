@@ -122,12 +122,14 @@ pub mod compute_threat_list_diff_request {
         /// entries than this value.  This should be a power of 2 between 2**10 and
         /// 2**20.  If zero, no diff size limit is set.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub max_diff_entries: i32,
 
         /// Sets the maximum number of entries that the client is willing to have
         /// in the local database. This should be a power of 2 between 2**10 and
         /// 2**20. If zero, no database size limit is set.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub max_database_entries: i32,
 
         /// The compression types supported by the client.
@@ -981,6 +983,7 @@ impl wkt::message::Message for ThreatEntryRemovals {
 pub struct RawIndices {
     /// The indices to remove from a lexicographically-sorted local list.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "std::vec::Vec<wkt::internal::I32>")]
     pub indices: std::vec::Vec<i32>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1027,6 +1030,7 @@ pub struct RawHashes {
     /// anywhere from 4 (shortest prefix) to 32 (full SHA256 hash).
     /// In practice this is almost always 4, except in exceptional circumstances.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub prefix_size: i32,
 
     /// The hashes, in binary format, concatenated into one long string. Hashes are
@@ -1081,12 +1085,14 @@ pub struct RiceDeltaEncoding {
     /// The Golomb-Rice parameter, which is a number between 2 and 28. This field
     /// is missing (that is, zero) if `num_entries` is zero.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub rice_parameter: i32,
 
     /// The number of entries that are delta encoded in the encoded data. If only a
     /// single integer was encoded, this will be zero and the single value will be
     /// stored in `first_value`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub entry_count: i32,
 
     /// The encoded deltas that are encoded using the Golomb-Rice coder.

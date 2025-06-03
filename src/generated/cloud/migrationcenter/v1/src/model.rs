@@ -1338,6 +1338,7 @@ pub struct Source {
     /// The information confidence of the source.
     /// The higher the value, the higher the confidence.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub priority: i32,
 
     /// If `true`, the source is managed by other service(s).
@@ -1346,11 +1347,13 @@ pub struct Source {
 
     /// Output only. Number of frames that are still being processed.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub pending_frame_count: i32,
 
     /// Output only. The number of frames that were reported by the source and
     /// contained errors.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub error_frame_count: i32,
 
     /// Output only. The state of the source.
@@ -2465,6 +2468,7 @@ pub struct ListAssetsRequest {
     /// Requested page size. Server may return fewer items than requested.
     /// If unspecified, server will pick an appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A token identifying a page of results the server should return.
@@ -3227,6 +3231,7 @@ pub struct ListImportJobsRequest {
     /// Requested page size. Server may return fewer items than requested.
     /// If unspecified, server will pick an appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A token identifying a page of results the server should return.
@@ -3731,6 +3736,7 @@ pub struct ListImportDataFilesRequest {
     /// returned. The maximum value is 1000; values above 1000 will be coerced to
     /// 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListImportDataFiles` call.
@@ -4028,6 +4034,7 @@ pub struct ListGroupsRequest {
     /// Requested page size. Server may return fewer items than requested.
     /// If unspecified, server will pick an appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A token identifying a page of results the server should return.
@@ -4630,6 +4637,7 @@ pub struct ListErrorFramesRequest {
     /// Requested page size. Server may return fewer items than requested.
     /// If unspecified, server will pick an appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A token identifying a page of results the server should return.
@@ -4814,6 +4822,7 @@ pub struct ListSourcesRequest {
     /// Requested page size. The server may return fewer items than requested.
     /// If unspecified, the server will pick an appropriate default value.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A token identifying a page of results that the server should return.
@@ -5233,6 +5242,7 @@ pub struct ListPreferenceSetsRequest {
     /// If unspecified, at most 500 preference sets will be returned.
     /// The maximum value is 1000; values above 1000 will be coerced to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A token identifying a page of results the server should return.
@@ -5971,6 +5981,7 @@ pub struct ListReportsRequest {
     /// Requested page size. The server may return fewer items than requested.
     /// If unspecified, the server will pick an appropriate default value.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A token identifying a page of results that the server should return.
@@ -6216,6 +6227,7 @@ pub struct ListReportConfigsRequest {
     /// Requested page size. Server may return fewer items than requested.
     /// If unspecified, server will pick an appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// A token identifying a page of results the server should return.
@@ -6668,10 +6680,12 @@ pub struct MachineDetails {
 
     /// Number of CPU cores in the machine. Must be non-negative.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub core_count: i32,
 
     /// The amount of memory in the machine. Must be non-negative.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub memory_mb: i32,
 
     /// Power state of the machine.
@@ -7043,10 +7057,12 @@ pub struct MachineArchitectureDetails {
 
     /// Number of CPU threads allocated to the machine.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub cpu_thread_count: i32,
 
     /// Number of processor sockets allocated to the machine.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub cpu_socket_count: i32,
 
     /// BIOS Details.
@@ -9482,11 +9498,13 @@ pub struct FstabEntry {
 
     /// Used by dump to determine which filesystems need to be dumped.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub freq: i32,
 
     /// Used by the fsck(8) program to determine the order in which filesystem
     /// checks are done at reboot time.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub passno: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10544,6 +10562,7 @@ pub struct NetworkConnection {
 
     /// Local port.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub local_port: i32,
 
     /// Remote IP address.
@@ -10552,6 +10571,7 @@ pub struct NetworkConnection {
 
     /// Remote port.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub remote_port: i32,
 
     /// Network connection state.
@@ -12620,14 +12640,17 @@ impl wkt::message::Message for ComputeEngineMigrationTarget {
 pub struct ComputeEngineShapeDescriptor {
     /// Memory in mebibytes.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub memory_mb: i32,
 
     /// Number of physical cores.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub physical_core_count: i32,
 
     /// Number of logical cores.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub logical_core_count: i32,
 
     /// Compute Engine machine series.
@@ -12712,6 +12735,7 @@ pub struct ComputeStorageDescriptor {
 
     /// Disk size in GiB.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub size_gb: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -13749,6 +13773,7 @@ impl wkt::message::Message for ValidationReport {
 pub struct ExecutionReport {
     /// Total number of asset frames reported for the import job.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub frames_reported: i32,
 
     /// Validation errors encountered during the execution of the import job.
@@ -13757,6 +13782,7 @@ pub struct ExecutionReport {
 
     /// Output only. Total number of rows in the import job.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub total_rows_count: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -14000,6 +14026,7 @@ pub mod import_error {
 pub struct ImportRowError {
     /// The row number where the error was detected.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     #[deprecated]
     pub row_number: i32,
 

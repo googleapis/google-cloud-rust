@@ -1019,11 +1019,14 @@ pub mod tpm_attestation {
     pub struct Quote {
         /// The hash algorithm of the PCR bank being quoted, encoded as a TPM_ALG_ID
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub hash_algo: i32,
 
         /// Raw binary values of each PCRs being quoted.
         #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-        #[serde_as(as = "std::collections::HashMap<_, serde_with::base64::Base64>")]
+        #[serde_as(
+            as = "std::collections::HashMap<wkt::internal::I32, serde_with::base64::Base64>"
+        )]
         pub pcr_values: std::collections::HashMap<i32, ::bytes::Bytes>,
 
         /// TPM2 quote, encoded as a TPMS_ATTEST

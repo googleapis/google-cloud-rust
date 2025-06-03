@@ -311,7 +311,8 @@ tonic              = { default-features = false, version = "0.13", features = ["
 tonic-build        = { default-features = false, version = "0.13" }
 tracing            = { default-features = false, version = "0.1", features = ["attributes"] }
 tracing-subscriber = { default-features = false, version = "0.3" }
-# Test packags
+url                = { default-features = false, version = "2" }
+# Test packages
 anyhow         = { default-features = false, version = "1" }
 axum           = { default-features = false, version = "0.8" }
 httptest       = { default-features = false, version = "0.16.3" }
@@ -326,7 +327,6 @@ tempfile       = { default-features = false, version = "3" }
 test-case      = { default-features = false, version = "3" }
 tokio-stream   = { default-features = false, version = "0.1" }
 tokio-test     = { default-features = false, version = "0.4" }
-url            = { default-features = false, version = "2" }
 num-bigint-dig = { default-features = false, version = "0.8" }
 
 # Local packages used as dependencies

@@ -73,6 +73,7 @@ pub struct Service {
 
     /// The TCP port at which the metastore service is reached. Default: 9083.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub port: i32,
 
     /// Output only. The current state of the metastore service.
@@ -1035,6 +1036,7 @@ pub mod service {
 pub struct MaintenanceWindow {
     /// The hour of day (0-23) when the window starts.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
     pub hour_of_day: std::option::Option<wkt::Int32Value>,
 
     /// The day of week, when the window starts.
@@ -3820,6 +3822,7 @@ pub struct ListServicesRequest {
     /// services are returned. The maximum value is 1000; values above 1000 are
     /// changed to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous
@@ -4284,6 +4287,7 @@ pub struct ListMetadataImportsRequest {
     /// less than the maximum number. If unspecified, no more than 500 imports are
     /// returned. The maximum value is 1000; values above 1000 are changed to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous
@@ -4692,6 +4696,7 @@ pub struct ListBackupsRequest {
     /// less than the maximum number. If unspecified, no more than 500 backups are
     /// returned. The maximum value is 1000; values above 1000 are changed to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous
@@ -5983,6 +5988,7 @@ pub struct Federation {
     /// `BackendMetastore` with a lower number will be evaluated before a
     /// `BackendMetastore` with a higher number.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "std::collections::HashMap<wkt::internal::I32, _>")]
     pub backend_metastores: std::collections::HashMap<i32, crate::model::BackendMetastore>,
 
     /// Output only. The federation endpoint.
@@ -6488,6 +6494,7 @@ pub struct ListFederationsRequest {
     /// services are returned. The maximum value is 1000; values above 1000 are
     /// changed to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous ListFederationServices

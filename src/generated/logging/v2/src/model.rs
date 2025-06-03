@@ -663,10 +663,12 @@ pub struct LogSplit {
     /// entries are given |index| values 0, 1, ..., n-1 for a sequence of n log
     /// entries.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub index: i32,
 
     /// The total number of log entries that the original LogEntry was split into.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub total_splits: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -956,6 +958,7 @@ pub struct WriteLogEntriesPartialErrors {
     /// Failed requests for which no entries are written will not include
     /// per-entry errors.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "std::collections::HashMap<wkt::internal::I32, _>")]
     pub log_entry_errors: std::collections::HashMap<i32, rpc::model::Status>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1034,6 +1037,7 @@ pub struct ListLogEntriesRequest {
     /// rejected. The presence of `next_page_token` in the response indicates that
     /// more results might be available.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. If present, then retrieve the next batch of results from the
@@ -1176,6 +1180,7 @@ pub struct ListMonitoredResourceDescriptorsRequest {
     /// Non-positive values are ignored.  The presence of `nextPageToken` in the
     /// response indicates that more results might be available.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. If present, then retrieve the next batch of results from the
@@ -1313,6 +1318,7 @@ pub struct ListLogsRequest {
     /// Non-positive values are ignored.  The presence of `nextPageToken` in the
     /// response indicates that more results might be available.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. If present, then retrieve the next batch of results from the
@@ -1581,6 +1587,7 @@ pub mod tail_log_entries_response {
 
         /// A lower bound on the count of entries omitted due to `reason`.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub suppressed_count: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1877,6 +1884,7 @@ pub struct LogBucket {
     /// this value is set to zero at bucket creation time, the default time of 30
     /// days will be used.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub retention_days: i32,
 
     /// Whether the bucket is locked.
@@ -2845,6 +2853,7 @@ pub struct ListBucketsRequest {
     /// Non-positive values are ignored. The presence of `nextPageToken` in the
     /// response indicates that more results might be available.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3269,6 +3278,7 @@ pub struct ListViewsRequest {
     /// Non-positive values are ignored. The presence of `nextPageToken` in the
     /// response indicates that more results might be available.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3641,6 +3651,7 @@ pub struct ListSinksRequest {
     /// Non-positive values are ignored. The presence of `nextPageToken` in the
     /// response indicates that more results might be available.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4176,6 +4187,7 @@ pub struct ListLinksRequest {
 
     /// Optional. The maximum number of results to return from this request.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4471,6 +4483,7 @@ pub struct ListExclusionsRequest {
     /// Non-positive values are ignored. The presence of `nextPageToken` in the
     /// response indicates that more results might be available.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5490,6 +5503,7 @@ pub struct CopyLogEntriesMetadata {
 
     /// Estimated progress of the operation (0 - 100%).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub progress: i32,
 
     /// The IAM identity of a service account that must be granted access to the
@@ -6462,6 +6476,7 @@ pub struct ListLogMetricsRequest {
     /// Non-positive values are ignored. The presence of `nextPageToken` in the
     /// response indicates that more results might be available.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

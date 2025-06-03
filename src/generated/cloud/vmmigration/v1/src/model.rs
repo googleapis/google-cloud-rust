@@ -47,6 +47,7 @@ pub struct ReplicationCycle {
 
     /// The cycle's ordinal number.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub cycle_number: i32,
 
     /// The time the replication cycle has started.
@@ -65,6 +66,7 @@ pub struct ReplicationCycle {
     /// Was replaced by 'steps' field, which breaks down the cycle progression more
     /// accurately.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     #[deprecated]
     pub progress_percent: i32,
 
@@ -2027,6 +2029,7 @@ pub struct CutoverJob {
 
     /// Output only. The current progress in percentage of the cutover job.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub progress_percent: i32,
 
     /// Output only. Provides details for the errors that led to the Cutover Job's
@@ -2840,6 +2843,7 @@ pub struct ListCloneJobsRequest {
     /// be returned. The maximum value is 1000; values above 1000 will be coerced
     /// to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Required. A page token, received from a previous `ListCloneJobs` call.
@@ -4505,6 +4509,7 @@ pub struct ListSourcesRequest {
     /// returned. The maximum value is 1000; values above 1000 will be coerced to
     /// 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Required. A page token, received from a previous `ListSources` call.
@@ -4989,14 +4994,17 @@ pub struct VmwareVmDetails {
 
     /// The number of cpus in the VM.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub cpu_count: i32,
 
     /// The size of the memory of the VM in MB.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub memory_mb: i32,
 
     /// The number of disks the VM has.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub disk_count: i32,
 
     /// The total size of the storage allocated to the VM in MB.
@@ -5419,14 +5427,17 @@ pub struct AwsVmDetails {
 
     /// The number of cpus the VM has.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub cpu_count: i32,
 
     /// The memory size of the VM in MB.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub memory_mb: i32,
 
     /// The number of disks the VM has.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub disk_count: i32,
 
     /// The total size of the storage allocated to the VM in MB.
@@ -6491,6 +6502,7 @@ pub struct UtilizationReport {
 
     /// Output only. Total number of VMs included in the report.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub vm_count: i32,
 
     /// List of utilization information per VM.
@@ -7045,18 +7057,22 @@ pub mod vm_utilization_info {
 pub struct VmUtilizationMetrics {
     /// Max CPU usage, percent.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub cpu_max_percent: i32,
 
     /// Average CPU usage, percent.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub cpu_average_percent: i32,
 
     /// Max memory usage, percent.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub memory_max_percent: i32,
 
     /// Average memory usage, percent.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub memory_average_percent: i32,
 
     /// Max disk IO rate, in kilobytes per second.
@@ -7165,6 +7181,7 @@ pub struct ListUtilizationReportsRequest {
     /// returned. The maximum value is 1000; values above 1000 will be coerced to
     /// 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Required. A page token, received from a previous `ListUtilizationReports`
@@ -7858,6 +7875,7 @@ pub struct ListDatacenterConnectorsRequest {
     /// returned. The maximum value is 1000; values above 1000 will be coerced to
     /// 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Required. A page token, received from a previous `ListDatacenterConnectors`
@@ -8945,6 +8963,7 @@ pub struct ComputeScheduling {
     /// running on a sole-tenant node. Ignored if no node_affinites are
     /// configured.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub min_node_cpus: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9431,6 +9450,7 @@ pub struct ListMigratingVmsRequest {
     /// will be returned. The maximum value is 1000; values above 1000 will be
     /// coerced to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Required. A page token, received from a previous `ListMigratingVms` call.
@@ -10109,6 +10129,7 @@ pub struct ListTargetProjectsRequest {
     /// returned. The maximum value is 1000; values above 1000 will be coerced to
     /// 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Required. A page token, received from a previous `ListTargets` call.
@@ -10597,6 +10618,7 @@ pub struct ListGroupsRequest {
     /// returned. The maximum value is 1000; values above 1000 will be coerced to
     /// 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Required. A page token, received from a previous `ListGroups` call.
@@ -11285,6 +11307,7 @@ pub struct ListCutoverJobsRequest {
     /// be returned. The maximum value is 1000; values above 1000 will be coerced
     /// to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Required. A page token, received from a previous `ListCutoverJobs` call.
@@ -12093,6 +12116,7 @@ pub struct ListReplicationCyclesRequest {
     /// will be returned. The maximum value is 100; values above 100 will be
     /// coerced to 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Required. A page token, received from a previous `ListReplicationCycles`

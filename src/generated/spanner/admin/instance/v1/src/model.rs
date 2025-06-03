@@ -43,6 +43,7 @@ pub struct OperationProgress {
     /// Percent completion of the operation.
     /// Values are between 0 and 100 inclusive.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub progress_percent: i32,
 
     /// Time the request was received.
@@ -1332,12 +1333,12 @@ pub mod replica_compute_capacity {
         ///
         /// This may be zero in API responses for instances that are not yet in
         /// state `READY`.
-        NodeCount(i32),
+        NodeCount(#[serde_as(as = "wkt::internal::I32")] i32),
         /// The number of processing units allocated to each replica.
         ///
         /// This may be zero in API responses for instances that are not yet in
         /// state `READY`.
-        ProcessingUnits(i32),
+        ProcessingUnits(#[serde_as(as = "wkt::internal::I32")] i32),
     }
 }
 
@@ -1625,10 +1626,10 @@ pub mod autoscaling_config {
         pub enum MinLimit {
             /// Minimum number of nodes allocated to the instance. If set, this number
             /// should be greater than or equal to 1.
-            MinNodes(i32),
+            MinNodes(#[serde_as(as = "wkt::internal::I32")] i32),
             /// Minimum number of processing units allocated to the instance. If set,
             /// this number should be multiples of 1000.
-            MinProcessingUnits(i32),
+            MinProcessingUnits(#[serde_as(as = "wkt::internal::I32")] i32),
         }
 
         /// The maximum compute capacity for the instance. The maximum compute
@@ -1641,11 +1642,11 @@ pub mod autoscaling_config {
         pub enum MaxLimit {
             /// Maximum number of nodes allocated to the instance. If set, this number
             /// should be greater than or equal to min_nodes.
-            MaxNodes(i32),
+            MaxNodes(#[serde_as(as = "wkt::internal::I32")] i32),
             /// Maximum number of processing units allocated to the instance. If set,
             /// this number should be multiples of 1000 and be greater than or equal to
             /// min_processing_units.
-            MaxProcessingUnits(i32),
+            MaxProcessingUnits(#[serde_as(as = "wkt::internal::I32")] i32),
         }
     }
 
@@ -1660,6 +1661,7 @@ pub mod autoscaling_config {
         /// on a scale from 0 (no utilization) to 100 (full utilization). The valid
         /// range is [10, 90] inclusive.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub high_priority_cpu_utilization_percent: i32,
 
         /// Required. The target storage utilization percentage that the autoscaler
@@ -1667,6 +1669,7 @@ pub mod autoscaling_config {
         /// from 0 (no utilization) to 100 (full utilization). The valid range is
         /// [10, 99] inclusive.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub storage_utilization_percent: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1792,6 +1795,7 @@ pub mod autoscaling_config {
             /// high_priority_cpu_utilization_percent in the top-level autoscaling
             /// configuration for the selected replicas.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::I32")]
             pub autoscaling_target_high_priority_cpu_utilization_percent: i32,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1885,6 +1889,7 @@ pub struct Instance {
     /// [Compute capacity, nodes, and processing
     /// units](https://cloud.google.com/spanner/docs/compute-capacity).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub node_count: i32,
 
     /// The number of processing units allocated to this instance. At most, one of
@@ -1904,6 +1909,7 @@ pub struct Instance {
     /// [Compute capacity, nodes and processing
     /// units](https://cloud.google.com/spanner/docs/compute-capacity).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub processing_units: i32,
 
     /// Output only. Lists the compute capacity per ReplicaSelection. A replica
@@ -2758,6 +2764,7 @@ pub struct ListInstanceConfigsRequest {
     /// Number of instance configurations to be returned in the response. If 0 or
     /// less, defaults to the server's maximum allowed page size.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// If non-empty, `page_token` should contain a
@@ -3221,6 +3228,7 @@ pub struct ListInstanceConfigOperationsRequest {
     /// Number of operations to be returned in the response. If 0 or
     /// less, defaults to the server's maximum allowed page size.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// If non-empty, `page_token` should contain a
@@ -3497,6 +3505,7 @@ pub struct ListInstancesRequest {
     /// Number of instances to be returned in the response. If 0 or less, defaults
     /// to the server's maximum allowed page size.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// If non-empty, `page_token` should contain a
@@ -4905,7 +4914,7 @@ pub mod instance_partition {
         ///
         /// This may be zero in API responses for instance partitions that are not
         /// yet in state `READY`.
-        NodeCount(i32),
+        NodeCount(#[serde_as(as = "wkt::internal::I32")] i32),
         /// The number of processing units allocated to this instance partition.
         ///
         /// Users can set the `processing_units` field to specify the target number
@@ -4913,7 +4922,7 @@ pub mod instance_partition {
         ///
         /// This might be zero in API responses for instance partitions that are not
         /// yet in the `READY` state.
-        ProcessingUnits(i32),
+        ProcessingUnits(#[serde_as(as = "wkt::internal::I32")] i32),
     }
 }
 
@@ -5418,6 +5427,7 @@ pub struct ListInstancePartitionsRequest {
     /// Number of instance partitions to be returned in the response. If 0 or less,
     /// defaults to the server's maximum allowed page size.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// If non-empty, `page_token` should contain a
@@ -5646,6 +5656,7 @@ pub struct ListInstancePartitionOperationsRequest {
     /// Optional. Number of operations to be returned in the response. If 0 or
     /// less, defaults to the server's maximum allowed page size.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. If non-empty, `page_token` should contain a

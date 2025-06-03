@@ -891,6 +891,7 @@ pub struct PickTimeSeriesFilter {
 
     /// How many time series to allow to pass through the filter.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub num_time_series: i32,
 
     /// How to use the ranking to select time series that pass through the filter.
@@ -1274,6 +1275,7 @@ pub struct StatisticalTimeSeriesFilter {
 
     /// How many time series to output.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub num_time_series: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2038,6 +2040,7 @@ pub struct ListDashboardsRequest {
     /// A positive number that is the maximum number of results to return.
     /// If unspecified, a default of 1000 is used.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. If this field is not empty then it must contain the
@@ -2470,6 +2473,7 @@ pub struct MosaicLayout {
     /// The number of columns in the mosaic grid. The number of columns must be
     /// between 1 and 12, inclusive.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub columns: i32,
 
     /// The tiles to display.
@@ -2525,21 +2529,25 @@ pub mod mosaic_layout {
         /// left edge of the grid. Tiles must be contained within the specified
         /// number of columns. `x_pos` cannot be negative.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub x_pos: i32,
 
         /// The zero-indexed position of the tile in grid blocks relative to the
         /// top edge of the grid. `y_pos` cannot be negative.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub y_pos: i32,
 
         /// The width of the tile, measured in grid blocks. Tiles must have a
         /// minimum width of 1.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub width: i32,
 
         /// The height of the tile, measured in grid blocks. Tiles must have a
         /// minimum height of 1.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub height: i32,
 
         /// The informational widget contained in the tile. For example an `XyChart`.

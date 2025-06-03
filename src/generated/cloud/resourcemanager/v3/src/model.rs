@@ -384,6 +384,7 @@ pub struct ListFoldersRequest {
     /// server can return fewer folders than requested. If unspecified, server
     /// picks an appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A pagination token returned from a previous call to `ListFolders`
@@ -512,6 +513,7 @@ pub struct SearchFoldersRequest {
     /// server can return fewer folders than requested. If unspecified, server
     /// picks an appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A pagination token returned from a previous call to
@@ -1441,6 +1443,7 @@ pub struct SearchOrganizationsRequest {
     /// The server can return fewer organizations than requested. If unspecified,
     /// server picks an appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A pagination token returned from a previous call to
@@ -2021,6 +2024,7 @@ pub struct ListProjectsRequest {
     /// The server can return fewer projects than requested.
     /// If unspecified, server picks an appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. Indicate that projects in the `DELETE_REQUESTED` state should
@@ -2205,6 +2209,7 @@ pub struct SearchProjectsRequest {
     /// The server can return fewer projects than requested.
     /// If unspecified, server picks an appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2958,6 +2963,7 @@ pub struct ListTagBindingsRequest {
     /// server allows a maximum of 300 TagBindings to return. If unspecified, the
     /// server will use 100 as the default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A pagination token returned from a previous call to
@@ -3086,6 +3092,7 @@ pub struct ListEffectiveTagsRequest {
     /// The server allows a maximum of 300 effective tags to return in a single
     /// page. If unspecified, the server will use 100 as the default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A pagination token returned from a previous call to
@@ -3575,6 +3582,7 @@ pub struct ListTagHoldsRequest {
     /// server allows a maximum of 300 TagHolds to return. If unspecified, the
     /// server will use 100 as the default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A pagination token returned from a previous call to
@@ -3900,6 +3908,7 @@ pub struct ListTagKeysRequest {
     /// server allows a maximum of 300 TagKeys to return. If unspecified, the
     /// server will use 100 as the default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A pagination token returned from a previous call to `ListTagKey`
@@ -4488,6 +4497,7 @@ pub struct ListTagValuesRequest {
     /// server allows a maximum of 300 TagValues to return. If unspecified, the
     /// server will use 100 as the default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. A pagination token returned from a previous call to

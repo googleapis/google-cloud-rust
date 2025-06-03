@@ -80,6 +80,7 @@ pub struct Instance {
 
     /// Required. Number of nodes in the Memcached instance.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub node_count: i32,
 
     /// Required. Configuration for Memcached nodes.
@@ -385,10 +386,12 @@ pub mod instance {
     pub struct NodeConfig {
         /// Required. Number of cpus per Memcached node.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub cpu_count: i32,
 
         /// Required. Memory size in MiB for each Memcached node.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub memory_size_mb: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -444,6 +447,7 @@ pub mod instance {
 
         /// Output only. The port number of the Memcached server on this node.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub port: i32,
 
         /// User defined parameters currently applied to the node.
@@ -1510,6 +1514,7 @@ pub struct ListInstancesRequest {
     ///
     /// [google.cloud.memcache.v1.ListInstancesResponse.next_page_token]: crate::model::ListInstancesResponse::next_page_token
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The `next_page_token` value returned from a previous List request, if any.

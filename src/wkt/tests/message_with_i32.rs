@@ -28,6 +28,10 @@ mod test {
 
     #[test_case(123, 123)]
     #[test_case(-234, -234)]
+    #[test_case("345", 345)]
+    #[test_case("-456", -456)]
+    #[test_case("567.0", 567)]
+    #[test_case("-789.0", -789)]
     fn test_singular<T>(input: T, want: i32) -> Result
     where
         T: serde::ser::Serialize,
@@ -55,6 +59,10 @@ mod test {
     #[test_case(0, 0)]
     #[test_case(123, 123)]
     #[test_case(-234, -234)]
+    #[test_case("345", 345)]
+    #[test_case("-456", -456)]
+    #[test_case("567.0", 567)]
+    #[test_case("-789.0", -789)]
     fn test_optional<T>(input: T, want: i32) -> Result
     where
         T: serde::ser::Serialize,
@@ -80,6 +88,10 @@ mod test {
     #[test_case(0, 0)]
     #[test_case(123, 123)]
     #[test_case(-234, -234)]
+    #[test_case("345", 345)]
+    #[test_case("-456", -456)]
+    #[test_case("567.0", 567)]
+    #[test_case("-789.0", -789)]
     fn test_repeated<T>(input: T, want: i32) -> Result
     where
         T: serde::ser::Serialize,
@@ -107,6 +119,10 @@ mod test {
     #[test_case(0, 0)]
     #[test_case(123, 123)]
     #[test_case(-234, -234)]
+    #[test_case("345", 345)]
+    #[test_case("-456", -456)]
+    #[test_case("567.0", 567)]
+    #[test_case("-789.0", -789)]
     fn test_map_value<T>(input: T, want: i32) -> Result
     where
         T: serde::ser::Serialize,
@@ -134,6 +150,29 @@ mod test {
         Ok(())
     }
 
+    #[test_case("0", 0)]
+    #[test_case("123", 123)]
+    #[test_case("-234", -234)]
+    #[test_case("345", 345)]
+    #[test_case("-456", -456)]
+    #[test_case("567.0", 567)]
+    #[test_case("-789.0", -789)]
+    fn test_map_key<T>(input: T, want: i32) -> Result
+    where
+        T: Into<String>,
+    {
+        let value = json!({"mapKey": {input: "test"}});
+        let got = serde_json::from_value::<MessageWithI32>(value)?;
+        let output = json!({"mapKey": {want.to_string(): "test"}});
+        assert_eq!(
+            got,
+            MessageWithI32::new().set_map_key([(want, "test".to_string())])
+        );
+        let trip = serde_json::to_value(&got)?;
+        assert_eq!(trip, output);
+        Ok(())
+    }
+
     #[test_case(json!({}))]
     #[test_case(json!({"mapKey": {}}))]
     fn test_map_key_default(input: Value) -> Result {
@@ -142,6 +181,30 @@ mod test {
         assert_eq!(got, want);
         let output = serde_json::to_value(&got)?;
         assert_eq!(output, json!({}));
+        Ok(())
+    }
+
+    #[test_case("0", "0", 0, 0; "string zero")]
+    #[test_case("0", 0, 0, 0)]
+    #[test_case("0.0", 0, 0, 0)]
+    #[test_case("123", 234, 123, 234)]
+    #[test_case("123.0", "345", 123, 345)]
+    #[test_case("-789", 456, -789, 456)]
+    #[test_case("-789.0", "567", -789, 567)]
+    fn test_map_key_value<K, V>(key: K, value: V, want_key: i32, want_value: i32) -> Result
+    where
+        K: Into<String>,
+        V: serde::Serialize,
+    {
+        let value = json!({"mapKeyValue": {key: value}});
+        let got = serde_json::from_value::<MessageWithI32>(value)?;
+        let output = json!({"mapKeyValue": {want_key.to_string(): want_value}});
+        assert_eq!(
+            got,
+            MessageWithI32::new().set_map_key_value([(want_key, want_value)])
+        );
+        let trip = serde_json::to_value(&got)?;
+        assert_eq!(trip, output);
         Ok(())
     }
 

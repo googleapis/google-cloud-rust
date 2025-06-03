@@ -1061,6 +1061,7 @@ impl wkt::message::Message for HttpRequest {
 pub struct HttpResponse {
     /// The HTTP status code, such as 200 or 404.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub status: i32,
 
     /// The HTTP reason phrase, such as "OK" or "Not Found".
@@ -1181,6 +1182,7 @@ pub struct Status {
     ///
     /// [google.rpc.Code]: crate::model::Code
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub code: i32,
 
     /// A developer-facing error message, which should be in English. Any

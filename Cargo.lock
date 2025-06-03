@@ -4652,6 +4652,7 @@ dependencies = [
  "test-case",
  "thiserror",
  "time",
+ "url",
 ]
 
 [[package]]

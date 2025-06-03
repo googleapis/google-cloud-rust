@@ -945,6 +945,7 @@ pub struct ListTriggersRequest {
     ///
     /// Note: The service may send fewer.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The page token; provide the value from the `next_page_token` field in a
@@ -1367,6 +1368,7 @@ pub struct ListChannelsRequest {
     ///
     /// Note: The service may send fewer.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The page token; provide the value from the `next_page_token` field in a
@@ -1742,6 +1744,7 @@ pub struct ListProvidersRequest {
 
     /// The maximum number of providers to return on each page.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The page token; provide the value from the `next_page_token` field in a
@@ -1932,6 +1935,7 @@ pub struct ListChannelConnectionsRequest {
     ///
     /// Note: The service may send fewer responses.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// The page token; provide the value from the `next_page_token` field in a
@@ -2300,6 +2304,7 @@ pub struct ListMessageBusesRequest {
     ///
     /// Note: The service may send fewer.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. The page token; provide the value from the `next_page_token`
@@ -2459,6 +2464,7 @@ pub struct ListMessageBusEnrollmentsRequest {
     ///
     /// Note: The service may send fewer.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. The page token; provide the value from the `next_page_token`
@@ -2843,6 +2849,7 @@ pub struct ListEnrollmentsRequest {
     ///
     /// Note: The service may send fewer.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. The page token; provide the value from the `next_page_token`
@@ -3265,6 +3272,7 @@ pub struct ListPipelinesRequest {
     ///
     /// Note: The service may send fewer.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. The page token; provide the value from the `next_page_token`
@@ -3686,6 +3694,7 @@ pub struct ListGoogleApiSourcesRequest {
     ///
     /// Note: The service may send fewer.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::I32")]
     pub page_size: i32,
 
     /// Optional. The page token; provide the value from the `next_page_token`
@@ -6456,6 +6465,7 @@ pub mod pipeline {
         /// Optional. The maximum number of delivery attempts for any message. The
         /// value must be between 1 and 100. The default value for this field is 5.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::I32")]
         pub max_attempts: i32,
 
         /// Optional. The minimum amount of seconds to wait between retry attempts.
