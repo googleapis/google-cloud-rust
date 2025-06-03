@@ -69,7 +69,7 @@ mod test {
     #[test_case(i64::MIN as f64, i64::MIN; "min as f64")]
     #[test_case(format!("{}", i64::MIN), i64::MIN; "min as string")]
     #[test_case(format!("{}.0", i64::MIN), i64::MIN; "min as f64 string")]
-    // Not quite a roundtrip test because we always serialize as numbers.
+    // Not quite a roundtrip test because we always serialize as strings.
     fn deser_and_ser<T: serde::Serialize>(input: T, want: i64) -> Result<()> {
         let got = I64::deserialize_as(json!(input))?;
         assert_eq!(got, want);
