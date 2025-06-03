@@ -100,7 +100,7 @@ pub async fn objects_customer_supplied_encryption(
 
     tracing::info!("testing insert_object() with key");
     const CONTENTS: &str = "the quick brown fox jumps over the lazy dog";
-    let key = vec!['a' as u8; 32];
+    let key = vec![b'a'; 32];
     let insert = client
         .insert_object(&bucket.name, "quick.text", CONTENTS)
         .set_key(key.clone())

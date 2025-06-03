@@ -685,7 +685,7 @@ mod tests {
             .build()
             .await?;
         // Make a 32-byte key.
-        let key = vec!['a' as u8; 32];
+        let key = vec![b'a'; 32];
         let key_base64 = BASE64_STANDARD.encode(key.clone());
 
         let key_sha256 = Sha256::digest(key.clone());
