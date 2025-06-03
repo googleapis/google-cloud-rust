@@ -343,6 +343,11 @@ impl InsertObject {
                 reqwest::header::HeaderValue::from_static(&self::info::X_GOOG_API_CLIENT_HEADER),
             );
 
+        let builder = apply_customer_supplied_encryption_headers(
+            builder,
+            self.common_object_request_params.clone(),
+        );
+
         let builder = self.inner.apply_auth_headers(builder).await?;
         let builder = builder.body(self.payload.clone());
         Ok(builder)
@@ -359,15 +364,6 @@ impl InsertObject {
         self.common_object_request_params = Some(key_to_common_object_request_params(v.into()));
         self
     }
-}
-
-fn key_to_common_object_request_params(
-    v: bytes::Bytes,
-) -> control::model::CommonObjectRequestParams {
-    control::model::CommonObjectRequestParams::new()
-        .set_encryption_algorithm("AES256")
-        .set_encryption_key_bytes(v.clone())
-        .set_encryption_key_sha256_bytes(Sha256::digest(v.clone()).as_slice().to_owned())
 }
 
 /// The request builder for [Storage::read_object][crate::client::Storage::read_object] calls.
@@ -579,28 +575,43 @@ impl ReadObject {
             .iter()
             .fold(builder, |b, v| b.query(&[("ifMetagenerationNotMatch", v)]));
 
-        let builder = self
-            .request
-            .common_object_request_params
-            .iter()
-            .fold(builder, |b, v| {
-                b.header(
-                    "x-goog-encryption-algorithm",
-                    v.encryption_algorithm.clone(),
-                )
-                .header(
-                    "x-goog-encryption-key",
-                    BASE64_STANDARD.encode(v.encryption_key_bytes.clone()),
-                )
-                .header(
-                    "x-goog-encryption-key-sha256",
-                    BASE64_STANDARD.encode(v.encryption_key_sha256_bytes.clone()),
-                )
-            });
+        let builder = apply_customer_supplied_encryption_headers(
+            builder,
+            self.request.common_object_request_params,
+        );
 
         let builder = self.inner.apply_auth_headers(builder).await?;
         Ok(builder)
     }
+}
+
+fn apply_customer_supplied_encryption_headers(
+    builder: reqwest::RequestBuilder,
+    common_object_request_params: Option<control::model::CommonObjectRequestParams>,
+) -> reqwest::RequestBuilder {
+    common_object_request_params.iter().fold(builder, |b, v| {
+        b.header(
+            "x-goog-encryption-algorithm",
+            v.encryption_algorithm.clone(),
+        )
+        .header(
+            "x-goog-encryption-key",
+            BASE64_STANDARD.encode(v.encryption_key_bytes.clone()),
+        )
+        .header(
+            "x-goog-encryption-key-sha256",
+            BASE64_STANDARD.encode(v.encryption_key_sha256_bytes.clone()),
+        )
+    })
+}
+
+fn key_to_common_object_request_params(
+    v: bytes::Bytes,
+) -> control::model::CommonObjectRequestParams {
+    control::model::CommonObjectRequestParams::new()
+        .set_encryption_algorithm("AES256")
+        .set_encryption_key_bytes(v.clone())
+        .set_encryption_key_sha256_bytes(Sha256::digest(v.clone()).as_slice().to_owned())
 }
 
 #[cfg(test)]
@@ -608,6 +619,111 @@ mod tests {
     use super::*;
     use std::collections::HashMap;
     type Result = std::result::Result<(), Box<dyn std::error::Error>>;
+
+    #[tokio::test]
+    async fn test_insert_object() -> Result {
+        let client = Storage::builder()
+            .with_endpoint("http://private.googleapis.com")
+            .with_credentials(auth::credentials::testing::test_credentials())
+            .build()
+            .await?;
+
+        let insert_object_builder = client
+            .insert_object("projects/_/buckets/bucket", "object", "hello")
+            .http_request_builder()
+            .await?
+            .build()?;
+
+        assert_eq!(insert_object_builder.method(), reqwest::Method::POST);
+        assert_eq!(
+            insert_object_builder.url().as_str(),
+            "http://private.googleapis.com/upload/storage/v1/b/bucket/o?uploadType=media&name=object"
+        );
+        assert_eq!(
+            b"hello",
+            insert_object_builder.body().unwrap().as_bytes().unwrap()
+        );
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_insert_object_error_credentials() -> Result {
+        let client = Storage::builder()
+            .with_endpoint("http://private.googleapis.com")
+            .with_credentials(auth::credentials::testing::error_credentials(false))
+            .build()
+            .await?;
+
+        client
+            .insert_object("projects/_/buckets/bucket", "object", "hello")
+            .http_request_builder()
+            .await
+            .inspect_err(|e| assert!(e.is_authentication()))
+            .expect_err("invalid credentials should err");
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_insert_object_bad_bucket() -> Result {
+        let client = Storage::builder()
+            .with_credentials(auth::credentials::testing::test_credentials())
+            .build()
+            .await?;
+
+        client
+            .insert_object("malformed", "object", "hello")
+            .http_request_builder()
+            .await
+            .expect_err("malformed bucket string should error");
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_insert_object_headers() -> Result {
+        let client = Storage::builder()
+            .with_credentials(auth::credentials::testing::test_credentials())
+            .build()
+            .await?;
+        // Make a 32-byte key.
+        let key: Vec<u8> = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa".into();
+        assert_eq!(key.len(), 32);
+        let key_base64 = BASE64_STANDARD.encode(key.clone());
+
+        let key_sha256 = Sha256::digest(key.clone());
+        let key_sha256_base64 = BASE64_STANDARD.encode(key_sha256);
+
+        // The API takes the unencoded byte array.
+        let insert_object_builder = client
+            .insert_object("projects/_/buckets/bucket", "object", "hello")
+            .set_key(key)
+            .http_request_builder()
+            .await?
+            .build()?;
+
+        assert_eq!(insert_object_builder.method(), reqwest::Method::POST);
+        assert_eq!(
+            insert_object_builder.url().as_str(),
+            "https://storage.googleapis.com/upload/storage/v1/b/bucket/o?uploadType=media&name=object"
+        );
+
+        let want = vec![
+            ("x-goog-encryption-algorithm", "AES256".to_string()),
+            ("x-goog-encryption-key", key_base64),
+            ("x-goog-encryption-key-sha256", key_sha256_base64),
+        ];
+
+        for (name, value) in want {
+            assert_eq!(
+                insert_object_builder
+                    .headers()
+                    .get(name)
+                    .unwrap()
+                    .as_bytes(),
+                bytes::Bytes::from(value)
+            );
+        }
+        Ok(())
+    }
 
     #[tokio::test]
     async fn test_read_object() -> Result {
