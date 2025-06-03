@@ -510,6 +510,7 @@ pub struct TestAllTypesProto3 {
     #[serde_as(as = "wkt::internal::I32")]
     pub field_name2: i32,
 
+    #[serde(rename = "FieldName3")]
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "wkt::internal::I32")]
     pub _field_name3: i32,
@@ -555,10 +556,12 @@ pub struct TestAllTypesProto3 {
     #[serde_as(as = "wkt::internal::I32")]
     pub field_name_12: i32,
 
+    #[serde(rename = "FieldName13")]
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "wkt::internal::I32")]
     pub __field_name13: i32,
 
+    #[serde(rename = "FieldName14")]
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "wkt::internal::I32")]
     pub __field_name_14: i32,
