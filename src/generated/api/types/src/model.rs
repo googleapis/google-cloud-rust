@@ -8941,7 +8941,7 @@ pub struct Service {
     /// This field has no semantic meaning. The service config compiler always
     /// sets this field to `3`.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<_>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::U32>")]
     pub config_version: std::option::Option<wkt::UInt32Value>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

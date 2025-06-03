@@ -2538,7 +2538,7 @@ pub struct ListDatasetsRequest {
     /// The maximum number of results to return in a single response page.
     /// Leverage the page tokens to iterate through the entire collection.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<_>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::U32>")]
     pub max_results: std::option::Option<wkt::UInt32Value>,
 
     /// Page token, returned by a previous call, to request the next page of
@@ -16505,7 +16505,7 @@ pub struct ListModelsRequest {
     /// The maximum number of results to return in a single response page.
     /// Leverage the page tokens to iterate through the entire collection.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<_>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::U32>")]
     pub max_results: std::option::Option<wkt::UInt32Value>,
 
     /// Page token, returned by a previous call to request the next page of
@@ -20292,7 +20292,7 @@ pub struct ListRoutinesRequest {
     /// The maximum number of results to return in a single response page.
     /// Leverage the page tokens to iterate through the entire collection.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<_>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::U32>")]
     pub max_results: std::option::Option<wkt::UInt32Value>,
 
     /// Page token, returned by a previous call, to request the next page of
@@ -24243,7 +24243,7 @@ pub struct ListTablesRequest {
     /// The maximum number of results to return in a single response page.
     /// Leverage the page tokens to iterate through the entire collection.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<_>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::U32>")]
     pub max_results: std::option::Option<wkt::UInt32Value>,
 
     /// Page token, returned by a previous call, to request the next page of

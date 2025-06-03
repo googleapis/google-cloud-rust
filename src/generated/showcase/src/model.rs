@@ -391,9 +391,11 @@ pub struct ComplianceData {
     pub f_sfixed32: i32,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::U32")]
     pub f_uint32: u32,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::U32")]
     pub f_fixed32: u32,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]

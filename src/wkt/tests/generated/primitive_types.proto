@@ -57,6 +57,22 @@ message MessageWithI32 {
     map<int32, int32> map_key_value = 6;
 }
 
+// A test message for u32.
+message MessageWithU32 {
+    // A singular field.
+    uint32 singular = 1;
+    // An optional field.
+    optional uint32 optional = 2;
+    // A repeated field.
+    repeated uint32 repeated = 3;
+    // Test u32 as values.
+    map<string, uint32> map_value = 4;
+    // Test u32 as keys.
+    map<uint32, string> map_key = 5;
+    // Test u32 as both keys and values.
+    map<uint32, uint32> map_key_value = 6;
+}
+
 // A test message for i64.
 message MessageWithI64 {
     // A singular field.
