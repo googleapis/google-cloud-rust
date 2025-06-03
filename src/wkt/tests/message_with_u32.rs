@@ -44,6 +44,7 @@ mod test {
 
     #[test_case(json!({}))]
     #[test_case(json!({"singular": 0}))]
+    #[test_case(json!({"singular": null}))]
     fn test_singular_default(input: Value) -> Result {
         let want = MessageWithU32::new().set_singular(0_u32);
         let got = serde_json::from_value::<MessageWithU32>(input)?;
@@ -98,6 +99,7 @@ mod test {
 
     #[test_case(json!({}))]
     #[test_case(json!({"repeated": []}))]
+    #[test_case(json!({"repeated": null}))]
     fn test_repeated_default(input: Value) -> Result {
         let want = MessageWithU32::new();
         let got = serde_json::from_value::<MessageWithU32>(input)?;
@@ -129,6 +131,7 @@ mod test {
 
     #[test_case(json!({}))]
     #[test_case(json!({"mapValue": {}}))]
+    #[test_case(json!({"mapValue": null}))]
     fn test_map_value_default(input: Value) -> Result {
         let want = MessageWithU32::default();
         let got = serde_json::from_value::<MessageWithU32>(input)?;
@@ -160,6 +163,7 @@ mod test {
 
     #[test_case(json!({}))]
     #[test_case(json!({"mapKey": {}}))]
+    #[test_case(json!({"mapKey": null}))]
     fn test_map_key_default(input: Value) -> Result {
         let want = MessageWithU32::default();
         let got = serde_json::from_value::<MessageWithU32>(input)?;
@@ -193,6 +197,7 @@ mod test {
 
     #[test_case(json!({}))]
     #[test_case(json!({"mapKeyValue": {}}))]
+    #[test_case(json!({"mapKeyValue": null}))]
     fn test_map_key_value_default(input: Value) -> Result {
         let want = MessageWithU32::default();
         let got = serde_json::from_value::<MessageWithU32>(input)?;
