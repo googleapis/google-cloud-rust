@@ -267,10 +267,7 @@ pub(crate) mod info {
 
 pub struct InsertObject {
     inner: std::sync::Arc<StorageInner>,
-    bucket: String,
-    object: String,
-    payload: bytes::Bytes,
-    common_object_request_params: Option<control::model::CommonObjectRequestParams>,
+    request: control::model::WriteObjectRequest,
 }
 
 impl InsertObject {
@@ -282,10 +279,15 @@ impl InsertObject {
     {
         InsertObject {
             inner,
-            bucket: bucket.into(),
-            object: object.into(),
-            payload: payload.into(),
-            common_object_request_params: None,
+            request: control::model::WriteObjectRequest::new()
+                .set_write_object_spec(
+                    control::model::WriteObjectSpec::new().set_resource(
+                        control::model::Object::new()
+                            .set_bucket(bucket)
+                            .set_name(object),
+                    ),
+                )
+                .set_checksummed_data(control::model::ChecksummedData::new().set_content(payload)),
         }
     }
 
@@ -303,7 +305,7 @@ impl InsertObject {
     ///     Ok(())
     /// }
     /// ```
-    pub async fn send(&self) -> crate::Result<Object> {
+    pub async fn send(self) -> crate::Result<Object> {
         let builder = self.http_request_builder().await?;
 
         tracing::info!("builder={builder:?}");
@@ -317,8 +319,17 @@ impl InsertObject {
         Ok(Object::from(response))
     }
 
-    async fn http_request_builder(&self) -> Result<reqwest::RequestBuilder> {
-        let bucket: String = self.bucket.clone();
+    async fn http_request_builder(self) -> Result<reqwest::RequestBuilder> {
+        let resource = match &self.request.first_message {
+            Some(control::model::write_object_request::FirstMessage::WriteObjectSpec(spec)) => {
+                match &spec.resource {
+                    Some(resource) => resource,
+                    _ => unreachable!("write object spec set in constructor"),
+                }
+            }
+            _ => unreachable!("write object spec set in constructor"),
+        };
+        let bucket: String = resource.bucket.clone();
         let bucket_id = bucket
             .as_str()
             .strip_prefix("projects/_/buckets/")
@@ -327,7 +338,7 @@ impl InsertObject {
                     "malformed bucket name, it must start with `projects/_/buckets/`: {bucket}"
                 ))
             })?;
-        let object: String = self.object.clone();
+        let object: String = resource.name.clone();
         let builder = self
             .inner
             .client
@@ -345,11 +356,16 @@ impl InsertObject {
 
         let builder = apply_customer_supplied_encryption_headers(
             builder,
-            self.common_object_request_params.clone(),
+            self.request.common_object_request_params,
         );
 
         let builder = self.inner.apply_auth_headers(builder).await?;
-        let builder = builder.body(self.payload.clone());
+        let builder = builder.body(match &self.request.data {
+            Some(control::model::write_object_request::Data::ChecksummedData(data)) => {
+                data.content.clone()
+            }
+            _ => unreachable!("content for the checksummed data is set in the constructor"),
+        });
         Ok(builder)
     }
 
@@ -359,7 +375,8 @@ impl InsertObject {
     where
         T: Into<bytes::Bytes>,
     {
-        self.common_object_request_params = Some(key_to_common_object_request_params(v.into()));
+        self.request.common_object_request_params =
+            Some(key_to_common_object_request_params(v.into()));
         self
     }
 }
