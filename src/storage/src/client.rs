@@ -299,6 +299,20 @@ impl InsertObject {
     /// }
     /// ```
     pub async fn send(&self) -> crate::Result<Object> {
+        let builder = self.http_request_builder().await?;
+
+        tracing::info!("builder={builder:?}");
+
+        let response = builder.send().await.map_err(Error::io)?;
+        if !response.status().is_success() {
+            return gaxi::http::to_http_error(response).await;
+        }
+        let response = response.json::<v1::Object>().await.map_err(Error::io)?;
+
+        Ok(Object::from(response))
+    }
+
+    async fn http_request_builder(&self) -> Result<reqwest::RequestBuilder> {
         let bucket: String = self.bucket.clone();
         let bucket_id = bucket
             .as_str()
@@ -326,16 +340,7 @@ impl InsertObject {
 
         let builder = self.inner.apply_auth_headers(builder).await?;
         let builder = builder.body(self.payload.clone());
-
-        tracing::info!("builder={builder:?}");
-
-        let response = builder.send().await.map_err(Error::io)?;
-        if !response.status().is_success() {
-            return gaxi::http::to_http_error(response).await;
-        }
-        let response = response.json::<v1::Object>().await.map_err(Error::io)?;
-
-        Ok(Object::from(response))
+        Ok(builder)
     }
 }
 
@@ -556,6 +561,64 @@ mod tests {
     use super::*;
     use std::collections::HashMap;
     type Result = std::result::Result<(), Box<dyn std::error::Error>>;
+
+    #[tokio::test]
+    async fn test_insert_object() -> Result {
+        let client = Storage::builder()
+            .with_endpoint("http://private.googleapis.com")
+            .with_credentials(auth::credentials::testing::test_credentials())
+            .build()
+            .await?;
+
+        let insert_object_builder = client
+            .insert_object("projects/_/buckets/bucket", "object", "hello")
+            .http_request_builder()
+            .await?
+            .build()?;
+
+        assert_eq!(insert_object_builder.method(), reqwest::Method::POST);
+        assert_eq!(
+            insert_object_builder.url().as_str(),
+            "http://private.googleapis.com/upload/storage/v1/b/bucket/o?uploadType=media&name=object"
+        );
+        assert_eq!(
+            b"hello",
+            insert_object_builder.body().unwrap().as_bytes().unwrap()
+        );
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_insert_object_error_credentials() -> Result {
+        let client = Storage::builder()
+            .with_endpoint("http://private.googleapis.com")
+            .with_credentials(auth::credentials::testing::error_credentials(false))
+            .build()
+            .await?;
+
+        client
+            .insert_object("projects/_/buckets/bucket", "object", "hello")
+            .http_request_builder()
+            .await
+            .inspect_err(|e| assert!(e.is_authentication()))
+            .expect_err("invalid credentials should err");
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_insert_object_bad_bucket() -> Result {
+        let client = Storage::builder()
+            .with_credentials(auth::credentials::testing::test_credentials())
+            .build()
+            .await?;
+
+        client
+            .insert_object("malformed", "object", "hello")
+            .http_request_builder()
+            .await
+            .expect_err("malformed bucket string should error");
+        Ok(())
+    }
 
     #[tokio::test]
     async fn test_read_object() -> Result {
