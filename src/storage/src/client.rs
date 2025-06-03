@@ -106,43 +106,58 @@ impl Storage {
 
     /// A simple upload from a buffer.
     ///
+    /// # Parameters
+    /// * `bucket` - the bucket name containing the object. In
+    ///   `projects/_/buckets/{bucket_id}` format.
+    /// * `object` - the object name.
+    /// * `payload` - the object data.
+    ///
     /// # Example
     /// ```
     /// # use google_cloud_storage::client::Storage;
     /// async fn example(client: &Storage) -> gax::Result<()> {
     ///     let response = client
-    ///         .insert_object()
-    ///         .set_bucket("projects/_/buckets/my-bucket")
-    ///         .set_object("my-object")
-    ///         .set_payload("the quick brown fox jumped over the lazy dog")
+    ///         .insert_object("projects/_/buckets/my-bucket", "my-object", "the quick brown fox jumped over the lazy dog")
     ///         .send()
     ///         .await?;
     ///     println!("response details={response:?}");
     ///     Ok(())
     /// }
     /// ```
-    pub fn insert_object(&self) -> InsertObject {
-        InsertObject::new(self.inner.clone())
+    pub fn insert_object<B, O, P>(&self, bucket: B, object: O, payload: P) -> InsertObject
+    where
+        B: Into<String>,
+        O: Into<String>,
+        P: Into<bytes::Bytes>,
+    {
+        InsertObject::new(self.inner.clone(), bucket, object, payload)
     }
 
     /// A simple download into a buffer.
+    ///
+    /// # Parameters
+    /// * `bucket` - the bucket name containing the object. In
+    ///   `projects/_/buckets/{bucket_id}` format.
+    /// * `object` - the object name.
     ///
     /// # Example
     /// ```
     /// # use google_cloud_storage::client::Storage;
     /// async fn example(client: &Storage) -> gax::Result<()> {
     ///     let contents = client
-    ///         .read_object()
-    ///         .set_bucket("projects/_/buckets/my-bucket")
-    ///         .set_object("my-object")
+    ///         .read_object("projects/_/buckets/my-bucket", "my-object")
     ///         .send()
     ///         .await?;
     ///     println!("object contents={contents:?}");
     ///     Ok(())
     /// }
     /// ```
-    pub fn read_object(&self) -> ReadObject {
-        ReadObject::new(self.inner.clone())
+    pub fn read_object<B, O>(&self, bucket: B, object: O) -> ReadObject
+    where
+        B: Into<String>,
+        O: Into<String>,
+    {
+        ReadObject::new(self.inner.clone(), bucket, object)
     }
 
     pub(crate) async fn new(
@@ -255,12 +270,17 @@ pub struct InsertObject {
 }
 
 impl InsertObject {
-    fn new(inner: std::sync::Arc<StorageInner>) -> Self {
+    fn new<B, O, P>(inner: std::sync::Arc<StorageInner>, bucket: B, object: O, payload: P) -> Self
+    where
+        B: Into<String>,
+        O: Into<String>,
+        P: Into<bytes::Bytes>,
+    {
         InsertObject {
             inner,
-            bucket: Default::default(),
-            object: Default::default(),
-            payload: Default::default(),
+            bucket: bucket.into(),
+            object: object.into(),
+            payload: payload.into(),
         }
     }
 
@@ -271,10 +291,7 @@ impl InsertObject {
     /// # use google_cloud_storage::client::Storage;
     /// async fn example(client: &Storage) -> gax::Result<()> {
     ///     let response = client
-    ///         .insert_object()
-    ///         .set_bucket("projects/_/buckets/my-bucket")
-    ///         .set_object("my-object")
-    ///         .set_payload("the quick brown fox jumped over the lazy dog")
+    ///         .insert_object("projects/_/buckets/my-bucket", "my-object", "the quick brown fox jumped over the lazy dog")
     ///         .send()
     ///         .await?;
     ///     println!("response details={response:?}");
@@ -320,24 +337,6 @@ impl InsertObject {
 
         Ok(Object::from(response))
     }
-
-    /// Sets the value of bucket.
-    pub fn set_bucket<T: Into<String>>(mut self, v: T) -> Self {
-        self.bucket = v.into();
-        self
-    }
-
-    /// Sets the value of object.
-    pub fn set_object<T: Into<String>>(mut self, v: T) -> Self {
-        self.object = v.into();
-        self
-    }
-
-    /// Sets the value of payload.
-    pub fn set_payload<T: Into<bytes::Bytes>>(mut self, v: T) -> Self {
-        self.payload = v.into();
-        self
-    }
 }
 
 /// The request builder for [Storage::read_object][crate::client::Storage::read_object] calls.
@@ -350,10 +349,7 @@ impl InsertObject {
 /// # let client = Storage::builder()
 /// #   .with_endpoint("https://storage.googleapis.com")
 /// #    .build().await?;
-/// let builder: ReadObject = client
-///         .read_object()
-///         .set_bucket("projects/_/buckets/my-bucket")
-///         .set_object("my-object");
+/// let builder: ReadObject = client.read_object("projects/_/buckets/my-bucket", "my-object");
 /// let contents = builder.send().await?;
 /// println!("object contents={contents:?}");
 /// # Ok::<(), anyhow::Error>(()) });
@@ -364,23 +360,17 @@ pub struct ReadObject {
 }
 
 impl ReadObject {
-    fn new(inner: std::sync::Arc<StorageInner>) -> Self {
+    fn new<B, O>(inner: std::sync::Arc<StorageInner>, bucket: B, object: O) -> Self
+    where
+        B: Into<String>,
+        O: Into<String>,
+    {
         ReadObject {
             inner,
-            request: control::model::ReadObjectRequest::new(),
+            request: control::model::ReadObjectRequest::new()
+                .set_bucket(bucket)
+                .set_object(object),
         }
-    }
-
-    /// Sets the value of [bucket][control::model::ReadObjectRequest::bucket].
-    pub fn set_bucket<T: Into<String>>(mut self, v: T) -> Self {
-        self.request.bucket = v.into();
-        self
-    }
-
-    /// Sets the value of [object][control::model::ReadObjectRequest::object].
-    pub fn set_object<T: Into<String>>(mut self, v: T) -> Self {
-        self.request.object = v.into();
-        self
     }
 
     /// Sets the value of [generation][control::model::ReadObjectRequest::generation].
@@ -576,9 +566,7 @@ mod tests {
             .await?;
 
         let read_object_builder = client
-            .read_object()
-            .set_bucket("projects/_/buckets/bucket")
-            .set_object("object")
+            .read_object("projects/_/buckets/bucket", "object")
             .http_request_builder()
             .await?
             .build()?;
@@ -600,9 +588,7 @@ mod tests {
             .await?;
 
         client
-            .read_object()
-            .set_bucket("projects/_/buckets/bucket")
-            .set_object("object")
+            .read_object("projects/_/buckets/bucket", "object")
             .http_request_builder()
             .await
             .inspect_err(|e| assert!(e.is_authentication()))
@@ -618,9 +604,7 @@ mod tests {
             .await?;
 
         client
-            .read_object()
-            .set_bucket("malformed")
-            .set_object("object")
+            .read_object("malformed", "object")
             .http_request_builder()
             .await
             .expect_err("malformed bucket string should error");
@@ -635,9 +619,7 @@ mod tests {
             .await?;
 
         let read_object_builder = client
-            .read_object()
-            .set_bucket("projects/_/buckets/bucket")
-            .set_object("object")
+            .read_object("projects/_/buckets/bucket", "object")
             .set_generation(5)
             .set_if_generation_match(10)
             .set_if_generation_not_match(20)
