@@ -1355,12 +1355,14 @@ pub mod router {
         /// Peer BGP Autonomous System Number (ASN). Each BGP interface may use
         /// a different value.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::U32")]
         pub peer_asn: u32,
 
         /// Output only. Local BGP Autonomous System Number (ASN).
         /// This field is ST_NOT_REQUIRED because it stores private ASNs, which are
         /// meaningless outside the zone in which they are being used.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::U32")]
         pub local_asn: u32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1447,11 +1449,13 @@ pub mod router {
     pub struct Bgp {
         /// Locally assigned BGP ASN.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::U32")]
         pub asn: u32,
 
         /// The interval in seconds between BGP keepalive messages that are
         /// sent to the peer. Default is 20 with value between 20 and 60.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::U32")]
         pub keepalive_interval_in_seconds: u32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

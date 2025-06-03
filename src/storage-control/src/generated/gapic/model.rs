@@ -6058,6 +6058,7 @@ pub struct ObjectChecksums {
     /// object matches this checksum.
     #[serde(rename = "crc32c")]
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::U32>")]
     pub crc32c: std::option::Option<u32>,
 
     /// Optional. 128 bit MD5 hash of the object data.

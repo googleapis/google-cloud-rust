@@ -4160,12 +4160,14 @@ pub mod instance {
         /// Query string length. The default value is 1024.
         /// Any integer between 256 and 4500 is considered valid.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::U32")]
         pub query_string_length: u32,
 
         /// Number of query execution plans captured by Insights per minute
         /// for all queries combined. The default value is 5.
         /// Any integer between 0 and 20 is considered valid.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::U32>")]
         pub query_plans_per_minute: std::option::Option<u32>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

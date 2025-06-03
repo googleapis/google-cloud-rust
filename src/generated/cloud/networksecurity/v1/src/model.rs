@@ -317,6 +317,7 @@ pub mod authorization_policy {
 
             /// Required. List of destination ports to match. At least one port should match.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            #[serde_as(as = "std::vec::Vec<wkt::internal::U32>")]
             pub ports: std::vec::Vec<u32>,
 
             /// Optional. A list of HTTP methods to match. At least one method should

@@ -910,16 +910,19 @@ pub struct HealthCheck {
     /// Number of consecutive successful health checks required before receiving
     /// traffic.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::U32")]
     pub healthy_threshold: u32,
 
     /// Number of consecutive failed health checks required before removing
     /// traffic.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::U32")]
     pub unhealthy_threshold: u32,
 
     /// Number of consecutive failed health checks required before an instance is
     /// restarted.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::U32")]
     pub restart_threshold: u32,
 
     /// Interval between health checks.
@@ -1031,11 +1034,13 @@ pub struct ReadinessCheck {
     /// Number of consecutive failed checks required before removing
     /// traffic.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::U32")]
     pub failure_threshold: u32,
 
     /// Number of consecutive successful checks required before receiving
     /// traffic.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::U32")]
     pub success_threshold: u32,
 
     /// Interval between health checks.
@@ -1165,11 +1170,13 @@ pub struct LivenessCheck {
     /// Number of consecutive failed checks required before considering the
     /// VM unhealthy.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::U32")]
     pub failure_threshold: u32,
 
     /// Number of consecutive successful checks required before considering
     /// the VM healthy.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::U32")]
     pub success_threshold: u32,
 
     /// Interval between health checks.

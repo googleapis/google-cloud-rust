@@ -34679,6 +34679,7 @@ pub struct Job {
     /// Output only. The number of times the job has been retried (excluding the
     /// initial attempt).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::U32")]
     pub retry_count: u32,
 
     /// Output only. The underlying service running a job.

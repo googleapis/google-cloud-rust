@@ -2371,6 +2371,7 @@ pub struct SqlInstancesListRequest {
     /// If unspecified, at most 500 instances are returned.
     /// The maximum value is 1000; values above 1000 are coerced to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::U32")]
     pub max_results: u32,
 
     /// A previously-returned page token representing part of the larger set of
@@ -8893,6 +8894,7 @@ pub struct SqlOperationsListRequest {
 
     /// Maximum number of operations per response.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::U32")]
     pub max_results: u32,
 
     /// A previously-returned page token representing part of the larger set of
