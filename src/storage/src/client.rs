@@ -825,7 +825,7 @@ mod tests {
             .build()
             .await?;
         // Make a 32-byte key.
-        let key: Vec<u8> = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa".into();
+        let key = vec![b'a'; 32];
         assert_eq!(key.len(), 32);
         let key_base64 = BASE64_STANDARD.encode(key.clone());
 
