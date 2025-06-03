@@ -24,6 +24,13 @@ pub use int32::I32;
 mod uint32;
 pub use uint32::U32;
 
+#[macro_use]
+mod visitor_64;
+mod int64;
+pub use int64::I64;
+mod uint64;
+pub use uint64::U64;
+
 pub struct F32;
 pub struct F64;
 
