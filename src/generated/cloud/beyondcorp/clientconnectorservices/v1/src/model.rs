@@ -42,6 +42,7 @@ extern crate wkt;
 pub struct ClientConnectorService {
     /// Required. Name of resource. The name is ignored during creation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. [Output only] Create time stamp.
@@ -59,6 +60,7 @@ pub struct ClientConnectorService {
     /// * Can only contain lowercase letters, numbers, and hyphens.
     /// * Must start with a letter.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// Required. The details of the ingress settings.
@@ -71,6 +73,7 @@ pub struct ClientConnectorService {
 
     /// Output only. The operational state of the ClientConnectorService.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::client_connector_service::State,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -282,11 +285,13 @@ pub mod client_connector_service {
             /// Required. Immutable. The transport protocol used between the client and
             /// the server.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub transport_protocol:
                 crate::model::client_connector_service::ingress::config::TransportProtocol,
 
             /// Required. The settings used to configure basic ClientGateways.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
             pub destination_routes: std::vec::Vec<
                 crate::model::client_connector_service::ingress::config::DestinationRoute,
             >,
@@ -349,11 +354,13 @@ pub mod client_connector_service {
                 /// Required. The network address of the subnet
                 /// for which the packet is routed to the ClientGateway.
                 #[serde(skip_serializing_if = "std::string::String::is_empty")]
+                #[serde_as(as = "serde_with::DefaultOnNull<_>")]
                 pub address: std::string::String,
 
                 /// Required. The network mask of the subnet
                 /// for which the packet is routed to the ClientGateway.
                 #[serde(skip_serializing_if = "std::string::String::is_empty")]
+                #[serde_as(as = "serde_with::DefaultOnNull<_>")]
                 pub netmask: std::string::String,
 
                 #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -625,6 +632,7 @@ pub mod client_connector_service {
         pub struct PeeredVpc {
             /// Required. The name of the peered VPC owned by the consumer project.
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub network_vpc: std::string::String,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -833,24 +841,28 @@ pub mod client_connector_service {
 pub struct ListClientConnectorServicesRequest {
     /// Required. Parent value for ListClientConnectorServicesRequest.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. Requested page size. Server may return fewer items than
     /// requested. If unspecified, server will pick an appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. Filtering results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Optional. Hint for how to order the results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -907,14 +919,17 @@ impl wkt::message::Message for ListClientConnectorServicesRequest {
 pub struct ListClientConnectorServicesResponse {
     /// The list of ClientConnectorService.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub client_connector_services: std::vec::Vec<crate::model::ClientConnectorService>,
 
     /// A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -983,6 +998,7 @@ impl gax::paginator::internal::PageableResponse for ListClientConnectorServicesR
 pub struct GetClientConnectorServiceRequest {
     /// Required. Name of the resource.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1015,6 +1031,7 @@ impl wkt::message::Message for GetClientConnectorServiceRequest {
 pub struct CreateClientConnectorServiceRequest {
     /// Required. Value for parent.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. User-settable client connector service resource ID.
@@ -1026,6 +1043,7 @@ pub struct CreateClientConnectorServiceRequest {
     /// A random system generated name will be assigned
     /// if not specified by the user.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub client_connector_service_id: std::string::String,
 
     /// Required. The resource being created.
@@ -1046,11 +1064,13 @@ pub struct CreateClientConnectorServiceRequest {
     /// The request ID must be a valid UUID with the exception that zero UUID is
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     /// Optional. If set, validates request by executing a dry-run which would not
     /// alter the resource in any way.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1148,15 +1168,18 @@ pub struct UpdateClientConnectorServiceRequest {
     /// The request ID must be a valid UUID with the exception that zero UUID is
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     /// Optional. If set, validates request by executing a dry-run which would not
     /// alter the resource in any way.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     /// Optional. If set as true, will create the resource if it is not found.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub allow_missing: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1237,6 +1260,7 @@ impl wkt::message::Message for UpdateClientConnectorServiceRequest {
 pub struct DeleteClientConnectorServiceRequest {
     /// Required. Name of the resource.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. An optional request ID to identify requests. Specify a unique
@@ -1253,11 +1277,13 @@ pub struct DeleteClientConnectorServiceRequest {
     /// The request ID must be a valid UUID with the exception that zero UUID is
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     /// Optional. If set, validates request by executing a dry-run which would not
     /// alter the resource in any way.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1310,14 +1336,17 @@ pub struct ClientConnectorServiceOperationMetadata {
 
     /// Output only. Server-defined resource path for the target of the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub target: std::string::String,
 
     /// Output only. Name of the verb executed by the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub verb: std::string::String,
 
     /// Output only. Human-readable status of the operation, if any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub status_message: std::string::String,
 
     /// Output only. Identifies whether the user has requested cancellation
@@ -1328,10 +1357,12 @@ pub struct ClientConnectorServiceOperationMetadata {
     ///
     /// [google.rpc.Status.code]: rpc::model::Status::code
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub api_version: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

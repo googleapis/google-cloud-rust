@@ -40,19 +40,23 @@ extern crate wkt;
 pub struct Insight {
     /// Name of the insight.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Free-form human readable summary in English. The maximum length is 500
     /// characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Fully qualified resource names that this insight is targeting.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub target_resources: std::vec::Vec<std::string::String>,
 
     /// Insight subtype. Insight content schema will be stable for a given subtype.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub insight_subtype: std::string::String,
 
     /// A struct of custom fields to explain the insight.
@@ -76,19 +80,23 @@ pub struct Insight {
 
     /// Category being targeted by the insight.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub category: crate::model::insight::Category,
 
     /// Insight's severity.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub severity: crate::model::insight::Severity,
 
     /// Fingerprint of the Insight. Provides optimistic locking when updating
     /// states.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     /// Recommendations derived from this insight.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub associated_recommendations: std::vec::Vec<crate::model::insight::RecommendationReference>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -257,6 +265,7 @@ pub mod insight {
         /// Recommendation resource name, e.g.
         /// projects/[PROJECT_NUMBER]/locations/[LOCATION]/recommenders/[RECOMMENDER_ID]/recommendations/[RECOMMENDATION_ID]
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub recommendation: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -599,10 +608,12 @@ pub mod insight {
 pub struct InsightStateInfo {
     /// Insight state.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::insight_state_info::State,
 
     /// A map of metadata for the state, provided by user or automations systems.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub state_metadata: std::collections::HashMap<std::string::String, std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -803,6 +814,7 @@ pub struct InsightTypeConfig {
     /// Eg,
     /// projects/[PROJECT_NUMBER]/locations/[LOCATION]/insightTypes/[INSIGHT_TYPE_ID]/config
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// InsightTypeGenerationConfig which configures the generation of
@@ -814,6 +826,7 @@ pub struct InsightTypeConfig {
     /// Fingerprint of the InsightTypeConfig. Provides optimistic locking when
     /// updating.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     /// Last time when the config was updated.
@@ -824,6 +837,7 @@ pub struct InsightTypeConfig {
     /// A new revision is committed whenever the config is changed in any way.
     /// The format is an 8-character hexadecimal string.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub revision_id: std::string::String,
 
     /// Allows clients to store small amounts of arbitrary data. Annotations must
@@ -835,11 +849,13 @@ pub struct InsightTypeConfig {
     /// Name must be 63 characters or less, begin and end with alphanumerics,
     /// with dashes (-), underscores (_), dots (.), and alphanumerics between.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// A user-settable field to provide a human-readable name to be used in user
     /// interfaces.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -989,11 +1005,13 @@ impl wkt::message::Message for InsightTypeGenerationConfig {
 pub struct Recommendation {
     /// Name of recommendation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Free-form human readable summary in English. The maximum length is 500
     /// characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Contains an identifier for a subtype of recommendations produced for the
@@ -1006,6 +1024,7 @@ pub struct Recommendation {
     /// For recommender = "google.iam.policy.Recommender",
     /// recommender_subtype can be one of "REMOVE_ROLE"/"REPLACE_ROLE"
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub recommender_subtype: std::string::String,
 
     /// Last time this recommendation was refreshed by the system that created it
@@ -1022,10 +1041,12 @@ pub struct Recommendation {
     /// trying to optimize for the primary category. These may be positive
     /// or negative.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub additional_impact: std::vec::Vec<crate::model::Impact>,
 
     /// Recommendation's priority.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub priority: crate::model::recommendation::Priority,
 
     /// Content of the recommendation describing recommended changes to resources.
@@ -1039,10 +1060,12 @@ pub struct Recommendation {
     /// Fingerprint of the Recommendation. Provides optimistic locking when
     /// updating states.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     /// Insights that led to this recommendation.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub associated_insights: std::vec::Vec<crate::model::recommendation::InsightReference>,
 
     /// Corresponds to a mutually exclusive group ID within a recommender.
@@ -1050,6 +1073,7 @@ pub struct Recommendation {
     /// exclusive group. This means that only one recommendation within the group
     /// is suggested to be applied.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub xor_group_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1218,6 +1242,7 @@ pub mod recommendation {
         /// Insight resource name, e.g.
         /// projects/[PROJECT_NUMBER]/locations/[LOCATION]/insightTypes/[INSIGHT_TYPE_ID]/insights/[INSIGHT_ID]
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub insight: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1399,6 +1424,7 @@ pub struct RecommendationContent {
     /// that, all operations within one group are expected to be performed
     /// atomically and in an order.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub operation_groups: std::vec::Vec<crate::model::OperationGroup>,
 
     /// Condensed overview information about the recommendation.
@@ -1459,6 +1485,7 @@ pub struct OperationGroup {
     /// List of operations across one or more resources that belong to this group.
     /// Loosely based on RFC6902 and should be performed in the order they appear.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub operations: std::vec::Vec<crate::model::Operation>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1506,22 +1533,26 @@ pub struct Operation {
     /// 'copy', 'test' and custom operations. This field is case-insensitive and
     /// always populated.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub action: std::string::String,
 
     /// Type of GCP resource being modified/tested. This field is always populated.
     /// Example: cloudresourcemanager.googleapis.com/Project,
     /// compute.googleapis.com/Instance
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub resource_type: std::string::String,
 
     /// Contains the fully qualified resource name. This field is always populated.
     /// ex: //cloudresourcemanager.googleapis.com/projects/foo.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub resource: std::string::String,
 
     /// Path to the target field being operated on. If the operation is at the
     /// resource level, then path should be "/". This field is always populated.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub path: std::string::String,
 
     /// Can be set with action 'copy' to copy resource configuration across
@@ -1530,11 +1561,13 @@ pub struct Operation {
     /// source_resource = \<source\> and resource_name = \<target\>.
     /// This field is empty for all other values of `action`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub source_resource: std::string::String,
 
     /// Can be set with action 'copy' or 'move' to indicate the source field within
     /// resource or source_resource, ignored if provided for other operation types.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub source_path: std::string::String,
 
     /// Set of filters to apply if `path` refers to array elements or nested array
@@ -1573,6 +1606,7 @@ pub struct Operation {
     /// When both path_filters and path_value_matchers are set, an implicit AND
     /// must be performed.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub path_filters: std::collections::HashMap<std::string::String, wkt::Value>,
 
     /// Similar to path_filters, this contains set of filters to apply if `path`
@@ -1581,6 +1615,7 @@ pub struct Operation {
     /// When both path_filters and path_value_matchers are set, an implicit AND
     /// must be performed.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub path_value_matchers:
         std::collections::HashMap<std::string::String, crate::model::ValueMatcher>,
 
@@ -1827,7 +1862,7 @@ pub mod value_matcher {
         /// To be used for full regex matching. The regular expression is using the
         /// Google RE2 syntax (<https://github.com/google/re2/wiki/Syntax>), so to be
         /// used with RE2::FullMatch
-        MatchesPattern(std::string::String),
+        MatchesPattern(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
     }
 }
 
@@ -1979,7 +2014,7 @@ pub struct SustainabilityProjection {
     /// Chose kg_c_o2e so that the name renders correctly in camelCase (kgCO2e).
     #[serde(rename = "kgCO2e")]
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
     pub kg_c_o2e: f64,
 
     /// Duration for which this sustainability applies.
@@ -2034,6 +2069,7 @@ impl wkt::message::Message for SustainabilityProjection {
 pub struct ReliabilityProjection {
     /// Reliability risks mitigated by this recommendation.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub risks: std::vec::Vec<crate::model::reliability_projection::RiskType>,
 
     /// Per-recommender projection.
@@ -2239,6 +2275,7 @@ pub mod reliability_projection {
 pub struct Impact {
     /// Category that is being targeted.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub category: crate::model::impact::Category,
 
     /// Contains projections (if any) for this category.
@@ -2597,10 +2634,12 @@ pub mod impact {
 pub struct RecommendationStateInfo {
     /// The state of the recommendation, Eg ACTIVE, SUCCEEDED, FAILED.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::recommendation_state_info::State,
 
     /// A map of metadata for the state, provided by user or automations systems.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub state_metadata: std::collections::HashMap<std::string::String, std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2824,6 +2863,7 @@ pub struct RecommenderConfig {
     /// Eg,
     /// projects/[PROJECT_NUMBER]/locations/[LOCATION]/recommenders/[RECOMMENDER_ID]/config
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// RecommenderGenerationConfig which configures the Generation of
@@ -2835,6 +2875,7 @@ pub struct RecommenderConfig {
     /// Fingerprint of the RecommenderConfig. Provides optimistic locking when
     /// updating.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     /// Last time when the config was updated.
@@ -2845,6 +2886,7 @@ pub struct RecommenderConfig {
     /// A new revision is committed whenever the config is changed in any way.
     /// The format is an 8-character hexadecimal string.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub revision_id: std::string::String,
 
     /// Allows clients to store small amounts of arbitrary data. Annotations must
@@ -2856,11 +2898,13 @@ pub struct RecommenderConfig {
     /// Name must be 63 characters or less, begin and end with alphanumerics,
     /// with dashes (-), underscores (_), dots (.), and alphanumerics between.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// A user-settable field to provide a human-readable name to be used in user
     /// interfaces.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3026,13 +3070,14 @@ pub struct ListInsightsRequest {
     /// INSIGHT_TYPE_ID refers to supported insight types:
     /// <https://cloud.google.com/recommender/docs/insights/insight-types>.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. The maximum number of results to return from this request.
     /// Non-positive values are ignored. If not specified, the server will
     /// determine the number of results to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. If present, retrieves the next batch of results from the
@@ -3040,6 +3085,7 @@ pub struct ListInsightsRequest {
     /// `next_page_token` from the previous response. The values of other method
     /// parameters must be identical to those in the previous call.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. Filter expression to restrict the insights returned. Supported
@@ -3073,6 +3119,7 @@ pub struct ListInsightsRequest {
     /// (These expressions are based on the filter language described at
     /// <https://google.aip.dev/160>)
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3123,11 +3170,13 @@ impl wkt::message::Message for ListInsightsRequest {
 pub struct ListInsightsResponse {
     /// The set of insights for the `parent` resource.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub insights: std::vec::Vec<crate::model::Insight>,
 
     /// A token that can be used to request the next page of results. This field is
     /// empty if there are no additional results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3185,6 +3234,7 @@ impl gax::paginator::internal::PageableResponse for ListInsightsResponse {
 pub struct GetInsightRequest {
     /// Required. Name of the insight.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3217,15 +3267,18 @@ impl wkt::message::Message for GetInsightRequest {
 pub struct MarkInsightAcceptedRequest {
     /// Required. Name of the insight.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. State properties user wish to include with this state.  Full
     /// replace of the current state_metadata.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub state_metadata: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Required. Fingerprint of the Insight. Provides optimistic locking.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3293,13 +3346,14 @@ pub struct ListRecommendationsRequest {
     /// RECOMMENDER_ID refers to supported recommenders:
     /// <https://cloud.google.com/recommender/docs/recommenders>.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. The maximum number of results to return from this request.
     /// Non-positive values are ignored. If not specified, the server will
     /// determine the number of results to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. If present, retrieves the next batch of results from the
@@ -3307,6 +3361,7 @@ pub struct ListRecommendationsRequest {
     /// `next_page_token` from the previous response. The values of other method
     /// parameters must be identical to those in the previous call.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Filter expression to restrict the recommendations returned. Supported
@@ -3340,6 +3395,7 @@ pub struct ListRecommendationsRequest {
     /// (These expressions are based on the filter language described at
     /// <https://google.aip.dev/160>)
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3390,11 +3446,13 @@ impl wkt::message::Message for ListRecommendationsRequest {
 pub struct ListRecommendationsResponse {
     /// The set of recommendations for the `parent` resource.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub recommendations: std::vec::Vec<crate::model::Recommendation>,
 
     /// A token that can be used to request the next page of results. This field is
     /// empty if there are no additional results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3452,6 +3510,7 @@ impl gax::paginator::internal::PageableResponse for ListRecommendationsResponse 
 pub struct GetRecommendationRequest {
     /// Required. Name of the recommendation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3484,10 +3543,12 @@ impl wkt::message::Message for GetRecommendationRequest {
 pub struct MarkRecommendationDismissedRequest {
     /// Required. Name of the recommendation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Fingerprint of the Recommendation. Provides optimistic locking.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3526,6 +3587,7 @@ impl wkt::message::Message for MarkRecommendationDismissedRequest {
 pub struct MarkRecommendationClaimedRequest {
     /// Required. Name of the recommendation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// State properties to include with this state. Overwrites any existing
@@ -3533,10 +3595,12 @@ pub struct MarkRecommendationClaimedRequest {
     /// Keys must match the regex `/^[a-z0-9][a-z0-9_.-]{0,62}$/`.
     /// Values must match the regex `/^[a-zA-Z0-9_./-]{0,255}$/`.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub state_metadata: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Required. Fingerprint of the Recommendation. Provides optimistic locking.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3587,6 +3651,7 @@ impl wkt::message::Message for MarkRecommendationClaimedRequest {
 pub struct MarkRecommendationSucceededRequest {
     /// Required. Name of the recommendation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// State properties to include with this state. Overwrites any existing
@@ -3594,10 +3659,12 @@ pub struct MarkRecommendationSucceededRequest {
     /// Keys must match the regex `/^[a-z0-9][a-z0-9_.-]{0,62}$/`.
     /// Values must match the regex `/^[a-zA-Z0-9_./-]{0,255}$/`.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub state_metadata: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Required. Fingerprint of the Recommendation. Provides optimistic locking.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3648,6 +3715,7 @@ impl wkt::message::Message for MarkRecommendationSucceededRequest {
 pub struct MarkRecommendationFailedRequest {
     /// Required. Name of the recommendation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// State properties to include with this state. Overwrites any existing
@@ -3655,10 +3723,12 @@ pub struct MarkRecommendationFailedRequest {
     /// Keys must match the regex `/^[a-z0-9][a-z0-9_.-]{0,62}$/`.
     /// Values must match the regex `/^[a-zA-Z0-9_./-]{0,255}$/`.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub state_metadata: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Required. Fingerprint of the Recommendation. Provides optimistic locking.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3720,6 +3790,7 @@ pub struct GetRecommenderConfigRequest {
     /// * `billingAccounts/[BILLING_ACCOUNT_ID]/locations/[LOCATION]/recommenders/[RECOMMENDER_ID]/config`
     ///
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3761,6 +3832,7 @@ pub struct UpdateRecommenderConfigRequest {
     /// If true, validate the request and preview the change, but do not actually
     /// update it.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3840,6 +3912,7 @@ pub struct GetInsightTypeConfigRequest {
     /// * `billingAccounts/[BILLING_ACCOUNT_ID]/locations/[LOCATION]/insightTypes/[INSIGHT_TYPE_ID]/config`
     ///
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3881,6 +3954,7 @@ pub struct UpdateInsightTypeConfigRequest {
     /// If true, validate the request and preview the change, but do not actually
     /// update it.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

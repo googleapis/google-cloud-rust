@@ -51,17 +51,20 @@ pub struct Instance {
     ///
     /// [google.cloud.memcache.v1.Instance.zones]: crate::model::Instance::zones
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// User provided name for the instance, which is only used for display
     /// purposes. Cannot be more than 80 characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// Resource labels to represent user-provided metadata.
     /// Refer to cloud documentation on labels for more details.
     /// <https://cloud.google.com/compute/docs/labeling-resources>
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// The full name of the Google Compute Engine
@@ -69,6 +72,7 @@ pub struct Instance {
     /// instance is connected. If left unspecified, the `default` network
     /// will be used.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub authorized_network: std::string::String,
 
     /// Zones in which Memcached nodes should be provisioned.
@@ -76,11 +80,12 @@ pub struct Instance {
     /// provided, the service will by default create nodes in all zones in the
     /// region for the instance.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub zones: std::vec::Vec<std::string::String>,
 
     /// Required. Number of nodes in the Memcached instance.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub node_count: i32,
 
     /// Required. Configuration for Memcached nodes.
@@ -93,6 +98,7 @@ pub struct Instance {
     /// The minor version will be automatically determined by our system based on
     /// the latest supported minor version.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub memcache_version: crate::model::MemcacheVersion,
 
     /// User defined parameters to apply to the memcached process
@@ -105,6 +111,7 @@ pub struct Instance {
     ///
     /// [google.cloud.memcache.v1.Instance.Node]: crate::model::instance::Node
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub memcache_nodes: std::vec::Vec<crate::model::instance::Node>,
 
     /// Output only. The time the instance was created.
@@ -117,6 +124,7 @@ pub struct Instance {
 
     /// Output only. The state of this Memcached instance.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::instance::State,
 
     /// Output only. The full version of memcached server running on this instance.
@@ -124,14 +132,17 @@ pub struct Instance {
     /// based on the input MemcacheVersion.
     /// The full version format will be "memcached-1.5.16".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub memcache_full_version: std::string::String,
 
     /// List of messages that describe the current state of the Memcached instance.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub instance_messages: std::vec::Vec<crate::model::instance::InstanceMessage>,
 
     /// Output only. Endpoint for the Discovery API.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub discovery_endpoint: std::string::String,
 
     /// The maintenance policy for the instance. If not provided,
@@ -386,12 +397,12 @@ pub mod instance {
     pub struct NodeConfig {
         /// Required. Number of cpus per Memcached node.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub cpu_count: i32,
 
         /// Required. Memory size in MiB for each Memcached node.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub memory_size_mb: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -430,24 +441,28 @@ pub mod instance {
         /// Output only. Identifier of the Memcached node. The node id does not
         /// include project or location like the Memcached instance name.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub node_id: std::string::String,
 
         /// Output only. Location (GCP Zone) for the Memcached node.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub zone: std::string::String,
 
         /// Output only. Current state of the Memcached node.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub state: crate::model::instance::node::State,
 
         /// Output only. Hostname or IP address of the Memcached node used by the
         /// clients to connect to the Memcached server on this node.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub host: std::string::String,
 
         /// Output only. The port number of the Memcached server on this node.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub port: i32,
 
         /// User defined parameters currently applied to the node.
@@ -683,10 +698,12 @@ pub mod instance {
     pub struct InstanceMessage {
         /// A code that correspond to one type of user-facing message.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub code: crate::model::instance::instance_message::Code,
 
         /// Message on memcached instance which will be exposed to users.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub message: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1027,12 +1044,14 @@ pub struct MaintenancePolicy {
     /// Description of what this policy is for. Create/Update methods
     /// return INVALID_ARGUMENT if the length is greater than 512.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Required. Maintenance window that is applied to resources covered by this
     /// policy. Minimum 1. For the current version, the maximum number of
     /// weekly_maintenance_windows is expected to be one.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub weekly_maintenance_window: std::vec::Vec<crate::model::WeeklyMaintenanceWindow>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1112,6 +1131,7 @@ impl wkt::message::Message for MaintenancePolicy {
 pub struct WeeklyMaintenanceWindow {
     /// Required. Allows to define schedule that runs specified day of the week.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub day: gtype::model::DayOfWeek,
 
     /// Required. Start time of the window in UTC.
@@ -1281,10 +1301,12 @@ pub struct RescheduleMaintenanceRequest {
     /// `projects/{project_id}/locations/{location_id}/instances/{instance_id}`
     /// where `location_id` refers to a GCP region.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub instance: std::string::String,
 
     /// Required. If reschedule type is SPECIFIC_TIME, must set up schedule_time as well.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub reschedule_type: crate::model::reschedule_maintenance_request::RescheduleType,
 
     /// Timestamp when the maintenance shall be rescheduled to if
@@ -1502,6 +1524,7 @@ pub struct ListInstancesRequest {
     /// `projects/{project_id}/locations/{location_id}`
     /// where `location_id` refers to a GCP region
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The maximum number of items to return.
@@ -1514,20 +1537,23 @@ pub struct ListInstancesRequest {
     ///
     /// [google.cloud.memcache.v1.ListInstancesResponse.next_page_token]: crate::model::ListInstancesResponse::next_page_token
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// The `next_page_token` value returned from a previous List request, if any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// List filter. For example, exclude all Memcached instances with name as
     /// my-instance by specifying `"name != my-instance"`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Sort results. Supported values are "name", "name desc" or "" (unsorted).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1590,15 +1616,18 @@ pub struct ListInstancesResponse {
     /// If the `location_id` in the parent field of the request is "-", all regions
     /// available to the project are queried, and the results aggregated.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub instances: std::vec::Vec<crate::model::Instance>,
 
     /// Token to retrieve the next page of results, or empty if there are no more
     /// results in the list.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1671,6 +1700,7 @@ pub struct GetInstanceRequest {
     /// `projects/{project_id}/locations/{location_id}/instances/{instance_id}`
     /// where `location_id` refers to a GCP region
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1707,6 +1737,7 @@ pub struct CreateInstanceRequest {
     /// `projects/{project_id}/locations/{location_id}`
     /// where `location_id` refers to a GCP region
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The logical name of the Memcached instance in the user
@@ -1720,6 +1751,7 @@ pub struct CreateInstanceRequest {
     ///
     /// If any of the above are not met, the API raises an invalid argument error.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub instance_id: std::string::String,
 
     /// Required. A Memcached Instance
@@ -1855,6 +1887,7 @@ pub struct DeleteInstanceRequest {
     /// `projects/{project_id}/locations/{location_id}/instances/{instance_id}`
     /// where `location_id` refers to a GCP region
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1890,16 +1923,19 @@ pub struct ApplyParametersRequest {
     /// Required. Resource name of the Memcached instance for which parameter group updates
     /// should be applied.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Nodes to which the instance-level parameter group is applied.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub node_ids: std::vec::Vec<std::string::String>,
 
     /// Whether to apply instance-level parameter group to all nodes. If set to
     /// true, users are restricted from specifying individual nodes, and
     /// `ApplyParameters` updates all nodes within the instance.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub apply_all: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1952,6 +1988,7 @@ pub struct UpdateParametersRequest {
     /// Required. Resource name of the Memcached instance for which the parameters should be
     /// updated.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. Mask of fields to update.
@@ -2031,10 +2068,12 @@ pub struct MemcacheParameters {
     /// parameter ids can inform users that they may need to take action to apply
     /// parameters on nodes.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub id: std::string::String,
 
     /// User defined set of parameters to use in the memcached process.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub params: std::collections::HashMap<std::string::String, std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2087,14 +2126,17 @@ pub struct OperationMetadata {
 
     /// Output only. Server-defined resource path for the target of the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub target: std::string::String,
 
     /// Output only. Name of the verb executed by the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub verb: std::string::String,
 
     /// Output only. Human-readable status of the operation, if any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub status_detail: std::string::String,
 
     /// Output only. Identifies whether the user has requested cancellation
@@ -2104,10 +2146,12 @@ pub struct OperationMetadata {
     ///
     /// [google.rpc.Status.code]: rpc::model::Status::code
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub cancel_requested: bool,
 
     /// Output only. API version used to start the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub api_version: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2204,6 +2248,7 @@ pub struct LocationMetadata {
     /// by the lowercase ID of each zone, as defined by GCE. These keys can be
     /// specified in the `zones` field when creating a Memcached instance.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub available_zones: std::collections::HashMap<std::string::String, crate::model::ZoneMetadata>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

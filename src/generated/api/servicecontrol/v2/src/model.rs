@@ -45,12 +45,14 @@ pub struct CheckRequest {
     /// [google.api.Service](https://cloud.google.com/service-management/reference/rpc/google.api#google.api.Service)
     /// for the definition of a service name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub service_name: std::string::String,
 
     /// Specifies the version of the service configuration that should be used to
     /// process the request. Must not be empty. Set this field to 'latest' to
     /// specify using the latest configuration.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub service_config_id: std::string::String,
 
     /// Describes attributes about the operation being executed by the service.
@@ -59,10 +61,12 @@ pub struct CheckRequest {
 
     /// Describes the resources and the policies applied to each resource.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub resources: std::vec::Vec<crate::model::ResourceInfo>,
 
     /// Optional. Contains a comma-separated list of flags.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub flags: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -139,16 +143,19 @@ impl wkt::message::Message for CheckRequest {
 pub struct ResourceInfo {
     /// The name of the resource referenced in the request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The resource type in the format of "{service}/{kind}".
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub r#type: std::string::String,
 
     /// The resource permission needed for this request.
     /// The format must be "{service}/{plural}.{verb}".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub permission: std::string::String,
 
     /// Optional. The identifier of the container of this resource. For Google
@@ -160,12 +167,14 @@ pub struct ResourceInfo {
     /// Policy check), this field takes precedence on the container extracted from
     /// name when presents.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub container: std::string::String,
 
     /// Optional. The location of the resource. The value must be a valid zone,
     /// region or multiregion. For example: "europe-west4" or
     /// "northamerica-northeast1-a"
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub location: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -230,6 +239,7 @@ pub struct CheckResponse {
 
     /// Returns a set of request contexts generated from the `CheckRequest`.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub headers: std::collections::HashMap<std::string::String, std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -291,18 +301,21 @@ pub struct ReportRequest {
     /// [google.api.Service](https://cloud.google.com/service-management/reference/rpc/google.api#google.api.Service)
     /// for the definition of a service name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub service_name: std::string::String,
 
     /// Specifies the version of the service configuration that should be used to
     /// process the request. Must not be empty. Set this field to 'latest' to
     /// specify using the latest configuration.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub service_config_id: std::string::String,
 
     /// Describes the list of operations to be reported. Each operation is
     /// represented as an AttributeContext, and contains all attributes around an
     /// API access.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub operations: std::vec::Vec<rpc_context::model::AttributeContext>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -378,6 +391,7 @@ impl wkt::message::Message for ReportResponse {
 pub struct ResourceInfoList {
     /// The resource details.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub resources: std::vec::Vec<crate::model::ResourceInfo>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

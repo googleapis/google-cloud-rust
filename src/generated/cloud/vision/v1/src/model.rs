@@ -43,12 +43,12 @@ extern crate wkt;
 pub struct Vertex {
     /// X coordinate.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub x: i32,
 
     /// Y coordinate.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub y: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -89,12 +89,12 @@ impl wkt::message::Message for Vertex {
 pub struct NormalizedVertex {
     /// X coordinate.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub x: f32,
 
     /// Y coordinate.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub y: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -133,10 +133,12 @@ impl wkt::message::Message for NormalizedVertex {
 pub struct BoundingPoly {
     /// The bounding polygon vertices.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub vertices: std::vec::Vec<crate::model::Vertex>,
 
     /// The bounding polygon normalized vertices.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub normalized_vertices: std::vec::Vec<crate::model::NormalizedVertex>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -187,17 +189,17 @@ impl wkt::message::Message for BoundingPoly {
 pub struct Position {
     /// X coordinate.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub x: f32,
 
     /// Y coordinate.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub y: f32,
 
     /// Z coordinate (or depth).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub z: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -245,12 +247,13 @@ pub struct Feature {
     /// The feature type.
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub r#type: crate::model::feature::Type,
 
     /// Maximum number of results of this type. Does not apply to
     /// `TEXT_DETECTION`, `DOCUMENT_TEXT_DETECTION`, or `CROP_HINTS`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub max_results: i32,
 
     /// Model to use for the feature.
@@ -258,6 +261,7 @@ pub struct Feature {
     /// "builtin/latest". `DOCUMENT_TEXT_DETECTION` and `TEXT_DETECTION` also
     /// support "builtin/weekly" for the bleeding edge release updated weekly.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub model: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -520,6 +524,7 @@ pub struct ImageSource {
     /// [Google Cloud Storage Request
     /// URIs](https://cloud.google.com/storage/docs/reference-uris) for more info.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub gcs_image_uri: std::string::String,
 
     /// The URI of the source image. Can be either:
@@ -541,6 +546,7 @@ pub struct ImageSource {
     /// When both `gcs_image_uri` and `image_uri` are specified, `image_uri` takes
     /// precedence.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub image_uri: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -584,7 +590,7 @@ pub struct Image {
     /// Currently, this field only works for BatchAnnotateImages requests. It does
     /// not work for AsyncBatchAnnotateImages requests.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub content: ::bytes::Bytes,
 
     /// Google Cloud Storage image location, or publicly-accessible image
@@ -660,64 +666,72 @@ pub struct FaceAnnotation {
 
     /// Detected face landmarks.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub landmarks: std::vec::Vec<crate::model::face_annotation::Landmark>,
 
     /// Roll angle, which indicates the amount of clockwise/anti-clockwise rotation
     /// of the face relative to the image vertical about the axis perpendicular to
     /// the face. Range [-180,180].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub roll_angle: f32,
 
     /// Yaw angle, which indicates the leftward/rightward angle that the face is
     /// pointing relative to the vertical plane perpendicular to the image. Range
     /// [-180,180].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub pan_angle: f32,
 
     /// Pitch angle, which indicates the upwards/downwards angle that the face is
     /// pointing relative to the image's horizontal plane. Range [-180,180].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub tilt_angle: f32,
 
     /// Detection confidence. Range [0, 1].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub detection_confidence: f32,
 
     /// Face landmarking confidence. Range [0, 1].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub landmarking_confidence: f32,
 
     /// Joy likelihood.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub joy_likelihood: crate::model::Likelihood,
 
     /// Sorrow likelihood.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub sorrow_likelihood: crate::model::Likelihood,
 
     /// Anger likelihood.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub anger_likelihood: crate::model::Likelihood,
 
     /// Surprise likelihood.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub surprise_likelihood: crate::model::Likelihood,
 
     /// Under-exposed likelihood.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub under_exposed_likelihood: crate::model::Likelihood,
 
     /// Blurred likelihood.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub blurred_likelihood: crate::model::Likelihood,
 
     /// Headwear likelihood.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub headwear_likelihood: crate::model::Likelihood,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -890,6 +904,7 @@ pub mod face_annotation {
         /// Face landmark type.
         #[serde(rename = "type")]
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub r#type: crate::model::face_annotation::landmark::Type,
 
         /// Face landmark position.
@@ -1388,15 +1403,17 @@ impl wkt::message::Message for LocationInfo {
 pub struct Property {
     /// Name of the property.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Value of the property.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub value: std::string::String,
 
     /// Value of numeric properties.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::U64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::U64>")]
     pub uint64_value: u64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1443,20 +1460,23 @@ pub struct EntityAnnotation {
     /// [Google Knowledge Graph Search
     /// API](https://developers.google.com/knowledge-graph/).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub mid: std::string::String,
 
     /// The language code for the locale in which the entity textual
     /// `description` is expressed.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub locale: std::string::String,
 
     /// Entity textual description, expressed in its `locale` language.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Overall score of the result. Range [0, 1].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub score: f32,
 
     /// **Deprecated. Use `score` instead.**
@@ -1465,7 +1485,7 @@ pub struct EntityAnnotation {
     /// this field represents the confidence that there is a tower in the query
     /// image. Range [0, 1].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     #[deprecated]
     pub confidence: f32,
 
@@ -1475,7 +1495,7 @@ pub struct EntityAnnotation {
     /// detected distant towering building, even though the confidence that
     /// there is a tower in each image may be the same. Range [0, 1].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub topicality: f32,
 
     /// Image region to which this entity belongs. Not produced
@@ -1489,11 +1509,13 @@ pub struct EntityAnnotation {
     /// may indicate the location of the place where the image was taken.
     /// Location information is usually present for landmarks.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub locations: std::vec::Vec<crate::model::LocationInfo>,
 
     /// Some entities may have optional user-supplied `Property` (name/value)
     /// fields, such a score or string that qualifies the entity.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub properties: std::vec::Vec<crate::model::Property>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1597,21 +1619,24 @@ impl wkt::message::Message for EntityAnnotation {
 pub struct LocalizedObjectAnnotation {
     /// Object ID that should align with EntityAnnotation mid.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub mid: std::string::String,
 
     /// The BCP-47 language code, such as "en-US" or "sr-Latn". For more
     /// information, see
     /// <http://www.unicode.org/reports/tr35/#Unicode_locale_identifier>.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub language_code: std::string::String,
 
     /// Object name, expressed in its `language_code` language.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Score of the result. Range [0, 1].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub score: f32,
 
     /// Image region to which this object belongs. This must be populated.
@@ -1688,22 +1713,26 @@ pub struct SafeSearchAnnotation {
     /// contain elements such as nudity, pornographic images or cartoons, or
     /// sexual activities.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub adult: crate::model::Likelihood,
 
     /// Spoof likelihood. The likelihood that an modification
     /// was made to the image's canonical version to make it appear
     /// funny or offensive.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub spoof: crate::model::Likelihood,
 
     /// Likelihood that this is a medical image.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub medical: crate::model::Likelihood,
 
     /// Likelihood that this image contains violent content. Violent content may
     /// include death, serious harm, or injury to individuals or groups of
     /// individuals.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub violence: crate::model::Likelihood,
 
     /// Likelihood that the request image contains racy content. Racy content may
@@ -1711,6 +1740,7 @@ pub struct SafeSearchAnnotation {
     /// covered nudity, lewd or provocative poses, or close-ups of sensitive
     /// body areas.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub racy: crate::model::Likelihood,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1838,13 +1868,13 @@ pub struct ColorInfo {
 
     /// Image-specific score for this color. Value in range [0, 1].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub score: f32,
 
     /// The fraction of pixels the color occupies in the image.
     /// Value in range [0, 1].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub pixel_fraction: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1901,6 +1931,7 @@ impl wkt::message::Message for ColorInfo {
 pub struct DominantColorsAnnotation {
     /// RGB color values with their score and pixel fraction.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub colors: std::vec::Vec<crate::model::ColorInfo>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1987,13 +2018,13 @@ pub struct CropHint {
 
     /// Confidence of this being a salient region.  Range [0, 1].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub confidence: f32,
 
     /// Fraction of importance of this salient region with respect to the original
     /// image.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub importance_fraction: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2050,6 +2081,7 @@ impl wkt::message::Message for CropHint {
 pub struct CropHintsAnnotation {
     /// Crop hint results.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub crop_hints: std::vec::Vec<crate::model::CropHint>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2092,7 +2124,7 @@ pub struct CropHintsParams {
     /// limited to a maximum of 16; any aspect ratios provided after the 16th are
     /// ignored.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "std::vec::Vec<wkt::internal::F32>")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<wkt::internal::F32>>")]
     pub aspect_ratios: std::vec::Vec<f32>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2130,6 +2162,7 @@ impl wkt::message::Message for CropHintsParams {
 pub struct WebDetectionParams {
     /// This field has no effect on results.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     #[deprecated]
     pub include_geo_results: bool,
 
@@ -2167,6 +2200,7 @@ pub struct TextDetectionParams {
     /// DOCUMENT_TEXT_DETECTION result. Set the flag to true to include confidence
     /// score for TEXT_DETECTION as well.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub enable_text_detection_confidence_score: bool,
 
     /// A list of advanced OCR options to further fine-tune OCR behavior.
@@ -2177,6 +2211,7 @@ pub struct TextDetectionParams {
     ///   Customers can choose the best suitable layout algorithm based on their
     ///   situation.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub advanced_ocr_options: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2234,6 +2269,7 @@ pub struct ImageContext {
     /// error if one or more of the specified languages is not one of the
     /// [supported languages](https://cloud.google.com/vision/docs/languages).
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub language_hints: std::vec::Vec<std::string::String>,
 
     /// Parameters for crop hints annotation request.
@@ -2382,6 +2418,7 @@ pub struct AnnotateImageRequest {
 
     /// Requested features.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub features: std::vec::Vec<crate::model::Feature>,
 
     /// Additional context that may accompany the image.
@@ -2460,12 +2497,13 @@ impl wkt::message::Message for AnnotateImageRequest {
 pub struct ImageAnnotationContext {
     /// The URI of the file used to produce the image.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub uri: std::string::String,
 
     /// If the file was a PDF or TIFF, this field gives the page number within
     /// the file used to produce the image.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_number: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2504,27 +2542,33 @@ impl wkt::message::Message for ImageAnnotationContext {
 pub struct AnnotateImageResponse {
     /// If present, face detection has completed successfully.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub face_annotations: std::vec::Vec<crate::model::FaceAnnotation>,
 
     /// If present, landmark detection has completed successfully.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub landmark_annotations: std::vec::Vec<crate::model::EntityAnnotation>,
 
     /// If present, logo detection has completed successfully.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub logo_annotations: std::vec::Vec<crate::model::EntityAnnotation>,
 
     /// If present, label detection has completed successfully.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub label_annotations: std::vec::Vec<crate::model::EntityAnnotation>,
 
     /// If present, localized object detection has completed successfully.
     /// This will be sorted descending by confidence score.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub localized_object_annotations: std::vec::Vec<crate::model::LocalizedObjectAnnotation>,
 
     /// If present, text (OCR) detection has completed successfully.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub text_annotations: std::vec::Vec<crate::model::EntityAnnotation>,
 
     /// If present, text (OCR) detection or document (OCR) text detection has
@@ -2799,6 +2843,7 @@ impl wkt::message::Message for AnnotateImageResponse {
 pub struct BatchAnnotateImagesRequest {
     /// Required. Individual image annotation requests for this batch.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub requests: std::vec::Vec<crate::model::AnnotateImageRequest>,
 
     /// Optional. Target project and location to make a call.
@@ -2814,6 +2859,7 @@ pub struct BatchAnnotateImagesRequest {
     ///
     /// Example: `projects/project-A/locations/eu`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. The labels with user-defined metadata for the request.
@@ -2823,6 +2869,7 @@ pub struct BatchAnnotateImagesRequest {
     /// characters, underscores and dashes. International characters are allowed.
     /// Label values are optional. Label keys must start with a letter.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2878,6 +2925,7 @@ impl wkt::message::Message for BatchAnnotateImagesRequest {
 pub struct BatchAnnotateImagesResponse {
     /// Individual responses to image annotation requests within the batch.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub responses: std::vec::Vec<crate::model::AnnotateImageResponse>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2919,6 +2967,7 @@ pub struct AnnotateFileRequest {
 
     /// Required. Requested features.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub features: std::vec::Vec<crate::model::Feature>,
 
     /// Additional context that may accompany the image(s) in the file.
@@ -2940,7 +2989,7 @@ pub struct AnnotateFileRequest {
     /// If this field is empty, by default the service performs image annotation
     /// for the first 5 pages of the file.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "std::vec::Vec<wkt::internal::I32>")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<wkt::internal::I32>>")]
     pub pages: std::vec::Vec<i32>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3031,11 +3080,12 @@ pub struct AnnotateFileResponse {
     /// Individual responses to images found within the file. This field will be
     /// empty if the `error` field is set.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub responses: std::vec::Vec<crate::model::AnnotateImageResponse>,
 
     /// This field gives the total number of pages in the file.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub total_pages: i32,
 
     /// If set, represents the error message for the failed request. The
@@ -3121,6 +3171,7 @@ pub struct BatchAnnotateFilesRequest {
     /// Required. The list of file annotation requests. Right now we support only
     /// one AnnotateFileRequest in BatchAnnotateFilesRequest.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub requests: std::vec::Vec<crate::model::AnnotateFileRequest>,
 
     /// Optional. Target project and location to make a call.
@@ -3136,6 +3187,7 @@ pub struct BatchAnnotateFilesRequest {
     ///
     /// Example: `projects/project-A/locations/eu`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. The labels with user-defined metadata for the request.
@@ -3145,6 +3197,7 @@ pub struct BatchAnnotateFilesRequest {
     /// characters, underscores and dashes. International characters are allowed.
     /// Label values are optional. Label keys must start with a letter.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3201,6 +3254,7 @@ pub struct BatchAnnotateFilesResponse {
     /// The list of file annotation responses, each response corresponding to each
     /// AnnotateFileRequest in BatchAnnotateFilesRequest.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub responses: std::vec::Vec<crate::model::AnnotateFileResponse>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3242,6 +3296,7 @@ pub struct AsyncAnnotateFileRequest {
 
     /// Required. Requested features.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub features: std::vec::Vec<crate::model::Feature>,
 
     /// Additional context that may accompany the image(s) in the file.
@@ -3385,6 +3440,7 @@ impl wkt::message::Message for AsyncAnnotateFileResponse {
 pub struct AsyncBatchAnnotateImagesRequest {
     /// Required. Individual image annotation requests for this batch.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub requests: std::vec::Vec<crate::model::AnnotateImageRequest>,
 
     /// Required. The desired output location and metadata (e.g. format).
@@ -3404,6 +3460,7 @@ pub struct AsyncBatchAnnotateImagesRequest {
     ///
     /// Example: `projects/project-A/locations/eu`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. The labels with user-defined metadata for the request.
@@ -3413,6 +3470,7 @@ pub struct AsyncBatchAnnotateImagesRequest {
     /// characters, underscores and dashes. International characters are allowed.
     /// Label values are optional. Label keys must start with a letter.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3531,6 +3589,7 @@ impl wkt::message::Message for AsyncBatchAnnotateImagesResponse {
 pub struct AsyncBatchAnnotateFilesRequest {
     /// Required. Individual async file annotation requests for this batch.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub requests: std::vec::Vec<crate::model::AsyncAnnotateFileRequest>,
 
     /// Optional. Target project and location to make a call.
@@ -3546,6 +3605,7 @@ pub struct AsyncBatchAnnotateFilesRequest {
     ///
     /// Example: `projects/project-A/locations/eu`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. The labels with user-defined metadata for the request.
@@ -3555,6 +3615,7 @@ pub struct AsyncBatchAnnotateFilesRequest {
     /// characters, underscores and dashes. International characters are allowed.
     /// Label values are optional. Label keys must start with a letter.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3611,6 +3672,7 @@ pub struct AsyncBatchAnnotateFilesResponse {
     /// The list of file annotation responses, one for each request in
     /// AsyncBatchAnnotateFilesRequest.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub responses: std::vec::Vec<crate::model::AsyncAnnotateFileResponse>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3657,12 +3719,13 @@ pub struct InputConfig {
     /// Currently, this field only works for BatchAnnotateFiles requests. It does
     /// not work for AsyncBatchAnnotateFiles requests.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub content: ::bytes::Bytes,
 
     /// The type of the file. Currently only "application/pdf", "image/tiff" and
     /// "image/gif" are supported. Wildcards are not supported.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub mime_type: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3733,7 +3796,7 @@ pub struct OutputConfig {
     /// Currently, batch_size only applies to GcsDestination, with potential future
     /// support for other output configurations.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub batch_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3785,6 +3848,7 @@ pub struct GcsSource {
     /// Google Cloud Storage URI for the input file. This must only be a
     /// Google Cloud Storage object. Wildcards are not currently supported.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub uri: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3839,6 +3903,7 @@ pub struct GcsDestination {
     /// Multiple outputs can happen if, for example, the output JSON is too large
     /// and overflows into multiple sharded files.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub uri: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3871,6 +3936,7 @@ impl wkt::message::Message for GcsDestination {
 pub struct OperationMetadata {
     /// Current state of the batch operation.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::operation_metadata::State,
 
     /// The time when the batch request was received.
@@ -4113,6 +4179,7 @@ pub struct ProductSearchParams {
     ///
     /// [google.cloud.vision.v1.ProductSet]: crate::model::ProductSet
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub product_set: std::string::String,
 
     /// The list of product categories to search in. Currently, we only consider
@@ -4123,6 +4190,7 @@ pub struct ProductSearchParams {
     /// or "toys-v2" for better product search accuracy. It is recommended to
     /// migrate existing products to these categories as well.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub product_categories: std::vec::Vec<std::string::String>,
 
     /// The filtering expression. This can be used to restrict search results based
@@ -4134,6 +4202,7 @@ pub struct ProductSearchParams {
     /// acceptable, but "(color = red OR brand = Google)" is not acceptable.
     /// "color: red" is not acceptable because it uses a ':' instead of an '='.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4207,6 +4276,7 @@ pub struct ProductSearchResults {
 
     /// List of results, one for each product match.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub results: std::vec::Vec<crate::model::product_search_results::Result>,
 
     /// List of results grouped by products detected in the query image. Each entry
@@ -4214,6 +4284,7 @@ pub struct ProductSearchResults {
     /// matching products specific to that region. There may be duplicate product
     /// matches in the union of all the per-product results.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub product_grouped_results: std::vec::Vec<crate::model::product_search_results::GroupedResult>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4290,12 +4361,13 @@ pub mod product_search_results {
         /// A confidence level on the match, ranging from 0 (no confidence) to
         /// 1 (full confidence).
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::F32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
         pub score: f32,
 
         /// The resource name of the image from the product that is the closest match
         /// to the query.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub image: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4352,21 +4424,24 @@ pub mod product_search_results {
     pub struct ObjectAnnotation {
         /// Object ID that should align with EntityAnnotation mid.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub mid: std::string::String,
 
         /// The BCP-47 language code, such as "en-US" or "sr-Latn". For more
         /// information, see
         /// <http://www.unicode.org/reports/tr35/#Unicode_locale_identifier>.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub language_code: std::string::String,
 
         /// Object name, expressed in its `language_code` language.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub name: std::string::String,
 
         /// Score of the result. Range [0, 1].
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::F32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
         pub score: f32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4425,10 +4500,12 @@ pub mod product_search_results {
 
         /// List of results, one for each product match.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub results: std::vec::Vec<crate::model::product_search_results::Result>,
 
         /// List of generic predictions for the object in the bounding box.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub object_annotations:
             std::vec::Vec<crate::model::product_search_results::ObjectAnnotation>,
 
@@ -4502,16 +4579,19 @@ pub struct Product {
     ///
     /// This field is ignored when creating a product.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The user-provided name for this Product. Must not be empty. Must be at most
     /// 4096 characters long.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// User-provided metadata to be stored with this product. Must be at most 4096
     /// characters long.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Immutable. The category for the product identified by the reference image.
@@ -4520,6 +4600,7 @@ pub struct Product {
     /// "apparel", and "toys" are still supported, but these should not be used for
     /// new products.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub product_category: std::string::String,
 
     /// Key-value pairs that can be attached to a product. At query time,
@@ -4536,6 +4617,7 @@ pub struct Product {
     /// in one ProductSet cannot exceed 1M, otherwise the product search pipeline
     /// will refuse to work for that ProductSet.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub product_labels: std::vec::Vec<crate::model::product::KeyValue>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4606,11 +4688,13 @@ pub mod product {
         /// The key of the label attached to the product. Cannot be empty and cannot
         /// exceed 128 bytes.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub key: std::string::String,
 
         /// The value of the label attached to the product. Cannot be empty and
         /// cannot exceed 128 bytes.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub value: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4657,11 +4741,13 @@ pub struct ProductSet {
     ///
     /// This field is ignored when creating a ProductSet.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The user-provided name for this ProductSet. Must not be empty. Must be at
     /// most 4096 characters long.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// Output only. The time at which this ProductSet was last indexed. Query
@@ -4758,12 +4844,14 @@ pub struct ReferenceImage {
     ///
     /// This field is ignored when creating a reference image.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. The Google Cloud Storage URI of the reference image.
     ///
     /// The URI must start with `gs://`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub uri: std::string::String,
 
     /// Optional. Bounding polygons around the areas of interest in the reference
@@ -4775,6 +4863,7 @@ pub struct ReferenceImage {
     /// to 300 pixels. The aspect ratio must be 1:4 or less (i.e. 1:3 is ok; 1:5
     /// is not).
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub bounding_polys: std::vec::Vec<crate::model::BoundingPoly>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4827,6 +4916,7 @@ pub struct CreateProductRequest {
     /// Format is
     /// `projects/PROJECT_ID/locations/LOC_ID`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The product to create.
@@ -4838,6 +4928,7 @@ pub struct CreateProductRequest {
     /// error is returned with code ALREADY_EXISTS. Must be at most 128 characters
     /// long. It cannot contain the character `/`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub product_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4897,15 +4988,17 @@ pub struct ListProductsRequest {
     /// Format:
     /// `projects/PROJECT_ID/locations/LOC_ID`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The maximum number of items to return. Default 10, maximum 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// The next_page_token returned from a previous List request, if any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4950,11 +5043,13 @@ impl wkt::message::Message for ListProductsRequest {
 pub struct ListProductsResponse {
     /// List of products.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub products: std::vec::Vec<crate::model::Product>,
 
     /// Token to retrieve the next page of results, or empty if there are no more
     /// results in the list.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5015,6 +5110,7 @@ pub struct GetProductRequest {
     /// Format is:
     /// `projects/PROJECT_ID/locations/LOC_ID/products/PRODUCT_ID`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5123,6 +5219,7 @@ pub struct DeleteProductRequest {
     /// Format is:
     /// `projects/PROJECT_ID/locations/LOC_ID/products/PRODUCT_ID`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5157,6 +5254,7 @@ pub struct CreateProductSetRequest {
     ///
     /// Format is `projects/PROJECT_ID/locations/LOC_ID`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The ProductSet to create.
@@ -5168,6 +5266,7 @@ pub struct CreateProductSetRequest {
     /// error is returned with code ALREADY_EXISTS. Must be at most 128 characters
     /// long. It cannot contain the character `/`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub product_set_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5226,15 +5325,17 @@ pub struct ListProductSetsRequest {
     ///
     /// Format is `projects/PROJECT_ID/locations/LOC_ID`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The maximum number of items to return. Default 10, maximum 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// The next_page_token returned from a previous List request, if any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5279,11 +5380,13 @@ impl wkt::message::Message for ListProductSetsRequest {
 pub struct ListProductSetsResponse {
     /// List of ProductSets.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub product_sets: std::vec::Vec<crate::model::ProductSet>,
 
     /// Token to retrieve the next page of results, or empty if there are no more
     /// results in the list.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5344,6 +5447,7 @@ pub struct GetProductSetRequest {
     /// Format is:
     /// `projects/PROJECT_ID/locations/LOC_ID/productSets/PRODUCT_SET_ID`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5450,6 +5554,7 @@ pub struct DeleteProductSetRequest {
     /// Format is:
     /// `projects/PROJECT_ID/locations/LOC_ID/productSets/PRODUCT_SET_ID`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5486,6 +5591,7 @@ pub struct CreateReferenceImageRequest {
     /// Format is
     /// `projects/PROJECT_ID/locations/LOC_ID/products/PRODUCT_ID`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The reference image to create.
@@ -5498,6 +5604,7 @@ pub struct CreateReferenceImageRequest {
     /// already in use, an error is returned with code ALREADY_EXISTS. Must be at
     /// most 128 characters long. It cannot contain the character `/`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub reference_image_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5560,11 +5667,12 @@ pub struct ListReferenceImagesRequest {
     /// Format is
     /// `projects/PROJECT_ID/locations/LOC_ID/products/PRODUCT_ID`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The maximum number of items to return. Default 10, maximum 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// A token identifying a page of results to be returned. This is the value
@@ -5572,6 +5680,7 @@ pub struct ListReferenceImagesRequest {
     ///
     /// Defaults to the first page if not specified.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5616,15 +5725,17 @@ impl wkt::message::Message for ListReferenceImagesRequest {
 pub struct ListReferenceImagesResponse {
     /// The list of reference images.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub reference_images: std::vec::Vec<crate::model::ReferenceImage>,
 
     /// The maximum number of items to return. Default 10, maximum 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// The next_page_token returned from a previous List request, if any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5691,6 +5802,7 @@ pub struct GetReferenceImageRequest {
     /// Format is:
     /// `projects/PROJECT_ID/locations/LOC_ID/products/PRODUCT_ID/referenceImages/IMAGE_ID`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5726,6 +5838,7 @@ pub struct DeleteReferenceImageRequest {
     /// Format is:
     /// `projects/PROJECT_ID/locations/LOC_ID/products/PRODUCT_ID/referenceImages/IMAGE_ID`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5761,6 +5874,7 @@ pub struct AddProductToProductSetRequest {
     /// Format is:
     /// `projects/PROJECT_ID/locations/LOC_ID/productSets/PRODUCT_SET_ID`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. The resource name for the Product to be added to this ProductSet.
@@ -5768,6 +5882,7 @@ pub struct AddProductToProductSetRequest {
     /// Format is:
     /// `projects/PROJECT_ID/locations/LOC_ID/products/PRODUCT_ID`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub product: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5809,6 +5924,7 @@ pub struct RemoveProductFromProductSetRequest {
     /// Format is:
     /// `projects/PROJECT_ID/locations/LOC_ID/productSets/PRODUCT_SET_ID`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. The resource name for the Product to be removed from this
@@ -5817,6 +5933,7 @@ pub struct RemoveProductFromProductSetRequest {
     /// Format is:
     /// `projects/PROJECT_ID/locations/LOC_ID/products/PRODUCT_ID`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub product: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5858,15 +5975,17 @@ pub struct ListProductsInProductSetRequest {
     /// Format is:
     /// `projects/PROJECT_ID/locations/LOC_ID/productSets/PRODUCT_SET_ID`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The maximum number of items to return. Default 10, maximum 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// The next_page_token returned from a previous List request, if any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5911,11 +6030,13 @@ impl wkt::message::Message for ListProductsInProductSetRequest {
 pub struct ListProductsInProductSetResponse {
     /// The list of Products.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub products: std::vec::Vec<crate::model::Product>,
 
     /// Token to retrieve the next page of results, or empty if there are no more
     /// results in the list.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6042,6 +6163,7 @@ pub struct ImportProductSetsGcsSource {
     /// [google.cloud.vision.v1.Product.product_category]: crate::model::Product::product_category
     /// [google.cloud.vision.v1.Product.product_labels]: crate::model::Product::product_labels
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub csv_file_uri: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6167,6 +6289,7 @@ pub struct ImportProductSetsRequest {
     ///
     /// Format is `projects/PROJECT_ID/locations/LOC_ID`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The input content for the list of requests.
@@ -6229,6 +6352,7 @@ impl wkt::message::Message for ImportProductSetsRequest {
 pub struct ImportProductSetsResponse {
     /// The list of reference_images that are imported successfully.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub reference_images: std::vec::Vec<crate::model::ReferenceImage>,
 
     /// The rpc status for each ImportProductSet request, including both successes
@@ -6238,6 +6362,7 @@ pub struct ImportProductSetsResponse {
     /// and statuses[i] stores the success or failure status of processing the i-th
     /// line of the csv, starting from line 0.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub statuses: std::vec::Vec<rpc::model::Status>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6289,6 +6414,7 @@ impl wkt::message::Message for ImportProductSetsResponse {
 pub struct BatchOperationMetadata {
     /// The current state of the batch operation.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::batch_operation_metadata::State,
 
     /// The time when the batch request was submitted to the server.
@@ -6529,6 +6655,7 @@ pub struct ProductSetPurgeConfig {
     /// member of product_set_id in addition to other ProductSets, the Product will
     /// still be deleted.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub product_set_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6563,11 +6690,13 @@ pub struct PurgeProductsRequest {
     ///
     /// Format is `projects/PROJECT_ID/locations/LOC_ID`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The default value is false. Override this value to true to actually perform
     /// the purge.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub force: bool,
 
     /// The Products to delete.
@@ -6688,7 +6817,7 @@ pub mod purge_products_request {
         ProductSetPurgeConfig(std::boxed::Box<crate::model::ProductSetPurgeConfig>),
         /// If delete_orphan_products is true, all Products that are not in any
         /// ProductSet will be deleted.
-        DeleteOrphanProducts(bool),
+        DeleteOrphanProducts(#[serde_as(as = "serde_with::DefaultOnNull<_>")] bool),
     }
 }
 
@@ -6709,10 +6838,12 @@ pub mod purge_products_request {
 pub struct TextAnnotation {
     /// List of pages detected by OCR.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub pages: std::vec::Vec<crate::model::Page>,
 
     /// UTF-8 text detected on the pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub text: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6763,11 +6894,12 @@ pub mod text_annotation {
         /// information, see
         /// <http://www.unicode.org/reports/tr35/#Unicode_locale_identifier>.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub language_code: std::string::String,
 
         /// Confidence of detected language. Range [0, 1].
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::F32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
         pub confidence: f32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6810,10 +6942,12 @@ pub mod text_annotation {
         /// Detected break type.
         #[serde(rename = "type")]
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub r#type: crate::model::text_annotation::detected_break::BreakType,
 
         /// True if break prepends the element.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub is_prefix: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7020,6 +7154,7 @@ pub mod text_annotation {
     pub struct TextProperty {
         /// A list of detected languages together with confidence.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub detected_languages: std::vec::Vec<crate::model::text_annotation::DetectedLanguage>,
 
         /// Detected start or end of a text segment.
@@ -7085,22 +7220,23 @@ pub struct Page {
     /// Page width. For PDFs the unit is points. For images (including
     /// TIFFs) the unit is pixels.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub width: i32,
 
     /// Page height. For PDFs the unit is points. For images (including
     /// TIFFs) the unit is pixels.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub height: i32,
 
     /// List of blocks of text, images etc on this page.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub blocks: std::vec::Vec<crate::model::Block>,
 
     /// Confidence of the OCR results on the page. Range [0, 1].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub confidence: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7206,15 +7342,17 @@ pub struct Block {
 
     /// List of paragraphs in this block (if this blocks is of type text).
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub paragraphs: std::vec::Vec<crate::model::Paragraph>,
 
     /// Detected block type (text, image etc) for this block.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub block_type: crate::model::block::BlockType,
 
     /// Confidence of the OCR results on the block. Range [0, 1].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub confidence: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7485,11 +7623,12 @@ pub struct Paragraph {
 
     /// List of all words in this paragraph.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub words: std::vec::Vec<crate::model::Word>,
 
     /// Confidence of the OCR results for the paragraph. Range [0, 1].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub confidence: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7593,11 +7732,12 @@ pub struct Word {
     /// List of symbols in the word.
     /// The order of the symbols follows the natural reading order.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub symbols: std::vec::Vec<crate::model::Symbol>,
 
     /// Confidence of the OCR results for the word. Range [0, 1].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub confidence: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7700,11 +7840,12 @@ pub struct Symbol {
 
     /// The actual UTF-8 representation of the symbol.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub text: std::string::String,
 
     /// Confidence of the OCR results for the symbol. Range [0, 1].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub confidence: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7779,30 +7920,36 @@ impl wkt::message::Message for Symbol {
 pub struct WebDetection {
     /// Deduced entities from similar images on the Internet.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub web_entities: std::vec::Vec<crate::model::web_detection::WebEntity>,
 
     /// Fully matching images from the Internet.
     /// Can include resized copies of the query image.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub full_matching_images: std::vec::Vec<crate::model::web_detection::WebImage>,
 
     /// Partial matching images from the Internet.
     /// Those images are similar enough to share some key-point features. For
     /// example an original image will likely have partial matching for its crops.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub partial_matching_images: std::vec::Vec<crate::model::web_detection::WebImage>,
 
     /// Web pages containing the matching images from the Internet.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub pages_with_matching_images: std::vec::Vec<crate::model::web_detection::WebPage>,
 
     /// The visually similar image results.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub visually_similar_images: std::vec::Vec<crate::model::web_detection::WebImage>,
 
     /// The service's best guess as to the topic of the request image.
     /// Inferred from similar images on the open web.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub best_guess_labels: std::vec::Vec<crate::model::web_detection::WebLabel>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7900,16 +8047,18 @@ pub mod web_detection {
     pub struct WebEntity {
         /// Opaque entity ID.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub entity_id: std::string::String,
 
         /// Overall relevancy score for the entity.
         /// Not normalized and not comparable across different image queries.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::F32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
         pub score: f32,
 
         /// Canonical description of the entity, in English.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub description: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7954,11 +8103,12 @@ pub mod web_detection {
     pub struct WebImage {
         /// The result image URL.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub url: std::string::String,
 
         /// (Deprecated) Overall relevancy score for the image.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::F32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
         pub score: f32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7997,20 +8147,23 @@ pub mod web_detection {
     pub struct WebPage {
         /// The result web page URL.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub url: std::string::String,
 
         /// (Deprecated) Overall relevancy score for the web page.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::F32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
         pub score: f32,
 
         /// Title for the web page, may contain HTML markups.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub page_title: std::string::String,
 
         /// Fully matching images on the page.
         /// Can include resized copies of the query image.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub full_matching_images: std::vec::Vec<crate::model::web_detection::WebImage>,
 
         /// Partial matching images on the page.
@@ -8018,6 +8171,7 @@ pub mod web_detection {
         /// example an original image will likely have partial matching for its
         /// crops.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub partial_matching_images: std::vec::Vec<crate::model::web_detection::WebImage>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8084,12 +8238,14 @@ pub mod web_detection {
     pub struct WebLabel {
         /// Label for extra metadata.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub label: std::string::String,
 
         /// The BCP-47 language code for `label`, such as "en-US" or "sr-Latn".
         /// For more information, see
         /// <http://www.unicode.org/reports/tr35/#Unicode_locale_identifier>.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub language_code: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

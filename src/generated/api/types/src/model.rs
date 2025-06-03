@@ -53,10 +53,12 @@ pub struct Authentication {
     ///
     /// **NOTE:** All service configuration rules follow "last one wins" order.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub rules: std::vec::Vec<crate::model::AuthenticationRule>,
 
     /// Defines a set of authentication providers that a service supports.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub providers: std::vec::Vec<crate::model::AuthProvider>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -118,6 +120,7 @@ pub struct AuthenticationRule {
     ///
     /// [google.api.DocumentationRule.selector]: crate::model::DocumentationRule::selector
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub selector: std::string::String,
 
     /// The requirements for OAuth credentials.
@@ -127,10 +130,12 @@ pub struct AuthenticationRule {
     /// If true, the service accepts API keys without any other credential.
     /// This flag only applies to HTTP and gRPC requests.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub allow_without_credential: bool,
 
     /// Requirements for additional authentication providers.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub requirements: std::vec::Vec<crate::model::AuthRequirement>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -205,6 +210,7 @@ pub struct JwtLocation {
     /// For example, for "Authorization: Bearer {JWT}",
     /// value_prefix="Bearer " with a space at the end.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub value_prefix: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
@@ -318,11 +324,11 @@ pub mod jwt_location {
     #[non_exhaustive]
     pub enum In {
         /// Specifies HTTP header name to extract JWT token.
-        Header(std::string::String),
+        Header(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// Specifies URL query parameter name to extract JWT token.
-        Query(std::string::String),
+        Query(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// Specifies cookie name to extract JWT token.
-        Cookie(std::string::String),
+        Cookie(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
     }
 }
 
@@ -339,6 +345,7 @@ pub struct AuthProvider {
     ///
     /// Example: "bookstore_auth".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub id: std::string::String,
 
     /// Identifies the principal that issued the JWT. See
@@ -348,6 +355,7 @@ pub struct AuthProvider {
     /// Example: <https://securetoken.google.com>
     /// Example: 1234567-compute@developer.gserviceaccount.com
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub issuer: std::string::String,
 
     /// URL of the provider's public key set to validate signature of the JWT. See
@@ -364,6 +372,7 @@ pub struct AuthProvider {
     ///
     /// Example: <https://www.googleapis.com/oauth2/v1/certs>
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub jwks_uri: std::string::String,
 
     /// The list of JWT
@@ -388,11 +397,13 @@ pub struct AuthProvider {
     ///            bookstore_web.apps.googleusercontent.com
     /// ```
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub audiences: std::string::String,
 
     /// Redirect URL if JWT token is required but not present or is expired.
     /// Implement authorizationUrl of securityDefinitions in OpenAPI spec.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub authorization_url: std::string::String,
 
     /// Defines the locations to extract the JWT.  For now it is only used by the
@@ -416,6 +427,7 @@ pub struct AuthProvider {
     /// - header: x-goog-iap-jwt-assertion
     /// - query: access_token
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub jwt_locations: std::vec::Vec<crate::model::JwtLocation>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -511,6 +523,7 @@ pub struct OAuthRequirements {
     ///                    https://www.googleapis.com/auth/calendar.read
     /// ```
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub canonical_scopes: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -556,6 +569,7 @@ pub struct AuthRequirement {
     ///
     /// [google.api.AuthProvider.id]: crate::model::AuthProvider::id
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub provider_id: std::string::String,
 
     /// NOTE: This will be deprecated soon, once AuthProvider.audiences is
@@ -580,6 +594,7 @@ pub struct AuthRequirement {
     /// [google.api.Service.name]: crate::model::Service::name
     /// [google.protobuf.Api.name]: wkt::Api::name
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub audiences: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -620,6 +635,7 @@ pub struct Backend {
     ///
     /// **NOTE:** All service configuration rules follow "last one wins" order.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub rules: std::vec::Vec<crate::model::BackendRule>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -662,6 +678,7 @@ pub struct BackendRule {
     ///
     /// [google.api.DocumentationRule.selector]: crate::model::DocumentationRule::selector
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub selector: std::string::String,
 
     /// The address of the API backend.
@@ -688,27 +705,29 @@ pub struct BackendRule {
     ///
     /// [google.api.BackendRule.protocol]: crate::model::BackendRule::protocol
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub address: std::string::String,
 
     /// The number of seconds to wait for a response from a request. The default
     /// varies based on the request protocol and deployment environment.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
     pub deadline: f64,
 
     /// Deprecated, do not use.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
     #[deprecated]
     pub min_deadline: f64,
 
     /// The number of seconds to wait for the completion of a long running
     /// operation. The default is no deadline.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
     pub operation_deadline: f64,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub path_translation: crate::model::backend_rule::PathTranslation,
 
     /// The protocol used for sending a request to the backend.
@@ -735,10 +754,12 @@ pub struct BackendRule {
     ///
     /// [google.api.BackendRule.address]: crate::model::BackendRule::address
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub protocol: std::string::String,
 
     /// The map between request protocol and the backend address.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub overrides_by_request_protocol:
         std::collections::HashMap<std::string::String, crate::model::BackendRule>,
 
@@ -1112,12 +1133,12 @@ pub mod backend_rule {
         /// The JWT audience is used when generating a JWT ID token for the backend.
         /// This ID token will be added in the HTTP "authorization" header, and sent
         /// to the backend.
-        JwtAudience(std::string::String),
+        JwtAudience(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// When disable_auth is true, a JWT ID token won't be generated and the
         /// original "Authorization" HTTP header will be preserved. If the header is
         /// used to carry the original token and is expected by the backend, this
         /// field must be set to true to preserve the header.
-        DisableAuth(bool),
+        DisableAuth(#[serde_as(as = "serde_with::DefaultOnNull<_>")] bool),
     }
 }
 
@@ -1164,6 +1185,7 @@ pub struct Billing {
     /// a different monitored resource type. A metric can be used in at most
     /// one consumer destination.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub consumer_destinations: std::vec::Vec<crate::model::billing::BillingDestination>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1211,6 +1233,7 @@ pub mod billing {
         ///
         /// [google.api.Service.monitored_resources]: crate::model::Service::monitored_resources
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub monitored_resource: std::string::String,
 
         /// Names of the metrics to report to this billing destination.
@@ -1219,6 +1242,7 @@ pub mod billing {
         ///
         /// [google.api.Service.metrics]: crate::model::Service::metrics
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub metrics: std::vec::Vec<std::string::String>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1267,11 +1291,13 @@ pub struct CommonLanguageSettings {
     /// Link to automatically generated reference documentation.  Example:
     /// <https://cloud.google.com/nodejs/docs/reference/asset/latest>
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     #[deprecated]
     pub reference_docs_uri: std::string::String,
 
     /// The destination where API teams want this client library to be published.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub destinations: std::vec::Vec<crate::model::ClientLibraryDestination>,
 
     /// Configuration for which RPCs should be generated in the GAPIC client.
@@ -1343,15 +1369,18 @@ pub struct ClientLibrarySettings {
     /// package for the API, ending in the version element.
     /// Examples: "google.cloud.speech.v1" and "google.spanner.admin.database.v1".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub version: std::string::String,
 
     /// Launch stage of this version of the API.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub launch_stage: crate::model::LaunchStage,
 
     /// When using transport=rest, the client request will encode enums as
     /// numbers rather than strings.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub rest_numeric_enums: bool,
 
     /// Settings for legacy Java features, supported in the Service YAML.
@@ -1578,56 +1607,67 @@ pub struct Publishing {
     /// A list of API method settings, e.g. the behavior for methods that use the
     /// long-running operation pattern.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub method_settings: std::vec::Vec<crate::model::MethodSettings>,
 
     /// Link to a *public* URI where users can report issues.  Example:
     /// <https://issuetracker.google.com/issues/new?component=190865&template=1161103>
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub new_issue_uri: std::string::String,
 
     /// Link to product home page.  Example:
     /// <https://cloud.google.com/asset-inventory/docs/overview>
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub documentation_uri: std::string::String,
 
     /// Used as a tracking tag when collecting data about the APIs developer
     /// relations artifacts like docs, packages delivered to package managers,
     /// etc.  Example: "speech".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub api_short_name: std::string::String,
 
     /// GitHub label to apply to issues and pull requests opened for this API.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub github_label: std::string::String,
 
     /// GitHub teams to be added to CODEOWNERS in the directory in GitHub
     /// containing source code for the client libraries for this API.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub codeowner_github_teams: std::vec::Vec<std::string::String>,
 
     /// A prefix used in sample code when demarking regions to be included in
     /// documentation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub doc_tag_prefix: std::string::String,
 
     /// For whom the client library is being published.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub organization: crate::model::ClientLibraryOrganization,
 
     /// Client library settings.  If the same version string appears multiple
     /// times in this list, then the last one wins.  Settings from earlier
     /// settings with the same version string are discarded.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub library_settings: std::vec::Vec<crate::model::ClientLibrarySettings>,
 
     /// Optional link to proto reference documentation.  Example:
     /// <https://cloud.google.com/pubsub/lite/docs/reference/rpc>
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub proto_reference_documentation_uri: std::string::String,
 
     /// Optional link to REST reference documentation.  Example:
     /// <https://cloud.google.com/pubsub/lite/docs/reference/rest>
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub rest_reference_documentation_uri: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1757,6 +1797,7 @@ pub struct JavaSettings {
     /// java_settings:
     /// library_package: com.google.cloud.pubsub.v1
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub library_package: std::string::String,
 
     /// Configure the Java class name to use instead of the service's for its
@@ -1774,6 +1815,7 @@ pub struct JavaSettings {
     /// - google.pubsub.v1.Publisher: TopicAdmin
     /// - google.pubsub.v1.Subscriber: SubscriptionAdmin
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub service_class_names: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Some settings.
@@ -2005,6 +2047,7 @@ pub mod python_settings {
         /// This feature will be enabled by default 1 month after launching the
         /// feature in preview packages.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub rest_async_io_enabled: bool,
 
         /// Enables generation of protobuf code using new types that are more
@@ -2012,6 +2055,7 @@ pub mod python_settings {
         /// enabled by default 1 month after launching the feature in preview
         /// packages.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub protobuf_pythonic_types_enabled: bool,
 
         /// Disables generation of an unversioned Python package for this client
@@ -2019,6 +2063,7 @@ pub mod python_settings {
         /// import statements. For example `import google.cloud.library_v2` instead
         /// of `import google.cloud.library`.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub unversioned_package_disabled: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2122,6 +2167,7 @@ pub struct DotnetSettings {
     /// fully-qualified.)
     /// Example: Subscriber to SubscriberServiceApi.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub renamed_services: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Map from full resource types to the effective short name
@@ -2130,6 +2176,7 @@ pub struct DotnetSettings {
     /// Example entry:
     /// "datalabeling.googleapis.com/Dataset": "DataLabelingDataset"
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub renamed_resources: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// List of full resource types to ignore during generation.
@@ -2138,17 +2185,20 @@ pub struct DotnetSettings {
     /// the common Location resources.
     /// Example entry: "documentai.googleapis.com/Location"
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub ignored_resources: std::vec::Vec<std::string::String>,
 
     /// Namespaces which must be aliased in snippets due to
     /// a known (but non-generator-predictable) naming collision
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub forced_namespace_aliases: std::vec::Vec<std::string::String>,
 
     /// Method signatures (in the form "service.method(signature)")
     /// which are provided separately, so shouldn't be generated.
     /// Snippets *calling* these methods are still generated, however.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub handwritten_signatures: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2305,6 +2355,7 @@ pub struct GoSettings {
     /// renamed_services:
     /// Publisher: TopicAdmin
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub renamed_services: std::collections::HashMap<std::string::String, std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2369,6 +2420,7 @@ pub struct MethodSettings {
     /// - selector: google.storage.control.v2.StorageControl.CreateFolder
     /// # method settings for CreateFolder...
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub selector: std::string::String,
 
     /// Describes settings to use for long-running operations when generating
@@ -2400,6 +2452,7 @@ pub struct MethodSettings {
     /// auto_populated_fields:
     /// - request_id
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub auto_populated_fields: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2477,7 +2530,7 @@ pub mod method_settings {
         /// reaches max_poll_delay.
         /// Default value: 1.5.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::F32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
         pub poll_delay_multiplier: f32,
 
         /// Maximum time between two subsequent poll requests.
@@ -2577,6 +2630,7 @@ pub struct SelectiveGapicGeneration {
     /// An allowlist of the fully qualified names of RPCs that should be included
     /// on public client surfaces.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub methods: std::vec::Vec<std::string::String>,
 
     /// Setting this to true indicates to the client generators that methods
@@ -2586,6 +2640,7 @@ pub struct SelectiveGapicGeneration {
     /// implementations to decide. Some examples may be: added annotations,
     /// obfuscated identifiers, or other language idiomatic patterns.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub generate_omitted_as_internal: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2643,25 +2698,30 @@ pub struct ConfigChange {
     /// - quota.metric_rules[selector=="google"].metric_costs[key=="reads"].value
     /// - logging.producer_destinations[0]
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub element: std::string::String,
 
     /// Value of the changed object in the old Service configuration,
     /// in JSON format. This field will not be populated if ChangeType == ADDED.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub old_value: std::string::String,
 
     /// Value of the changed object in the new Service configuration,
     /// in JSON format. This field will not be populated if ChangeType == REMOVED.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub new_value: std::string::String,
 
     /// The type for this change, either ADDED, REMOVED, or MODIFIED.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub change_type: crate::model::ChangeType,
 
     /// Collection of advice provided for this change, useful for determining the
     /// possible impact of this change.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub advices: std::vec::Vec<crate::model::Advice>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2728,6 +2788,7 @@ pub struct Advice {
     /// Useful description for why this advice was applied and what actions should
     /// be taken to mitigate any implied risks.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2775,6 +2836,7 @@ impl wkt::message::Message for Advice {
 pub struct ProjectProperties {
     /// List of per consumer project-specific properties.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub properties: std::vec::Vec<crate::model::Property>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2821,15 +2883,18 @@ impl wkt::message::Message for ProjectProperties {
 pub struct Property {
     /// The name of the property (a.k.a key).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The type of this property.
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub r#type: crate::model::property::PropertyType,
 
     /// The description of the property
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3070,6 +3135,7 @@ pub struct Context {
     ///
     /// **NOTE:** All service configuration rules follow "last one wins" order.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub rules: std::vec::Vec<crate::model::ContextRule>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3113,26 +3179,31 @@ pub struct ContextRule {
     ///
     /// [google.api.DocumentationRule.selector]: crate::model::DocumentationRule::selector
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub selector: std::string::String,
 
     /// A list of full type names of requested contexts, only the requested context
     /// will be made available to the backend.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub requested: std::vec::Vec<std::string::String>,
 
     /// A list of full type names of provided contexts. It is used to support
     /// propagating HTTP headers and ETags from the response extension.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub provided: std::vec::Vec<std::string::String>,
 
     /// A list of full type names or extension IDs of extensions allowed in grpc
     /// side channel from client to backend.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub allowed_request_extensions: std::vec::Vec<std::string::String>,
 
     /// A list of full type names or extension IDs of extensions allowed in grpc
     /// side channel from backend to client.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub allowed_response_extensions: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3218,10 +3289,12 @@ pub struct Control {
     /// feature (like quota and billing) will be enabled. The recommended value for
     /// most services is servicecontrol.googleapis.com
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub environment: std::string::String,
 
     /// Defines policies applying to the API methods of the service.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub method_policies: std::vec::Vec<crate::model::MethodPolicy>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3280,13 +3353,13 @@ pub struct Distribution {
     /// must equal the sum of the values in `bucket_counts` if a histogram is
     /// provided.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub count: i64,
 
     /// The arithmetic mean of the values in the population. If `count` is zero
     /// then this field must be zero.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
     pub mean: f64,
 
     /// The sum of squared deviations from the mean of the values in the
@@ -3301,7 +3374,7 @@ pub struct Distribution {
     ///
     /// If `count` is zero then this field must be zero.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
     pub sum_of_squared_deviation: f64,
 
     /// If specified, contains the range of the population values. The field
@@ -3330,11 +3403,12 @@ pub struct Distribution {
     /// counts for the finite buckets (number 1 through N-2). The N'th value in
     /// `bucket_counts` is the count for the overflow bucket (number N-1).
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "std::vec::Vec<wkt::internal::I64>")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<wkt::internal::I64>>")]
     pub bucket_counts: std::vec::Vec<i64>,
 
     /// Must be in increasing order of `value` field.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub exemplars: std::vec::Vec<crate::model::distribution::Exemplar>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3442,12 +3516,12 @@ pub mod distribution {
     pub struct Range {
         /// The minimum of the population values.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::F64")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
         pub min: f64,
 
         /// The maximum of the population values.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::F64")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
         pub max: f64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3661,17 +3735,17 @@ pub mod distribution {
         pub struct Linear {
             /// Must be greater than 0.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "wkt::internal::I32")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
             pub num_finite_buckets: i32,
 
             /// Must be greater than 0.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "wkt::internal::F64")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
             pub width: f64,
 
             /// Lower bound of the first bucket.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "wkt::internal::F64")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
             pub offset: f64,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3725,17 +3799,17 @@ pub mod distribution {
         pub struct Exponential {
             /// Must be greater than 0.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "wkt::internal::I32")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
             pub num_finite_buckets: i32,
 
             /// Must be greater than 1.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "wkt::internal::F64")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
             pub growth_factor: f64,
 
             /// Must be greater than 0.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "wkt::internal::F64")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
             pub scale: f64,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3790,7 +3864,7 @@ pub mod distribution {
         pub struct Explicit {
             /// The values must be monotonically increasing.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-            #[serde_as(as = "std::vec::Vec<wkt::internal::F64>")]
+            #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<wkt::internal::F64>>")]
             pub bounds: std::vec::Vec<f64>,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3850,7 +3924,7 @@ pub mod distribution {
         /// Value of the exemplar point. This value determines to which bucket the
         /// exemplar belongs.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::F64")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
         pub value: f64,
 
         /// The observation (sampling) time of the above value.
@@ -3869,6 +3943,7 @@ pub mod distribution {
         /// There may be only a single attachment of any given message type in a
         /// single exemplar, and this is enforced by the system.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub attachments: std::vec::Vec<wkt::Any>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3968,20 +4043,24 @@ pub struct Documentation {
     /// Console.
     /// NOTE: This field is equivalent to the standard field `description`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub summary: std::string::String,
 
     /// The top level pages for the documentation set.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub pages: std::vec::Vec<crate::model::Page>,
 
     /// A list of documentation rules that apply to individual API elements.
     ///
     /// **NOTE:** All service configuration rules follow "last one wins" order.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub rules: std::vec::Vec<crate::model::DocumentationRule>,
 
     /// The URL to the root of documentation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub documentation_root_url: std::string::String,
 
     /// Specifies the service root url if the default one (the service name
@@ -3989,6 +4068,7 @@ pub struct Documentation {
     /// specified service urls as well as sections that show a base that other
     /// urls are relative to.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub service_root_url: std::string::String,
 
     /// Declares a single overview page. For example:
@@ -3997,6 +4077,7 @@ pub struct Documentation {
     ///
     /// Note: you cannot specify both `overview` field and `pages` field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub overview: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4081,17 +4162,20 @@ pub struct DocumentationRule {
     /// one or more components. To specify a default for all applicable elements,
     /// the whole pattern "*" is used.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub selector: std::string::String,
 
     /// Description of the selected proto element (e.g. a message, a method, a
     /// 'service' definition, or a field). Defaults to leading & trailing comments
     /// taken from the proto source definition of the proto element.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Deprecation description of the selected element(s). It can be provided if
     /// an element is marked as `deprecated`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub deprecation_description: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4147,17 +4231,20 @@ pub struct Page {
     /// You can reference `Java` page using Markdown reference link syntax:
     /// `[Java][Tutorial.Java]`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The Markdown content of the page. You can use ```(== include {path}
     /// ==)``` to include content from a Markdown file. The content can be used
     /// to produce the documentation page such as HTML format page.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub content: std::string::String,
 
     /// Subpages of this page. The order of subpages specified here will be
     /// honored in the generated docset.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub subpages: std::vec::Vec<crate::model::Page>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4229,12 +4316,14 @@ impl wkt::message::Message for Page {
 pub struct Endpoint {
     /// The canonical name of this endpoint.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Aliases for this endpoint, these will be served by the same UrlMap as the
     /// parent endpoint, and will be provisioned in the GCP stack for the Regional
     /// Endpoints.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub aliases: std::vec::Vec<std::string::String>,
 
     /// The specification of an Internet routable address of API frontend that will
@@ -4243,6 +4332,7 @@ pub struct Endpoint {
     /// either a valid IPv4 address or a fully-qualified domain name. For example,
     /// "8.8.8.8" or "myservice.appspot.com".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub target: std::string::String,
 
     /// Allowing
@@ -4252,6 +4342,7 @@ pub struct Endpoint {
     /// the browser to determine whether the subsequent cross-origin request is
     /// allowed to proceed.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub allow_cors: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4309,6 +4400,7 @@ pub struct FieldInfo {
     /// any API consumer, just documents the API's format for the field it is
     /// applied to.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub format: crate::model::field_info::Format,
 
     /// The type(s) that the annotated, generic field may represent.
@@ -4316,6 +4408,7 @@ pub struct FieldInfo {
     /// Currently, this must only be used on fields of type `google.protobuf.Any`.
     /// Supporting other generic types may be considered in the future.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub referenced_types: std::vec::Vec<crate::model::TypeReference>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4538,6 +4631,7 @@ pub struct TypeReference {
     ///
     /// See [AIP-202](https://google.aip.dev/202#type-references) for more details.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub type_name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4576,6 +4670,7 @@ pub struct Http {
     ///
     /// **NOTE:** All service configuration rules follow "last one wins" order.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub rules: std::vec::Vec<crate::model::HttpRule>,
 
     /// When set to true, URL path parameters will be fully URI-decoded except in
@@ -4585,6 +4680,7 @@ pub struct Http {
     /// The default behavior is to not decode RFC 6570 reserved characters in multi
     /// segment matches.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub fully_decode_reserved_expansion: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4917,6 +5013,7 @@ pub struct HttpRule {
     ///
     /// [google.api.DocumentationRule.selector]: crate::model::DocumentationRule::selector
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub selector: std::string::String,
 
     /// The name of the request field whose value is mapped to the HTTP request
@@ -4926,6 +5023,7 @@ pub struct HttpRule {
     /// NOTE: the referred field must be present at the top-level of the request
     /// message type.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub body: std::string::String,
 
     /// Optional. The name of the response field whose value is mapped to the HTTP
@@ -4935,12 +5033,14 @@ pub struct HttpRule {
     /// NOTE: The referred field must be present at the top-level of the response
     /// message type.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub response_body: std::string::String,
 
     /// Additional HTTP bindings for the selector. Nested bindings must
     /// not contain an `additional_bindings` field themselves (that is,
     /// the nesting may only be one level deep).
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub additional_bindings: std::vec::Vec<crate::model::HttpRule>,
 
     /// Determines the URL pattern is matched by this rules. This pattern can be
@@ -5154,15 +5254,15 @@ pub mod http_rule {
     pub enum Pattern {
         /// Maps to HTTP GET. Used for listing and getting information about
         /// resources.
-        Get(std::string::String),
+        Get(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// Maps to HTTP PUT. Used for replacing a resource.
-        Put(std::string::String),
+        Put(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// Maps to HTTP POST. Used for creating a resource or performing an action.
-        Post(std::string::String),
+        Post(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// Maps to HTTP DELETE. Used for deleting a resource.
-        Delete(std::string::String),
+        Delete(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// Maps to HTTP PATCH. Used for updating a resource.
-        Patch(std::string::String),
+        Patch(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// The custom pattern is used for specifying an HTTP method that is not
         /// included in the `pattern` field, such as HEAD, or "*" to leave the
         /// HTTP method unspecified for this rule. The wild-card rule is useful
@@ -5179,10 +5279,12 @@ pub mod http_rule {
 pub struct CustomHttpPattern {
     /// The name of this custom HTTP verb.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub kind: std::string::String,
 
     /// The path matched by this custom verb.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub path: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5266,16 +5368,18 @@ impl wkt::message::Message for CustomHttpPattern {
 pub struct HttpBody {
     /// The HTTP Content-Type header value specifying the content type of the body.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub content_type: std::string::String,
 
     /// The HTTP request/response body as raw binary.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub data: ::bytes::Bytes,
 
     /// Application specific response metadata. Must be set in the first response
     /// for streaming APIs.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub extensions: std::vec::Vec<wkt::Any>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5325,14 +5429,17 @@ impl wkt::message::Message for HttpBody {
 pub struct LabelDescriptor {
     /// The label key.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub key: std::string::String,
 
     /// The type of data that can be assigned to the label.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub value_type: crate::model::label_descriptor::ValueType,
 
     /// A human-readable description for the label.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5530,22 +5637,26 @@ pub struct LogDescriptor {
     /// characters [A-Za-z0-9], and punctuation characters including
     /// slash, underscore, hyphen, period [/_-.].
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The set of labels that are available to describe a specific log entry.
     /// Runtime requests that contain labels not specified here are
     /// considered invalid.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub labels: std::vec::Vec<crate::model::LabelDescriptor>,
 
     /// A human-readable description of this log. This information appears in
     /// the documentation and can contain details.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// The human-readable name for this log. This information appears on
     /// the user interface and should be concise.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5634,6 +5745,7 @@ pub struct Logging {
     /// different monitored resource type. A log can be used in at most
     /// one producer destination.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub producer_destinations: std::vec::Vec<crate::model::logging::LoggingDestination>,
 
     /// Logging configurations for sending logs to the consumer project.
@@ -5641,6 +5753,7 @@ pub struct Logging {
     /// different monitored resource type. A log can be used in at most
     /// one consumer destination.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub consumer_destinations: std::vec::Vec<crate::model::logging::LoggingDestination>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5699,6 +5812,7 @@ pub mod logging {
         ///
         /// [google.api.Service.monitored_resources]: crate::model::Service::monitored_resources
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub monitored_resource: std::string::String,
 
         /// Names of the logs to be sent to this destination. Each name must
@@ -5708,6 +5822,7 @@ pub mod logging {
         ///
         /// [google.api.Service.logs]: crate::model::Service::logs
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub logs: std::vec::Vec<std::string::String>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5757,6 +5872,7 @@ pub mod logging {
 pub struct MetricDescriptor {
     /// The resource name of the metric descriptor.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The metric type, including its DNS name prefix. The type is not
@@ -5771,6 +5887,7 @@ pub struct MetricDescriptor {
     /// ```
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub r#type: std::string::String,
 
     /// The set of labels that can be used to describe a specific
@@ -5780,16 +5897,19 @@ pub struct MetricDescriptor {
     /// you can look at latencies for successful responses or just
     /// for responses that failed.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub labels: std::vec::Vec<crate::model::LabelDescriptor>,
 
     /// Whether the metric records instantaneous values, changes to a value, etc.
     /// Some combinations of `metric_kind` and `value_type` might not be supported.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub metric_kind: crate::model::metric_descriptor::MetricKind,
 
     /// Whether the measurement is an integer, a floating-point number, etc.
     /// Some combinations of `metric_kind` and `value_type` might not be supported.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub value_type: crate::model::metric_descriptor::ValueType,
 
     /// The units in which the metric value is reported. It is only applicable
@@ -5916,10 +6036,12 @@ pub struct MetricDescriptor {
     ///   0..1, that will be multiplied by 100 and displayed as a percentage
     ///   (so a metric value `0.03` means "3 percent").
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub unit: std::string::String,
 
     /// A detailed description of the metric, which can be used in documentation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// A concise name for the metric, which can be displayed in user interfaces.
@@ -5927,6 +6049,7 @@ pub struct MetricDescriptor {
     /// This field is optional but it is recommended to be set for any metrics
     /// associated with user-visible concepts, such as Quota.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// Optional. Metadata which can be used to guide usage of the metric.
@@ -5935,6 +6058,7 @@ pub struct MetricDescriptor {
 
     /// Optional. The launch stage of the metric definition.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub launch_stage: crate::model::LaunchStage,
 
     /// Read-only. If present, then a [time
@@ -5946,6 +6070,7 @@ pub struct MetricDescriptor {
     ///
     /// [google.api.MonitoredResourceDescriptor]: crate::model::MonitoredResourceDescriptor
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub monitored_resource_types: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6079,6 +6204,7 @@ pub mod metric_descriptor {
         ///
         /// [google.api.MetricDescriptor.launch_stage]: crate::model::MetricDescriptor::launch_stage
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         #[deprecated]
         pub launch_stage: crate::model::LaunchStage,
 
@@ -6097,6 +6223,7 @@ pub mod metric_descriptor {
 
         /// The scope of the timeseries data of the metric.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub time_series_resource_hierarchy_level: std::vec::Vec<crate::model::metric_descriptor::metric_descriptor_metadata::TimeSeriesResourceHierarchyLevel>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6647,11 +6774,13 @@ pub struct Metric {
     /// [google.api.MetricDescriptor]: crate::model::MetricDescriptor
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub r#type: std::string::String,
 
     /// The set of label values that uniquely identify this metric. All
     /// labels listed in the `MetricDescriptor` must be assigned values.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6712,6 +6841,7 @@ pub struct MonitoredResourceDescriptor {
     /// accessing the type.  APIs that do not use project information can use the
     /// resource name format `"monitoredResourceDescriptors/{type}"`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. The monitored resource type. For example, the type
@@ -6722,6 +6852,7 @@ pub struct MonitoredResourceDescriptor {
     /// types](https://cloud.google.com/logging/docs/api/v2/resource-list).
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub r#type: std::string::String,
 
     /// Optional. A concise name for the monitored resource type that might be
@@ -6729,21 +6860,25 @@ pub struct MonitoredResourceDescriptor {
     /// without any article or other determiners. For example,
     /// `"Google Cloud SQL Database"`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// Optional. A detailed description of the monitored resource type that might
     /// be used in documentation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Required. A set of labels used to describe instances of this monitored
     /// resource type. For example, an individual Google Cloud SQL database is
     /// identified by values for the labels `"database_id"` and `"zone"`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub labels: std::vec::Vec<crate::model::LabelDescriptor>,
 
     /// Optional. The launch stage of the monitored resource definition.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub launch_stage: crate::model::LaunchStage,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6842,12 +6977,14 @@ pub struct MonitoredResource {
     /// [google.api.MonitoredResourceDescriptor]: crate::model::MonitoredResourceDescriptor
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub r#type: std::string::String,
 
     /// Required. Values for all of the labels listed in the associated monitored
     /// resource descriptor. For example, Compute Engine VM instances use the
     /// labels `"project_id"`, `"instance_id"`, and `"zone"`.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6914,6 +7051,7 @@ pub struct MonitoredResourceMetadata {
 
     /// Output only. A map of user-defined metadata labels.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub user_labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7028,6 +7166,7 @@ pub struct Monitoring {
     /// resource type. A monitored resource and metric pair may only be used once
     /// in the Monitoring configuration.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub producer_destinations: std::vec::Vec<crate::model::monitoring::MonitoringDestination>,
 
     /// Monitoring configurations for sending metrics to the consumer project.
@@ -7037,6 +7176,7 @@ pub struct Monitoring {
     /// resource type. A monitored resource and metric pair may only be used once
     /// in the Monitoring configuration.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub consumer_destinations: std::vec::Vec<crate::model::monitoring::MonitoringDestination>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7095,6 +7235,7 @@ pub mod monitoring {
         ///
         /// [google.api.Service.monitored_resources]: crate::model::Service::monitored_resources
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub monitored_resource: std::string::String,
 
         /// Types of the metrics to report to this monitoring destination.
@@ -7103,6 +7244,7 @@ pub mod monitoring {
         ///
         /// [google.api.Service.metrics]: crate::model::Service::metrics
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub metrics: std::vec::Vec<std::string::String>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7166,6 +7308,7 @@ pub struct FieldPolicy {
     /// comma-separated string with valid request or response field paths,
     /// such as "foo.bar" or "foo.bar,foo.baz".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub selector: std::string::String,
 
     /// Specifies the required permission(s) for the resource referred to by the
@@ -7173,10 +7316,12 @@ pub struct FieldPolicy {
     /// the request must pass the permission checks to proceed. For example,
     /// "resourcemanager.projects.get".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub resource_permission: std::string::String,
 
     /// Specifies the resource type for the resource referred to by the field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub resource_type: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7233,10 +7378,12 @@ pub struct MethodPolicy {
     ///
     /// [google.api.DocumentationRule.selector]: crate::model::DocumentationRule::selector
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub selector: std::string::String,
 
     /// Policies that are applicable to the request message.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub request_policies: std::vec::Vec<crate::model::FieldPolicy>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7333,11 +7480,13 @@ impl wkt::message::Message for MethodPolicy {
 pub struct Quota {
     /// List of QuotaLimit definitions for the service.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub limits: std::vec::Vec<crate::model::QuotaLimit>,
 
     /// List of MetricRule definitions, each one mapping a selected method to one
     /// or more metrics.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub metric_rules: std::vec::Vec<crate::model::MetricRule>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7392,6 +7541,7 @@ pub struct MetricRule {
     ///
     /// [google.api.DocumentationRule.selector]: crate::model::DocumentationRule::selector
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub selector: std::string::String,
 
     /// Metrics to update when the selected methods are called, and the associated
@@ -7401,7 +7551,7 @@ pub struct MetricRule {
     /// increased for the metric against which the quota limits are defined.
     /// The value must not be negative.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    #[serde_as(as = "std::collections::HashMap<_, wkt::internal::I64>")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, wkt::internal::I64>>")]
     pub metric_costs: std::collections::HashMap<std::string::String, i64>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7453,12 +7603,14 @@ pub struct QuotaLimit {
     ///
     /// The maximum length of the limit name is 64 characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. User-visible, extended description for this quota limit.
     /// Should be used only when more context is needed to understand this limit
     /// than provided by the limit's display name (see: `display_name`).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Default number of tokens that can be consumed during the specified
@@ -7472,7 +7624,7 @@ pub struct QuotaLimit {
     ///
     /// Used by group-based quotas only.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub default_limit: i64,
 
     /// Maximum number of tokens that can be consumed during the specified
@@ -7485,7 +7637,7 @@ pub struct QuotaLimit {
     ///
     /// Used by group-based quotas only.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub max_limit: i64,
 
     /// Free tier value displayed in the Developers Console for this limit.
@@ -7497,19 +7649,21 @@ pub struct QuotaLimit {
     ///
     /// Used by group-based quotas only.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub free_tier: i64,
 
     /// Duration of this limit in textual notation. Must be "100s" or "1d".
     ///
     /// Used by group-based quotas only.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub duration: std::string::String,
 
     /// The name of the metric this quota limit applies to. The quota limits with
     /// the same metric will be checked together during runtime. The metric must be
     /// defined within the service config.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub metric: std::string::String,
 
     /// Specify the unit of the quota limit. It uses the same syntax as
@@ -7525,13 +7679,14 @@ pub struct QuotaLimit {
     ///
     /// [google.api.MetricDescriptor.unit]: crate::model::MetricDescriptor::unit
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub unit: std::string::String,
 
     /// Tiered limit values. You must specify this as a key:value pair, with an
     /// integer value that is the maximum number of requests allowed for the
     /// specified unit. Currently only STANDARD is supported.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    #[serde_as(as = "std::collections::HashMap<_, wkt::internal::I64>")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, wkt::internal::I64>>")]
     pub values: std::collections::HashMap<std::string::String, i64>,
 
     /// User-visible display name for this limit.
@@ -7539,6 +7694,7 @@ pub struct QuotaLimit {
     /// the quota configuration. This field can be used to override the default
     /// display name generated from the configuration.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7695,6 +7851,7 @@ pub struct ResourceDescriptor {
     /// characters allowed for the `resource_type_kind` is 100.
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub r#type: std::string::String,
 
     /// Optional. The relative resource name pattern associated with this resource
@@ -7721,11 +7878,13 @@ pub struct ResourceDescriptor {
     /// the same component name (e.g. "project") refers to IDs of the same
     /// type of resource.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub pattern: std::vec::Vec<std::string::String>,
 
     /// Optional. The field on the resource that designates the resource name
     /// field. If omitted, this is assumed to be "name".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name_field: std::string::String,
 
     /// Optional. The historical or future-looking state of the resource pattern.
@@ -7746,6 +7905,7 @@ pub struct ResourceDescriptor {
     /// }
     /// ```
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub history: crate::model::resource_descriptor::History,
 
     /// The plural name used in the resource name and permission names, such as
@@ -7762,18 +7922,21 @@ pub struct ResourceDescriptor {
     /// Note: The plural form is required even for singleton resources. See
     /// <https://aip.dev/156>
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub plural: std::string::String,
 
     /// The same concept of the `singular` field in k8s CRD spec
     /// <https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/>
     /// Such as "project" for the `resourcemanager.googleapis.com/Project` type.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub singular: std::string::String,
 
     /// Style flag(s) for this resource.
     /// These indicate that a resource is expected to conform to a given
     /// style. See the specific style flags for additional information.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub style: std::vec::Vec<crate::model::resource_descriptor::Style>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8156,6 +8319,7 @@ pub struct ResourceReference {
     /// ```
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub r#type: std::string::String,
 
     /// The resource type of a child collection that the annotated field
@@ -8172,6 +8336,7 @@ pub struct ResourceReference {
     /// }
     /// ```
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub child_type: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8625,6 +8790,7 @@ pub struct RoutingRule {
     /// determines which Parameter gets used.
     /// See the examples for more details.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub routing_parameters: std::vec::Vec<crate::model::RoutingParameter>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8662,6 +8828,7 @@ impl wkt::message::Message for RoutingRule {
 pub struct RoutingParameter {
     /// A request field to extract the header key-value pair from.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub field: std::string::String,
 
     /// A pattern matching the key-value field. Optional.
@@ -8727,6 +8894,7 @@ pub struct RoutingParameter {
     ///
     /// See Example 1 for more details.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub path_template: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8802,15 +8970,18 @@ pub struct Service {
     /// typically goes through DNS verification to make sure the owner
     /// of the service also owns the DNS name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The product title for this service, it is the name displayed in Google
     /// Cloud Console.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub title: std::string::String,
 
     /// The Google project that owns this service.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub producer_project_id: std::string::String,
 
     /// A unique ID for a specific instance of this message, typically assigned
@@ -8818,6 +8989,7 @@ pub struct Service {
     /// and only lower case letters, digits, '.', '_' and '-' are allowed. If
     /// empty, the server may choose to generate one instead.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub id: std::string::String,
 
     /// A list of API interfaces exported by this service. Only the `name` field
@@ -8828,6 +9000,7 @@ pub struct Service {
     ///
     /// [google.protobuf.Api]: wkt::Api
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub apis: std::vec::Vec<wkt::Api>,
 
     /// A list of all proto message types included in this API service.
@@ -8841,6 +9014,7 @@ pub struct Service {
     /// - name: google.protobuf.Int32
     /// ```
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub types: std::vec::Vec<wkt::Type>,
 
     /// A list of all enum types included in this API service.  Enums referenced
@@ -8853,6 +9027,7 @@ pub struct Service {
     /// - name: google.someapi.v1.SomeEnum
     /// ```
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub enums: std::vec::Vec<wkt::Enum>,
 
     /// Additional API documentation.
@@ -8887,6 +9062,7 @@ pub struct Service {
     /// with the same name as the service is automatically generated to service all
     /// defined APIs.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub endpoints: std::vec::Vec<crate::model::Endpoint>,
 
     /// Configuration for the service control plane.
@@ -8895,10 +9071,12 @@ pub struct Service {
 
     /// Defines the logs used by this service.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub logs: std::vec::Vec<crate::model::LogDescriptor>,
 
     /// Defines the metrics used by this service.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub metrics: std::vec::Vec<crate::model::MetricDescriptor>,
 
     /// Defines the monitored resources used by this service. This is required
@@ -8908,6 +9086,7 @@ pub struct Service {
     /// [google.api.Service.logging]: crate::model::Service::logging
     /// [google.api.Service.monitoring]: crate::model::Service::monitoring
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub monitored_resources: std::vec::Vec<crate::model::MonitoredResourceDescriptor>,
 
     /// Billing configuration.
@@ -9342,6 +9521,7 @@ impl wkt::message::Message for Service {
 pub struct SourceInfo {
     /// All files used during config generation.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub source_files: std::vec::Vec<wkt::Any>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9415,6 +9595,7 @@ pub struct SystemParameters {
     ///
     /// **NOTE:** All service configuration rules follow "last one wins" order.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub rules: std::vec::Vec<crate::model::SystemParameterRule>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9459,6 +9640,7 @@ pub struct SystemParameterRule {
     ///
     /// [google.api.DocumentationRule.selector]: crate::model::DocumentationRule::selector
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub selector: std::string::String,
 
     /// Define parameters. Multiple names may be defined for a parameter.
@@ -9467,6 +9649,7 @@ pub struct SystemParameterRule {
     /// If none of the specified names are present the behavior is
     /// parameter-dependent.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub parameters: std::vec::Vec<crate::model::SystemParameter>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9512,16 +9695,19 @@ impl wkt::message::Message for SystemParameterRule {
 pub struct SystemParameter {
     /// Define the name of the parameter, such as "api_key" . It is case sensitive.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Define the HTTP header name to use for the parameter. It is case
     /// insensitive.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub http_header: std::string::String,
 
     /// Define the URL query parameter name to use for the parameter. It is case
     /// sensitive.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub url_query_parameter: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9577,12 +9763,14 @@ pub struct Usage {
     /// "serviceusage.googleapis.com/tos/universal". Additional ToS can be
     /// included based on the business needs.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub requirements: std::vec::Vec<std::string::String>,
 
     /// A list of usage rules that apply to individual API methods.
     ///
     /// **NOTE:** All service configuration rules follow "last one wins" order.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub rules: std::vec::Vec<crate::model::UsageRule>,
 
     /// The full resource name of a channel used for sending notifications to the
@@ -9594,6 +9782,7 @@ pub struct Usage {
     /// of a Cloud Pub/Sub topic that uses the Cloud Pub/Sub topic name format
     /// documented in <https://cloud.google.com/pubsub/docs/overview>.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub producer_notification_channel: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9684,11 +9873,13 @@ pub struct UsageRule {
     ///
     /// [google.api.DocumentationRule.selector]: crate::model::DocumentationRule::selector
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub selector: std::string::String,
 
     /// If true, the selected method allows unregistered calls, e.g. calls
     /// that don't identify any user or application.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub allow_unregistered_calls: bool,
 
     /// If true, the selected method should skip service control and the control
@@ -9696,6 +9887,7 @@ pub struct UsageRule {
     /// This flag is used by Google Cloud Endpoints to bypass checks for internal
     /// methods, such as service health check methods.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub skip_service_control: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9766,6 +9958,7 @@ pub struct Visibility {
     ///
     /// **NOTE:** All service configuration rules follow "last one wins" order.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub rules: std::vec::Vec<crate::model::VisibilityRule>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9809,6 +10002,7 @@ pub struct VisibilityRule {
     ///
     /// [google.api.DocumentationRule.selector]: crate::model::DocumentationRule::selector
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub selector: std::string::String,
 
     /// A comma-separated list of visibility labels that apply to the `selector`.
@@ -9829,6 +10023,7 @@ pub struct VisibilityRule {
     /// Removing INTERNAL from this restriction will break clients that rely on
     /// this method and only had access to it through INTERNAL.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub restriction: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

@@ -35,14 +35,17 @@ pub struct Api {
     /// The fully qualified name of this interface, including package name
     /// followed by the interface's simple name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The methods of this interface, in unspecified order.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub methods: std::vec::Vec<crate::Method>,
 
     /// Any metadata attached to the interface.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub options: std::vec::Vec<crate::Option>,
 
     /// A version string for this interface. If specified, must have the form
@@ -65,6 +68,7 @@ pub struct Api {
     /// be omitted. Zero major versions must only be used for
     /// experimental, non-GA interfaces.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub version: std::string::String,
 
     /// Source context for the protocol buffer service represented by this
@@ -76,10 +80,12 @@ pub struct Api {
     ///
     /// [Mixin]: crate::Mixin
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub mixins: std::vec::Vec<crate::Mixin>,
 
     /// The source syntax of the service.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub syntax: crate::Syntax,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -175,30 +181,37 @@ impl wkt::message::Message for Api {
 pub struct Method {
     /// The simple name of this method.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// A URL of the input message type.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_type_url: std::string::String,
 
     /// If true, the request is streamed.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_streaming: bool,
 
     /// The URL of the output message type.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub response_type_url: std::string::String,
 
     /// If true, the response is streamed.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub response_streaming: bool,
 
     /// Any metadata attached to the method.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub options: std::vec::Vec<crate::Option>,
 
     /// The source syntax of this method.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub syntax: crate::Syntax,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -368,11 +381,13 @@ impl wkt::message::Message for Method {
 pub struct Mixin {
     /// The fully qualified name of the interface which is included.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// If non-empty specifies a path under which inherited HTTP paths
     /// are rooted.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub root: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -411,6 +426,7 @@ impl wkt::message::Message for Mixin {
 #[non_exhaustive]
 pub struct FileDescriptorSet {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub file: std::vec::Vec<crate::FileDescriptorProto>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -447,37 +463,44 @@ impl wkt::message::Message for FileDescriptorSet {
 #[non_exhaustive]
 pub struct FileDescriptorProto {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub package: std::string::String,
 
     /// Names of files imported by this file.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub dependency: std::vec::Vec<std::string::String>,
 
     /// Indexes of the public imported files in the dependency list above.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "std::vec::Vec<wkt::internal::I32>")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<wkt::internal::I32>>")]
     pub public_dependency: std::vec::Vec<i32>,
 
     /// Indexes of the weak imported files in the dependency list.
     /// For Google-internal migration only. Do not use.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "std::vec::Vec<wkt::internal::I32>")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<wkt::internal::I32>>")]
     pub weak_dependency: std::vec::Vec<i32>,
 
     /// All top-level definitions in this file.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub message_type: std::vec::Vec<crate::DescriptorProto>,
 
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub enum_type: std::vec::Vec<crate::EnumDescriptorProto>,
 
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub service: std::vec::Vec<crate::ServiceDescriptorProto>,
 
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub extension: std::vec::Vec<crate::FieldDescriptorProto>,
 
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -495,10 +518,12 @@ pub struct FileDescriptorProto {
     ///
     /// If `edition` is present, this value must be "editions".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub syntax: std::string::String,
 
     /// The edition of the proto file.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub edition: crate::Edition,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -661,35 +686,44 @@ impl wkt::message::Message for FileDescriptorProto {
 #[non_exhaustive]
 pub struct DescriptorProto {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub field: std::vec::Vec<crate::FieldDescriptorProto>,
 
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub extension: std::vec::Vec<crate::FieldDescriptorProto>,
 
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub nested_type: std::vec::Vec<crate::DescriptorProto>,
 
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub enum_type: std::vec::Vec<crate::EnumDescriptorProto>,
 
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub extension_range: std::vec::Vec<crate::descriptor_proto::ExtensionRange>,
 
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub oneof_decl: std::vec::Vec<crate::OneofDescriptorProto>,
 
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub options: std::option::Option<crate::MessageOptions>,
 
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub reserved_range: std::vec::Vec<crate::descriptor_proto::ReservedRange>,
 
     /// Reserved field names, which may not be used by fields in the same message.
     /// A given name may only be reserved once.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub reserved_name: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -831,11 +865,11 @@ pub mod descriptor_proto {
     #[non_exhaustive]
     pub struct ExtensionRange {
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub start: i32,
 
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub end: i32,
 
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -896,11 +930,11 @@ pub mod descriptor_proto {
     #[non_exhaustive]
     pub struct ReservedRange {
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub start: i32,
 
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub end: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -939,12 +973,14 @@ pub mod descriptor_proto {
 pub struct ExtensionRangeOptions {
     /// The parser stores options it doesn't recognize here. See above.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub uninterpreted_option: std::vec::Vec<crate::UninterpretedOption>,
 
     /// For external users: DO NOT USE. We are in the process of open sourcing
     /// extension declaration and executing internal cleanups before it can be
     /// used externally.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub declaration: std::vec::Vec<crate::extension_range_options::Declaration>,
 
     /// Any features defined in the specific edition.
@@ -955,6 +991,7 @@ pub struct ExtensionRangeOptions {
     /// TODO: flip the default to DECLARATION once all empty ranges
     /// are marked as UNVERIFIED.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub verification: crate::extension_range_options::VerificationState,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1036,12 +1073,13 @@ pub mod extension_range_options {
     pub struct Declaration {
         /// The extension number declared within the extension range.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub number: i32,
 
         /// The fully-qualified name of the extension field. There must be a leading
         /// dot in front of the full name.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub full_name: std::string::String,
 
         /// The fully-qualified type name of the extension field. Unlike
@@ -1049,17 +1087,20 @@ pub mod extension_range_options {
         /// and enums.
         #[serde(rename = "type")]
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub r#type: std::string::String,
 
         /// If true, indicates that the number is reserved in the extension range,
         /// and any extension field with the number will fail to compile. Set this
         /// when a declared extension field is deleted.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub reserved: bool,
 
         /// If true, indicates that the extension must be defined as repeated.
         /// Otherwise the extension must be defined as optional.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub repeated: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1240,19 +1281,22 @@ pub mod extension_range_options {
 #[non_exhaustive]
 pub struct FieldDescriptorProto {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub number: i32,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub label: crate::field_descriptor_proto::Label,
 
     /// If type_name is set, this need not be set.  If both this and type_name
     /// are set, this must be one of TYPE_ENUM, TYPE_MESSAGE or TYPE_GROUP.
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub r#type: crate::field_descriptor_proto::Type,
 
     /// For message and enum types, this is the name of the type.  If the name
@@ -1261,11 +1305,13 @@ pub struct FieldDescriptorProto {
     /// message are searched, then within the parent, on up to the root
     /// namespace).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub type_name: std::string::String,
 
     /// For extensions, this is the name of the type being extended.  It is
     /// resolved in the same manner as type_name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub extendee: std::string::String,
 
     /// For numeric types, contains the original text representation of the value.
@@ -1273,12 +1319,13 @@ pub struct FieldDescriptorProto {
     /// For strings, contains the default text contents (not escaped in any way).
     /// For bytes, contains the C escaped value.  All bytes >= 128 are escaped.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub default_value: std::string::String,
 
     /// If set, gives the index of a oneof in the containing type's oneof_decl
     /// list.  This field is a member of that oneof.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub oneof_index: i32,
 
     /// JSON name of this field. The value is set by protocol compiler. If the
@@ -1286,6 +1333,7 @@ pub struct FieldDescriptorProto {
     /// will be used. Otherwise, it's deduced from the field's name by converting
     /// it to camelCase.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub json_name: std::string::String,
 
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -1313,6 +1361,7 @@ pub struct FieldDescriptorProto {
     /// Proto2 optional fields do not set this flag, because they already indicate
     /// optional with `LABEL_OPTIONAL`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub proto3_optional: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1790,6 +1839,7 @@ pub mod field_descriptor_proto {
 #[non_exhaustive]
 pub struct OneofDescriptorProto {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -1842,9 +1892,11 @@ impl wkt::message::Message for OneofDescriptorProto {
 #[non_exhaustive]
 pub struct EnumDescriptorProto {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub value: std::vec::Vec<crate::EnumValueDescriptorProto>,
 
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -1854,11 +1906,13 @@ pub struct EnumDescriptorProto {
     /// by enum values in the same enum declaration. Reserved ranges may not
     /// overlap.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub reserved_range: std::vec::Vec<crate::enum_descriptor_proto::EnumReservedRange>,
 
     /// Reserved enum value names, which may not be reused. A given name may only
     /// be reserved once.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub reserved_name: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1951,11 +2005,11 @@ pub mod enum_descriptor_proto {
     #[non_exhaustive]
     pub struct EnumReservedRange {
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub start: i32,
 
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub end: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1994,10 +2048,11 @@ pub mod enum_descriptor_proto {
 #[non_exhaustive]
 pub struct EnumValueDescriptorProto {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub number: i32,
 
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -2056,9 +2111,11 @@ impl wkt::message::Message for EnumValueDescriptorProto {
 #[non_exhaustive]
 pub struct ServiceDescriptorProto {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub method: std::vec::Vec<crate::MethodDescriptorProto>,
 
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -2122,14 +2179,17 @@ impl wkt::message::Message for ServiceDescriptorProto {
 #[non_exhaustive]
 pub struct MethodDescriptorProto {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Input and output type names.  These are resolved in the same way as
     /// FieldDescriptorProto.type_name, but must refer to a message type.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub input_type: std::string::String,
 
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub output_type: std::string::String,
 
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -2137,10 +2197,12 @@ pub struct MethodDescriptorProto {
 
     /// Identifies if client streams multiple client messages
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub client_streaming: bool,
 
     /// Identifies if server streams multiple server messages
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub server_streaming: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2217,6 +2279,7 @@ pub struct FileOptions {
     /// inappropriate because proto packages do not normally start with backwards
     /// domain names.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub java_package: std::string::String,
 
     /// Controls the name of the wrapper Java class generated for the .proto file.
@@ -2225,6 +2288,7 @@ pub struct FileOptions {
     /// If java_multiple_files is disabled, then all the other classes from the
     /// .proto file will be nested inside the single wrapper outer class.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub java_outer_classname: std::string::String,
 
     /// If enabled, then the Java code generator will generate a separate .java
@@ -2234,10 +2298,12 @@ pub struct FileOptions {
     /// generated to contain the file's getDescriptor() method as well as any
     /// top-level extensions defined in the file.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub java_multiple_files: bool,
 
     /// This option does nothing.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     #[deprecated]
     pub java_generate_equals_and_hash: bool,
 
@@ -2252,9 +2318,11 @@ pub struct FileOptions {
     /// false has no effect: it cannot be used to opt proto3 files out of UTF-8
     /// checks.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub java_string_check_utf8: bool,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub optimize_for: crate::file_options::OptimizeMode,
 
     /// Sets the Go package where structs generated from this .proto will be
@@ -2264,6 +2332,7 @@ pub struct FileOptions {
     /// - Otherwise, the package statement in the .proto file, if present.
     /// - Otherwise, the basename of the .proto file, without extension.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub go_package: std::string::String,
 
     /// Should generic services be generated in each language?  "Generic" services
@@ -2277,12 +2346,15 @@ pub struct FileOptions {
     /// these default to false.  Old code which depends on generic services should
     /// explicitly set them to true.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub cc_generic_services: bool,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub java_generic_services: bool,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub py_generic_services: bool,
 
     /// Is this file deprecated?
@@ -2290,20 +2362,24 @@ pub struct FileOptions {
     /// for everything in the file, or it will be completely ignored; in the very
     /// least, this is a formalization for deprecating files.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub deprecated: bool,
 
     /// Enables the use of arenas for the proto messages in this file. This applies
     /// only to generated classes for C++.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub cc_enable_arenas: bool,
 
     /// Sets the objective c class prefix which is prepended to all objective c
     /// generated classes from this .proto. There is no default.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub objc_class_prefix: std::string::String,
 
     /// Namespace for generated classes; defaults to the package.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub csharp_namespace: std::string::String,
 
     /// By default Swift generators will take the proto package and CamelCase it
@@ -2311,29 +2387,34 @@ pub struct FileOptions {
     /// defined. When this options is provided, they will use this value instead
     /// to prefix the types/symbols defined.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub swift_prefix: std::string::String,
 
     /// Sets the php class prefix which is prepended to all php generated classes
     /// from this .proto. Default is empty.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub php_class_prefix: std::string::String,
 
     /// Use this option to change the namespace of php generated classes. Default
     /// is empty. When this option is empty, the package name will be used for
     /// determining the namespace.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub php_namespace: std::string::String,
 
     /// Use this option to change the namespace of php generated metadata classes.
     /// Default is empty. When this option is empty, the proto file name will be
     /// used for determining the namespace.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub php_metadata_namespace: std::string::String,
 
     /// Use this option to change the package of ruby generated classes. Default
     /// is empty. When this option is not set, the package name will be used for
     /// determining the ruby package.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub ruby_package: std::string::String,
 
     /// Any features defined in the specific edition.
@@ -2343,6 +2424,7 @@ pub struct FileOptions {
     /// The parser stores options it doesn't recognize here.
     /// See the documentation for the "Options" section above.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub uninterpreted_option: std::vec::Vec<crate::UninterpretedOption>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2683,12 +2765,14 @@ pub struct MessageOptions {
     /// Because this is an option, the above two restrictions are not enforced by
     /// the protocol compiler.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub message_set_wire_format: bool,
 
     /// Disables the generation of the standard "descriptor()" accessor, which can
     /// conflict with a field of the same name.  This is meant to make migration
     /// from proto1 easier; new code should avoid fields named "descriptor".
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub no_standard_descriptor_accessor: bool,
 
     /// Is this message deprecated?
@@ -2696,6 +2780,7 @@ pub struct MessageOptions {
     /// for the message, or it will be completely ignored; in the very least,
     /// this is a formalization for deprecating messages.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub deprecated: bool,
 
     /// Whether the message is an automatically generated map entry type for the
@@ -2720,6 +2805,7 @@ pub struct MessageOptions {
     /// instead. The option should only be implicitly set by the proto compiler
     /// parser.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub map_entry: bool,
 
     /// Enable the legacy handling of JSON field name conflicts.  This lowercases
@@ -2733,6 +2819,7 @@ pub struct MessageOptions {
     /// TODO This is legacy behavior we plan to remove once downstream
     /// teams have had time to migrate.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     #[deprecated]
     pub deprecated_legacy_json_field_conflicts: bool,
 
@@ -2742,6 +2829,7 @@ pub struct MessageOptions {
 
     /// The parser stores options it doesn't recognize here. See above.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub uninterpreted_option: std::vec::Vec<crate::UninterpretedOption>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2839,6 +2927,7 @@ pub struct FieldOptions {
     /// type "bytes" in the open source release.
     /// TODO: make ctype actually deprecated.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub ctype: crate::field_options::CType,
 
     /// The packed option can be enabled for repeated primitive fields to enable
@@ -2849,6 +2938,7 @@ pub struct FieldOptions {
     /// Editions, but the `repeated_field_encoding` feature can be used to control
     /// the behavior.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub packed: bool,
 
     /// The jstype option determines the JavaScript type used for values of the
@@ -2863,6 +2953,7 @@ pub struct FieldOptions {
     /// This option is an enum to permit additional types to be added, e.g.
     /// goog.math.Integer.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub jstype: crate::field_options::JSType,
 
     /// Should this field be parsed lazily?  Lazy applies only to message-type
@@ -2888,12 +2979,14 @@ pub struct FieldOptions {
     /// fields. Failed verification would result in parsing failure (except when
     /// uninitialized messages are acceptable).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub lazy: bool,
 
     /// unverified_lazy does no correctness checks on the byte stream. This should
     /// only be used where lazy with verification is prohibitive for performance
     /// reasons.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub unverified_lazy: bool,
 
     /// Is this field deprecated?
@@ -2901,24 +2994,30 @@ pub struct FieldOptions {
     /// for accessors, or it will be completely ignored; in the very least, this
     /// is a formalization for deprecating fields.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub deprecated: bool,
 
     /// For Google-internal migration only. Do not use.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub weak: bool,
 
     /// Indicate that the field value should not be printed out when using debug
     /// formats, e.g. when the field contains sensitive credentials.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub debug_redact: bool,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub retention: crate::field_options::OptionRetention,
 
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub targets: std::vec::Vec<crate::field_options::OptionTargetType>,
 
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub edition_defaults: std::vec::Vec<crate::field_options::EditionDefault>,
 
     /// Any features defined in the specific edition.
@@ -2930,6 +3029,7 @@ pub struct FieldOptions {
 
     /// The parser stores options it doesn't recognize here. See above.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub uninterpreted_option: std::vec::Vec<crate::UninterpretedOption>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3085,9 +3185,11 @@ pub mod field_options {
     #[non_exhaustive]
     pub struct EditionDefault {
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub edition: crate::Edition,
 
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub value: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3128,22 +3230,26 @@ pub mod field_options {
         /// earlier than this one, the default assigned to EDITION_LEGACY will be
         /// used, and proto files will not be able to override it.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub edition_introduced: crate::Edition,
 
         /// The edition this feature becomes deprecated in.  Using this after this
         /// edition may trigger warnings.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub edition_deprecated: crate::Edition,
 
         /// The deprecation warning text if this feature is used after the edition it
         /// was marked deprecated in.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub deprecation_warning: std::string::String,
 
         /// The edition this feature is no longer available in.  In editions after
         /// this one, the last default assigned will be used, and proto files will
         /// not be able to override it.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub edition_removed: crate::Edition,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3777,6 +3883,7 @@ pub struct OneofOptions {
 
     /// The parser stores options it doesn't recognize here. See above.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub uninterpreted_option: std::vec::Vec<crate::UninterpretedOption>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3832,6 +3939,7 @@ pub struct EnumOptions {
     /// Set this option to true to allow mapping different tag names to the same
     /// value.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub allow_alias: bool,
 
     /// Is this enum deprecated?
@@ -3839,6 +3947,7 @@ pub struct EnumOptions {
     /// for the enum, or it will be completely ignored; in the very least, this
     /// is a formalization for deprecating enums.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub deprecated: bool,
 
     /// Enable the legacy handling of JSON field name conflicts.  This lowercases
@@ -3848,6 +3957,7 @@ pub struct EnumOptions {
     /// TODO Remove this legacy behavior once downstream teams have
     /// had time to migrate.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     #[deprecated]
     pub deprecated_legacy_json_field_conflicts: bool,
 
@@ -3857,6 +3967,7 @@ pub struct EnumOptions {
 
     /// The parser stores options it doesn't recognize here. See above.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub uninterpreted_option: std::vec::Vec<crate::UninterpretedOption>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3936,6 +4047,7 @@ pub struct EnumValueOptions {
     /// for the enum value, or it will be completely ignored; in the very least,
     /// this is a formalization for deprecating enum values.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub deprecated: bool,
 
     /// Any features defined in the specific edition.
@@ -3946,6 +4058,7 @@ pub struct EnumValueOptions {
     /// out when using debug formats, e.g. when the field contains sensitive
     /// credentials.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub debug_redact: bool,
 
     /// Information about the support window of a feature value.
@@ -3954,6 +4067,7 @@ pub struct EnumValueOptions {
 
     /// The parser stores options it doesn't recognize here. See above.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub uninterpreted_option: std::vec::Vec<crate::UninterpretedOption>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4045,10 +4159,12 @@ pub struct ServiceOptions {
     /// for the service, or it will be completely ignored; in the very least,
     /// this is a formalization for deprecating services.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub deprecated: bool,
 
     /// The parser stores options it doesn't recognize here. See above.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub uninterpreted_option: std::vec::Vec<crate::UninterpretedOption>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4112,9 +4228,11 @@ pub struct MethodOptions {
     /// for the method, or it will be completely ignored; in the very least,
     /// this is a formalization for deprecating methods.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub deprecated: bool,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub idempotency_level: crate::method_options::IdempotencyLevel,
 
     /// Any features defined in the specific edition.
@@ -4123,6 +4241,7 @@ pub struct MethodOptions {
 
     /// The parser stores options it doesn't recognize here. See above.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub uninterpreted_option: std::vec::Vec<crate::UninterpretedOption>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4334,30 +4453,33 @@ pub mod method_options {
 #[non_exhaustive]
 pub struct UninterpretedOption {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub name: std::vec::Vec<crate::uninterpreted_option::NamePart>,
 
     /// The value of the uninterpreted option, in whatever type the tokenizer
     /// identified it as during parsing. Exactly one of these should be set.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub identifier_value: std::string::String,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::U64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::U64>")]
     pub positive_int_value: u64,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub negative_int_value: i64,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
     pub double_value: f64,
 
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub string_value: ::bytes::Bytes,
 
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub aggregate_value: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4442,9 +4564,11 @@ pub mod uninterpreted_option {
     #[non_exhaustive]
     pub struct NamePart {
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub name_part: std::string::String,
 
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub is_extension: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4488,21 +4612,27 @@ pub mod uninterpreted_option {
 #[non_exhaustive]
 pub struct FeatureSet {
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub field_presence: crate::feature_set::FieldPresence,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub enum_type: crate::feature_set::EnumType,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub repeated_field_encoding: crate::feature_set::RepeatedFieldEncoding,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub utf8_validation: crate::feature_set::Utf8Validation,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub message_encoding: crate::feature_set::MessageEncoding,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub json_format: crate::feature_set::JsonFormat,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5367,16 +5497,19 @@ pub mod feature_set {
 #[non_exhaustive]
 pub struct FeatureSetDefaults {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub defaults: std::vec::Vec<crate::feature_set_defaults::FeatureSetEditionDefault>,
 
     /// The minimum supported edition (inclusive) when this was constructed.
     /// Editions before this will not have defaults.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub minimum_edition: crate::Edition,
 
     /// The maximum known edition (inclusive) when this was constructed. Editions
     /// after this will not have reliable defaults.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub maximum_edition: crate::Edition,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5433,6 +5566,7 @@ pub mod feature_set_defaults {
     #[non_exhaustive]
     pub struct FeatureSetEditionDefault {
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub edition: crate::Edition,
 
         /// Defaults of features that can be overridden in this edition.
@@ -5554,6 +5688,7 @@ pub struct SourceCodeInfo {
     ///   ignore those that it doesn't understand, as more types of locations could
     ///   be recorded in the future.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub location: std::vec::Vec<crate::source_code_info::Location>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5617,7 +5752,7 @@ pub mod source_code_info {
         /// this path refers to the whole field declaration (from the beginning
         /// of the label to the terminating semicolon).
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-        #[serde_as(as = "std::vec::Vec<wkt::internal::I32>")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<wkt::internal::I32>>")]
         pub path: std::vec::Vec<i32>,
 
         /// Always has exactly three or four elements: start line, start column,
@@ -5626,7 +5761,7 @@ pub mod source_code_info {
         /// and column numbers are zero-based -- typically you will want to add
         /// 1 to each before displaying to a user.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-        #[serde_as(as = "std::vec::Vec<wkt::internal::I32>")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<wkt::internal::I32>>")]
         pub span: std::vec::Vec<i32>,
 
         /// If this SourceCodeInfo represents a complete declaration, these are any
@@ -5678,12 +5813,15 @@ pub mod source_code_info {
         ///
         /// // ignored detached comments.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub leading_comments: std::string::String,
 
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub trailing_comments: std::string::String,
 
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub leading_detached_comments: std::vec::Vec<std::string::String>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5765,6 +5903,7 @@ pub struct GeneratedCodeInfo {
     /// An Annotation connects some span of text in generated code to an element
     /// of its generating .proto file.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub annotation: std::vec::Vec<crate::generated_code_info::Annotation>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5807,27 +5946,29 @@ pub mod generated_code_info {
         /// Identifies the element in the original source .proto file. This field
         /// is formatted the same as SourceCodeInfo.Location.path.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-        #[serde_as(as = "std::vec::Vec<wkt::internal::I32>")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<wkt::internal::I32>>")]
         pub path: std::vec::Vec<i32>,
 
         /// Identifies the filesystem path to the original source .proto.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub source_file: std::string::String,
 
         /// Identifies the starting offset in bytes in the generated code
         /// that relates to the identified object.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub begin: i32,
 
         /// Identifies the ending offset in bytes in the generated code that
         /// relates to the identified object. The end offset should be one past
         /// the last relevant byte (so the length of the text = end - begin).
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub end: i32,
 
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub semantic: crate::generated_code_info::annotation::Semantic,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6039,6 +6180,7 @@ pub struct SourceContext {
     /// The path-qualified name of the .proto file that contained the associated
     /// protobuf element.  For example: `"google/protobuf/source_context.proto"`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub file_name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6071,18 +6213,22 @@ impl wkt::message::Message for SourceContext {
 pub struct Type {
     /// The fully qualified message name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The list of fields.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub fields: std::vec::Vec<crate::Field>,
 
     /// The list of types appearing in `oneof` definitions in this type.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub oneofs: std::vec::Vec<std::string::String>,
 
     /// The protocol buffer options.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub options: std::vec::Vec<crate::Option>,
 
     /// The source context.
@@ -6091,10 +6237,12 @@ pub struct Type {
 
     /// The source syntax.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub syntax: crate::Syntax,
 
     /// The source edition string, only valid when syntax is SYNTAX_EDITIONS.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub edition: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6190,46 +6338,54 @@ impl wkt::message::Message for Type {
 pub struct Field {
     /// The field type.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub kind: crate::field::Kind,
 
     /// The field cardinality.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub cardinality: crate::field::Cardinality,
 
     /// The field number.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub number: i32,
 
     /// The field name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The field type URL, without the scheme, for message or enumeration
     /// types. Example: `"type.googleapis.com/google.protobuf.Timestamp"`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub type_url: std::string::String,
 
     /// The index of the field type in `Type.oneofs`, for message or enumeration
     /// types. The first type has index 1; zero means the type is not in the list.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub oneof_index: i32,
 
     /// Whether to use alternative packed wire representation.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub packed: bool,
 
     /// The protocol buffer options.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub options: std::vec::Vec<crate::Option>,
 
     /// The field JSON name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub json_name: std::string::String,
 
     /// The string value of the default value of this field. Proto2 syntax only.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub default_value: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6713,14 +6869,17 @@ pub mod field {
 pub struct Enum {
     /// Enum type name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Enum value definitions.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub enumvalue: std::vec::Vec<crate::EnumValue>,
 
     /// Protocol buffer options.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub options: std::vec::Vec<crate::Option>,
 
     /// The source context.
@@ -6729,10 +6888,12 @@ pub struct Enum {
 
     /// The source syntax.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub syntax: crate::Syntax,
 
     /// The source edition string, only valid when syntax is SYNTAX_EDITIONS.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub edition: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6817,15 +6978,17 @@ impl wkt::message::Message for Enum {
 pub struct EnumValue {
     /// Enum value name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Enum value number.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub number: i32,
 
     /// Protocol buffer options.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub options: std::vec::Vec<crate::Option>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6879,6 +7042,7 @@ pub struct Option {
     /// For custom options, it should be the fully-qualified name. For example,
     /// `"google.api.http"`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The option's value packed in an Any message. If the value is a primitive,

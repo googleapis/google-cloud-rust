@@ -48,12 +48,14 @@ pub struct NetworkConfig {
     /// network resides in another host project the network should specified in
     /// the form of projects/{host-project-id}/global/networks/{network}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub network: std::string::String,
 
     /// The IP range in CIDR notation to use for the managed Data Fusion instance
     /// nodes. This range must not overlap with any other ranges used in the
     /// customer network.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub ip_allocation: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -93,19 +95,23 @@ impl wkt::message::Message for NetworkConfig {
 pub struct Version {
     /// The version number of the Data Fusion instance, such as '6.0.1.0'.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub version_number: std::string::String,
 
     /// Whether this is currently the default version for Cloud Data Fusion
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub default_version: bool,
 
     /// Represents a list of available feature names for a given version.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub available_features: std::vec::Vec<std::string::String>,
 
     /// Type represents the release availability of the version
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub r#type: crate::model::version::Type,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -299,10 +305,12 @@ pub mod version {
 pub struct Accelerator {
     /// The type of an accelator for a CDF instance.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub accelerator_type: crate::model::accelerator::AcceleratorType,
 
     /// The state of the accelerator
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::accelerator::State,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -641,6 +649,7 @@ pub struct CryptoKeyConfig {
     /// in Cloud KMS, the key should be in the format of
     /// `projects/*/locations/*/keyRings/*/cryptoKeys/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub key_reference: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -674,29 +683,35 @@ pub struct Instance {
     /// Output only. The name of this instance is in the form of
     /// projects/{project}/locations/{location}/instances/{instance}.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// A description of this instance.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Required. Instance type.
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub r#type: crate::model::instance::Type,
 
     /// Option to enable Stackdriver Logging.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub enable_stackdriver_logging: bool,
 
     /// Option to enable Stackdriver Monitoring.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub enable_stackdriver_monitoring: bool,
 
     /// Specifies whether the Data Fusion instance should be private. If set to
     /// true, all Data Fusion nodes will have private IP addresses and will not be
     /// able to access the public internet.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub private_instance: bool,
 
     /// Network configuration options. These are required when a private Data
@@ -708,11 +723,13 @@ pub struct Instance {
     /// resources such as Compute Engine VMs. The character '=' is not allowed to
     /// be used within the labels.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Map of additional options used to configure the behavior of
     /// Data Fusion instance.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub options: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. The time the instance was created.
@@ -725,58 +742,71 @@ pub struct Instance {
 
     /// Output only. The current state of this Data Fusion instance.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::instance::State,
 
     /// Output only. Additional information about the current state of this Data
     /// Fusion instance if available.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state_message: std::string::String,
 
     /// Output only. Endpoint on which the Data Fusion UI is accessible.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub service_endpoint: std::string::String,
 
     /// Name of the zone in which the Data Fusion instance will be created. Only
     /// DEVELOPER instances use this field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub zone: std::string::String,
 
     /// Current version of the Data Fusion. Only specifiable in Update.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub version: std::string::String,
 
     /// Output only. Deprecated. Use tenant_project_id instead to extract the tenant project ID.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     #[deprecated]
     pub service_account: std::string::String,
 
     /// Display name for an instance.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// Available versions that the instance can be upgraded to using
     /// UpdateInstanceRequest.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub available_version: std::vec::Vec<crate::model::Version>,
 
     /// Output only. Endpoint on which the REST APIs is accessible.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub api_endpoint: std::string::String,
 
     /// Output only. Cloud Storage bucket generated by Data Fusion in the customer project.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub gcs_bucket: std::string::String,
 
     /// List of accelerators enabled for this CDF instance.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub accelerators: std::vec::Vec<crate::model::Accelerator>,
 
     /// Output only. P4 service account for the customer project.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub p4_service_account: std::string::String,
 
     /// Output only. The name of the tenant project.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub tenant_project_id: std::string::String,
 
     /// User-managed service account to set on Dataproc when Cloud Data Fusion
@@ -785,10 +815,12 @@ pub struct Instance {
     /// This allows users to have fine-grained access control on Dataproc's
     /// accesses to cloud resources.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub dataproc_service_account: std::string::String,
 
     /// Option to enable granular role-based access control.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub enable_rbac: bool,
 
     /// The crypto key configuration. This field is used by the Customer-Managed
@@ -798,6 +830,7 @@ pub struct Instance {
 
     /// Output only. If the instance state is DISABLED, the reason for disabling the instance.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub disabled_reason: std::vec::Vec<crate::model::instance::DisabledReason>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1551,24 +1584,28 @@ pub struct ListInstancesRequest {
     /// specified as '-' (wildcard), then all regions available to the project
     /// are queried, and the results are aggregated.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The maximum number of items to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// The next_page_token value to use if there are additional
     /// results to retrieve for this list request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// List filter.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Sort results. Supported values are "name", "name desc",  or "" (unsorted).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1625,15 +1662,18 @@ impl wkt::message::Message for ListInstancesRequest {
 pub struct ListInstancesResponse {
     /// Represents a list of Data Fusion instances.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub instances: std::vec::Vec<crate::model::Instance>,
 
     /// Token to retrieve the next page of results or empty if there are no more
     /// results in the list.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1703,22 +1743,25 @@ pub struct ListAvailableVersionsRequest {
     /// Required. The project and location for which to retrieve instance information
     /// in the format projects/{project}/locations/{location}.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The maximum number of items to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// The next_page_token value to use if there are additional
     /// results to retrieve for this list request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Whether or not to return the latest patch of every available minor version.
     /// If true, only the latest patch will be returned. Ex. if allowed versions is
     /// [6.1.1, 6.1.2, 6.2.0] then response will be [6.1.2, 6.2.0]
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub latest_patch_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1769,11 +1812,13 @@ impl wkt::message::Message for ListAvailableVersionsRequest {
 pub struct ListAvailableVersionsResponse {
     /// Represents a list of versions that are supported.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub available_versions: std::vec::Vec<crate::model::Version>,
 
     /// Token to retrieve the next page of results or empty if there are no more
     /// results in the list.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1832,6 +1877,7 @@ pub struct GetInstanceRequest {
     /// Required. The instance resource name in the format
     /// projects/{project}/locations/{location}/instances/{instance}.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1865,10 +1911,12 @@ pub struct CreateInstanceRequest {
     /// Required. The instance's project and location in the format
     /// projects/{project}/locations/{location}.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The name of the instance to create.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub instance_id: std::string::String,
 
     /// An instance resource.
@@ -1930,6 +1978,7 @@ pub struct DeleteInstanceRequest {
     /// Required. The instance resource name in the format
     /// projects/{project}/locations/{location}/instances/{instance}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2038,6 +2087,7 @@ pub struct RestartInstanceRequest {
     /// Required. Name of the Data Fusion instance which need to be restarted in the form of
     /// projects/{project}/locations/{location}/instances/{instance}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2078,14 +2128,17 @@ pub struct OperationMetadata {
 
     /// Server-defined resource path for the target of the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub target: std::string::String,
 
     /// Name of the verb executed by the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub verb: std::string::String,
 
     /// Human-readable status of the operation if any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub status_detail: std::string::String,
 
     /// Identifies whether the user has requested cancellation
@@ -2095,10 +2148,12 @@ pub struct OperationMetadata {
     ///
     /// [google.rpc.Status.code]: rpc::model::Status::code
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub requested_cancellation: bool,
 
     /// API version used to start the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub api_version: std::string::String,
 
     /// Map to hold any additional status info for the operation
@@ -2106,6 +2161,7 @@ pub struct OperationMetadata {
     /// populated with accelerator name as key and status as
     /// ENABLING, DISABLING or DELETING
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub additional_status: std::collections::HashMap<std::string::String, std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

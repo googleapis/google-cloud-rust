@@ -57,10 +57,12 @@ pub struct Registration {
     /// Output only. Name of the `Registration` resource, in the format
     /// `projects/*/locations/*/registrations/<domain_name>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. Immutable. The domain name. Unicode domain names must be expressed in Punycode format.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub domain_name: std::string::String,
 
     /// Output only. The creation timestamp of the `Registration` resource.
@@ -73,14 +75,17 @@ pub struct Registration {
 
     /// Output only. The state of the `Registration`
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::registration::State,
 
     /// Output only. The set of issues with the `Registration` that require attention.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub issues: std::vec::Vec<crate::model::registration::Issue>,
 
     /// Set of labels associated with the `Registration`.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Settings for management of the `Registration`, including renewal, billing,
@@ -115,6 +120,7 @@ pub struct Registration {
     /// Output only. Set of options for the `contact_settings.privacy` field that this
     /// `Registration` supports.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub supported_privacy: std::vec::Vec<crate::model::ContactPrivacy>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -625,10 +631,12 @@ pub mod registration {
 pub struct ManagementSettings {
     /// Output only. The renewal method for this `Registration`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub renewal_method: crate::model::management_settings::RenewalMethod,
 
     /// Controls whether the domain can be transferred to another registrar.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub transfer_lock_state: crate::model::TransferLockState,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -822,6 +830,7 @@ pub mod management_settings {
 pub struct DnsSettings {
     /// The list of glue records for this `Registration`. Commonly empty.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub glue_records: std::vec::Vec<crate::model::dns_settings::GlueRecord>,
 
     /// The DNS provider of the registration.
@@ -945,12 +954,14 @@ pub mod dns_settings {
         /// server is a domain name, with Unicode domain names expressed in
         /// Punycode format.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub name_servers: std::vec::Vec<std::string::String>,
 
         /// The list of DS records for this domain, which are used to enable DNSSEC.
         /// The domain's DNS provider can provide the values to set here. If this
         /// field is empty, DNSSEC is disabled.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub ds_records: std::vec::Vec<crate::model::dns_settings::DsRecord>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1005,17 +1016,20 @@ pub mod dns_settings {
         /// Punycode format. This field is automatically populated with the name
         /// servers assigned to the Google Domains DNS zone.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub name_servers: std::vec::Vec<std::string::String>,
 
         /// Required. The state of DS records for this domain. Used to enable or disable
         /// automatic DNSSEC.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub ds_state: crate::model::dns_settings::DsState,
 
         /// Output only. The list of DS records published for this domain. The list is
         /// automatically populated when `ds_state` is `DS_RECORDS_PUBLISHED`,
         /// otherwise it remains empty.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub ds_records: std::vec::Vec<crate::model::dns_settings::DsRecord>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1075,19 +1089,22 @@ pub mod dns_settings {
     pub struct DsRecord {
         /// The key tag of the record. Must be set in range 0 -- 65535.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub key_tag: i32,
 
         /// The algorithm used to generate the referenced DNSKEY.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub algorithm: crate::model::dns_settings::ds_record::Algorithm,
 
         /// The hash function used to generate the digest of the referenced DNSKEY.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub digest_type: crate::model::dns_settings::ds_record::DigestType,
 
         /// The digest generated from the referenced DNSKEY.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub digest: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1550,18 +1567,21 @@ pub mod dns_settings {
     pub struct GlueRecord {
         /// Required. Domain name of the host in Punycode format.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub host_name: std::string::String,
 
         /// List of IPv4 addresses corresponding to this host in the standard decimal
         /// format (e.g. `198.51.100.1`). At least one of `ipv4_address` and
         /// `ipv6_address` must be set.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub ipv4_addresses: std::vec::Vec<std::string::String>,
 
         /// List of IPv6 addresses corresponding to this host in the standard
         /// hexadecimal format (e.g. `2001:db8::`). At least one of
         /// `ipv4_address` and `ipv6_address` must be set.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub ipv6_addresses: std::vec::Vec<std::string::String>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1770,6 +1790,7 @@ pub mod dns_settings {
 pub struct ContactSettings {
     /// Required. Privacy setting for the contacts associated with the `Registration`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub privacy: crate::model::ContactPrivacy,
 
     /// Required. The registrant contact for the `Registration`.
@@ -1887,16 +1908,19 @@ pub mod contact_settings {
 
         /// Required. Email address of the contact.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub email: std::string::String,
 
         /// Required. Phone number of the contact in international format. For example,
         /// `"+1-800-555-0123"`.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub phone_number: std::string::String,
 
         /// Fax number of the contact in international format. For example,
         /// `"+1-800-555-0123"`.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub fax_number: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1963,10 +1987,12 @@ pub mod contact_settings {
 pub struct SearchDomainsRequest {
     /// Required. String used to search for available domain names.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub query: std::string::String,
 
     /// Required. The location. Must be in the format `projects/*/locations/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub location: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2005,6 +2031,7 @@ impl wkt::message::Message for SearchDomainsRequest {
 pub struct SearchDomainsResponse {
     /// Results of the domain name search.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub register_parameters: std::vec::Vec<crate::model::RegisterParameters>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2042,10 +2069,12 @@ impl wkt::message::Message for SearchDomainsResponse {
 pub struct RetrieveRegisterParametersRequest {
     /// Required. The domain name. Unicode domain names must be expressed in Punycode format.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub domain_name: std::string::String,
 
     /// Required. The location. Must be in the format `projects/*/locations/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub location: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2129,6 +2158,7 @@ pub struct RegisterDomainRequest {
     /// Required. The parent resource of the `Registration`. Must be in the
     /// format `projects/*/locations/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The complete `Registration` resource to be created.
@@ -2138,12 +2168,14 @@ pub struct RegisterDomainRequest {
     /// The list of domain notices that you acknowledge. Call
     /// `RetrieveRegisterParameters` to see the notices that need acknowledgement.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub domain_notices: std::vec::Vec<crate::model::DomainNotice>,
 
     /// The list of contact notices that the caller acknowledges. The notices
     /// needed here depend on the values specified in
     /// `registration.contact_settings`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub contact_notices: std::vec::Vec<crate::model::ContactNotice>,
 
     /// Required. Yearly price to register or renew the domain.
@@ -2156,6 +2188,7 @@ pub struct RegisterDomainRequest {
     /// the domain. Follows:
     /// <https://cloud.google.com/apis/design/design_patterns#request_validation>
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2252,10 +2285,12 @@ impl wkt::message::Message for RegisterDomainRequest {
 pub struct RetrieveTransferParametersRequest {
     /// Required. The domain name. Unicode domain names must be expressed in Punycode format.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub domain_name: std::string::String,
 
     /// Required. The location. Must be in the format `projects/*/locations/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub location: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2339,6 +2374,7 @@ pub struct TransferDomainRequest {
     /// Required. The parent resource of the `Registration`. Must be in the
     /// format `projects/*/locations/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The complete `Registration` resource to be created.
@@ -2355,6 +2391,7 @@ pub struct TransferDomainRequest {
     /// needed here depend on the values specified in
     /// `registration.contact_settings`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub contact_notices: std::vec::Vec<crate::model::ContactNotice>,
 
     /// Required. Acknowledgement of the price to transfer or renew the domain for one year.
@@ -2370,6 +2407,7 @@ pub struct TransferDomainRequest {
 
     /// Validate the request without actually transferring the domain.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2474,16 +2512,18 @@ pub struct ListRegistrationsRequest {
     /// Required. The project and location from which to list `Registration`s, specified in
     /// the format `projects/*/locations/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Maximum number of results to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// When set to the `next_page_token` from a prior response, provides the next
     /// page of results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Filter expression to restrict the `Registration`s returned.
@@ -2503,6 +2543,7 @@ pub struct ListRegistrationsRequest {
     /// or have specific issues flagged, use an expression like
     /// `(state=SUSPENDED) OR (issue:*)`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2553,11 +2594,13 @@ impl wkt::message::Message for ListRegistrationsRequest {
 pub struct ListRegistrationsResponse {
     /// A list of `Registration`s.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub registrations: std::vec::Vec<crate::model::Registration>,
 
     /// When present, there are more results to retrieve. Set `page_token` to this
     /// value on a subsequent call to get the next page of results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2616,6 +2659,7 @@ pub struct GetRegistrationRequest {
     /// Required. The name of the `Registration` to get, in the format
     /// `projects/*/locations/*/registrations/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2717,6 +2761,7 @@ pub struct ConfigureManagementSettingsRequest {
     /// Required. The name of the `Registration` whose management settings are being updated,
     /// in the format `projects/*/locations/*/registrations/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub registration: std::string::String,
 
     /// Fields of the `ManagementSettings` to update.
@@ -2796,6 +2841,7 @@ pub struct ConfigureDnsSettingsRequest {
     /// Required. The name of the `Registration` whose DNS settings are being updated,
     /// in the format `projects/*/locations/*/registrations/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub registration: std::string::String,
 
     /// Fields of the `DnsSettings` to update.
@@ -2816,6 +2862,7 @@ pub struct ConfigureDnsSettingsRequest {
 
     /// Validate the request without actually updating the DNS settings.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2891,6 +2938,7 @@ pub struct ConfigureContactSettingsRequest {
     /// Required. The name of the `Registration` whose contact settings are being updated,
     /// in the format `projects/*/locations/*/registrations/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub registration: std::string::String,
 
     /// Fields of the `ContactSettings` to update.
@@ -2906,10 +2954,12 @@ pub struct ConfigureContactSettingsRequest {
     /// The list of contact notices that the caller acknowledges. The notices
     /// needed here depend on the values specified in `contact_settings`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub contact_notices: std::vec::Vec<crate::model::ContactNotice>,
 
     /// Validate the request without actually updating the contact settings.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2996,6 +3046,7 @@ pub struct ExportRegistrationRequest {
     /// Required. The name of the `Registration` to export,
     /// in the format `projects/*/locations/*/registrations/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3029,6 +3080,7 @@ pub struct DeleteRegistrationRequest {
     /// Required. The name of the `Registration` to delete,
     /// in the format `projects/*/locations/*/registrations/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3062,6 +3114,7 @@ pub struct RetrieveAuthorizationCodeRequest {
     /// Required. The name of the `Registration` whose authorization code is being retrieved,
     /// in the format `projects/*/locations/*/registrations/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub registration: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3095,6 +3148,7 @@ pub struct ResetAuthorizationCodeRequest {
     /// Required. The name of the `Registration` whose authorization code is being reset,
     /// in the format `projects/*/locations/*/registrations/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub registration: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3127,20 +3181,24 @@ impl wkt::message::Message for ResetAuthorizationCodeRequest {
 pub struct RegisterParameters {
     /// The domain name. Unicode domain names are expressed in Punycode format.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub domain_name: std::string::String,
 
     /// Indicates whether the domain is available for registration. This value is
     /// accurate when obtained by calling `RetrieveRegisterParameters`, but is
     /// approximate when obtained by calling `SearchDomains`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub availability: crate::model::register_parameters::Availability,
 
     /// Contact privacy options that the domain supports.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub supported_privacy: std::vec::Vec<crate::model::ContactPrivacy>,
 
     /// Notices about special properties of the domain.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub domain_notices: std::vec::Vec<crate::model::DomainNotice>,
 
     /// Price to register or renew the domain for one year.
@@ -3383,24 +3441,29 @@ pub mod register_parameters {
 pub struct TransferParameters {
     /// The domain name. Unicode domain names are expressed in Punycode format.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub domain_name: std::string::String,
 
     /// The registrar that currently manages the domain.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub current_registrar: std::string::String,
 
     /// The name servers that currently store the configuration of the domain.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub name_servers: std::vec::Vec<std::string::String>,
 
     /// Indicates whether the domain is protected by a transfer lock. For a
     /// transfer to succeed, this must show `UNLOCKED`. To unlock a domain,
     /// go to its current registrar.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub transfer_lock_state: crate::model::TransferLockState,
 
     /// Contact privacy options that the domain supports.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub supported_privacy: std::vec::Vec<crate::model::ContactPrivacy>,
 
     /// Price to transfer or renew the domain for one year.
@@ -3496,6 +3559,7 @@ pub struct AuthorizationCode {
     /// The Authorization Code in ASCII. It can be used to transfer the domain
     /// to or from another registrar.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub code: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3536,18 +3600,22 @@ pub struct OperationMetadata {
 
     /// Server-defined resource path for the target of the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub target: std::string::String,
 
     /// Name of the verb executed by the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub verb: std::string::String,
 
     /// Human-readable status of the operation, if any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub status_detail: std::string::String,
 
     /// API version used to start the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub api_version: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

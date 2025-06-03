@@ -43,49 +43,60 @@ pub struct Event {
     /// this scope including project and location using the form
     /// `projects/{project_id}/locations/{location}/events/{event_id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. Brief description for the event.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub title: std::string::String,
 
     /// Output only. Free-form, human-readable description.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Output only. The category of the event.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub category: crate::model::event::EventCategory,
 
     /// Output only. The detailed category of the event.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub detailed_category: crate::model::event::DetailedCategory,
 
     /// Output only. The current state of the event.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::event::State,
 
     /// Output only. The current detailed state of the incident.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub detailed_state: crate::model::event::DetailedState,
 
     /// Google Cloud products and locations impacted by the event.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub event_impacts: std::vec::Vec<crate::model::EventImpact>,
 
     /// Output only. Communicates why a given event is deemed relevant in the
     /// context of a given project.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub relevance: crate::model::event::Relevance,
 
     /// Output only. Event updates are correspondence from Google.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub updates: std::vec::Vec<crate::model::EventUpdate>,
 
     /// Output only. When `detailed_state`=`MERGED`, `parent_event` contains the
     /// name of the parent event. All further updates will be published to the
     /// parent event.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent_event: std::string::String,
 
     /// Output only. The time when the event was last modified.
@@ -1030,46 +1041,56 @@ pub struct OrganizationEvent {
     /// `location` - The location to get the service health events from.\<br\>
     /// `event_id` - Organization event ID to retrieve.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. Brief description for the event.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub title: std::string::String,
 
     /// Output only. Free-form, human-readable description.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Output only. The category of the event.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub category: crate::model::organization_event::EventCategory,
 
     /// Output only. The detailed category of the event.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub detailed_category: crate::model::organization_event::DetailedCategory,
 
     /// Output only. The current state of the event.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::organization_event::State,
 
     /// Output only. The current detailed state of the incident.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub detailed_state: crate::model::organization_event::DetailedState,
 
     /// Output only. Represents the Google Cloud products and locations impacted by
     /// the event.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub event_impacts: std::vec::Vec<crate::model::EventImpact>,
 
     /// Output only. Incident-only field. Event updates are correspondence from
     /// Google.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub updates: std::vec::Vec<crate::model::EventUpdate>,
 
     /// Output only. When `detailed_state`=`MERGED`, `parent_event` contains the
     /// name of the parent event. All further updates will be published to the
     /// parent event.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent_event: std::string::String,
 
     /// Output only. The time the update was posted.
@@ -1851,18 +1872,22 @@ pub struct EventUpdate {
 
     /// Output only. Brief title for the event.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub title: std::string::String,
 
     /// Output only. Free-form, human-readable description.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Output only. Symptoms of the event, if available.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub symptom: std::string::String,
 
     /// Output only. Workaround steps to remediate the event impact, if available.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub workaround: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1931,6 +1956,7 @@ impl wkt::message::Message for EventUpdate {
 pub struct Location {
     /// Location impacted by the event. Example: `"us-central1"`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub location_name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1963,10 +1989,12 @@ impl wkt::message::Message for Location {
 pub struct Product {
     /// Google Cloud product impacted by the event. Example: `"Google Cloud SQL"`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub product_name: std::string::String,
 
     /// Unique identifier for the product.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2081,10 +2109,12 @@ pub struct OrganizationImpact {
     /// `organization_impact_id` - ID of the [OrganizationImpact
     /// resource](/service-health/docs/reference/rest/v1beta/organizations.locations.organizationImpacts#OrganizationImpact).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. A list of event names impacting the asset.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub events: std::vec::Vec<std::string::String>,
 
     /// Output only. Google Cloud asset possibly impacted by the specified events.
@@ -2174,11 +2204,13 @@ pub struct Asset {
     /// [Resource
     /// Names](https://cloud.google.com/apis/design/resource_names#full_resource_name).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub asset_name: std::string::String,
 
     /// Output only. Type of the asset. Example:
     /// `"cloudresourcemanager.googleapis.com/Project"`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub asset_type: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2224,6 +2256,7 @@ pub struct ListEventsRequest {
     /// To retrieve service health events of category = INCIDENT, use `location` =
     /// `global`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. The maximum number of events that should be returned.  Acceptable
@@ -2232,7 +2265,7 @@ pub struct ListEventsRequest {
     /// get the next page of results in subsequent list requests. The service may
     /// return fewer events than the requested page_size.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
@@ -2240,6 +2273,7 @@ pub struct ListEventsRequest {
     /// next page of results. When paginating, all other parameters provided to
     /// `ListEvents` must match the call that provided the page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. A filter expression that filters resources listed in the
@@ -2260,10 +2294,12 @@ pub struct ListEventsRequest {
     /// Filter is supported for the following fields: `category`, `state`,
     /// `update_time`, `event_impacts.product.product_name`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Optional. Event fields to include in response.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub view: crate::model::EventView,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2320,6 +2356,7 @@ impl wkt::message::Message for ListEventsRequest {
 pub struct ListEventsResponse {
     /// Output only. List of events.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub events: std::vec::Vec<crate::model::Event>,
 
     /// Output only. The continuation token, used to page through large result
@@ -2328,10 +2365,12 @@ pub struct ListEventsResponse {
     ///
     /// If this field is not present, there are no subsequent results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// Output only. Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2406,6 +2445,7 @@ pub struct GetEventRequest {
     /// `location` - The location to get the service health events from. \<br\>
     /// `event_id` - Event ID to retrieve.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2447,6 +2487,7 @@ pub struct ListOrganizationEventsRequest {
     /// retrieve service health events of category = INCIDENT, use `location` =
     /// `global`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. The maximum number of events that should be returned.  Acceptable
@@ -2455,7 +2496,7 @@ pub struct ListOrganizationEventsRequest {
     /// use to get the next page of results in subsequent list requests. The
     /// service may return fewer events than the requested `page_size`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
@@ -2466,6 +2507,7 @@ pub struct ListOrganizationEventsRequest {
     /// When paginating, all other parameters provided to
     /// `ListOrganizationEvents` must match the call that provided the page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. A filter expression that filters resources listed in the
@@ -2485,10 +2527,12 @@ pub struct ListOrganizationEventsRequest {
     /// Filter is supported for the following fields: `category`, `state`,
     /// `update_time`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Optional. OrganizationEvent fields to include in response.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub view: crate::model::OrganizationEventView,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2548,6 +2592,7 @@ impl wkt::message::Message for ListOrganizationEventsRequest {
 pub struct ListOrganizationEventsResponse {
     /// Output only. List of organization events affecting an organization.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub organization_events: std::vec::Vec<crate::model::OrganizationEvent>,
 
     /// Output only. The continuation token, used to page through large result
@@ -2556,10 +2601,12 @@ pub struct ListOrganizationEventsResponse {
     ///
     /// If this field is not present, there are no subsequent results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// Output only. Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2636,6 +2683,7 @@ pub struct GetOrganizationEventRequest {
     /// ID](https://cloud.google.com/resource-manager/docs/creating-managing-organization#retrieving_your_organization_id).\<br\>
     /// `event_id` - Organization event ID to retrieve.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2674,6 +2722,7 @@ pub struct ListOrganizationImpactsRequest {
     /// [Getting your organization resource
     /// ID](https://cloud.google.com/resource-manager/docs/creating-managing-organization#retrieving_your_organization_id).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. The maximum number of events that should be returned. Acceptable
@@ -2685,7 +2734,7 @@ pub struct ListOrganizationImpactsRequest {
     /// [impacts](/service-health/docs/reference/rest/v1beta/organizations.locations.organizationImpacts#OrganizationImpact)
     /// than the requested `page_size`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
@@ -2696,6 +2745,7 @@ pub struct ListOrganizationImpactsRequest {
     /// When paginating, all other parameters provided to `ListOrganizationImpacts`
     /// must match the call that provided the page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. A filter expression that filters resources listed in the
@@ -2715,6 +2765,7 @@ pub struct ListOrganizationImpactsRequest {
     /// AND and OR expressions explicitly.
     /// Filter is supported for the following fields: `events`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2768,6 +2819,7 @@ pub struct ListOrganizationImpactsResponse {
     /// [impacts](/service-health/docs/reference/rest/v1beta/organizations.locations.organizationImpacts#OrganizationImpact)
     /// for an organization affected by service health events.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub organization_impacts: std::vec::Vec<crate::model::OrganizationImpact>,
 
     /// Output only. The continuation token, used to page through large result
@@ -2776,10 +2828,12 @@ pub struct ListOrganizationImpactsResponse {
     ///
     /// If this field is not present, there are no subsequent results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// Output only. Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2856,6 +2910,7 @@ pub struct GetOrganizationImpactRequest {
     /// `organization_impact_id` - ID of the [OrganizationImpact
     /// resource](/service-health/docs/reference/rest/v1beta/organizations.locations.organizationImpacts#OrganizationImpact).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

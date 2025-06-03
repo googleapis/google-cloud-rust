@@ -47,6 +47,7 @@ pub struct ListVoicesRequest {
     /// `"no-\*"` (Norwegian) and `"nb-\*"` (Norwegian Bokmal) voices will be
     /// returned.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub language_code: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -79,6 +80,7 @@ impl wkt::message::Message for ListVoicesRequest {
 pub struct ListVoicesResponse {
     /// The list of voices.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub voices: std::vec::Vec<crate::model::Voice>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -118,19 +120,22 @@ pub struct Voice {
     /// [BCP-47](https://www.rfc-editor.org/rfc/bcp/bcp47.txt) language tags (e.g.
     /// "en-US", "es-419", "cmn-tw").
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub language_codes: std::vec::Vec<std::string::String>,
 
     /// The name of this voice.  Each distinct voice has a unique name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The gender of this voice.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub ssml_gender: crate::model::SsmlVoiceGender,
 
     /// The natural sample rate (in hertz) for this voice.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub natural_sample_rate_hertz: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -614,6 +619,7 @@ pub mod custom_pronunciation_params {
 pub struct CustomPronunciations {
     /// The pronunciation customizations are applied.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub pronunciations: std::vec::Vec<crate::model::CustomPronunciationParams>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -651,6 +657,7 @@ impl wkt::message::Message for CustomPronunciations {
 pub struct MultiSpeakerMarkup {
     /// Required. Speaker turns.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub turns: std::vec::Vec<crate::model::multi_speaker_markup::Turn>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -694,10 +701,12 @@ pub mod multi_speaker_markup {
         /// Required. The speaker of the turn, for example, 'O' or 'Q'. Please refer
         /// to documentation for available speakers.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub speaker: std::string::String,
 
         /// Required. The text to speak.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub text: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -913,16 +922,16 @@ pub mod synthesis_input {
     #[non_exhaustive]
     pub enum InputSource {
         /// The raw text to be synthesized.
-        Text(std::string::String),
+        Text(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// Markup for HD voices specifically. This field may not be used with any
         /// other voices.
-        Markup(std::string::String),
+        Markup(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// The SSML document to be synthesized. The SSML document must be valid
         /// and well-formed. Otherwise the RPC will fail and return
         /// [google.rpc.Code.INVALID_ARGUMENT][google.rpc.Code.INVALID_ARGUMENT]. For
         /// more information, see
         /// [SSML](https://cloud.google.com/text-to-speech/docs/ssml).
-        Ssml(std::string::String),
+        Ssml(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// The multi-speaker input to be synthesized. Only applicable for
         /// multi-speaker synthesis.
         MultiSpeakerMarkup(std::boxed::Box<crate::model::MultiSpeakerMarkup>),
@@ -947,12 +956,14 @@ pub struct VoiceSelectionParams {
     /// available), or even a different language, e.g. using "nb" (Norwegian
     /// Bokmal) instead of "no" (Norwegian)".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub language_code: std::string::String,
 
     /// The name of the voice. If both the name and the gender are not set,
     /// the service will choose a voice based on the other parameters such as
     /// language_code.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The preferred gender of the voice. If not set, the service will
@@ -961,6 +972,7 @@ pub struct VoiceSelectionParams {
     /// voice of the appropriate gender is not available, the synthesizer should
     /// substitute a voice with a different gender rather than failing the request.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub ssml_gender: crate::model::SsmlVoiceGender,
 
     /// The configuration for a custom voice. If [CustomVoiceParams.model] is set,
@@ -1056,6 +1068,7 @@ impl wkt::message::Message for VoiceSelectionParams {
 pub struct AudioConfig {
     /// Required. The format of the audio byte stream.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub audio_encoding: crate::model::AudioEncoding,
 
     /// Optional. Input only. Speaking rate/speed, in the range [0.25, 2.0]. 1.0 is
@@ -1063,14 +1076,14 @@ pub struct AudioConfig {
     /// fast, and 0.5 is half as fast. If unset(0.0), defaults to the native 1.0
     /// speed. Any other values < 0.25 or > 2.0 will return an error.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
     pub speaking_rate: f64,
 
     /// Optional. Input only. Speaking pitch, in the range [-20.0, 20.0]. 20 means
     /// increase 20 semitones from the original pitch. -20 means decrease 20
     /// semitones from the original pitch.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
     pub pitch: f64,
 
     /// Optional. Input only. Volume gain (in dB) of the normal native volume
@@ -1082,7 +1095,7 @@ pub struct AudioConfig {
     /// Strongly recommend not to exceed +10 (dB) as there's usually no effective
     /// increase in loudness for any value greater than that.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
     pub volume_gain_db: f64,
 
     /// Optional. The synthesis sample rate (in hertz) for this audio. When this is
@@ -1093,7 +1106,7 @@ pub struct AudioConfig {
     /// encoding chosen, in which case it will fail the request and return
     /// [google.rpc.Code.INVALID_ARGUMENT][google.rpc.Code.INVALID_ARGUMENT].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub sample_rate_hertz: i32,
 
     /// Optional. Input only. An identifier which selects 'audio effects' profiles
@@ -1103,6 +1116,7 @@ pub struct AudioConfig {
     /// profiles](https://cloud.google.com/text-to-speech/docs/audio-profiles) for
     /// current supported profile ids.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub effects_profile_id: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1173,10 +1187,12 @@ impl wkt::message::Message for AudioConfig {
 pub struct CustomVoiceParams {
     /// Required. The name of the AutoML model that synthesizes the custom voice.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub model: std::string::String,
 
     /// Optional. Deprecated. The usage of the synthesized audio to be reported.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     #[deprecated]
     pub reported_usage: crate::model::custom_voice_params::ReportedUsage,
 
@@ -1364,6 +1380,7 @@ pub mod custom_voice_params {
 pub struct VoiceCloneParams {
     /// Required. Created by GenerateVoiceCloningKey.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub voice_cloning_key: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1403,7 +1420,7 @@ pub struct SynthesizeSpeechResponse {
     /// with all bytes fields, protobuffers use a pure binary representation,
     /// whereas JSON representations use base64.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub audio_content: ::bytes::Bytes,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1438,11 +1455,12 @@ pub struct StreamingAudioConfig {
     /// Streaming supports PCM, ALAW, MULAW and OGG_OPUS. All other encodings
     /// return an error.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub audio_encoding: crate::model::AudioEncoding,
 
     /// Optional. The synthesis sample rate (in hertz) for this audio.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub sample_rate_hertz: i32,
 
     /// Optional. Input only. Speaking rate/speed, in the range [0.25, 2.0]. 1.0 is
@@ -1450,7 +1468,7 @@ pub struct StreamingAudioConfig {
     /// fast, and 0.5 is half as fast. If unset(0.0), defaults to the native 1.0
     /// speed. Any other values < 0.25 or > 2.0 will return an error.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
     pub speaking_rate: f64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1691,10 +1709,10 @@ pub mod streaming_synthesis_input {
         /// The raw text to be synthesized. It is recommended that each input
         /// contains complete, terminating sentences, which results in better prosody
         /// in the output audio.
-        Text(std::string::String),
+        Text(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// Markup for HD voices specifically. This field may not be used with any
         /// other voices.
-        Markup(std::string::String),
+        Markup(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
     }
 }
 
@@ -1842,7 +1860,7 @@ pub struct StreamingSynthesizeResponse {
     /// The audio data bytes encoded as specified in the request. This is
     /// headerless LINEAR16 audio with a sample rate of 24000.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub audio_content: ::bytes::Bytes,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1877,6 +1895,7 @@ pub struct SynthesizeLongAudioRequest {
     /// The resource states of the request in the form of
     /// `projects/*/locations/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The Synthesizer requires either plain text or SSML as input.
@@ -1891,6 +1910,7 @@ pub struct SynthesizeLongAudioRequest {
     /// specified in the format: `gs://bucket_name/object_name`, and the bucket
     /// must already exist.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub output_gcs_uri: std::string::String,
 
     /// Required. The desired voice of the synthesized audio.
@@ -2018,7 +2038,7 @@ pub struct SynthesizeLongAudioMetadata {
 
     /// The progress of the most recent processing update in percentage, ie. 70.0%.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
     pub progress_percentage: f64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

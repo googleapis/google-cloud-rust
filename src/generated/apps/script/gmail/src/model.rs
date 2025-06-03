@@ -43,12 +43,14 @@ pub struct GmailAddOnManifest {
 
     /// Defines the set of conditions that trigger the add-on.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub contextual_triggers: std::vec::Vec<crate::model::ContextualTrigger>,
 
     /// Defines set of [universal
     /// actions](/gmail/add-ons/how-tos/universal-actions) for the add-on. The user
     /// triggers universal actions from the add-on toolbar menu.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub universal_actions: std::vec::Vec<crate::model::UniversalAction>,
 
     /// Defines the compose time trigger for a compose time add-on. This is the
@@ -66,6 +68,7 @@ pub struct GmailAddOnManifest {
     /// initiate the authorization flow. This function is called before each
     /// invocation of the add-on, in order to ensure a smooth user experience.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub authorization_check_function: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -161,6 +164,7 @@ pub struct UniversalAction {
     /// Required. User-visible text describing the action, for example, "Add a new
     /// contact."
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub text: std::string::String,
 
     /// The type of the action determines the behavior of Gmail when the user
@@ -265,11 +269,11 @@ pub mod universal_action {
     #[non_exhaustive]
     pub enum ActionType {
         /// A link that is opened by Gmail when the user triggers the action.
-        OpenLink(std::string::String),
+        OpenLink(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// An endpoint that is called when the user triggers the
         /// action. See the [universal actions
         /// guide](/gmail/add-ons/how-tos/universal-actions) for details.
-        RunFunction(std::string::String),
+        RunFunction(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
     }
 }
 
@@ -282,10 +286,12 @@ pub struct ComposeTrigger {
     /// Defines the set of actions for compose time add-on. These are actions
     /// that user can trigger on a compose time addon.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub actions: std::vec::Vec<apps_script_type::model::MenuItemExtensionPoint>,
 
     /// Define the level of data access when a compose time addon is triggered.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub draft_access: crate::model::compose_trigger::DraftAccess,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -476,6 +482,7 @@ pub struct ContextualTrigger {
     /// Required. The name of the endpoint to call when a message matches the
     /// trigger.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub on_trigger_function: std::string::String,
 
     /// The type of trigger determines the conditions Gmail uses to show the

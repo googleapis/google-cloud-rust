@@ -44,21 +44,25 @@ pub struct MigrationWorkflow {
     ///
     /// Example: `projects/123/locations/us/workflows/345`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The display name of the workflow. This can be set to give a workflow
     /// a descriptive name. There is no guarantee or enforcement of uniqueness.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// The tasks in a workflow in a named map. The name (i.e. key) has no
     /// meaning and is merely a convenient way to address a specific task
     /// in a workflow.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub tasks: std::collections::HashMap<std::string::String, crate::model::MigrationTask>,
 
     /// Output only. That status of the workflow.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::migration_workflow::State,
 
     /// Time when the workflow was created.
@@ -320,6 +324,7 @@ pub struct MigrationTask {
     /// Output only. Immutable. The unique identifier for the migration task. The
     /// ID is server-generated.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub id: std::string::String,
 
     /// The type of the task. This must be one of the supported task types:
@@ -331,10 +336,12 @@ pub struct MigrationTask {
     /// Translation_Postgresql2BQ, Translation_SQLite2BQ, Translation_Greenplum2BQ.
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub r#type: std::string::String,
 
     /// Output only. The current state of the task.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::migration_task::State,
 
     /// Output only. An explanation that may be populated when the task is in
@@ -354,6 +361,7 @@ pub struct MigrationTask {
     /// processing the task. Presence of error details does not mean that the task
     /// failed.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub resource_error_details: std::vec::Vec<crate::model::ResourceErrorDetail>,
 
     /// The number or resources with errors. Note: This is not the total
@@ -361,11 +369,12 @@ pub struct MigrationTask {
     /// This is used to indicate truncation by having a `resource_error_count`
     /// that is higher than the size of `resource_error_details`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub resource_error_count: i32,
 
     /// The metrics for the task.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub metrics: std::vec::Vec<crate::model::TimeSeries>,
 
     /// Output only. The result of the task.
@@ -374,12 +383,12 @@ pub struct MigrationTask {
 
     /// Count of all the processing errors in this task and its subtasks.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub total_processing_error_count: i32,
 
     /// Count of all the resource errors in this task and its subtasks.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub total_resource_error_count: i32,
 
     /// The details of the task.
@@ -805,10 +814,12 @@ pub struct MigrationSubtask {
     ///
     /// Example: `projects/123/locations/us/workflows/345/subtasks/678`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The unique ID of the task to which this subtask belongs.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub task_id: std::string::String,
 
     /// The type of the Subtask. The migration service does not check whether this
@@ -817,10 +828,12 @@ pub struct MigrationSubtask {
     /// polling for Subtasks.
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub r#type: std::string::String,
 
     /// Output only. The current state of the subtask.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::migration_subtask::State,
 
     /// Output only. An explanation that may be populated when the task is in
@@ -832,6 +845,7 @@ pub struct MigrationSubtask {
     /// processing the subtask. Presence of error details does not mean that the
     /// subtask failed.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub resource_error_details: std::vec::Vec<crate::model::ResourceErrorDetail>,
 
     /// The number or resources with errors. Note: This is not the total
@@ -839,7 +853,7 @@ pub struct MigrationSubtask {
     /// This is used to indicate truncation by having a `resource_error_count`
     /// that is higher than the size of `resource_error_details`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub resource_error_count: i32,
 
     /// Time when the subtask was created.
@@ -852,6 +866,7 @@ pub struct MigrationSubtask {
 
     /// The metrics for the subtask.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub metrics: std::vec::Vec<crate::model::TimeSeries>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1243,10 +1258,12 @@ pub mod migration_task_result {
 pub struct TranslationTaskResult {
     /// The list of the translated literals.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub translated_literals: std::vec::Vec<crate::model::Literal>,
 
     /// The records from the aggregate CSV report for a migration workflow.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub report_log_messages: std::vec::Vec<crate::model::GcsReportLogMessage>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1299,13 +1316,14 @@ pub struct ResourceErrorDetail {
 
     /// Required. The error details for the resource.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub error_details: std::vec::Vec<crate::model::ErrorDetail>,
 
     /// Required. How many errors there are in total for the resource. Truncation
     /// can be indicated by having an `error_count` that is higher than the size of
     /// `error_details`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub error_count: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1435,13 +1453,13 @@ pub struct ErrorLocation {
     /// Optional. If applicable, denotes the line where the error occurred. A zero
     /// value means that there is no line information.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub line: i32,
 
     /// Optional. If applicable, denotes the column where the error occurred. A
     /// zero value means that there is no columns information.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub column: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1482,10 +1500,12 @@ pub struct TimeSeries {
     ///
     /// If the metric is not known by the service yet, it will be auto-created.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub metric: std::string::String,
 
     /// Required. The value type of the time series.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub value_type: api::model::metric_descriptor::ValueType,
 
     /// Optional. The metric kind of the time series.
@@ -1495,6 +1515,7 @@ pub struct TimeSeries {
     /// this field specifies the metric kind of the new descriptor and must be
     /// either `GAUGE` (the default) or `CUMULATIVE`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub metric_kind: api::model::metric_descriptor::MetricKind,
 
     /// Required. The data points of this time series. When listing time series,
@@ -1506,6 +1527,7 @@ pub struct TimeSeries {
     /// the value type of the descriptor is determined by the point's type, which
     /// must be `BOOL`, `INT64`, `DOUBLE`, or `DISTRIBUTION`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub points: std::vec::Vec<crate::model::Point>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1873,15 +1895,15 @@ pub mod typed_value {
     #[non_exhaustive]
     pub enum Value {
         /// A Boolean value: `true` or `false`.
-        BoolValue(bool),
+        BoolValue(#[serde_as(as = "serde_with::DefaultOnNull<_>")] bool),
         /// A 64-bit integer. Its range is approximately `+/-9.2x10^18`.
-        Int64Value(#[serde_as(as = "wkt::internal::I64")] i64),
+        Int64Value(#[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")] i64),
         /// A 64-bit double-precision floating-point number. Its magnitude
         /// is approximately `+/-10^(+/-300)` and it has 16 significant digits of
         /// precision.
-        DoubleValue(#[serde_as(as = "wkt::internal::F64")] f64),
+        DoubleValue(#[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")] f64),
         /// A variable-length string value.
-        StringValue(std::string::String),
+        StringValue(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// A distribution value.
         DistributionValue(std::boxed::Box<api::model::Distribution>),
     }
@@ -1896,6 +1918,7 @@ pub struct CreateMigrationWorkflowRequest {
     /// Required. The name of the project to which this migration workflow belongs.
     /// Example: `projects/foo/locations/bar`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The migration workflow to create.
@@ -1951,6 +1974,7 @@ pub struct GetMigrationWorkflowRequest {
     /// Required. The unique identifier for the migration workflow.
     /// Example: `projects/123/locations/us/workflows/1234`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The list of fields to be retrieved.
@@ -2006,6 +2030,7 @@ pub struct ListMigrationWorkflowsRequest {
     /// Required. The project and location of the migration workflows to list.
     /// Example: `projects/123/locations/us`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The list of fields to be retrieved.
@@ -2015,7 +2040,7 @@ pub struct ListMigrationWorkflowsRequest {
     /// The maximum number of migration workflows to return. The service may return
     /// fewer than this number.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// A page token, received from previous `ListMigrationWorkflows` call.
@@ -2024,6 +2049,7 @@ pub struct ListMigrationWorkflowsRequest {
     /// When paginating, all other parameters provided to `ListMigrationWorkflows`
     /// must match the call that provided the page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2086,11 +2112,13 @@ impl wkt::message::Message for ListMigrationWorkflowsRequest {
 pub struct ListMigrationWorkflowsResponse {
     /// The migration workflows for the specified project / location.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub migration_workflows: std::vec::Vec<crate::model::MigrationWorkflow>,
 
     /// A token, which can be sent as `page_token` to retrieve the next page.
     /// If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2149,6 +2177,7 @@ pub struct DeleteMigrationWorkflowRequest {
     /// Required. The unique identifier for the migration workflow.
     /// Example: `projects/123/locations/us/workflows/1234`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2182,6 +2211,7 @@ pub struct StartMigrationWorkflowRequest {
     /// Required. The unique identifier for the migration workflow.
     /// Example: `projects/123/locations/us/workflows/1234`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2215,6 +2245,7 @@ pub struct GetMigrationSubtaskRequest {
     /// Required. The unique identifier for the migration subtask.
     /// Example: `projects/123/locations/us/workflows/1234/subtasks/543`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. The list of fields to be retrieved.
@@ -2270,6 +2301,7 @@ pub struct ListMigrationSubtasksRequest {
     /// Required. The migration task of the subtasks to list.
     /// Example: `projects/123/locations/us/workflows/1234`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. The list of fields to be retrieved.
@@ -2279,7 +2311,7 @@ pub struct ListMigrationSubtasksRequest {
     /// Optional. The maximum number of migration tasks to return. The service may
     /// return fewer than this number.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. A page token, received from previous `ListMigrationSubtasks`
@@ -2288,12 +2320,14 @@ pub struct ListMigrationSubtasksRequest {
     /// When paginating, all other parameters provided to `ListMigrationSubtasks`
     /// must match the call that provided the page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. The filter to apply. This can be used to get the subtasks of a
     /// specific tasks in a workflow, e.g. `migration_task = "ab012"` where
     /// `"ab012"` is the task ID (not the name in the named map).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2362,11 +2396,13 @@ impl wkt::message::Message for ListMigrationSubtasksRequest {
 pub struct ListMigrationSubtasksResponse {
     /// The migration subtasks for the specified task.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub migration_subtasks: std::vec::Vec<crate::model::MigrationSubtask>,
 
     /// A token, which can be sent as `page_token` to retrieve the next page.
     /// If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2437,6 +2473,7 @@ pub struct TranslationConfigDetails {
 
     /// The indicator to show translation request initiator.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_source: std::string::String,
 
     /// The types of output to generate, e.g. sql, metadata etc. If not specified,
@@ -2444,6 +2481,7 @@ pub struct TranslationConfigDetails {
     /// may be slower to generate. See the documentation for the set of available
     /// target types.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub target_types: std::vec::Vec<std::string::String>,
 
     /// The chosen path where the source for input files will be found.
@@ -2691,7 +2729,7 @@ pub mod translation_config_details {
     #[non_exhaustive]
     pub enum SourceLocation {
         /// The Cloud Storage path for a directory of files to translate in a task.
-        GcsSourcePath(std::string::String),
+        GcsSourcePath(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
     }
 
     /// The chosen path where the destination for output files will be found.
@@ -2701,7 +2739,7 @@ pub mod translation_config_details {
     #[non_exhaustive]
     pub enum TargetLocation {
         /// The Cloud Storage path to write back the corresponding input files to.
-        GcsTargetPath(std::string::String),
+        GcsTargetPath(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
     }
 
     /// The mapping of full SQL object names from their current state to the
@@ -3386,6 +3424,7 @@ impl wkt::message::Message for RedshiftDialect {
 pub struct TeradataDialect {
     /// Which Teradata sub-dialect mode the user specifies.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub mode: crate::model::teradata_dialect::Mode,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3846,6 +3885,7 @@ impl wkt::message::Message for GreenplumDialect {
 pub struct ObjectNameMappingList {
     /// The elements of the object name map.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub name_map: std::vec::Vec<crate::model::ObjectNameMapping>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3952,25 +3992,30 @@ pub struct NameMappingKey {
     /// The type of object that is being mapped.
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub r#type: crate::model::name_mapping_key::Type,
 
     /// The database name (BigQuery project ID equivalent in the source data
     /// warehouse).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub database: std::string::String,
 
     /// The schema name (BigQuery dataset equivalent in the source data warehouse).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub schema: std::string::String,
 
     /// The relation name (BigQuery table or view equivalent in the source data
     /// warehouse).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub relation: std::string::String,
 
     /// The attribute name (BigQuery column equivalent in the source data
     /// warehouse).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub attribute: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4205,20 +4250,24 @@ pub struct NameMappingValue {
     /// The database name (BigQuery project ID equivalent in the target data
     /// warehouse).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub database: std::string::String,
 
     /// The schema name (BigQuery dataset equivalent in the target data warehouse).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub schema: std::string::String,
 
     /// The relation name (BigQuery table or view equivalent in the target data
     /// warehouse).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub relation: std::string::String,
 
     /// The attribute name (BigQuery column equivalent in the target data
     /// warehouse).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub attribute: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4270,11 +4319,13 @@ pub struct SourceEnv {
     /// The default database name to fully qualify SQL objects when their database
     /// name is missing.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub default_database: std::string::String,
 
     /// The schema search path. When SQL objects are missing schema name,
     /// translation engine will search through this list to find the value.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub schema_search_path: std::vec::Vec<std::string::String>,
 
     /// Optional. Expects a valid BigQuery dataset ID that exists, e.g.,
@@ -4284,6 +4335,7 @@ pub struct SourceEnv {
     /// and upload the schema info to a temp table in the dataset to speed up
     /// future translation jobs.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub metadata_store_dataset: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4340,10 +4392,12 @@ impl wkt::message::Message for SourceEnv {
 pub struct TranslationDetails {
     /// The mapping from source to target SQL.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub source_target_mapping: std::vec::Vec<crate::model::SourceTargetMapping>,
 
     /// The base URI for all writes to persistent storage.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub target_base_uri: std::string::String,
 
     /// The default source environment values for the translation.
@@ -4354,6 +4408,7 @@ pub struct TranslationDetails {
     /// Each entry consists of the constructed path, EXCLUDING the base path. Not
     /// providing a target_base_uri will prevent writing to persistent storage.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub target_return_literals: std::vec::Vec<std::string::String>,
 
     /// The types of output to generate, e.g. sql, metadata,
@@ -4361,6 +4416,7 @@ pub struct TranslationDetails {
     /// targets will be generated. Some additional target types may be slower to
     /// generate. See the documentation for the set of available target types.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub target_types: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4510,6 +4566,7 @@ impl wkt::message::Message for SourceTargetMapping {
 pub struct SourceSpec {
     /// Optional. The optional field to specify the encoding of the sql bytes.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub encoding: std::string::String,
 
     /// The specific source SQL.
@@ -4611,7 +4668,7 @@ pub mod source_spec {
     #[non_exhaustive]
     pub enum Source {
         /// The base URI for all files to be read in as sources for translation.
-        BaseUri(std::string::String),
+        BaseUri(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// Source literal.
         Literal(std::boxed::Box<crate::model::Literal>),
     }
@@ -4627,6 +4684,7 @@ pub struct TargetSpec {
     /// `base_uri/input/sql`, the output would be
     /// `target_base_uri/sql/relative_path/input.sql`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub relative_path: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4659,6 +4717,7 @@ impl wkt::message::Message for TargetSpec {
 pub struct Literal {
     /// Required. The identifier of the literal entry.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub relative_path: std::string::String,
 
     /// The literal SQL contents.
@@ -4757,9 +4816,12 @@ pub mod literal {
     #[non_exhaustive]
     pub enum LiteralData {
         /// Literal string data.
-        LiteralString(std::string::String),
+        LiteralString(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// Literal byte data.
-        LiteralBytes(#[serde_as(as = "serde_with::base64::Base64")] ::bytes::Bytes),
+        LiteralBytes(
+            #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
+            ::bytes::Bytes,
+        ),
     }
 }
 
@@ -4772,11 +4834,13 @@ pub struct SourceEnvironment {
     /// The default database name to fully qualify SQL objects when their database
     /// name is missing.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub default_database: std::string::String,
 
     /// The schema search path. When SQL objects are missing schema name,
     /// translation engine will search through this list to find the value.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub schema_search_path: std::vec::Vec<std::string::String>,
 
     /// Optional. Expects a validQ BigQuery dataset ID that exists, e.g.,
@@ -4786,6 +4850,7 @@ pub struct SourceEnvironment {
     /// and upload the schema info to a temp table in the dataset to speed up
     /// future translation jobs.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub metadata_store_dataset: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4841,26 +4906,29 @@ impl wkt::message::Message for SourceEnvironment {
 pub struct TranslationReportRecord {
     /// Severity of the translation record.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub severity: crate::model::translation_report_record::Severity,
 
     /// Specifies the row from the source text where the error occurred (0 based).
     /// Example: 2
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub script_line: i32,
 
     /// Specifies the column from the source texts where the error occurred. (0
     /// based) example: 6
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub script_column: i32,
 
     /// Category of the error/warning. Example: SyntaxError
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub category: std::string::String,
 
     /// Detailed message of the record.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub message: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5068,50 +5136,59 @@ pub mod translation_report_record {
 pub struct GcsReportLogMessage {
     /// Severity of the translation record.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub severity: std::string::String,
 
     /// Category of the error/warning. Example: SyntaxError
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub category: std::string::String,
 
     /// The file path in which the error occurred
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub file_path: std::string::String,
 
     /// The file name in which the error occurred
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filename: std::string::String,
 
     /// Specifies the row from the source text where the error occurred (0 based,
     /// -1 for messages without line location). Example: 2
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub source_script_line: i32,
 
     /// Specifies the column from the source texts where the error occurred. (0
     /// based, -1 for messages without column location) example: 6
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub source_script_column: i32,
 
     /// Detailed message of the record.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub message: std::string::String,
 
     /// The script context (obfuscated) in which the error occurred
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub script_context: std::string::String,
 
     /// Category of the error/warning. Example: SyntaxError
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub action: std::string::String,
 
     /// Effect of the error/warning. Example: COMPATIBILITY
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub effect: std::string::String,
 
     /// Name of the affected object in the log message.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub object_name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

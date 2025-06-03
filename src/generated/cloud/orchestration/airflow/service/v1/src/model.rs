@@ -42,6 +42,7 @@ pub struct CreateEnvironmentRequest {
     /// The parent must be of the form
     /// "projects/{projectId}/locations/{locationId}".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The environment to create.
@@ -97,6 +98,7 @@ pub struct GetEnvironmentRequest {
     /// The resource name of the environment to get, in the form:
     /// "projects/{projectId}/locations/{locationId}/environments/{environmentId}"
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -130,15 +132,17 @@ pub struct ListEnvironmentsRequest {
     /// List environments in the given project and location, in the form:
     /// "projects/{projectId}/locations/{locationId}"
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The maximum number of environments to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous List request, if any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -183,10 +187,12 @@ impl wkt::message::Message for ListEnvironmentsRequest {
 pub struct ListEnvironmentsResponse {
     /// The list of environments returned by a ListEnvironmentsRequest.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub environments: std::vec::Vec<crate::model::Environment>,
 
     /// The page token used to query for the next page if one exists.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -245,6 +251,7 @@ pub struct DeleteEnvironmentRequest {
     /// The environment to delete, in the form:
     /// "projects/{projectId}/locations/{locationId}/environments/{environmentId}"
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -278,6 +285,7 @@ pub struct UpdateEnvironmentRequest {
     /// The relative resource name of the environment to update, in the form:
     /// "projects/{projectId}/locations/{locationId}/environments/{environmentId}"
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// A patch environment. Fields specified by the `updateMask` will be copied
@@ -484,14 +492,17 @@ pub struct ExecuteAirflowCommandRequest {
     /// The resource name of the environment in the form:
     /// "projects/{projectId}/locations/{locationId}/environments/{environmentId}".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub environment: std::string::String,
 
     /// Airflow command.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub command: std::string::String,
 
     /// Airflow subcommand.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub subcommand: std::string::String,
 
     /// Parameters for the Airflow command/subcommand as an array of arguments.
@@ -499,6 +510,7 @@ pub struct ExecuteAirflowCommandRequest {
     /// parameters like `["--foo=bar"]` or `["--foo","bar"]`,
     /// or other flags like `["-f"]`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub parameters: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -554,18 +566,22 @@ impl wkt::message::Message for ExecuteAirflowCommandRequest {
 pub struct ExecuteAirflowCommandResponse {
     /// The unique ID of the command execution for polling.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub execution_id: std::string::String,
 
     /// The name of the pod where the command is executed.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub pod: std::string::String,
 
     /// The namespace of the pod where the command is executed.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub pod_namespace: std::string::String,
 
     /// Error message. Empty if there was no error.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub error: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -617,23 +633,28 @@ pub struct StopAirflowCommandRequest {
     /// The resource name of the environment in the form:
     /// "projects/{projectId}/locations/{locationId}/environments/{environmentId}".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub environment: std::string::String,
 
     /// The unique ID of the command execution.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub execution_id: std::string::String,
 
     /// The name of the pod where the command is executed.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub pod: std::string::String,
 
     /// The namespace of the pod where the command is executed.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub pod_namespace: std::string::String,
 
     /// If true, the execution is terminated forcefully (SIGKILL). If false, the
     /// execution is stopped gracefully, giving it time for cleanup.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -690,10 +711,12 @@ impl wkt::message::Message for StopAirflowCommandRequest {
 pub struct StopAirflowCommandResponse {
     /// Whether the execution is still running.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub is_done: bool,
 
     /// Output message from stopping execution request.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub output: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -738,23 +761,27 @@ pub struct PollAirflowCommandRequest {
     /// The resource name of the environment in the form:
     /// "projects/{projectId}/locations/{locationId}/environments/{environmentId}"
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub environment: std::string::String,
 
     /// The unique ID of the command execution.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub execution_id: std::string::String,
 
     /// The name of the pod where the command is executed.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub pod: std::string::String,
 
     /// The namespace of the pod where the command is executed.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub pod_namespace: std::string::String,
 
     /// Line number from which new logs should be fetched.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub next_line_number: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -812,10 +839,12 @@ pub struct PollAirflowCommandResponse {
     /// Output from the command execution. It may not contain the full output
     /// and the caller may need to poll for more lines.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub output: std::vec::Vec<crate::model::poll_airflow_command_response::Line>,
 
     /// Whether the command execution has finished and there is no more output.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub output_end: bool,
 
     /// The result exit status of the command.
@@ -886,11 +915,12 @@ pub mod poll_airflow_command_response {
     pub struct Line {
         /// Number of the line.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub line_number: i32,
 
         /// Text content of the log line.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub content: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -929,11 +959,12 @@ pub mod poll_airflow_command_response {
     pub struct ExitInfo {
         /// The exit code from the command execution.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub exit_code: i32,
 
         /// Error message. Empty if there was no error.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub error: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -974,6 +1005,7 @@ pub struct CreateUserWorkloadsSecretRequest {
     /// Required. The environment name to create a Secret for, in the form:
     /// "projects/{projectId}/locations/{locationId}/environments/{environmentId}"
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. User workloads Secret to create.
@@ -1029,6 +1061,7 @@ pub struct GetUserWorkloadsSecretRequest {
     /// Required. The resource name of the Secret to get, in the form:
     /// "projects/{projectId}/locations/{locationId}/environments/{environmentId}/userWorkloadsSecrets/{userWorkloadsSecretId}"
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1062,16 +1095,18 @@ pub struct ListUserWorkloadsSecretsRequest {
     /// Required. List Secrets in the given environment, in the form:
     /// "projects/{projectId}/locations/{locationId}/environments/{environmentId}"
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. The maximum number of Secrets to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. The next_page_token value returned from a previous List request,
     /// if any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1161,6 +1196,7 @@ pub struct DeleteUserWorkloadsSecretRequest {
     /// Required. The Secret to delete, in the form:
     /// "projects/{projectId}/locations/{locationId}/environments/{environmentId}/userWorkloadsSecrets/{userWorkloadsSecretId}"
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1194,6 +1230,7 @@ pub struct CreateUserWorkloadsConfigMapRequest {
     /// Required. The environment name to create a ConfigMap for, in the form:
     /// "projects/{projectId}/locations/{locationId}/environments/{environmentId}"
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. User workloads ConfigMap to create.
@@ -1249,6 +1286,7 @@ pub struct GetUserWorkloadsConfigMapRequest {
     /// Required. The resource name of the ConfigMap to get, in the form:
     /// "projects/{projectId}/locations/{locationId}/environments/{environmentId}/userWorkloadsConfigMaps/{userWorkloadsConfigMapId}"
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1282,16 +1320,18 @@ pub struct ListUserWorkloadsConfigMapsRequest {
     /// Required. List ConfigMaps in the given environment, in the form:
     /// "projects/{projectId}/locations/{locationId}/environments/{environmentId}"
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. The maximum number of ConfigMaps to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. The next_page_token value returned from a previous List request,
     /// if any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1381,6 +1421,7 @@ pub struct DeleteUserWorkloadsConfigMapRequest {
     /// Required. The ConfigMap to delete, in the form:
     /// "projects/{projectId}/locations/{locationId}/environments/{environmentId}/userWorkloadsConfigMaps/{userWorkloadsConfigMapId}"
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1415,6 +1456,7 @@ pub struct UserWorkloadsSecret {
     /// Identifier. The resource name of the Secret, in the form:
     /// "projects/{projectId}/locations/{locationId}/environments/{environmentId}/userWorkloadsSecrets/{userWorkloadsSecretId}"
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. The "data" field of Kubernetes Secret, organized in key-value
@@ -1429,6 +1471,7 @@ pub struct UserWorkloadsSecret {
     /// "another-example": "YW5vdGhlcl9leGFtcGxlX3ZhbHVl"
     /// }
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub data: std::collections::HashMap<std::string::String, std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1473,10 +1516,12 @@ impl wkt::message::Message for UserWorkloadsSecret {
 pub struct ListUserWorkloadsSecretsResponse {
     /// The list of Secrets returned by a ListUserWorkloadsSecretsRequest.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub user_workloads_secrets: std::vec::Vec<crate::model::UserWorkloadsSecret>,
 
     /// The page token used to query for the next page if one exists.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1536,6 +1581,7 @@ pub struct UserWorkloadsConfigMap {
     /// Identifier. The resource name of the ConfigMap, in the form:
     /// "projects/{projectId}/locations/{locationId}/environments/{environmentId}/userWorkloadsConfigMaps/{userWorkloadsConfigMapId}"
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. The "data" field of Kubernetes ConfigMap, organized in key-value
@@ -1549,6 +1595,7 @@ pub struct UserWorkloadsConfigMap {
     /// "another_key": "another_value"
     /// }
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub data: std::collections::HashMap<std::string::String, std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1593,10 +1640,12 @@ impl wkt::message::Message for UserWorkloadsConfigMap {
 pub struct ListUserWorkloadsConfigMapsResponse {
     /// The list of ConfigMaps returned by a ListUserWorkloadsConfigMapsRequest.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub user_workloads_config_maps: std::vec::Vec<crate::model::UserWorkloadsConfigMap>,
 
     /// The page token used to query for the next page if one exists.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1655,16 +1704,18 @@ pub struct ListWorkloadsRequest {
     /// Required. The environment name to get workloads for, in the form:
     /// "projects/{projectId}/locations/{locationId}/environments/{environmentId}"
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. The maximum number of environments to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. The next_page_token value returned from a previous List request,
     /// if any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. The list filter.
@@ -1674,6 +1725,7 @@ pub struct ListWorkloadsRequest {
     /// "type=SCHEDULER OR type=CELERY_WORKER". If not specified, all items are
     /// returned.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1724,10 +1776,12 @@ impl wkt::message::Message for ListWorkloadsRequest {
 pub struct ListWorkloadsResponse {
     /// The list of environment workloads.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub workloads: std::vec::Vec<crate::model::list_workloads_response::ComposerWorkload>,
 
     /// The page token used to query for the next page if one exists.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1790,11 +1844,13 @@ pub mod list_workloads_response {
     pub struct ComposerWorkload {
         /// Name of a workload.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub name: std::string::String,
 
         /// Type of a workload.
         #[serde(rename = "type")]
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub r#type: crate::model::list_workloads_response::ComposerWorkloadType,
 
         /// Output only. Status of a workload.
@@ -1861,14 +1917,17 @@ pub mod list_workloads_response {
     pub struct ComposerWorkloadStatus {
         /// Output only. Workload state.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub state: crate::model::list_workloads_response::ComposerWorkloadState,
 
         /// Output only. Text to provide more descriptive status.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub status_message: std::string::String,
 
         /// Output only. Detailed message of the status.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub detailed_status_message: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2262,11 +2321,13 @@ pub struct SaveSnapshotRequest {
     /// The resource name of the source environment in the form:
     /// "projects/{projectId}/locations/{locationId}/environments/{environmentId}"
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub environment: std::string::String,
 
     /// Location in a Cloud Storage where the snapshot is going to be stored, e.g.:
     /// "gs://my-bucket/snapshots".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub snapshot_location: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2311,6 +2372,7 @@ pub struct SaveSnapshotResponse {
     /// "gs://my-bucket/snapshots/project_location_environment_timestamp".
     /// This field is populated only if the snapshot creation was successful.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub snapshot_path: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2344,31 +2406,37 @@ pub struct LoadSnapshotRequest {
     /// The resource name of the target environment in the form:
     /// "projects/{projectId}/locations/{locationId}/environments/{environmentId}"
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub environment: std::string::String,
 
     /// A Cloud Storage path to a snapshot to load, e.g.:
     /// "gs://my-bucket/snapshots/project_location_environment_timestamp".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub snapshot_path: std::string::String,
 
     /// Whether or not to skip installing Pypi packages when loading the
     /// environment's state.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub skip_pypi_packages_installation: bool,
 
     /// Whether or not to skip setting environment variables when loading the
     /// environment's state.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub skip_environment_variables_setting: bool,
 
     /// Whether or not to skip setting Airflow overrides when loading the
     /// environment's state.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub skip_airflow_overrides_setting: bool,
 
     /// Whether or not to skip copying Cloud Storage data when loading the
     /// environment's state.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub skip_gcs_data_copying: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2461,6 +2529,7 @@ pub struct DatabaseFailoverRequest {
     /// Target environment:
     /// "projects/{projectId}/locations/{locationId}/environments/{environmentId}"
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub environment: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2516,6 +2585,7 @@ pub struct FetchDatabasePropertiesRequest {
     /// Required. The resource name of the environment, in the form:
     /// "projects/{projectId}/locations/{locationId}/environments/{environmentId}"
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub environment: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2548,17 +2618,20 @@ impl wkt::message::Message for FetchDatabasePropertiesRequest {
 pub struct FetchDatabasePropertiesResponse {
     /// The Compute Engine zone that the instance is currently serving from.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub primary_gce_zone: std::string::String,
 
     /// The Compute Engine zone that the failover instance is currently serving
     /// from for a regional Cloud SQL instance.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub secondary_gce_zone: std::string::String,
 
     /// The availability status of the failover replica. A false status indicates
     /// that the failover replica is out of sync. The primary instance can only
     /// fail over to the failover replica when the status is true.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub is_failover_replica_available: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2610,6 +2683,7 @@ pub struct StorageConfig {
     /// Optional. The name of the Cloud Storage bucket used by the environment. No
     /// `gs://` prefix.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub bucket: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2642,6 +2716,7 @@ impl wkt::message::Message for StorageConfig {
 pub struct EnvironmentConfig {
     /// Output only. The Kubernetes Engine cluster used to run this environment.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub gke_cluster: std::string::String,
 
     /// Output only. The Cloud Storage prefix of the DAGs for this environment.
@@ -2650,6 +2725,7 @@ pub struct EnvironmentConfig {
     /// objects for this environment reside in a simulated directory with the given
     /// prefix.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub dag_gcs_prefix: std::string::String,
 
     /// The number of nodes in the Kubernetes Engine cluster that will be
@@ -2658,7 +2734,7 @@ pub struct EnvironmentConfig {
     /// This field is supported for Cloud Composer environments in versions
     /// composer-1.*.*-airflow-*.*.*.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub node_count: i32,
 
     /// Optional. The configuration settings for software inside the environment.
@@ -2728,12 +2804,14 @@ pub struct EnvironmentConfig {
     /// This field is supported for Cloud Composer environments in versions
     /// composer-2.*.*-airflow-*.*.* and newer.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub environment_size: crate::model::environment_config::EnvironmentSize,
 
     /// Output only. The URI of the Apache Airflow Web UI hosted within this
     /// environment (see [Airflow web
     /// interface](/composer/docs/how-to/accessing/airflow-web-interface)).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub airflow_uri: std::string::String,
 
     /// Output only. The 'bring your own identity' variant of the URI of the Apache
@@ -2742,6 +2820,7 @@ pub struct EnvironmentConfig {
     /// with workforce identity
     /// federation](/composer/docs/composer-2/access-environments-with-workforce-identity-federation)).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub airflow_byoid_uri: std::string::String,
 
     /// Optional. The configuration options for GKE cluster master authorized
@@ -2766,6 +2845,7 @@ pub struct EnvironmentConfig {
     /// This field is supported for Cloud Composer environments in versions
     /// composer-2.2.0-airflow-*.*.* and newer.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub resilience_mode: crate::model::environment_config::ResilienceMode,
 
     /// Optional. The configuration setting for Airflow database data retention
@@ -3344,6 +3424,7 @@ pub mod environment_config {
 pub struct WebServerNetworkAccessControl {
     /// A collection of allowed IP ranges with descriptions.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub allowed_ip_ranges:
         std::vec::Vec<crate::model::web_server_network_access_control::AllowedIpRange>,
 
@@ -3394,11 +3475,13 @@ pub mod web_server_network_access_control {
         /// `1.2.3.4/24` should be truncated to `1.2.3.0/24`. Similarly, for IPv6,
         /// `2001:db8::1/32` should be truncated to `2001:db8::/32`.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub value: std::string::String,
 
         /// Optional. User-provided description. It must contain at most 300
         /// characters.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub description: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3443,6 +3526,7 @@ pub struct DatabaseConfig {
     /// Supported for Cloud Composer environments in versions
     /// composer-1.*.*-airflow-*.*.*.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub machine_type: std::string::String,
 
     /// Optional. The Compute Engine zone where the Airflow database is created. If
@@ -3451,6 +3535,7 @@ pub struct DatabaseConfig {
     /// be set during environment creation. Supported for Cloud Composer
     /// environments in versions composer-2.*.*-airflow-*.*.*.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub zone: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3496,6 +3581,7 @@ pub struct WebServerConfig {
     /// Value custom is returned only in response, if Airflow web server parameters
     /// were manually changed to a non-standard values.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub machine_type: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3532,6 +3618,7 @@ pub struct EncryptionConfig {
     /// Management Service. Cannot be updated. If not specified, Google-managed key
     /// will be used.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub kms_key_name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3589,6 +3676,7 @@ pub struct MaintenanceWindow {
     /// values for `FREQ` field are `FREQ=DAILY` and `FREQ=WEEKLY;BYDAY=...`
     /// Example values: `FREQ=WEEKLY;BYDAY=TU,WE`, `FREQ=DAILY`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub recurrence: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3680,6 +3768,7 @@ pub struct SoftwareConfig {
     /// list](/composer/docs/concepts/versioning/composer-versions) and [versioning
     /// overview](/composer/docs/concepts/versioning/composer-versioning-overview).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub image_version: std::string::String,
 
     /// Optional. Apache Airflow configuration properties to override.
@@ -3698,6 +3787,7 @@ pub struct SoftwareConfig {
     /// [blocked](/composer/docs/concepts/airflow-configurations),
     /// and cannot be overridden.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub airflow_config_overrides:
         std::collections::HashMap<std::string::String, std::string::String>,
 
@@ -3710,6 +3800,7 @@ pub struct SoftwareConfig {
     /// package without pinning it to a version specifier, use the empty string as
     /// the value.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub pypi_packages: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Optional. Additional environment variables to provide to the Apache Airflow
@@ -3735,6 +3826,7 @@ pub struct SoftwareConfig {
     /// * `SQL_REGION`
     /// * `SQL_USER`
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub env_variables: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Optional. The major version of Python used to run the Apache Airflow
@@ -3747,6 +3839,7 @@ pub struct SoftwareConfig {
     /// composer-1.*.*-airflow-*.*.*. Environments in newer versions always use
     /// Python major version 3.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub python_version: std::string::String,
 
     /// Optional. The number of schedulers for Airflow.
@@ -3754,7 +3847,7 @@ pub struct SoftwareConfig {
     /// This field is supported for Cloud Composer environments in versions
     /// composer-1.*.*-airflow-2.*.*.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub scheduler_count: i32,
 
     /// Optional. The configuration for Cloud Data Lineage integration.
@@ -3768,6 +3861,7 @@ pub struct SoftwareConfig {
     /// This field is supported for Cloud Composer environments in versions
     /// composer-3-airflow-*.*.*-build.* and newer.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub web_server_plugins_mode: crate::model::software_config::WebServerPluginsMode,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4025,6 +4119,7 @@ pub struct IPAllocationPolicy {
     /// composer-1.*.*-airflow-*.*.*. Environments in newer versions always use
     /// VPC-native GKE clusters.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub use_ip_aliases: bool,
 
     /// Configuration of allocating IP addresses for pods in the GKE cluster.
@@ -4223,7 +4318,9 @@ pub mod ip_allocation_policy {
         ///
         /// For Cloud Composer environments in versions composer-1.*.*-airflow-*.*.*,
         /// this field is applicable only when `use_ip_aliases` is true.
-        ClusterSecondaryRangeName(std::string::String),
+        ClusterSecondaryRangeName(
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String,
+        ),
         /// Optional. The IP address range used to allocate IP addresses to pods in
         /// the GKE cluster.
         ///
@@ -4240,7 +4337,7 @@ pub mod ip_allocation_policy {
         /// notation (e.g. `10.96.0.0/14`) from the RFC-1918 private networks (e.g.
         /// `10.0.0.0/8`, `172.16.0.0/12`, `192.168.0.0/16`) to pick a specific range
         /// to use.
-        ClusterIpv4CidrBlock(std::string::String),
+        ClusterIpv4CidrBlock(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
     }
 
     /// Configuration of allocating IP addresses for services in the GKE cluster.
@@ -4254,7 +4351,9 @@ pub mod ip_allocation_policy {
         ///
         /// For Cloud Composer environments in versions composer-1.*.*-airflow-*.*.*,
         /// this field is applicable only when `use_ip_aliases` is true.
-        ServicesSecondaryRangeName(std::string::String),
+        ServicesSecondaryRangeName(
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String,
+        ),
         /// Optional. The IP address range of the services IP addresses in this
         /// GKE cluster.
         ///
@@ -4271,7 +4370,7 @@ pub mod ip_allocation_policy {
         /// notation (e.g. `10.96.0.0/14`) from the RFC-1918 private networks (e.g.
         /// `10.0.0.0/8`, `172.16.0.0/12`, `192.168.0.0/16`) to pick a specific range
         /// to use.
-        ServicesIpv4CidrBlock(std::string::String),
+        ServicesIpv4CidrBlock(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
     }
 }
 
@@ -4300,6 +4399,7 @@ pub struct NodeConfig {
     /// This field is supported for Cloud Composer environments in versions
     /// composer-1.*.*-airflow-*.*.*.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub location: std::string::String,
 
     /// Optional. The Compute Engine
@@ -4327,6 +4427,7 @@ pub struct NodeConfig {
     /// This field is supported for Cloud Composer environments in versions
     /// composer-1.*.*-airflow-*.*.*.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub machine_type: std::string::String,
 
     /// Optional. The Compute Engine network to be used for machine
@@ -4341,6 +4442,7 @@ pub struct NodeConfig {
     /// [Shared VPC](/vpc/docs/shared-vpc) subnetwork requirements, see
     /// `nodeConfig.subnetwork`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub network: std::string::String,
 
     /// Optional. The Compute Engine subnetwork to be used for machine
@@ -4353,6 +4455,7 @@ pub struct NodeConfig {
     /// and the subnetwork must belong to the enclosing environment's project and
     /// location.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub subnetwork: std::string::String,
 
     /// Optional. The disk size in GB used for node VMs. Minimum size is 30GB.
@@ -4361,7 +4464,7 @@ pub struct NodeConfig {
     /// This field is supported for Cloud Composer environments in versions
     /// composer-1.*.*-airflow-*.*.*.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub disk_size_gb: i32,
 
     /// Optional. The set of Google API scopes to be made available on all
@@ -4371,12 +4474,14 @@ pub struct NodeConfig {
     /// This field is supported for Cloud Composer environments in versions
     /// composer-1.*.*-airflow-*.*.*.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub oauth_scopes: std::vec::Vec<std::string::String>,
 
     /// Optional. The Google Cloud Platform Service Account to be used by the node
     /// VMs. If a service account is not specified, the "default" Compute Engine
     /// service account is used. Cannot be updated.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub service_account: std::string::String,
 
     /// Optional. The list of instance tags applied to all node VMs. Tags are used
@@ -4384,6 +4489,7 @@ pub struct NodeConfig {
     /// the list must comply with [RFC1035](https://www.ietf.org/rfc/rfc1035.txt).
     /// Cannot be updated.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub tags: std::vec::Vec<std::string::String>,
 
     /// Optional. The configuration for controlling how IPs are allocated in the
@@ -4398,6 +4504,7 @@ pub struct NodeConfig {
     /// See:
     /// <https://cloud.google.com/kubernetes-engine/docs/how-to/ip-masquerade-agent>
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub enable_ip_masq_agent: bool,
 
     /// Optional. Network Attachment that Cloud Composer environment is connected
@@ -4412,6 +4519,7 @@ pub struct NodeConfig {
     /// This field is supported for Cloud Composer environments in versions
     /// composer-3-airflow-*.*.*-build.* and newer.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub composer_network_attachment: std::string::String,
 
     /// Optional. The IP range in CIDR notation to use internally by Cloud
@@ -4423,6 +4531,7 @@ pub struct NodeConfig {
     /// This field is supported for Cloud Composer environments in versions
     /// composer-3-airflow-*.*.*-build.* and newer.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub composer_internal_ipv4_cidr_block: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4551,11 +4660,13 @@ pub struct PrivateClusterConfig {
     /// Optional. If `true`, access to the public endpoint of the GKE cluster is
     /// denied.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub enable_private_endpoint: bool,
 
     /// Optional. The CIDR block from which IPv4 range for GKE master will be
     /// reserved. If left blank, the default value of '172.16.0.0/23' is used.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub master_ipv4_cidr_block: std::string::String,
 
     /// Output only. The IP range in CIDR notation to use for the hosted master
@@ -4564,6 +4675,7 @@ pub struct PrivateClusterConfig {
     /// IP. This range must not overlap with any other ranges in use within the
     /// cluster's network.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub master_ipv4_reserved_range: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4617,6 +4729,7 @@ pub struct NetworkingConfig {
     /// Tenant and Customer projects. You cannot set networking connection type in
     /// public IP environment.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub connection_type: crate::model::networking_config::ConnectionType,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4801,6 +4914,7 @@ pub struct PrivateEnvironmentConfig {
     /// set to true for Cloud Composer environments in versions
     /// composer-1.*.*-airflow-*.*.*.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub enable_private_environment: bool,
 
     /// Optional. If `true`, builds performed during operations that install Python
@@ -4813,6 +4927,7 @@ pub struct PrivateEnvironmentConfig {
     /// This field is supported for Cloud Composer environments in versions
     /// composer-3-airflow-*.*.*-build.* and newer.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub enable_private_builds_only: bool,
 
     /// Optional. Configuration for the private GKE cluster for a Private IP
@@ -4828,12 +4943,14 @@ pub struct PrivateEnvironmentConfig {
     /// This field is supported for Cloud Composer environments in versions
     /// composer-1.*.*-airflow-*.*.*.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub web_server_ipv4_cidr_block: std::string::String,
 
     /// Optional. The CIDR block from which IP range in tenant project will be
     /// reserved for Cloud SQL. Needs to be disjoint from
     /// `web_server_ipv4_cidr_block`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub cloud_sql_ipv4_cidr_block: std::string::String,
 
     /// Output only. The IP range reserved for the tenant project's App Engine VMs.
@@ -4841,6 +4958,7 @@ pub struct PrivateEnvironmentConfig {
     /// This field is supported for Cloud Composer environments in versions
     /// composer-1.*.*-airflow-*.*.*.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub web_server_ipv4_reserved_range: std::string::String,
 
     /// Optional. The CIDR block from which IP range for Cloud Composer Network in
@@ -4851,6 +4969,7 @@ pub struct PrivateEnvironmentConfig {
     /// This field is supported for Cloud Composer environments in versions
     /// composer-2.*.*-airflow-*.*.* and newer.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub cloud_composer_network_ipv4_cidr_block: std::string::String,
 
     /// Output only. The IP range reserved for the tenant project's Cloud Composer
@@ -4859,12 +4978,14 @@ pub struct PrivateEnvironmentConfig {
     /// This field is supported for Cloud Composer environments in versions
     /// composer-2.*.*-airflow-*.*.* and newer.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub cloud_composer_network_ipv4_reserved_range: std::string::String,
 
     /// Optional. When enabled, IPs from public (non-RFC1918) ranges can be used
     /// for `IPAllocationPolicy.cluster_ipv4_cidr_block` and
     /// `IPAllocationPolicy.service_ipv4_cidr_block`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub enable_privately_used_public_ips: bool,
 
     /// Optional. When specified, the environment will use Private Service Connect
@@ -4872,6 +4993,7 @@ pub struct PrivateEnvironmentConfig {
     /// and the PSC endpoint in the Customer Project will use an IP address from
     /// this subnetwork.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub cloud_composer_connection_subnetwork: std::string::String,
 
     /// Optional. Configuration for the network connections configuration in the
@@ -5160,24 +5282,24 @@ pub mod workloads_config {
     pub struct SchedulerResource {
         /// Optional. CPU request and limit for a single Airflow scheduler replica.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::F32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
         pub cpu: f32,
 
         /// Optional. Memory (GB) request and limit for a single Airflow scheduler
         /// replica.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::F32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
         pub memory_gb: f32,
 
         /// Optional. Storage (GB) request and limit for a single Airflow scheduler
         /// replica.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::F32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
         pub storage_gb: f32,
 
         /// Optional. The number of schedulers.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub count: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5228,17 +5350,17 @@ pub mod workloads_config {
     pub struct WebServerResource {
         /// Optional. CPU request and limit for Airflow web server.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::F32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
         pub cpu: f32,
 
         /// Optional. Memory (GB) request and limit for Airflow web server.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::F32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
         pub memory_gb: f32,
 
         /// Optional. Storage (GB) request and limit for Airflow web server.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::F32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
         pub storage_gb: f32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5283,29 +5405,29 @@ pub mod workloads_config {
     pub struct WorkerResource {
         /// Optional. CPU request and limit for a single Airflow worker replica.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::F32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
         pub cpu: f32,
 
         /// Optional. Memory (GB) request and limit for a single Airflow worker
         /// replica.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::F32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
         pub memory_gb: f32,
 
         /// Optional. Storage (GB) request and limit for a single Airflow worker
         /// replica.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::F32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
         pub storage_gb: f32,
 
         /// Optional. Minimum number of workers for autoscaling.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub min_count: i32,
 
         /// Optional. Maximum number of workers for autoscaling.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub max_count: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5362,18 +5484,18 @@ pub mod workloads_config {
     pub struct TriggererResource {
         /// Optional. The number of triggerers.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub count: i32,
 
         /// Optional. CPU request and limit for a single Airflow triggerer replica.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::F32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
         pub cpu: f32,
 
         /// Optional. Memory (GB) request and limit for a single Airflow triggerer
         /// replica.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::F32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
         pub memory_gb: f32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5422,25 +5544,25 @@ pub mod workloads_config {
         /// Optional. CPU request and limit for a single Airflow DAG processor
         /// replica.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::F32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
         pub cpu: f32,
 
         /// Optional. Memory (GB) request and limit for a single Airflow DAG
         /// processor replica.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::F32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
         pub memory_gb: f32,
 
         /// Optional. Storage (GB) request and limit for a single Airflow DAG
         /// processor replica.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::F32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
         pub storage_gb: f32,
 
         /// Optional. The number of DAG processors. If not provided or set to 0, a
         /// single DAG processor instance will be created.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub count: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5536,22 +5658,26 @@ impl wkt::message::Message for RecoveryConfig {
 pub struct ScheduledSnapshotsConfig {
     /// Optional. Whether scheduled snapshots creation is enabled.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub enabled: bool,
 
     /// Optional. The Cloud Storage location for storing automatically created
     /// snapshots.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub snapshot_location: std::string::String,
 
     /// Optional. The cron expression representing the time when snapshots creation
     /// mechanism runs. This field is subject to additional validation around
     /// frequency of execution.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub snapshot_creation_schedule: std::string::String,
 
     /// Optional. Time zone that sets the context to interpret
     /// snapshot_creation_schedule.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub time_zone: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5611,11 +5737,13 @@ impl wkt::message::Message for ScheduledSnapshotsConfig {
 pub struct MasterAuthorizedNetworksConfig {
     /// Optional. Whether or not master authorized networks feature is enabled.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub enabled: bool,
 
     /// Up to 50 external networks that could access Kubernetes master through
     /// HTTPS.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub cidr_blocks: std::vec::Vec<crate::model::master_authorized_networks_config::CidrBlock>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5664,10 +5792,12 @@ pub mod master_authorized_networks_config {
     pub struct CidrBlock {
         /// User-defined name that identifies the CIDR block.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub display_name: std::string::String,
 
         /// CIDR block that must be specified in CIDR notation.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub cidr_block: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5710,6 +5840,7 @@ pub mod master_authorized_networks_config {
 pub struct CloudDataLineageIntegration {
     /// Optional. Whether or not Cloud Data Lineage integration is enabled.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub enabled: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5746,6 +5877,7 @@ pub struct Environment {
     /// EnvironmentId must start with a lowercase letter followed by up to 63
     /// lowercase letters, numbers, or hyphens, and cannot end with a hyphen.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. Configuration parameters for this environment.
@@ -5755,10 +5887,12 @@ pub struct Environment {
     /// Output only. The UUID (Universally Unique IDentifier) associated with this
     /// environment. This value is generated when the environment is created.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub uuid: std::string::String,
 
     /// The current state of the environment.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::environment::State,
 
     /// Output only. The time at which this environment was created.
@@ -5778,14 +5912,17 @@ pub struct Environment {
     /// * Both keys and values are additionally constrained to be <= 128 bytes in
     ///   size.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. Reserved for future use.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub satisfies_pzs: bool,
 
     /// Output only. Reserved for future use.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub satisfies_pzi: bool,
 
     /// Optional. Storage configuration for this environment.
@@ -6095,6 +6232,7 @@ pub struct CheckUpgradeRequest {
     /// form:
     /// "projects/{projectId}/locations/{locationId}/environments/{environmentId}"
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub environment: std::string::String,
 
     /// Optional. The version of the software running in the environment.
@@ -6122,6 +6260,7 @@ pub struct CheckUpgradeRequest {
     /// list](/composer/docs/concepts/versioning/composer-versions) and [versioning
     /// overview](/composer/docs/concepts/versioning/composer-versioning-overview).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub image_version: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6161,24 +6300,29 @@ impl wkt::message::Message for CheckUpgradeRequest {
 pub struct CheckUpgradeResponse {
     /// Output only. Url for a docker build log of an upgraded image.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub build_log_uri: std::string::String,
 
     /// Output only. Whether build has succeeded or failed on modules conflicts.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub contains_pypi_modules_conflict: crate::model::check_upgrade_response::ConflictResult,
 
     /// Output only. Extract from a docker image build log containing information
     /// about pypi modules conflicts.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub pypi_conflict_build_log_extract: std::string::String,
 
     /// Composer image for which the build was happening.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub image_version: std::string::String,
 
     /// Pypi dependencies specified in the environment configuration, at the time
     /// when the build was triggered.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub pypi_dependencies: std::collections::HashMap<std::string::String, std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6456,6 +6600,7 @@ impl wkt::message::Message for DataRetentionConfig {
 pub struct TaskLogsRetentionConfig {
     /// Optional. The mode of storage for Airflow workers task logs.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub storage_mode: crate::model::task_logs_retention_config::TaskLogsStorageMode,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6635,11 +6780,12 @@ pub mod task_logs_retention_config {
 pub struct AirflowMetadataRetentionPolicyConfig {
     /// Optional. Retention can be either enabled or disabled.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub retention_mode: crate::model::airflow_metadata_retention_policy_config::RetentionMode,
 
     /// Optional. How many days data should be retained for.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub retention_days: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6821,19 +6967,22 @@ pub struct ListImageVersionsRequest {
     /// List ImageVersions in the given project and location, in the form:
     /// "projects/{projectId}/locations/{locationId}"
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The maximum number of image_versions to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous List request, if any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Whether or not image versions from old releases should be included.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub include_past_releases: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6884,10 +7033,12 @@ impl wkt::message::Message for ListImageVersionsRequest {
 pub struct ListImageVersionsResponse {
     /// The list of supported ImageVersions in a location.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub image_versions: std::vec::Vec<crate::model::ImageVersion>,
 
     /// The page token used to query for the next page if one exists.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6946,15 +7097,18 @@ pub struct ImageVersion {
     /// The string identifier of the ImageVersion, in the form:
     /// "composer-x.y.z-airflow-a.b.c"
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub image_version_id: std::string::String,
 
     /// Whether this is the default ImageVersion used by Composer during
     /// environment creation if no input ImageVersion is specified.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub is_default: bool,
 
     /// supported python versions
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub supported_python_versions: std::vec::Vec<std::string::String>,
 
     /// The date of the version release.
@@ -6963,11 +7117,13 @@ pub struct ImageVersion {
 
     /// Whether it is impossible to create an environment with the image version.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub creation_disabled: bool,
 
     /// Whether it is impossible to upgrade an environment running with the image
     /// version.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub upgrade_disabled: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7050,19 +7206,23 @@ impl wkt::message::Message for ImageVersion {
 pub struct OperationMetadata {
     /// Output only. The current operation state.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::operation_metadata::State,
 
     /// Output only. The type of operation being performed.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub operation_type: crate::model::operation_metadata::Type,
 
     /// Output only. The resource being operated on, as a [relative resource name](
     /// /apis/design/resource_names#relative_resource_name).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub resource: std::string::String,
 
     /// Output only. The UUID of the resource being operated on.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub resource_uuid: std::string::String,
 
     /// Output only. The time the operation was submitted to the server.

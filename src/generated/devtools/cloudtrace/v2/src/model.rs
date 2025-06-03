@@ -57,15 +57,18 @@ pub struct Span {
     /// be zero.
     /// .
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. The `[SPAN_ID]` portion of the span's resource name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub span_id: std::string::String,
 
     /// The `[SPAN_ID]` of this span's parent span. If this is a root span,
     /// then this field must be empty.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent_span_id: std::string::String,
 
     /// Required. A description of the span's operation (up to 128 bytes).
@@ -129,6 +132,7 @@ pub struct Span {
     /// For example, two spans with the same name may be distinguished using
     /// `CLIENT` (caller) and `SERVER` (callee) to identify an RPC call.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub span_kind: crate::model::span::SpanKind,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -375,6 +379,7 @@ pub mod span {
         /// "abc.com/myattribute": { "bool_value": false }
         /// ```
         #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
         pub attribute_map:
             std::collections::HashMap<std::string::String, crate::model::AttributeValue>,
 
@@ -382,7 +387,7 @@ pub mod span {
         /// because their keys are too long or because there are too many attributes.
         /// If this value is 0 then all attributes are valid.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub dropped_attributes_count: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -631,24 +636,25 @@ pub mod span {
             /// received.
             #[serde(rename = "type")]
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub r#type: crate::model::span::time_event::message_event::Type,
 
             /// An identifier for the MessageEvent's message that can be used to match
             /// `SENT` and `RECEIVED` MessageEvents.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "wkt::internal::I64")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
             pub id: i64,
 
             /// The number of uncompressed bytes sent or received.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "wkt::internal::I64")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
             pub uncompressed_size_bytes: i64,
 
             /// The number of compressed bytes sent or received. If missing, the
             /// compressed size is assumed to be the same size as the uncompressed
             /// size.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "wkt::internal::I64")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
             pub compressed_size_bytes: i64,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -861,18 +867,19 @@ pub mod span {
     pub struct TimeEvents {
         /// A collection of `TimeEvent`s.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub time_event: std::vec::Vec<crate::model::span::TimeEvent>,
 
         /// The number of dropped annotations in all the included time events.
         /// If the value is 0, then no annotations were dropped.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub dropped_annotations_count: i32,
 
         /// The number of dropped message events in all the included time events.
         /// If the value is 0, then no message events were dropped.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub dropped_message_events_count: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -928,15 +935,18 @@ pub mod span {
     pub struct Link {
         /// The `[TRACE_ID]` for a trace within a project.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub trace_id: std::string::String,
 
         /// The `[SPAN_ID]` for a span within a trace.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub span_id: std::string::String,
 
         /// The relationship of the current span relative to the linked span.
         #[serde(rename = "type")]
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub r#type: crate::model::span::link::Type,
 
         /// A set of attributes on the link. Up to 32 attributes can be
@@ -1150,12 +1160,13 @@ pub mod span {
     pub struct Links {
         /// A collection of links.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub link: std::vec::Vec<crate::model::span::Link>,
 
         /// The number of dropped links after the maximum size was enforced. If
         /// this value is 0, then no links were dropped.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub dropped_links_count: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1482,9 +1493,9 @@ pub mod attribute_value {
         /// A string up to 256 bytes long.
         StringValue(std::boxed::Box<crate::model::TruncatableString>),
         /// A 64-bit signed integer.
-        IntValue(#[serde_as(as = "wkt::internal::I64")] i64),
+        IntValue(#[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")] i64),
         /// A Boolean value represented by `true` or `false`.
-        BoolValue(bool),
+        BoolValue(#[serde_as(as = "serde_with::DefaultOnNull<_>")] bool),
     }
 }
 
@@ -1508,7 +1519,7 @@ pub struct StackTrace {
     /// Subsequent spans within the same request can refer
     /// to that stack trace by only setting `stackTraceHashId`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub stack_trace_hash_id: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1581,13 +1592,13 @@ pub mod stack_trace {
 
         /// The line number in `file_name` where the function call appears.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I64")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
         pub line_number: i64,
 
         /// The column number where the function call appears, if available.
         /// This is important in JavaScript because of its anonymous functions.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I64")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
         pub column_number: i64,
 
         /// The binary module from where the code was loaded.
@@ -1724,13 +1735,14 @@ pub mod stack_trace {
     pub struct StackFrames {
         /// Stack frames in this call stack.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub frame: std::vec::Vec<crate::model::stack_trace::StackFrame>,
 
         /// The number of stack frames that were dropped because there
         /// were too many stack frames.
         /// If this value is 0, then no stack frames were dropped.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub dropped_frames_count: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1849,12 +1861,13 @@ pub struct TruncatableString {
     /// are multi-byte characters in the string, then the length of the
     /// shortened string might be less than the size limit.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub value: std::string::String,
 
     /// The number of bytes removed from the original string. If this
     /// value is 0, then the string was not shortened.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub truncated_byte_count: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1894,11 +1907,13 @@ pub struct BatchWriteSpansRequest {
     /// Required. The name of the project where the spans belong. The format is
     /// `projects/[PROJECT_ID]`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. A list of new spans. The span names must not match existing
     /// spans, otherwise the results are undefined.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub spans: std::vec::Vec<crate::model::Span>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

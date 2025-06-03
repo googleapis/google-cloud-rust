@@ -41,6 +41,7 @@ pub struct CreateWorkloadRequest {
     /// Required. The resource name of the new Workload's parent.
     /// Must be of the form `organizations/{org_id}/locations/{location_id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. Assured Workload to create
@@ -52,6 +53,7 @@ pub struct CreateWorkloadRequest {
     /// provided for the identifier will add a label to the workload and contained
     /// projects with the identifier as the value.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub external_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -179,11 +181,13 @@ pub struct DeleteWorkloadRequest {
     /// Format:
     /// organizations/{org_id}/locations/{location_id}/workloads/{workload_id}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. The etag of the workload.
     /// If this is provided, it must match the server's etag.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -226,6 +230,7 @@ pub struct GetWorkloadRequest {
     /// For example,
     /// "organizations/123/locations/us-east1/workloads/assured-workload-1".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -259,22 +264,25 @@ pub struct ListWorkloadsRequest {
     /// Required. Parent Resource to list workloads from.
     /// Must be of the form `organizations/{org_id}/locations/{location}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Page size.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Page token returned from previous request. Page token contains context from
     /// previous request. Page token needs to be passed in the second and following
     /// requests.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// A custom filter for filtering by properties of a workload. At this time,
     /// only filtering by labels is supported.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -325,10 +333,12 @@ impl wkt::message::Message for ListWorkloadsRequest {
 pub struct ListWorkloadsResponse {
     /// List of Workloads under a given parent.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub workloads: std::vec::Vec<crate::model::Workload>,
 
     /// The next page token. Return empty if reached the last page.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -391,6 +401,7 @@ pub struct Workload {
     ///
     /// Read-only.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. The user-assigned display name of the Workload.
@@ -400,6 +411,7 @@ pub struct Workload {
     ///
     /// Example: My Workload
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// Output only. The resources associated with this workload.
@@ -407,10 +419,12 @@ pub struct Workload {
     /// If any of the projects already exist, the workload creation will fail.
     /// Always read only.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub resources: std::vec::Vec<crate::model::workload::ResourceInfo>,
 
     /// Required. Immutable. Compliance Regime associated with this workload.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub compliance_regime: crate::model::workload::ComplianceRegime,
 
     /// Output only. Immutable. The Workload creation timestamp.
@@ -426,15 +440,18 @@ pub struct Workload {
     /// `billingAccounts/{billing_account_id}`. For example,
     /// `billingAccounts/012345-567890-ABCDEF`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub billing_account: std::string::String,
 
     /// Optional. ETag of the workload, it is calculated on the basis
     /// of the Workload contents. It will be used in Update & Delete operations.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     /// Optional. Labels applied to the workload.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Input only. The parent resource for the resources managed by this Assured Workload. May
@@ -444,6 +461,7 @@ pub struct Workload {
     /// Format:
     /// folders/{folder_id}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub provisioned_resources_parent: std::string::String,
 
     /// Input only. Settings used to create a CMEK crypto key. When set, a project with a KMS
@@ -459,15 +477,18 @@ pub struct Workload {
     /// These properties (such as custom project id) will be used to create
     /// workload resources if possible. This field is optional.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub resource_settings: std::vec::Vec<crate::model::workload::ResourceSettings>,
 
     /// Output only. Represents the KAJ enrollment state of the given workload.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub kaj_enrollment_state: crate::model::workload::KajEnrollmentState,
 
     /// Optional. Indicates the sovereignty status of the given workload.
     /// Currently meant to be used by Europe/Canada customers.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub enable_sovereign_controls: bool,
 
     /// Output only. Represents the SAA enrollment response of the given workload.
@@ -481,10 +502,12 @@ pub struct Workload {
     /// Invoke RestrictAllowedResources endpoint to allow your project developers
     /// to use these services in their environment."
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub compliant_but_disallowed_services: std::vec::Vec<std::string::String>,
 
     /// Optional. Compliance Regime associated with this workload.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub partner: crate::model::workload::Partner,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -688,11 +711,12 @@ pub mod workload {
         /// Resource identifier.
         /// For a project this represents project_number.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I64")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
         pub resource_id: i64,
 
         /// Indicates the type of resource.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub resource_type: crate::model::workload::resource_info::ResourceType,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -975,18 +999,21 @@ pub mod workload {
         /// For KeyRing, this represents the keyring_id.
         /// For a folder, don't set this value as folder_id is assigned by Google.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub resource_id: std::string::String,
 
         /// Indicates the type of resource. This field should be specified to
         /// correspond the id to the right resource type (CONSUMER_FOLDER or
         /// ENCRYPTION_KEYS_PROJECT)
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub resource_type: crate::model::workload::resource_info::ResourceType,
 
         /// User-assigned resource display name.
         /// If not empty it will be used to create a resource with the specified
         /// name.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub display_name: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1044,6 +1071,7 @@ pub mod workload {
 
         /// Indicates SAA enrollment setup error if any.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub setup_errors:
             std::vec::Vec<crate::model::workload::saa_enrollment_response::SetupError>,
 
@@ -1871,15 +1899,18 @@ pub struct CreateWorkloadOperationMetadata {
 
     /// Optional. The display name of the workload.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// Optional. The parent of the workload.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. Compliance controls that should be applied to the resources managed by
     /// the workload.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub compliance_regime: crate::model::workload::ComplianceRegime,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1951,10 +1982,12 @@ pub struct RestrictAllowedResourcesRequest {
     /// For example,
     /// "organizations/123/locations/us-east1/workloads/assured-workload-1".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. The type of restriction for using gcp products in the Workload environment.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub restriction_type: crate::model::restrict_allowed_resources_request::RestrictionType,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2167,10 +2200,12 @@ pub struct AcknowledgeViolationRequest {
     /// Format:
     /// organizations/{organization}/locations/{location}/workloads/{workload}/violations/{violation}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. Business justification explaining the need for violation acknowledgement
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub comment: std::string::String,
 
     /// Optional. This field is deprecated and will be removed in future version of the API.
@@ -2181,6 +2216,7 @@ pub struct AcknowledgeViolationRequest {
     /// folders/{folder_id}/policies/{constraint_name}
     /// organizations/{organization_id}/policies/{constraint_name}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     #[deprecated]
     pub non_compliant_org_policy: std::string::String,
 
@@ -2319,6 +2355,7 @@ pub struct ListViolationsRequest {
     /// Required. The Workload name.
     /// Format `organizations/{org_id}/locations/{location}/workloads/{workload}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. Specifies the time window for retrieving active Violations.
@@ -2329,15 +2366,17 @@ pub struct ListViolationsRequest {
 
     /// Optional. Page size.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. Page token returned from previous request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. A custom filter for filtering by the Violations properties.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2406,10 +2445,12 @@ impl wkt::message::Message for ListViolationsRequest {
 pub struct ListViolationsResponse {
     /// List of Violations under a Workload.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub violations: std::vec::Vec<crate::model::Violation>,
 
     /// The next page token. Returns empty if reached the last page.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2469,6 +2510,7 @@ pub struct GetViolationRequest {
     /// Format:
     /// organizations/{organization}/locations/{location}/workloads/{workload}/violations/{violation}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2503,11 +2545,13 @@ pub struct Violation {
     /// Format:
     /// organizations/{organization}/locations/{location}/workloads/{workload_id}/violations/{violations_id}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. Description for the Violation.
     /// e.g. OrgPolicy gcp.resourceLocations has non compliant value.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Output only. Time of the event which triggered the Violation.
@@ -2526,21 +2570,25 @@ pub struct Violation {
     /// Output only. Category under which this violation is mapped.
     /// e.g. Location, Service Usage, Access, Encryption, etc.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub category: std::string::String,
 
     /// Output only. State of the violation
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::violation::State,
 
     /// Output only. Immutable. The org-policy-constraint that was incorrectly changed, which resulted in
     /// this violation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub org_policy_constraint: std::string::String,
 
     /// Output only. Immutable. Audit Log Link for violated resource
     /// Format:
     /// <https://console.cloud.google.com/logs/query>;query={logName}{protoPayload.resourceName}{timeRange}{folder}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub audit_log_link: std::string::String,
 
     /// Output only. Immutable. Name of the OrgPolicy which was modified with non-compliant change and
@@ -2550,6 +2598,7 @@ pub struct Violation {
     /// folders/{folder_id}/policies/{constraint_name}
     /// organizations/{organization_id}/policies/{constraint_name}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub non_compliant_org_policy: std::string::String,
 
     /// Output only. Compliance violation remediation
@@ -2558,6 +2607,7 @@ pub struct Violation {
 
     /// Output only. A boolean that indicates if the violation is acknowledged
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub acknowledged: bool,
 
     /// Optional. Timestamp when this violation was acknowledged last.
@@ -2569,6 +2619,7 @@ pub struct Violation {
     /// exception. Format:
     /// <https://console.cloud.google.com/logs/query>;query={logName}{protoPayload.resourceName}{protoPayload.methodName}{timeRange}{organization}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub exception_audit_log_link: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2763,10 +2814,12 @@ pub mod violation {
         /// For example: for list org policy violations, this will either be the list
         /// of allowed or denied values
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub compliant_values: std::vec::Vec<std::string::String>,
 
         /// Output only. Reemediation type based on the type of org policy values violated
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub remediation_type: crate::model::violation::remediation::RemediationType,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2911,14 +2964,17 @@ pub mod violation {
             pub struct Gcloud {
                 /// Gcloud command to resolve violation
                 #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+                #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
                 pub gcloud_commands: std::vec::Vec<std::string::String>,
 
                 /// Steps to resolve violation via gcloud cli
                 #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+                #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
                 pub steps: std::vec::Vec<std::string::String>,
 
                 /// Additional urls for more information about steps
                 #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+                #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
                 pub additional_links: std::vec::Vec<std::string::String>,
 
                 #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2978,14 +3034,17 @@ pub mod violation {
             pub struct Console {
                 /// Link to console page where violations can be resolved
                 #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+                #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
                 pub console_uris: std::vec::Vec<std::string::String>,
 
                 /// Steps to resolve violation via cloud console
                 #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+                #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
                 pub steps: std::vec::Vec<std::string::String>,
 
                 /// Additional urls for more information about steps
                 #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+                #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
                 pub additional_links: std::vec::Vec<std::string::String>,
 
                 #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

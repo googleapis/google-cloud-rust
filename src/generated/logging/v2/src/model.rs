@@ -67,6 +67,7 @@ pub struct LogEntry {
     /// slash and filtering for a log name with a leading slash will never return
     /// any results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub log_name: std::string::String,
 
     /// Required. The monitored resource that produced this log entry.
@@ -99,6 +100,7 @@ pub struct LogEntry {
     /// Optional. The severity of the log entry. The default value is
     /// `LogSeverity.DEFAULT`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub severity: logging_type::model::LogSeverity,
 
     /// Optional. A unique identifier for the log entry. If you provide a value,
@@ -113,6 +115,7 @@ pub struct LogEntry {
     /// In queries, the `insert_id` is also used to order log entries that have
     /// the same `log_name` and `timestamp` values.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub insert_id: std::string::String,
 
     /// Optional. Information about the HTTP request associated with this log
@@ -135,6 +138,7 @@ pub struct LogEntry {
     /// written. The truncation is indicated by an ellipsis at the
     /// end of the character string.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Optional. Information about an operation associated with the log entry, if
@@ -152,6 +156,7 @@ pub struct LogEntry {
     /// The `trace` field provides the link between logs and traces. By using
     /// this field, you can navigate from a log entry to a trace.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub trace: std::string::String,
 
     /// Optional. The ID of the [Cloud Trace](https://cloud.google.com/trace) span
@@ -185,6 +190,7 @@ pub struct LogEntry {
     /// - `0000f00300090021`
     /// - `d39223e101960076`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub span_id: std::string::String,
 
     /// Optional. The sampling decision of the trace associated with the log entry.
@@ -195,6 +201,7 @@ pub struct LogEntry {
     /// unknown at the time. A non-sampled `trace` value is still useful as a
     /// request correlation identifier. The default is False.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub trace_sampled: bool,
 
     /// Optional. Source code location information associated with the log entry,
@@ -511,7 +518,7 @@ pub mod log_entry {
         /// "type.googleapis.com/google.appengine.logging.v1.RequestLog"
         ProtoPayload(std::boxed::Box<wkt::Any>),
         /// The log entry payload, represented as a Unicode string (UTF-8).
-        TextPayload(std::string::String),
+        TextPayload(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// The log entry payload, represented as a structure that is
         /// expressed as a JSON object.
         JsonPayload(std::boxed::Box<wkt::Struct>),
@@ -528,20 +535,24 @@ pub struct LogEntryOperation {
     /// Optional. An arbitrary operation identifier. Log entries with the same
     /// identifier are assumed to be part of the same operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub id: std::string::String,
 
     /// Optional. An arbitrary producer identifier. The combination of `id` and
     /// `producer` must be globally unique. Examples for `producer`:
     /// `"MyDivision.MyBigCompany.com"`, `"github.com/MyProject/MyApplication"`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub producer: std::string::String,
 
     /// Optional. Set this to True if this is the first log entry in the operation.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub first: bool,
 
     /// Optional. Set this to True if this is the last log entry in the operation.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub last: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -594,12 +605,13 @@ pub struct LogEntrySourceLocation {
     /// Optional. Source file name. Depending on the runtime environment, this
     /// might be a simple name or a fully-qualified name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub file: std::string::String,
 
     /// Optional. Line within the source file. 1-based; 0 indicates no line number
     /// available.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub line: i64,
 
     /// Optional. Human-readable name of the function or method being invoked, with
@@ -609,6 +621,7 @@ pub struct LogEntrySourceLocation {
     /// `qual.if.ied.Class.method` (Java), `dir/package.func` (Go), `function`
     /// (Python).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub function: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -657,18 +670,19 @@ pub struct LogSplit {
     /// entries. All log entries with the same |LogSplit.uid| are assumed to be
     /// part of the same sequence of split log entries.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub uid: std::string::String,
 
     /// The index of this LogEntry in the sequence of split log entries. Log
     /// entries are given |index| values 0, 1, ..., n-1 for a sequence of n log
     /// entries.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub index: i32,
 
     /// The total number of log entries that the original LogEntry was split into.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub total_splits: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -727,6 +741,7 @@ pub struct DeleteLogRequest {
     ///
     /// [google.logging.v2.LogEntry]: crate::model::LogEntry
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub log_name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -777,6 +792,7 @@ pub struct WriteLogEntriesRequest {
     /// entries, whether the resource is specified in `logName` or in an
     /// individual log entry.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub log_name: std::string::String,
 
     /// Optional. A default monitored resource object that is assigned to all log
@@ -801,6 +817,7 @@ pub struct WriteLogEntriesRequest {
     ///
     /// [google.logging.v2.LogEntry]: crate::model::LogEntry
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Required. The log entries to send to Logging. The order of log
@@ -830,6 +847,7 @@ pub struct WriteLogEntriesRequest {
     ///
     /// [google.logging.v2.LogEntry]: crate::model::LogEntry
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub entries: std::vec::Vec<crate::model::LogEntry>,
 
     /// Optional. Whether a batch's valid entries should be written even if some
@@ -840,12 +858,14 @@ pub struct WriteLogEntriesRequest {
     /// the entries' zero-based index in the `entries`. Failed requests for which
     /// no entries are written will not include per-entry errors.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub partial_success: bool,
 
     /// Optional. If true, the request should expect normal response, but the
     /// entries won't be persisted nor exported. Useful for checking whether the
     /// logging API endpoints are working properly before sending valuable data.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub dry_run: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -958,7 +978,7 @@ pub struct WriteLogEntriesPartialErrors {
     /// Failed requests for which no entries are written will not include
     /// per-entry errors.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    #[serde_as(as = "std::collections::HashMap<wkt::internal::I32, _>")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<wkt::internal::I32, _>>")]
     pub log_entry_errors: std::collections::HashMap<i32, rpc::model::Status>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1013,6 +1033,7 @@ pub struct ListLogEntriesRequest {
     /// Projects listed in the `project_ids` field are added to this list.
     /// A maximum of 100 resources may be specified in a single request.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub resource_names: std::vec::Vec<std::string::String>,
 
     /// Optional. Only log entries that match the filter are returned.  An empty
@@ -1021,6 +1042,7 @@ pub struct ListLogEntriesRequest {
     /// cause the filter to return no results. The maximum length of a filter is
     /// 20,000 characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Optional. How the results should be sorted.  Presently, the only permitted
@@ -1030,6 +1052,7 @@ pub struct ListLogEntriesRequest {
     /// in order of decreasing timestamps (newest first).  Entries with equal
     /// timestamps are returned in order of their `insert_id` values.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     /// Optional. The maximum number of results to return from this request.
@@ -1037,7 +1060,7 @@ pub struct ListLogEntriesRequest {
     /// rejected. The presence of `next_page_token` in the response indicates that
     /// more results might be available.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. If present, then retrieve the next batch of results from the
@@ -1045,6 +1068,7 @@ pub struct ListLogEntriesRequest {
     /// `next_page_token` from the previous response.  The values of other method
     /// parameters should be identical to those in the previous call.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1108,6 +1132,7 @@ pub struct ListLogEntriesResponse {
     /// returned, indicating that more entries may exist.  See `nextPageToken` for
     /// more information.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub entries: std::vec::Vec<crate::model::LogEntry>,
 
     /// If there might be more results than those appearing in this response, then
@@ -1121,6 +1146,7 @@ pub struct ListLogEntriesResponse {
     /// speeding up the search by changing your filter to specify a single log name
     /// or resource type, or to narrow the time range of the search.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1180,7 +1206,7 @@ pub struct ListMonitoredResourceDescriptorsRequest {
     /// Non-positive values are ignored.  The presence of `nextPageToken` in the
     /// response indicates that more results might be available.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. If present, then retrieve the next batch of results from the
@@ -1188,6 +1214,7 @@ pub struct ListMonitoredResourceDescriptorsRequest {
     /// `nextPageToken` from the previous response.  The values of other method
     /// parameters should be identical to those in the previous call.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1226,12 +1253,14 @@ impl wkt::message::Message for ListMonitoredResourceDescriptorsRequest {
 pub struct ListMonitoredResourceDescriptorsResponse {
     /// A list of resource descriptors.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub resource_descriptors: std::vec::Vec<api::model::MonitoredResourceDescriptor>,
 
     /// If there might be more results than those appearing in this response, then
     /// `nextPageToken` is included.  To get the next set of results, call this
     /// method again using the value of `nextPageToken` as `pageToken`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1294,6 +1323,7 @@ pub struct ListLogsRequest {
     /// * `billingAccounts/[BILLING_ACCOUNT_ID]`
     /// * `folders/[FOLDER_ID]`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. List of resource names to list logs for:
@@ -1312,13 +1342,14 @@ pub struct ListLogsRequest {
     ///
     /// The resource name in the `parent` field is added to this list.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub resource_names: std::vec::Vec<std::string::String>,
 
     /// Optional. The maximum number of results to return from this request.
     /// Non-positive values are ignored.  The presence of `nextPageToken` in the
     /// response indicates that more results might be available.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. If present, then retrieve the next batch of results from the
@@ -1326,6 +1357,7 @@ pub struct ListLogsRequest {
     /// `nextPageToken` from the previous response.  The values of other method
     /// parameters should be identical to those in the previous call.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1383,12 +1415,14 @@ pub struct ListLogsResponse {
     /// `"projects/my-project/logs/syslog"` or
     /// `"organizations/123/logs/cloudresourcemanager.googleapis.com%2Factivity"`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub log_names: std::vec::Vec<std::string::String>,
 
     /// If there might be more results than those appearing in this response, then
     /// `nextPageToken` is included.  To get the next set of results, call this
     /// method again using the value of `nextPageToken` as `pageToken`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1444,6 +1478,7 @@ pub struct TailLogEntriesRequest {
     /// * `billingAccounts/[BILLING_ACCOUNT_ID]/locations/[LOCATION_ID]/buckets/[BUCKET_ID]/views/[VIEW_ID]`
     /// * `folders/[FOLDER_ID]/locations/[LOCATION_ID]/buckets/[BUCKET_ID]/views/[VIEW_ID]`
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub resource_names: std::vec::Vec<std::string::String>,
 
     /// Optional. Only log entries that match the filter are returned.  An empty
@@ -1452,6 +1487,7 @@ pub struct TailLogEntriesRequest {
     /// cause the filter to return no results. The maximum length of a filter is
     /// 20,000 characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Optional. The amount of time to buffer log entries at the server before
@@ -1522,6 +1558,7 @@ pub struct TailLogEntriesResponse {
     /// increasing values of `LogEntry.timestamp`. Ordering is not guaranteed
     /// between separate responses.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub entries: std::vec::Vec<crate::model::LogEntry>,
 
     /// If entries that otherwise would have been included in the session were not
@@ -1530,6 +1567,7 @@ pub struct TailLogEntriesResponse {
     /// one of each reason per response. The counts represent the number of
     /// suppressed entries since the last streamed response.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub suppression_info: std::vec::Vec<crate::model::tail_log_entries_response::SuppressionInfo>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1583,11 +1621,12 @@ pub mod tail_log_entries_response {
     pub struct SuppressionInfo {
         /// The reason that entries were omitted from the session.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub reason: crate::model::tail_log_entries_response::suppression_info::Reason,
 
         /// A lower bound on the count of entries omitted due to `reason`.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub suppressed_count: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1784,11 +1823,13 @@ pub struct IndexConfig {
     ///
     /// For example: `jsonPayload.request.status`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub field_path: std::string::String,
 
     /// Required. The type of data in this index.
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub r#type: crate::model::IndexType,
 
     /// Output only. The timestamp when the index was last modified.
@@ -1864,10 +1905,12 @@ pub struct LogBucket {
     ///
     /// After a bucket has been created, the location cannot be changed.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Describes this bucket.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Output only. The creation timestamp of the bucket. This is not set for any
@@ -1884,7 +1927,7 @@ pub struct LogBucket {
     /// this value is set to zero at bucket creation time, the default time of 30
     /// days will be used.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub retention_days: i32,
 
     /// Whether the bucket is locked.
@@ -1892,16 +1935,19 @@ pub struct LogBucket {
     /// The retention period on a locked bucket cannot be changed. Locked buckets
     /// may only be deleted if they are empty.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub locked: bool,
 
     /// Output only. The bucket lifecycle state.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub lifecycle_state: crate::model::LifecycleState,
 
     /// Whether log analytics is enabled for this bucket.
     ///
     /// Once enabled, log analytics features cannot be disabled.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub analytics_enabled: bool,
 
     /// Log entry field paths that are denied access in this bucket.
@@ -1912,10 +1958,12 @@ pub struct LogBucket {
     /// Restricting a repeated field will restrict all values. Adding a parent will
     /// block all child fields. (e.g. `foo.bar` will block `foo.bar.baz`)
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub restricted_fields: std::vec::Vec<std::string::String>,
 
     /// A list of indexed fields and related configuration data.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub index_configs: std::vec::Vec<crate::model::IndexConfig>,
 
     /// The CMEK settings of the log bucket. If present, new log entries written to
@@ -2069,10 +2117,12 @@ pub struct LogView {
     ///
     /// `projects/my-project/locations/global/buckets/my-bucket/views/my-view`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Describes this view.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Output only. The creation timestamp of the view.
@@ -2098,6 +2148,7 @@ pub struct LogView {
     /// SOURCE("projects/myproject") AND resource.type = "gce_instance"
     /// AND LOG_ID("stdout")
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2187,6 +2238,7 @@ pub struct LogSink {
     /// lower-case alphanumeric characters, underscores, hyphens, and periods.
     /// First character has to be alphanumeric.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. The export destination:
@@ -2203,6 +2255,7 @@ pub struct LogSink {
     /// [Exporting Logs with
     /// Sinks](https://cloud.google.com/logging/docs/api/tasks/exporting-logs).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub destination: std::string::String,
 
     /// Optional. An [advanced logs
@@ -2214,17 +2267,20 @@ pub struct LogSink {
     ///
     /// `logName="projects/[PROJECT_ID]/logs/[LOG_ID]" AND severity>=ERROR`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Optional. A description of this sink.
     ///
     /// The maximum length of the description is 8000 characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Optional. If set to true, then this sink is disabled and it does not export
     /// any log entries.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub disabled: bool,
 
     /// Optional. Log entries that match any of these exclusion filters will not be
@@ -2233,10 +2289,12 @@ pub struct LogSink {
     /// If a log entry is matched by both `filter` and one of `exclusion_filters`
     /// it will not be exported.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub exclusions: std::vec::Vec<crate::model::LogExclusion>,
 
     /// Deprecated. This field is unused.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     #[deprecated]
     pub output_version_format: crate::model::log_sink::VersionFormat,
 
@@ -2262,6 +2320,7 @@ pub struct LogSink {
     /// [google.logging.v2.ConfigServiceV2.CreateSink]: crate::client::ConfigServiceV2::create_sink
     /// [google.logging.v2.ConfigServiceV2.UpdateSink]: crate::client::ConfigServiceV2::update_sink
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub writer_identity: std::string::String,
 
     /// Optional. This field applies only to sinks owned by organizations and
@@ -2282,6 +2341,7 @@ pub struct LogSink {
     /// logName:("projects/test-project1/" OR "projects/test-project2/") AND
     /// resource.type=gce_instance
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub include_children: bool,
 
     /// Output only. The creation timestamp of the sink.
@@ -2622,6 +2682,7 @@ pub struct BigQueryDataset {
     /// The dataset will have a resource path of
     /// "bigquery.googleapis.com/projects/[PROJECT_ID]/datasets/[DATASET_ID]"
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub dataset_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2667,12 +2728,14 @@ pub struct Link {
     ///
     /// `projects/my-project/locations/global/buckets/my-bucket/links/my_link
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Describes this link.
     ///
     /// The maximum length of the description is 8000 characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Output only. The creation timestamp of the link.
@@ -2681,6 +2744,7 @@ pub struct Link {
 
     /// Output only. The resource lifecycle state.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub lifecycle_state: crate::model::LifecycleState,
 
     /// The information of a BigQuery Dataset. When a link is created, a BigQuery
@@ -2778,6 +2842,7 @@ pub struct BigQueryOptions {
     /// has to be used instead. In both cases, tables are sharded based on UTC
     /// timezone.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub use_partitioned_tables: bool,
 
     /// Output only. True if new timestamp column based partitioning is in use,
@@ -2788,6 +2853,7 @@ pub struct BigQueryOptions {
     /// meaning and will be false. Legacy sinks using partitioned tables will have
     /// this field set to false.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub uses_timestamp_column_partitioning: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2840,6 +2906,7 @@ pub struct ListBucketsRequest {
     /// supplying the character `-` in place of [LOCATION_ID] will return all
     /// buckets.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. If present, then retrieve the next batch of results from the
@@ -2847,13 +2914,14 @@ pub struct ListBucketsRequest {
     /// `nextPageToken` from the previous response. The values of other method
     /// parameters should be identical to those in the previous call.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. The maximum number of results to return from this request.
     /// Non-positive values are ignored. The presence of `nextPageToken` in the
     /// response indicates that more results might be available.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2898,12 +2966,14 @@ impl wkt::message::Message for ListBucketsRequest {
 pub struct ListBucketsResponse {
     /// A list of buckets.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub buckets: std::vec::Vec<crate::model::LogBucket>,
 
     /// If there might be more results than appear in this response, then
     /// `nextPageToken` is included. To get the next set of results, call the same
     /// method again using the value of `nextPageToken` as `pageToken`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2969,12 +3039,14 @@ pub struct CreateBucketRequest {
     ///
     /// `"projects/my-project/locations/global"`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. A client-assigned identifier such as `"my-bucket"`. Identifiers
     /// are limited to 100 characters and can include only letters, digits,
     /// underscores, hyphens, and periods.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub bucket_id: std::string::String,
 
     /// Required. The new bucket. The region specified in the new bucket must be
@@ -3048,6 +3120,7 @@ pub struct UpdateBucketRequest {
     ///
     /// `"projects/my-project/locations/global/buckets/my-bucket"`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. The updated bucket.
@@ -3142,6 +3215,7 @@ pub struct GetBucketRequest {
     ///
     /// `"projects/my-project/locations/global/buckets/my-bucket"`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3185,6 +3259,7 @@ pub struct DeleteBucketRequest {
     ///
     /// `"projects/my-project/locations/global/buckets/my-bucket"`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3228,6 +3303,7 @@ pub struct UndeleteBucketRequest {
     ///
     /// `"projects/my-project/locations/global/buckets/my-bucket"`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3264,6 +3340,7 @@ pub struct ListViewsRequest {
     /// "projects/[PROJECT_ID]/locations/[LOCATION_ID]/buckets/[BUCKET_ID]"
     /// ```
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. If present, then retrieve the next batch of results from the
@@ -3271,6 +3348,7 @@ pub struct ListViewsRequest {
     /// `nextPageToken` from the previous response. The values of other method
     /// parameters should be identical to those in the previous call.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. The maximum number of results to return from this request.
@@ -3278,7 +3356,7 @@ pub struct ListViewsRequest {
     /// Non-positive values are ignored. The presence of `nextPageToken` in the
     /// response indicates that more results might be available.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3323,12 +3401,14 @@ impl wkt::message::Message for ListViewsRequest {
 pub struct ListViewsResponse {
     /// A list of views.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub views: std::vec::Vec<crate::model::LogView>,
 
     /// If there might be more results than appear in this response, then
     /// `nextPageToken` is included. To get the next set of results, call the same
     /// method again using the value of `nextPageToken` as `pageToken`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3394,12 +3474,14 @@ pub struct CreateViewRequest {
     ///
     /// `"projects/my-project/locations/global/buckets/my-bucket"`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. A client-assigned identifier such as `"my-view"`. Identifiers are
     /// limited to 100 characters and can include only letters, digits,
     /// underscores, hyphens, and periods.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub view_id: std::string::String,
 
     /// Required. The new view.
@@ -3468,6 +3550,7 @@ pub struct UpdateViewRequest {
     ///
     /// `"projects/my-project/locations/global/buckets/my-bucket/views/my-view"`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. The updated view.
@@ -3559,6 +3642,7 @@ pub struct GetViewRequest {
     ///
     /// `"projects/my-project/locations/global/buckets/my-bucket/views/my-view"`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3599,6 +3683,7 @@ pub struct DeleteViewRequest {
     ///
     /// `"projects/my-project/locations/global/buckets/my-bucket/views/my-view"`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3638,6 +3723,7 @@ pub struct ListSinksRequest {
     /// "folders/[FOLDER_ID]"
     /// ```
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. If present, then retrieve the next batch of results from the
@@ -3645,13 +3731,14 @@ pub struct ListSinksRequest {
     /// `nextPageToken` from the previous response. The values of other method
     /// parameters should be identical to those in the previous call.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. The maximum number of results to return from this request.
     /// Non-positive values are ignored. The presence of `nextPageToken` in the
     /// response indicates that more results might be available.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3696,12 +3783,14 @@ impl wkt::message::Message for ListSinksRequest {
 pub struct ListSinksResponse {
     /// A list of sinks.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub sinks: std::vec::Vec<crate::model::LogSink>,
 
     /// If there might be more results than appear in this response, then
     /// `nextPageToken` is included. To get the next set of results, call the same
     /// method again using the value of `nextPageToken` as `pageToken`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3770,6 +3859,7 @@ pub struct GetSinkRequest {
     ///
     /// `"projects/my-project/sinks/my-sink"`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub sink_name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3814,6 +3904,7 @@ pub struct CreateSinkRequest {
     /// `"projects/my-project"`
     /// `"organizations/123456789"`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The new sink, whose `name` parameter is a sink identifier that
@@ -3836,6 +3927,7 @@ pub struct CreateSinkRequest {
     ///
     /// [google.logging.v2.LogSink]: crate::model::LogSink
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub unique_writer_identity: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3904,6 +3996,7 @@ pub struct UpdateSinkRequest {
     ///
     /// `"projects/my-project/sinks/my-sink"`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub sink_name: std::string::String,
 
     /// Required. The updated sink, whose name is the same identifier that appears
@@ -3925,6 +4018,7 @@ pub struct UpdateSinkRequest {
     ///
     /// [google.logging.v2.ConfigServiceV2.CreateSink]: crate::client::ConfigServiceV2::create_sink
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub unique_writer_identity: bool,
 
     /// Optional. Field mask that specifies the fields in `sink` that need
@@ -4030,6 +4124,7 @@ pub struct DeleteSinkRequest {
     ///
     /// `"projects/my-project/sinks/my-sink"`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub sink_name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4069,6 +4164,7 @@ pub struct CreateLinkRequest {
     /// "folders/[FOLDER_ID]/locations/[LOCATION_ID]/buckets/[BUCKET_ID]"
     /// ```
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The new link.
@@ -4079,6 +4175,7 @@ pub struct CreateLinkRequest {
     /// characters. A valid link_id must only have alphanumeric characters and
     /// underscores within it.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub link_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4140,6 +4237,7 @@ pub struct DeleteLinkRequest {
     /// "billingAccounts/[BILLING_ACCOUNT_ID]/locations/[LOCATION_ID]/buckets/[BUCKET_ID]/links/[LINK_ID]"
     /// "folders/[FOLDER_ID]/locations/[LOCATION_ID]/buckets/[BUCKET_ID]/links/[LINK_ID]"
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4177,17 +4275,19 @@ pub struct ListLinksRequest {
     /// "billingAccounts/[BILLING_ACCOUNT_ID]/locations/[LOCATION_ID]/buckets/[BUCKET_ID]/"
     /// "folders/[FOLDER_ID]/locations/[LOCATION_ID]/buckets/[BUCKET_ID]/
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. If present, then retrieve the next batch of results from the
     /// preceding call to this method. `pageToken` must be the value of
     /// `nextPageToken` from the previous response.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. The maximum number of results to return from this request.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4232,12 +4332,14 @@ impl wkt::message::Message for ListLinksRequest {
 pub struct ListLinksResponse {
     /// A list of links.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub links: std::vec::Vec<crate::model::Link>,
 
     /// If there might be more results than those appearing in this response, then
     /// `nextPageToken` is included. To get the next set of results, call the same
     /// method again using the value of `nextPageToken` as `pageToken`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4300,6 +4402,7 @@ pub struct GetLinkRequest {
     /// "billingAccounts/[BILLING_ACCOUNT_ID]/locations/[LOCATION_ID]/buckets/[BUCKET_ID]/links/[LINK_ID]"
     /// "folders/[FOLDER_ID]/locations/[LOCATION_ID]/buckets/[BUCKET_ID]/links/[LINK_ID]
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4339,10 +4442,12 @@ pub struct LogExclusion {
     /// can include only letters, digits, underscores, hyphens, and periods. First
     /// character has to be alphanumeric.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. A description of this exclusion.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Required. An [advanced logs
@@ -4356,6 +4461,7 @@ pub struct LogExclusion {
     ///
     /// `resource.type=gcs_bucket severity<ERROR sample(insertId, 0.99)`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Optional. If set to True, then this exclusion is disabled and it does not
@@ -4365,6 +4471,7 @@ pub struct LogExclusion {
     ///
     /// [google.logging.v2.ConfigServiceV2.UpdateExclusion]: crate::client::ConfigServiceV2::update_exclusion
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub disabled: bool,
 
     /// Output only. The creation timestamp of the exclusion.
@@ -4470,6 +4577,7 @@ pub struct ListExclusionsRequest {
     /// "folders/[FOLDER_ID]"
     /// ```
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. If present, then retrieve the next batch of results from the
@@ -4477,13 +4585,14 @@ pub struct ListExclusionsRequest {
     /// `nextPageToken` from the previous response. The values of other method
     /// parameters should be identical to those in the previous call.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. The maximum number of results to return from this request.
     /// Non-positive values are ignored. The presence of `nextPageToken` in the
     /// response indicates that more results might be available.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4528,12 +4637,14 @@ impl wkt::message::Message for ListExclusionsRequest {
 pub struct ListExclusionsResponse {
     /// A list of exclusions.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub exclusions: std::vec::Vec<crate::model::LogExclusion>,
 
     /// If there might be more results than appear in this response, then
     /// `nextPageToken` is included. To get the next set of results, call the same
     /// method again using the value of `nextPageToken` as `pageToken`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4602,6 +4713,7 @@ pub struct GetExclusionRequest {
     ///
     /// `"projects/my-project/exclusions/my-exclusion"`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4646,6 +4758,7 @@ pub struct CreateExclusionRequest {
     /// `"projects/my-logging-project"`
     /// `"organizations/123456789"`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The new exclusion, whose `name` parameter is an exclusion name
@@ -4712,6 +4825,7 @@ pub struct UpdateExclusionRequest {
     ///
     /// `"projects/my-project/exclusions/my-exclusion"`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. New values for the existing exclusion. Only the fields specified
@@ -4809,6 +4923,7 @@ pub struct DeleteExclusionRequest {
     ///
     /// `"projects/my-project/exclusions/my-exclusion"`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4864,6 +4979,7 @@ pub struct GetCmekSettingsRequest {
     /// organization, it applies to all projects and folders in the Google Cloud
     /// organization.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4918,6 +5034,7 @@ pub struct UpdateCmekSettingsRequest {
     /// Cloud organizations. Once configured, it applies to all projects and
     /// folders in the Google Cloud organization.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. The CMEK settings to update.
@@ -5015,6 +5132,7 @@ impl wkt::message::Message for UpdateCmekSettingsRequest {
 pub struct CmekSettings {
     /// Output only. The resource name of the CMEK settings.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The resource name for the configured Cloud KMS key.
@@ -5046,6 +5164,7 @@ pub struct CmekSettings {
     /// Router](https://cloud.google.com/logging/docs/routing/managed-encryption)
     /// for more information.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub kms_key_name: std::string::String,
 
     /// The CryptoKeyVersion resource name for the configured Cloud KMS key.
@@ -5068,6 +5187,7 @@ pub struct CmekSettings {
     /// If this field is populated, the `kms_key` is tied to a specific
     /// CryptoKeyVersion.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub kms_key_version_name: std::string::String,
 
     /// Output only. The service account that will be used by the Log Router to
@@ -5085,6 +5205,7 @@ pub struct CmekSettings {
     ///
     /// [google.logging.v2.ConfigServiceV2.GetCmekSettings]: crate::client::ConfigServiceV2::get_cmek_settings
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub service_account_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5164,6 +5285,7 @@ pub struct GetSettingsRequest {
     /// configured for organizations. Once configured for an organization, it
     /// applies to all projects and folders in the Google Cloud organization.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5215,6 +5337,7 @@ pub struct UpdateSettingsRequest {
     /// Google Cloud organizations. Once configured, it applies to all projects and
     /// folders in the Google Cloud organization.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. The settings to update.
@@ -5304,6 +5427,7 @@ impl wkt::message::Message for UpdateSettingsRequest {
 pub struct Settings {
     /// Output only. The resource name of the settings.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. The resource name for the configured Cloud KMS key.
@@ -5334,6 +5458,7 @@ pub struct Settings {
     /// Router](https://cloud.google.com/logging/docs/routing/managed-encryption)
     /// for more information.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub kms_key_name: std::string::String,
 
     /// Output only. The service account that will be used by the Log Router to
@@ -5351,12 +5476,14 @@ pub struct Settings {
     ///
     /// [google.logging.v2.ConfigServiceV2.GetSettings]: crate::client::ConfigServiceV2::get_settings
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub kms_service_account_id: std::string::String,
 
     /// Optional. The Cloud region that will be used for _Default and _Required log
     /// buckets for newly created projects and folders. For example `europe-west1`.
     /// This setting does not affect the location of custom log buckets.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub storage_location: std::string::String,
 
     /// Optional. If set to true, the _Default sink in newly created projects and
@@ -5364,6 +5491,7 @@ pub struct Settings {
     /// disable log ingestion if there is already an aggregated sink configured in
     /// the hierarchy. The _Default sink can be re-enabled manually if needed.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub disable_default_sink: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5430,15 +5558,18 @@ pub struct CopyLogEntriesRequest {
     ///
     /// `"projects/my-project/locations/global/buckets/my-source-bucket"`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. A filter specifying which log entries to copy. The filter must be
     /// no more than 20k characters. An empty filter matches all log entries.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Required. Destination to which to copy log entries.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub destination: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5491,10 +5622,12 @@ pub struct CopyLogEntriesMetadata {
 
     /// State of an operation.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::OperationState,
 
     /// Identifies whether the user has requested cancellation of the operation.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub cancellation_requested: bool,
 
     /// CopyLogEntries RPC request.
@@ -5503,7 +5636,7 @@ pub struct CopyLogEntriesMetadata {
 
     /// Estimated progress of the operation (0 - 100%).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub progress: i32,
 
     /// The IAM identity of a service account that must be granted access to the
@@ -5514,6 +5647,7 @@ pub struct CopyLogEntriesMetadata {
     ///
     /// For example: `"serviceAccount:foo@bar.com"`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub writer_identity: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5618,7 +5752,7 @@ impl wkt::message::Message for CopyLogEntriesMetadata {
 pub struct CopyLogEntriesResponse {
     /// Number of log entries copied.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub log_entries_copied_count: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5659,6 +5793,7 @@ pub struct BucketMetadata {
 
     /// State of an operation.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::OperationState,
 
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
@@ -5833,6 +5968,7 @@ pub struct LinkMetadata {
 
     /// State of an operation.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::OperationState,
 
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
@@ -6000,6 +6136,7 @@ pub struct LocationMetadata {
     /// Indicates whether or not Log Analytics features are supported in the given
     /// location.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub log_analytics_enabled: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6050,11 +6187,13 @@ pub struct LogMetric {
     /// `"projects/my-project/metrics/nginx%2Frequests"`, this field's value is
     /// `"nginx/requests"`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. A description of this metric, which is used in documentation.
     /// The maximum length of the description is 8000 characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Required. An [advanced logs
@@ -6067,6 +6206,7 @@ pub struct LogMetric {
     ///
     /// The maximum length of the filter is 20000 characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Optional. The resource name of the Log Bucket that owns the Log Metric.
@@ -6079,11 +6219,13 @@ pub struct LogMetric {
     ///
     /// If empty, then the Log Metric is considered a non-Bucket Log Metric.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub bucket_name: std::string::String,
 
     /// Optional. If set to True, then this metric is disabled and it does not
     /// generate any points.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub disabled: bool,
 
     /// Optional. The metric descriptor associated with the logs-based metric.
@@ -6131,6 +6273,7 @@ pub struct LogMetric {
     ///
     /// Example: `REGEXP_EXTRACT(jsonPayload.request, ".*quantity=(\d+).*")`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub value_extractor: std::string::String,
 
     /// Optional. A map from a label key string to an extractor expression which is
@@ -6148,6 +6291,7 @@ pub struct LogMetric {
     /// Note that there are upper bounds on the maximum number of labels and the
     /// number of active time series that are allowed in a project.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub label_extractors: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Optional. The `bucket_options` are required when the logs-based metric is
@@ -6171,6 +6315,7 @@ pub struct LogMetric {
     /// Deprecated. The API version that created or updated this metric.
     /// The v2 format is used by default and cannot be changed.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     #[deprecated]
     pub version: crate::model::log_metric::ApiVersion,
 
@@ -6463,6 +6608,7 @@ pub struct ListLogMetricsRequest {
     /// "projects/[PROJECT_ID]"
     /// ```
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. If present, then retrieve the next batch of results from the
@@ -6470,13 +6616,14 @@ pub struct ListLogMetricsRequest {
     /// `nextPageToken` from the previous response. The values of other method
     /// parameters should be identical to those in the previous call.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. The maximum number of results to return from this request.
     /// Non-positive values are ignored. The presence of `nextPageToken` in the
     /// response indicates that more results might be available.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6521,12 +6668,14 @@ impl wkt::message::Message for ListLogMetricsRequest {
 pub struct ListLogMetricsResponse {
     /// A list of logs-based metrics.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub metrics: std::vec::Vec<crate::model::LogMetric>,
 
     /// If there might be more results than appear in this response, then
     /// `nextPageToken` is included. To get the next set of results, call this
     /// method again using the value of `nextPageToken` as `pageToken`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6588,6 +6737,7 @@ pub struct GetLogMetricRequest {
     /// "projects/[PROJECT_ID]/metrics/[METRIC_ID]"
     /// ```
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub metric_name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6626,6 +6776,7 @@ pub struct CreateLogMetricRequest {
     ///
     /// The new metric must be provided in the request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The new logs-based metric, which must not have an identifier that
@@ -6689,6 +6840,7 @@ pub struct UpdateLogMetricRequest {
     /// `name` field must be the same as `[METRIC_ID]` If the metric
     /// does not exist in `[PROJECT_ID]`, then a new metric is created.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub metric_name: std::string::String,
 
     /// Required. The updated metric.
@@ -6747,6 +6899,7 @@ pub struct DeleteLogMetricRequest {
     /// "projects/[PROJECT_ID]/metrics/[METRIC_ID]"
     /// ```
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub metric_name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

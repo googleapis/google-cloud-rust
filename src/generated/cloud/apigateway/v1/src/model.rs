@@ -41,6 +41,7 @@ pub struct Api {
     /// Output only. Resource name of the API.
     /// Format: projects/{project}/locations/global/apis/{api}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. Created time.
@@ -55,10 +56,12 @@ pub struct Api {
     /// Refer to cloud documentation on labels for more details.
     /// <https://cloud.google.com/compute/docs/labeling-resources>
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Optional. Display name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// Optional. Immutable. The name of a Google Managed Service (
@@ -66,10 +69,12 @@ pub struct Api {
     /// not specified, a new Service will automatically be created in the same
     /// project as this API.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub managed_service: std::string::String,
 
     /// Output only. State of the API.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::api::State,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -329,6 +334,7 @@ pub struct ApiConfig {
     /// Output only. Resource name of the API Config.
     /// Format: projects/{project}/locations/global/apis/{api}/configs/{api_config}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. Created time.
@@ -343,10 +349,12 @@ pub struct ApiConfig {
     /// Refer to cloud documentation on labels for more details.
     /// <https://cloud.google.com/compute/docs/labeling-resources>
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Optional. Display name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// Immutable. The Google Cloud IAM Service Account that Gateways serving this config
@@ -357,25 +365,30 @@ pub struct ApiConfig {
     /// when the service is a GCP resource such as a Cloud Run Service or an
     /// IAP-secured service.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub gateway_service_account: std::string::String,
 
     /// Output only. The ID of the associated Service Config (
     /// <https://cloud.google.com/service-infrastructure/docs/glossary#config>).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub service_config_id: std::string::String,
 
     /// Output only. State of the API Config.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::api_config::State,
 
     /// Optional. OpenAPI specification documents. If specified, grpc_services and
     /// managed_service_configs must not be included.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub openapi_documents: std::vec::Vec<crate::model::api_config::OpenApiDocument>,
 
     /// Optional. gRPC service definition files. If specified, openapi_documents must
     /// not be included.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub grpc_services: std::vec::Vec<crate::model::api_config::GrpcServiceDefinition>,
 
     /// Optional. Service Configuration files. At least one must be included when using gRPC
@@ -392,6 +405,7 @@ pub struct ApiConfig {
     /// * Singular embedded messages are merged using these rules for nested
     ///   fields.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub managed_service_configs: std::vec::Vec<crate::model::api_config::File>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -544,11 +558,12 @@ pub mod api_config {
         /// The file path (full or relative path). This is typically the path of the
         /// file when it is uploaded.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub path: std::string::String,
 
         /// The bytes that constitute the file.
         #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-        #[serde_as(as = "serde_with::base64::Base64")]
+        #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
         pub contents: ::bytes::Bytes,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -644,6 +659,7 @@ pub mod api_config {
         /// should match the inputs to 'protoc' command used to generate
         /// file_descriptor_set.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub source: std::vec::Vec<crate::model::api_config::File>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -864,6 +880,7 @@ pub struct Gateway {
     /// Output only. Resource name of the Gateway.
     /// Format: projects/{project}/locations/{location}/gateways/{gateway}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. Created time.
@@ -878,24 +895,29 @@ pub struct Gateway {
     /// Refer to cloud documentation on labels for more details.
     /// <https://cloud.google.com/compute/docs/labeling-resources>
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Optional. Display name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// Required. Resource name of the API Config for this Gateway.
     /// Format: projects/{project}/locations/global/apis/{api}/configs/{apiConfig}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub api_config: std::string::String,
 
     /// Output only. The current state of the Gateway.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::gateway::State,
 
     /// Output only. The default API Gateway host name of the form
     /// `{gateway_id}-{hash}.{region_code}.gateway.dev`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub default_hostname: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1163,23 +1185,27 @@ pub struct ListGatewaysRequest {
     /// Required. Parent resource of the Gateway, of the form:
     /// `projects/*/locations/*`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Page size.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Filter.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Order by parameters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1236,14 +1262,17 @@ impl wkt::message::Message for ListGatewaysRequest {
 pub struct ListGatewaysResponse {
     /// Gateways.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub gateways: std::vec::Vec<crate::model::Gateway>,
 
     /// Next page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable_locations: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1313,6 +1342,7 @@ pub struct GetGatewayRequest {
     /// Required. Resource name of the form:
     /// `projects/*/locations/*/gateways/*`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1346,11 +1376,13 @@ pub struct CreateGatewayRequest {
     /// Required. Parent resource of the Gateway, of the form:
     /// `projects/*/locations/*`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. Identifier to assign to the Gateway. Must be unique within scope of
     /// the parent resource.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub gateway_id: std::string::String,
 
     /// Required. Gateway resource.
@@ -1482,6 +1514,7 @@ pub struct DeleteGatewayRequest {
     /// Required. Resource name of the form:
     /// `projects/*/locations/*/gateways/*`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1515,23 +1548,27 @@ pub struct ListApisRequest {
     /// Required. Parent resource of the API, of the form:
     /// `projects/*/locations/global`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Page size.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Filter.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Order by parameters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1588,14 +1625,17 @@ impl wkt::message::Message for ListApisRequest {
 pub struct ListApisResponse {
     /// APIs.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub apis: std::vec::Vec<crate::model::Api>,
 
     /// Next page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable_locations: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1665,6 +1705,7 @@ pub struct GetApiRequest {
     /// Required. Resource name of the form:
     /// `projects/*/locations/global/apis/*`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1698,11 +1739,13 @@ pub struct CreateApiRequest {
     /// Required. Parent resource of the API, of the form:
     /// `projects/*/locations/global`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. Identifier to assign to the API. Must be unique within scope of
     /// the parent resource.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub api_id: std::string::String,
 
     /// Required. API resource.
@@ -1834,6 +1877,7 @@ pub struct DeleteApiRequest {
     /// Required. Resource name of the form:
     /// `projects/*/locations/global/apis/*`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1867,23 +1911,27 @@ pub struct ListApiConfigsRequest {
     /// Required. Parent resource of the API Config, of the form:
     /// `projects/*/locations/global/apis/*`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Page size.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Filter.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Order by parameters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1940,14 +1988,17 @@ impl wkt::message::Message for ListApiConfigsRequest {
 pub struct ListApiConfigsResponse {
     /// API Configs.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub api_configs: std::vec::Vec<crate::model::ApiConfig>,
 
     /// Next page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable_locations: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2017,11 +2068,13 @@ pub struct GetApiConfigRequest {
     /// Required. Resource name of the form:
     /// `projects/*/locations/global/apis/*/configs/*`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Specifies which fields of the API Config are returned in the response.
     /// Defaults to `BASIC` view.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub view: crate::model::get_api_config_request::ConfigView,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2201,11 +2254,13 @@ pub struct CreateApiConfigRequest {
     /// Required. Parent resource of the API Config, of the form:
     /// `projects/*/locations/global/apis/*`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. Identifier to assign to the API Config. Must be unique within scope of
     /// the parent resource.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub api_config_id: std::string::String,
 
     /// Required. API resource.
@@ -2337,6 +2392,7 @@ pub struct DeleteApiConfigRequest {
     /// Required. Resource name of the form:
     /// `projects/*/locations/global/apis/*/configs/*`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2377,14 +2433,17 @@ pub struct OperationMetadata {
 
     /// Output only. Server-defined resource path for the target of the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub target: std::string::String,
 
     /// Output only. Name of the verb executed by the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub verb: std::string::String,
 
     /// Output only. Human-readable status of the operation, if any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub status_message: std::string::String,
 
     /// Output only. Identifies whether the user has requested cancellation
@@ -2394,14 +2453,17 @@ pub struct OperationMetadata {
     ///
     /// [google.rpc.Status.code]: rpc::model::Status::code
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub api_version: std::string::String,
 
     /// Output only. Diagnostics generated during processing of configuration source files.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub diagnostics: std::vec::Vec<crate::model::operation_metadata::Diagnostic>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2510,10 +2572,12 @@ pub mod operation_metadata {
     pub struct Diagnostic {
         /// Location of the diagnostic.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub location: std::string::String,
 
         /// The diagnostic message.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub message: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

@@ -45,16 +45,18 @@ pub struct ListQuotaInfosRequest {
     /// `folders/234/locations/global/services/compute.googleapis.com`
     /// `organizations/345/locations/global/services/compute.googleapis.com`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. Requested page size. Server may return fewer items than
     /// requested. If unspecified, server will pick an appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -99,11 +101,13 @@ impl wkt::message::Message for ListQuotaInfosRequest {
 pub struct ListQuotaInfosResponse {
     /// The list of QuotaInfo
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub quota_infos: std::vec::Vec<crate::model::QuotaInfo>,
 
     /// A token, which can be sent as `page_token` to retrieve the next page.
     /// If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -164,6 +168,7 @@ pub struct GetQuotaInfoRequest {
     /// An example name:
     /// `projects/123/locations/global/services/compute.googleapis.com/quotaInfos/CpusPerProjectPerRegion`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -205,16 +210,18 @@ pub struct ListQuotaPreferencesRequest {
     /// Example parents:
     /// `projects/123/locations/global`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. Requested page size. Server may return fewer items than
     /// requested. If unspecified, server will pick an appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. Filter result QuotaPreferences by their state, type,
@@ -224,6 +231,7 @@ pub struct ListQuotaPreferencesRequest {
     /// `reconciling=true AND request_type=CLOUD_CONSOLE`,
     /// `reconciling=true OR creation_time>2022-12-03T10:30:00`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Optional. How to order of the results. By default, the results are ordered
@@ -233,6 +241,7 @@ pub struct ListQuotaPreferencesRequest {
     /// `quota_id`,
     /// `service, create_time`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -289,15 +298,18 @@ impl wkt::message::Message for ListQuotaPreferencesRequest {
 pub struct ListQuotaPreferencesResponse {
     /// The list of QuotaPreference
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub quota_preferences: std::vec::Vec<crate::model::QuotaPreference>,
 
     /// A token, which can be sent as `page_token` to retrieve the next page.
     /// If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -369,6 +381,7 @@ pub struct GetQuotaPreferenceRequest {
     /// Example name:
     /// `projects/123/locations/global/quota_preferences/my-config-for-us-east1`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -404,11 +417,13 @@ pub struct CreateQuotaPreferenceRequest {
     /// Example:
     /// `projects/123/locations/global`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. Id of the requesting object, must be unique under its parent.
     /// If client does not set this field, the service will generate one.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub quota_preference_id: std::string::String,
 
     /// Required. The resource being created
@@ -417,6 +432,7 @@ pub struct CreateQuotaPreferenceRequest {
 
     /// The list of quota safety checks to be ignored.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub ignore_safety_checks: std::vec::Vec<crate::model::QuotaSafetyCheck>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -500,16 +516,19 @@ pub struct UpdateQuotaPreferenceRequest {
     /// Optional. If set to true, and the quota preference is not found, a new one
     /// will be created. In this situation, `update_mask` is ignored.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub allow_missing: bool,
 
     /// Optional. If set to true, validate the request, but do not actually update.
     /// Note that a request being valid does not mean that the request is
     /// guaranteed to be fulfilled.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     /// The list of quota safety checks to be ignored.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub ignore_safety_checks: std::vec::Vec<crate::model::QuotaSafetyCheck>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -599,27 +618,32 @@ pub struct QuotaInfo {
     /// Example:
     /// `projects/123/locations/global/services/compute.googleapis.com/quotaInfos/CpusPerProjectPerRegion`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The id of the quota, which is unquie within the service.
     /// Example: `CpusPerProjectPerRegion`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub quota_id: std::string::String,
 
     /// The metric of the quota. It specifies the resources consumption the quota
     /// is defined for.
     /// Example: `compute.googleapis.com/cpus`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub metric: std::string::String,
 
     /// The name of the service in which the quota is defined.
     /// Example: `compute.googleapis.com`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub service: std::string::String,
 
     /// Whether this is a precise quota. A precise quota is tracked with absolute
     /// precision. In contrast, an imprecise quota is not tracked with precision.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub is_precise: bool,
 
     /// The reset time interval for the quota. Refresh interval applies to rate
@@ -627,26 +651,32 @@ pub struct QuotaInfo {
     /// Example: "minute" for per minute, "day" for per day, or "10 seconds" for
     /// every 10 seconds.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub refresh_interval: std::string::String,
 
     /// The container type of the QuotaInfo.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub container_type: crate::model::quota_info::ContainerType,
 
     /// The dimensions the quota is defined on.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub dimensions: std::vec::Vec<std::string::String>,
 
     /// The display name of the quota metric
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub metric_display_name: std::string::String,
 
     /// The display name of the quota.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub quota_display_name: std::string::String,
 
     /// The unit in which the metric value is reported, e.g., "MByte".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub metric_unit: std::string::String,
 
     /// Whether it is eligible to request a higher quota value for this quota.
@@ -655,22 +685,26 @@ pub struct QuotaInfo {
 
     /// Whether the quota value is fixed or adjustable
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub is_fixed: bool,
 
     /// The collection of dimensions info ordered by their dimensions from more
     /// specific ones to less specific ones.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub dimensions_infos: std::vec::Vec<crate::model::DimensionsInfo>,
 
     /// Whether the quota is a concurrent quota. Concurrent quotas are enforced
     /// on the total number of concurrent operations in flight at any given time.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub is_concurrent: bool,
 
     /// URI to the page where users can request more quota for the cloud
     /// service—for example,
     /// <https://console.cloud.google.com/iam-admin/quotas>.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub service_request_quota_uri: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -975,12 +1009,14 @@ pub mod quota_info {
 pub struct QuotaIncreaseEligibility {
     /// Whether a higher quota value can be requested for the quota.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub is_eligible: bool,
 
     /// The reason of why it is ineligible to request increased value of the quota.
     /// If the is_eligible field is true, it defaults to
     /// INELIGIBILITY_REASON_UNSPECIFIED.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub ineligibility_reason: crate::model::quota_increase_eligibility::IneligibilityReason,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1187,6 +1223,7 @@ pub struct QuotaPreference {
     /// Example:
     /// `projects/123/locations/global/quotaPreferences/my-config-for-us-east1`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Immutable. The dimensions that this quota preference applies to. The key of
@@ -1204,6 +1241,7 @@ pub struct QuotaPreference {
     /// Example: {"provider", "Foo Inc"} where "provider" is a service specific
     /// dimension.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub dimensions: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Required. Preferred quota configuration.
@@ -1215,6 +1253,7 @@ pub struct QuotaPreference {
     /// preference, the request will be blocked and an ABORTED error will be
     /// returned. See <https://google.aip.dev/134#etags> for more details on etags.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     /// Output only. Create time stamp
@@ -1227,20 +1266,24 @@ pub struct QuotaPreference {
 
     /// Required. The name of the service to which the quota preference is applied.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub service: std::string::String,
 
     /// Required. The id of the quota to which the quota preference is applied. A
     /// quota name is unique in the service. Example: `CpusPerProjectPerRegion`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub quota_id: std::string::String,
 
     /// Output only. Is the quota preference pending Google Cloud approval and
     /// fulfillment.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub reconciling: bool,
 
     /// The reason / justification for this quota preference.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub justification: std::string::String,
 
     /// Input only. An email address that can be used to contact the the user, in
@@ -1253,6 +1296,7 @@ pub struct QuotaPreference {
     /// `QuotaConfig.preferred_value` is smaller than the
     /// `QuotaDetails.reset_value`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub contact_email: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1388,11 +1432,12 @@ pub struct QuotaConfig {
     /// Required. The preferred value. Must be greater than or equal to -1. If set
     /// to -1, it means the value is "unlimited".
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub preferred_value: i64,
 
     /// Output only. Optional details about the state of this quota preference.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state_detail: std::string::String,
 
     /// Output only. Granted quota value.
@@ -1406,16 +1451,19 @@ pub struct QuotaConfig {
     /// only produced for increase requests and is unique for each request. The
     /// quota decrease requests do not have a trace id.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub trace_id: std::string::String,
 
     /// Optional. The annotations map for clients to store small amounts of
     /// arbitrary data. Do not put PII or other sensitive information here. See
     /// <https://google.aip.dev/128#annotations>
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. The origin of the quota preference request.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_origin: crate::model::quota_config::Origin,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1645,6 +1693,7 @@ pub struct DimensionsInfo {
     /// Example: {"provider" : "Foo Inc"} where "provider" is a service specific
     /// dimension of a quota.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub dimensions: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Quota details for the specified dimensions.
@@ -1656,6 +1705,7 @@ pub struct DimensionsInfo {
     /// Otherwise, it will be set to the list of locations this dimension info is
     /// applicable to.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub applicable_locations: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1723,7 +1773,7 @@ impl wkt::message::Message for DimensionsInfo {
 pub struct QuotaDetails {
     /// The value currently in effect and being enforced.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub value: i64,
 
     /// Rollout information of this quota.
@@ -1780,6 +1830,7 @@ impl wkt::message::Message for QuotaDetails {
 pub struct RolloutInfo {
     /// Whether there is an ongoing rollout for a quota or not.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub ongoing_rollout: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

@@ -50,14 +50,17 @@ pub struct OperationMetadata {
 
     /// Output only. Server-defined resource path for the target of the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub target: std::string::String,
 
     /// Output only. Name of the verb executed by the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub verb: std::string::String,
 
     /// Output only. Human-readable status of the operation, if any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub status_message: std::string::String,
 
     /// Output only. Identifies whether the user has requested cancellation
@@ -68,10 +71,12 @@ pub struct OperationMetadata {
     ///
     /// [google.rpc.Status.code]: rpc::model::Status::code
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub api_version: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -172,6 +177,7 @@ pub struct RunWorkflowCustomOperationMetadata {
 
     /// Output only. Name of the verb executed by the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub verb: std::string::String,
 
     /// Output only. Identifies whether the user has requested cancellation
@@ -182,18 +188,22 @@ pub struct RunWorkflowCustomOperationMetadata {
     ///
     /// [google.rpc.Status.code]: rpc::model::Status::code
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub api_version: std::string::String,
 
     /// Output only. Server-defined resource path for the target of the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub target: std::string::String,
 
     /// Output only. ID of the pipeline run created by RunWorkflow.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub pipeline_run_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -288,6 +298,7 @@ pub struct Connection {
     /// Immutable. The resource name of the connection, in the format
     /// `projects/{project}/locations/{location}/connections/{connection_id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. Server assigned timestamp for when the connection was created.
@@ -306,21 +317,25 @@ pub struct Connection {
     /// Repository based API methods and webhooks processing for repositories in
     /// this connection will be disabled.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub disabled: bool,
 
     /// Output only. Set to true when the connection is being set up or updated in
     /// the background.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub reconciling: bool,
 
     /// Allows clients to store small amounts of arbitrary data.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// This checksum is computed by the server based on the value of other
     /// fields, and may be sent on update and delete requests to ensure the
     /// client has an up-to-date value before proceeding.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     /// Configuration for the connection depending on the type of provider.
@@ -638,16 +653,19 @@ pub mod connection {
 pub struct InstallationState {
     /// Output only. Current step of the installation process.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub stage: crate::model::installation_state::Stage,
 
     /// Output only. Message of what the user should do next to continue the
     /// installation. Empty string if the installation is already complete.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub message: std::string::String,
 
     /// Output only. Link to follow for next action. Empty string if the
     /// installation is already complete.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub action_uri: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -849,15 +867,17 @@ pub struct FetchLinkableRepositoriesRequest {
     /// Required. The name of the Connection.
     /// Format: `projects/*/locations/*/connections/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub connection: std::string::String,
 
     /// Number of results to return in the list. Default to 20.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Page start.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -902,10 +922,12 @@ impl wkt::message::Message for FetchLinkableRepositoriesRequest {
 pub struct FetchLinkableRepositoriesResponse {
     /// repositories ready to be created.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub repositories: std::vec::Vec<crate::model::Repository>,
 
     /// A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -969,7 +991,7 @@ pub struct GitHubConfig {
 
     /// GitHub App installation id.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub app_installation_id: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1020,34 +1042,39 @@ impl wkt::message::Message for GitHubConfig {
 pub struct GitHubEnterpriseConfig {
     /// Required. The URI of the GitHub Enterprise host this connection is for.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub host_uri: std::string::String,
 
     /// Required. API Key used for authentication of webhook events.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub api_key: std::string::String,
 
     /// Id of the GitHub App created from the manifest.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub app_id: i64,
 
     /// The URL-friendly name of the GitHub App.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub app_slug: std::string::String,
 
     /// SecretManager resource containing the private key of the GitHub App,
     /// formatted as `projects/*/secrets/*/versions/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub private_key_secret_version: std::string::String,
 
     /// SecretManager resource containing the webhook secret of the GitHub App,
     /// formatted as `projects/*/secrets/*/versions/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub webhook_secret_secret_version: std::string::String,
 
     /// ID of the installation of the GitHub App.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub app_installation_id: i64,
 
     /// Configuration for using Service Directory to privately connect to a GitHub
@@ -1060,10 +1087,12 @@ pub struct GitHubEnterpriseConfig {
 
     /// SSL certificate to use for requests to GitHub Enterprise.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub ssl_ca: std::string::String,
 
     /// Output only. GitHub Enterprise version installed at the host_uri.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub server_version: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1170,12 +1199,14 @@ pub struct GitLabConfig {
     /// The URI of the GitLab Enterprise host this connection is for.
     /// If not specified, the default value is <https://gitlab.com>.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub host_uri: std::string::String,
 
     /// Required. Immutable. SecretManager resource containing the webhook secret
     /// of a GitLab Enterprise project, formatted as
     /// `projects/*/secrets/*/versions/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub webhook_secret_secret_version: std::string::String,
 
     /// Required. A GitLab personal access token with the minimum `read_api` scope
@@ -1197,11 +1228,13 @@ pub struct GitLabConfig {
 
     /// SSL certificate to use for requests to GitLab Enterprise.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub ssl_ca: std::string::String,
 
     /// Output only. Version of the GitLab Enterprise server running on the
     /// `host_uri`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub server_version: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1310,12 +1343,14 @@ pub struct BitbucketDataCenterConfig {
     /// Required. The URI of the Bitbucket Data Center instance or cluster this
     /// connection is for.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub host_uri: std::string::String,
 
     /// Required. Immutable. SecretManager resource containing the webhook secret
     /// used to verify webhook events, formatted as
     /// `projects/*/secrets/*/versions/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub webhook_secret_secret_version: std::string::String,
 
     /// Required. A http access token with the `REPO_READ` access.
@@ -1336,11 +1371,13 @@ pub struct BitbucketDataCenterConfig {
 
     /// Optional. SSL certificate to use for requests to the Bitbucket Data Center.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub ssl_ca: std::string::String,
 
     /// Output only. Version of the Bitbucket Data Center running on the
     /// `host_uri`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub server_version: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1449,11 +1486,13 @@ pub struct BitbucketCloudConfig {
     /// Required. The Bitbucket Cloud Workspace ID to be connected to Google Cloud
     /// Platform.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub workspace: std::string::String,
 
     /// Required. SecretManager resource containing the webhook secret used to
     /// verify webhook events, formatted as `projects/*/secrets/*/versions/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub webhook_secret_secret_version: std::string::String,
 
     /// Required. An access token with the `repository` access. It can be either a
@@ -1547,6 +1586,7 @@ pub struct ServiceDirectoryConfig {
     /// Format:
     /// projects/{project}/locations/{location}/namespaces/{namespace}/services/{service}.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub service: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1580,10 +1620,12 @@ pub struct Repository {
     /// Immutable. Resource name of the repository, in the format
     /// `projects/*/locations/*/connections/*/repositories/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. Git Clone HTTPS URI.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub remote_uri: std::string::String,
 
     /// Output only. Server assigned timestamp for when the connection was created.
@@ -1596,16 +1638,19 @@ pub struct Repository {
 
     /// Allows clients to store small amounts of arbitrary data.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// This checksum is computed by the server based on the value of other
     /// fields, and may be sent on update and delete requests to ensure the
     /// client has an up-to-date value before proceeding.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     /// Output only. External ID of the webhook created for the repository.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub webhook_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1706,10 +1751,12 @@ pub struct OAuthCredential {
     /// A SecretManager resource containing the OAuth token that authorizes
     /// the Cloud Build connection. Format: `projects/*/secrets/*/versions/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub oauth_token_secret_version: std::string::String,
 
     /// Output only. The username associated to this token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub username: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1754,10 +1801,12 @@ pub struct UserCredential {
     /// authorizes the Cloud Build connection. Format:
     /// `projects/*/secrets/*/versions/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub user_token_secret_version: std::string::String,
 
     /// Output only. The username associated to this token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub username: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1800,6 +1849,7 @@ pub struct CreateConnectionRequest {
     /// Required. Project and location where the connection will be created.
     /// Format: `projects/*/locations/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The Connection to create.
@@ -1811,6 +1861,7 @@ pub struct CreateConnectionRequest {
     /// per-project per-location. Allows alphanumeric characters and any of
     /// -._~%!$&'()*+,;=@.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub connection_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1868,6 +1919,7 @@ pub struct GetConnectionRequest {
     /// Required. The name of the Connection to retrieve.
     /// Format: `projects/*/locations/*/connections/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1901,15 +1953,17 @@ pub struct ListConnectionsRequest {
     /// Required. The parent, which owns this collection of Connections.
     /// Format: `projects/*/locations/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Number of results to return in the list.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Page start.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1954,10 +2008,12 @@ impl wkt::message::Message for ListConnectionsRequest {
 pub struct ListConnectionsResponse {
     /// The list of Connections.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub connections: std::vec::Vec<crate::model::Connection>,
 
     /// A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2027,12 +2083,14 @@ pub struct UpdateConnectionRequest {
     /// necessary information (e.g a github_config with both  user_oauth_token and
     /// installation_id properties).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub allow_missing: bool,
 
     /// The current etag of the connection.
     /// If an etag is provided and does not match the current etag of the
     /// connection, update will be blocked and an ABORTED error will be returned.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2108,16 +2166,19 @@ pub struct DeleteConnectionRequest {
     /// Required. The name of the Connection to delete.
     /// Format: `projects/*/locations/*/connections/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The current etag of the connection.
     /// If an etag is provided and does not match the current etag of the
     /// connection, deletion will be blocked and an ABORTED error will be returned.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     /// If set, validate the request, but do not actually post it.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2164,6 +2225,7 @@ pub struct CreateRepositoryRequest {
     /// of a BatchCreateRepositoriesRequest, this field should be empty or match
     /// the parent specified there.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The repository to create.
@@ -2175,6 +2237,7 @@ pub struct CreateRepositoryRequest {
     /// the connection. Allows alphanumeric characters and any of
     /// -._~%!$&'()*+,;=@.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub repository_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2234,10 +2297,12 @@ pub struct BatchCreateRepositoriesRequest {
     /// The parent field in the CreateRepositoryRequest messages
     /// must either be empty or match this field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The request messages specifying the repositories to create.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub requests: std::vec::Vec<crate::model::CreateRepositoryRequest>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2281,6 +2346,7 @@ impl wkt::message::Message for BatchCreateRepositoriesRequest {
 pub struct BatchCreateRepositoriesResponse {
     /// Repository resources created.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub repositories: std::vec::Vec<crate::model::Repository>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2319,6 +2385,7 @@ pub struct GetRepositoryRequest {
     /// Required. The name of the Repository to retrieve.
     /// Format: `projects/*/locations/*/connections/*/repositories/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2352,15 +2419,17 @@ pub struct ListRepositoriesRequest {
     /// Required. The parent, which owns this collection of Repositories.
     /// Format: `projects/*/locations/*/connections/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Number of results to return in the list.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Page start.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// A filter expression that filters resources listed in the response.
@@ -2368,6 +2437,7 @@ pub struct ListRepositoriesRequest {
     /// [AIP-160](https://google.aip.dev/160). e.g.
     /// `remote_uri:"<https://github.com>*"`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2418,10 +2488,12 @@ impl wkt::message::Message for ListRepositoriesRequest {
 pub struct ListRepositoriesResponse {
     /// The list of Repositories.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub repositories: std::vec::Vec<crate::model::Repository>,
 
     /// A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2480,16 +2552,19 @@ pub struct DeleteRepositoryRequest {
     /// Required. The name of the Repository to delete.
     /// Format: `projects/*/locations/*/connections/*/repositories/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The current etag of the repository.
     /// If an etag is provided and does not match the current etag of the
     /// repository, deletion will be blocked and an ABORTED error will be returned.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     /// If set, validate the request, but do not actually post it.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2535,6 +2610,7 @@ pub struct FetchReadWriteTokenRequest {
     /// Required. The resource name of the repository in the format
     /// `projects/*/locations/*/connections/*/repositories/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub repository: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2568,6 +2644,7 @@ pub struct FetchReadTokenRequest {
     /// Required. The resource name of the repository in the format
     /// `projects/*/locations/*/connections/*/repositories/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub repository: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2600,6 +2677,7 @@ impl wkt::message::Message for FetchReadTokenRequest {
 pub struct FetchReadTokenResponse {
     /// The token content.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub token: std::string::String,
 
     /// Expiration timestamp. Can be empty if unknown or non-expiring.
@@ -2654,6 +2732,7 @@ impl wkt::message::Message for FetchReadTokenResponse {
 pub struct FetchReadWriteTokenResponse {
     /// The token content.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub token: std::string::String,
 
     /// Expiration timestamp. Can be empty if unknown or non-expiring.
@@ -2709,6 +2788,7 @@ pub struct ProcessWebhookRequest {
     /// Required. Project and location where the webhook will be received.
     /// Format: `projects/*/locations/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// HTTP request body.
@@ -2718,6 +2798,7 @@ pub struct ProcessWebhookRequest {
     /// Arbitrary additional key to find the maching repository for a webhook event
     /// if needed.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub webhook_key: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2775,10 +2856,12 @@ pub struct FetchGitRefsRequest {
     /// Required. The resource name of the repository in the format
     /// `projects/*/locations/*/connections/*/repositories/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub repository: std::string::String,
 
     /// Type of refs to fetch
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub ref_type: crate::model::fetch_git_refs_request::RefType,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2958,6 +3041,7 @@ pub mod fetch_git_refs_request {
 pub struct FetchGitRefsResponse {
     /// Name of the refs fetched.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub ref_names: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

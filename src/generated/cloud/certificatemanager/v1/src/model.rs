@@ -42,11 +42,12 @@ pub struct ListCertificateIssuanceConfigsRequest {
     /// Required. The project and location from which the certificate should be
     /// listed, specified in the format `projects/*/locations/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Maximum number of certificate configs to return per call.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// The value returned by the last `ListCertificateIssuanceConfigsResponse`.
@@ -54,16 +55,19 @@ pub struct ListCertificateIssuanceConfigsRequest {
     /// `ListCertificateIssuanceConfigs` call, and that the system should return
     /// the next page of data.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Filter expression to restrict the Certificates Configs returned.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// A list of Certificate Config field names used to specify the order of the
     /// returned results. The default sorting order is ascending. To specify
     /// descending order for a field, add a suffix `" desc"`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -120,16 +124,19 @@ impl wkt::message::Message for ListCertificateIssuanceConfigsRequest {
 pub struct ListCertificateIssuanceConfigsResponse {
     /// A list of certificate configs for the parent resource.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub certificate_issuance_configs: std::vec::Vec<crate::model::CertificateIssuanceConfig>,
 
     /// If there might be more results than those appearing in this response, then
     /// `next_page_token` is included. To get the next set of results, call this
     /// method again using the value of `next_page_token` as `page_token`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -199,6 +206,7 @@ pub struct GetCertificateIssuanceConfigRequest {
     /// Required. A name of the certificate issuance config to describe. Must be in
     /// the format `projects/*/locations/*/certificateIssuanceConfigs/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -232,10 +240,12 @@ pub struct CreateCertificateIssuanceConfigRequest {
     /// Required. The parent resource of the certificate issuance config. Must be
     /// in the format `projects/*/locations/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. A user-provided name of the certificate config.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub certificate_issuance_config_id: std::string::String,
 
     /// Required. A definition of the certificate issuance config to create.
@@ -300,6 +310,7 @@ pub struct DeleteCertificateIssuanceConfigRequest {
     /// Required. A name of the certificate issuance config to delete. Must be in
     /// the format `projects/*/locations/*/certificateIssuanceConfigs/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -334,6 +345,7 @@ pub struct CertificateIssuanceConfig {
     /// CertificateIssuanceConfig names must be unique globally and match pattern
     /// `projects/*/locations/*/certificateIssuanceConfigs/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. The creation timestamp of a CertificateIssuanceConfig.
@@ -346,10 +358,12 @@ pub struct CertificateIssuanceConfig {
 
     /// Set of labels associated with a CertificateIssuanceConfig.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// One or more paragraphs of text description of a CertificateIssuanceConfig.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Required. The CA that issues the workload certificate. It includes the CA
@@ -366,11 +380,12 @@ pub struct CertificateIssuanceConfig {
     /// lifetime to wait before renewing the certificate. Must be a number between
     /// 1-99, inclusive.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub rotation_window_percentage: i32,
 
     /// Required. The key algorithm to use when generating the private key.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub key_algorithm: crate::model::certificate_issuance_config::KeyAlgorithm,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -589,6 +604,7 @@ pub mod certificate_issuance_config {
             /// The CA pool string has a relative resource path following the form
             /// "projects/{project}/locations/{location}/caPools/{ca_pool}".
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub ca_pool: std::string::String,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -765,27 +781,31 @@ pub struct ListCertificatesRequest {
     /// Required. The project and location from which the certificate should be
     /// listed, specified in the format `projects/*/locations/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Maximum number of certificates to return per call.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// The value returned by the last `ListCertificatesResponse`. Indicates that
     /// this is a continuation of a prior `ListCertificates` call, and that the
     /// system should return the next page of data.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Filter expression to restrict the Certificates returned.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// A list of Certificate field names used to specify the order of the returned
     /// results. The default sorting order is ascending. To specify descending
     /// order for a field, add a suffix `" desc"`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -842,16 +862,19 @@ impl wkt::message::Message for ListCertificatesRequest {
 pub struct ListCertificatesResponse {
     /// A list of certificates for the parent resource.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub certificates: std::vec::Vec<crate::model::Certificate>,
 
     /// If there might be more results than those appearing in this response, then
     /// `next_page_token` is included. To get the next set of results, call this
     /// method again using the value of `next_page_token` as `page_token`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// A list of locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -921,6 +944,7 @@ pub struct GetCertificateRequest {
     /// Required. A name of the certificate to describe. Must be in the format
     /// `projects/*/locations/*/certificates/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -954,10 +978,12 @@ pub struct CreateCertificateRequest {
     /// Required. The parent resource of the certificate. Must be in the format
     /// `projects/*/locations/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. A user-provided name of the certificate.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub certificate_id: std::string::String,
 
     /// Required. A definition of the certificate to create.
@@ -1087,6 +1113,7 @@ pub struct DeleteCertificateRequest {
     /// Required. A name of the certificate to delete. Must be in the format
     /// `projects/*/locations/*/certificates/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1120,27 +1147,31 @@ pub struct ListCertificateMapsRequest {
     /// Required. The project and location from which the certificate maps should
     /// be listed, specified in the format `projects/*/locations/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Maximum number of certificate maps to return per call.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// The value returned by the last `ListCertificateMapsResponse`. Indicates
     /// that this is a continuation of a prior `ListCertificateMaps` call, and that
     /// the system should return the next page of data.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Filter expression to restrict the Certificates Maps returned.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// A list of Certificate Map field names used to specify the order of the
     /// returned results. The default sorting order is ascending. To specify
     /// descending order for a field, add a suffix `" desc"`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1197,16 +1228,19 @@ impl wkt::message::Message for ListCertificateMapsRequest {
 pub struct ListCertificateMapsResponse {
     /// A list of certificate maps for the parent resource.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub certificate_maps: std::vec::Vec<crate::model::CertificateMap>,
 
     /// If there might be more results than those appearing in this response, then
     /// `next_page_token` is included. To get the next set of results, call this
     /// method again using the value of `next_page_token` as `page_token`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1276,6 +1310,7 @@ pub struct GetCertificateMapRequest {
     /// Required. A name of the certificate map to describe. Must be in the format
     /// `projects/*/locations/*/certificateMaps/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1309,10 +1344,12 @@ pub struct CreateCertificateMapRequest {
     /// Required. The parent resource of the certificate map. Must be in the format
     /// `projects/*/locations/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. A user-provided name of the certificate map.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub certificate_map_id: std::string::String,
 
     /// Required. A definition of the certificate map to create.
@@ -1445,6 +1482,7 @@ pub struct DeleteCertificateMapRequest {
     /// Required. A name of the certificate map to delete. Must be in the format
     /// `projects/*/locations/*/certificateMaps/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1479,6 +1517,7 @@ pub struct ListCertificateMapEntriesRequest {
     /// certificate map entries should be listed, specified in the format
     /// `projects/*/locations/*/certificateMaps/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Maximum number of certificate map entries to return. The service may return
@@ -1486,7 +1525,7 @@ pub struct ListCertificateMapEntriesRequest {
     /// If unspecified, at most 50 certificate map entries will be returned.
     /// The maximum value is 1000; values above 1000 will be coerced to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// The value returned by the last `ListCertificateMapEntriesResponse`.
@@ -1494,16 +1533,19 @@ pub struct ListCertificateMapEntriesRequest {
     /// `ListCertificateMapEntries` call, and that the system should return the
     /// next page of data.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Filter expression to restrict the returned Certificate Map Entries.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// A list of Certificate Map Entry field names used to specify
     /// the order of the returned results. The default sorting order is ascending.
     /// To specify descending order for a field, add a suffix `" desc"`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1560,16 +1602,19 @@ impl wkt::message::Message for ListCertificateMapEntriesRequest {
 pub struct ListCertificateMapEntriesResponse {
     /// A list of certificate map entries for the parent resource.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub certificate_map_entries: std::vec::Vec<crate::model::CertificateMapEntry>,
 
     /// If there might be more results than those appearing in this response, then
     /// `next_page_token` is included. To get the next set of results, call this
     /// method again using the value of `next_page_token` as `page_token`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1639,6 +1684,7 @@ pub struct GetCertificateMapEntryRequest {
     /// Required. A name of the certificate map entry to describe. Must be in the
     /// format `projects/*/locations/*/certificateMaps/*/certificateMapEntries/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1672,10 +1718,12 @@ pub struct CreateCertificateMapEntryRequest {
     /// Required. The parent resource of the certificate map entry. Must be in the
     /// format `projects/*/locations/*/certificateMaps/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. A user-provided name of the certificate map entry.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub certificate_map_entry_id: std::string::String,
 
     /// Required. A definition of the certificate map entry to create.
@@ -1808,6 +1856,7 @@ pub struct DeleteCertificateMapEntryRequest {
     /// Required. A name of the certificate map entry to delete. Must be in the
     /// format `projects/*/locations/*/certificateMaps/*/certificateMapEntries/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1841,27 +1890,31 @@ pub struct ListDnsAuthorizationsRequest {
     /// Required. The project and location from which the dns authorizations should
     /// be listed, specified in the format `projects/*/locations/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Maximum number of dns authorizations to return per call.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// The value returned by the last `ListDnsAuthorizationsResponse`. Indicates
     /// that this is a continuation of a prior `ListDnsAuthorizations` call, and
     /// that the system should return the next page of data.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Filter expression to restrict the Dns Authorizations returned.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// A list of Dns Authorization field names used to specify the order of the
     /// returned results. The default sorting order is ascending. To specify
     /// descending order for a field, add a suffix `" desc"`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1918,16 +1971,19 @@ impl wkt::message::Message for ListDnsAuthorizationsRequest {
 pub struct ListDnsAuthorizationsResponse {
     /// A list of dns authorizations for the parent resource.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub dns_authorizations: std::vec::Vec<crate::model::DnsAuthorization>,
 
     /// If there might be more results than those appearing in this response, then
     /// `next_page_token` is included. To get the next set of results, call this
     /// method again using the value of `next_page_token` as `page_token`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1997,6 +2053,7 @@ pub struct GetDnsAuthorizationRequest {
     /// Required. A name of the dns authorization to describe. Must be in the
     /// format `projects/*/locations/*/dnsAuthorizations/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2030,10 +2087,12 @@ pub struct CreateDnsAuthorizationRequest {
     /// Required. The parent resource of the dns authorization. Must be in the
     /// format `projects/*/locations/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. A user-provided name of the dns authorization.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub dns_authorization_id: std::string::String,
 
     /// Required. A definition of the dns authorization to create.
@@ -2166,6 +2225,7 @@ pub struct DeleteDnsAuthorizationRequest {
     /// Required. A name of the dns authorization to delete. Must be in the format
     /// `projects/*/locations/*/dnsAuthorizations/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2206,14 +2266,17 @@ pub struct OperationMetadata {
 
     /// Server-defined resource path for the target of the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub target: std::string::String,
 
     /// Name of the verb executed by the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub verb: std::string::String,
 
     /// Human-readable status of the operation, if any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub status_message: std::string::String,
 
     /// Identifies whether the user has requested cancellation
@@ -2224,10 +2287,12 @@ pub struct OperationMetadata {
     ///
     /// [google.rpc.Status.code]: rpc::model::Status::code
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub requested_cancellation: bool,
 
     /// API version used to start the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub api_version: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2321,10 +2386,12 @@ pub struct Certificate {
     /// A user-defined name of the certificate. Certificate names must be unique
     /// globally and match pattern `projects/*/locations/*/certificates/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// One or more paragraphs of text description of a certificate.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Output only. The creation timestamp of a Certificate.
@@ -2337,6 +2404,7 @@ pub struct Certificate {
 
     /// Set of labels associated with a Certificate.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. The list of Subject Alternative Names of dnsName type defined
@@ -2344,10 +2412,12 @@ pub struct Certificate {
     /// haven't been provisioned yet have this field populated with a value of the
     /// managed.domains field.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub san_dnsnames: std::vec::Vec<std::string::String>,
 
     /// Output only. The PEM-encoded certificate chain.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub pem_certificate: std::string::String,
 
     /// Output only. The expiry timestamp of a Certificate.
@@ -2356,6 +2426,7 @@ pub struct Certificate {
 
     /// Immutable. The scope of the certificate.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub scope: crate::model::certificate::Scope,
 
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
@@ -2567,10 +2638,12 @@ pub mod certificate {
         /// Input only. The PEM-encoded certificate chain.
         /// Leaf certificate comes first, followed by intermediate ones if any.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub pem_certificate: std::string::String,
 
         /// Input only. The PEM-encoded private key of the leaf certificate.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub pem_private_key: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2619,11 +2692,13 @@ pub mod certificate {
         /// generated. Wildcard domains are only supported with DNS challenge
         /// resolution.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub domains: std::vec::Vec<std::string::String>,
 
         /// Immutable. Authorizations that will be used for performing domain
         /// authorization.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub dns_authorizations: std::vec::Vec<std::string::String>,
 
         /// Immutable. The resource name for a
@@ -2636,10 +2711,12 @@ pub mod certificate {
         ///
         /// [google.cloud.certificatemanager.v1.CertificateIssuanceConfig]: crate::model::CertificateIssuanceConfig
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub issuance_config: std::string::String,
 
         /// Output only. State of the managed certificate resource.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub state: crate::model::certificate::managed_certificate::State,
 
         /// Output only. Information about issues with provisioning a Managed
@@ -2651,6 +2728,7 @@ pub mod certificate {
         /// Output only. Detailed state of the latest authorization attempt for each
         /// domain specified for managed certificate resource.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub authorization_attempt_info:
             std::vec::Vec<crate::model::certificate::managed_certificate::AuthorizationAttemptInfo>,
 
@@ -2760,12 +2838,14 @@ pub mod certificate {
         pub struct ProvisioningIssue {
             /// Output only. Reason for provisioning failures.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub reason: crate::model::certificate::managed_certificate::provisioning_issue::Reason,
 
             /// Output only. Human readable explanation about the issue. Provided to
             /// help address the configuration issues. Not guaranteed to be stable. For
             /// programmatic access use Reason enum.
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub details: std::string::String,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2959,21 +3039,25 @@ pub mod certificate {
 
             /// Domain name of the authorization attempt.
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub domain: std::string::String,
 
             /// Output only. State of the domain for managed certificate issuance.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub state: crate::model::certificate::managed_certificate::authorization_attempt_info::State,
 
             /// Output only. Reason for failure of the authorization attempt for the
             /// domain.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub failure_reason: crate::model::certificate::managed_certificate::authorization_attempt_info::FailureReason,
 
             /// Output only. Human readable explanation for reaching the state.
             /// Provided to help address the configuration issues. Not guaranteed to be
             /// stable. For programmatic access use FailureReason enum.
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub details: std::string::String,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3619,10 +3703,12 @@ pub struct CertificateMap {
     /// unique globally and match pattern
     /// `projects/*/locations/*/certificateMaps/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// One or more paragraphs of text description of a certificate map.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Output only. The creation timestamp of a Certificate Map.
@@ -3635,12 +3721,14 @@ pub struct CertificateMap {
 
     /// Set of labels associated with a Certificate Map.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. A list of GCLB targets that use this Certificate Map.
     /// A Target Proxy is only present on this list if it's attached to a
     /// Forwarding Rule.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub gclb_targets: std::vec::Vec<crate::model::certificate_map::GclbTarget>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3744,6 +3832,7 @@ pub mod certificate_map {
         /// Output only. IP configurations for this Target Proxy where the
         /// Certificate Map is serving.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub ip_configs: std::vec::Vec<crate::model::certificate_map::gclb_target::IpConfig>,
 
         /// A Target Proxy to which this map is attached to.
@@ -3863,11 +3952,12 @@ pub mod certificate_map {
         pub struct IpConfig {
             /// Output only. An external IP address.
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub ip_address: std::string::String,
 
             /// Output only. Ports.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-            #[serde_as(as = "std::vec::Vec<wkt::internal::U32>")]
+            #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<wkt::internal::U32>>")]
             pub ports: std::vec::Vec<u32>,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3915,11 +4005,11 @@ pub mod certificate_map {
             /// Output only. This field returns the resource name in the following
             /// format:
             /// `//compute.googleapis.com/projects/*/global/targetHttpsProxies/*`.
-            TargetHttpsProxy(std::string::String),
+            TargetHttpsProxy(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
             /// Output only. This field returns the resource name in the following
             /// format:
             /// `//compute.googleapis.com/projects/*/global/targetSslProxies/*`.
-            TargetSslProxy(std::string::String),
+            TargetSslProxy(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         }
     }
 }
@@ -3934,10 +4024,12 @@ pub struct CertificateMapEntry {
     /// names must be unique globally and match pattern
     /// `projects/*/locations/*/certificateMaps/*/certificateMapEntries/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// One or more paragraphs of text description of a certificate map entry.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Output only. The creation timestamp of a Certificate Map Entry.
@@ -3950,16 +4042,19 @@ pub struct CertificateMapEntry {
 
     /// Set of labels associated with a Certificate Map Entry.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// A set of Certificates defines for the given `hostname`. There can be
     /// defined up to four certificates in each Certificate Map Entry. Each
     /// certificate must match pattern `projects/*/locations/*/certificates/*`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub certificates: std::vec::Vec<std::string::String>,
 
     /// Output only. A serving state of this Certificate Map Entry.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::ServingState,
 
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
@@ -4261,9 +4356,12 @@ pub mod certificate_map_entry {
         /// A Hostname (FQDN, e.g. `example.com`) or a wildcard hostname expression
         /// (`*.example.com`) for a set of hostnames with common suffix. Used as
         /// Server Name Indication (SNI) for selecting a proper certificate.
-        Hostname(std::string::String),
+        Hostname(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// A predefined matcher for particular cases, other than SNI selection.
-        Matcher(crate::model::certificate_map_entry::Matcher),
+        Matcher(
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+            crate::model::certificate_map_entry::Matcher,
+        ),
     }
 }
 
@@ -4278,6 +4376,7 @@ pub struct DnsAuthorization {
     /// be unique globally and match pattern
     /// `projects/*/locations/*/dnsAuthorizations/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. The creation timestamp of a DnsAuthorization.
@@ -4290,10 +4389,12 @@ pub struct DnsAuthorization {
 
     /// Set of labels associated with a DnsAuthorization.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// One or more paragraphs of text description of a DnsAuthorization.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Required. Immutable. A domain that is being authorized. A DnsAuthorization
@@ -4301,6 +4402,7 @@ pub struct DnsAuthorization {
     /// `example.com` can be used to issue certificates for `example.com` and
     /// `*.example.com`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub domain: std::string::String,
 
     /// Output only. DNS Resource Record that needs to be added to DNS
@@ -4315,6 +4417,7 @@ pub struct DnsAuthorization {
     /// - in location global: FIXED_RECORD.
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub r#type: crate::model::dns_authorization::Type,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4442,16 +4545,19 @@ pub mod dns_authorization {
         /// Output only. Fully qualified name of the DNS Resource Record.
         /// e.g. `_acme-challenge.example.com`
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub name: std::string::String,
 
         /// Output only. Type of the DNS Resource Record.
         /// Currently always set to "CNAME".
         #[serde(rename = "type")]
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub r#type: std::string::String,
 
         /// Output only. Data of the DNS Resource Record.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub data: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4632,27 +4738,31 @@ pub struct ListTrustConfigsRequest {
     /// Required. The project and location from which the TrustConfigs should be
     /// listed, specified in the format `projects/*/locations/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Maximum number of TrustConfigs to return per call.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// The value returned by the last `ListTrustConfigsResponse`. Indicates
     /// that this is a continuation of a prior `ListTrustConfigs` call, and that
     /// the system should return the next page of data.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Filter expression to restrict the TrustConfigs returned.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// A list of TrustConfig field names used to specify the order of the
     /// returned results. The default sorting order is ascending. To specify
     /// descending order for a field, add a suffix `" desc"`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4709,16 +4819,19 @@ impl wkt::message::Message for ListTrustConfigsRequest {
 pub struct ListTrustConfigsResponse {
     /// A list of TrustConfigs for the parent resource.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub trust_configs: std::vec::Vec<crate::model::TrustConfig>,
 
     /// If there might be more results than those appearing in this response, then
     /// `next_page_token` is included. To get the next set of results, call this
     /// method again using the value of `next_page_token` as `page_token`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4788,6 +4901,7 @@ pub struct GetTrustConfigRequest {
     /// Required. A name of the TrustConfig to describe. Must be in the format
     /// `projects/*/locations/*/trustConfigs/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4821,11 +4935,13 @@ pub struct CreateTrustConfigRequest {
     /// Required. The parent resource of the TrustConfig. Must be in the format
     /// `projects/*/locations/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. A user-provided name of the TrustConfig. Must match the regexp
     /// `[a-z0-9-]{1,63}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub trust_config_id: std::string::String,
 
     /// Required. A definition of the TrustConfig to create.
@@ -4955,12 +5071,14 @@ pub struct DeleteTrustConfigRequest {
     /// Required. A name of the TrustConfig to delete. Must be in the format
     /// `projects/*/locations/*/trustConfigs/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The current etag of the TrustConfig.
     /// If an etag is provided and does not match the current etag of the resource,
     /// deletion will be blocked and an ABORTED error will be returned.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5001,6 +5119,7 @@ pub struct TrustConfig {
     /// unique globally and match pattern
     /// `projects/*/locations/*/trustConfigs/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. The creation timestamp of a TrustConfig.
@@ -5013,16 +5132,19 @@ pub struct TrustConfig {
 
     /// Set of labels associated with a TrustConfig.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// One or more paragraphs of text description of a TrustConfig.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// This checksum is computed by the server based on the value of other
     /// fields, and may be sent on update and delete requests to ensure the
     /// client has an up-to-date value before proceeding.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     /// Set of trust stores to perform validation against.
@@ -5032,6 +5154,7 @@ pub struct TrustConfig {
     ///
     /// Only one TrustStore specified is currently allowed.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub trust_stores: std::vec::Vec<crate::model::trust_config::TrustStore>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5212,7 +5335,7 @@ pub mod trust_config {
             /// PEM root certificate of the PKI used for validation.
             ///
             /// Each certificate provided in PEM format may occupy up to 5kB.
-            PemCertificate(std::string::String),
+            PemCertificate(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         }
     }
 
@@ -5299,7 +5422,7 @@ pub mod trust_config {
             /// for validation.
             ///
             /// Each certificate provided in PEM format may occupy up to 5kB.
-            PemCertificate(std::string::String),
+            PemCertificate(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         }
     }
 
@@ -5312,6 +5435,7 @@ pub mod trust_config {
         /// List of Trust Anchors to be used while performing validation
         /// against a given TrustStore.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub trust_anchors: std::vec::Vec<crate::model::trust_config::TrustAnchor>,
 
         /// Set of intermediate CA certificates used for the path building
@@ -5320,6 +5444,7 @@ pub mod trust_config {
         /// The field is currently not supported if TrustConfig is used for the
         /// workload certificate feature.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub intermediate_cas: std::vec::Vec<crate::model::trust_config::IntermediateCA>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

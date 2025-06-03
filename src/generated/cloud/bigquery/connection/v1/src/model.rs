@@ -43,10 +43,12 @@ pub struct CreateConnectionRequest {
     /// Required. Parent resource name.
     /// Must be in the format `projects/{project_id}/locations/{location_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. Connection id that should be assigned to the created connection.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub connection_id: std::string::String,
 
     /// Required. Connection to create.
@@ -111,6 +113,7 @@ pub struct GetConnectionRequest {
     /// Required. Name of the requested connection, for example:
     /// `projects/{project_id}/locations/{location_id}/connections/{connection_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -147,15 +150,17 @@ pub struct ListConnectionsRequest {
     /// Required. Parent resource name.
     /// Must be in the form: `projects/{project_id}/locations/{location_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. Page size.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -203,10 +208,12 @@ impl wkt::message::Message for ListConnectionsRequest {
 pub struct ListConnectionsResponse {
     /// Next page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// List of connections.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub connections: std::vec::Vec<crate::model::Connection>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -268,6 +275,7 @@ pub struct UpdateConnectionRequest {
     /// Required. Name of the connection to update, for example:
     /// `projects/{project_id}/locations/{location_id}/connections/{connection_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. Connection containing the updated fields.
@@ -345,6 +353,7 @@ pub struct DeleteConnectionRequest {
     /// Required. Name of the deleted connection, for example:
     /// `projects/{project_id}/locations/{location_id}/connections/{connection_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -379,28 +388,32 @@ pub struct Connection {
     /// The resource name of the connection in the form of:
     /// `projects/{project_id}/locations/{location_id}/connections/{connection_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// User provided display name for the connection.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub friendly_name: std::string::String,
 
     /// User provided description.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Output only. The creation timestamp of the connection.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub creation_time: i64,
 
     /// Output only. The last update timestamp of the connection.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub last_modified_time: i64,
 
     /// Output only. True, if credential is configured for this connection.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub has_credential: bool,
 
     /// Properties specific to the underlying data source.
@@ -706,15 +719,18 @@ pub mod connection {
 pub struct CloudSqlProperties {
     /// Cloud SQL instance ID in the form `project:location:instance`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub instance_id: std::string::String,
 
     /// Database name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub database: std::string::String,
 
     /// Type of the Cloud SQL database.
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub r#type: crate::model::cloud_sql_properties::DatabaseType,
 
     /// Input only. Cloud SQL credential.
@@ -728,6 +744,7 @@ pub struct CloudSqlProperties {
     /// BigQuery, this service account will serve as the identity being used for
     /// connecting to the CloudSQL instance specified in this connection.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub service_account_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -940,10 +957,12 @@ pub mod cloud_sql_properties {
 pub struct CloudSqlCredential {
     /// The username for the credential.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub username: std::string::String,
 
     /// The password for the credential.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub password: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -982,10 +1001,12 @@ impl wkt::message::Message for CloudSqlCredential {
 pub struct CloudSpannerProperties {
     /// Cloud Spanner database in the form `project/instance/database'
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub database: std::string::String,
 
     /// If parallelism should be used when reading from Cloud Spanner
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub use_parallelism: bool,
 
     /// Allows setting max parallelism per query when executing on Spanner
@@ -997,13 +1018,14 @@ pub struct CloudSpannerProperties {
     /// REQUIRES: Either `use_data_boost` or `use_serverless_analytics` must be
     /// set.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub max_parallelism: i32,
 
     /// If the serverless analytics service should be used to read data from Cloud
     /// Spanner.
     /// Note: `use_parallelism` must be set when using serverless analytics.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub use_serverless_analytics: bool,
 
     /// If set, the request will be executed via Spanner independent compute
@@ -1013,6 +1035,7 @@ pub struct CloudSpannerProperties {
     /// NOTE: `use_serverless_analytics` will be deprecated. Prefer
     /// `use_data_boost` over `use_serverless_analytics`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub use_data_boost: bool,
 
     /// Optional. Cloud Spanner database role for fine-grained access control.
@@ -1026,6 +1049,7 @@ pub struct CloudSpannerProperties {
     /// REQUIRES: The database role name must start with a letter, and can only
     /// contain letters, numbers, and underscores.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub database_role: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1217,10 +1241,12 @@ pub struct AwsCrossAccountRole {
     /// The user’s AWS IAM Role that trusts the Google-owned AWS IAM user
     /// Connection.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub iam_role_id: std::string::String,
 
     /// Output only. Google-owned AWS IAM User for a Connection.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub iam_user_id: std::string::String,
 
     /// Output only. A Google-generated id for representing Connection’s identity
@@ -1228,6 +1254,7 @@ pub struct AwsCrossAccountRole {
     /// Problem. See
     /// <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-user_externalid.html>
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub external_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1274,11 +1301,13 @@ pub struct AwsAccessRole {
     /// The user’s AWS IAM Role that trusts the Google-owned AWS IAM user
     /// Connection.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub iam_role_id: std::string::String,
 
     /// A unique Google-owned and Google-generated identity for the Connection.
     /// This identity will be used to access the user's AWS IAM Role.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub identity: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1317,34 +1346,41 @@ impl wkt::message::Message for AwsAccessRole {
 pub struct AzureProperties {
     /// Output only. The name of the Azure Active Directory Application.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub application: std::string::String,
 
     /// Output only. The client id of the Azure Active Directory Application.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub client_id: std::string::String,
 
     /// Output only. The object id of the Azure Active Directory Application.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub object_id: std::string::String,
 
     /// The id of customer's directory that host the data.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub customer_tenant_id: std::string::String,
 
     /// The URL user will be redirected to after granting consent during connection
     /// setup.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub redirect_uri: std::string::String,
 
     /// The client ID of the user's Azure Active Directory Application used for a
     /// federated connection.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub federated_application_client_id: std::string::String,
 
     /// Output only. A unique Google-owned and Google-generated identity for the
     /// Connection. This identity will be used to access the user's Azure Active
     /// Directory Application.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub identity: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1430,6 +1466,7 @@ pub struct CloudResourceProperties {
     /// The account ID is in the form of:
     /// \<service-1234\>@gcp-sa-bigquery-cloudresource.iam.gserviceaccount.com
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub service_account_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1469,6 +1506,7 @@ pub struct MetastoreServiceConfig {
     ///
     /// * `projects/[project_id]/locations/[region]/services/[service_id]`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub metastore_service: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1509,6 +1547,7 @@ pub struct SparkHistoryServerConfig {
     ///
     /// * `projects/[project_id]/regions/[region]/clusters/[cluster_name]`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub dataproc_cluster: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1555,6 +1594,7 @@ pub struct SparkProperties {
     /// The account ID is in the form of:
     /// bqcx-\<projectnumber\>-\<uniqueid\>@gcp-sa-bigquery-consp.iam.gserviceaccount.com
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub service_account_id: std::string::String,
 
     /// Optional. Dataproc Metastore Service configuration for the connection.
@@ -1635,15 +1675,18 @@ impl wkt::message::Message for SparkProperties {
 pub struct SalesforceDataCloudProperties {
     /// The URL to the user's Salesforce DataCloud instance.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub instance_uri: std::string::String,
 
     /// Output only. A unique Google-owned and Google-generated service account
     /// identity for the connection.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub identity: std::string::String,
 
     /// The ID of the user's Salesforce tenant.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub tenant_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

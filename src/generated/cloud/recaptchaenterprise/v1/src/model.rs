@@ -40,6 +40,7 @@ pub struct CreateAssessmentRequest {
     /// Required. The name of the project in which the assessment is created,
     /// in the format `projects/{project}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The assessment details.
@@ -94,19 +95,21 @@ impl wkt::message::Message for CreateAssessmentRequest {
 pub struct TransactionEvent {
     /// Optional. The type of this transaction event.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub event_type: crate::model::transaction_event::TransactionEventType,
 
     /// Optional. The reason or standardized code that corresponds with this
     /// transaction event, if one exists. For example, a CHARGEBACK event with code
     /// 6005.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub reason: std::string::String,
 
     /// Optional. The value that corresponds with this transaction event, if one
     /// exists. For example, a refund event where $5.00 was refunded. Currency is
     /// obtained from the original transaction data.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
     pub value: f64,
 
     /// Optional. Timestamp when this transaction event occurred; otherwise assumed
@@ -472,22 +475,26 @@ pub struct AnnotateAssessmentRequest {
     /// Required. The resource name of the Assessment, in the format
     /// `projects/{project}/assessments/{assessment}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. The annotation that is assigned to the Event. This field can be
     /// left empty to provide reasons that apply to an event without concluding
     /// whether the event is legitimate or fraudulent.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub annotation: crate::model::annotate_assessment_request::Annotation,
 
     /// Optional. Reasons for the annotation that are assigned to the event.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub reasons: std::vec::Vec<crate::model::annotate_assessment_request::Reason>,
 
     /// Optional. A stable account identifier to apply to the assessment. This is
     /// an alternative to setting `account_id` in `CreateAssessment`, for example
     /// when a stable account identifier is not yet known in the initial request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub account_id: std::string::String,
 
     /// Optional. A stable hashed account identifier to apply to the assessment.
@@ -495,7 +502,7 @@ pub struct AnnotateAssessmentRequest {
     /// `CreateAssessment`, for example when a stable account identifier is not yet
     /// known in the initial request.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub hashed_account_id: ::bytes::Bytes,
 
     /// Optional. If the assessment is part of a payment transaction, provide
@@ -999,6 +1006,7 @@ pub struct EndpointVerificationInfo {
     /// Output only. Token to provide to the client to trigger endpoint
     /// verification. It must be used within 15 minutes.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_token: std::string::String,
 
     /// Output only. Timestamp of the last successful verification for the
@@ -1124,10 +1132,10 @@ pub mod endpoint_verification_info {
     #[non_exhaustive]
     pub enum Endpoint {
         /// Email address for which to trigger a verification request.
-        EmailAddress(std::string::String),
+        EmailAddress(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// Phone number for which to trigger a verification request. Should be given
         /// in E.164 format.
-        PhoneNumber(std::string::String),
+        PhoneNumber(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
     }
 }
 
@@ -1139,20 +1147,24 @@ pub mod endpoint_verification_info {
 pub struct AccountVerificationInfo {
     /// Optional. Endpoints that can be used for identity verification.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub endpoints: std::vec::Vec<crate::model::EndpointVerificationInfo>,
 
     /// Optional. Language code preference for the verification message, set as a
     /// IETF BCP 47 language code.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub language_code: std::string::String,
 
     /// Output only. Result of the latest account verification challenge.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub latest_verification_result: crate::model::account_verification_info::Result,
 
     /// Username of the account that is being verified. Deprecated. Customers
     /// should now provide the `account_id` field in `event.user_info`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     #[deprecated]
     pub username: std::string::String,
 
@@ -1424,28 +1436,28 @@ pub struct PrivatePasswordLeakVerification {
     /// username. It is used to look up password leaks associated with that hash
     /// prefix.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub lookup_hash_prefix: ::bytes::Bytes,
 
     /// Optional. Encrypted Scrypt hash of the canonicalized username+password. It
     /// is re-encrypted by the server and returned through
     /// `reencrypted_user_credentials_hash`.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub encrypted_user_credentials_hash: ::bytes::Bytes,
 
     /// Output only. List of prefixes of the encrypted potential password leaks
     /// that matched the given parameters. They must be compared with the
     /// client-side decryption prefix of `reencrypted_user_credentials_hash`
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "std::vec::Vec<serde_with::base64::Base64>")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<serde_with::base64::Base64>>")]
     pub encrypted_leak_match_prefixes: std::vec::Vec<::bytes::Bytes>,
 
     /// Output only. Corresponds to the re-encryption of the
     /// `encrypted_user_credentials_hash` field. It is used to match potential
     /// password leaks within `encrypted_leak_match_prefixes`.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub reencrypted_user_credentials_hash: ::bytes::Bytes,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1508,6 +1520,7 @@ pub struct Assessment {
     /// Output only. Identifier. The resource name for the Assessment in the format
     /// `projects/{project}/assessments/{assessment}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. The event being assessed.
@@ -1798,70 +1811,82 @@ pub struct Event {
     /// Optional. The user response token provided by the reCAPTCHA Enterprise
     /// client-side integration on your site.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub token: std::string::String,
 
     /// Optional. The site key that was used to invoke reCAPTCHA Enterprise on your
     /// site and generate the token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub site_key: std::string::String,
 
     /// Optional. The user agent present in the request from the user's device
     /// related to this event.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub user_agent: std::string::String,
 
     /// Optional. The IP address in the request from the user's device related to
     /// this event.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub user_ip_address: std::string::String,
 
     /// Optional. The expected action for this type of event. This should be the
     /// same action provided at token generation time on client-side platforms
     /// already integrated with recaptcha enterprise.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub expected_action: std::string::String,
 
     /// Optional. Deprecated: use `user_info.account_id` instead.
     /// Unique stable hashed user identifier for the request. The identifier must
     /// be hashed using hmac-sha256 with stable secret.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     #[deprecated]
     pub hashed_account_id: ::bytes::Bytes,
 
     /// Optional. Flag for a reCAPTCHA express request for an assessment without a
     /// token. If enabled, `site_key` must reference an Express site key.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub express: bool,
 
     /// Optional. The URI resource the user requested that triggered an assessment.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub requested_uri: std::string::String,
 
     /// Optional. Flag for running WAF token assessment.
     /// If enabled, the token must be specified, and have been created by a
     /// WAF-enabled key.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub waf_token_assessment: bool,
 
     /// Optional. JA3 fingerprint for SSL clients. To learn how to compute this
     /// fingerprint, please refer to <https://github.com/salesforce/ja3>.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub ja3: std::string::String,
 
     /// Optional. JA4 fingerprint for SSL clients. To learn how to compute this
     /// fingerprint, please refer to <https://github.com/FoxIO-LLC/ja4>.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub ja4: std::string::String,
 
     /// Optional. HTTP header information about the request.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub headers: std::vec::Vec<std::string::String>,
 
     /// Optional. Flag for enabling firewall policy config assessment.
     /// If this flag is enabled, the firewall policy is evaluated and a
     /// suggested firewall action is returned in the response.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub firewall_policy_evaluation: bool,
 
     /// Optional. Data describing a payment transaction to be assessed. Sending
@@ -1879,6 +1904,7 @@ pub struct Event {
 
     /// Optional. The Fraud Prevention setting for this assessment.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub fraud_prevention: crate::model::event::FraudPrevention,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2191,30 +2217,34 @@ pub struct TransactionData {
     /// * custom-{name} (If an alternative method is used, for example,
     ///   custom-crypto)
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub payment_method: std::string::String,
 
     /// Optional. The Bank Identification Number - generally the first 6 or 8
     /// digits of the card.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub card_bin: std::string::String,
 
     /// Optional. The last four digits of the card.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub card_last_four: std::string::String,
 
     /// Optional. The currency code in ISO-4217 format.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub currency_code: std::string::String,
 
     /// Optional. The decimal value of the transaction in the specified currency.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
     pub value: f64,
 
     /// Optional. The value of shipping in the specified currency. 0 for free or no
     /// shipping.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
     pub shipping_value: f64,
 
     /// Optional. Destination address if this transaction involves shipping a
@@ -2232,10 +2262,12 @@ pub struct TransactionData {
 
     /// Optional. Information about the user or users fulfilling the transaction.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub merchants: std::vec::Vec<crate::model::transaction_data::User>,
 
     /// Optional. Items purchased in this transaction.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub items: std::vec::Vec<crate::model::transaction_data::Item>,
 
     /// Optional. Information about the payment gateway's response to the
@@ -2421,29 +2453,35 @@ pub mod transaction_data {
         /// Optional. The recipient name, potentially including information such as
         /// "care of".
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub recipient: std::string::String,
 
         /// Optional. The first lines of the address. The first line generally
         /// contains the street name and number, and further lines may include
         /// information such as an apartment number.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub address: std::vec::Vec<std::string::String>,
 
         /// Optional. The town/city of the address.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub locality: std::string::String,
 
         /// Optional. The state, province, or otherwise administrative area of the
         /// address.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub administrative_area: std::string::String,
 
         /// Optional. The CLDR country/region of the address.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub region_code: std::string::String,
 
         /// Optional. The postal or ZIP code of the address.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub postal_code: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2516,29 +2554,34 @@ pub mod transaction_data {
         /// defender, this should match the hashed_account_id field. Otherwise, a
         /// unique and persistent identifier for this account.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub account_id: std::string::String,
 
         /// Optional. The epoch milliseconds of the user's account creation.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I64")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
         pub creation_ms: i64,
 
         /// Optional. The email address of the user.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub email: std::string::String,
 
         /// Optional. Whether the email has been verified to be accessible by the
         /// user (OTP or similar).
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub email_verified: bool,
 
         /// Optional. The phone number of the user, with country code.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub phone_number: std::string::String,
 
         /// Optional. Whether the phone number has been verified to be accessible by
         /// the user (OTP or similar).
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub phone_verified: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2604,22 +2647,24 @@ pub mod transaction_data {
     pub struct Item {
         /// Optional. The full name of the item.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub name: std::string::String,
 
         /// Optional. The value per item that the user is paying, in the transaction
         /// currency, after discounts.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::F64")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
         pub value: f64,
 
         /// Optional. The quantity of this item that is being purchased.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I64")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
         pub quantity: i64,
 
         /// Optional. When a merchant is specified, its corresponding account_id.
         /// Necessary to populate marketplace-style transactions.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub merchant_account_id: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2674,20 +2719,24 @@ pub mod transaction_data {
         /// Optional. Name of the gateway service (for example, stripe, square,
         /// paypal).
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub name: std::string::String,
 
         /// Optional. Gateway response code describing the state of the transaction.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub gateway_response_code: std::string::String,
 
         /// Optional. AVS response code from the gateway
         /// (available only when reCAPTCHA Enterprise is called after authorization).
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub avs_response_code: std::string::String,
 
         /// Optional. CVV response code from the gateway
         /// (available only when reCAPTCHA Enterprise is called after authorization).
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub cvv_response_code: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2758,10 +2807,12 @@ pub struct UserInfo {
     /// same user), or any stable user ID of your choice. Leave blank for non
     /// logged-in actions or guest checkout.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub account_id: std::string::String,
 
     /// Optional. Identifiers associated with this user or request.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub user_ids: std::vec::Vec<crate::model::UserId>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2930,13 +2981,13 @@ pub mod user_id {
     #[non_exhaustive]
     pub enum IdOneof {
         /// Optional. An email address.
-        Email(std::string::String),
+        Email(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// Optional. A phone number. Should use the E.164 format.
-        PhoneNumber(std::string::String),
+        PhoneNumber(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// Optional. A unique username, if different from all the other identifiers
         /// and `account_id` that are provided. Can be a unique login handle or
         /// display name for a user.
-        Username(std::string::String),
+        Username(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
     }
 }
 
@@ -2950,21 +3001,24 @@ pub struct RiskAnalysis {
     /// (1.0 means very likely legitimate traffic while 0.0 means very likely
     /// non-legitimate traffic).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub score: f32,
 
     /// Output only. Reasons contributing to the risk analysis verdict.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub reasons: std::vec::Vec<crate::model::risk_analysis::ClassificationReason>,
 
     /// Output only. Extended verdict reasons to be used for experimentation only.
     /// The set of possible reasons is subject to change.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub extended_verdict_reasons: std::vec::Vec<std::string::String>,
 
     /// Output only. Challenge information for SCORE_AND_CHALLENGE and INVISIBLE
     /// keys
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub challenge: crate::model::risk_analysis::Challenge,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3349,10 +3403,12 @@ pub struct TokenProperties {
     /// the sitekey used to generate the token was different than the one specified
     /// in the assessment).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub valid: bool,
 
     /// Output only. Reason associated with the response when valid = false.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub invalid_reason: crate::model::token_properties::InvalidReason,
 
     /// Output only. The timestamp corresponding to the generation of the token.
@@ -3362,20 +3418,24 @@ pub struct TokenProperties {
     /// Output only. The hostname of the page on which the token was generated (Web
     /// keys only).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub hostname: std::string::String,
 
     /// Output only. The name of the Android package with which the token was
     /// generated (Android keys only).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub android_package_name: std::string::String,
 
     /// Output only. The ID of the iOS bundle with which the token was generated
     /// (iOS keys only).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub ios_bundle_id: std::string::String,
 
     /// Output only. Action name provided at token generation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub action: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3633,7 +3693,7 @@ pub struct FraudPreventionAssessment {
     /// the combined risk of attack vectors below. Values are from 0.0 (lowest)
     /// to 1.0 (highest).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub transaction_risk: f32,
 
     /// Output only. Assessment of this transaction for risk of a stolen
@@ -3744,7 +3804,7 @@ pub mod fraud_prevention_assessment {
         /// Output only. Probability of this transaction being executed with a stolen
         /// instrument. Values are from 0.0 (lowest) to 1.0 (highest).
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::F32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
         pub risk: f32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3779,7 +3839,7 @@ pub mod fraud_prevention_assessment {
         /// Output only. Probability of this transaction attempt being part of a card
         /// testing attack. Values are from 0.0 (lowest) to 1.0 (highest).
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::F32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
         pub risk: f32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3814,7 +3874,7 @@ pub mod fraud_prevention_assessment {
         /// behaviorally trustworthy way. Values are from 0.0 (lowest) to 1.0
         /// (highest).
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::F32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
         pub trust: f32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3921,14 +3981,14 @@ pub mod fraud_signals {
         /// Output only. This user (based on email, phone, and other identifiers) has
         /// been seen on the internet for at least this number of days.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub active_days_lower_bound: i32,
 
         /// Output only. Likelihood (from 0.0 to 1.0) this user includes synthetic
         /// components in their identity, such as a randomly generated email address,
         /// temporary phone number, or fake shipping address.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::F32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
         pub synthetic_risk: f32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3967,6 +4027,7 @@ pub mod fraud_signals {
     pub struct CardSignals {
         /// Output only. The labels for the payment card in this transaction.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub card_labels: std::vec::Vec<crate::model::fraud_signals::card_signals::CardLabel>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4157,11 +4218,12 @@ pub struct SmsTollFraudVerdict {
     /// Output only. Probability of an SMS event being fraudulent.
     /// Values are from 0.0 (lowest) to 1.0 (highest).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub risk: f32,
 
     /// Output only. Reasons contributing to the SMS toll fraud verdict.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub reasons: std::vec::Vec<crate::model::sms_toll_fraud_verdict::SmsTollFraudReason>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4380,6 +4442,7 @@ impl wkt::message::Message for PhoneFraudAssessment {
 pub struct AccountDefenderAssessment {
     /// Output only. Labels for this request.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub labels: std::vec::Vec<crate::model::account_defender_assessment::AccountDefenderLabel>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4581,6 +4644,7 @@ pub struct CreateKeyRequest {
     /// Required. The name of the project in which the key is created, in the
     /// format `projects/{project}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. Information to create a reCAPTCHA Enterprise key.
@@ -4636,17 +4700,19 @@ pub struct ListKeysRequest {
     /// Required. The name of the project that contains the keys that is
     /// listed, in the format `projects/{project}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. The maximum number of keys to return. Default is 10. Max limit is
     /// 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. The next_page_token value returned from a previous.
     /// ListKeysRequest, if any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4691,11 +4757,13 @@ impl wkt::message::Message for ListKeysRequest {
 pub struct ListKeysResponse {
     /// Key details.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub keys: std::vec::Vec<crate::model::Key>,
 
     /// Token to retrieve the next page of results. It is set to empty if no keys
     /// remain in results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4754,6 +4822,7 @@ pub struct RetrieveLegacySecretKeyRequest {
     /// Required. The public key name linked to the requested secret key in the
     /// format `projects/{project}/keys/{key}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub key: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4787,6 +4856,7 @@ pub struct GetKeyRequest {
     /// Required. The name of the requested key, in the format
     /// `projects/{project}/keys/{key}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4887,6 +4957,7 @@ pub struct DeleteKeyRequest {
     /// Required. The name of the key to be deleted, in the format
     /// `projects/{project}/keys/{key}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4920,6 +4991,7 @@ pub struct CreateFirewallPolicyRequest {
     /// Required. The name of the project this policy applies to, in the format
     /// `projects/{project}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. Information to create the policy.
@@ -4975,17 +5047,19 @@ pub struct ListFirewallPoliciesRequest {
     /// Required. The name of the project to list the policies for, in the format
     /// `projects/{project}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. The maximum number of policies to return. Default is 10. Max
     /// limit is 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. The next_page_token value returned from a previous.
     /// ListFirewallPoliciesRequest, if any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5030,11 +5104,13 @@ impl wkt::message::Message for ListFirewallPoliciesRequest {
 pub struct ListFirewallPoliciesResponse {
     /// Policy details.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub firewall_policies: std::vec::Vec<crate::model::FirewallPolicy>,
 
     /// Token to retrieve the next page of results. It is set to empty if no
     /// policies remain in results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5093,6 +5169,7 @@ pub struct GetFirewallPolicyRequest {
     /// Required. The name of the requested policy, in the format
     /// `projects/{project}/firewallpolicies/{firewallpolicy}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5193,6 +5270,7 @@ pub struct DeleteFirewallPolicyRequest {
     /// Required. The name of the policy to be deleted, in the format
     /// `projects/{project}/firewallpolicies/{firewallpolicy}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5226,11 +5304,13 @@ pub struct ReorderFirewallPoliciesRequest {
     /// Required. The name of the project to list the policies for, in the format
     /// `projects/{project}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. A list containing all policy names, in the new order. Each name
     /// is in the format `projects/{project}/firewallpolicies/{firewallpolicy}`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub names: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5297,6 +5377,7 @@ pub struct MigrateKeyRequest {
     /// Required. The name of the key to be migrated, in the format
     /// `projects/{project}/keys/{key}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. If true, skips the billing check.
@@ -5308,6 +5389,7 @@ pub struct MigrateKeyRequest {
     /// billing check and proceed with the migration. See
     /// <https://cloud.google.com/recaptcha/docs/billing-information>.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub skip_billing_check: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5347,6 +5429,7 @@ pub struct GetMetricsRequest {
     /// Required. The name of the requested metrics, in the format
     /// `projects/{project}/keys/{key}/metrics`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5380,6 +5463,7 @@ pub struct Metrics {
     /// Output only. Identifier. The name of the metrics, in the format
     /// `projects/{project}/keys/{key}/metrics`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Inclusive start time aligned to a day in the America/Los_Angeles (Pacific)
@@ -5390,12 +5474,14 @@ pub struct Metrics {
     /// Metrics are continuous and in order by dates, and in the granularity
     /// of day. All Key types should have score-based data.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub score_metrics: std::vec::Vec<crate::model::ScoreMetrics>,
 
     /// Metrics are continuous and in order by dates, and in the granularity
     /// of day. Only challenge-based keys (CHECKBOX, INVISIBLE) have
     /// challenge-based data.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub challenge_metrics: std::vec::Vec<crate::model::ChallengeMetrics>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5472,6 +5558,7 @@ pub struct RetrieveLegacySecretKeyResponse {
     /// create an assessment.
     /// The secret key needs to be kept safe for security purposes.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub legacy_secret_key: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5509,15 +5596,18 @@ pub struct Key {
     /// Identifier. The resource name for the Key in the format
     /// `projects/{project}/keys/{key}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. Human-readable display name of this key. Modifiable by user.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// Optional. See [Creating and managing labels]
     /// (<https://cloud.google.com/recaptcha/docs/labels>).
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. The timestamp corresponding to the creation of this key.
@@ -5795,13 +5885,14 @@ pub struct TestingOptions {
     /// Optional. All assessments for this Key return this score. Must be between 0
     /// (likely not legitimate) and 1 (likely legitimate) inclusive.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub testing_score: f32,
 
     /// Optional. For challenge-based keys only (CHECKBOX, INVISIBLE), all
     /// challenge requests for this site return nocaptcha if NOCAPTCHA, or an
     /// unsolvable challenge if CHALLENGE.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub testing_challenge: crate::model::testing_options::TestingChallenge,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5987,6 +6078,7 @@ pub mod testing_options {
 pub struct WebKeySettings {
     /// Optional. If set to true, it means allowed_domains are not enforced.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub allow_all_domains: bool,
 
     /// Optional. Domains or subdomains of websites allowed to use the key. All
@@ -5994,21 +6086,25 @@ pub struct WebKeySettings {
     /// requires a host and must not include any path, port, query or fragment.
     /// Examples: 'example.com' or 'subdomain.example.com'
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub allowed_domains: std::vec::Vec<std::string::String>,
 
     /// Optional. If set to true, the key can be used on AMP (Accelerated Mobile
     /// Pages) websites. This is supported only for the SCORE integration type.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub allow_amp_traffic: bool,
 
     /// Required. Describes how this key is integrated with the website.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub integration_type: crate::model::web_key_settings::IntegrationType,
 
     /// Optional. Settings for the frequency and difficulty at which this key
     /// triggers captcha challenges. This should only be specified for
     /// IntegrationTypes CHECKBOX and INVISIBLE and SCORE_AND_CHALLENGE.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub challenge_security_preference: crate::model::web_key_settings::ChallengeSecurityPreference,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6371,17 +6467,20 @@ pub mod web_key_settings {
 pub struct AndroidKeySettings {
     /// Optional. If set to true, allowed_package_names are not enforced.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub allow_all_package_names: bool,
 
     /// Optional. Android package names of apps allowed to use the key.
     /// Example: 'com.companyname.appname'
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub allowed_package_names: std::vec::Vec<std::string::String>,
 
     /// Optional. Set to true for keys that are used in an Android application that
     /// is available for download in app stores in addition to the Google Play
     /// Store.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub support_non_google_app_store_distribution: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6434,11 +6533,13 @@ impl wkt::message::Message for AndroidKeySettings {
 pub struct IOSKeySettings {
     /// Optional. If set to true, allowed_bundle_ids are not enforced.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub allow_all_bundle_ids: bool,
 
     /// Optional. iOS bundle ids of apps allowed to use the key.
     /// Example: 'com.companyname.productname.appname'
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub allowed_bundle_ids: std::vec::Vec<std::string::String>,
 
     /// Optional. Apple Developer account details for the app that is protected by
@@ -6532,15 +6633,18 @@ pub struct AppleDeveloperId {
     /// file extension) generated for your Apple Developer account. Ensure that
     /// Apple DeviceCheck is enabled for the private key.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub private_key: std::string::String,
 
     /// Required. The Apple developer key ID (10-character string).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub key_id: std::string::String,
 
     /// Required. The Apple team ID (10-character string) owning the provisioning
     /// profile used to build your application.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub team_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6587,7 +6691,9 @@ pub struct ScoreDistribution {
     /// between [0, 1]. The maximum number of buckets is on order of a few dozen,
     /// but typically much lower (ie. 10).
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    #[serde_as(as = "std::collections::HashMap<wkt::internal::I32, wkt::internal::I64>")]
+    #[serde_as(
+        as = "serde_with::DefaultOnNull<std::collections::HashMap<wkt::internal::I32, wkt::internal::I64>>"
+    )]
     pub score_buckets: std::collections::HashMap<i32, i64>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6631,6 +6737,7 @@ pub struct ScoreMetrics {
     /// Action-based metrics. The map key is the action name which specified by the
     /// site owners at time of the "execute" client-side call.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub action_metrics:
         std::collections::HashMap<std::string::String, crate::model::ScoreDistribution>,
 
@@ -6689,25 +6796,25 @@ pub struct ChallengeMetrics {
     /// Count of reCAPTCHA checkboxes or badges rendered. This is mostly equivalent
     /// to a count of pageloads for pages that include reCAPTCHA.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub pageload_count: i64,
 
     /// Count of nocaptchas (successful verification without a challenge) issued.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub nocaptcha_count: i64,
 
     /// Count of submitted challenge solutions that were incorrect or otherwise
     /// deemed suspicious such that a subsequent challenge was triggered.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub failed_count: i64,
 
     /// Count of nocaptchas (successful verification without a challenge) plus
     /// submitted challenge solutions that were correct and resulted in
     /// verification.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub passed_count: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7166,6 +7273,7 @@ pub mod firewall_action {
         /// Optional. The address to redirect to. The target is a relative path in
         /// the current host. Example: "/blog/404.html".
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub path: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7200,10 +7308,12 @@ pub mod firewall_action {
     pub struct SetHeaderAction {
         /// Optional. The header key to set in the request to the backend server.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub key: std::string::String,
 
         /// Optional. The header value to set in the request to the backend server.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub value: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7272,12 +7382,14 @@ pub struct FirewallPolicy {
     /// Identifier. The resource name for the FirewallPolicy in the format
     /// `projects/{project}/firewallpolicies/{firewallpolicy}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. A description of what this policy aims to achieve, for
     /// convenience purposes. The description can at most include 256 UTF-8
     /// characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Optional. The path for which this policy applies, specified as a glob
@@ -7285,6 +7397,7 @@ pub struct FirewallPolicy {
     /// page](https://man7.org/linux/man-pages/man7/glob.7.html).
     /// A path has a max length of 200 characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub path: std::string::String,
 
     /// Optional. A CEL (Common Expression Language) conditional expression that
@@ -7297,6 +7410,7 @@ pub struct FirewallPolicy {
     /// definition](https://github.com/google/cel-spec/blob/master/doc/langdef.md).
     /// A condition has a max length of 500 characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub condition: std::string::String,
 
     /// Optional. The actions that the caller should take regarding user access.
@@ -7306,6 +7420,7 @@ pub struct FirewallPolicy {
     /// Zero or more non-terminal actions such as `SetHeader` might be
     /// specified. A single policy can contain up to 16 actions.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub actions: std::vec::Vec<crate::model::FirewallAction>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7368,13 +7483,14 @@ pub struct ListRelatedAccountGroupMembershipsRequest {
     /// Required. The resource name for the related account group in the format
     /// `projects/{project}/relatedaccountgroups/{relatedaccountgroup}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. The maximum number of accounts to return. The service might
     /// return fewer than this value. If unspecified, at most 50 accounts are
     /// returned. The maximum value is 1000; values above 1000 are coerced to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous
@@ -7384,6 +7500,7 @@ pub struct ListRelatedAccountGroupMembershipsRequest {
     /// `ListRelatedAccountGroupMemberships` must match the call that provided the
     /// page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7428,12 +7545,14 @@ impl wkt::message::Message for ListRelatedAccountGroupMembershipsRequest {
 pub struct ListRelatedAccountGroupMembershipsResponse {
     /// The memberships listed by the query.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub related_account_group_memberships:
         std::vec::Vec<crate::model::RelatedAccountGroupMembership>,
 
     /// A token, which can be sent as `page_token` to retrieve the next page.
     /// If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7492,13 +7611,14 @@ pub struct ListRelatedAccountGroupsRequest {
     /// Required. The name of the project to list related account groups from, in
     /// the format `projects/{project}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. The maximum number of groups to return. The service might return
     /// fewer than this value. If unspecified, at most 50 groups are returned. The
     /// maximum value is 1000; values above 1000 are coerced to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous `ListRelatedAccountGroups`
@@ -7508,6 +7628,7 @@ pub struct ListRelatedAccountGroupsRequest {
     /// `ListRelatedAccountGroups` must match the call that provided the page
     /// token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7552,11 +7673,13 @@ impl wkt::message::Message for ListRelatedAccountGroupsRequest {
 pub struct ListRelatedAccountGroupsResponse {
     /// The groups of related accounts listed by the query.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub related_account_groups: std::vec::Vec<crate::model::RelatedAccountGroup>,
 
     /// A token, which can be sent as `page_token` to retrieve the next page.
     /// If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7616,6 +7739,7 @@ pub struct SearchRelatedAccountGroupMembershipsRequest {
     /// memberships from. Specify the project name in the following format:
     /// `projects/{project}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub project: std::string::String,
 
     /// Optional. The unique stable account identifier used to search connections.
@@ -7623,6 +7747,7 @@ pub struct SearchRelatedAccountGroupMembershipsRequest {
     /// `CreateAssessment` or `AnnotateAssessment` call. Either hashed_account_id
     /// or account_id must be set, but not both.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub account_id: std::string::String,
 
     /// Optional. Deprecated: use `account_id` instead.
@@ -7631,7 +7756,7 @@ pub struct SearchRelatedAccountGroupMembershipsRequest {
     /// previous `CreateAssessment` or `AnnotateAssessment` call. Either
     /// hashed_account_id or account_id must be set, but not both.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     #[deprecated]
     pub hashed_account_id: ::bytes::Bytes,
 
@@ -7639,7 +7764,7 @@ pub struct SearchRelatedAccountGroupMembershipsRequest {
     /// fewer than this value. If unspecified, at most 50 groups are returned. The
     /// maximum value is 1000; values above 1000 are coerced to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous
@@ -7650,6 +7775,7 @@ pub struct SearchRelatedAccountGroupMembershipsRequest {
     /// `SearchRelatedAccountGroupMemberships` must match the call that provided
     /// the page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7707,12 +7833,14 @@ impl wkt::message::Message for SearchRelatedAccountGroupMembershipsRequest {
 pub struct SearchRelatedAccountGroupMembershipsResponse {
     /// The queried memberships.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub related_account_group_memberships:
         std::vec::Vec<crate::model::RelatedAccountGroupMembership>,
 
     /// A token, which can be sent as `page_token` to retrieve the next page.
     /// If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7771,6 +7899,7 @@ pub struct AddIpOverrideRequest {
     /// Required. The name of the key to which the IP override is added, in the
     /// format `projects/{project}/keys/{key}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. IP override added to the key.
@@ -7848,6 +7977,7 @@ pub struct RemoveIpOverrideRequest {
     /// Required. The name of the key from which the IP override is removed, in the
     /// format `projects/{project}/keys/{key}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. IP override to be removed from the key.
@@ -7925,6 +8055,7 @@ pub struct ListIpOverridesRequest {
     /// Required. The parent key for which the IP overrides are listed, in the
     /// format `projects/{project}/keys/{key}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. The maximum number of overrides to return. Default is 10. Max
@@ -7932,12 +8063,13 @@ pub struct ListIpOverridesRequest {
     /// overrides are returned. If the page size is more than 100, it is coerced to
     /// 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. The next_page_token value returned from a previous
     /// ListIpOverridesRequest, if any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7982,11 +8114,13 @@ impl wkt::message::Message for ListIpOverridesRequest {
 pub struct ListIpOverridesResponse {
     /// IP Overrides details.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub ip_overrides: std::vec::Vec<crate::model::IpOverrideData>,
 
     /// Token to retrieve the next page of results. If this field is empty, no keys
     /// remain in the results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8045,12 +8179,14 @@ pub struct RelatedAccountGroupMembership {
     /// Required. Identifier. The resource name for this membership in the format
     /// `projects/{project}/relatedaccountgroups/{relatedaccountgroup}/memberships/{membership}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The unique stable account identifier of the member. The identifier
     /// corresponds to an `account_id` provided in a previous `CreateAssessment` or
     /// `AnnotateAssessment` call.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub account_id: std::string::String,
 
     /// Deprecated: use `account_id` instead.
@@ -8058,7 +8194,7 @@ pub struct RelatedAccountGroupMembership {
     /// corresponds to a `hashed_account_id` provided in a previous
     /// `CreateAssessment` or `AnnotateAssessment` call.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     #[deprecated]
     pub hashed_account_id: ::bytes::Bytes,
 
@@ -8107,6 +8243,7 @@ pub struct RelatedAccountGroup {
     /// the format
     /// `projects/{project}/relatedaccountgroups/{related_account_group}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8140,10 +8277,12 @@ impl wkt::message::Message for RelatedAccountGroup {
 pub struct WafSettings {
     /// Required. The WAF service that uses this key.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub waf_service: crate::model::waf_settings::WafService,
 
     /// Required. The WAF feature for which this key is enabled.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub waf_feature: crate::model::waf_settings::WafFeature,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8497,10 +8636,12 @@ pub struct AssessmentEnvironment {
     /// - "cloud.google.com/recaptcha/docs/implement-waf-cloudflare"
     /// - "wordpress.org/plugins/recaptcha-something"
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub client: std::string::String,
 
     /// Optional. The version of the client module. For example, "1.0.0".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub version: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8545,10 +8686,12 @@ pub struct IpOverrideData {
     /// Example of IPv4 with CIDR: 168.192.5.0/24
     /// Example of IPv6 with CIDR: 2001:0DB8:1234::/48
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub ip: std::string::String,
 
     /// Required. Describes the type of IP override.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub override_type: crate::model::ip_override_data::OverrideType,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

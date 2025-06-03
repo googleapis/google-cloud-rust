@@ -45,6 +45,7 @@ pub struct Deployment {
     /// Resource name of the deployment.
     /// Format: `projects/{project}/locations/{location}/deployments/{deployment}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. Time when the deployment was created.
@@ -57,24 +58,29 @@ pub struct Deployment {
 
     /// User-defined metadata for the deployment.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. Current state of the deployment.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::deployment::State,
 
     /// Output only. Revision name that was most recently applied.
     /// Format: `projects/{project}/locations/{location}/deployments/{deployment}/
     /// revisions/{revision}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub latest_revision: std::string::String,
 
     /// Output only. Additional information regarding the current state.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state_detail: std::string::String,
 
     /// Output only. Error code describing errors that may have occurred.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub error_code: crate::model::deployment::ErrorCode,
 
     /// Output only. Location of artifacts from a DeleteDeployment operation.
@@ -84,22 +90,26 @@ pub struct Deployment {
     /// Output only. Cloud Build instance UUID associated with deleting this
     /// deployment.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub delete_build: std::string::String,
 
     /// Output only. Location of Cloud Build logs in Google Cloud Storage,
     /// populated when deleting this deployment. Format: `gs://{bucket}/{object}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub delete_logs: std::string::String,
 
     /// Output only. Errors encountered when deleting this deployment.
     /// Errors are truncated to 10 entries, see `delete_results` and `error_logs`
     /// for full details.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub tf_errors: std::vec::Vec<crate::model::TerraformError>,
 
     /// Output only. Location of Terraform error logs in Google Cloud Storage.
     /// Format: `gs://{bucket}/{object}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub error_logs: std::string::String,
 
     /// Optional. User-defined location of Cloud Build logs and artifacts in Google
@@ -141,6 +151,7 @@ pub struct Deployment {
 
     /// Output only. Current lock state of the deployment.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub lock_state: crate::model::deployment::LockState,
 
     /// Optional. The user-specified Terraform version constraint.
@@ -151,12 +162,14 @@ pub struct Deployment {
     /// Output only. The current Terraform version set on the deployment.
     /// It is in the format of "Major.Minor.Patch", for example, "1.3.10".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub tf_version: std::string::String,
 
     /// Optional. Input to control quota checks for resources in terraform
     /// configuration files. There are limited resources on which quota validation
     /// applies.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub quota_validation: crate::model::QuotaValidation,
 
     /// Optional. Arbitrary key-value metadata storage e.g. to help client tools
@@ -164,6 +177,7 @@ pub struct Deployment {
     /// <https://google.aip.dev/148#annotations> for details on format and size
     /// limitations.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Blueprint to deploy.
@@ -1010,6 +1024,7 @@ pub mod deployment {
 pub struct TerraformBlueprint {
     /// Input variable values for the Terraform blueprint.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub input_values:
         std::collections::HashMap<std::string::String, crate::model::TerraformVariable>,
 
@@ -1126,7 +1141,7 @@ pub mod terraform_blueprint {
         ///
         /// URI may also specify an object version for zipped objects.
         /// Format: `gs://{bucket}/{object}#{version}`
-        GcsSource(std::string::String),
+        GcsSource(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// URI of a public Git repo.
         GitSource(std::boxed::Box<crate::model::GitSource>),
     }
@@ -1185,15 +1200,18 @@ pub struct ApplyResults {
     /// Location of a blueprint copy and other manifests in Google Cloud Storage.
     /// Format: `gs://{bucket}/{object}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub content: std::string::String,
 
     /// Location of artifacts (e.g. logs) in Google Cloud Storage.
     /// Format: `gs://{bucket}/{object}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub artifacts: std::string::String,
 
     /// Map of output name to output info.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub outputs: std::collections::HashMap<std::string::String, crate::model::TerraformOutput>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1245,6 +1263,7 @@ pub struct TerraformOutput {
     /// Identifies whether Terraform has set this output as a potential
     /// sensitive value.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub sensitive: bool,
 
     /// Value of output.
@@ -1300,18 +1319,20 @@ pub struct ListDeploymentsRequest {
     /// parent value is in the format:
     /// 'projects/{project_id}/locations/{location}'.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// When requesting a page of resources, 'page_size' specifies number of
     /// resources to return. If unspecified, at most 500 will be returned. The
     /// maximum value is 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Token returned by previous call to 'ListDeployments' which specifies the
     /// position in the list from where to continue listing the resources.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Lists the Deployments that match the filter expression. A filter
@@ -1338,10 +1359,12 @@ pub struct ListDeploymentsRequest {
     ///   - Deployments in CREATING state.
     ///     state=CREATING
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Field to use to sort the list.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1399,15 +1422,18 @@ pub struct ListDeploymentsResponse {
     ///
     /// [google.cloud.config.v1.Deployment]: crate::model::Deployment
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub deployments: std::vec::Vec<crate::model::Deployment>,
 
     /// Token to be supplied to the next ListDeployments request via `page_token`
     /// to obtain the next set of results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1476,6 +1502,7 @@ pub struct GetDeploymentRequest {
     /// Required. The name of the deployment. Format:
     /// 'projects/{project_id}/locations/{location}/deployments/{deployment}'.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1510,18 +1537,20 @@ pub struct ListRevisionsRequest {
     /// value is in the format:
     /// 'projects/{project_id}/locations/{location}/deployments/{deployment}'.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// When requesting a page of resources, `page_size` specifies number of
     /// resources to return. If unspecified, at most 500 will be returned. The
     /// maximum value is 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Token returned by previous call to 'ListRevisions' which specifies the
     /// position in the list from where to continue listing the resources.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Lists the Revisions that match the filter expression. A filter
@@ -1548,10 +1577,12 @@ pub struct ListRevisionsRequest {
     ///   - Revisions in CREATING state.
     ///     state=CREATING
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Field to use to sort the list.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1610,16 +1641,19 @@ pub struct ListRevisionsResponse {
     ///
     /// [google.cloud.config.v1.Revision]: crate::model::Revision
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub revisions: std::vec::Vec<crate::model::Revision>,
 
     /// A token to request the next page of resources from the 'ListRevisions'
     /// method. The value of an empty string means that there are no more resources
     /// to return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1689,6 +1723,7 @@ pub struct GetRevisionRequest {
     /// Required. The name of the Revision in the format:
     /// 'projects/{project_id}/locations/{location}/deployments/{deployment}/revisions/{revision}'.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1721,10 +1756,12 @@ pub struct CreateDeploymentRequest {
     /// Required. The parent in whose context the Deployment is created. The parent
     /// value is in the format: 'projects/{project_id}/locations/{location}'.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The Deployment ID.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub deployment_id: std::string::String,
 
     /// Required. [Deployment][google.cloud.config.v1.Deployment] resource to be
@@ -1748,6 +1785,7 @@ pub struct CreateDeploymentRequest {
     /// The request ID must be a valid UUID with the exception that zero UUID is
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1840,6 +1878,7 @@ pub struct UpdateDeploymentRequest {
     /// The request ID must be a valid UUID with the exception that zero UUID is
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1908,6 +1947,7 @@ pub struct DeleteDeploymentRequest {
     /// Required. The name of the Deployment in the format:
     /// 'projects/{project_id}/locations/{location}/deployments/{deployment}'.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. An optional request ID to identify requests. Specify a unique
@@ -1924,18 +1964,21 @@ pub struct DeleteDeploymentRequest {
     /// The request ID must be a valid UUID with the exception that zero UUID is
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     /// Optional. If set to true, any revisions for this deployment will also be
     /// deleted. (Otherwise, the request will only work if the deployment has no
     /// revisions.)
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub force: bool,
 
     /// Optional. Policy on how resources actuated by the deployment should be
     /// deleted. If unspecified, the default behavior is to delete the underlying
     /// resources.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub delete_policy: crate::model::delete_deployment_request::DeletePolicy,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2137,14 +2180,17 @@ pub struct OperationMetadata {
 
     /// Output only. Server-defined resource path for the target of the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub target: std::string::String,
 
     /// Output only. Name of the verb executed by the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub verb: std::string::String,
 
     /// Output only. Human-readable status of the operation, if any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub status_message: std::string::String,
 
     /// Output only. Identifies whether the user has requested cancellation of the
@@ -2156,10 +2202,12 @@ pub struct OperationMetadata {
     /// [google.longrunning.Operation.error]: longrunning::model::Operation::result
     /// [google.rpc.Status.code]: rpc::model::Status::code
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub api_version: std::string::String,
 
     /// Ephemeral metadata about the state of an operation for a particular
@@ -2358,6 +2406,7 @@ pub struct Revision {
     /// `projects/{project}/locations/{location}/deployments/{deployment}/
     /// revisions/{revision}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. Time when the revision was created.
@@ -2370,10 +2419,12 @@ pub struct Revision {
 
     /// Output only. The action which created this revision
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub action: crate::model::revision::Action,
 
     /// Output only. Current state of the revision.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::revision::State,
 
     /// Output only. Outputs and artifacts from applying a deployment.
@@ -2382,36 +2433,43 @@ pub struct Revision {
 
     /// Output only. Additional info regarding the current state.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state_detail: std::string::String,
 
     /// Output only. Code describing any errors that may have occurred.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub error_code: crate::model::revision::ErrorCode,
 
     /// Output only. Cloud Build instance UUID associated with this revision.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub build: std::string::String,
 
     /// Output only. Location of Revision operation logs in
     /// `gs://{bucket}/{object}` format.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub logs: std::string::String,
 
     /// Output only. Errors encountered when creating or updating this deployment.
     /// Errors are truncated to 10 entries, see `delete_results` and `error_logs`
     /// for full details.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub tf_errors: std::vec::Vec<crate::model::TerraformError>,
 
     /// Output only. Location of Terraform error logs in Google Cloud Storage.
     /// Format: `gs://{bucket}/{object}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub error_logs: std::string::String,
 
     /// Output only. User-specified Service Account (SA) to be used as credential
     /// to manage resources. Format:
     /// `projects/{projectID}/serviceAccounts/{serviceAccount}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub service_account: std::string::String,
 
     /// Output only. By default, Infra Manager will return a failure when
@@ -2422,6 +2480,7 @@ pub struct Revision {
     ///
     /// Not all resource types are supported, refer to documentation.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub import_existing_resources: bool,
 
     /// Output only. The user-specified Cloud Build worker pool resource in which
@@ -2430,28 +2489,33 @@ pub struct Revision {
     /// If this field is unspecified, the default Cloud Build worker pool will be
     /// used.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub worker_pool: std::string::String,
 
     /// Output only. The user-specified Terraform version constraint.
     /// Example: "=1.3.10".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub tf_version_constraint: std::string::String,
 
     /// Output only. The version of Terraform used to create the Revision.
     /// It is in the format of "Major.Minor.Patch", for example, "1.3.10".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub tf_version: std::string::String,
 
     /// Output only. Cloud Storage path containing quota validation results. This
     /// field is set when a user sets Deployment.quota_validation field to ENABLED
     /// or ENFORCED. Format: `gs://{bucket}/{object}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub quota_validation_results: std::string::String,
 
     /// Optional. Input to control quota checks for resources in terraform
     /// configuration files. There are limited resources on which quota validation
     /// applies.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub quota_validation: crate::model::QuotaValidation,
 
     /// Blueprint that was deployed.
@@ -3145,17 +3209,19 @@ pub struct TerraformError {
     /// Address of the resource associated with the error,
     /// e.g. `google_compute_network.vpc_network`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub resource_address: std::string::String,
 
     /// HTTP response code returned from Google Cloud Platform APIs when Terraform
     /// fails to provision the resource. If unset or 0, no HTTP response code was
     /// returned by Terraform.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub http_response_code: i32,
 
     /// A human-readable error description.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub error_description: std::string::String,
 
     /// Original error response from underlying Google API, if available.
@@ -3319,6 +3385,7 @@ impl wkt::message::Message for GitSource {
 pub struct DeploymentOperationMetadata {
     /// The current step the deployment operation is running.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub step: crate::model::deployment_operation_metadata::DeploymentStep,
 
     /// Outputs and artifacts from applying a deployment.
@@ -3327,11 +3394,13 @@ pub struct DeploymentOperationMetadata {
 
     /// Output only. Cloud Build instance UUID associated with this operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub build: std::string::String,
 
     /// Output only. Location of Deployment operations logs in
     /// `gs://{bucket}/{object}` format.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub logs: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3615,6 +3684,7 @@ pub struct Resource {
     /// Format:
     /// `projects/{project}/locations/{location}/deployments/{deployment}/revisions/{revision}/resources/{resource}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. Terraform-specific info if this resource was created using
@@ -3626,14 +3696,17 @@ pub struct Resource {
     /// ID). CAI type format follows
     /// <https://cloud.google.com/asset-inventory/docs/supported-asset-types>
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub cai_assets: std::collections::HashMap<std::string::String, crate::model::ResourceCAIInfo>,
 
     /// Output only. Intent of the resource.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub intent: crate::model::resource::Intent,
 
     /// Output only. Current state of the resource.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::resource::State,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4017,15 +4090,18 @@ pub struct ResourceTerraformInfo {
     /// TF resource address that uniquely identifies this resource within this
     /// deployment.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub address: std::string::String,
 
     /// TF resource type
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub r#type: std::string::String,
 
     /// ID attribute of the TF resource
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4071,6 +4147,7 @@ pub struct ResourceCAIInfo {
     /// CAI resource name in the format following
     /// <https://cloud.google.com/apis/design/resource_names#full_resource_name>
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub full_resource_name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4107,6 +4184,7 @@ pub struct GetResourceRequest {
     /// Required. The name of the Resource in the format:
     /// 'projects/{project_id}/locations/{location}/deployments/{deployment}/revisions/{revision}/resource/{resource}'.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4141,18 +4219,20 @@ pub struct ListResourcesRequest {
     /// value is in the format:
     /// 'projects/{project_id}/locations/{location}/deployments/{deployment}/revisions/{revision}'.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// When requesting a page of resources, 'page_size' specifies number of
     /// resources to return. If unspecified, at most 500 will be returned. The
     /// maximum value is 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Token returned by previous call to 'ListResources' which specifies the
     /// position in the list from where to continue listing the resources.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Lists the Resources that match the filter expression. A filter
@@ -4170,10 +4250,12 @@ pub struct ListResourcesRequest {
     ///   name =
     ///   "projects/foo/locations/us-central1/deployments/dep/revisions/bar/resources/baz
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Field to use to sort the list.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4232,16 +4314,19 @@ pub struct ListResourcesResponse {
     ///
     /// [google.cloud.config.v1.Resource]: crate::model::Resource
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub resources: std::vec::Vec<crate::model::Resource>,
 
     /// A token to request the next page of resources from the 'ListResources'
     /// method. The value of an empty string means that there are no more resources
     /// to return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4311,6 +4396,7 @@ pub struct Statefile {
     /// Output only. Cloud Storage signed URI used for downloading or uploading the
     /// state file.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub signed_uri: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4346,12 +4432,14 @@ pub struct ExportDeploymentStatefileRequest {
     /// value is in the format:
     /// 'projects/{project_id}/locations/{location}/deployments/{deployment}'.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. If this flag is set to true, the exported deployment state file
     /// will be the draft state. This will enable the draft file to be validated
     /// before copying it over to the working state on unlock.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub draft: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4393,6 +4481,7 @@ pub struct ExportRevisionStatefileRequest {
     /// value is in the format:
     /// 'projects/{project_id}/locations/{location}/deployments/{deployment}/revisions/{revision}'.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4427,16 +4516,18 @@ pub struct ImportStatefileRequest {
     /// value is in the format:
     /// 'projects/{project_id}/locations/{location}/deployments/{deployment}'.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. Lock ID of the lock file to verify that the user who is importing
     /// the state file previously locked the Deployment.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub lock_id: i64,
 
     /// Optional.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub skip_draft: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4482,12 +4573,13 @@ pub struct DeleteStatefileRequest {
     /// Required. The name of the deployment in the format:
     /// 'projects/{project_id}/locations/{location}/deployments/{deployment}'.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. Lock ID of the lock file to verify that the user who is deleting
     /// the state file previously locked the Deployment.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub lock_id: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4527,6 +4619,7 @@ pub struct LockDeploymentRequest {
     /// Required. The name of the deployment in the format:
     /// 'projects/{project_id}/locations/{location}/deployments/{deployment}'.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4560,11 +4653,12 @@ pub struct UnlockDeploymentRequest {
     /// Required. The name of the deployment in the format:
     /// 'projects/{project_id}/locations/{location}/deployments/{deployment}'.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. Lock ID of the lock file to be unlocked.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub lock_id: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4604,6 +4698,7 @@ pub struct ExportLockInfoRequest {
     /// Required. The name of the deployment in the format:
     /// 'projects/{project_id}/locations/{location}/deployments/{deployment}'.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4636,23 +4731,27 @@ impl wkt::message::Message for ExportLockInfoRequest {
 pub struct LockInfo {
     /// Unique ID for the lock to be overridden with generation ID in the backend.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub lock_id: i64,
 
     /// Terraform operation, provided by the caller.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub operation: std::string::String,
 
     /// Extra information to store with the lock, provided by the caller.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub info: std::string::String,
 
     /// user@hostname when available
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub who: std::string::String,
 
     /// Terraform version
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub version: std::string::String,
 
     /// Time that the lock was taken.
@@ -4735,6 +4834,7 @@ pub struct Preview {
     /// provided or server generated ID if unspecified. Format:
     /// `projects/{project}/locations/{location}/previews/{preview}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. Time the preview was created.
@@ -4743,10 +4843,12 @@ pub struct Preview {
 
     /// Optional. User-defined labels for the preview.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. Current state of the preview.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::preview::State,
 
     /// Optional. Optional deployment reference. If specified, the preview will be
@@ -4754,16 +4856,19 @@ pub struct Preview {
     /// relevant fields from the deployment unless explicitly specified in the
     /// preview create request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub deployment: std::string::String,
 
     /// Optional. Current mode of preview.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub preview_mode: crate::model::preview::PreviewMode,
 
     /// Required. User-specified Service Account (SA) credentials to be used when
     /// previewing resources.
     /// Format: `projects/{projectID}/serviceAccounts/{serviceAccount}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub service_account: std::string::String,
 
     /// Optional. User-defined location of Cloud Build logs, artifacts, and
@@ -4791,6 +4896,7 @@ pub struct Preview {
 
     /// Output only. Code describing any errors that may have occurred.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub error_code: crate::model::preview::ErrorCode,
 
     /// Output only. Additional information regarding the current state.
@@ -4799,17 +4905,20 @@ pub struct Preview {
 
     /// Output only. Cloud Build instance UUID associated with this preview.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub build: std::string::String,
 
     /// Output only. Summary of errors encountered during Terraform preview.
     /// It has a size limit of 10, i.e. only top 10 errors will be summarized here.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub tf_errors: std::vec::Vec<crate::model::TerraformError>,
 
     /// Output only. Link to tf-error.ndjson file, which contains the full list of
     /// the errors encountered during a Terraform preview.
     /// Format: `gs://{bucket}/{object}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub error_logs: std::string::String,
 
     /// Output only. Artifacts from preview.
@@ -4818,11 +4927,13 @@ pub struct Preview {
 
     /// Output only. Location of preview logs in `gs://{bucket}/{object}` format.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub logs: std::string::String,
 
     /// Output only. The current Terraform version set on the preview.
     /// It is in the format of "Major.Minor.Patch", for example, "1.3.10".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub tf_version: std::string::String,
 
     /// Optional. The user-specified Terraform version constraint.
@@ -4835,6 +4946,7 @@ pub struct Preview {
     /// <https://google.aip.dev/148#annotations> for details on format and size
     /// limitations.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Blueprint to preview.
@@ -5605,6 +5717,7 @@ pub mod preview {
 pub struct PreviewOperationMetadata {
     /// The current step the preview operation is running.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub step: crate::model::preview_operation_metadata::PreviewStep,
 
     /// Artifacts from preview.
@@ -5613,10 +5726,12 @@ pub struct PreviewOperationMetadata {
 
     /// Output only. Location of preview logs in `gs://{bucket}/{object}` format.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub logs: std::string::String,
 
     /// Output only. Cloud Build instance UUID associated with this preview.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub build: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5882,11 +5997,13 @@ pub struct PreviewArtifacts {
     /// Output only. Location of a blueprint copy and other content in Google Cloud
     /// Storage. Format: `gs://{bucket}/{object}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub content: std::string::String,
 
     /// Output only. Location of artifacts in Google Cloud Storage.
     /// Format: `gs://{bucket}/{object}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub artifacts: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5926,10 +6043,12 @@ pub struct CreatePreviewRequest {
     /// Required. The parent in whose context the Preview is created. The parent
     /// value is in the format: 'projects/{project_id}/locations/{location}'.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. The preview ID.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub preview_id: std::string::String,
 
     /// Required. [Preview][google.cloud.config.v1.Preview] resource to be created.
@@ -5952,6 +6071,7 @@ pub struct CreatePreviewRequest {
     /// The request ID must be a valid UUID with the exception that zero UUID is
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6015,6 +6135,7 @@ pub struct GetPreviewRequest {
     /// Required. The name of the preview. Format:
     /// 'projects/{project_id}/locations/{location}/previews/{preview}'.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6048,19 +6169,21 @@ pub struct ListPreviewsRequest {
     /// Required. The parent in whose context the Previews are listed. The parent
     /// value is in the format: 'projects/{project_id}/locations/{location}'.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. When requesting a page of resources, 'page_size' specifies number
     /// of resources to return. If unspecified, at most 500 will be returned. The
     /// maximum value is 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. Token returned by previous call to 'ListDeployments' which
     /// specifies the position in the list from where to continue listing the
     /// resources.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. Lists the Deployments that match the filter expression. A filter
@@ -6087,10 +6210,12 @@ pub struct ListPreviewsRequest {
     ///   - Deployments in CREATING state.
     ///     state=CREATING
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Optional. Field to use to sort the list.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6149,15 +6274,18 @@ pub struct ListPreviewsResponse {
     ///
     /// [google.cloud.config.v1.Preview]: crate::model::Preview
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub previews: std::vec::Vec<crate::model::Preview>,
 
     /// Token to be supplied to the next ListPreviews request via `page_token`
     /// to obtain the next set of results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6227,6 +6355,7 @@ pub struct DeletePreviewRequest {
     /// Required. The name of the Preview in the format:
     /// 'projects/{project_id}/locations/{location}/previews/{preview}'.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. An optional request ID to identify requests. Specify a unique
@@ -6243,6 +6372,7 @@ pub struct DeletePreviewRequest {
     /// The request ID must be a valid UUID with the exception that zero UUID is
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6283,6 +6413,7 @@ pub struct ExportPreviewResultRequest {
     /// is in the format:
     /// 'projects/{project_id}/locations/{location}/previews/{preview}'.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6359,10 +6490,12 @@ impl wkt::message::Message for ExportPreviewResultResponse {
 pub struct PreviewResult {
     /// Output only. Plan binary signed URL
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub binary_signed_uri: std::string::String,
 
     /// Output only. Plan JSON signed URL
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub json_signed_uri: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6405,6 +6538,7 @@ pub struct GetTerraformVersionRequest {
     /// Required. The name of the TerraformVersion. Format:
     /// 'projects/{project_id}/locations/{location}/terraformVersions/{terraform_version}'
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6439,19 +6573,21 @@ pub struct ListTerraformVersionsRequest {
     /// parent value is in the format:
     /// 'projects/{project_id}/locations/{location}'.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. When requesting a page of resources, 'page_size' specifies number
     /// of resources to return. If unspecified, at most 500 will be returned. The
     /// maximum value is 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. Token returned by previous call to 'ListTerraformVersions' which
     /// specifies the position in the list from where to continue listing the
     /// resources.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. Lists the TerraformVersions that match the filter expression. A
@@ -6463,10 +6599,12 @@ pub struct ListTerraformVersionsRequest {
     /// proto or JSON field, or a synthetic field. Field names can be camelCase or
     /// snake_case.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Optional. Field to use to sort the list.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6525,15 +6663,18 @@ pub struct ListTerraformVersionsResponse {
     ///
     /// [google.cloud.config.v1.TerraformVersion]: crate::model::TerraformVersion
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub terraform_versions: std::vec::Vec<crate::model::TerraformVersion>,
 
     /// Token to be supplied to the next ListTerraformVersions request via
     /// `page_token` to obtain the next set of results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// Unreachable resources, if any.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6604,10 +6745,12 @@ pub struct TerraformVersion {
     /// Identifier. The version name is in the format:
     /// 'projects/{project_id}/locations/{location}/terraformVersions/{terraform_version}'.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. The state of the version, ACTIVE, DEPRECATED or OBSOLETE.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::terraform_version::State,
 
     /// Output only. When the version is supported.

@@ -49,6 +49,7 @@ pub struct AccessTuple {
     /// The principal must be a Google Account or a service account. Other types of
     /// principals are not supported.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub principal: std::string::String,
 
     /// Required. The full resource name that identifies the resource. For example,
@@ -57,6 +58,7 @@ pub struct AccessTuple {
     /// For examples of full resource names for Google Cloud services, see
     /// <https://cloud.google.com/iam/help/troubleshooter/full-resource-names>.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub full_resource_name: std::string::String,
 
     /// Required. The IAM permission to check for the specified principal and
@@ -68,6 +70,7 @@ pub struct AccessTuple {
     /// For a complete list of predefined IAM roles and the permissions in each
     /// role, see <https://cloud.google.com/iam/help/roles/reference>.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub permission: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -125,6 +128,7 @@ pub struct ExplainedPolicy {
     /// permission, use the `access` field in the
     /// [TroubleshootIamPolicyResponse][IamChecker.TroubleshootIamPolicyResponse].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub access: crate::model::AccessState,
 
     /// The full resource name that identifies the resource. For example,
@@ -139,6 +143,7 @@ pub struct ExplainedPolicy {
     ///
     /// [google.cloud.policysimulator.v1.Replay]: crate::model::Replay
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub full_resource_name: std::string::String,
 
     /// The IAM policy attached to the resource.
@@ -160,6 +165,7 @@ pub struct ExplainedPolicy {
     ///
     /// [google.cloud.policysimulator.v1.Replay]: crate::model::Replay
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub binding_explanations: std::vec::Vec<crate::model::BindingExplanation>,
 
     /// The relevance of this policy to the overall determination in the
@@ -171,6 +177,7 @@ pub struct ExplainedPolicy {
     ///
     /// [google.cloud.policysimulator.v1.Replay]: crate::model::Replay
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub relevance: crate::model::HeuristicRelevance,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -258,6 +265,7 @@ pub struct BindingExplanation {
     /// permission, use the `access` field in the
     /// [TroubleshootIamPolicyResponse][IamChecker.TroubleshootIamPolicyResponse].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub access: crate::model::AccessState,
 
     /// The role that this binding grants. For example,
@@ -266,16 +274,19 @@ pub struct BindingExplanation {
     /// For a complete list of predefined IAM roles, as well as the permissions in
     /// each role, see <https://cloud.google.com/iam/help/roles/reference>.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub role: std::string::String,
 
     /// Indicates whether the role granted by this binding contains the specified
     /// permission.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub role_permission: crate::model::binding_explanation::RolePermission,
 
     /// The relevance of the permission's existence, or nonexistence, in the role
     /// to the overall determination for the entire policy.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub role_permission_relevance: crate::model::HeuristicRelevance,
 
     /// Indicates whether each principal in the binding includes the principal
@@ -299,6 +310,7 @@ pub struct BindingExplanation {
     /// `group:product-eng@example.com`, and the `membership` field in the value is
     /// set to `MEMBERSHIP_INCLUDED`.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub memberships: std::collections::HashMap<
         std::string::String,
         crate::model::binding_explanation::AnnotatedMembership,
@@ -307,6 +319,7 @@ pub struct BindingExplanation {
     /// The relevance of this binding to the overall determination for the entire
     /// policy.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub relevance: crate::model::HeuristicRelevance,
 
     /// A condition expression that prevents this binding from granting access
@@ -419,11 +432,13 @@ pub mod binding_explanation {
     pub struct AnnotatedMembership {
         /// Indicates whether the binding includes the principal.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub membership: crate::model::binding_explanation::Membership,
 
         /// The relevance of the principal's status to the overall determination for
         /// the binding.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub relevance: crate::model::HeuristicRelevance,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -785,10 +800,12 @@ pub struct Replay {
     /// Example:
     /// `projects/my-example-project/locations/global/replays/506a5f7f-38ce-4d7d-8e03-479ce1833c36`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. The current state of the `Replay`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::replay::State,
 
     /// Required. The configuration used for the `Replay`.
@@ -876,24 +893,24 @@ pub mod replay {
     pub struct ResultsSummary {
         /// The total number of log entries replayed.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub log_count: i32,
 
         /// The number of replayed log entries with no difference between
         /// baseline and simulated policies.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub unchanged_count: i32,
 
         /// The number of replayed log entries with a difference between baseline and
         /// simulated policies.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub difference_count: i32,
 
         /// The number of log entries that could not be replayed.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub error_count: i32,
 
         /// The date of the oldest log entry replayed.
@@ -1146,6 +1163,7 @@ pub struct ReplayResult {
     ///
     /// [google.cloud.policysimulator.v1.Replay]: crate::model::Replay
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The [Replay][google.cloud.policysimulator.v1.Replay] that the access tuple
@@ -1153,6 +1171,7 @@ pub struct ReplayResult {
     ///
     /// [google.cloud.policysimulator.v1.Replay]: crate::model::Replay
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The access tuple that was replayed. This field includes information about
@@ -1341,6 +1360,7 @@ pub struct CreateReplayRequest {
     ///
     /// [google.cloud.policysimulator.v1.Replay]: crate::model::Replay
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The [Replay][google.cloud.policysimulator.v1.Replay] to create.
@@ -1455,6 +1475,7 @@ pub struct GetReplayRequest {
     ///
     /// [google.cloud.policysimulator.v1.Replay]: crate::model::Replay
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1498,6 +1519,7 @@ pub struct ListReplayResultsRequest {
     ///
     /// [google.cloud.policysimulator.v1.Replay]: crate::model::Replay
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The maximum number of
@@ -1508,7 +1530,7 @@ pub struct ListReplayResultsRequest {
     ///
     /// [google.cloud.policysimulator.v1.ReplayResult]: crate::model::ReplayResult
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// A page token, received from a previous
@@ -1521,6 +1543,7 @@ pub struct ListReplayResultsRequest {
     ///
     /// [google.cloud.policysimulator.v1.Simulator.ListReplayResults]: crate::client::Simulator::list_replay_results
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1570,6 +1593,7 @@ pub struct ListReplayResultsResponse {
     ///
     /// [google.cloud.policysimulator.v1.Replay]: crate::model::Replay
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub replay_results: std::vec::Vec<crate::model::ReplayResult>,
 
     /// A token that you can use to retrieve the next page of
@@ -1578,6 +1602,7 @@ pub struct ListReplayResultsResponse {
     ///
     /// [google.cloud.policysimulator.v1.ReplayResult]: crate::model::ReplayResult
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1653,6 +1678,7 @@ pub struct ReplayConfig {
     ///
     /// [google.iam.v1.Policy]: iam_v1::model::Policy
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub policy_overlay: std::collections::HashMap<std::string::String, iam_v1::model::Policy>,
 
     /// The logs to use as input for the
@@ -1660,6 +1686,7 @@ pub struct ReplayConfig {
     ///
     /// [google.cloud.policysimulator.v1.Replay]: crate::model::Replay
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub log_source: crate::model::replay_config::LogSource,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1921,6 +1948,7 @@ pub struct AccessStateDiff {
     /// How the principal's access, specified in the AccessState field, changed
     /// between the current (baseline) policies and proposed (simulated) policies.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub access_change: crate::model::access_state_diff::AccessChangeType,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2190,6 +2218,7 @@ pub struct ExplainedAccess {
     /// Whether the principal in the access tuple has permission to access the
     /// resource in the access tuple under the given policies.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub access_state: crate::model::AccessState,
 
     /// If the [AccessState][google.cloud.policysimulator.v1.AccessState] is
@@ -2200,6 +2229,7 @@ pub struct ExplainedAccess {
     ///
     /// [google.cloud.policysimulator.v1.AccessState]: crate::model::AccessState
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub policies: std::vec::Vec<crate::model::ExplainedPolicy>,
 
     /// If the [AccessState][google.cloud.policysimulator.v1.AccessState] is
@@ -2211,6 +2241,7 @@ pub struct ExplainedAccess {
     ///
     /// [google.cloud.policysimulator.v1.AccessState]: crate::model::AccessState
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub errors: std::vec::Vec<rpc::model::Status>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

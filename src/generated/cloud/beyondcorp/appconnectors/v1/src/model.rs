@@ -44,7 +44,7 @@ pub struct AppConnectorInstanceConfig {
     /// by the API provider. Every time a config changes in the backend, the
     /// sequenceNumber should be bumped up to reflect the change.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub sequence_number: i64,
 
     /// The SLM instance agent configuration.
@@ -225,6 +225,7 @@ pub mod notification_config {
     pub struct CloudPubSubNotificationConfig {
         /// The Pub/Sub subscription the AppConnector uses to receive notifications.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub pubsub_subscription: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -273,11 +274,13 @@ pub struct ImageConfig {
     /// The initial image the remote agent will attempt to run for the control
     /// plane.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub target_image: std::string::String,
 
     /// The stable image that the remote agent will fallback to if the target image
     /// fails.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub stable_image: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -317,6 +320,7 @@ pub struct ListAppConnectorsRequest {
     /// Required. The resource name of the AppConnector location using the form:
     /// `projects/{project_id}/locations/{location_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. The maximum number of items to return.
@@ -326,16 +330,18 @@ pub struct ListAppConnectorsRequest {
     /// [next_page_token][BeyondCorp.ListAppConnectorsResponse.next_page_token] to
     /// determine if there are more instances left to be queried.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. The next_page_token value returned from a previous
     /// ListAppConnectorsRequest, if any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. A filter specifying constraints of a list operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Optional. Specifies the ordering of results. See
@@ -343,6 +349,7 @@ pub struct ListAppConnectorsRequest {
     /// order](https://cloud.google.com/apis/design/design_patterns#sorting_order)
     /// for more information.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -399,15 +406,18 @@ impl wkt::message::Message for ListAppConnectorsRequest {
 pub struct ListAppConnectorsResponse {
     /// A list of BeyondCorp AppConnectors in the project.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub app_connectors: std::vec::Vec<crate::model::AppConnector>,
 
     /// A token to retrieve the next page of results, or empty if there are no more
     /// results in the list.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// A list of locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -477,6 +487,7 @@ pub struct GetAppConnectorRequest {
     /// Required. BeyondCorp AppConnector name using the form:
     /// `projects/{project_id}/locations/{location_id}/appConnectors/{app_connector_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -510,6 +521,7 @@ pub struct CreateAppConnectorRequest {
     /// Required. The resource project name of the AppConnector location using the
     /// form: `projects/{project_id}/locations/{location_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. User-settable AppConnector resource ID.
@@ -518,6 +530,7 @@ pub struct CreateAppConnectorRequest {
     /// * Must contain between 4-63 characters from `/[a-z][0-9]-/`.
     /// * Must end with a number or a letter.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub app_connector_id: std::string::String,
 
     /// Required. A BeyondCorp AppConnector resource.
@@ -538,11 +551,13 @@ pub struct CreateAppConnectorRequest {
     /// The request ID must be a valid UUID with the exception that zero UUID is
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     /// Optional. If set, validates request by executing a dry-run which would not
     /// alter the resource in any way.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -640,11 +655,13 @@ pub struct UpdateAppConnectorRequest {
     /// The request ID must be a valid UUID with the exception that zero UUID is
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     /// Optional. If set, validates request by executing a dry-run which would not
     /// alter the resource in any way.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -720,6 +737,7 @@ pub struct DeleteAppConnectorRequest {
     /// Required. BeyondCorp AppConnector name using the form:
     /// `projects/{project_id}/locations/{location_id}/appConnectors/{app_connector_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. An optional request ID to identify requests. Specify a unique
@@ -736,11 +754,13 @@ pub struct DeleteAppConnectorRequest {
     /// The request ID must be a valid UUID with the exception that zero UUID is
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     /// Optional. If set, validates request by executing a dry-run which would not
     /// alter the resource in any way.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -786,6 +806,7 @@ pub struct ReportStatusRequest {
     /// Required. BeyondCorp Connector name using the form:
     /// `projects/{project_id}/locations/{location_id}/connectors/{connector}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub app_connector: std::string::String,
 
     /// Required. Resource info of the connector.
@@ -806,11 +827,13 @@ pub struct ReportStatusRequest {
     /// The request ID must be a valid UUID with the exception that zero UUID is
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     /// Optional. If set, validates request by executing a dry-run which would not
     /// alter the resource in any way.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -878,6 +901,7 @@ pub struct AppConnector {
     /// Required. Unique resource name of the AppConnector.
     /// The name is ignored when creating a AppConnector.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. Timestamp when the resource was created.
@@ -890,20 +914,24 @@ pub struct AppConnector {
 
     /// Optional. Resource labels to represent user provided metadata.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Optional. An arbitrary user-provided name for the AppConnector. Cannot
     /// exceed 64 characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// Output only. A unique identifier for the instance generated by the
     /// system.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub uid: std::string::String,
 
     /// Output only. The current state of the AppConnector.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::app_connector::State,
 
     /// Required. Principal information about the Identity of the AppConnector.
@@ -1136,6 +1164,7 @@ pub mod app_connector {
         pub struct ServiceAccount {
             /// Email address of the service account.
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub email: std::string::String,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1343,14 +1372,17 @@ pub struct AppConnectorOperationMetadata {
 
     /// Output only. Server-defined resource path for the target of the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub target: std::string::String,
 
     /// Output only. Name of the verb executed by the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub verb: std::string::String,
 
     /// Output only. Human-readable status of the operation, if any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub status_message: std::string::String,
 
     /// Output only. Identifies whether the user has requested cancellation
@@ -1361,10 +1393,12 @@ pub struct AppConnectorOperationMetadata {
     ///
     /// [google.rpc.Status.code]: rpc::model::Status::code
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub api_version: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1467,11 +1501,13 @@ impl wkt::message::Message for AppConnectorOperationMetadata {
 pub struct ResourceInfo {
     /// Required. Unique Id for the resource.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub id: std::string::String,
 
     /// Overall health status. Overall status is derived based on the status of
     /// each sub level resources.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub status: crate::model::HealthStatus,
 
     /// Specific details for the resource. This is for internal use only.
@@ -1485,6 +1521,7 @@ pub struct ResourceInfo {
 
     /// List of Info for the sub level resources.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub sub: std::vec::Vec<crate::model::ResourceInfo>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

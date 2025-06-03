@@ -45,10 +45,12 @@ pub struct Function {
     /// A user-defined name of the function. Function names must be unique
     /// globally and match pattern `projects/*/locations/*/functions/*`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// User-provided description of a function.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Describes the Build step of the function that builds a container from the
@@ -68,6 +70,7 @@ pub struct Function {
 
     /// Output only. State of the function.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::function::State,
 
     /// Output only. The last update timestamp of a Cloud Function.
@@ -76,18 +79,22 @@ pub struct Function {
 
     /// Labels associated with this Cloud Function.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. State Messages for this Cloud Function.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub state_messages: std::vec::Vec<crate::model::StateMessage>,
 
     /// Describe whether the function is 1st Gen or 2nd Gen.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub environment: crate::model::Environment,
 
     /// Output only. The deployed url for the function.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub url: std::string::String,
 
     /// Resource name of a KMS crypto key (managed by the user) used to
@@ -96,10 +103,12 @@ pub struct Function {
     /// It must match the pattern
     /// `projects/{project}/locations/{location}/keyRings/{key_ring}/cryptoKeys/{crypto_key}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub kms_key_name: std::string::String,
 
     /// Output only. Reserved for future use.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub satisfies_pzs: bool,
 
     /// Output only. The create timestamp of a Cloud Function. This is only
@@ -449,15 +458,18 @@ pub mod function {
 pub struct StateMessage {
     /// Severity of the state message.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub severity: crate::model::state_message::Severity,
 
     /// One-word CamelCase type of the state message.
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub r#type: std::string::String,
 
     /// The message.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub message: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -652,6 +664,7 @@ pub struct StorageSource {
     /// [Bucket Name
     /// Requirements](https://cloud.google.com/storage/docs/bucket-naming#requirements)).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub bucket: std::string::String,
 
     /// Google Cloud Storage object containing the source.
@@ -659,18 +672,20 @@ pub struct StorageSource {
     /// This object must be a gzipped archive file (`.tar.gz`) containing source to
     /// build.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub object: std::string::String,
 
     /// Google Cloud Storage generation for the object. If the generation is
     /// omitted, the latest generation will be used.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub generation: i64,
 
     /// When the specified storage bucket is a 1st gen function uploard url bucket,
     /// this field should be set as the generated upload url for 1st gen
     /// deployment.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub source_upload_url: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -725,10 +740,12 @@ pub struct RepoSource {
     /// ID of the project that owns the Cloud Source Repository. If omitted, the
     /// project ID requesting the build is assumed.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub project_id: std::string::String,
 
     /// Name of the Cloud Source Repository.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub repo_name: std::string::String,
 
     /// Directory, relative to the source root, in which to run the build.
@@ -737,11 +754,13 @@ pub struct RepoSource {
     /// absolute path, this value is ignored for that step's execution.
     /// eg. helloworld (no leading slash allowed)
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub dir: std::string::String,
 
     /// Only trigger a build if the revision regex does NOT match the revision
     /// regex.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub invert_regex: bool,
 
     /// A revision within the Cloud Source Repository must be specified in
@@ -885,14 +904,14 @@ pub mod repo_source {
         ///
         /// The syntax of the regular expressions accepted is the syntax accepted by
         /// RE2 and described at <https://github.com/google/re2/wiki/Syntax>
-        BranchName(std::string::String),
+        BranchName(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// Regex matching tags to build.
         ///
         /// The syntax of the regular expressions accepted is the syntax accepted by
         /// RE2 and described at <https://github.com/google/re2/wiki/Syntax>
-        TagName(std::string::String),
+        TagName(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// Explicit commit SHA to build.
-        CommitSha(std::string::String),
+        CommitSha(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
     }
 }
 
@@ -1029,7 +1048,7 @@ pub mod source {
         /// If provided, get the source from GitHub repository. This option is valid
         /// only for GCF 1st Gen function.
         /// Example: <https://github.com/>\<user\>/\<repo\>/blob/\<commit\>/\<path-to-code\>
-        GitUri(std::string::String),
+        GitUri(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
     }
 }
 
@@ -1053,6 +1072,7 @@ pub struct SourceProvenance {
     /// A copy of the build's `source.git_uri`, if exists, with any commits
     /// resolved.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub git_uri: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1123,6 +1143,7 @@ pub struct BuildConfig {
     /// Output only. The Cloud Build name of the latest successful deployment of
     /// the function.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub build: std::string::String,
 
     /// The runtime in which to run the function. Required when deploying a new
@@ -1131,6 +1152,7 @@ pub struct BuildConfig {
     /// [`gcloud` command
     /// reference](https://cloud.google.com/sdk/gcloud/reference/functions/deploy#--runtime).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub runtime: std::string::String,
 
     /// The name of the function (as defined in source code) that will be
@@ -1140,6 +1162,7 @@ pub struct BuildConfig {
     /// For Node.js this is name of a function exported by the module specified
     /// in `source_location`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub entry_point: std::string::String,
 
     /// The location of the function source code.
@@ -1163,10 +1186,12 @@ pub struct BuildConfig {
     /// granted the role Cloud Build Custom Workers Builder
     /// (roles/cloudbuild.customworkers.builder) in the project.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub worker_pool: std::string::String,
 
     /// User-provided build-time environment variables for the function
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub environment_variables: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Docker Registry to use for this deployment. This configuration is only
@@ -1181,6 +1206,7 @@ pub struct BuildConfig {
     /// If `docker_repository` field is specified, this field should either be left
     /// unspecified or set to `ARTIFACT_REGISTRY`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     #[deprecated]
     pub docker_registry: crate::model::build_config::DockerRegistry,
 
@@ -1194,11 +1220,13 @@ pub struct BuildConfig {
     /// `projects/{project}/locations/{location}/repositories/{repository}`.
     /// Repository format must be 'DOCKER'.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub docker_repository: std::string::String,
 
     /// Service account to be used for building the container. The format of this
     /// field is `projects/{projectId}/serviceAccounts/{serviceAccountEmail}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub service_account: std::string::String,
 
     /// This controls when security patches are applied to the runtime environment.
@@ -1562,13 +1590,14 @@ pub struct ServiceConfig {
     /// The format of this field is
     /// `projects/{project}/locations/{region}/services/{service}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub service: std::string::String,
 
     /// The function execution timeout. Execution is considered failed and
     /// can be terminated if the function is not completed at the end of the
     /// timeout period. Defaults to 60 seconds.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub timeout_seconds: i32,
 
     /// The amount of memory available for a function.
@@ -1578,6 +1607,7 @@ pub struct ServiceConfig {
     /// <https://github.com/kubernetes/kubernetes/blob/master/staging/src/k8s.io/apimachinery/pkg/api/resource/quantity.go>
     /// a full description.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub available_memory: std::string::String,
 
     /// The number of CPUs used in a single container instance.
@@ -1586,10 +1616,12 @@ pub struct ServiceConfig {
     /// <https://cloud.google.com/run/docs/reference/rest/v1/Container#resourcerequirements>
     /// Example: "1" indicates 1 vCPU
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub available_cpu: std::string::String,
 
     /// Environment variables that shall be available during function execution.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub environment_variables: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// The limit on the maximum number of function instances that may coexist at a
@@ -1605,7 +1637,7 @@ pub struct ServiceConfig {
     /// Instances](https://cloud.google.com/functions/docs/max-instances) Guide for
     /// more details.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub max_instance_count: i32,
 
     /// The limit on the minimum number of function instances that may coexist at a
@@ -1618,31 +1650,36 @@ pub struct ServiceConfig {
     /// with cold start times when jump in incoming request count occurs after the
     /// idle instance would have been stopped in the default case.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub min_instance_count: i32,
 
     /// The Serverless VPC Access connector that this cloud function can connect
     /// to. The format of this field is `projects/*/locations/*/connectors/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub vpc_connector: std::string::String,
 
     /// The egress settings for the connector, controlling what traffic is diverted
     /// through it.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub vpc_connector_egress_settings: crate::model::service_config::VpcConnectorEgressSettings,
 
     /// The ingress settings for the function, controlling what traffic can reach
     /// it.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub ingress_settings: crate::model::service_config::IngressSettings,
 
     /// Output only. URI of the Service deployed.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub uri: std::string::String,
 
     /// The email of the service's service account. If empty, defaults to
     /// `{project_number}-compute@developer.gserviceaccount.com`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub service_account_email: std::string::String,
 
     /// Whether 100% of traffic is routed to the latest revision.
@@ -1651,24 +1688,28 @@ pub struct ServiceConfig {
     /// if any. On GetFunction, true will be returned if the latest revision is
     /// serving 100% of traffic.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub all_traffic_on_latest_revision: bool,
 
     /// Secret environment variables configuration.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub secret_environment_variables: std::vec::Vec<crate::model::SecretEnvVar>,
 
     /// Secret volumes configuration.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub secret_volumes: std::vec::Vec<crate::model::SecretVolume>,
 
     /// Output only. The name of service revision.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub revision: std::string::String,
 
     /// Sets the maximum number of concurrent requests that each instance
     /// can receive. Defaults to 1.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub max_instance_request_concurrency: i32,
 
     /// Security level configure whether the function only accepts https.
@@ -1676,11 +1717,13 @@ pub struct ServiceConfig {
     /// trigger. By default https is optional for 1st Gen functions; 2nd Gen
     /// functions are https ONLY.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub security_level: crate::model::service_config::SecurityLevel,
 
     /// Optional. The binary authorization policy to be checked when deploying the
     /// Cloud Run service.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub binary_authorization_policy: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2296,16 +2339,19 @@ pub mod service_config {
 pub struct SecretEnvVar {
     /// Name of the environment variable.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub key: std::string::String,
 
     /// Project identifier (preferably project number but can also be the
     /// project ID) of the project that contains the secret. If not set, it is
     /// assumed that the secret is in the same project as the function.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub project_id: std::string::String,
 
     /// Name of the secret in secret manager (not the full resource name).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub secret: std::string::String,
 
     /// Version of the secret (version number or the string 'latest'). It is
@@ -2313,6 +2359,7 @@ pub struct SecretEnvVar {
     /// any updates to the secret value is not reflected until new instances
     /// start.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub version: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2369,22 +2416,26 @@ pub struct SecretVolume {
     /// shadowed and unavailable to mount any other secrets.
     /// Recommended mount path: /etc/secrets
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub mount_path: std::string::String,
 
     /// Project identifier (preferably project number but can also be the project
     /// ID) of the project that contains the secret. If not set, it is
     /// assumed that the secret is in the same project as the function.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub project_id: std::string::String,
 
     /// Name of the secret in secret manager (not the full resource name).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub secret: std::string::String,
 
     /// List of secret versions to mount for this secret. If empty, the `latest`
     /// version of the secret will be made available in a file named after the
     /// secret under the mount point.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub versions: std::vec::Vec<crate::model::secret_volume::SecretVersion>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2447,6 +2498,7 @@ pub mod secret_volume {
         /// preferable to use `latest` version with secret volumes as secret value
         /// changes are reflected immediately.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub version: std::string::String,
 
         /// Relative path of the file under the mount path where the secret value for
@@ -2454,6 +2506,7 @@ pub mod secret_volume {
         /// mount_path as '/etc/secrets' and path as `secret_foo` would mount the
         /// secret value file at `/etc/secrets/secret_foo`.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub path: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2495,6 +2548,7 @@ pub struct EventTrigger {
     /// Output only. The resource name of the Eventarc trigger. The format of this
     /// field is `projects/{project}/locations/{region}/triggers/{trigger}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub trigger: std::string::String,
 
     /// The region that the trigger will be in. The trigger will only receive
@@ -2502,16 +2556,19 @@ pub struct EventTrigger {
     /// region as the function, a different region or multi-region, or the global
     /// region. If not provided, defaults to the same region as the function.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub trigger_region: std::string::String,
 
     /// Required. The type of event to observe. For example:
     /// `google.cloud.audit.log.v1.written` or
     /// `google.cloud.pubsub.topic.v1.messagePublished`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub event_type: std::string::String,
 
     /// Criteria used to filter events.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub event_filters: std::vec::Vec<crate::model::EventFilter>,
 
     /// Optional. The name of a Pub/Sub topic in the same project that will be used
@@ -2522,6 +2579,7 @@ pub struct EventTrigger {
     /// `google.cloud.pubsub.topic.v1.messagePublished`. The topic provided here
     /// will not be deleted at function deletion.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub pubsub_topic: std::string::String,
 
     /// Optional. The email of the trigger's service account. The service account
@@ -2530,17 +2588,20 @@ pub struct EventTrigger {
     /// If empty, defaults to the Compute Engine default service account:
     /// `{project_number}-compute@developer.gserviceaccount.com`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub service_account_email: std::string::String,
 
     /// Optional. If unset, then defaults to ignoring failures (i.e. not retrying
     /// them).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub retry_policy: crate::model::event_trigger::RetryPolicy,
 
     /// Optional. The name of the channel associated with the trigger in
     /// `projects/{project}/locations/{location}/channels/{channel}` format.
     /// You must provide a channel to receive events from Eventarc SaaS partners.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub channel: std::string::String,
 
     /// Optional. The hostname of the service that 1st Gen function should be
@@ -2552,6 +2613,7 @@ pub struct EventTrigger {
     ///
     /// The field is only applicable to 1st Gen functions.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub service: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2783,10 +2845,12 @@ pub mod event_trigger {
 pub struct EventFilter {
     /// Required. The name of a CloudEvents attribute.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub attribute: std::string::String,
 
     /// Required. The value for the attribute.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub value: std::string::String,
 
     /// Optional. The operator used for matching the events with the value of the
@@ -2794,6 +2858,7 @@ pub struct EventFilter {
     /// specified in the filter are matched. The only allowed value is
     /// `match-path-pattern`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub operator: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2838,6 +2903,7 @@ impl wkt::message::Message for EventFilter {
 pub struct GetFunctionRequest {
     /// Required. The name of the function which details should be obtained.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. The optional version of the 1st gen function whose details should
@@ -2847,6 +2913,7 @@ pub struct GetFunctionRequest {
     /// to fetch the historical configs. This field is valid only for GCF 1st gen
     /// function.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub revision: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2890,6 +2957,7 @@ pub struct ListFunctionsRequest {
     /// unreachable, the response will contain functions from all reachable
     /// locations along with the names of any unreachable locations.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Maximum number of functions to return per call. The largest allowed
@@ -2897,7 +2965,7 @@ pub struct ListFunctionsRequest {
     /// than 1,000 then it will be replaced as 1,000. The size of the list
     /// response can be less than specified when used with filters.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// The value returned by the last
@@ -2905,17 +2973,20 @@ pub struct ListFunctionsRequest {
     /// this is a continuation of a prior `ListFunctions` call, and that the
     /// system should return the next page of data.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// The filter for Functions that match the filter expression,
     /// following the syntax outlined in <https://google.aip.dev/160>.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// The sorting order of the resources returned. Value should be a comma
     /// separated list of fields. The default sorting order is ascending.
     /// See <https://google.aip.dev/132#ordering>.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2972,16 +3043,19 @@ impl wkt::message::Message for ListFunctionsRequest {
 pub struct ListFunctionsResponse {
     /// The functions that match the request.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub functions: std::vec::Vec<crate::model::Function>,
 
     /// A token, which can be sent as `page_token` to retrieve the next page.
     /// If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// Locations that could not be reached. The response does not include any
     /// functions from these locations.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3051,6 +3125,7 @@ pub struct CreateFunctionRequest {
     /// Required. The project and location in which the function should be created,
     /// specified in the format `projects/*/locations/*`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. Function to be created.
@@ -3063,6 +3138,7 @@ pub struct CreateFunctionRequest {
     /// This value should be 4-63 characters, and valid characters
     /// are /[a-z][0-9]-/.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub function_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3186,6 +3262,7 @@ impl wkt::message::Message for UpdateFunctionRequest {
 pub struct DeleteFunctionRequest {
     /// Required. The name of the function which should be deleted.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3219,6 +3296,7 @@ pub struct GenerateUploadUrlRequest {
     /// Required. The project and location in which the Google Cloud Storage signed
     /// URL should be generated, specified in the format `projects/*/locations/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Resource name of a KMS crypto key (managed by the user) used to
@@ -3237,6 +3315,7 @@ pub struct GenerateUploadUrlRequest {
     /// (roles/cloudkms.cryptoKeyEncrypterDecrypter)' on the
     /// Key/KeyRing/Project/Organization (least access preferred).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub kms_key_name: std::string::String,
 
     /// The function environment the generated upload url will be used for.
@@ -3244,6 +3323,7 @@ pub struct GenerateUploadUrlRequest {
     /// functions, but not vice versa. If not specified, 2nd generation-style
     /// upload URLs are generated.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub environment: crate::model::Environment,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3293,6 +3373,7 @@ pub struct GenerateUploadUrlResponse {
     /// function source code upload. The uploaded file should be a zip archive
     /// which contains a function.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub upload_url: std::string::String,
 
     /// The location of the source code in the upload bucket.
@@ -3355,6 +3436,7 @@ pub struct GenerateDownloadUrlRequest {
     /// Required. The name of function for which source code Google Cloud Storage
     /// signed URL should be generated.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3388,6 +3470,7 @@ pub struct GenerateDownloadUrlResponse {
     /// The generated Google Cloud Storage signed URL that should be used for
     /// function source code download.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub download_url: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3421,11 +3504,13 @@ pub struct ListRuntimesRequest {
     /// Required. The project and location from which the runtimes should be
     /// listed, specified in the format `projects/*/locations/*`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The filter for Runtimes that match the filter expression,
     /// following the syntax outlined in <https://google.aip.dev/160>.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3464,6 +3549,7 @@ impl wkt::message::Message for ListRuntimesRequest {
 pub struct ListRuntimesResponse {
     /// The runtimes that match the request.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub runtimes: std::vec::Vec<crate::model::list_runtimes_response::Runtime>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3507,22 +3593,27 @@ pub mod list_runtimes_response {
     pub struct Runtime {
         /// The name of the runtime, e.g., 'go113', 'nodejs12', etc.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub name: std::string::String,
 
         /// The user facing name, eg 'Go 1.13', 'Node.js 12', etc.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub display_name: std::string::String,
 
         /// The stage of life this runtime is in, e.g., BETA, GA, etc.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub stage: crate::model::list_runtimes_response::RuntimeStage,
 
         /// Warning messages, e.g., a deprecation warning.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub warnings: std::vec::Vec<std::string::String>,
 
         /// The environment for the runtime.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub environment: crate::model::Environment,
 
         /// Deprecation date for the runtime.
@@ -3824,6 +3915,7 @@ pub struct OnDeployUpdatePolicy {
     /// Output only. contains the runtime version which was used during latest
     /// function deployment.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub runtime_version: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3864,14 +3956,17 @@ pub struct OperationMetadata {
 
     /// Server-defined resource path for the target of the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub target: std::string::String,
 
     /// Name of the verb executed by the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub verb: std::string::String,
 
     /// Human-readable status of the operation, if any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub status_detail: std::string::String,
 
     /// Identifies whether the user has requested cancellation
@@ -3884,10 +3979,12 @@ pub struct OperationMetadata {
     /// [google.longrunning.Operation.error]: longrunning::model::Operation::result
     /// [google.rpc.Status.code]: rpc::model::Status::code
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub cancel_requested: bool,
 
     /// API version used to start the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub api_version: std::string::String,
 
     /// The original request that started the operation.
@@ -3896,19 +3993,23 @@ pub struct OperationMetadata {
 
     /// Mechanism for reporting in-progress stages
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub stages: std::vec::Vec<crate::model::Stage>,
 
     /// An identifier for Firebase function sources. Disclaimer: This field is only
     /// supported for Firebase function deployments.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub source_token: std::string::String,
 
     /// The build name of the function for create and update operations.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub build_name: std::string::String,
 
     /// The operation type.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub operation_type: crate::model::OperationType,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4051,6 +4152,7 @@ impl wkt::message::Message for OperationMetadata {
 pub struct LocationMetadata {
     /// The Cloud Function environments this location supports.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub environments: std::vec::Vec<crate::model::Environment>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4088,26 +4190,32 @@ impl wkt::message::Message for LocationMetadata {
 pub struct Stage {
     /// Name of the Stage. This will be unique for each Stage.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: crate::model::stage::Name,
 
     /// Message describing the Stage
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub message: std::string::String,
 
     /// Current state of the Stage
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::stage::State,
 
     /// Resource of the Stage
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub resource: std::string::String,
 
     /// Link to the current Stage resource
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub resource_uri: std::string::String,
 
     /// State messages from the current Stage.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub state_messages: std::vec::Vec<crate::model::StateMessage>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

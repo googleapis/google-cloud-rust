@@ -40,6 +40,7 @@ pub struct CreateDataPolicyRequest {
     /// Required. Resource name of the project that the data policy will belong to.
     /// The format is `projects/{project_number}/locations/{location_id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The data policy to create. The `name` field does not need to be
@@ -170,10 +171,12 @@ pub struct RenameDataPolicyRequest {
     /// Required. Resource name of the data policy to rename. The format is
     /// `projects/{project_number}/locations/{location_id}/dataPolicies/{data_policy_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. The new data policy id.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub new_data_policy_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -216,6 +219,7 @@ pub struct DeleteDataPolicyRequest {
     /// Required. Resource name of the data policy to delete. Format is
     /// `projects/{project_number}/locations/{location_id}/dataPolicies/{data_policy_id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -249,6 +253,7 @@ pub struct GetDataPolicyRequest {
     /// Required. Resource name of the requested data policy. Format is
     /// `projects/{project_number}/locations/{location_id}/dataPolicies/{data_policy_id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -282,18 +287,20 @@ pub struct ListDataPoliciesRequest {
     /// Required. Resource name of the project for which to list data policies.
     /// Format is `projects/{project_number}/locations/{location_id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The maximum number of data policies to return. Must be a value between 1
     /// and 1000.
     /// If not set, defaults to 50.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// The `nextPageToken` value returned from a previous list request, if any. If
     /// not set, defaults to an empty string.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Filters the data policies by policy tags that they
@@ -305,6 +312,7 @@ pub struct ListDataPoliciesRequest {
     /// projects/1/locations/us/taxonomies/2*". Please note that OR predicates
     /// cannot be used with wildcard filters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -355,11 +363,13 @@ impl wkt::message::Message for ListDataPoliciesRequest {
 pub struct ListDataPoliciesResponse {
     /// Data policies that belong to the requested project.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub data_policies: std::vec::Vec<crate::model::DataPolicy>,
 
     /// Token used to retrieve the next page of results, or empty if there are no
     /// more results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -418,16 +428,19 @@ pub struct DataPolicy {
     /// Output only. Resource name of this data policy, in the format of
     /// `projects/{project_number}/locations/{location_id}/dataPolicies/{data_policy_id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Type of data policy.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub data_policy_type: crate::model::data_policy::DataPolicyType,
 
     /// User-assigned (human readable) ID of the data policy that needs to be
     /// unique within a project. Used as {data_policy_id} in part of the resource
     /// name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub data_policy_id: std::string::String,
 
     /// Label that is bound to this data policy.
@@ -706,7 +719,7 @@ pub mod data_policy {
     pub enum MatchingLabel {
         /// Policy tag resource name, in the format of
         /// `projects/{project_number}/locations/{location_id}/taxonomies/{taxonomy_id}/policyTags/{policyTag_id}`.
-        PolicyTag(std::string::String),
+        PolicyTag(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
     }
 
     /// The policy that is bound to this data policy.
@@ -1048,10 +1061,13 @@ pub mod data_masking_policy {
     #[non_exhaustive]
     pub enum MaskingExpression {
         /// A predefined masking expression.
-        PredefinedExpression(crate::model::data_masking_policy::PredefinedExpression),
+        PredefinedExpression(
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+            crate::model::data_masking_policy::PredefinedExpression,
+        ),
         /// The name of the BigQuery routine that contains the custom masking
         /// routine, in the format of
         /// `projects/{project_number}/datasets/{dataset_id}/routines/{routine_id}`.
-        Routine(std::string::String),
+        Routine(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
     }
 }

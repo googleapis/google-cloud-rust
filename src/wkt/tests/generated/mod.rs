@@ -24,7 +24,7 @@ pub struct MessageWithF32 {
 
     /// A singular field.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub singular: f32,
 
     /// An optional field.
@@ -34,7 +34,7 @@ pub struct MessageWithF32 {
 
     /// A repeated field.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "std::vec::Vec<wkt::internal::F32>")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<wkt::internal::F32>>")]
     pub repeated: std::vec::Vec<f32>,
 
     /// A map field, floats cannot be keys, so we only need to test them as
@@ -113,7 +113,7 @@ pub struct MessageWithF64 {
 
     /// A singular field.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
     pub singular: f64,
 
     /// An optional field.
@@ -123,7 +123,7 @@ pub struct MessageWithF64 {
 
     /// A repeated field.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "std::vec::Vec<wkt::internal::F64>")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<wkt::internal::F64>>")]
     pub repeated: std::vec::Vec<f64>,
 
     /// A map field, doubles cannot be keys, so we only need to test them as
@@ -202,7 +202,7 @@ pub struct MessageWithI32 {
 
     /// A singular field.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub singular: i32,
 
     /// An optional field.
@@ -212,7 +212,7 @@ pub struct MessageWithI32 {
 
     /// A repeated field.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "std::vec::Vec<wkt::internal::I32>")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<wkt::internal::I32>>")]
     pub repeated: std::vec::Vec<i32>,
 
     /// Test i32 as values.
@@ -324,7 +324,7 @@ pub struct MessageWithU32 {
 
     /// A singular field.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::U32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::U32>")]
     pub singular: u32,
 
     /// An optional field.
@@ -334,7 +334,7 @@ pub struct MessageWithU32 {
 
     /// A repeated field.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "std::vec::Vec<wkt::internal::U32>")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<wkt::internal::U32>>")]
     pub repeated: std::vec::Vec<u32>,
 
     /// Test u32 as values.
@@ -446,7 +446,7 @@ pub struct MessageWithI64 {
 
     /// A singular field.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub singular: i64,
 
     /// An optional field.
@@ -456,7 +456,7 @@ pub struct MessageWithI64 {
 
     /// A repeated field.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "std::vec::Vec<wkt::internal::I64>")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<wkt::internal::I64>>")]
     pub repeated: std::vec::Vec<i64>,
 
     /// Test i64 as values.
@@ -568,7 +568,7 @@ pub struct MessageWithU64 {
 
     /// A singular field.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::U64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::U64>")]
     pub singular: u64,
 
     /// An optional field.
@@ -578,7 +578,7 @@ pub struct MessageWithU64 {
 
     /// A repeated field.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "std::vec::Vec<wkt::internal::U64>")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<wkt::internal::U64>>")]
     pub repeated: std::vec::Vec<u64>,
 
     /// Test u64 as values.
@@ -690,7 +690,7 @@ pub struct MessageWithBytes {
 
     /// A singular field.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub singular: ::bytes::Bytes,
 
     /// An optional field.
@@ -700,7 +700,7 @@ pub struct MessageWithBytes {
 
     /// A repeated field.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "std::vec::Vec<serde_with::base64::Base64>")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<serde_with::base64::Base64>>")]
     pub repeated: std::vec::Vec<::bytes::Bytes>,
 
     /// A map field, bytes cannot be keys, so we only need to test them as
@@ -779,6 +779,7 @@ pub struct MessageWithBool {
 
     /// A singular field.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub singular: bool,
 
     /// An optional field.
@@ -787,6 +788,7 @@ pub struct MessageWithBool {
 
     /// A repeated field.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub repeated: std::vec::Vec<bool>,
 
     /// Test bool as map values.
@@ -897,6 +899,7 @@ pub struct MessageWithString {
 
     /// A singular field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub singular: std::string::String,
 
     /// An optional field.
@@ -905,6 +908,7 @@ pub struct MessageWithString {
 
     /// A repeated field.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub repeated: std::vec::Vec<std::string::String>,
 
     /// Test string as map values.

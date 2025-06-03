@@ -40,14 +40,17 @@ extern crate wkt;
 pub struct LoginProfile {
     /// Required. A unique user ID.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The list of POSIX accounts associated with the user.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub posix_accounts: std::vec::Vec<oslogin_common::model::PosixAccount>,
 
     /// A map from SSH public key fingerprint to the associated key object.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub ssh_public_keys:
         std::collections::HashMap<std::string::String, oslogin_common::model::SshPublicKey>,
 
@@ -104,6 +107,7 @@ impl wkt::message::Message for LoginProfile {
 pub struct CreateSshPublicKeyRequest {
     /// Required. The unique ID for the user in format `users/{user}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The SSH public key and expiration time.
@@ -160,6 +164,7 @@ pub struct DeletePosixAccountRequest {
     /// identified by the project ID they are associated with. A reference to the
     /// POSIX account is in format `users/{user}/projects/{project}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -194,6 +199,7 @@ pub struct DeleteSshPublicKeyRequest {
     /// identified by their SHA-256 fingerprint. The fingerprint of the public key
     /// is in format `users/{user}/sshPublicKeys/{fingerprint}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -226,14 +232,17 @@ impl wkt::message::Message for DeleteSshPublicKeyRequest {
 pub struct GetLoginProfileRequest {
     /// Required. The unique ID for the user in format `users/{user}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The project ID of the Google Cloud Platform project.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub project_id: std::string::String,
 
     /// A system ID for filtering the results of the request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub system_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -280,6 +289,7 @@ pub struct GetSshPublicKeyRequest {
     /// identified by their SHA-256 fingerprint. The fingerprint of the public key
     /// is in format `users/{user}/sshPublicKeys/{fingerprint}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -312,6 +322,7 @@ impl wkt::message::Message for GetSshPublicKeyRequest {
 pub struct ImportSshPublicKeyRequest {
     /// Required. The unique ID for the user in format `users/{user}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. The SSH public key and expiration time.
@@ -320,12 +331,14 @@ pub struct ImportSshPublicKeyRequest {
 
     /// The project ID of the Google Cloud Platform project.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub project_id: std::string::String,
 
     /// Optional. The regions to which to assert that the key was written.
     /// If unspecified, defaults to all regions.
     /// Regions are listed at <https://cloud.google.com/about/locations#region>.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub regions: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -397,6 +410,7 @@ pub struct ImportSshPublicKeyResponse {
 
     /// Detailed information about import results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub details: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -449,6 +463,7 @@ pub struct UpdateSshPublicKeyRequest {
     /// identified by their SHA-256 fingerprint. The fingerprint of the public key
     /// is in format `users/{user}/sshPublicKeys/{fingerprint}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. The SSH public key and expiration time.
