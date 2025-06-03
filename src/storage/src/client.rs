@@ -533,6 +533,7 @@ impl ReadObject {
             builder,
             self.request.common_object_request_params,
         );
+
         let builder = self.inner.apply_auth_headers(builder).await?;
         Ok(builder)
     }
