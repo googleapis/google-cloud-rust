@@ -15,8 +15,11 @@
 pub use crate::Error;
 pub use crate::Result;
 use auth::credentials::CacheableResource;
+use base64::Engine;
+use base64::prelude::BASE64_STANDARD;
 pub use control::model::Object;
 use http::Extensions;
+use sha2::{Digest, Sha256};
 
 /// Implements a client for the Cloud Storage API.
 ///
@@ -267,6 +270,7 @@ pub struct InsertObject {
     bucket: String,
     object: String,
     payload: bytes::Bytes,
+    common_object_request_params: Option<control::model::CommonObjectRequestParams>,
 }
 
 impl InsertObject {
@@ -281,6 +285,7 @@ impl InsertObject {
             bucket: bucket.into(),
             object: object.into(),
             payload: payload.into(),
+            common_object_request_params: None,
         }
     }
 
@@ -338,9 +343,26 @@ impl InsertObject {
                 reqwest::header::HeaderValue::from_static(&self::info::X_GOOG_API_CLIENT_HEADER),
             );
 
+        let builder = apply_customer_supplied_encryption_headers(
+            builder,
+            self.common_object_request_params.clone(),
+        );
+
         let builder = self.inner.apply_auth_headers(builder).await?;
         let builder = builder.body(self.payload.clone());
         Ok(builder)
+    }
+
+    /// Sets the encryption key for downloading the object.
+    ///
+    /// The encryption key used with the Customer-Supplied Encryption Keys
+    /// feature. In raw bytes format (not base64-encoded).
+    pub fn set_key<T>(mut self, v: T) -> Self
+    where
+        T: Into<bytes::Bytes>,
+    {
+        self.common_object_request_params = Some(key_to_common_object_request_params(v.into()));
+        self
     }
 }
 
@@ -456,12 +478,16 @@ impl ReadObject {
         self
     }
 
-    /// Sets the value of [common_object_request_params][control::model::ReadObjectRequest::common_object_request_params].
-    pub fn set_common_object_request_params<T>(mut self, v: T) -> Self
+    /// Sets the encryption key for downloading the object.
+    ///
+    /// The encryption key used with the Customer-Supplied Encryption Keys
+    /// feature. In raw bytes format (not base64-encoded).
+    pub fn set_key<T>(mut self, v: T) -> Self
     where
-        T: Into<control::model::CommonObjectRequestParams>,
+        T: Into<bytes::Bytes>,
     {
-        self.request.common_object_request_params = Some(v.into());
+        self.request.common_object_request_params =
+            Some(key_to_common_object_request_params(v.into()));
         self
     }
 
@@ -492,8 +518,6 @@ impl ReadObject {
     async fn http_request_builder(self) -> Result<reqwest::RequestBuilder> {
         // TODO(#2103): map additional parameters to the JSON request.
         // - map relevant parameters to remaining: softDelete, projection, restoreToken
-        // - map request parameters to optional extension headers: X-Goog-Encryption-Algorithm,
-        //   X-Goog-Encryption-Key, X-Goog-Encryption-Key-Sha256
 
         // Collect the required bucket and object parameters.
         let bucket: String = self.request.bucket;
@@ -551,9 +575,43 @@ impl ReadObject {
             .iter()
             .fold(builder, |b, v| b.query(&[("ifMetagenerationNotMatch", v)]));
 
+        let builder = apply_customer_supplied_encryption_headers(
+            builder,
+            self.request.common_object_request_params,
+        );
+
         let builder = self.inner.apply_auth_headers(builder).await?;
         Ok(builder)
     }
+}
+
+fn apply_customer_supplied_encryption_headers(
+    builder: reqwest::RequestBuilder,
+    common_object_request_params: Option<control::model::CommonObjectRequestParams>,
+) -> reqwest::RequestBuilder {
+    common_object_request_params.iter().fold(builder, |b, v| {
+        b.header(
+            "x-goog-encryption-algorithm",
+            v.encryption_algorithm.clone(),
+        )
+        .header(
+            "x-goog-encryption-key",
+            BASE64_STANDARD.encode(v.encryption_key_bytes.clone()),
+        )
+        .header(
+            "x-goog-encryption-key-sha256",
+            BASE64_STANDARD.encode(v.encryption_key_sha256_bytes.clone()),
+        )
+    })
+}
+
+fn key_to_common_object_request_params(
+    v: bytes::Bytes,
+) -> control::model::CommonObjectRequestParams {
+    control::model::CommonObjectRequestParams::new()
+        .set_encryption_algorithm("AES256")
+        .set_encryption_key_bytes(v.clone())
+        .set_encryption_key_sha256_bytes(Sha256::digest(v.clone()).as_slice().to_owned())
 }
 
 #[cfg(test)]
@@ -617,6 +675,52 @@ mod tests {
             .http_request_builder()
             .await
             .expect_err("malformed bucket string should error");
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_insert_object_headers() -> Result {
+        let client = Storage::builder()
+            .with_credentials(auth::credentials::testing::test_credentials())
+            .build()
+            .await?;
+        // Make a 32-byte key.
+        let key = vec![b'a'; 32];
+        let key_base64 = BASE64_STANDARD.encode(key.clone());
+
+        let key_sha256 = Sha256::digest(key.clone());
+        let key_sha256_base64 = BASE64_STANDARD.encode(key_sha256);
+
+        // The API takes the unencoded byte array.
+        let insert_object_builder = client
+            .insert_object("projects/_/buckets/bucket", "object", "hello")
+            .set_key(key)
+            .http_request_builder()
+            .await?
+            .build()?;
+
+        assert_eq!(insert_object_builder.method(), reqwest::Method::POST);
+        assert_eq!(
+            insert_object_builder.url().as_str(),
+            "https://storage.googleapis.com/upload/storage/v1/b/bucket/o?uploadType=media&name=object"
+        );
+
+        let want = vec![
+            ("x-goog-encryption-algorithm", "AES256".to_string()),
+            ("x-goog-encryption-key", key_base64),
+            ("x-goog-encryption-key-sha256", key_sha256_base64),
+        ];
+
+        for (name, value) in want {
+            assert_eq!(
+                insert_object_builder
+                    .headers()
+                    .get(name)
+                    .unwrap()
+                    .as_bytes(),
+                bytes::Bytes::from(value)
+            );
+        }
         Ok(())
     }
 
@@ -711,6 +815,49 @@ mod tests {
             .collect();
         assert_eq!(query_pairs.len(), want_pairs.len());
         assert_eq!(query_pairs, want_pairs);
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_read_object_headers() -> Result {
+        let client = Storage::builder()
+            .with_credentials(auth::credentials::testing::test_credentials())
+            .build()
+            .await?;
+        // Make a 32-byte key.
+        let key = vec![b'a'; 32];
+        assert_eq!(key.len(), 32);
+        let key_base64 = BASE64_STANDARD.encode(key.clone());
+
+        let key_sha256 = Sha256::digest(key.clone());
+        let key_sha256_base64 = BASE64_STANDARD.encode(key_sha256);
+
+        // The API takes the unencoded byte array.
+        let read_object_builder = client
+            .read_object("projects/_/buckets/bucket", "object")
+            .set_key(key)
+            .http_request_builder()
+            .await?
+            .build()?;
+
+        assert_eq!(read_object_builder.method(), reqwest::Method::GET);
+        assert_eq!(
+            read_object_builder.url().as_str(),
+            "https://storage.googleapis.com/storage/v1/b/bucket/o/object?alt=media"
+        );
+
+        let want = vec![
+            ("x-goog-encryption-algorithm", "AES256".to_string()),
+            ("x-goog-encryption-key", key_base64),
+            ("x-goog-encryption-key-sha256", key_sha256_base64),
+        ];
+
+        for (name, value) in want {
+            assert_eq!(
+                read_object_builder.headers().get(name).unwrap().as_bytes(),
+                bytes::Bytes::from(value)
+            );
+        }
         Ok(())
     }
 }

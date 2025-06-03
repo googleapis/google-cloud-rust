@@ -76,6 +76,63 @@ pub async fn objects(builder: storage::client::ClientBuilder) -> Result<()> {
     Ok(())
 }
 
+pub async fn objects_customer_supplied_encryption(
+    builder: storage::client::ClientBuilder,
+) -> Result<()> {
+    // Enable a basic subscriber. Useful to troubleshoot problems and visually
+    // verify tracing is doing something.
+    #[cfg(feature = "log-integration-tests")]
+    let _guard = {
+        use tracing_subscriber::fmt::format::FmtSpan;
+        let subscriber = tracing_subscriber::fmt()
+            .with_level(true)
+            .with_thread_ids(true)
+            .with_span_events(FmtSpan::NEW | FmtSpan::CLOSE)
+            .finish();
+
+        tracing::subscriber::set_default(subscriber)
+    };
+
+    // Create a temporary bucket for the test.
+    let (control, bucket) = create_test_bucket().await?;
+
+    let client = builder.build().await?;
+
+    tracing::info!("testing insert_object() with key");
+    const CONTENTS: &str = "the quick brown fox jumps over the lazy dog";
+    let key = vec![b'a'; 32];
+    let insert = client
+        .insert_object(&bucket.name, "quick.text", CONTENTS)
+        .set_key(key.clone())
+        .send()
+        .await?;
+    tracing::info!("success with insert={insert:?}");
+
+    tracing::info!("testing read_object() with key");
+    let contents = client
+        .read_object(&bucket.name, &insert.name)
+        .set_key(key.clone())
+        .send()
+        .await?;
+    assert_eq!(contents, CONTENTS.as_bytes());
+    tracing::info!("success with contents={contents:?}");
+
+    control
+        .delete_object()
+        .set_bucket(&insert.bucket)
+        .set_object(&insert.name)
+        .set_generation(insert.generation)
+        .send()
+        .await?;
+    control
+        .delete_bucket()
+        .set_name(&bucket.name)
+        .send()
+        .await?;
+
+    Ok(())
+}
+
 pub async fn create_test_bucket() -> Result<(StorageControl, Bucket)> {
     let project_id = crate::project_id()?;
     let client = StorageControl::builder()
