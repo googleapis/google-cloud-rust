@@ -526,6 +526,242 @@ impl wkt::message::Message for MessageWithBytes {
     }
 }
 
+/// A test message for bool.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct MessageWithBool {
+
+    /// A singular field.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    pub singular: bool,
+
+    /// An optional field.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub optional: std::option::Option<bool>,
+
+    /// A repeated field.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub repeated: std::vec::Vec<bool>,
+
+    /// Test bool as map values.
+    #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    pub map_value: std::collections::HashMap<std::string::String,bool>,
+
+    /// Test bool as map keys.
+    #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "std::collections::HashMap<serde_with::DisplayFromStr, _>")]
+    pub map_key: std::collections::HashMap<bool,std::string::String>,
+
+    /// Test bool as map key and value.
+    #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "std::collections::HashMap<serde_with::DisplayFromStr, _>")]
+    pub map_key_value: std::collections::HashMap<bool,bool>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl MessageWithBool {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [singular][crate::protos::MessageWithBool::singular].
+    pub fn set_singular<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.singular = v.into();
+        self
+    }
+
+    /// Sets the value of [optional][crate::protos::MessageWithBool::optional].
+    pub fn set_optional<T>(mut self, v: T) -> Self
+    where T: std::convert::Into<bool>
+    {
+        self.optional = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [optional][crate::protos::MessageWithBool::optional].
+    pub fn set_or_clear_optional<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<bool>
+    {
+        self.optional = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [repeated][crate::protos::MessageWithBool::repeated].
+    pub fn set_repeated<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<bool>
+    {
+        use std::iter::Iterator;
+        self.repeated = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [map_value][crate::protos::MessageWithBool::map_value].
+    pub fn set_map_value<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<bool>,
+    {
+        use std::iter::Iterator;
+        self.map_value = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [map_key][crate::protos::MessageWithBool::map_key].
+    pub fn set_map_key<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<bool>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.map_key = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [map_key_value][crate::protos::MessageWithBool::map_key_value].
+    pub fn set_map_key_value<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<bool>,
+        V: std::convert::Into<bool>,
+    {
+        use std::iter::Iterator;
+        self.map_key_value = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for MessageWithBool {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.rust.sdk.test.MessageWithBool"
+    }
+}
+
+/// A test message for string.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct MessageWithString {
+
+    /// A singular field.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub singular: std::string::String,
+
+    /// An optional field.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub optional: std::option::Option<std::string::String>,
+
+    /// A repeated field.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub repeated: std::vec::Vec<std::string::String>,
+
+    /// Test string as map values.
+    #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "std::collections::HashMap<wkt::internal::I32, _>")]
+    pub map_value: std::collections::HashMap<i32,std::string::String>,
+
+    /// Test string as map keys.
+    #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "std::collections::HashMap<_, wkt::internal::I32>")]
+    pub map_key: std::collections::HashMap<std::string::String,i32>,
+
+    /// Test string as map key and value.
+    #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    pub map_key_value: std::collections::HashMap<std::string::String,std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl MessageWithString {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [singular][crate::protos::MessageWithString::singular].
+    pub fn set_singular<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.singular = v.into();
+        self
+    }
+
+    /// Sets the value of [optional][crate::protos::MessageWithString::optional].
+    pub fn set_optional<T>(mut self, v: T) -> Self
+    where T: std::convert::Into<std::string::String>
+    {
+        self.optional = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [optional][crate::protos::MessageWithString::optional].
+    pub fn set_or_clear_optional<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<std::string::String>
+    {
+        self.optional = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [repeated][crate::protos::MessageWithString::repeated].
+    pub fn set_repeated<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>
+    {
+        use std::iter::Iterator;
+        self.repeated = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [map_value][crate::protos::MessageWithString::map_value].
+    pub fn set_map_value<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<i32>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.map_value = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [map_key][crate::protos::MessageWithString::map_key].
+    pub fn set_map_key<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<i32>,
+    {
+        use std::iter::Iterator;
+        self.map_key = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [map_key_value][crate::protos::MessageWithString::map_key_value].
+    pub fn set_map_key_value<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.map_key_value = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for MessageWithString {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.rust.sdk.test.MessageWithString"
+    }
+}
+
 /// A test message for FieldMask.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
