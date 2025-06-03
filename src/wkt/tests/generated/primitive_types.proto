@@ -89,6 +89,22 @@ message MessageWithI64 {
     map<int64, int64> map_key_value = 6;
 }
 
+// A test message for u64.
+message MessageWithU64 {
+    // A singular field.
+    uint64 singular = 1;
+    // An optional field.
+    optional uint64 optional = 2;
+    // A repeated field.
+    repeated uint64 repeated = 3;
+    // Test u64 as values.
+    map<string, uint64> map_value = 4;
+    // Test u64 as keys.
+    map<uint64, string> map_key = 5;
+    // Test u64 as both keys and values.
+    map<uint64, uint64> map_key_value = 6;
+}
+
 // A test message for bytes.
 message MessageWithBytes {
     // A singular field.
