@@ -75,10 +75,11 @@ mod test {
             $( paste! {
                 #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
                 async fn [<mock_stub_$method>]() {
+                    use gax::error::{Error, rpc::{Code, Status}};
                     let mut mock = MockStorageControl::new();
                     mock.[<expect_$method>]()
                         .times(1)
-                        .returning(|_, _| Err(gax::error::Error::other("simulated failure")));
+                        .returning(|_, _| Err(Error::service(Status::default().set_code(Code::Aborted))));
                     let client = gcs::client::StorageControl::from_stub(mock);
                     let _ = client.$method().send().await.unwrap_err();
                 }

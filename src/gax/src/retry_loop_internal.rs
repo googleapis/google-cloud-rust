@@ -618,7 +618,7 @@ mod test {
             .expect_on_throttle()
             .once()
             .in_sequence(&mut retry_seq)
-            .returning(|_, _| Some(Error::other("retry-policy-on-throttle")));
+            .returning(|_, _| Some(permanent().unwrap_err()));
 
         let mut backoff_policy = MockBackoffPolicy::new();
         backoff_policy
@@ -643,7 +643,7 @@ mod test {
         )
         .await;
         assert!(
-            matches!(&response, Err(e) if format!("{e}").contains("retry-policy-on-throttle")),
+            matches!(&response, Err(e) if matches!(e.status(), Some(s) if s.message == "uh-oh")),
             "{response:?}"
         );
         Ok(())

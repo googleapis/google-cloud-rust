@@ -193,7 +193,7 @@ mod test {
             .metadata()
             .unwrap()
             .to_msg::<wkt::Timestamp>()
-            .map_err(Error::other)?;
+            .expect("Any::from_msg should succeed");
         assert_eq!(got, wkt::Timestamp::clamp(123, 0));
 
         Ok(())
@@ -202,7 +202,7 @@ mod test {
     #[test]
     fn typed_operation_with_response() -> Result<()> {
         let any = wkt::Any::from_msg(&wkt::Duration::clamp(23, 0))
-            .map_err(|e| Error::other(format!("unexpected error in Any::try_from {e}")))?;
+            .expect("successful deserialization via Any::from_msg");
         let op = longrunning::model::Operation::default()
             .set_name("test-only-name")
             .set_result(longrunning::model::operation::Result::Response(any.into()));
@@ -216,7 +216,7 @@ mod test {
             .response()
             .unwrap()
             .to_msg::<wkt::Duration>()
-            .map_err(Error::other)?;
+            .expect("successful deserialization via Any::from_msg");
         assert_eq!(got, wkt::Duration::clamp(23, 0));
 
         Ok(())
