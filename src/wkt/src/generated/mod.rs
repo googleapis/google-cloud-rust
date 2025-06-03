@@ -4342,11 +4342,11 @@ pub struct UninterpretedOption {
     pub identifier_value: std::string::String,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::U64")]
     pub positive_int_value: u64,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub negative_int_value: i64,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]

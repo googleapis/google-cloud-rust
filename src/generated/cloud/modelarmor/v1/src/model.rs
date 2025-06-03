@@ -2222,7 +2222,7 @@ pub mod sanitization_result {
     pub struct SanitizationMetadata {
         /// Error code if any.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub error_code: i64,
 
         /// Error message if any.
@@ -3255,7 +3255,7 @@ pub struct SdpDeidentifyResult {
 
     /// Total size in bytes that were transformed during deidentification.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub transformed_bytes: i64,
 
     /// List of Sensitive Data Protection info-types that were de-identified.
@@ -3734,7 +3734,7 @@ pub struct VirusScanFilterResult {
 
     /// Size of scanned content in bytes.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub scanned_size: std::option::Option<i64>,
 
     /// List of Viruses identified.
@@ -4463,12 +4463,12 @@ pub struct RangeInfo {
     /// Ref: <https://protobuf.dev/programming-guides/proto3/#default>
     /// Index of first character (inclusive).
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub start: std::option::Option<i64>,
 
     /// Index of last character (exclusive).
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub end: std::option::Option<i64>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

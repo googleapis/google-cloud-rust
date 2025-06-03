@@ -1316,7 +1316,7 @@ pub struct LatencyPercentile {
     /// Fraction of percent/100 of samples have latency lower or
     /// equal to the value of this field.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub latency_micros: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9456,7 +9456,7 @@ pub struct CloudFunctionInfo {
 
     /// Latest successfully deployed version id of the Cloud Function.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub version_id: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

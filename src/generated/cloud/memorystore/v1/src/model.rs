@@ -2290,7 +2290,7 @@ pub struct Backup {
 
     /// Output only. Total size of the backup in bytes.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub total_size_bytes: i64,
 
     /// Output only. The time when the backup will expire.
@@ -2763,7 +2763,7 @@ pub struct BackupFile {
 
     /// Output only. Size of the backup file in bytes.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub size_bytes: i64,
 
     /// Output only. The time when the backup file was created.

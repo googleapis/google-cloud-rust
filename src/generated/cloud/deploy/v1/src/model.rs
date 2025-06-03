@@ -15662,7 +15662,7 @@ pub struct Retry {
     /// Required. Total number of retries. Retry is skipped if set to 0; The
     /// minimum value is 1, and the maximum value is 10.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub attempts: i64,
 
     /// Optional. How long to wait for the first retry. Default is 0, and the
@@ -17248,7 +17248,7 @@ pub struct RepairRolloutOperation {
 
     /// Output only. The index of the current repair action in the repair sequence.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub current_repair_phase_index: i64,
 
     /// Output only. Records of the repair attempts. Each repair phase may have
@@ -17488,7 +17488,7 @@ pub mod repair_phase {
 pub struct RetryPhase {
     /// Output only. The number of attempts that have been made.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub total_attempts: i64,
 
     /// Output only. The pattern of how the wait time of the retry attempt is
@@ -17550,7 +17550,7 @@ impl wkt::message::Message for RetryPhase {
 pub struct RetryAttempt {
     /// Output only. The index of this retry attempt.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub attempt: i64,
 
     /// Output only. How long the operation will be paused.

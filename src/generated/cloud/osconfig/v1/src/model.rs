@@ -2379,7 +2379,7 @@ pub mod os_policy {
 
                 /// Generation number of the Cloud Storage object.
                 #[serde(skip_serializing_if = "wkt::internal::is_default")]
-                #[serde_as(as = "serde_with::DisplayFromStr")]
+                #[serde_as(as = "wkt::internal::I64")]
                 pub generation: i64,
 
                 #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9466,7 +9466,7 @@ pub struct PatchJobInstanceDetails {
 
     /// The number of times the agent that the agent attempts to apply the patch.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub attempt_count: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9942,79 +9942,79 @@ pub mod patch_job {
     pub struct InstanceDetailsSummary {
         /// Number of instances pending patch job.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub pending_instance_count: i64,
 
         /// Number of instances that are inactive.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub inactive_instance_count: i64,
 
         /// Number of instances notified about patch job.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub notified_instance_count: i64,
 
         /// Number of instances that have started.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub started_instance_count: i64,
 
         /// Number of instances that are downloading patches.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub downloading_patches_instance_count: i64,
 
         /// Number of instances that are applying patches.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub applying_patches_instance_count: i64,
 
         /// Number of instances rebooting.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub rebooting_instance_count: i64,
 
         /// Number of instances that have completed successfully.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub succeeded_instance_count: i64,
 
         /// Number of instances that require reboot.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub succeeded_reboot_required_instance_count: i64,
 
         /// Number of instances that failed.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub failed_instance_count: i64,
 
         /// Number of instances that have acked and will start shortly.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub acked_instance_count: i64,
 
         /// Number of instances that exceeded the time out while applying the patch.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub timed_out_instance_count: i64,
 
         /// Number of instances that are running the pre-patch step.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub pre_patch_step_instance_count: i64,
 
         /// Number of instances that are running the post-patch step.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub post_patch_step_instance_count: i64,
 
         /// Number of instances that do not appear to be running the agent. Check to
         /// ensure that the agent is installed, running, and able to communicate with
         /// the service.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub no_agent_detected_instance_count: i64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -12006,7 +12006,7 @@ pub struct GcsObject {
     /// Required. Generation number of the Cloud Storage object. This is used to
     /// ensure that the ExecStep specified by this PatchJob does not change.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub generation_number: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

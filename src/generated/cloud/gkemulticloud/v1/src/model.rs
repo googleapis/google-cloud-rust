@@ -11279,7 +11279,7 @@ impl wkt::message::Message for WorkloadIdentityConfig {
 pub struct MaxPodsConstraint {
     /// Required. The maximum number of pods to schedule on a single node.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub max_pods_per_node: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11691,7 +11691,7 @@ pub struct NodeKubeletConfig {
     /// Controls the maximum number of processes allowed to run in a pod. The value
     /// must be greater than or equal to 1024 and less than 4194304.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub pod_pids_limit: std::option::Option<i64>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

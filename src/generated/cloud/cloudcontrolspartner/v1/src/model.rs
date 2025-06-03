@@ -660,7 +660,7 @@ pub struct Workload {
 
     /// Output only. Folder id this workload is associated with
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub folder_id: i64,
 
     /// Output only. Time the resource was created.
@@ -3213,7 +3213,7 @@ pub struct Violation {
 
     /// The folder_id of the violation
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub folder_id: i64,
 
     /// Output only. Compliance violation remediation

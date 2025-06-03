@@ -1829,7 +1829,7 @@ pub struct ErrorSummary {
 
     /// Required. Number of errors encountered per `error_code`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub error_count: i64,
 
     /// Required. Sample error logs.
@@ -1931,17 +1931,17 @@ impl wkt::message::Message for ErrorLogEntry {
 pub struct Counters {
     /// Output only. Number of objects listed.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub total_object_count: i64,
 
     /// Output only. Number of objects completed.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub succeeded_object_count: i64,
 
     /// Output only. Number of objects failed.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub failed_object_count: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

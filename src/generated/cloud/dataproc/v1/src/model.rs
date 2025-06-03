@@ -4866,7 +4866,7 @@ pub struct DiskConfig {
     /// number of I/O operations per second that the disk can handle. Note: This
     /// field is only supported if boot_disk_type is hyperdisk-balanced.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub boot_disk_provisioned_iops: std::option::Option<i64>,
 
     /// Optional. Indicates how much throughput to provision for the disk. This
@@ -4874,7 +4874,7 @@ pub struct DiskConfig {
     /// Values must be greater than or equal to 1. Note: This field is only
     /// supported if boot_disk_type is hyperdisk-balanced.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub boot_disk_provisioned_throughput: std::option::Option<i64>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6356,12 +6356,12 @@ impl wkt::message::Message for MetastoreConfig {
 pub struct ClusterMetrics {
     /// The HDFS metrics.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    #[serde_as(as = "std::collections::HashMap<_, serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::collections::HashMap<_, wkt::internal::I64>")]
     pub hdfs_metrics: std::collections::HashMap<std::string::String, i64>,
 
     /// YARN metrics.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    #[serde_as(as = "std::collections::HashMap<_, serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::collections::HashMap<_, wkt::internal::I64>")]
     pub yarn_metrics: std::collections::HashMap<std::string::String, i64>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -16176,21 +16176,21 @@ pub struct UsageMetrics {
     /// (see [Dataproc Serverless pricing]
     /// (<https://cloud.google.com/dataproc-serverless/pricing>)).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub milli_dcu_seconds: i64,
 
     /// Optional. Shuffle storage usage in (`GB` x `seconds`) (see
     /// [Dataproc Serverless pricing]
     /// (<https://cloud.google.com/dataproc-serverless/pricing>)).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub shuffle_storage_gb_seconds: i64,
 
     /// Optional. Accelerator usage in (`milliAccelerator` x `seconds`) (see
     /// [Dataproc Serverless pricing]
     /// (<https://cloud.google.com/dataproc-serverless/pricing>)).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub milli_accelerator_seconds: i64,
 
     /// Optional. Accelerator type being used, if any
@@ -16251,33 +16251,33 @@ pub struct UsageSnapshot {
     /// [Dataproc Serverless pricing]
     /// (<https://cloud.google.com/dataproc-serverless/pricing>)).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub milli_dcu: i64,
 
     /// Optional. Shuffle Storage in gigabytes (GB). (see [Dataproc Serverless
     /// pricing] (<https://cloud.google.com/dataproc-serverless/pricing>))
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub shuffle_storage_gb: i64,
 
     /// Optional. Milli (one-thousandth) Dataproc Compute Units (DCUs) charged at
     /// premium tier (see [Dataproc Serverless pricing]
     /// (<https://cloud.google.com/dataproc-serverless/pricing>)).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub milli_dcu_premium: i64,
 
     /// Optional. Shuffle Storage in gigabytes (GB) charged at premium tier. (see
     /// [Dataproc Serverless pricing]
     /// (<https://cloud.google.com/dataproc-serverless/pricing>))
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub shuffle_storage_gb_premium: i64,
 
     /// Optional. Milli (one-thousandth) accelerator. (see [Dataproc
     /// Serverless pricing] (<https://cloud.google.com/dataproc-serverless/pricing>))
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub milli_accelerator: i64,
 
     /// Optional. Accelerator type being used, if any
@@ -17108,7 +17108,7 @@ pub mod gke_node_pool_config {
     pub struct GkeNodePoolAcceleratorConfig {
         /// The number of accelerator cards exposed to an instance.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub accelerator_count: i64,
 
         /// The accelerator type resource namename (see GPUs on Compute Engine).

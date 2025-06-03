@@ -7268,7 +7268,7 @@ pub struct Recipe {
     /// Set to -1 if the recipe doesn't come from a material, as zero is default
     /// unset value for int64.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub defined_in_material: i64,
 
     /// String identifying the entry point into the build.
@@ -11322,7 +11322,7 @@ pub mod slsa_provenance {
         /// Set to -1 if the recipe doesn't come from a material, as zero is default
         /// unset value for int64.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub defined_in_material: i64,
 
         /// String identifying the entry point into the build.

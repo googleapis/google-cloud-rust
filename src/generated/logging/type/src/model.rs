@@ -45,7 +45,7 @@ pub struct HttpRequest {
     /// The size of the HTTP request message in bytes, including the request
     /// headers and the request body.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub request_size: i64,
 
     /// The response code indicating the status of response.
@@ -57,7 +57,7 @@ pub struct HttpRequest {
     /// The size of the HTTP response message sent back to the client, in bytes,
     /// including the response headers and the response body.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub response_size: i64,
 
     /// The user agent sent by the client. Example:
@@ -107,7 +107,7 @@ pub struct HttpRequest {
     /// The number of HTTP response bytes inserted into cache. Set only when a
     /// cache fill was attempted.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub cache_fill_bytes: i64,
 
     /// Protocol used for the request. Examples: "HTTP/1.1", "HTTP/2", "websocket"

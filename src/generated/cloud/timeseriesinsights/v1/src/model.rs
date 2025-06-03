@@ -627,7 +627,7 @@ pub mod event_dimension {
         /// supported.
         StringVal(std::string::String),
         /// Long representation.
-        LongVal(#[serde_as(as = "serde_with::DisplayFromStr")] i64),
+        LongVal(#[serde_as(as = "wkt::internal::I64")] i64),
         /// Bool representation.
         BoolVal(bool),
         /// Double representation.
@@ -672,7 +672,7 @@ pub struct Event {
     /// **NOTE**: JSON encoding should use a string to hold a 64-bit integer value,
     /// because a native JSON number holds only 53 binary bits for an integer.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub group_id: i64,
 
     /// Event timestamp.

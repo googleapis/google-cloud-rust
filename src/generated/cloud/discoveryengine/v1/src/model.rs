@@ -299,14 +299,14 @@ pub mod answer {
         /// unicode). If there are multi-byte characters,such as non-ASCII
         /// characters, the index measurement is longer than the string length.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub start_index: i64,
 
         /// End of the attributed segment, exclusive. Measured in bytes (UTF-8
         /// unicode). If there are multi-byte characters,such as non-ASCII
         /// characters, the index measurement is longer than the string length.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub end_index: i64,
 
         /// Citation sources for the attributed segment.
@@ -396,12 +396,12 @@ pub mod answer {
         /// Required. Index indicates the start of the claim, measured in bytes
         /// (UTF-8 unicode).
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub start_index: i64,
 
         /// Required. End of the claim, exclusive.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub end_index: i64,
 
         /// A score in the range of [0, 1] describing how grounded is a specific
@@ -3579,7 +3579,7 @@ pub mod completion_suggestion {
         GlobalScore(#[serde_as(as = "wkt::internal::F64")] f64),
         /// Frequency of this suggestion. Will be used to rank suggestions when score
         /// is not available.
-        Frequency(#[serde_as(as = "serde_with::DisplayFromStr")] i64),
+        Frequency(#[serde_as(as = "wkt::internal::I64")] i64),
     }
 }
 
@@ -9826,7 +9826,7 @@ pub struct CustomTuningModel {
 
     /// The version of the model.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub model_version: i64,
 
     /// The state that the model is in (e.g.`TRAINING` or `TRAINING_FAILED`).
@@ -10418,17 +10418,17 @@ pub mod data_store {
     pub struct BillingEstimation {
         /// Data size for structured data in terms of bytes.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub structured_data_size: i64,
 
         /// Data size for unstructured data in terms of bytes.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub unstructured_data_size: i64,
 
         /// Data size for websites in terms of bytes.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub website_data_size: i64,
 
         /// Last updated timestamp for structured data.
@@ -19468,13 +19468,13 @@ pub struct ImportUserEventsResponse {
 
     /// Count of user events imported with complete existing Documents.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub joined_events_count: i64,
 
     /// Count of user events imported, but with Document information not found
     /// in the existing Branch.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub unjoined_events_count: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -19552,12 +19552,12 @@ pub struct ImportUserEventsMetadata {
 
     /// Count of entries that were processed successfully.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub success_count: i64,
 
     /// Count of entries that encountered errors while processing.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub failure_count: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -19642,17 +19642,17 @@ pub struct ImportDocumentsMetadata {
 
     /// Count of entries that were processed successfully.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub success_count: i64,
 
     /// Count of entries that encountered errors while processing.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub failure_count: i64,
 
     /// Total count of entries that were processed.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub total_count: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -20721,12 +20721,12 @@ pub struct ImportSuggestionDenyListEntriesResponse {
 
     /// Count of deny list entries successfully imported.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub imported_entries_count: i64,
 
     /// Count of deny list entries that failed to be imported.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub failed_entries_count: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -21161,7 +21161,7 @@ pub struct ImportCompletionSuggestionsMetadata {
     ///
     /// [google.cloud.discoveryengine.v1.CompletionSuggestion]: crate::model::CompletionSuggestion
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub success_count: i64,
 
     /// Count of
@@ -21170,7 +21170,7 @@ pub struct ImportCompletionSuggestionsMetadata {
     ///
     /// [google.cloud.discoveryengine.v1.CompletionSuggestion]: crate::model::CompletionSuggestion
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub failure_count: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -21796,7 +21796,7 @@ impl wkt::message::Message for PurgeUserEventsRequest {
 pub struct PurgeUserEventsResponse {
     /// The total count of events purged as a result of the operation.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub purge_count: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -21839,12 +21839,12 @@ pub struct PurgeUserEventsMetadata {
 
     /// Count of entries that were deleted successfully.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub success_count: i64,
 
     /// Count of entries that encountered errors while processing.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub failure_count: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -22237,7 +22237,7 @@ pub mod purge_documents_request {
 pub struct PurgeDocumentsResponse {
     /// The total count of documents purged as a result of the operation.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub purge_count: i64,
 
     /// A sample of document names that will be deleted. Only populated if `force`
@@ -22297,17 +22297,17 @@ pub struct PurgeDocumentsMetadata {
 
     /// Count of entries that were deleted successfully.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub success_count: i64,
 
     /// Count of entries that encountered errors while processing.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub failure_count: i64,
 
     /// Count of entries that were ignored as entries were not found.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub ignored_count: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -22429,7 +22429,7 @@ impl wkt::message::Message for PurgeSuggestionDenyListEntriesRequest {
 pub struct PurgeSuggestionDenyListEntriesResponse {
     /// Number of suggestion deny list entries purged.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub purge_count: i64,
 
     /// A sample of errors encountered while processing the request.
@@ -28481,7 +28481,7 @@ pub mod search_response {
         pub struct FacetValue {
             /// Number of items that have this facet value.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "wkt::internal::I64")]
             pub count: i64,
 
             /// A facet value which contains values.
@@ -28813,12 +28813,12 @@ pub mod search_response {
         pub struct Citation {
             /// Index indicates the start of the segment, measured in bytes/unicode.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "wkt::internal::I64")]
             pub start_index: i64,
 
             /// End of the attributed segment, exclusive.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "wkt::internal::I64")]
             pub end_index: i64,
 
             /// Citation sources for the attributed segment.
@@ -28874,7 +28874,7 @@ pub mod search_response {
             /// It is 0-indexed and the value will be zero if the reference_index is
             /// not set explicitly.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "wkt::internal::I64")]
             pub reference_index: i64,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -29366,7 +29366,7 @@ pub mod search_response {
         ///
         /// [google.cloud.discoveryengine.v1.SearchRequest.QueryExpansionSpec.pin_unexpanded_results]: crate::model::search_request::QueryExpansionSpec::pin_unexpanded_results
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub pinned_result_count: i64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -31519,7 +31519,7 @@ pub mod target_site {
             /// This number is an estimation on how much total quota this project needs
             /// to successfully complete indexing.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "wkt::internal::I64")]
             pub total_required_quota: i64,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -36233,7 +36233,7 @@ pub struct CollectUserEventRequest {
     /// otherwise identical get requests. The name is abbreviated to reduce the
     /// payload bytes.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub ets: std::option::Option<i64>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

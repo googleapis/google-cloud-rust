@@ -1457,7 +1457,7 @@ pub mod parameter {
         #[non_exhaustive]
         pub enum Kind {
             /// Represents an int64 value.
-            Int64Value(#[serde_as(as = "serde_with::DisplayFromStr")] i64),
+            Int64Value(#[serde_as(as = "wkt::internal::I64")] i64),
             /// Represents a string value.
             StringValue(std::string::String),
             /// Represents a double value.

@@ -7978,12 +7978,12 @@ pub mod network_address {
 pub struct MachineDiskDetails {
     /// Disk total Capacity.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub total_capacity_bytes: i64,
 
     /// Total disk free space.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub total_free_bytes: i64,
 
     /// List of disks.
@@ -8081,12 +8081,12 @@ impl wkt::message::Message for DiskEntryList {
 pub struct DiskEntry {
     /// Disk capacity.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub capacity_bytes: i64,
 
     /// Disk free space.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub free_bytes: i64,
 
     /// Disk label.
@@ -8466,12 +8466,12 @@ pub struct DiskPartition {
 
     /// Partition capacity.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub capacity_bytes: i64,
 
     /// Partition free space.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub free_bytes: i64,
 
     /// Partition UUID.
@@ -9969,7 +9969,7 @@ pub struct RunningService {
 
     /// Service pid.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub pid: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10373,7 +10373,7 @@ impl wkt::message::Message for RunningProcessList {
 pub struct RunningProcess {
     /// Process ID.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub pid: i64,
 
     /// Process binary path.
@@ -10580,7 +10580,7 @@ pub struct NetworkConnection {
 
     /// Process ID.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub pid: i64,
 
     /// Process or service name.
@@ -12424,7 +12424,7 @@ pub struct GenericInsight {
     /// this insight, can be used for localization purposes, in case message_code
     /// is not yet known by the client use default_message instead.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub message_id: i64,
 
     /// Output only. In case message_code is not yet known by the client
@@ -13428,7 +13428,7 @@ pub mod aggregation_result {
     #[non_exhaustive]
     pub struct Count {
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub value: i64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -13552,7 +13552,7 @@ pub mod aggregation_result {
 
             /// Count of items in the bucket.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "wkt::internal::I64")]
             pub count: i64,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -13597,7 +13597,7 @@ pub mod aggregation_result {
     #[non_exhaustive]
     pub struct Frequency {
         #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-        #[serde_as(as = "std::collections::HashMap<_, serde_with::DisplayFromStr>")]
+        #[serde_as(as = "std::collections::HashMap<_, wkt::internal::I64>")]
         pub values: std::collections::HashMap<std::string::String, i64>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -15443,12 +15443,12 @@ pub mod report_summary {
     pub struct UtilizationChartData {
         /// Aggregate value which falls into the "Used" bucket.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub used: i64,
 
         /// Aggregate value which falls into the "Free" bucket.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub free: i64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -15537,17 +15537,17 @@ pub mod report_summary {
         pub struct Bucket {
             /// Lower bound - inclusive.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "wkt::internal::I64")]
             pub lower_bound: i64,
 
             /// Upper bound - exclusive.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "wkt::internal::I64")]
             pub upper_bound: i64,
 
             /// Count of items in the bucket.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "wkt::internal::I64")]
             pub count: i64,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -15593,22 +15593,22 @@ pub mod report_summary {
     pub struct AssetAggregateStats {
         /// Sum of the memory in bytes of all the assets in this collection.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub total_memory_bytes: i64,
 
         /// Sum of persistent storage in bytes of all the assets in this collection.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub total_storage_bytes: i64,
 
         /// Sum of the CPU core count of all the assets in this collection.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub total_cores: i64,
 
         /// Count of the number of unique assets in this collection.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub total_assets: i64,
 
         /// Total memory split into Used/Free buckets.
@@ -15804,7 +15804,7 @@ pub mod report_summary {
 
         /// Count of assets allocated to this machine series.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub allocated_asset_count: i64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -15859,7 +15859,7 @@ pub mod report_summary {
 
         /// Count of assets which were allocated.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub allocated_asset_count: i64,
 
         /// Distribution of assets based on the Machine Series.
@@ -15938,7 +15938,7 @@ pub mod report_summary {
 
         /// Count of assets which are allocated
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub allocated_asset_count: i64,
 
         /// Set of per-nodetype allocation records
@@ -16001,12 +16001,12 @@ pub mod report_summary {
 
         /// Count of this node type to be provisioned
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub node_count: i64,
 
         /// Count of assets allocated to these nodes
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub allocated_asset_count: i64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -16101,7 +16101,7 @@ pub mod report_summary {
 
         /// Count of assets which are allocated
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub allocated_asset_count: i64,
 
         /// Set of per-nodetype allocation records
@@ -16164,12 +16164,12 @@ pub mod report_summary {
 
         /// Count of this node type to be provisioned
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub node_count: i64,
 
         /// Count of assets allocated to these nodes
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub allocated_asset_count: i64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -16510,7 +16510,7 @@ pub mod report_summary {
 
         /// This field is deprecated, do not rely on it having a value.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         #[deprecated]
         pub overlapping_asset_count: i64,
 

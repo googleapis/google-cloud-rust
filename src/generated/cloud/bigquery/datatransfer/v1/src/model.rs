@@ -3248,7 +3248,7 @@ pub struct TransferConfig {
 
     /// Deprecated. Unique ID of the user on whose behalf transfer is done.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub user_id: i64,
 
     /// Output only. Region in which BigQuery dataset is located.
@@ -3692,7 +3692,7 @@ pub struct TransferRun {
 
     /// Deprecated. Unique ID of the user on whose behalf transfer is done.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub user_id: i64,
 
     /// Output only. Describes the schedule of this transfer run if it was

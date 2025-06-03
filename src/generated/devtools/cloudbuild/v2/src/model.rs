@@ -969,7 +969,7 @@ pub struct GitHubConfig {
 
     /// GitHub App installation id.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub app_installation_id: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1028,7 +1028,7 @@ pub struct GitHubEnterpriseConfig {
 
     /// Id of the GitHub App created from the manifest.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub app_id: i64,
 
     /// The URL-friendly name of the GitHub App.
@@ -1047,7 +1047,7 @@ pub struct GitHubEnterpriseConfig {
 
     /// ID of the installation of the GitHub App.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub app_installation_id: i64,
 
     /// Configuration for using Service Directory to privately connect to a GitHub

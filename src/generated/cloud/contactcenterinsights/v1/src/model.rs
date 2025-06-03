@@ -10062,7 +10062,7 @@ pub mod bulk_download_feedback_labels_request {
 
         /// Optional. The number of records per file. Applicable for either format.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub records_per_file_count: i64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -14199,7 +14199,7 @@ pub struct IssueModel {
 
     /// Output only. Number of issues in this issue model.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub issue_count: i64,
 
     /// Output only. State of the model.
@@ -14373,7 +14373,7 @@ pub mod issue_model {
 
         /// Output only. Number of conversations used in training. Output only.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub training_conversations_count: i64,
 
         /// A filter to reduce the conversations used for training the model to a
@@ -14834,13 +14834,13 @@ impl wkt::message::Message for Issue {
 pub struct IssueModelLabelStats {
     /// Number of conversations the issue model has analyzed at this point in time.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub analyzed_conversations_count: i64,
 
     /// Number of analyzed conversations for which no issue was applicable at this
     /// point in time.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub unclassified_conversations_count: i64,
 
     /// Statistics on each issue. Key is the issue's resource name.
@@ -14912,7 +14912,7 @@ pub mod issue_model_label_stats {
 
         /// Number of conversations attached to the issue at this point in time.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub labeled_conversations_count: i64,
 
         /// Display name of the issue.
@@ -19025,7 +19025,7 @@ pub mod qa_question {
         /// Total number of valid labels provided for the question at the time of
         /// tuining.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub total_valid_label_count: i64,
 
         /// A list of any applicable data validation warnings about the question's

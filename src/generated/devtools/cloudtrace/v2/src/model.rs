@@ -636,19 +636,19 @@ pub mod span {
             /// An identifier for the MessageEvent's message that can be used to match
             /// `SENT` and `RECEIVED` MessageEvents.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "wkt::internal::I64")]
             pub id: i64,
 
             /// The number of uncompressed bytes sent or received.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "wkt::internal::I64")]
             pub uncompressed_size_bytes: i64,
 
             /// The number of compressed bytes sent or received. If missing, the
             /// compressed size is assumed to be the same size as the uncompressed
             /// size.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "wkt::internal::I64")]
             pub compressed_size_bytes: i64,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1482,7 +1482,7 @@ pub mod attribute_value {
         /// A string up to 256 bytes long.
         StringValue(std::boxed::Box<crate::model::TruncatableString>),
         /// A 64-bit signed integer.
-        IntValue(#[serde_as(as = "serde_with::DisplayFromStr")] i64),
+        IntValue(#[serde_as(as = "wkt::internal::I64")] i64),
         /// A Boolean value represented by `true` or `false`.
         BoolValue(bool),
     }
@@ -1508,7 +1508,7 @@ pub struct StackTrace {
     /// Subsequent spans within the same request can refer
     /// to that stack trace by only setting `stackTraceHashId`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub stack_trace_hash_id: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1581,13 +1581,13 @@ pub mod stack_trace {
 
         /// The line number in `file_name` where the function call appears.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub line_number: i64,
 
         /// The column number where the function call appears, if available.
         /// This is important in JavaScript because of its anonymous functions.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub column_number: i64,
 
         /// The binary module from where the code was loaded.

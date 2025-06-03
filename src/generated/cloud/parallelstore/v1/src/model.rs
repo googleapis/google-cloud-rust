@@ -72,7 +72,7 @@ pub struct Instance {
     /// Allowed values are between 12000 and 100000, in multiples of 4000; e.g.,
     /// 12000, 16000, 20000, ...
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub capacity_gib: i64,
 
     /// Output only. Deprecated 'daos_version' field.
@@ -1625,7 +1625,7 @@ pub struct TransferErrorSummary {
 
     /// Count of this type of error.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub error_count: i64,
 
     /// A list of messages that carry the error details.
@@ -2264,46 +2264,46 @@ pub struct TransferCounters {
     /// excluding any that are filtered based on object conditions or skipped due
     /// to sync.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub objects_found: i64,
 
     /// Bytes found in the data source that are scheduled to be transferred,
     /// excluding any that are filtered based on object conditions or skipped due
     /// to sync.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub bytes_found: i64,
 
     /// Objects in the data source that are not transferred because they already
     /// exist in the data destination.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub objects_skipped: i64,
 
     /// Bytes in the data source that are not transferred because they already
     /// exist in the data destination.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub bytes_skipped: i64,
 
     /// Objects that are copied to the data destination.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub objects_copied: i64,
 
     /// Bytes that are copied to the data destination.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub bytes_copied: i64,
 
     /// Objects that are failed to write to the data destination.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub objects_failed: i64,
 
     /// Bytes that are failed to write to the data destination.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub bytes_failed: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

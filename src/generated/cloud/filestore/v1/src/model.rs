@@ -427,7 +427,7 @@ pub struct FileShareConfig {
     /// File share capacity in gigabytes (GB).
     /// Filestore defines 1 GB as 1024^3 bytes.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub capacity_gb: i64,
 
     /// Nfs Export Options.
@@ -571,7 +571,7 @@ pub struct NfsExportOptions {
     /// Anon_uid may only be set with squash_mode of ROOT_SQUASH.  An error will be
     /// returned if this field is specified for other squash_mode settings.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub anon_uid: i64,
 
     /// An integer representing the anonymous group id with a default value of
@@ -579,7 +579,7 @@ pub struct NfsExportOptions {
     /// Anon_gid may only be set with squash_mode of ROOT_SQUASH.  An error will be
     /// returned if this field is specified for other squash_mode settings.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub anon_gid: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1840,7 +1840,7 @@ pub mod instance {
     pub struct IOPSPerTB {
         /// Required. Maximum IOPS per TiB.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub max_iops_per_tb: i64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1873,7 +1873,7 @@ pub mod instance {
     pub struct FixedIOPS {
         /// Required. Maximum IOPS.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub max_iops: i64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2053,27 +2053,27 @@ pub mod instance {
     pub struct PerformanceLimits {
         /// Output only. The max IOPS.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub max_iops: i64,
 
         /// Output only. The max read IOPS.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub max_read_iops: i64,
 
         /// Output only. The max write IOPS.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub max_write_iops: i64,
 
         /// Output only. The max read throughput in bytes per second.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub max_read_throughput_bps: i64,
 
         /// Output only. The max write throughput in bytes per second.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub max_write_throughput_bps: i64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3328,7 +3328,7 @@ pub struct Snapshot {
     /// Output only. The amount of bytes needed to allocate a full copy of the
     /// snapshot content
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub filesystem_used_bytes: i64,
 
     /// Optional. Input only. Immutable. Tag key-value pairs bound to this
@@ -3968,13 +3968,13 @@ pub struct Backup {
 
     /// Output only. Capacity of the source file share when the backup was created.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub capacity_gb: i64,
 
     /// Output only. The size of the storage used by the backup. As backups share
     /// storage, this number is expected to change with backup creation/deletion.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub storage_bytes: i64,
 
     /// The resource name of the source Filestore instance, in the format
@@ -3997,7 +3997,7 @@ pub struct Backup {
     /// restored. This may be different than storage bytes, since sequential
     /// backups of the same disk will share storage.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub download_bytes: i64,
 
     /// Output only. Reserved for future use.

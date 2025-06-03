@@ -591,7 +591,7 @@ pub struct GitConfig {
 
     /// Period in seconds between consecutive syncs. Default: 15.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub sync_wait_secs: i64,
 
     /// Git revision (tag or hash) to check out. Default HEAD.
@@ -698,7 +698,7 @@ pub struct OciConfig {
 
     /// Period in seconds between consecutive syncs. Default: 15.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub sync_wait_secs: i64,
 
     /// Type of secret configured for access to the Git repo.
@@ -778,7 +778,7 @@ pub struct PolicyController {
     /// Sets the interval for Policy Controller Audit Scans (in seconds).
     /// When set to 0, this disables audit functionality altogether.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub audit_interval_seconds: std::option::Option<i64>,
 
     /// The set of namespaces that are excluded from Policy Controller checks.

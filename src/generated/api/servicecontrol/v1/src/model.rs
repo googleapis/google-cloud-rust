@@ -416,7 +416,7 @@ pub mod check_error {
 pub struct Distribution {
     /// The total number of samples in the distribution. Must be >= 0.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub count: i64,
 
     /// The arithmetic mean of the samples in the distribution. If `count` is
@@ -455,7 +455,7 @@ pub struct Distribution {
     ///
     /// Any suffix of trailing zeros may be omitted.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "std::vec::Vec<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::vec::Vec<wkt::internal::I64>")]
     pub bucket_counts: std::vec::Vec<i64>,
 
     /// Example points. Must be in increasing order of `value` field.
@@ -906,7 +906,7 @@ pub struct HttpRequest {
     /// The size of the HTTP request message in bytes, including the request
     /// headers and the request body.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub request_size: i64,
 
     /// The response code indicating the status of the response.
@@ -918,7 +918,7 @@ pub struct HttpRequest {
     /// The size of the HTTP response message sent back to the client, in bytes,
     /// including the response headers and the response body.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub response_size: i64,
 
     /// The user agent sent by the client. Example:
@@ -966,7 +966,7 @@ pub struct HttpRequest {
     /// The number of HTTP response bytes inserted into cache. Set only when a
     /// cache fill was attempted.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub cache_fill_bytes: i64,
 
     /// Protocol used for the request. Examples: "HTTP/1.1", "HTTP/2", "websocket"
@@ -1468,7 +1468,7 @@ pub struct LogEntrySourceLocation {
     /// Optional. Line within the source file. 1-based; 0 indicates no line number
     /// available.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub line: i64,
 
     /// Optional. Human-readable name of the function or method being invoked, with
@@ -1765,7 +1765,7 @@ pub mod metric_value {
         /// A boolean value.
         BoolValue(bool),
         /// A signed 64-bit integer value.
-        Int64Value(#[serde_as(as = "serde_with::DisplayFromStr")] i64),
+        Int64Value(#[serde_as(as = "wkt::internal::I64")] i64),
         /// A double precision floating point value.
         DoubleValue(#[serde_as(as = "wkt::internal::F64")] f64),
         /// A text string value.
@@ -3162,7 +3162,7 @@ pub mod check_response {
         /// NOTE: This field is deprecated after we support flexible consumer
         /// id. New code should not depend on this field anymore.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub project_number: i64,
 
         /// The type of the consumer which should have been defined in
@@ -3175,7 +3175,7 @@ pub mod check_response {
         /// number or organization number e.g. 1234567890. A value of 0 indicates no
         /// consumer number is found.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub consumer_number: i64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

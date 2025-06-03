@@ -64,7 +64,7 @@ pub struct Folder {
     /// Output only. The version of the metadata for this folder. Used for
     /// preconditions and for detecting changes in metadata.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub metageneration: i64,
 
     /// Output only. The creation time of the folder.
@@ -180,13 +180,13 @@ pub struct GetFolderRequest {
     /// Makes the operation only succeed conditional on whether the folder's
     /// current metageneration matches the given value.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub if_metageneration_match: std::option::Option<i64>,
 
     /// Makes the operation only succeed conditional on whether the folder's
     /// current metageneration does not match the given value.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub if_metageneration_not_match: std::option::Option<i64>,
 
     /// Optional. A unique identifier for this request. UUID is the recommended
@@ -368,13 +368,13 @@ pub struct DeleteFolderRequest {
     /// Makes the operation only succeed conditional on whether the folder's
     /// current metageneration matches the given value.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub if_metageneration_match: std::option::Option<i64>,
 
     /// Makes the operation only succeed conditional on whether the folder's
     /// current metageneration does not match the given value.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub if_metageneration_not_match: std::option::Option<i64>,
 
     /// Optional. A unique identifier for this request. UUID is the recommended
@@ -650,13 +650,13 @@ pub struct RenameFolderRequest {
     /// Makes the operation only succeed conditional on whether the source
     /// folder's current metageneration matches the given value.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub if_metageneration_match: std::option::Option<i64>,
 
     /// Makes the operation only succeed conditional on whether the source
     /// folder's current metageneration does not match the given value.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub if_metageneration_not_match: std::option::Option<i64>,
 
     /// Optional. A unique identifier for this request. UUID is the recommended
@@ -1182,7 +1182,7 @@ pub struct ManagedFolder {
     /// whenever the metadata is updated. Used for preconditions and for detecting
     /// changes in metadata. Managed folders don't have a generation number.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub metageneration: i64,
 
     /// Output only. The creation time of the managed folder.
@@ -1272,13 +1272,13 @@ pub struct GetManagedFolderRequest {
     /// The operation succeeds conditional on the managed folder's current
     /// metageneration matching the value here specified.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub if_metageneration_match: std::option::Option<i64>,
 
     /// The operation succeeds conditional on the managed folder's current
     /// metageneration NOT matching the value here specified.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub if_metageneration_not_match: std::option::Option<i64>,
 
     /// Optional. A unique identifier for this request. UUID is the recommended
@@ -1447,13 +1447,13 @@ pub struct DeleteManagedFolderRequest {
     /// The operation succeeds conditional on the managed folder's current
     /// metageneration matching the value here specified.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub if_metageneration_match: std::option::Option<i64>,
 
     /// The operation succeeds conditional on the managed folder's current
     /// metageneration NOT matching the value here specified.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub if_metageneration_not_match: std::option::Option<i64>,
 
     /// Allows deletion of a managed folder even if it is not empty.

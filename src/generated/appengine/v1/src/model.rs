@@ -5958,7 +5958,7 @@ pub struct Instance {
 
     /// Output only. Total memory in use (bytes).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub memory_usage: i64,
 
     /// Output only. Status of the virtual machine where this instance lives. Only applicable
@@ -7379,7 +7379,7 @@ pub struct Version {
     ///
     /// @OutputOnly
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub disk_usage_bytes: i64,
 
     /// The version of the API in the given runtime environment. Please see the

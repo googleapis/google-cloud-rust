@@ -582,24 +582,24 @@ impl wkt::message::Message for InitializingReplicationStep {
 pub struct ReplicatingStep {
     /// Total bytes to be handled in the step.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub total_bytes: i64,
 
     /// Replicated bytes in the step.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub replicated_bytes: i64,
 
     /// The source disks replication rate for the last 2 minutes in bytes per
     /// second.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub last_two_minutes_average_bytes_per_second: i64,
 
     /// The source disks replication rate for the last 30 minutes in bytes per
     /// second.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub last_thirty_minutes_average_bytes_per_second: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5009,7 +5009,7 @@ pub struct VmwareVmDetails {
 
     /// The total size of the storage allocated to the VM in MB.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub committed_storage_mb: i64,
 
     /// The VM's OS. See for example
@@ -5442,7 +5442,7 @@ pub struct AwsVmDetails {
 
     /// The total size of the storage allocated to the VM in MB.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub committed_storage_mb: i64,
 
     /// The VM's OS.
@@ -7077,24 +7077,24 @@ pub struct VmUtilizationMetrics {
 
     /// Max disk IO rate, in kilobytes per second.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub disk_io_rate_max_kbps: i64,
 
     /// Average disk IO rate, in kilobytes per second.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub disk_io_rate_average_kbps: i64,
 
     /// Max network throughput (combined transmit-rates and receive-rates), in
     /// kilobytes per second.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub network_throughput_max_kbps: i64,
 
     /// Average network throughput (combined transmit-rates and receive-rates), in
     /// kilobytes per second.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub network_throughput_average_kbps: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11929,7 +11929,7 @@ pub struct AwsSourceVmDetails {
 
     /// The total size of the disks being migrated in bytes.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub committed_storage_bytes: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

@@ -632,7 +632,7 @@ pub struct DockerImage {
     /// This field is returned as the 'metadata.imageSizeBytes' field in the
     /// Version resource.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub image_size_bytes: i64,
 
     /// Time the image was uploaded.
@@ -2348,7 +2348,7 @@ pub struct File {
 
     /// The size of the File in bytes.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub size_bytes: i64,
 
     /// The hashes of the file content.
@@ -6749,7 +6749,7 @@ pub struct Repository {
     /// repository. Repositories that are generally available or in public preview
     /// use this to calculate storage costs.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub size_bytes: i64,
 
     /// Output only. If set, the repository satisfies physical zone separation.

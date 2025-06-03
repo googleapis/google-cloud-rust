@@ -60,7 +60,7 @@ pub struct Reservation {
     /// slots exceed your committed slots. Otherwise, you can decrease your
     /// baseline slots every few minutes.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub slot_capacity: i64,
 
     /// If false, any query or pipeline job using this reservation will use idle
@@ -83,7 +83,7 @@ pub struct Reservation {
     /// NOTE: this field is exposed as target job concurrency in the Information
     /// Schema, DDL and BigQuery CLI.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub concurrency: i64,
 
     /// Output only. Creation time of the reservation.
@@ -309,12 +309,12 @@ pub mod reservation {
         /// current_slots may stay in the original value and could be larger than
         /// max_slots for that brief period (less than one minute)
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub current_slots: i64,
 
         /// Number of slots to be scaled when needed.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "wkt::internal::I64")]
         pub max_slots: i64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -464,7 +464,7 @@ pub struct CapacityCommitment {
 
     /// Number of slots in this commitment.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub slot_count: i64,
 
     /// Capacity commitment commitment plan.
@@ -1750,7 +1750,7 @@ pub struct SplitCapacityCommitmentRequest {
 
     /// Number of slots in the capacity commitment after the split.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub slot_count: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3021,7 +3021,7 @@ pub struct BiReservation {
 
     /// Size of a reservation, in bytes.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub size: i64,
 
     /// Preferred tables to use BI capacity for.

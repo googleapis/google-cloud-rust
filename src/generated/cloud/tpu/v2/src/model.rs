@@ -742,7 +742,7 @@ pub struct Node {
 
     /// Output only. The unique identifier for the TPU Node.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     pub id: i64,
 
     /// The additional data disks for the Node.
