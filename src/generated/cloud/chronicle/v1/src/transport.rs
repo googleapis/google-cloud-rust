@@ -150,7 +150,7 @@ impl super::stub::DataAccessControlService for DataAccessControlService {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .map(|p| serde_json::to_value(p).map_err(Error::ser))
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
@@ -302,7 +302,7 @@ impl super::stub::DataAccessControlService for DataAccessControlService {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .map(|p| serde_json::to_value(p).map_err(Error::ser))
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
@@ -591,7 +591,7 @@ impl super::stub::EntityService for EntityService {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .map(|p| serde_json::to_value(p).map_err(Error::ser))
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
@@ -1045,7 +1045,7 @@ impl super::stub::ReferenceListService for ReferenceListService {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .map(|p| serde_json::to_value(p).map_err(Error::ser))
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
@@ -1303,7 +1303,7 @@ impl super::stub::RuleService for RuleService {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .map(|p| serde_json::to_value(p).map_err(Error::ser))
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
@@ -1537,7 +1537,7 @@ impl super::stub::RuleService for RuleService {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .map(|p| serde_json::to_value(p).map_err(Error::ser))
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {

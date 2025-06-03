@@ -17,8 +17,12 @@
 //! These types are intended for developers of the Google Cloud client libraries
 //! for Rust. They are undocumented and may change at any time.
 
+#[macro_use]
+mod visitor_32;
 mod int32;
 pub use int32::I32;
+mod uint32;
+pub use uint32::U32;
 
 pub struct F32;
 pub struct F64;
@@ -42,7 +46,7 @@ macro_rules! impl_serialize_as {
 }
 
 macro_rules! impl_visitor {
-    ($name: ident, $t: ty) => {
+    ($name: ident, $t: ty, $msg: literal) => {
         struct $name;
 
         impl serde::de::Visitor<'_> for $name {
@@ -57,14 +61,7 @@ macro_rules! impl_visitor {
                     "NaN" => Ok(<$t>::NAN),
                     "Infinity" => Ok(<$t>::INFINITY),
                     "-Infinity" => Ok(<$t>::NEG_INFINITY),
-                    _ => Err(serde::de::Error::invalid_value(
-                        serde::de::Unexpected::Other(value),
-                        &format!(
-                            "a valid ProtoJSON string for {} (NaN, Infinity, -Infinity)",
-                            std::stringify!($t)
-                        )
-                        .as_str(),
-                    )),
+                    _ => value.parse::<Self::Value>().map_err(E::custom),
                 }
             }
 
@@ -76,7 +73,7 @@ macro_rules! impl_visitor {
             {
                 // This is trivial for `f64`. For `f32`, casting f64 to f32 is guaranteed to produce the closest possible float value:
                 // See https://doc.rust-lang.org/reference/expressions/operator-expr.html#r-expr.as.numeric.float-narrowing
-                Ok(value as $t)
+                Ok(value as Self::Value)
             }
 
             // Floats and doubles in serde_json may be serialized as integers
@@ -87,7 +84,7 @@ macro_rules! impl_visitor {
             {
                 // This is trivial for `f64`. For `f32`, casting f64 to f32 is guaranteed to produce the closest possible float value:
                 // See https://doc.rust-lang.org/reference/expressions/operator-expr.html#r-expr.as.numeric.float-narrowing
-                Ok(value as $t)
+                Ok(value as Self::Value)
             }
 
             // Floats and doubles in serde_json are f64.
@@ -95,23 +92,22 @@ macro_rules! impl_visitor {
             where
                 E: serde::de::Error,
             {
-                // This is trivial for `f64`. For `f32`, casting f64 to f32 is guaranteed to produce the closest possible float value:
-                // See https://doc.rust-lang.org/reference/expressions/operator-expr.html#r-expr.as.numeric.float-narrowing
-                Ok(value as $t)
+                // This is trivial for `f64`. For `f32`, casting f64 to f32
+                // is guaranteed to produce the closest possible float
+                // value:
+                //     https://doc.rust-lang.org/reference/expressions/operator-expr.html#r-expr.as.numeric.float-narrowing
+                Ok(value as Self::Value)
             }
 
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str(&format!(
-                    "a {}-bit floating point in ProtoJSON format",
-                    std::mem::size_of::<$t>() * 8 // bit size = byte size of T * 8
-                ))
+                formatter.write_str($msg)
             }
         }
     };
 }
 
-impl_visitor!(FloatVisitor, f32);
-impl_visitor!(DoubleVisitor, f64);
+impl_visitor!(FloatVisitor, f32, "a 32-bit float in ProtoJSON format");
+impl_visitor!(DoubleVisitor, f64, "a 64-bit float in ProtoJSON format");
 
 impl serde_with::SerializeAs<f32> for F32 {
     impl_serialize_as!(f32, serialize_f32);
@@ -153,7 +149,7 @@ pub use enums::*;
 #[cfg(test)]
 mod test {
     use super::*;
-    use serde_json::json;
+    use serde_json::{Value, json};
     use serde_with::{DeserializeAs, SerializeAs};
     use test_case::test_case;
     type Result = std::result::Result<(), Box<dyn std::error::Error>>;
@@ -168,6 +164,11 @@ mod test {
     #[test_case(2.0*f32::INFINITY, "Infinity")]
     #[test_case(f32::NEG_INFINITY, "-Infinity")]
     #[test_case(2.0*f32::NEG_INFINITY, "-Infinity")]
+    #[test_case(f32::MAX, f32::MAX)]
+    #[test_case(f32::MIN, f32::MIN)]
+    #[test_case(f32::EPSILON, f32::EPSILON)]
+    #[test_case(f32::MIN_POSITIVE, f32::MIN_POSITIVE)]
+    #[test_case(-f32::MIN_POSITIVE, -f32::MIN_POSITIVE; "negative of MIN_POSITIVE")]
     fn roundtrip_f32<T>(input: f32, want: T) -> Result
     where
         T: std::fmt::Debug,
@@ -177,6 +178,23 @@ mod test {
         assert_eq!(got, want);
         let rt = F32::deserialize_as(got)?;
         assert_float_eq(input, rt);
+        Ok(())
+    }
+
+    #[test_case("0", 0.0)]
+    #[test_case("0.0", 0.0; "zero with trailing")]
+    #[test_case("0.5", 0.5)]
+    #[test_case("-0.75", -0.75)]
+    #[test_case("123", 123.0)]
+    #[test_case("-234", -234.0)]
+    #[test_case(format!("{}", f32::MAX).as_str(), f32::MAX)]
+    #[test_case(format!("{}", f32::MIN).as_str(), f32::MIN)]
+    #[test_case(format!("{}", f32::EPSILON).as_str(), f32::EPSILON)]
+    #[test_case(format!("{}", f32::MIN_POSITIVE).as_str(), f32::MIN_POSITIVE)]
+    #[test_case(format!("{}", -f32::MIN_POSITIVE).as_str(), -f32::MIN_POSITIVE; "negative of MIN_POSITIVE")]
+    fn parse_string_f32(input: &str, want: f32) -> Result {
+        let got = F32::deserialize_as(Value::String(input.into()))?;
+        assert_float_eq(got, want);
         Ok(())
     }
 
@@ -202,6 +220,11 @@ mod test {
     #[test_case(2.0*f64::INFINITY, "Infinity")]
     #[test_case(f64::NEG_INFINITY, "-Infinity")]
     #[test_case(2.0*f64::NEG_INFINITY, "-Infinity")]
+    #[test_case(f64::MAX, f64::MAX)]
+    #[test_case(f64::MIN, f64::MIN)]
+    #[test_case(f64::EPSILON, f64::EPSILON)]
+    #[test_case(f64::MIN_POSITIVE, f64::MIN_POSITIVE)]
+    #[test_case(-f64::MIN_POSITIVE, -f64::MIN_POSITIVE; "negative of MIN_POSITIVE")]
     fn roundtrip_f64<T>(input: f64, want: T) -> Result
     where
         T: std::fmt::Debug,
@@ -211,6 +234,23 @@ mod test {
         assert_eq!(got, want);
         let rt = F64::deserialize_as(got)?;
         assert_double_eq(input, rt);
+        Ok(())
+    }
+
+    #[test_case("0", 0.0)]
+    #[test_case("0.0", 0.0; "zero with trailing")]
+    #[test_case("0.5", 0.5)]
+    #[test_case("-0.75", -0.75)]
+    #[test_case("123", 123.0)]
+    #[test_case("-234", -234.0)]
+    #[test_case(format!("{}", f64::MAX).as_str(), f64::MAX)]
+    #[test_case(format!("{}", f64::MIN).as_str(), f64::MIN)]
+    #[test_case(format!("{}", f64::EPSILON).as_str(), f64::EPSILON)]
+    #[test_case(format!("{}", f64::MIN_POSITIVE).as_str(), f64::MIN_POSITIVE)]
+    #[test_case(format!("{}", -f64::MIN_POSITIVE).as_str(), -f64::MIN_POSITIVE; "negative of MIN_POSITIVE")]
+    fn parse_string_f64(input: &str, want: f64) -> Result {
+        let got = F64::deserialize_as(Value::String(input.into()))?;
+        assert_double_eq(got, want);
         Ok(())
     }
 
