@@ -394,7 +394,7 @@ impl ReadObject {
     where
         T: Into<i64>,
     {
-        self.request.if_generation_match = Option::Some(v.into());
+        self.request.if_generation_match = Some(v.into());
         self
     }
 
@@ -412,7 +412,7 @@ impl ReadObject {
     where
         T: Into<i64>,
     {
-        self.request.if_generation_not_match = Option::Some(v.into());
+        self.request.if_generation_not_match = Some(v.into());
         self
     }
 
@@ -430,7 +430,7 @@ impl ReadObject {
     where
         T: Into<i64>,
     {
-        self.request.if_metageneration_match = Option::Some(v.into());
+        self.request.if_metageneration_match = Some(v.into());
         self
     }
 
@@ -448,7 +448,7 @@ impl ReadObject {
     where
         T: Into<i64>,
     {
-        self.request.if_metageneration_not_match = Option::Some(v.into());
+        self.request.if_metageneration_not_match = Some(v.into());
         self
     }
 
@@ -466,7 +466,7 @@ impl ReadObject {
     where
         T: Into<control::model::CommonObjectRequestParams>,
     {
-        self.request.common_object_request_params = Option::Some(v.into());
+        self.request.common_object_request_params = Some(v.into());
         self
     }
 
