@@ -22,5 +22,5 @@ project-root = '.'
 [codec]
 copyright-year            = '2025'
 template-override         = 'templates/mod'
-module-path               = 'crate::protos'
+module-path               = 'crate::test::protos'
 disabled-rustdoc-warnings = ''
