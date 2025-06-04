@@ -15,6 +15,9 @@
 #[cfg(test)]
 mod test {
     use google_cloud_auth::credentials::EntityTag;
+    use google_cloud_auth::credentials::external_account::{
+        Builder as ExternalAccountBuilder, SubjectTokenProvider,
+    };
     use google_cloud_auth::credentials::mds::Builder as MdsBuilder;
     use google_cloud_auth::credentials::service_account::Builder as ServiceAccountBuilder;
     use google_cloud_auth::credentials::testing::test_credentials;
@@ -184,6 +187,22 @@ mod test {
         assert!(!fmt.contains("test-api-key"), "{fmt:?}");
     }
 
+    fn get_token_from_cached_header(cached_headers: CacheableResource<HeaderMap>) -> String {
+        match cached_headers {
+            CacheableResource::New { data, .. } => {
+                let token = data
+                    .get(AUTHORIZATION)
+                    .and_then(|token_value| token_value.to_str().ok())
+                    .map(|s| s.to_string())
+                    .unwrap();
+                token
+            }
+            CacheableResource::NotModified => {
+                unreachable!("Expecting a header to be present");
+            }
+        }
+    }
+
     #[tokio::test]
     async fn create_external_account_access_token() -> TestResult {
         let source_token_response_body = json!({
@@ -255,19 +274,78 @@ mod test {
         assert!(fmt.contains("ExternalAccountCredentials"));
 
         let cached_headers = creds.headers(Extensions::new()).await?;
-        match cached_headers {
-            CacheableResource::New { data, .. } => {
-                let token = data
-                    .get(AUTHORIZATION)
-                    .and_then(|token_value| token_value.to_str().ok())
-                    .map(|s| s.to_string())
-                    .unwrap();
-                assert!(token.contains("Bearer an_exchanged_token"));
-            }
-            CacheableResource::NotModified => {
-                unreachable!("Expecting a header to be present");
-            }
-        };
+        let token = get_token_from_cached_header(cached_headers);
+
+        assert!(token.contains("Bearer an_exchanged_token"));
+
+        Ok(())
+    }
+
+    #[derive(Debug)]
+    struct MyCustomSubjectTokenProvider {
+        token: String,
+    }
+
+    #[async_trait::async_trait]
+    impl SubjectTokenProvider for MyCustomSubjectTokenProvider {
+        async fn subject_token(&self) -> std::result::Result<String, CredentialsError> {
+            Ok(self.token.clone())
+        }
+    }
+
+    #[tokio::test]
+    async fn create_external_account_programmatic() -> TestResult {
+        let token_response_body = json!({
+            "access_token":"an_exchanged_token",
+            "issued_token_type":"urn:ietf:params:oauth:token-type:access_token",
+            "token_type":"Bearer",
+            "expires_in":3600,
+            "scope":"https://www.googleapis.com/auth/cloud-platform"
+        });
+
+        let server = Server::run();
+
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("POST", "/token"),
+                request::body(url_decoded(contains(("subject_token", "an_example_token")))),
+                request::body(url_decoded(contains((
+                    "subject_token_type",
+                    "urn:ietf:params:oauth:token-type:jwt"
+                )))),
+                request::body(url_decoded(contains(("audience", "some-audience")))),
+                request::headers(contains((
+                    "content-type",
+                    "application/x-www-form-urlencoded"
+                ))),
+            ])
+            .respond_with(json_encoded(token_response_body)),
+        );
+
+        let contents = json!({
+          "type": "external_account",
+          "audience": "some-audience",
+          "subject_token_type": "urn:ietf:params:oauth:token-type:jwt",
+          "token_url": server.url("/token").to_string(),
+          "credential_source": {}
+        });
+
+        let creds = ExternalAccountBuilder::new(contents)
+            .with_subject_token_provider(MyCustomSubjectTokenProvider {
+                token: "an_example_token".to_string(),
+            })
+            .build()
+            .unwrap();
+
+        // Use the debug output to verify the right kind of credentials are created.
+        let fmt = format!("{:?}", creds);
+        print!("{:?}", creds);
+        assert!(fmt.contains("ExternalAccountCredentials"));
+
+        let cached_headers = creds.headers(Extensions::new()).await?;
+        let token = get_token_from_cached_header(cached_headers);
+
+        assert!(token.contains("Bearer an_exchanged_token"));
 
         Ok(())
     }
