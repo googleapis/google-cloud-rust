@@ -2756,6 +2756,7 @@ pub mod runtime_entity_schema {
         /// The following field specifies the default value of the Field provided
         /// by the external system if a value is not provided.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "wkt::internal::OptionalValue")]
         pub default_value: std::option::Option<wkt::Value>,
 
         /// The following map contains fields that are not explicitly mentioned
@@ -2955,6 +2956,7 @@ pub mod runtime_action_schema {
         /// The following field specifies the default value of the Parameter
         /// provided by the external system if a value is not provided.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "wkt::internal::OptionalValue")]
         pub default_value: std::option::Option<wkt::Value>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

@@ -2088,6 +2088,7 @@ pub mod deny_rule_explanation {
 pub struct ConditionExplanation {
     /// Value of the condition.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "wkt::internal::OptionalValue")]
     pub value: std::option::Option<wkt::Value>,
 
     /// Any errors that prevented complete evaluation of the condition expression.
@@ -2183,6 +2184,7 @@ pub mod condition_explanation {
 
         /// Value of this expression.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "wkt::internal::OptionalValue")]
         pub value: std::option::Option<wkt::Value>,
 
         /// Any errors that prevented complete evaluation of the condition
