@@ -303,7 +303,7 @@ impl InsertObject {
     ///     Ok(())
     /// }
     /// ```
-    pub async fn send(&self) -> crate::Result<Object> {
+    pub async fn send(self) -> crate::Result<Object> {
         let builder = self.http_request_builder().await?;
 
         tracing::info!("builder={builder:?}");
@@ -317,8 +317,8 @@ impl InsertObject {
         Ok(Object::from(response))
     }
 
-    async fn http_request_builder(&self) -> Result<reqwest::RequestBuilder> {
-        let bucket: String = self.bucket.clone();
+    async fn http_request_builder(self) -> Result<reqwest::RequestBuilder> {
+        let bucket: String = self.bucket;
         let bucket_id = bucket
             .as_str()
             .strip_prefix("projects/_/buckets/")
@@ -327,7 +327,7 @@ impl InsertObject {
                     "malformed bucket name, it must start with `projects/_/buckets/`: {bucket}"
                 ))
             })?;
-        let object: String = self.object.clone();
+        let object: String = self.object;
         let builder = self
             .inner
             .client
@@ -343,13 +343,11 @@ impl InsertObject {
                 reqwest::header::HeaderValue::from_static(&self::info::X_GOOG_API_CLIENT_HEADER),
             );
 
-        let builder = apply_customer_supplied_encryption_headers(
-            builder,
-            self.common_object_request_params.clone(),
-        );
+        let builder =
+            apply_customer_supplied_encryption_headers(builder, self.common_object_request_params);
 
         let builder = self.inner.apply_auth_headers(builder).await?;
-        let builder = builder.body(self.payload.clone());
+        let builder = builder.body(self.payload);
         Ok(builder)
     }
 
