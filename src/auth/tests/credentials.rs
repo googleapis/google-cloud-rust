@@ -189,14 +189,11 @@ mod test {
 
     fn get_token_from_cached_header(cached_headers: CacheableResource<HeaderMap>) -> String {
         match cached_headers {
-            CacheableResource::New { data, .. } => {
-                let token = data
-                    .get(AUTHORIZATION)
-                    .and_then(|token_value| token_value.to_str().ok())
-                    .map(|s| s.to_string())
-                    .unwrap();
-                token
-            }
+            CacheableResource::New { data, .. } => data
+                .get(AUTHORIZATION)
+                .and_then(|token_value| token_value.to_str().ok())
+                .map(|s| s.to_string())
+                .unwrap(),
             CacheableResource::NotModified => {
                 unreachable!("Expecting a header to be present");
             }
