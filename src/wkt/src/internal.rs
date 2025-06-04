@@ -31,6 +31,9 @@ pub use int64::I64;
 mod uint64;
 pub use uint64::U64;
 
+mod value;
+pub use value::OptionalValue;
+
 pub struct F32;
 pub struct F64;
 

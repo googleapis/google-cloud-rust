@@ -480,9 +480,9 @@ func fieldBaseAttributes(f *api.Field) []string {
 	return []string{}
 }
 
-func wrapperFieldAttributes(f *api.Field, attributes []string) []string {
+func messageFieldAttributes(f *api.Field, attributes []string) []string {
 	// Message fields could be `Vec<..>`, and are always optional:
-	attributes = wrapperFieldSkipAttributes(f, attributes)
+	attributes = messageFieldSkipAttributes(f, attributes)
 	var formatter string
 	switch f.TypezID {
 	case ".google.protobuf.BytesValue":
@@ -509,6 +509,9 @@ func wrapperFieldAttributes(f *api.Field, attributes []string) []string {
 		return append(attributes, fmt.Sprintf(`#[serde_as(as = "%s")]`, oneOfFieldTypeFormatter(f, false, formatter)))
 	}
 	if f.Optional {
+		if f.TypezID == ".google.protobuf.Value" {
+			return append(attributes, `#[serde_as(as = "wkt::internal::OptionalValue")]`)
+		}
 		if formatter == "_" {
 			return attributes
 		}
@@ -526,7 +529,7 @@ func wrapperFieldAttributes(f *api.Field, attributes []string) []string {
 		fmt.Sprintf(`#[serde_as(as = "serde_with::DefaultOnNull<%s>")]`, formatter))
 }
 
-func wrapperFieldSkipAttributes(f *api.Field, attributes []string) []string {
+func messageFieldSkipAttributes(f *api.Field, attributes []string) []string {
 	// oneofs have explicit presence, and default values should be serialized:
 	// https://protobuf.dev/programming-guides/field_presence/.
 	if f.IsOneOf {
@@ -539,6 +542,31 @@ func wrapperFieldSkipAttributes(f *api.Field, attributes []string) []string {
 		attributes = append(attributes, `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]`)
 	}
 	return attributes
+}
+
+func mapFieldAttributes(f *api.Field, message *api.Message, attributes []string) []string {
+	// map<> field types require special treatment.
+	if !f.IsOneOf {
+		attributes = append(attributes, `#[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]`)
+	}
+	var key, value *api.Field
+	for _, f := range message.Fields {
+		switch f.Name {
+		case "key":
+			key = f
+		case "value":
+			value = f
+		default:
+		}
+	}
+	if key == nil || value == nil {
+		slog.Error("missing key or value in map field")
+		return attributes
+	}
+	keyFormat := keyFieldFormatter(key.Typez)
+	valFormat := fieldFormatter(value.Typez)
+	return append(attributes, fmt.Sprintf(`#[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<%s, %s>>")]`, keyFormat, valFormat))
+
 }
 
 func fieldAttributes(f *api.Field, state *api.APIState) []string {
@@ -581,29 +609,9 @@ func fieldAttributes(f *api.Field, state *api.APIState) []string {
 
 	case api.MESSAGE_TYPE:
 		if message, ok := state.MessageByID[f.TypezID]; ok && message.IsMap {
-			// map<> field types require special treatment.
-			if !f.IsOneOf {
-				attributes = append(attributes, `#[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]`)
-			}
-			var key, value *api.Field
-			for _, f := range message.Fields {
-				switch f.Name {
-				case "key":
-					key = f
-				case "value":
-					value = f
-				default:
-				}
-			}
-			if key == nil || value == nil {
-				slog.Error("missing key or value in map field")
-				return attributes
-			}
-			keyFormat := keyFieldFormatter(key.Typez)
-			valFormat := fieldFormatter(value.Typez)
-			return append(attributes, fmt.Sprintf(`#[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<%s, %s>>")]`, keyFormat, valFormat))
+			return mapFieldAttributes(f, message, attributes)
 		}
-		return wrapperFieldAttributes(f, attributes)
+		return messageFieldAttributes(f, attributes)
 
 	default:
 		slog.Error("unexpected field type", "field", *f)

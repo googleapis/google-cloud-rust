@@ -1012,6 +1012,383 @@ impl wkt::message::Message for MessageWithString {
     }
 }
 
+/// A test message for Value.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct MessageWithValue {
+
+    /// A singular field.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "wkt::internal::OptionalValue")]
+    pub singular: std::option::Option<wkt::Value>,
+
+    /// An optional field.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "wkt::internal::OptionalValue")]
+    pub optional: std::option::Option<wkt::Value>,
+
+    /// A repeated field.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
+    pub repeated: std::vec::Vec<wkt::Value>,
+
+    /// A map field, messages cannot be keys.
+    #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
+    pub map: std::collections::HashMap<std::string::String,wkt::Value>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl MessageWithValue {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [singular][crate::protos::MessageWithValue::singular].
+    pub fn set_singular<T>(mut self, v: T) -> Self
+    where T: std::convert::Into<wkt::Value>
+    {
+        self.singular = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [singular][crate::protos::MessageWithValue::singular].
+    pub fn set_or_clear_singular<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<wkt::Value>
+    {
+        self.singular = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [optional][crate::protos::MessageWithValue::optional].
+    pub fn set_optional<T>(mut self, v: T) -> Self
+    where T: std::convert::Into<wkt::Value>
+    {
+        self.optional = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [optional][crate::protos::MessageWithValue::optional].
+    pub fn set_or_clear_optional<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<wkt::Value>
+    {
+        self.optional = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [repeated][crate::protos::MessageWithValue::repeated].
+    pub fn set_repeated<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<wkt::Value>
+    {
+        use std::iter::Iterator;
+        self.repeated = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [map][crate::protos::MessageWithValue::map].
+    pub fn set_map<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<wkt::Value>,
+    {
+        use std::iter::Iterator;
+        self.map = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for MessageWithValue {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.rust.sdk.test.MessageWithValue"
+    }
+}
+
+/// A test message for Struct.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct MessageWithStruct {
+
+    /// A singular field.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub singular: std::option::Option<wkt::Struct>,
+
+    /// An optional field.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub optional: std::option::Option<wkt::Struct>,
+
+    /// A repeated field.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
+    pub repeated: std::vec::Vec<wkt::Struct>,
+
+    /// A map field, messages cannot be keys.
+    #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
+    pub map: std::collections::HashMap<std::string::String,wkt::Struct>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl MessageWithStruct {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [singular][crate::protos::MessageWithStruct::singular].
+    pub fn set_singular<T>(mut self, v: T) -> Self
+    where T: std::convert::Into<wkt::Struct>
+    {
+        self.singular = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [singular][crate::protos::MessageWithStruct::singular].
+    pub fn set_or_clear_singular<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<wkt::Struct>
+    {
+        self.singular = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [optional][crate::protos::MessageWithStruct::optional].
+    pub fn set_optional<T>(mut self, v: T) -> Self
+    where T: std::convert::Into<wkt::Struct>
+    {
+        self.optional = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [optional][crate::protos::MessageWithStruct::optional].
+    pub fn set_or_clear_optional<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<wkt::Struct>
+    {
+        self.optional = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [repeated][crate::protos::MessageWithStruct::repeated].
+    pub fn set_repeated<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<wkt::Struct>
+    {
+        use std::iter::Iterator;
+        self.repeated = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [map][crate::protos::MessageWithStruct::map].
+    pub fn set_map<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<wkt::Struct>,
+    {
+        use std::iter::Iterator;
+        self.map = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for MessageWithStruct {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.rust.sdk.test.MessageWithStruct"
+    }
+}
+
+/// A test message for ListValue.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct MessageWithListValue {
+
+    /// A singular field.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub singular: std::option::Option<wkt::ListValue>,
+
+    /// An optional field.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub optional: std::option::Option<wkt::ListValue>,
+
+    /// A repeated field.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
+    pub repeated: std::vec::Vec<wkt::ListValue>,
+
+    /// A map field, messages cannot be keys.
+    #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
+    pub map: std::collections::HashMap<std::string::String,wkt::ListValue>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl MessageWithListValue {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [singular][crate::protos::MessageWithListValue::singular].
+    pub fn set_singular<T>(mut self, v: T) -> Self
+    where T: std::convert::Into<wkt::ListValue>
+    {
+        self.singular = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [singular][crate::protos::MessageWithListValue::singular].
+    pub fn set_or_clear_singular<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<wkt::ListValue>
+    {
+        self.singular = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [optional][crate::protos::MessageWithListValue::optional].
+    pub fn set_optional<T>(mut self, v: T) -> Self
+    where T: std::convert::Into<wkt::ListValue>
+    {
+        self.optional = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [optional][crate::protos::MessageWithListValue::optional].
+    pub fn set_or_clear_optional<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<wkt::ListValue>
+    {
+        self.optional = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [repeated][crate::protos::MessageWithListValue::repeated].
+    pub fn set_repeated<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<wkt::ListValue>
+    {
+        use std::iter::Iterator;
+        self.repeated = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [map][crate::protos::MessageWithListValue::map].
+    pub fn set_map<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<wkt::ListValue>,
+    {
+        use std::iter::Iterator;
+        self.map = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for MessageWithListValue {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.rust.sdk.test.MessageWithListValue"
+    }
+}
+
+/// A test message for NullValue.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct MessageWithNullValue {
+
+    /// A singular field.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub singular: wkt::NullValue,
+
+    /// An optional field.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub optional: std::option::Option<wkt::NullValue>,
+
+    /// A repeated field.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
+    pub repeated: std::vec::Vec<wkt::NullValue>,
+
+    /// A map field, messages cannot be keys.
+    #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
+    pub map: std::collections::HashMap<std::string::String,wkt::NullValue>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl MessageWithNullValue {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [singular][crate::protos::MessageWithNullValue::singular].
+    pub fn set_singular<T: std::convert::Into<wkt::NullValue>>(mut self, v: T) -> Self {
+        self.singular = v.into();
+        self
+    }
+
+    /// Sets the value of [optional][crate::protos::MessageWithNullValue::optional].
+    pub fn set_optional<T>(mut self, v: T) -> Self
+    where T: std::convert::Into<wkt::NullValue>
+    {
+        self.optional = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [optional][crate::protos::MessageWithNullValue::optional].
+    pub fn set_or_clear_optional<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<wkt::NullValue>
+    {
+        self.optional = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [repeated][crate::protos::MessageWithNullValue::repeated].
+    pub fn set_repeated<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<wkt::NullValue>
+    {
+        use std::iter::Iterator;
+        self.repeated = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [map][crate::protos::MessageWithNullValue::map].
+    pub fn set_map<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<wkt::NullValue>,
+    {
+        use std::iter::Iterator;
+        self.map = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for MessageWithNullValue {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.rust.sdk.test.MessageWithNullValue"
+    }
+}
+
 /// A test message for FieldMask.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
