@@ -1155,6 +1155,7 @@ pub mod terraform_blueprint {
 pub struct TerraformVariable {
     /// Input variable value.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "wkt::internal::OptionalValue")]
     pub input_value: std::option::Option<wkt::Value>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1268,6 +1269,7 @@ pub struct TerraformOutput {
 
     /// Value of output.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "wkt::internal::OptionalValue")]
     pub value: std::option::Option<wkt::Value>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

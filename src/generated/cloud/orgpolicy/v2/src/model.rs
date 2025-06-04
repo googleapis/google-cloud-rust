@@ -445,6 +445,7 @@ pub mod constraint {
 
             /// Sets the value of the parameter in an assignment if no value is given.
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
+            #[serde_as(as = "wkt::internal::OptionalValue")]
             pub default_value: std::option::Option<wkt::Value>,
 
             /// Provides a CEL expression to specify the acceptable parameter values
