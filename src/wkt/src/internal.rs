@@ -205,14 +205,17 @@ mod test {
     #[test_case("-0.75", -0.75)]
     #[test_case("123", 123.0)]
     #[test_case("-234", -234.0)]
-    #[test_case(format!("{}", f32::MAX).as_str(), f32::MAX)]
-    #[test_case(format!("{}", f32::MIN).as_str(), f32::MIN)]
-    #[test_case(format!("{}", f32::EPSILON).as_str(), f32::EPSILON)]
-    #[test_case(format!("{}", f32::MIN_POSITIVE).as_str(), f32::MIN_POSITIVE)]
-    #[test_case(format!("{}", -f32::MIN_POSITIVE).as_str(), -f32::MIN_POSITIVE; "negative of MIN_POSITIVE")]
-    fn parse_string_f32(input: &str, want: f32) -> Result {
-        let got = F32::deserialize_as(Value::String(input.into()))?;
-        assert_float_eq(got, want);
+    #[test_case(format!("{:.1}", f32::MAX), f32::MAX)]
+    #[test_case(format!("{:.1}", f32::MIN), f32::MIN)]
+    #[test_case(format!("{}", f32::EPSILON), f32::EPSILON)]
+    #[test_case(format!("{}", f32::MIN_POSITIVE), f32::MIN_POSITIVE)]
+    #[test_case(format!("{}", -f32::MIN_POSITIVE), -f32::MIN_POSITIVE; "negative of MIN_POSITIVE")]
+    fn parse_string_f32<T>(input: T, want: f32) -> Result
+    where
+        T: Into<String> + std::fmt::Display + Clone,
+    {
+        let got = F32::deserialize_as(Value::String(input.clone().into()))?;
+        assert_eq!(got, want, "{input}");
         Ok(())
     }
 
@@ -266,9 +269,12 @@ mod test {
     #[test_case(format!("{}", f64::EPSILON).as_str(), f64::EPSILON)]
     #[test_case(format!("{}", f64::MIN_POSITIVE).as_str(), f64::MIN_POSITIVE)]
     #[test_case(format!("{}", -f64::MIN_POSITIVE).as_str(), -f64::MIN_POSITIVE; "negative of MIN_POSITIVE")]
-    fn parse_string_f64(input: &str, want: f64) -> Result {
-        let got = F64::deserialize_as(Value::String(input.into()))?;
-        assert_double_eq(got, want);
+    fn parse_string_f64<T>(input: T, want: f64) -> Result
+    where
+        T: Into<String> + std::fmt::Display + Clone,
+    {
+        let got = F64::deserialize_as(Value::String(input.clone().into()))?;
+        assert_eq!(got, want, "{input}");
         Ok(())
     }
 
