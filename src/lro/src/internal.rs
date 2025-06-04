@@ -378,7 +378,7 @@ mod test {
     async fn poll_basic_flow() {
         let start = || async move {
             let any = wkt::Any::from_msg(&wkt::Timestamp::clamp(123, 0))
-                .map_err(|e| Error::other(format!("unexpected error in Any::try_from {e}")))?;
+                .expect("test message deserializes via Any::from_msg");
             let op = longrunning::model::Operation::default()
                 .set_name("test-only-name")
                 .set_metadata(any);
@@ -388,7 +388,7 @@ mod test {
 
         let query = |_: String| async move {
             let any = wkt::Any::from_msg(&wkt::Duration::clamp(234, 0))
-                .map_err(|e| Error::other(format!("unexpected error in Any::try_from {e}")))?;
+                .expect("test message deserializes via Any::from_msg");
             let result = longrunning::model::operation::Result::Response(any.into());
             let op = longrunning::model::Operation::default()
                 .set_done(true)
@@ -433,7 +433,7 @@ mod test {
     async fn poll_basic_stream() {
         let start = || async move {
             let any = wkt::Any::from_msg(&wkt::Timestamp::clamp(123, 0))
-                .map_err(|e| Error::other(format!("unexpected error in Any::try_from {e}")))?;
+                .expect("test message deserializes via Any::from_msg");
             let op = longrunning::model::Operation::default()
                 .set_name("test-only-name")
                 .set_metadata(any);
@@ -443,7 +443,7 @@ mod test {
 
         let query = |_: String| async move {
             let any = wkt::Any::from_msg(&wkt::Duration::clamp(234, 0))
-                .map_err(|e| Error::other(format!("unexpected error in Any::try_from {e}")))?;
+                .expect("test message deserializes via Any::from_msg");
             let result = longrunning::model::operation::Result::Response(any.into());
             let op = longrunning::model::Operation::default()
                 .set_done(true)
@@ -491,7 +491,7 @@ mod test {
     async fn until_done_basic_flow() -> Result<()> {
         let start = || async move {
             let any = wkt::Any::from_msg(&wkt::Timestamp::clamp(123, 0))
-                .map_err(|e| Error::other(format!("unexpected error in Any::try_from {e}")))?;
+                .expect("test message deserializes via Any::from_msg");
             let op = longrunning::model::Operation::default()
                 .set_name("test-only-name")
                 .set_metadata(any);
@@ -501,7 +501,7 @@ mod test {
 
         let query = |_: String| async move {
             let any = wkt::Any::from_msg(&wkt::Duration::clamp(234, 0))
-                .map_err(|e| Error::other(format!("unexpected error in Any::try_from {e}")))?;
+                .expect("test message deserializes via Any::from_msg");
             let result = longrunning::model::operation::Result::Response(any.into());
             let op = longrunning::model::Operation::default()
                 .set_done(true)
@@ -531,7 +531,7 @@ mod test {
     async fn unit_poll_basic_flow() {
         let start = || async move {
             let any = wkt::Any::from_msg(&wkt::Timestamp::clamp(123, 0))
-                .map_err(|e| Error::other(format!("unexpected error in Any::try_from {e}")))?;
+                .expect("test message deserializes via Any::from_msg");
             let op = longrunning::model::Operation::default()
                 .set_name("test-only-name")
                 .set_metadata(any);
@@ -541,7 +541,7 @@ mod test {
 
         let query = |_: String| async move {
             let any = wkt::Any::from_msg(&wkt::Empty::default())
-                .map_err(|e| Error::other(format!("unexpected error in Any::try_from {e}")))?;
+                .expect("test message deserializes via Any::from_msg");
             let result = longrunning::model::operation::Result::Response(any.into());
             let op = longrunning::model::Operation::default()
                 .set_done(true)
@@ -586,7 +586,7 @@ mod test {
     async fn unit_poll_basic_stream() {
         let start = || async move {
             let any = wkt::Any::from_msg(&wkt::Timestamp::clamp(123, 0))
-                .map_err(|e| Error::other(format!("unexpected error in Any::try_from {e}")))?;
+                .expect("test message deserializes via Any::from_msg");
             let op = longrunning::model::Operation::default()
                 .set_name("test-only-name")
                 .set_metadata(any);
@@ -596,7 +596,7 @@ mod test {
 
         let query = |_: String| async move {
             let any = wkt::Any::from_msg(&wkt::Empty::default())
-                .map_err(|e| Error::other(format!("unexpected error in Any::try_from {e}")))?;
+                .expect("test message deserializes via Any::from_msg");
             let result = longrunning::model::operation::Result::Response(any.into());
             let op = longrunning::model::Operation::default()
                 .set_done(true)
@@ -644,7 +644,7 @@ mod test {
     async fn unit_until_done_basic_flow() -> Result<()> {
         let start = || async move {
             let any = wkt::Any::from_msg(&wkt::Timestamp::clamp(123, 0))
-                .map_err(|e| Error::other(format!("unexpected error in Any::try_from {e}")))?;
+                .expect("test message deserializes via Any::from_msg");
             let op = longrunning::model::Operation::default()
                 .set_name("test-only-name")
                 .set_metadata(any);
@@ -654,7 +654,7 @@ mod test {
 
         let query = |_: String| async move {
             let any = wkt::Any::from_msg(&wkt::Empty::default())
-                .map_err(|e| Error::other(format!("unexpected error in Any::try_from {e}")))?;
+                .expect("test message deserializes via Any::from_msg");
             let result = longrunning::model::operation::Result::Response(any.into());
             let op = longrunning::model::Operation::default()
                 .set_done(true)
@@ -682,7 +682,7 @@ mod test {
     async fn unit_metadata_poll_basic_flow() {
         let start = || async move {
             let any = wkt::Any::from_msg(&wkt::Empty::default())
-                .map_err(|e| Error::other(format!("unexpected error in Any::try_from {e}")))?;
+                .expect("test message deserializes via Any::from_msg");
             let op = longrunning::model::Operation::default()
                 .set_name("test-only-name")
                 .set_metadata(any);
@@ -692,7 +692,7 @@ mod test {
 
         let query = |_: String| async move {
             let any = wkt::Any::from_msg(&wkt::Duration::clamp(123, 456))
-                .map_err(|e| Error::other(format!("unexpected error in Any::try_from {e}")))?;
+                .expect("test message deserializes via Any::from_msg");
             let result = longrunning::model::operation::Result::Response(any.into());
             let op = longrunning::model::Operation::default()
                 .set_done(true)
@@ -737,7 +737,7 @@ mod test {
     async fn unit_metadata_poll_basic_stream() {
         let start = || async move {
             let any = wkt::Any::from_msg(&wkt::Empty::default())
-                .map_err(|e| Error::other(format!("unexpected error in Any::try_from {e}")))?;
+                .expect("test message deserializes via Any::from_msg");
             let op = longrunning::model::Operation::default()
                 .set_name("test-only-name")
                 .set_metadata(any);
@@ -747,7 +747,7 @@ mod test {
 
         let query = |_: String| async move {
             let any = wkt::Any::from_msg(&wkt::Duration::clamp(123, 456))
-                .map_err(|e| Error::other(format!("unexpected error in Any::try_from {e}")))?;
+                .expect("test message deserializes via Any::from_msg");
             let result = longrunning::model::operation::Result::Response(any.into());
             let op = longrunning::model::Operation::default()
                 .set_done(true)
@@ -797,7 +797,7 @@ mod test {
     async fn unit_metadata_until_done_basic_flow() -> Result<()> {
         let start = || async move {
             let any = wkt::Any::from_msg(&wkt::Empty::default())
-                .map_err(|e| Error::other(format!("unexpected error in Any::try_from {e}")))?;
+                .expect("test message deserializes via Any::from_msg");
             let op = longrunning::model::Operation::default()
                 .set_name("test-only-name")
                 .set_metadata(any);
@@ -807,7 +807,7 @@ mod test {
 
         let query = |_: String| async move {
             let any = wkt::Any::from_msg(&wkt::Duration::clamp(123, 456))
-                .map_err(|e| Error::other(format!("unexpected error in Any::try_from {e}")))?;
+                .expect("test message deserializes via Any::from_msg");
             let result = longrunning::model::operation::Result::Response(any.into());
             let op = longrunning::model::Operation::default()
                 .set_done(true)
@@ -859,7 +859,7 @@ mod test {
         type EmptyOperation = Operation<wkt::Empty, wkt::Empty>;
         let start = || async move {
             let any = wkt::Any::from_msg(&wkt::Empty::default())
-                .map_err(|e| Error::other(format!("unexpected error in Any::try_from {e}")))?;
+                .expect("test message deserializes via Any::from_msg");
             let op = longrunning::model::Operation::default()
                 .set_name("test-only-name")
                 .set_metadata(any);
@@ -869,7 +869,7 @@ mod test {
 
         let query = |_: String| async move {
             let any = wkt::Any::from_msg(&wkt::Empty::default())
-                .map_err(|e| Error::other(format!("unexpected error in Any::try_from {e}")))?;
+                .expect("test message deserializes via Any::from_msg");
             let result = longrunning::model::operation::Result::Response(any.into());
             let op = longrunning::model::Operation::default()
                 .set_done(true)
@@ -916,7 +916,7 @@ mod test {
     async fn until_done_with_recoverable_polling_error() -> Result<()> {
         let start = || async move {
             let any = wkt::Any::from_msg(&wkt::Timestamp::clamp(123, 0))
-                .map_err(|e| Error::other(format!("unexpected error in Any::try_from {e}")))?;
+                .expect("test message deserializes via Any::from_msg");
             let op = longrunning::model::Operation::default()
                 .set_name("test-only-name")
                 .set_metadata(any);
@@ -932,12 +932,10 @@ mod test {
             drop(guard);
             async move {
                 if c == 0 {
-                    return Err::<TestOperation, Error>(Error::other(
-                        "recoverable (see policy below)",
-                    ));
+                    return Err::<TestOperation, Error>(polling_error());
                 }
                 let any = wkt::Any::from_msg(&wkt::Duration::clamp(234, 0))
-                    .map_err(|e| Error::other(format!("unexpected error in Any::try_from {e}")))?;
+                    .expect("test message deserializes via Any::from_msg");
                 let result = longrunning::model::operation::Result::Response(any.into());
                 let op = longrunning::model::Operation::default()
                     .set_done(true)
@@ -968,7 +966,7 @@ mod test {
     async fn until_done_with_unrecoverable_polling_error() -> Result<()> {
         let start = || async move {
             let any = wkt::Any::from_msg(&wkt::Timestamp::clamp(123, 0))
-                .map_err(|e| Error::other(format!("unexpected error in Any::try_from {e}")))?;
+                .expect("test message deserializes via Any::from_msg");
             let op = longrunning::model::Operation::default()
                 .set_name("test-only-name")
                 .set_metadata(any);
@@ -976,9 +974,7 @@ mod test {
             Ok::<TestOperation, Error>(op)
         };
 
-        let query = move |_: String| async move {
-            Err::<TestOperation, Error>(Error::other("unrecoverable (see policy below)"))
-        };
+        let query = move |_: String| async move { Err::<TestOperation, Error>(unrecoverable()) };
 
         let poller = PollerImpl::new(
             Arc::new(Aip194Strict),
@@ -1005,6 +1001,14 @@ mod test {
             Status::default()
                 .set_code(Code::ResourceExhausted)
                 .set_message("too many things"),
+        )
+    }
+
+    fn unrecoverable() -> gax::error::Error {
+        gax::error::Error::service(
+            Status::default()
+                .set_code(Code::Aborted)
+                .set_message("unrecoverable"),
         )
     }
 

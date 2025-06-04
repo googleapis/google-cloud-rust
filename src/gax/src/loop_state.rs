@@ -63,19 +63,29 @@ mod tests {
 
     #[test]
     fn loop_state() {
-        let flow = LoopState::Permanent(Error::other("err"));
+        let flow = LoopState::Permanent(permanent_error());
         assert!(flow.is_permanent(), "{flow:?}");
         assert!(!flow.is_exhausted(), "{flow:?}");
         assert!(!flow.is_continue(), "{flow:?}");
 
-        let flow = LoopState::Exhausted(Error::other("err"));
+        let flow = LoopState::Exhausted(transient_error());
         assert!(!flow.is_permanent(), "{flow:?}");
         assert!(flow.is_exhausted(), "{flow:?}");
         assert!(!flow.is_continue(), "{flow:?}");
 
-        let flow = LoopState::Continue(Error::other("err"));
+        let flow = LoopState::Continue(transient_error());
         assert!(!flow.is_permanent(), "{flow:?}");
         assert!(!flow.is_exhausted(), "{flow:?}");
         assert!(flow.is_continue(), "{flow:?}");
+    }
+
+    fn permanent_error() -> Error {
+        use crate::error::rpc::*;
+        Error::service(Status::default().set_code(Code::PermissionDenied))
+    }
+
+    fn transient_error() -> Error {
+        use crate::error::rpc::*;
+        Error::service(Status::default().set_code(Code::Unavailable))
     }
 }

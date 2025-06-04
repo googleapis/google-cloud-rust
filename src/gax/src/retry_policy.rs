@@ -613,20 +613,11 @@ mod tests {
         assert!(p.on_error(now, 0, true, pre_rpc_transient()).is_continue());
         assert!(p.on_error(now, 0, false, pre_rpc_transient()).is_continue());
 
+        assert!(p.on_error(now, 0, true, Error::ser("err")).is_permanent());
+        assert!(p.on_error(now, 0, false, Error::ser("err")).is_permanent());
+        assert!(p.on_error(now, 0, true, Error::deser("err")).is_permanent());
         assert!(
-            p.on_error(now, 0, true, Error::ser("err".to_string()))
-                .is_permanent()
-        );
-        assert!(
-            p.on_error(now, 0, false, Error::ser("err".to_string()))
-                .is_permanent()
-        );
-        assert!(
-            p.on_error(now, 0, true, Error::other("err".to_string()))
-                .is_permanent()
-        );
-        assert!(
-            p.on_error(now, 0, false, Error::other("err".to_string()))
+            p.on_error(now, 0, false, Error::deser("err"))
                 .is_permanent()
         );
 
@@ -650,11 +641,9 @@ mod tests {
     #[test_case::test_case(true, Error::io("err"))]
     #[test_case::test_case(true, pre_rpc_transient())]
     #[test_case::test_case(true, Error::ser("err"))]
-    #[test_case::test_case(true, Error::other("err"))]
     #[test_case::test_case(false, Error::io("err"))]
     #[test_case::test_case(false, pre_rpc_transient())]
     #[test_case::test_case(false, Error::ser("err"))]
-    #[test_case::test_case(false, Error::other("err"))]
     fn always_retry_error_kind(idempotent: bool, error: Error) {
         let p = AlwaysRetry;
         let now = std::time::Instant::now();
@@ -687,11 +676,9 @@ mod tests {
     #[test_case::test_case(true, Error::io("err"))]
     #[test_case::test_case(true, pre_rpc_transient())]
     #[test_case::test_case(true, Error::ser("err"))]
-    #[test_case::test_case(true, Error::other("err"))]
     #[test_case::test_case(false, Error::io("err"))]
     #[test_case::test_case(false, pre_rpc_transient())]
     #[test_case::test_case(false, Error::ser("err"))]
-    #[test_case::test_case(false, Error::other("err"))]
     fn never_retry_error_kind(idempotent: bool, error: Error) {
         let p = NeverRetry;
         let now = std::time::Instant::now();
@@ -758,7 +745,7 @@ mod tests {
 
         let now = std::time::Instant::now();
         let policy = LimitedElapsedTime::custom(mock, Duration::from_secs(60));
-        let rf = policy.on_error(now, 0, true, Error::other("err".to_string()));
+        let rf = policy.on_error(now, 0, true, transient_error());
         assert!(rf.is_continue());
 
         let rt = policy.remaining_time(now, 0);
@@ -790,7 +777,7 @@ mod tests {
         let mut mock = MockPolicy::new();
         mock.expect_on_throttle()
             .times(1..)
-            .returning(|_, _| Some(Error::other("err".to_string())));
+            .returning(|_, _| Some(transient_error()));
 
         let now = std::time::Instant::now();
         let policy = LimitedElapsedTime::custom(mock, Duration::from_secs(60));
@@ -813,20 +800,10 @@ mod tests {
 
         let now = std::time::Instant::now();
         let policy = LimitedElapsedTime::custom(mock, Duration::from_secs(60));
-        let rf = policy.on_error(
-            now - Duration::from_secs(10),
-            1,
-            true,
-            Error::other("err".to_string()),
-        );
+        let rf = policy.on_error(now - Duration::from_secs(10), 1, true, transient_error());
         assert!(rf.is_continue());
 
-        let rf = policy.on_error(
-            now - Duration::from_secs(70),
-            1,
-            true,
-            Error::other("err".to_string()),
-        );
+        let rf = policy.on_error(now - Duration::from_secs(70), 1, true, transient_error());
         assert!(rf.is_exhausted());
     }
 
@@ -840,20 +817,10 @@ mod tests {
         let now = std::time::Instant::now();
         let policy = LimitedElapsedTime::custom(mock, Duration::from_secs(60));
 
-        let rf = policy.on_error(
-            now - Duration::from_secs(10),
-            1,
-            false,
-            Error::other("err".to_string()),
-        );
+        let rf = policy.on_error(now - Duration::from_secs(10), 1, false, transient_error());
         assert!(rf.is_permanent());
 
-        let rf = policy.on_error(
-            now + Duration::from_secs(10),
-            1,
-            false,
-            Error::other("err".to_string()),
-        );
+        let rf = policy.on_error(now + Duration::from_secs(10), 1, false, transient_error());
         assert!(rf.is_permanent());
     }
 
@@ -867,20 +834,10 @@ mod tests {
         let now = std::time::Instant::now();
         let policy = LimitedElapsedTime::custom(mock, Duration::from_secs(60));
 
-        let rf = policy.on_error(
-            now - Duration::from_secs(10),
-            1,
-            false,
-            Error::other("err".to_string()),
-        );
+        let rf = policy.on_error(now - Duration::from_secs(10), 1, false, transient_error());
         assert!(rf.is_exhausted());
 
-        let rf = policy.on_error(
-            now + Duration::from_secs(10),
-            1,
-            false,
-            Error::other("err".to_string()),
-        );
+        let rf = policy.on_error(now + Duration::from_secs(10), 1, false, transient_error());
         assert!(rf.is_exhausted());
     }
 
@@ -933,17 +890,17 @@ mod tests {
         let policy = LimitedAttemptCount::custom(mock, 3);
         assert!(
             policy
-                .on_error(now, 1, true, Error::other("err".to_string()))
+                .on_error(now, 1, true, transient_error())
                 .is_continue()
         );
         assert!(
             policy
-                .on_error(now, 2, true, Error::other("err".to_string()))
+                .on_error(now, 2, true, transient_error())
                 .is_continue()
         );
         assert!(
             policy
-                .on_error(now, 3, true, Error::other("err".to_string()))
+                .on_error(now, 3, true, transient_error())
                 .is_exhausted()
         );
     }
@@ -965,7 +922,7 @@ mod tests {
         let mut mock = MockPolicy::new();
         mock.expect_on_throttle()
             .times(1..)
-            .returning(|_, a| Some(Error::other(format!("err {a}"))));
+            .returning(|_, _| Some(transient_error()));
 
         let now = std::time::Instant::now();
         let policy = LimitedAttemptCount::custom(mock, 3);
@@ -979,7 +936,7 @@ mod tests {
         let mut mock = MockPolicy::new();
         mock.expect_on_throttle()
             .times(1..)
-            .returning(|_, _| Some(Error::other("err".to_string())));
+            .returning(|_, _| Some(transient_error()));
 
         let now = std::time::Instant::now();
         let policy = LimitedAttemptCount::custom(mock, 3);
@@ -1022,10 +979,10 @@ mod tests {
         let policy = LimitedAttemptCount::custom(mock, 2);
         let now = std::time::Instant::now();
 
-        let rf = policy.on_error(now, 1, false, Error::other("err".to_string()));
+        let rf = policy.on_error(now, 1, false, transient_error());
         assert!(rf.is_permanent());
 
-        let rf = policy.on_error(now, 1, false, Error::other("err".to_string()));
+        let rf = policy.on_error(now, 1, false, transient_error());
         assert!(rf.is_permanent());
     }
 
@@ -1038,10 +995,19 @@ mod tests {
         let policy = LimitedAttemptCount::custom(mock, 2);
         let now = std::time::Instant::now();
 
-        let rf = policy.on_error(now, 1, false, Error::other("err".to_string()));
+        let rf = policy.on_error(now, 1, false, transient_error());
         assert!(rf.is_exhausted());
 
-        let rf = policy.on_error(now, 1, false, Error::other("err".to_string()));
+        let rf = policy.on_error(now, 1, false, transient_error());
         assert!(rf.is_exhausted());
+    }
+
+    fn transient_error() -> Error {
+        use crate::error::rpc::{Code, Status};
+        Error::service(
+            Status::default()
+                .set_code(Code::Unavailable)
+                .set_message("try-again"),
+        )
     }
 }

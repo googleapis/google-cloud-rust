@@ -14,6 +14,7 @@
 
 #[cfg(test)]
 mod mocking {
+    use gax::error::Error;
     type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
 
     mockall::mock! {
@@ -48,7 +49,7 @@ mod mocking {
                     && r.secret_id == "my-secret-id"
                     && r.secret.is_none()
             })
-            .return_once(|_, _| Err(gax::error::Error::other("simulated failure")));
+            .return_once(|_, _| Err(unavailable()));
 
         let client = sm::client::SecretManagerService::from_stub(mock);
 
@@ -56,5 +57,14 @@ mod mocking {
         assert!(response.is_err());
 
         Ok(())
+    }
+
+    fn unavailable() -> Error {
+        use gax::error::rpc::{Code, Status};
+        Error::service(
+            Status::default()
+                .set_code(Code::Unavailable)
+                .set_message("try-again"),
+        )
     }
 }
