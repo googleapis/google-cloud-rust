@@ -2820,6 +2820,7 @@ pub mod test_all_types_proto_3 {
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
     pub enum OneofField {
+        #[serde(rename = "oneofUint32")]
         OneofUint32(#[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::U32>")] u32),
         OneofNestedMessage(
             std::boxed::Box<crate::generated::test_protos::test_all_types_proto_3::NestedMessage>,

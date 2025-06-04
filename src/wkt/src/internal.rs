@@ -68,7 +68,7 @@ macro_rules! impl_visitor {
                     "NaN" => Ok(<$t>::NAN),
                     "Infinity" => Ok(<$t>::INFINITY),
                     "-Infinity" => Ok(<$t>::NEG_INFINITY),
-                    _ => value.parse::<Self::Value>().map_err(E::custom),
+                    _ => self.visit_f64(value.parse::<f64>().map_err(E::custom)?),
                 }
             }
 
@@ -103,7 +103,11 @@ macro_rules! impl_visitor {
                 // is guaranteed to produce the closest possible float
                 // value:
                 //     https://doc.rust-lang.org/reference/expressions/operator-expr.html#r-expr.as.numeric.float-narrowing
-                Ok(value as Self::Value)
+                match value {
+                    _ if value < <$t>::MIN as f64 => Err(self::value_error(value, $msg)),
+                    _ if value > <$t>::MAX as f64 => Err(self::value_error(value, $msg)),
+                    _ => Ok(value as Self::Value),
+                }
             }
 
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
@@ -111,6 +115,13 @@ macro_rules! impl_visitor {
             }
         }
     };
+}
+
+fn value_error<E>(value: f64, msg: &str) -> E
+where
+    E: serde::de::Error,
+{
+    E::invalid_value(serde::de::Unexpected::Float(value), &msg)
 }
 
 impl_visitor!(FloatVisitor, f32, "a 32-bit float in ProtoJSON format");
@@ -275,16 +286,24 @@ mod test {
         Ok(())
     }
 
-    #[test]
-    fn deserialize_expect_err() {
-        assert!(
-            F32::deserialize_as(serde_json::Value::String(
-                "not a special float string".to_string()
-            ))
-            .is_err()
-        );
-        assert!(F32::deserialize_as(serde_json::Value::Bool(false)).is_err());
-        assert!(F64::deserialize_as(serde_json::Value::Bool(false)).is_err());
+    #[test_case(json!("some string"))]
+    #[test_case(json!(true))]
+    #[test_case(json!(f32::MAX as f64 * 2.0))]
+    #[test_case(json!(f32::MIN as f64 * 2.0))]
+    #[test_case(json!(-3.502823e+38); "range negative")] // Used in ProtoJSON conformance test
+    #[test_case(json!(3.502823e+38); "range positive")] // Used in ProtoJSON conformance test
+    fn deserialize_expect_err_32(input: Value) {
+        let err = F32::deserialize_as(input).unwrap_err();
+        assert!(err.is_data(), "{err:?}");
+    }
+
+    #[test_case(json!("some string"))]
+    #[test_case(json!(true))]
+    #[test_case(json!("-1.89769e+308"); "range negative")] // Used in ProtoJSON conformance test
+    #[test_case(json!("1.89769e+308"); "range positive")] // Used in ProtoJSON conformance test
+    fn deserialize_expect_err_64(input: Value) {
+        let err = F64::deserialize_as(input).unwrap_err();
+        assert!(err.is_data(), "{err:?}");
     }
 
     macro_rules! impl_assert_float_eq {
