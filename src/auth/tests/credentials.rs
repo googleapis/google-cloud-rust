@@ -32,6 +32,7 @@ mod test {
     use httptest::{Expectation, Server, matchers::*, responders::*};
     use scoped_env::ScopedEnv;
     use serde_json::json;
+    use std::future::{Future, ready};
 
     type Result<T> = anyhow::Result<T>;
     type TestResult = anyhow::Result<(), Box<dyn std::error::Error>>;
@@ -283,10 +284,11 @@ mod test {
         token: String,
     }
 
-    #[async_trait::async_trait]
     impl SubjectTokenProvider for MyCustomSubjectTokenProvider {
-        async fn subject_token(&self) -> std::result::Result<String, CredentialsError> {
-            Ok(self.token.clone())
+        fn subject_token(
+            &self,
+        ) -> impl Future<Output = std::result::Result<String, CredentialsError>> + Send {
+            ready(Ok(self.token.clone()))
         }
     }
 

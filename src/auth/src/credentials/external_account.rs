@@ -26,13 +26,31 @@ use crate::{BuildResult, Result};
 use http::{Extensions, HeaderMap};
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
+use std::future::Future;
 use std::sync::Arc;
 use tokio::time::{Duration, Instant};
 
-#[async_trait::async_trait]
 pub trait SubjectTokenProvider: std::fmt::Debug + Send + Sync {
-    /// Generate subject token that will be used on STS exchange.
-    async fn subject_token(&self) -> Result<String>;
+    fn subject_token(&self) -> impl Future<Output = Result<String>> + Send;
+}
+
+pub(crate) mod dynamic {
+    use super::Result;
+    #[async_trait::async_trait]
+    pub trait SubjectTokenProvider: std::fmt::Debug + Send + Sync {
+        /// Generate subject token that will be used on STS exchange.
+        async fn subject_token(&self) -> Result<String>;
+    }
+
+    #[async_trait::async_trait]
+    impl<T> SubjectTokenProvider for T
+    where
+        T: super::SubjectTokenProvider,
+    {
+        async fn subject_token(&self) -> Result<String> {
+            T::subject_token(self).await
+        }
+    }
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
@@ -72,7 +90,7 @@ impl CredentialSource {
     }
 }
 
-fn make_credentials_from_provider<T: SubjectTokenProvider + 'static>(
+fn make_credentials_from_provider<T: dynamic::SubjectTokenProvider + 'static>(
     subject_token_provider: T,
     config: ExternalAccountConfig,
     quota_project_id: Option<String>,
@@ -103,7 +121,7 @@ struct ExternalAccountConfig {
 #[derive(Debug)]
 struct ExternalAccountTokenProvider<T>
 where
-    T: SubjectTokenProvider,
+    T: dynamic::SubjectTokenProvider,
 {
     subject_token_provider: T,
     config: ExternalAccountConfig,
@@ -112,7 +130,7 @@ where
 #[async_trait::async_trait]
 impl<T> TokenProvider for ExternalAccountTokenProvider<T>
 where
-    T: SubjectTokenProvider,
+    T: dynamic::SubjectTokenProvider,
 {
     async fn token(&self) -> Result<Token> {
         let subject_token = self.subject_token_provider.subject_token().await?;
@@ -208,7 +226,7 @@ pub struct Builder {
     external_account_config: Value,
     quota_project_id: Option<String>,
     scopes: Option<Vec<String>>,
-    subject_token_provider: Option<Box<dyn SubjectTokenProvider>>,
+    subject_token_provider: Option<Box<dyn dynamic::SubjectTokenProvider>>,
 }
 
 impl Builder {

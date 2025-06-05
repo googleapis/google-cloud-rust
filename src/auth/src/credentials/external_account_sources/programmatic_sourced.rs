@@ -13,7 +13,7 @@
 // limitations under the License.
 
 use crate::Result;
-use crate::credentials::external_account::SubjectTokenProvider;
+use crate::credentials::external_account::dynamic::SubjectTokenProvider;
 
 #[derive(Debug)]
 pub(crate) struct ProgrammaticSourcedCredentials {
