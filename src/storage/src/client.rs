@@ -17,6 +17,7 @@ pub use crate::Result;
 use auth::credentials::CacheableResource;
 use base64::Engine;
 use base64::prelude::BASE64_STANDARD;
+use bytes::Buf;
 pub use control::model::Object;
 use http::Extensions;
 use sha2::{Digest, Sha256};
@@ -353,11 +354,23 @@ impl InsertObject {
 
     /// The encryption key used with the Customer-Supplied Encryption Keys
     /// feature. In raw bytes format (not base64-encoded).
-    pub fn with_key<T>(mut self, v: T) -> Self
-    where
-        T: Into<bytes::Bytes>,
-    {
-        self.common_object_request_params = Some(key_to_common_object_request_params(v.into()));
+    ///
+    /// Example:
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # use google_cloud_storage::client::KeyAes256;
+    /// async fn example(client: &Storage, key: &[u8]) -> gax::Result<()> {
+    ///     let response = client
+    ///         .insert_object("projects/_/buckets/my-bucket", "my-object", "the quick brown fox jumped over the lazy dog")
+    ///         .with_key(KeyAes256::from(key)?)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response details={response:?}");
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn with_key(mut self, v: KeyAes256) -> Self {
+        self.common_object_request_params = Some(v.into());
         self
     }
 }
@@ -448,12 +461,24 @@ impl ReadObject {
 
     /// The encryption key used with the Customer-Supplied Encryption Keys
     /// feature. In raw bytes format (not base64-encoded).
-    pub fn with_key<T>(mut self, v: T) -> Self
-    where
-        T: Into<bytes::Bytes>,
-    {
-        self.request.common_object_request_params =
-            Some(key_to_common_object_request_params(v.into()));
+    ///
+    /// Example:
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # use google_cloud_storage::client::KeyAes256;
+    /// async fn example(client: &Storage, key: &[u8]) -> gax::Result<()> {
+    ///     let response = client
+    ///         .read_object("projects/_/buckets/my-bucket", "my-object")
+    ///         .with_key(KeyAes256::from(key)?)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response details={response:?}");
+    ///     Ok(())
+    /// }
+    /// ```
+
+    pub fn with_key(mut self, v: KeyAes256) -> Self {
+        self.request.common_object_request_params = Some(v.into());
         self
     }
 
@@ -539,6 +564,34 @@ impl ReadObject {
     }
 }
 
+pub struct KeyAes256 {
+    key: bytes::Bytes,
+}
+
+impl KeyAes256 {
+    pub fn from(mut key: &[u8]) -> Result<Self> {
+        if key.len() != 32 {
+            return Err(Error::other(
+                "customer supplied encryption key must be 32-bytes",
+            ));
+        }
+        Ok(Self {
+            key: key.copy_to_bytes(32),
+        })
+    }
+}
+
+impl std::convert::From<KeyAes256> for control::model::CommonObjectRequestParams {
+    fn from(value: KeyAes256) -> Self {
+        control::model::CommonObjectRequestParams::new()
+            .set_encryption_algorithm("AES256")
+            .set_encryption_key_bytes(value.key.clone())
+            .set_encryption_key_sha256_bytes(
+                Sha256::digest(value.key.clone()).as_slice().to_owned(),
+            )
+    }
+}
+
 fn apply_customer_supplied_encryption_headers(
     builder: reqwest::RequestBuilder,
     common_object_request_params: Option<control::model::CommonObjectRequestParams>,
@@ -557,15 +610,6 @@ fn apply_customer_supplied_encryption_headers(
             BASE64_STANDARD.encode(v.encryption_key_sha256_bytes.clone()),
         )
     })
-}
-
-fn key_to_common_object_request_params(
-    v: bytes::Bytes,
-) -> control::model::CommonObjectRequestParams {
-    control::model::CommonObjectRequestParams::new()
-        .set_encryption_algorithm("AES256")
-        .set_encryption_key_bytes(v.clone())
-        .set_encryption_key_sha256_bytes(Sha256::digest(v.clone()).as_slice().to_owned())
 }
 
 #[cfg(test)]
@@ -648,7 +692,7 @@ mod tests {
         // The API takes the unencoded byte array.
         let insert_object_builder = client
             .insert_object("projects/_/buckets/bucket", "object", "hello")
-            .with_key(key)
+            .with_key(KeyAes256::from(&key)?)
             .http_request_builder()
             .await?
             .build()?;
@@ -789,7 +833,7 @@ mod tests {
         // The API takes the unencoded byte array.
         let read_object_builder = client
             .read_object("projects/_/buckets/bucket", "object")
-            .with_key(key)
+            .with_key(KeyAes256::from(&key)?)
             .http_request_builder()
             .await?
             .build()?;
