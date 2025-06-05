@@ -476,7 +476,6 @@ impl ReadObject {
     ///     Ok(())
     /// }
     /// ```
-
     pub fn with_key(mut self, v: KeyAes256) -> Self {
         self.request.common_object_request_params = Some(v.into());
         self
