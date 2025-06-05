@@ -870,9 +870,9 @@ mod tests {
         Ok(())
     }
 
-    #[test_case(&vec![b'a'; 0]; "no bytes")]
-    #[test_case(&vec![b'a'; 1]; "not enough bytes")]
-    #[test_case(&vec![b'a'; 33]; "too many bytes")]
+    #[test_case(&[b'a'; 0]; "no bytes")]
+    #[test_case(&[b'a'; 1]; "not enough bytes")]
+    #[test_case(&[b'a'; 33]; "too many bytes")]
     fn test_key_aes_256_err(input: &[u8]) {
         KeyAes256::from(input).unwrap_err();
     }
