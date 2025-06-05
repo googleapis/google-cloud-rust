@@ -563,6 +563,7 @@ impl ReadObject {
     }
 }
 
+#[derive(Debug)]
 pub struct KeyAes256 {
     key: bytes::Bytes,
 }
@@ -616,6 +617,7 @@ mod tests {
     use super::*;
     use std::collections::HashMap;
     type Result = std::result::Result<(), Box<dyn std::error::Error>>;
+    use test_case::test_case;
 
     #[tokio::test]
     async fn test_insert_object() -> Result {
@@ -682,11 +684,7 @@ mod tests {
             .build()
             .await?;
         // Make a 32-byte key.
-        let key = vec![b'a'; 32];
-        let key_base64 = BASE64_STANDARD.encode(key.clone());
-
-        let key_sha256 = Sha256::digest(key.clone());
-        let key_sha256_base64 = BASE64_STANDARD.encode(key_sha256);
+        let (key, key_base64, _, key_sha256_base64) = create_key_helper();
 
         // The API takes the unencoded byte array.
         let insert_object_builder = client
@@ -822,12 +820,7 @@ mod tests {
             .build()
             .await?;
         // Make a 32-byte key.
-        let key = vec![b'a'; 32];
-        assert_eq!(key.len(), 32);
-        let key_base64 = BASE64_STANDARD.encode(key.clone());
-
-        let key_sha256 = Sha256::digest(key.clone());
-        let key_sha256_base64 = BASE64_STANDARD.encode(key_sha256);
+        let (key, key_base64, _, key_sha256_base64) = create_key_helper();
 
         // The API takes the unencoded byte array.
         let read_object_builder = client
@@ -856,6 +849,53 @@ mod tests {
             );
         }
         Ok(())
+    }
+
+    #[test]
+    // This tests converting to KeyAes256 from some different types
+    // that can get converted to &[u8].
+    fn test_key_aes_256() -> Result {
+        let v_slice: &[u8] = &vec![b'c'; 32];
+        KeyAes256::from(v_slice)?;
+
+        let v_vec: Vec<u8> = vec![b'a'; 32];
+        KeyAes256::from(&v_vec)?;
+
+        let v_array: [u8; 32] = [b'a'; 32];
+        KeyAes256::from(&v_array)?;
+
+        let v_bytes: bytes::Bytes = bytes::Bytes::copy_from_slice(&v_array);
+        KeyAes256::from(&v_bytes)?;
+
+        Ok(())
+    }
+
+    #[test_case(&vec![b'a'; 0]; "no bytes")]
+    #[test_case(&vec![b'a'; 1]; "not enough bytes")]
+    #[test_case(&vec![b'a'; 33]; "too many bytes")]
+    fn test_key_aes_256_err(input: &[u8]) {
+        KeyAes256::from(input).unwrap_err();
+    }
+
+    #[test]
+    fn test_key_aes_256_to_control_model_object() -> Result {
+        let (key, _, key_sha256, _) = create_key_helper();
+        let key_aes_256 = KeyAes256::from(&key)?;
+        let params = control::model::CommonObjectRequestParams::from(key_aes_256);
+        assert_eq!(params.encryption_algorithm, "AES256");
+        assert_eq!(params.encryption_key_bytes, key);
+        assert_eq!(params.encryption_key_sha256_bytes, key_sha256);
+        Ok(())
+    }
+
+    fn create_key_helper() -> (Vec<u8>, String, Vec<u8>, String) {
+        // Make a 32-byte key.
+        let key = vec![b'a'; 32];
+        let key_base64 = BASE64_STANDARD.encode(key.clone());
+
+        let key_sha256 = Sha256::digest(key.clone());
+        let key_sha256_base64 = BASE64_STANDARD.encode(key_sha256);
+        (key, key_base64, key_sha256.to_vec(), key_sha256_base64)
     }
 }
 
