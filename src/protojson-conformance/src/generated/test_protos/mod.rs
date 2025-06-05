@@ -528,6 +528,7 @@ pub struct TestAllTypesProto3 {
     pub optional_any: std::option::Option<wkt::Any>,
 
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "wkt::internal::OptionalValue")]
     pub optional_value: std::option::Option<wkt::Value>,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]

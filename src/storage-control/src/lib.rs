@@ -31,12 +31,14 @@ pub use gax::error::Error;
 #[allow(rustdoc::broken_intra_doc_links)]
 pub(crate) mod generated;
 
+/// Request builders.
 pub mod builder {
     pub mod storage_control {
         pub use crate::generated::gapic::builder::storage_control::*;
         pub use crate::generated::gapic_control::builder::storage_control::*;
     }
 }
+/// The messages and enums that are part of this client library.
 pub mod model {
     pub use crate::generated::gapic::model::*;
     pub use crate::generated::gapic_control::model::*;

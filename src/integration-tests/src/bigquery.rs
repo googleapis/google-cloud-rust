@@ -13,7 +13,6 @@
 // limitations under the License.
 
 use crate::Result;
-use gax::error::Error;
 use rand::{Rng, distr::Alphanumeric};
 
 pub async fn dataset_admin(
@@ -83,9 +82,7 @@ async fn cleanup_stale_datasets(
     project_id: &str,
 ) -> Result<()> {
     use std::time::{Duration, SystemTime, UNIX_EPOCH};
-    let stale_deadline = SystemTime::now()
-        .duration_since(UNIX_EPOCH)
-        .map_err(Error::other)?;
+    let stale_deadline = SystemTime::now().duration_since(UNIX_EPOCH)?;
     let stale_deadline = stale_deadline - Duration::from_secs(48 * 60 * 60);
     let stale_deadline = stale_deadline.as_millis() as i64;
 

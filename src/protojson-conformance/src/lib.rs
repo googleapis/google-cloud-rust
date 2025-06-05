@@ -33,4 +33,12 @@ mod test {
         assert_eq!(value, json!({}));
         Ok(())
     }
+
+    #[test]
+    fn float_range() -> anyhow::Result<()> {
+        let input = json!({"optionalFloat": -3.502823e+38});
+        let err = serde_json::from_value::<TestAllTypesProto3>(input).unwrap_err();
+        assert!(err.is_data());
+        Ok(())
+    }
 }

@@ -19,8 +19,17 @@
 
 #[cfg(test)]
 mod test {
+    use google_cloud_wkt::Duration;
     use serde_json::json;
-    type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
+    type TestResult = anyhow::Result<()>;
+
+    #[allow(dead_code)]
+    mod protos {
+        use google_cloud_wkt as wkt;
+        include!("generated/mod.rs");
+    }
+    use protos::MessageWithOneOf;
+    use protos::message_with_one_of::{Message, Mixed, SingleString, TwoStrings};
 
     #[test]
     fn test_oneof_single_string() -> TestResult {
@@ -48,9 +57,8 @@ mod test {
 
     #[test]
     fn test_oneof_one_message() -> TestResult {
-        let input = MessageWithOneOf::default().set_one_message(OneMessage::MessageValue(
-            Message::default().set_parent("parent-value"),
-        ));
+        let input = MessageWithOneOf::default()
+            .set_message_value(Message::default().set_parent("parent-value"));
         let got = serde_json::to_value(&input)?;
         let want = json!({
             "messageValue": { "parent": "parent-value" }
@@ -61,9 +69,8 @@ mod test {
 
     #[test]
     fn test_oneof_mixed() -> TestResult {
-        let input = MessageWithOneOf::default().set_mixed(Mixed::AnotherMessage(
-            Message::default().set_parent("parent-value"),
-        ));
+        let input = MessageWithOneOf::default()
+            .set_another_message(Message::default().set_parent("parent-value"));
         let got = serde_json::to_value(&input)?;
         let want = json!({
             "anotherMessage": { "parent": "parent-value" }
@@ -78,9 +85,7 @@ mod test {
         });
         assert_eq!(got, want);
 
-        let input = MessageWithOneOf::default().set_mixed(Mixed::Duration(
-            google_cloud_wkt::Duration::clamp(123, 456_000_000),
-        ));
+        let input = MessageWithOneOf::default().set_duration(Duration::clamp(123, 456_000_000));
         let got = serde_json::to_value(&input)?;
         let want = json!({
             "duration": "123.456s"
@@ -88,93 +93,5 @@ mod test {
         assert_eq!(got, want);
 
         Ok(())
-    }
-
-    #[serde_with::serde_as]
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(default, rename_all = "camelCase")]
-    #[non_exhaustive]
-    pub struct MessageWithOneOf {
-        #[serde(flatten, skip_serializing_if = "Option::is_none")]
-        pub single_string: Option<SingleString>,
-
-        #[serde(flatten, skip_serializing_if = "Option::is_none")]
-        pub two_strings: Option<TwoStrings>,
-
-        #[serde(flatten, skip_serializing_if = "Option::is_none")]
-        pub one_message: Option<OneMessage>,
-
-        #[serde(flatten, skip_serializing_if = "Option::is_none")]
-        pub mixed: Option<Mixed>,
-    }
-
-    impl MessageWithOneOf {
-        pub fn set_single_string<T: Into<SingleString>>(mut self, v: T) -> Self {
-            self.single_string = Some(v.into());
-            self
-        }
-        pub fn set_two_strings<T: Into<TwoStrings>>(mut self, v: T) -> Self {
-            self.two_strings = Some(v.into());
-            self
-        }
-
-        pub fn set_one_message<T: Into<OneMessage>>(mut self, v: T) -> Self {
-            self.one_message = Some(v.into());
-            self
-        }
-
-        pub fn set_mixed<T: Into<Mixed>>(mut self, v: T) -> Self {
-            self.mixed = Some(v.into());
-            self
-        }
-    }
-
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(rename_all = "camelCase")]
-    #[non_exhaustive]
-    pub enum SingleString {
-        /// Use a long name so we can see they are renamed to camelCase.
-        StringContents(String),
-    }
-
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(rename_all = "camelCase")]
-    #[non_exhaustive]
-    pub enum TwoStrings {
-        /// Use a long name so we can see they are renamed to camelCase.
-        StringContentsOne(String),
-        StringContentsTwo(String),
-    }
-
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(rename_all = "camelCase")]
-    #[non_exhaustive]
-    pub enum OneMessage {
-        MessageValue(Message),
-    }
-
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(rename_all = "camelCase")]
-    #[non_exhaustive]
-    pub enum Mixed {
-        AnotherMessage(Message),
-        String(String),
-        Duration(google_cloud_wkt::Duration),
-    }
-
-    #[serde_with::serde_as]
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(default, rename_all = "camelCase")]
-    #[non_exhaustive]
-    pub struct Message {
-        #[serde(skip_serializing_if = "String::is_empty")]
-        pub parent: String,
-    }
-
-    impl Message {
-        pub fn set_parent<T: Into<String>>(mut self, v: T) -> Self {
-            self.parent = v.into();
-            self
-        }
     }
 }

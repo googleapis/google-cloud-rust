@@ -14,8 +14,8 @@
 
 use crate::Result;
 use gax::exponential_backoff::{ExponentialBackoff, ExponentialBackoffBuilder};
+use gax::options::RequestOptionsBuilder;
 use gax::paginator::ItemPaginator as _;
-use gax::{error::Error, options::RequestOptionsBuilder};
 use lro::Poller;
 use std::time::Duration;
 
@@ -192,9 +192,7 @@ async fn cleanup_stale_workflows(
     location_id: &str,
 ) -> Result<()> {
     use std::time::{Duration, SystemTime, UNIX_EPOCH};
-    let stale_deadline = SystemTime::now()
-        .duration_since(UNIX_EPOCH)
-        .map_err(Error::other)?;
+    let stale_deadline = SystemTime::now().duration_since(UNIX_EPOCH)?;
     let stale_deadline = stale_deadline - Duration::from_secs(48 * 60 * 60);
     let stale_deadline = wkt::Timestamp::clamp(stale_deadline.as_secs() as i64, 0);
 
@@ -260,7 +258,7 @@ pub async fn manual(
             }
             LR::Response(any) => {
                 println!("LRO completed successfully {any:?}");
-                let response = any.to_msg::<wf::model::Workflow>().map_err(Error::other);
+                let response = any.to_msg::<wf::model::Workflow>();
                 println!("LRO completed response={response:?}");
                 return Ok(());
             }
@@ -297,7 +295,7 @@ pub async fn manual(
             }
             LR::Response(any) => {
                 println!("LRO completed successfully {any:?}");
-                let response = any.to_msg::<wf::model::Workflow>().map_err(Error::other);
+                let response = any.to_msg::<wf::model::Workflow>();
                 println!("LRO completed response={response:?}");
                 return Ok(());
             }

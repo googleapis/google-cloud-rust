@@ -13128,6 +13128,7 @@ pub mod fulfillment {
 
         /// The new value of the parameter. A null value clears the parameter.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "wkt::internal::OptionalValue")]
         pub value: std::option::Option<wkt::Value>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -16705,6 +16706,7 @@ pub mod form {
         /// The default value of an optional parameter. If the parameter is required,
         /// the default value will be ignored.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "wkt::internal::OptionalValue")]
         pub default_value: std::option::Option<wkt::Value>,
 
         /// Indicates whether the parameter content should be redacted in log.  If
@@ -33740,6 +33742,7 @@ pub mod webhook_request {
             /// Always present. Structured value for the parameter extracted from user
             /// utterance.
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
+            #[serde_as(as = "wkt::internal::OptionalValue")]
             pub resolved_value: std::option::Option<wkt::Value>,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -34473,6 +34476,7 @@ pub mod page_info {
             /// [google.cloud.dialogflow.cx.v3.WebhookRequest]: crate::model::WebhookRequest
             /// [google.cloud.dialogflow.cx.v3.WebhookResponse]: crate::model::WebhookResponse
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
+            #[serde_as(as = "wkt::internal::OptionalValue")]
             pub value: std::option::Option<wkt::Value>,
 
             /// Optional for

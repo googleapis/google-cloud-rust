@@ -31590,6 +31590,7 @@ pub struct AnnotatedMessagePart {
     /// this message part. For example for a system entity of type
     /// `@sys.unit-currency`, this may contain:
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "wkt::internal::OptionalValue")]
     pub formatted_value: std::option::Option<wkt::Value>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
