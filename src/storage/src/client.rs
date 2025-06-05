@@ -855,7 +855,7 @@ mod tests {
     // This tests converting to KeyAes256 from some different types
     // that can get converted to &[u8].
     fn test_key_aes_256() -> Result {
-        let v_slice: &[u8] = &vec![b'c'; 32];
+        let v_slice: &[u8] = &[b'c'; 32];
         KeyAes256::from(v_slice)?;
 
         let v_vec: Vec<u8> = vec![b'a'; 32];
