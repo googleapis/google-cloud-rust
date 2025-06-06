@@ -12,19 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::credentials::errors::{self, CredentialsError};
+use crate::{
+    constants::{ACCESS_TOKEN_TYPE, TOKEN_EXCHANGE_GRANT_TYPE},
+    credentials::errors::{self, CredentialsError},
+};
 use base64::Engine;
 use serde::Deserialize;
 use std::collections::HashMap;
 
 type Result<T> = std::result::Result<T, CredentialsError>;
-
-/// Token Exchange grant type for a sts exchange.
-pub const TOKEN_EXCHANGE_GRANT_TYPE: &str = "urn:ietf:params:oauth:grant-type:token-exchange";
-/// TokenType for a sts exchange.
-pub const ACCESS_TOKEN_TYPE: &str = "urn:ietf:params:oauth:token-type:access_token";
-/// JWT TokenType for a sts exchange.
-pub const JWT_TOKEN_TYPE: &str = "urn:ietf:params:oauth:token-type:jwt";
 
 /// Handles OAuth2 Secure Token Service (STS) exchange.
 /// Reference: https://datatracker.ietf.org/doc/html/rfc8693
@@ -160,7 +156,7 @@ pub struct ExchangeTokenRequest {
 #[cfg(test)]
 mod test {
     use super::*;
-    use crate::constants::DEFAULT_SCOPE;
+    use crate::constants::{DEFAULT_SCOPE, JWT_TOKEN_TYPE};
     use http::StatusCode;
     use httptest::{Expectation, Server, matchers::*, responders::*};
     use serde_json::json;
