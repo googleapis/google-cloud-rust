@@ -202,6 +202,7 @@ mod test {
     use scoped_env::ScopedEnv;
     use serde_json::json;
     use std::error::Error;
+    use std::os::unix::fs::PermissionsExt;
     use tokio::time::{Duration, Instant};
 
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
@@ -268,12 +269,24 @@ mod test {
         Ok(())
     }
 
+    #[cfg(not(target_os = "windows"))]
     #[tokio::test]
     async fn read_token_command_timeout() -> TestResult {
         let _e = ScopedEnv::set(ALLOW_EXECUTABLE_ENV, "1");
+
+        let file_contents = "#!/bin/bash\nsleep 1s\n";
+        let file = tempfile::NamedTempFile::new().unwrap();
+        let path = file.into_temp_path();
+        let mut perms = std::fs::metadata(&path)
+            .expect("Unable to get temp file metadata")
+            .permissions();
+        perms.set_mode(0o700);
+        std::fs::set_permissions(&path, perms).expect("Unable to set exec permission");
+        std::fs::write(&path, file_contents).expect("Unable to write to temp file with command");
+
         let token_provider = ExecutableSourcedCredentials {
             executable: ExecutableConfig {
-                command: Some("sleep 1s".to_string()),
+                command: Some(path.to_str().unwrap().into()),
                 timeout_millis: Some(10),
                 ..ExecutableConfig::default()
             },
@@ -283,10 +296,12 @@ mod test {
             .await
             .expect_err("should fail with timeout");
 
+        println!("{err:?}");
         assert!(err.is_transient());
         assert!(err.source().is_some());
 
         let source_err = err.source().unwrap();
+        println!("{source_err:?}");
         assert!(source_err.to_string().contains("deadline"));
 
         Ok(())
