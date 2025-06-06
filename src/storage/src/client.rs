@@ -361,7 +361,7 @@ impl InsertObject {
     /// async fn example(client: &Storage, key: &[u8]) -> gax::Result<()> {
     ///     let response = client
     ///         .insert_object("projects/_/buckets/my-bucket", "my-object", "the quick brown fox jumped over the lazy dog")
-    ///         .with_key(KeyAes256::from(key)?)
+    ///         .with_key(KeyAes256::try_from(key)?)
     ///         .send()
     ///         .await?;
     ///     println!("response details={response:?}");
@@ -468,7 +468,7 @@ impl ReadObject {
     /// async fn example(client: &Storage, key: &[u8]) -> gax::Result<()> {
     ///     let response = client
     ///         .read_object("projects/_/buckets/my-bucket", "my-object")
-    ///         .with_key(KeyAes256::from(key)?)
+    ///         .with_key(KeyAes256::try_from(key)?)
     ///         .send()
     ///         .await?;
     ///     println!("response details={response:?}");
