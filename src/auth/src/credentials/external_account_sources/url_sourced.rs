@@ -19,9 +19,8 @@ use serde_json::Value;
 use std::{collections::HashMap, time::Duration};
 
 use crate::{
-    Result,
-    credentials::external_account::{CredentialSourceFormat, SubjectTokenProvider},
-    errors,
+    Result, credentials::external_account::CredentialSourceFormat,
+    credentials::external_account::dynamic::SubjectTokenProvider, errors,
 };
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
