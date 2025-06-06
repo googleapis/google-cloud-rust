@@ -17,7 +17,6 @@ pub use crate::Result;
 use auth::credentials::CacheableResource;
 use base64::Engine;
 use base64::prelude::BASE64_STANDARD;
-use bytes::Buf;
 pub use control::model::Object;
 use http::Extensions;
 use sha2::{Digest, Sha256};
@@ -564,19 +563,53 @@ impl ReadObject {
 }
 
 #[derive(Debug)]
+/// KeyAes256 is the encryption key used with the Customer-Supplied Encryption Keys
+/// feature. In raw bytes format (not base64-encoded).
+///
+/// Example:
+/// ```
+/// # use google_cloud_storage::client::KeyAes256;
+/// let key: &[u8] = &[b'a'; 32];
+/// let key = KeyAes256::try_from(key);
+/// ```
 pub struct KeyAes256 {
-    key: bytes::Bytes,
+    key: [u8; 32],
+}
+
+/// Represent failures in converting or creating [KeyAes256] instances.
+///
+/// # Examples
+/// ```
+/// # use google_cloud_storage::client::{KeyAes256, KeyAes256Error};
+/// let key: &[u8] = &Vec::new();
+/// let key_aes_256 = KeyAes256::try_from(&key);
+/// assert!(matches!(key_aes_256, Err(KeyAes256Error::OutOfRange)));
+/// ```
+#[derive(thiserror::Error, Debug)]
+#[non_exhaustive]
+pub enum KeyAes256Error {
+    /// The key was the wrong length of bytes.
+    #[error("key is not 32 bytes long")]
+    OutOfRange,
 }
 
 impl KeyAes256 {
-    pub fn from(mut key: &[u8]) -> Result<Self> {
+    /// Convert from &[u8] to [KeyAes256].
+    ///
+    /// Returns an error if `key` is not 32 bytes long.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::{KeyAes256, KeyAes256Error};
+    /// let key: &[u8] = &[b'a'; 32];
+    /// let d = KeyAes256::try_from(key)?;
+    /// # Ok::<(), KeyAes256Error>(())
+    pub fn try_from(key: &[u8]) -> std::result::Result<Self, KeyAes256Error> {
         if key.len() != 32 {
-            return Err(Error::other(
-                "customer supplied encryption key must be 32-bytes",
-            ));
+            return Err(KeyAes256Error::OutOfRange);
         }
         Ok(Self {
-            key: key.copy_to_bytes(32),
+            key: key[..32].try_into().expect("slice length already checked"),
         })
     }
 }
@@ -585,7 +618,7 @@ impl std::convert::From<KeyAes256> for control::model::CommonObjectRequestParams
     fn from(value: KeyAes256) -> Self {
         control::model::CommonObjectRequestParams::new()
             .set_encryption_algorithm("AES256")
-            .set_encryption_key_bytes(value.key.clone())
+            .set_encryption_key_bytes(value.key.to_vec())
             .set_encryption_key_sha256_bytes(
                 Sha256::digest(value.key.clone()).as_slice().to_owned(),
             )
@@ -689,7 +722,7 @@ mod tests {
         // The API takes the unencoded byte array.
         let insert_object_builder = client
             .insert_object("projects/_/buckets/bucket", "object", "hello")
-            .with_key(KeyAes256::from(&key)?)
+            .with_key(KeyAes256::try_from(&key)?)
             .http_request_builder()
             .await?
             .build()?;
@@ -825,7 +858,7 @@ mod tests {
         // The API takes the unencoded byte array.
         let read_object_builder = client
             .read_object("projects/_/buckets/bucket", "object")
-            .with_key(KeyAes256::from(&key)?)
+            .with_key(KeyAes256::try_from(&key)?)
             .http_request_builder()
             .await?
             .build()?;
@@ -856,16 +889,16 @@ mod tests {
     // that can get converted to &[u8].
     fn test_key_aes_256() -> Result {
         let v_slice: &[u8] = &[b'c'; 32];
-        KeyAes256::from(v_slice)?;
+        KeyAes256::try_from(v_slice)?;
 
         let v_vec: Vec<u8> = vec![b'a'; 32];
-        KeyAes256::from(&v_vec)?;
+        KeyAes256::try_from(&v_vec)?;
 
         let v_array: [u8; 32] = [b'a'; 32];
-        KeyAes256::from(&v_array)?;
+        KeyAes256::try_from(&v_array)?;
 
         let v_bytes: bytes::Bytes = bytes::Bytes::copy_from_slice(&v_array);
-        KeyAes256::from(&v_bytes)?;
+        KeyAes256::try_from(&v_bytes)?;
 
         Ok(())
     }
@@ -874,13 +907,13 @@ mod tests {
     #[test_case(&[b'a'; 1]; "not enough bytes")]
     #[test_case(&[b'a'; 33]; "too many bytes")]
     fn test_key_aes_256_err(input: &[u8]) {
-        KeyAes256::from(input).unwrap_err();
+        KeyAes256::try_from(input).unwrap_err();
     }
 
     #[test]
     fn test_key_aes_256_to_control_model_object() -> Result {
         let (key, _, key_sha256, _) = create_key_helper();
-        let key_aes_256 = KeyAes256::from(&key)?;
+        let key_aes_256 = KeyAes256::try_from(&key)?;
         let params = control::model::CommonObjectRequestParams::from(key_aes_256);
         assert_eq!(params.encryption_algorithm, "AES256");
         assert_eq!(params.encryption_key_bytes, key);
