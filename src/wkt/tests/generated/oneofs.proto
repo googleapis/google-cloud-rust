@@ -41,7 +41,7 @@ message MessageWithOneOf {
     }
 }
 
-// A message with more a complex `oneof` field.
+// A message with a more complex `oneof` field.
 message MessageWithComplexOneOf {
     oneof complex {
         google.protobuf.NullValue null = 1;

@@ -567,7 +567,7 @@ pub mod message_with_one_of {
     }
 }
 
-/// A message with more a complex `oneof` field.
+/// A message with a more complex `oneof` field.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
