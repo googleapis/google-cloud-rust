@@ -70,6 +70,7 @@ impl ExecutableResponse {
 
 const MSG: &str = "failed to read subject token";
 const DEFAULT_TIMEOUT_SECS: u32 = 30;
+const ALLOW_EXECUTABLE_ENV: &str = "GOOGLE_EXTERNAL_ACCOUNT_ALLOW_EXECUTABLES";
 
 #[async_trait::async_trait]
 impl SubjectTokenProvider for ExecutableSourcedCredentials {
@@ -116,6 +117,17 @@ impl ExecutableSourcedCredentials {
     }
 
     async fn from_command(command: String, timeout: Duration) -> Result<String> {
+        // For security reasons, we need our consumers to set this environment variable to allow executables to be run.
+        let allow_executable = std::env::var(ALLOW_EXECUTABLE_ENV)
+            .ok()
+            .unwrap_or("0".to_string());
+        if allow_executable != "1" {
+            return Err(CredentialsError::from_msg(
+                false,
+                "executables need to be explicitly allowed (set GOOGLE_EXTERNAL_ACCOUNT_ALLOW_EXECUTABLES to '1') to run",
+            ));
+        }
+
         let (command, args) = Self::split_command(command);
         let output = Command::new(command.clone()).args(&args).output();
         let output = tokio_timeout(timeout, output.into_future())
@@ -127,6 +139,10 @@ impl ExecutableSourcedCredentials {
             let stderr = String::from_utf8(output.stderr)
                 .map_err(|e| CredentialsError::from_source(false, e))?;
             let msg = format!("{MSG}, command execution failed, stderr=<{stderr}>");
+            if let Some(code) = output.status.code() {
+                let msg = format!("{msg}, code={code}");
+                return Err(CredentialsError::from_msg(true, msg));
+            };
             return Err(CredentialsError::from_msg(true, msg));
         }
 
@@ -183,6 +199,7 @@ impl ExecutableSourcedCredentials {
 mod test {
     use super::*;
     use crate::constants::JWT_TOKEN_TYPE;
+    use scoped_env::ScopedEnv;
     use serde_json::json;
     use std::error::Error;
     use tokio::time::{Duration, Instant};
@@ -191,6 +208,7 @@ mod test {
 
     #[tokio::test]
     async fn read_token_from_command() -> TestResult {
+        let _e = ScopedEnv::set(ALLOW_EXECUTABLE_ENV, "1");
         let expiration = (Instant::now() + Duration::from_secs(3600))
             .elapsed()
             .as_millis();
@@ -221,6 +239,7 @@ mod test {
 
     #[tokio::test]
     async fn read_token_from_output_file() -> TestResult {
+        let _e = ScopedEnv::set(ALLOW_EXECUTABLE_ENV, "1");
         let expiration = (Instant::now() + Duration::from_secs(3600))
             .elapsed()
             .as_millis();
@@ -251,10 +270,11 @@ mod test {
 
     #[tokio::test]
     async fn read_token_command_timeout() -> TestResult {
+        let _e = ScopedEnv::set(ALLOW_EXECUTABLE_ENV, "1");
         let token_provider = ExecutableSourcedCredentials {
             executable: ExecutableConfig {
-                command: Some("echo an_example_token".to_string()),
-                timeout_millis: Some(0),
+                command: Some("sleep 1s".to_string()),
+                timeout_millis: Some(10),
                 ..ExecutableConfig::default()
             },
         };
