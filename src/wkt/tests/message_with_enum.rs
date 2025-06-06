@@ -92,7 +92,7 @@ mod test {
     #[test]
     fn test_map() -> Result {
         let input = json!({"map": { "favorite": "RED", "not-so-much": "GREEN"}});
-        let got = serde_json::from_value::<MessageWithEnum>(input.clone())?;
+        let got = serde_json::from_value::<MessageWithEnum>(input)?;
         let want = MessageWithEnum::new().set_map([
             ("favorite", TestEnum::Red),
             ("not-so-much", TestEnum::Green),
