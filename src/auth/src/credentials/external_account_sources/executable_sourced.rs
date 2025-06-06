@@ -253,8 +253,8 @@ mod test {
     async fn read_token_command_timeout() -> TestResult {
         let token_provider = ExecutableSourcedCredentials {
             executable: ExecutableConfig {
-                command: Some("ls".to_string()),
-                timeout_millis: Some(1),
+                command: Some("echo an_example_token".to_string()),
+                timeout_millis: Some(0),
                 ..ExecutableConfig::default()
             },
         };
