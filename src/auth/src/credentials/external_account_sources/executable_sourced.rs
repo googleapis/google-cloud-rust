@@ -12,11 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::{Result, credentials::external_account::SubjectTokenProvider};
 use gax::error::CredentialsError;
 use serde::{Deserialize, Serialize};
-use tokio::process::Command;
-
-use crate::{Result, credentials::external_account::SubjectTokenProvider};
+use std::time::Duration;
+use tokio::{process::Command, time::timeout as tokio_timeout};
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub(crate) struct ExecutableSourcedCredentials {
@@ -65,7 +65,7 @@ impl ExecutableResponse {
 }
 
 const MSG: &str = "failed to read subject token";
-// const DEFAULT_TIMEOUT: Duration = Duration::from_secs(30); TODO: enforce timeout
+const DEFAULT_TIMEOUT_SECS: u32 = 30;
 
 #[async_trait::async_trait]
 impl SubjectTokenProvider for ExecutableSourcedCredentials {
@@ -77,8 +77,15 @@ impl SubjectTokenProvider for ExecutableSourcedCredentials {
             } => Self::from_output_file(output_file).await,
             ExecutableConfig {
                 command: Some(command),
+                timeout_millis,
                 ..
-            } => Self::from_command(command).await,
+            } => {
+                let timeout = match timeout_millis {
+                    Some(timeout) => Duration::from_millis(timeout.into()),
+                    None => Duration::from_secs(DEFAULT_TIMEOUT_SECS.into()),
+                };
+                Self::from_command(command, timeout).await
+            }
             _ => Err(CredentialsError::from_msg(
                 false,
                 format!("{MSG}, either `output_file` or `command` needs to be informed"),
@@ -104,14 +111,13 @@ impl ExecutableSourcedCredentials {
         Ok(content)
     }
 
-    async fn from_command(command: String) -> Result<String> {
+    async fn from_command(command: String, timeout: Duration) -> Result<String> {
         let (command, args) = Self::split_command(command);
-        let output = Command::new(command.clone())
-            .args(&args)
-            .output()
+        let output = Command::new(command.clone()).args(&args).output();
+        let output = tokio_timeout(timeout, output.into_future())
             .await
-            .map_err(|e| CredentialsError::from_source(false, e))?;
-        // let output = timeout(DEFAULT_TIMEOUT, output); // TODO: enforce timeout
+            .map_err(|e| CredentialsError::from_source(true, e))?
+            .map_err(|e| CredentialsError::from_source(true, e))?;
 
         if !output.status.success() {
             let stderr = String::from_utf8(output.stderr)
@@ -164,6 +170,7 @@ mod test {
     use super::*;
     use crate::credentials::internal::sts_exchange::JWT_TOKEN_TYPE;
     use serde_json::json;
+    use std::error::Error;
     use tokio::time::{Duration, Instant};
 
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
@@ -224,6 +231,29 @@ mod test {
         let resp = token_provider.subject_token().await?;
 
         assert_eq!(resp, "an_example_token".to_string());
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn read_token_command_timeout() -> TestResult {
+        let token_provider = ExecutableSourcedCredentials {
+            executable: ExecutableConfig {
+                command: Some("ls".to_string()),
+                timeout_millis: Some(1),
+                ..ExecutableConfig::default()
+            },
+        };
+        let err = token_provider
+            .subject_token()
+            .await
+            .expect_err("should fail with timeout");
+
+        assert!(err.is_transient());
+        assert!(err.source().is_some());
+
+        let source_err = err.source().unwrap();
+        assert!(source_err.to_string().contains("deadline"));
 
         Ok(())
     }
