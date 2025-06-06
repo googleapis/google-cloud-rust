@@ -127,11 +127,11 @@ impl ExecutableSourcedCredentials {
             let stderr = String::from_utf8(output.stderr)
                 .map_err(|e| CredentialsError::from_source(false, e))?;
             let msg = format!("{MSG}, command execution failed, stderr=<{stderr}>");
-            return Err(CredentialsError::from_msg(false, msg));
+            return Err(CredentialsError::from_msg(true, msg));
         }
 
         let subject_token = String::from_utf8(output.stdout)
-            .map_err(|e| CredentialsError::from_source(false, e))?
+            .map_err(|e| CredentialsError::from_source(true, e))?
             .to_string();
 
         Ok(subject_token)
