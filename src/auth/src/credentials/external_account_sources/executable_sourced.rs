@@ -275,11 +275,11 @@ mod test {
 
         let _e = ScopedEnv::set(ALLOW_EXECUTABLE_ENV, "1");
 
-        let file_contents = "#!/bin/bash\
-        while true\
-        do\
-            echo \"working\"\
-        done";
+        let file_contents = "#!/bin/bash
+while true;
+do
+    echo \"working\"
+done";
         let file = tempfile::NamedTempFile::new().unwrap();
         let path = file.into_temp_path();
         std::fs::write(&path, file_contents).expect("Unable to write to temp file with command");
@@ -292,7 +292,7 @@ mod test {
         let token_provider = ExecutableSourcedCredentials {
             executable: ExecutableConfig {
                 command: Some(path.to_str().unwrap().into()),
-                timeout_millis: Some(10),
+                timeout_millis: Some(1000),
                 ..ExecutableConfig::default()
             },
         };
