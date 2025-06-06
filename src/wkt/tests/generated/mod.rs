@@ -575,7 +575,7 @@ pub mod message_with_one_of {
 pub struct MessageWithComplexOneOf {
 
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-    pub value: std::option::Option<crate::test::protos::message_with_complex_one_of::Value>,
+    pub complex: std::option::Option<crate::test::protos::message_with_complex_one_of::Complex>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -586,285 +586,285 @@ impl MessageWithComplexOneOf {
         std::default::Default::default()
     }
 
-    /// Sets the value of [value][crate::test::protos::MessageWithComplexOneOf::value].
+    /// Sets the value of [complex][crate::test::protos::MessageWithComplexOneOf::complex].
     ///
-    /// Note that all the setters affecting `value` are mutually
+    /// Note that all the setters affecting `complex` are mutually
     /// exclusive.
-    pub fn set_value<T: std::convert::Into<std::option::Option<crate::test::protos::message_with_complex_one_of::Value>>>(mut self, v: T) -> Self
+    pub fn set_complex<T: std::convert::Into<std::option::Option<crate::test::protos::message_with_complex_one_of::Complex>>>(mut self, v: T) -> Self
     {
-        self.value = v.into();
+        self.complex = v.into();
         self
     }
 
-    /// The value of [value][crate::test::protos::MessageWithComplexOneOf::value]
+    /// The value of [complex][crate::test::protos::MessageWithComplexOneOf::complex]
     /// if it holds a `Null`, `None` if the field is not set or
     /// holds a different branch.
     pub fn null(&self) -> std::option::Option<&wkt::NullValue> {
         #[allow(unreachable_patterns)]
-        self.value.as_ref().and_then(|v| match v {
-            crate::test::protos::message_with_complex_one_of::Value::Null(v) => std::option::Option::Some(v),
+        self.complex.as_ref().and_then(|v| match v {
+            crate::test::protos::message_with_complex_one_of::Complex::Null(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
 
-    /// Sets the value of [value][crate::test::protos::MessageWithComplexOneOf::value]
+    /// Sets the value of [complex][crate::test::protos::MessageWithComplexOneOf::complex]
     /// to hold a `Null`.
     ///
-    /// Note that all the setters affecting `value` are
+    /// Note that all the setters affecting `complex` are
     /// mutually exclusive.
     pub fn set_null<T: std::convert::Into<wkt::NullValue>>(mut self, v: T) -> Self {
-        self.value = std::option::Option::Some(
-            crate::test::protos::message_with_complex_one_of::Value::Null(
+        self.complex = std::option::Option::Some(
+            crate::test::protos::message_with_complex_one_of::Complex::Null(
                 v.into()
             )
         );
         self
     }
 
-    /// The value of [value][crate::test::protos::MessageWithComplexOneOf::value]
+    /// The value of [complex][crate::test::protos::MessageWithComplexOneOf::complex]
     /// if it holds a `BoolValue`, `None` if the field is not set or
     /// holds a different branch.
     pub fn bool_value(&self) -> std::option::Option<&bool> {
         #[allow(unreachable_patterns)]
-        self.value.as_ref().and_then(|v| match v {
-            crate::test::protos::message_with_complex_one_of::Value::BoolValue(v) => std::option::Option::Some(v),
+        self.complex.as_ref().and_then(|v| match v {
+            crate::test::protos::message_with_complex_one_of::Complex::BoolValue(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
 
-    /// Sets the value of [value][crate::test::protos::MessageWithComplexOneOf::value]
+    /// Sets the value of [complex][crate::test::protos::MessageWithComplexOneOf::complex]
     /// to hold a `BoolValue`.
     ///
-    /// Note that all the setters affecting `value` are
+    /// Note that all the setters affecting `complex` are
     /// mutually exclusive.
     pub fn set_bool_value<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.value = std::option::Option::Some(
-            crate::test::protos::message_with_complex_one_of::Value::BoolValue(
+        self.complex = std::option::Option::Some(
+            crate::test::protos::message_with_complex_one_of::Complex::BoolValue(
                 v.into()
             )
         );
         self
     }
 
-    /// The value of [value][crate::test::protos::MessageWithComplexOneOf::value]
+    /// The value of [complex][crate::test::protos::MessageWithComplexOneOf::complex]
     /// if it holds a `BytesValue`, `None` if the field is not set or
     /// holds a different branch.
     pub fn bytes_value(&self) -> std::option::Option<&::bytes::Bytes> {
         #[allow(unreachable_patterns)]
-        self.value.as_ref().and_then(|v| match v {
-            crate::test::protos::message_with_complex_one_of::Value::BytesValue(v) => std::option::Option::Some(v),
+        self.complex.as_ref().and_then(|v| match v {
+            crate::test::protos::message_with_complex_one_of::Complex::BytesValue(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
 
-    /// Sets the value of [value][crate::test::protos::MessageWithComplexOneOf::value]
+    /// Sets the value of [complex][crate::test::protos::MessageWithComplexOneOf::complex]
     /// to hold a `BytesValue`.
     ///
-    /// Note that all the setters affecting `value` are
+    /// Note that all the setters affecting `complex` are
     /// mutually exclusive.
     pub fn set_bytes_value<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-        self.value = std::option::Option::Some(
-            crate::test::protos::message_with_complex_one_of::Value::BytesValue(
+        self.complex = std::option::Option::Some(
+            crate::test::protos::message_with_complex_one_of::Complex::BytesValue(
                 v.into()
             )
         );
         self
     }
 
-    /// The value of [value][crate::test::protos::MessageWithComplexOneOf::value]
+    /// The value of [complex][crate::test::protos::MessageWithComplexOneOf::complex]
     /// if it holds a `StringValue`, `None` if the field is not set or
     /// holds a different branch.
     pub fn string_value(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
-        self.value.as_ref().and_then(|v| match v {
-            crate::test::protos::message_with_complex_one_of::Value::StringValue(v) => std::option::Option::Some(v),
+        self.complex.as_ref().and_then(|v| match v {
+            crate::test::protos::message_with_complex_one_of::Complex::StringValue(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
 
-    /// Sets the value of [value][crate::test::protos::MessageWithComplexOneOf::value]
+    /// Sets the value of [complex][crate::test::protos::MessageWithComplexOneOf::complex]
     /// to hold a `StringValue`.
     ///
-    /// Note that all the setters affecting `value` are
+    /// Note that all the setters affecting `complex` are
     /// mutually exclusive.
     pub fn set_string_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.value = std::option::Option::Some(
-            crate::test::protos::message_with_complex_one_of::Value::StringValue(
+        self.complex = std::option::Option::Some(
+            crate::test::protos::message_with_complex_one_of::Complex::StringValue(
                 v.into()
             )
         );
         self
     }
 
-    /// The value of [value][crate::test::protos::MessageWithComplexOneOf::value]
+    /// The value of [complex][crate::test::protos::MessageWithComplexOneOf::complex]
     /// if it holds a `FloatValue`, `None` if the field is not set or
     /// holds a different branch.
     pub fn float_value(&self) -> std::option::Option<&f32> {
         #[allow(unreachable_patterns)]
-        self.value.as_ref().and_then(|v| match v {
-            crate::test::protos::message_with_complex_one_of::Value::FloatValue(v) => std::option::Option::Some(v),
+        self.complex.as_ref().and_then(|v| match v {
+            crate::test::protos::message_with_complex_one_of::Complex::FloatValue(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
 
-    /// Sets the value of [value][crate::test::protos::MessageWithComplexOneOf::value]
+    /// Sets the value of [complex][crate::test::protos::MessageWithComplexOneOf::complex]
     /// to hold a `FloatValue`.
     ///
-    /// Note that all the setters affecting `value` are
+    /// Note that all the setters affecting `complex` are
     /// mutually exclusive.
     pub fn set_float_value<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
-        self.value = std::option::Option::Some(
-            crate::test::protos::message_with_complex_one_of::Value::FloatValue(
+        self.complex = std::option::Option::Some(
+            crate::test::protos::message_with_complex_one_of::Complex::FloatValue(
                 v.into()
             )
         );
         self
     }
 
-    /// The value of [value][crate::test::protos::MessageWithComplexOneOf::value]
+    /// The value of [complex][crate::test::protos::MessageWithComplexOneOf::complex]
     /// if it holds a `DoubleValue`, `None` if the field is not set or
     /// holds a different branch.
     pub fn double_value(&self) -> std::option::Option<&f64> {
         #[allow(unreachable_patterns)]
-        self.value.as_ref().and_then(|v| match v {
-            crate::test::protos::message_with_complex_one_of::Value::DoubleValue(v) => std::option::Option::Some(v),
+        self.complex.as_ref().and_then(|v| match v {
+            crate::test::protos::message_with_complex_one_of::Complex::DoubleValue(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
 
-    /// Sets the value of [value][crate::test::protos::MessageWithComplexOneOf::value]
+    /// Sets the value of [complex][crate::test::protos::MessageWithComplexOneOf::complex]
     /// to hold a `DoubleValue`.
     ///
-    /// Note that all the setters affecting `value` are
+    /// Note that all the setters affecting `complex` are
     /// mutually exclusive.
     pub fn set_double_value<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
-        self.value = std::option::Option::Some(
-            crate::test::protos::message_with_complex_one_of::Value::DoubleValue(
+        self.complex = std::option::Option::Some(
+            crate::test::protos::message_with_complex_one_of::Complex::DoubleValue(
                 v.into()
             )
         );
         self
     }
 
-    /// The value of [value][crate::test::protos::MessageWithComplexOneOf::value]
+    /// The value of [complex][crate::test::protos::MessageWithComplexOneOf::complex]
     /// if it holds a `Int`, `None` if the field is not set or
     /// holds a different branch.
     pub fn int(&self) -> std::option::Option<&i32> {
         #[allow(unreachable_patterns)]
-        self.value.as_ref().and_then(|v| match v {
-            crate::test::protos::message_with_complex_one_of::Value::Int(v) => std::option::Option::Some(v),
+        self.complex.as_ref().and_then(|v| match v {
+            crate::test::protos::message_with_complex_one_of::Complex::Int(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
 
-    /// Sets the value of [value][crate::test::protos::MessageWithComplexOneOf::value]
+    /// Sets the value of [complex][crate::test::protos::MessageWithComplexOneOf::complex]
     /// to hold a `Int`.
     ///
-    /// Note that all the setters affecting `value` are
+    /// Note that all the setters affecting `complex` are
     /// mutually exclusive.
     pub fn set_int<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-        self.value = std::option::Option::Some(
-            crate::test::protos::message_with_complex_one_of::Value::Int(
+        self.complex = std::option::Option::Some(
+            crate::test::protos::message_with_complex_one_of::Complex::Int(
                 v.into()
             )
         );
         self
     }
 
-    /// The value of [value][crate::test::protos::MessageWithComplexOneOf::value]
+    /// The value of [complex][crate::test::protos::MessageWithComplexOneOf::complex]
     /// if it holds a `Long`, `None` if the field is not set or
     /// holds a different branch.
     pub fn long(&self) -> std::option::Option<&i64> {
         #[allow(unreachable_patterns)]
-        self.value.as_ref().and_then(|v| match v {
-            crate::test::protos::message_with_complex_one_of::Value::Long(v) => std::option::Option::Some(v),
+        self.complex.as_ref().and_then(|v| match v {
+            crate::test::protos::message_with_complex_one_of::Complex::Long(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
 
-    /// Sets the value of [value][crate::test::protos::MessageWithComplexOneOf::value]
+    /// Sets the value of [complex][crate::test::protos::MessageWithComplexOneOf::complex]
     /// to hold a `Long`.
     ///
-    /// Note that all the setters affecting `value` are
+    /// Note that all the setters affecting `complex` are
     /// mutually exclusive.
     pub fn set_long<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
-        self.value = std::option::Option::Some(
-            crate::test::protos::message_with_complex_one_of::Value::Long(
+        self.complex = std::option::Option::Some(
+            crate::test::protos::message_with_complex_one_of::Complex::Long(
                 v.into()
             )
         );
         self
     }
 
-    /// The value of [value][crate::test::protos::MessageWithComplexOneOf::value]
+    /// The value of [complex][crate::test::protos::MessageWithComplexOneOf::complex]
     /// if it holds a `Enum`, `None` if the field is not set or
     /// holds a different branch.
     pub fn r#enum(&self) -> std::option::Option<&crate::test::protos::message_with_complex_one_of::TestEnum> {
         #[allow(unreachable_patterns)]
-        self.value.as_ref().and_then(|v| match v {
-            crate::test::protos::message_with_complex_one_of::Value::Enum(v) => std::option::Option::Some(v),
+        self.complex.as_ref().and_then(|v| match v {
+            crate::test::protos::message_with_complex_one_of::Complex::Enum(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
 
-    /// Sets the value of [value][crate::test::protos::MessageWithComplexOneOf::value]
+    /// Sets the value of [complex][crate::test::protos::MessageWithComplexOneOf::complex]
     /// to hold a `Enum`.
     ///
-    /// Note that all the setters affecting `value` are
+    /// Note that all the setters affecting `complex` are
     /// mutually exclusive.
     pub fn set_enum<T: std::convert::Into<crate::test::protos::message_with_complex_one_of::TestEnum>>(mut self, v: T) -> Self {
-        self.value = std::option::Option::Some(
-            crate::test::protos::message_with_complex_one_of::Value::Enum(
+        self.complex = std::option::Option::Some(
+            crate::test::protos::message_with_complex_one_of::Complex::Enum(
                 v.into()
             )
         );
         self
     }
 
-    /// The value of [value][crate::test::protos::MessageWithComplexOneOf::value]
+    /// The value of [complex][crate::test::protos::MessageWithComplexOneOf::complex]
     /// if it holds a `Inner`, `None` if the field is not set or
     /// holds a different branch.
     pub fn inner(&self) -> std::option::Option<&std::boxed::Box<crate::test::protos::message_with_complex_one_of::Inner>> {
         #[allow(unreachable_patterns)]
-        self.value.as_ref().and_then(|v| match v {
-            crate::test::protos::message_with_complex_one_of::Value::Inner(v) => std::option::Option::Some(v),
+        self.complex.as_ref().and_then(|v| match v {
+            crate::test::protos::message_with_complex_one_of::Complex::Inner(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
 
-    /// Sets the value of [value][crate::test::protos::MessageWithComplexOneOf::value]
+    /// Sets the value of [complex][crate::test::protos::MessageWithComplexOneOf::complex]
     /// to hold a `Inner`.
     ///
-    /// Note that all the setters affecting `value` are
+    /// Note that all the setters affecting `complex` are
     /// mutually exclusive.
     pub fn set_inner<T: std::convert::Into<std::boxed::Box<crate::test::protos::message_with_complex_one_of::Inner>>>(mut self, v: T) -> Self {
-        self.value = std::option::Option::Some(
-            crate::test::protos::message_with_complex_one_of::Value::Inner(
+        self.complex = std::option::Option::Some(
+            crate::test::protos::message_with_complex_one_of::Complex::Inner(
                 v.into()
             )
         );
         self
     }
 
-    /// The value of [value][crate::test::protos::MessageWithComplexOneOf::value]
+    /// The value of [complex][crate::test::protos::MessageWithComplexOneOf::complex]
     /// if it holds a `Duration`, `None` if the field is not set or
     /// holds a different branch.
     pub fn duration(&self) -> std::option::Option<&std::boxed::Box<wkt::Duration>> {
         #[allow(unreachable_patterns)]
-        self.value.as_ref().and_then(|v| match v {
-            crate::test::protos::message_with_complex_one_of::Value::Duration(v) => std::option::Option::Some(v),
+        self.complex.as_ref().and_then(|v| match v {
+            crate::test::protos::message_with_complex_one_of::Complex::Duration(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
 
-    /// Sets the value of [value][crate::test::protos::MessageWithComplexOneOf::value]
+    /// Sets the value of [complex][crate::test::protos::MessageWithComplexOneOf::complex]
     /// to hold a `Duration`.
     ///
-    /// Note that all the setters affecting `value` are
+    /// Note that all the setters affecting `complex` are
     /// mutually exclusive.
     pub fn set_duration<T: std::convert::Into<std::boxed::Box<wkt::Duration>>>(mut self, v: T) -> Self {
-        self.value = std::option::Option::Some(
-            crate::test::protos::message_with_complex_one_of::Value::Duration(
+        self.complex = std::option::Option::Some(
+            crate::test::protos::message_with_complex_one_of::Complex::Duration(
                 v.into()
             )
         );
@@ -1042,7 +1042,7 @@ pub mod message_with_complex_one_of {
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
-    pub enum Value {
+    pub enum Complex {
         Null(#[serde_as(as = "serde_with::DefaultOnNull<_>")]wkt::NullValue),
         BoolValue(#[serde_as(as = "serde_with::DefaultOnNull<_>")]bool),
         BytesValue(#[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]::bytes::Bytes),
