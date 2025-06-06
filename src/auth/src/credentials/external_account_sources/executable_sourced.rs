@@ -274,7 +274,11 @@ mod test {
     async fn read_token_command_timeout() -> TestResult {
         let _e = ScopedEnv::set(ALLOW_EXECUTABLE_ENV, "1");
 
-        let file_contents = "#!/bin/bash\nsleep 1s\n";
+        let file_contents = "#!/bin/bash\
+        while true\
+        do\
+            echo working\
+        done";
         let file = tempfile::NamedTempFile::new().unwrap();
         let path = file.into_temp_path();
         let mut perms = std::fs::metadata(&path)
