@@ -12,7 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::{Result, credentials::external_account::SubjectTokenProvider};
+use crate::{
+    Result,
+    constants::{ACCESS_TOKEN_TYPE, JWT_TOKEN_TYPE, SAML2_TOKEN_TYPE},
+    credentials::external_account::SubjectTokenProvider,
+};
 use gax::error::CredentialsError;
 use serde::{Deserialize, Serialize};
 use std::time::Duration;
@@ -34,8 +38,8 @@ pub(crate) struct ExecutableConfig {
 struct ExecutableResponse {
     version: i32,
     success: bool,
-    token_type: Option<String>,
-    expiration_time: Option<i64>,
+    token_type: String,
+    expiration_time: i64,
     id_token: Option<String>,
     saml_response: Option<String>,
     code: Option<String>,
@@ -127,7 +131,7 @@ impl ExecutableSourcedCredentials {
         }
 
         let subject_token = String::from_utf8(output.stdout)
-            .map_err(|e| CredentialsError::from_source(false, e))? // TODO: add more details and better handling
+            .map_err(|e| CredentialsError::from_source(false, e))?
             .to_string();
 
         Ok(subject_token)
@@ -136,39 +140,49 @@ impl ExecutableSourcedCredentials {
     fn split_command(command: String) -> (String, Vec<String>) {
         let mut parts = command.split_whitespace();
 
-        let command = parts.next().unwrap(); // TODO: remove unwrap
-        let args: Vec<String> = parts.map(String::from).collect();
+        if let Some(command) = parts.next() {
+            let args: Vec<String> = parts.map(String::from).collect();
+            return (command.to_string(), args);
+        }
 
-        (command.to_string(), args)
+        (command, vec![])
     }
 
     fn parse_token(output: String) -> Result<String> {
         let res = serde_json::from_str::<ExecutableResponse>(output.as_str())
-            .map_err(|e| CredentialsError::from_source(false, e))?; // TODO: Add details on expected format
+            .map_err(|e| CredentialsError::from_source(false, e))?;
 
         if !res.success {
             return Err(res.to_cred_error());
         }
 
-        if let Some(id_token) = res.id_token {
-            return Ok(id_token);
+        match res.token_type.as_str() {
+            JWT_TOKEN_TYPE | ACCESS_TOKEN_TYPE => match res.id_token {
+                Some(id_token) => Ok(id_token),
+                None => Err(CredentialsError::from_msg(
+                    false,
+                    "missing `id_token` field",
+                )),
+            },
+            SAML2_TOKEN_TYPE => match res.saml_response {
+                Some(saml_response) => Ok(saml_response),
+                None => Err(CredentialsError::from_msg(
+                    false,
+                    "missing `saml_response` field",
+                )),
+            },
+            _ => Err(CredentialsError::from_msg(
+                false,
+                "contains unsupported token type",
+            )),
         }
-
-        if let Some(saml_response) = res.saml_response {
-            return Ok(saml_response);
-        }
-
-        Err(CredentialsError::from_msg(
-            false,
-            "contains unsupported token type",
-        ))
     }
 }
 
 #[cfg(test)]
 mod test {
     use super::*;
-    use crate::credentials::internal::sts_exchange::JWT_TOKEN_TYPE;
+    use crate::constants::JWT_TOKEN_TYPE;
     use serde_json::json;
     use std::error::Error;
     use tokio::time::{Duration, Instant};
