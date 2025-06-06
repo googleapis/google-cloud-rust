@@ -93,7 +93,10 @@ mod test {
     fn test_map() -> Result {
         let input = json!({"map": { "favorite": "RED", "not-so-much": "GREEN"}});
         let got = serde_json::from_value::<MessageWithEnum>(input.clone())?;
-        let want = MessageWithEnum::new().set_map([("favorite", TestEnum::Red), ("not-so-much", TestEnum::Green)]);
+        let want = MessageWithEnum::new().set_map([
+            ("favorite", TestEnum::Red),
+            ("not-so-much", TestEnum::Green),
+        ]);
         assert_eq!(want, got);
         let roundtrip = serde_json::from_value(serde_json::to_value(&got)?)?;
         assert_eq!(got, roundtrip);
