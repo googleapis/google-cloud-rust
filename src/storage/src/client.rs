@@ -563,50 +563,67 @@ impl ReadObject {
 }
 
 #[derive(Debug)]
-/// KeyAes256 is the encryption key used with the Customer-Supplied Encryption Keys
-/// feature. In raw bytes format (not base64-encoded).
+/// KeyAes256 represents an AES-256 encryption key used with the
+/// Customer-Supplied Encryption Keys (CSEK) feature.
 ///
-/// Example:
+/// This key must be exactly 32 bytes in length and should be provided in its
+/// raw (unencoded) byte format.
+///
+/// # Examples
+///
+/// Creating a `KeyAes256` instance from a valid byte slice:
 /// ```
-/// # use google_cloud_storage::client::KeyAes256;
-/// let key: &[u8] = &[b'a'; 32];
-/// let key = KeyAes256::try_from(key);
+/// # use google_cloud_storage::client::{KeyAes256, KeyAes256Error};
+/// let raw_key_bytes: [u8; 32] = [0x42; 32]; // Example 32-byte key
+/// let key_aes_256 = KeyAes256::try_from(&raw_key_bytes)?;
+/// # Ok::<(), KeyAes256Error>(())
+/// ```
+///
+/// Handling an error for an invalid key length:
+/// ```
+/// # use google_cloud_storage::client::{KeyAes256, KeyAes256Error};
+/// let invalid_key_bytes: &[u8] = b"too_short_key"; // Less than 32 bytes
+/// let result = KeyAes256::try_from(invalid_key_bytes);
+///
+/// assert!(matches!(result, Err(KeyAes256Error::InvalidLength)));
 /// ```
 pub struct KeyAes256 {
     key: [u8; 32],
 }
 
-/// Represent failures in converting or creating [KeyAes256] instances.
+/// Represents errors that can occur when converting to [`KeyAes256`] instances.
 ///
-/// # Examples
+/// # Example:
 /// ```
 /// # use google_cloud_storage::client::{KeyAes256, KeyAes256Error};
-/// let key: &[u8] = &Vec::new();
-/// let key_aes_256 = KeyAes256::try_from(&key);
-/// assert!(matches!(key_aes_256, Err(KeyAes256Error::OutOfRange)));
+/// let invalid_key_bytes: &[u8] = b"too_short_key"; // Less than 32 bytes
+/// let result = KeyAes256::try_from(invalid_key_bytes);
+///
+/// assert!(matches!(result, Err(KeyAes256Error::InvalidLength)));
 /// ```
 #[derive(thiserror::Error, Debug)]
 #[non_exhaustive]
 pub enum KeyAes256Error {
-    /// The key was the wrong length of bytes.
-    #[error("key is not 32 bytes long")]
-    OutOfRange,
+    /// The provided key's length was not exactly 32 bytes.
+    #[error("Key has an invalid length: expected 32 bytes.")]
+    InvalidLength,
 }
 
 impl KeyAes256 {
-    /// Convert from &[u8] to [KeyAes256].
+    /// Attempts to convert from `&[u8]` to [KeyAes256].
     ///
-    /// Returns an error if `key` is not 32 bytes long.
+    /// This conversion will succeed only if the input slice is exactly 32 bytes long.
     ///
     /// # Example
     /// ```
     /// # use google_cloud_storage::client::{KeyAes256, KeyAes256Error};
-    /// let key: &[u8] = &[b'a'; 32];
-    /// let d = KeyAes256::try_from(key)?;
+    /// let raw_key_bytes: [u8; 32] = [0x42; 32]; // Example 32-byte key
+    /// let key_aes_256 = KeyAes256::try_from(&raw_key_bytes)?;
     /// # Ok::<(), KeyAes256Error>(())
+    /// ```
     pub fn try_from(key: &[u8]) -> std::result::Result<Self, KeyAes256Error> {
         if key.len() != 32 {
-            return Err(KeyAes256Error::OutOfRange);
+            return Err(KeyAes256Error::InvalidLength);
         }
         Ok(Self {
             key: key[..32].try_into().expect("slice length already checked"),
