@@ -4133,6 +4133,7 @@ dependencies = [
  "serde_with",
  "sha2",
  "test-case",
+ "thiserror",
  "tokio",
  "tokio-test",
  "tracing",
