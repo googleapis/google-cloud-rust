@@ -14,10 +14,24 @@
 
 #[cfg(test)]
 mod test {
-    use common::{MessageWithEnum, message_with_enum::TestEnum};
+    use common::{__MessageWithEnum, MessageWithEnum, message_with_enum::TestEnum};
     use serde_json::{Value, json};
     use test_case::test_case;
     type Result = anyhow::Result<()>;
+
+    #[test_case(MessageWithEnum::new(), json!({}))]
+    fn test_ser(input: MessageWithEnum, want: Value) -> Result {
+        let got = serde_json::to_value(__MessageWithEnum(input))?;
+        assert_eq!(got, want);
+        Ok(())
+    }
+
+    #[test_case(MessageWithEnum::new(), json!({}))]
+    fn test_de(want: MessageWithEnum, input: Value) -> Result {
+        let got = serde_json::from_value::<__MessageWithEnum>(input)?;
+        assert_eq!(got.0, want);
+        Ok(())
+    }
 
     #[test_case(json!({"singular": "RED"}), TestEnum::Red)]
     #[test_case(json!({"singular": 1}), TestEnum::Red)]

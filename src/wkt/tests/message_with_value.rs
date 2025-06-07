@@ -14,11 +14,25 @@
 
 #[cfg(test)]
 mod test {
-    use common::MessageWithValue;
+    use common::{__MessageWithValue, MessageWithValue};
     use google_cloud_wkt::Value;
     use serde_json::json;
     use test_case::test_case;
     type Result = anyhow::Result<()>;
+
+    #[test_case(MessageWithValue::new(), json!({}))]
+    fn test_ser(input: MessageWithValue, want: Value) -> Result {
+        let got = serde_json::to_value(__MessageWithValue(input))?;
+        assert_eq!(got, want);
+        Ok(())
+    }
+
+    #[test_case(MessageWithValue::new(), json!({}))]
+    fn test_de(want: MessageWithValue, input: Value) -> Result {
+        let got = serde_json::from_value::<__MessageWithValue>(input)?;
+        assert_eq!(got.0, want);
+        Ok(())
+    }
 
     #[test_case(json!({"singular": null}), Value::Null)]
     #[test_case(json!({"singular": "abc"}), json!("abc"))]

@@ -14,10 +14,24 @@
 
 #[cfg(test)]
 mod test {
-    use common::MessageWithU32;
+    use common::{__MessageWithU32, MessageWithU32};
     use serde_json::{Value, json};
     use test_case::test_case;
     type Result = anyhow::Result<()>;
+
+    #[test_case(MessageWithU32::new(), json!({}))]
+    fn test_ser(input: MessageWithU32, want: Value) -> Result {
+        let got = serde_json::to_value(__MessageWithU32(input))?;
+        assert_eq!(got, want);
+        Ok(())
+    }
+
+    #[test_case(MessageWithU32::new(), json!({}))]
+    fn test_de(want: MessageWithU32, input: Value) -> Result {
+        let got = serde_json::from_value::<__MessageWithU32>(input)?;
+        assert_eq!(got.0, want);
+        Ok(())
+    }
 
     #[test_case(123, 123)]
     #[test_case("345", 345)]

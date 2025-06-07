@@ -14,9 +14,24 @@
 
 #[cfg(test)]
 mod test {
-    use common::MessageWithBytes;
-    use serde_json::json;
+    use common::{__MessageWithBytes, MessageWithBytes};
+    use serde_json::{Value, json};
+    use test_case::test_case;
     type Result = anyhow::Result<()>;
+
+    #[test_case(MessageWithBytes::new(), json!({}))]
+    fn test_ser(input: MessageWithBytes, want: Value) -> Result {
+        let got = serde_json::to_value(__MessageWithBytes(input))?;
+        assert_eq!(got, want);
+        Ok(())
+    }
+
+    #[test_case(MessageWithBytes::new(), json!({}))]
+    fn test_de(want: MessageWithBytes, input: Value) -> Result {
+        let got = serde_json::from_value::<__MessageWithBytes>(input)?;
+        assert_eq!(got.0, want);
+        Ok(())
+    }
 
     #[test]
     fn test_serialize_singular() -> Result {

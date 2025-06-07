@@ -14,10 +14,24 @@
 
 #[cfg(test)]
 mod test {
-    use common::MessageWithI64;
+    use common::{__MessageWithI64, MessageWithI64};
     use serde_json::{Value, json};
     use test_case::test_case;
     type Result = anyhow::Result<()>;
+
+    #[test_case(MessageWithI64::new(), json!({}))]
+    fn test_ser(input: MessageWithI64, want: Value) -> Result {
+        let got = serde_json::to_value(__MessageWithI64(input))?;
+        assert_eq!(got, want);
+        Ok(())
+    }
+
+    #[test_case(MessageWithI64::new(), json!({}))]
+    fn test_de(want: MessageWithI64, input: Value) -> Result {
+        let got = serde_json::from_value::<__MessageWithI64>(input)?;
+        assert_eq!(got.0, want);
+        Ok(())
+    }
 
     #[test_case(123, 123)]
     #[test_case(-234, -234)]
