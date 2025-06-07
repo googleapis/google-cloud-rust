@@ -146,6 +146,8 @@ type messageAnnotation struct {
 	// If set, this message is only enabled when some features are enabled.
 	FeatureGates   []string
 	FeatureGatesOp string
+	// If true, enable test types for generated serde serialization
+	WithGeneratedSerde bool
 }
 
 type methodAnnotation struct {
@@ -534,6 +536,7 @@ func (c *codec) annotateMessage(m *api.Message, state *api.APIState, sourceSpeci
 		HasNestedTypes:     language.HasNestedTypes(m),
 		BasicFields:        basicFields,
 		HasSyntheticFields: hasSyntheticFields,
+		WithGeneratedSerde: c.withGeneratedSerde,
 	}
 }
 
