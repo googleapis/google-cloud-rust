@@ -250,6 +250,19 @@ impl gax::paginator::internal::PageableResponse for {{Codec.Name}} {
     {{/NextPageToken}}
 }
 {{/Pagination}}
+{{#Codec.WithGeneratedSerde}}
+
+{{!
+    We will grow this code over multiple PRs to complete the serialization and
+    deserialization of message types via code generation.
+
+    TODO(#2376) - remove the helper type and all the serde annotations once
+    this is functional.
+}}
+#[doc(hidden)]
+#[derive(Clone, Debug, PartialEq)]
+pub struct __{{Codec.Name}}(pub {{Codec.Name}});
+{{/Codec.WithGeneratedSerde}}
 {{#Codec.HasNestedTypes}}
 
 /// Defines additional types related to [{{Name}}].
