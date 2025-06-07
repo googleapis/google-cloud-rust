@@ -136,6 +136,12 @@ func newCodec(protobufSource bool, options map[string]string) (*codec, error) {
 				return nil, fmt.Errorf("cannot convert `has-veneer` value %q to boolean: %w", definition, err)
 			}
 			codec.hasVeneer = value
+		case key == "with-generated-serde":
+			value, err := strconv.ParseBool(definition)
+			if err != nil {
+				return nil, fmt.Errorf("cannot convert `with-generated-serde` value %q to boolean: %w", definition, err)
+			}
+			codec.withGeneratedSerde = value
 		default:
 			return nil, fmt.Errorf("unknown Rust codec option %q", key)
 		}
@@ -248,6 +254,8 @@ type codec struct {
 	perServiceFeatures bool
 	// If true, there is a handwritten client surface.
 	hasVeneer bool
+	// If true, enable helper types for generated serde serialization
+	withGeneratedSerde bool
 }
 
 type systemParameter struct {
