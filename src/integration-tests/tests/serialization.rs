@@ -17,6 +17,23 @@
 #[cfg(test)]
 mod serialization {
     use anyhow::Result;
+    use serde_json::json;
+
+    // The generator introduces synthetic fields for some OpenAPI-based
+    // services. Those are skipped during serialization, we need a test to
+    // verify this is the case.
+    #[test]
+    fn skip_synthetic_fields() -> Result<()> {
+        use smo::model::{CreateSecretRequest, Secret};
+        let input = CreateSecretRequest::new()
+            .set_project("a-synthetic-field")
+            .set_secret_id("another-synthetic-field")
+            .set_request_body(Secret::new().set_labels([("test-name", "test-value")]));
+        let got = serde_json::to_value(input)?;
+        let want = json!({"requestBody": {"labels": {"test-name": "test-value"}}});
+        assert_eq!(got, want);
+        Ok(())
+    }
 
     #[test]
     fn multiple_serde_attributes() -> Result<()> {
