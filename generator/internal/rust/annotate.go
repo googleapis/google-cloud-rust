@@ -263,6 +263,16 @@ type fieldAnnotations struct {
 	ValueField *api.Field
 	// The templates need to generate different code for boxed fields.
 	IsBoxed bool
+	// If true, it requires a serde_with::serde_as() transformation.
+	RequiresSerdeAs bool
+}
+
+func (a *fieldAnnotations) SkipIfIsEmpty() bool {
+	return a.PrimitiveFieldType == "std::string::String"
+}
+
+func (a *fieldAnnotations) SkipIfIsDefault() bool {
+	return a.PrimitiveFieldType != "std::string::String"
 }
 
 type enumAnnotation struct {
@@ -694,6 +704,12 @@ func (c *codec) annotateField(field *api.Field, message *api.Message, state *api
 	}
 	if field.Recursive || (field.Typez == api.MESSAGE_TYPE && field.IsOneOf) {
 		ann.IsBoxed = true
+	}
+	switch field.Typez {
+	case api.STRING_TYPE | api.BOOL_TYPE | api.ENUM_TYPE:
+		ann.RequiresSerdeAs = false
+	default:
+		ann.RequiresSerdeAs = true
 	}
 	field.Codec = ann
 	if field.Typez != api.MESSAGE_TYPE {

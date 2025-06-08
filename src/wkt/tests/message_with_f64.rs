@@ -32,6 +32,14 @@ mod test {
         assert_eq!(got.0, want);
         Ok(())
     }
+    #[test_case(json!({"unknown": "test-value"}))]
+    #[test_case(json!({"unknown": "test-value", "moreUnknown": {"a": 1, "b": 2}}))]
+    fn test_unknown(input: Value) -> Result {
+        let deser = serde_json::from_value::<__MessageWithF64>(input.clone())?;
+        let got = serde_json::to_value(deser)?;
+        assert_eq!(got, input);
+        Ok(())
+    }
 
     #[test_case(9876.5, 9876.5)]
     #[test_case(f64::INFINITY, "Infinity")]

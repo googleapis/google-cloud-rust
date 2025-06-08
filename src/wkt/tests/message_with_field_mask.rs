@@ -33,6 +33,14 @@ mod test {
         assert_eq!(got.0, want);
         Ok(())
     }
+    #[test_case(json!({"unknown": "test-value"}))]
+    #[test_case(json!({"unknown": "test-value", "moreUnknown": {"a": 1, "b": 2}}))]
+    fn test_unknown(input: Value) -> Result {
+        let deser = serde_json::from_value::<__MessageWithFieldMask>(input.clone())?;
+        let got = serde_json::to_value(deser)?;
+        assert_eq!(got, input);
+        Ok(())
+    }
 
     #[test_case(json!({"singular": ""}), FieldMask::default())]
     #[test_case(json!({"singular": "a,b,c"}), FieldMask::default().set_paths(["a", "b", "c"]))]
