@@ -706,7 +706,7 @@ func (c *codec) annotateField(field *api.Field, message *api.Message, state *api
 		ann.IsBoxed = true
 	}
 	switch field.Typez {
-	case api.STRING_TYPE | api.BOOL_TYPE | api.ENUM_TYPE:
+	case api.STRING_TYPE, api.BOOL_TYPE, api.ENUM_TYPE:
 		ann.RequiresSerdeAs = false
 	default:
 		ann.RequiresSerdeAs = true

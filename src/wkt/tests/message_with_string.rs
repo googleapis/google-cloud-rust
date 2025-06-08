@@ -20,6 +20,13 @@ mod test {
     type Result = anyhow::Result<()>;
 
     #[test_case(MessageWithString::new(), json!({}))]
+    #[test_case(MessageWithString::new().set_singular(""), json!({}))]
+    #[test_case(MessageWithString::new().set_singular("abc"), json!({"singular": "abc"}))]
+    #[test_case(MessageWithString::new().set_optional(""), json!({"optional": ""}))]
+    #[test_case(MessageWithString::new().set_optional("abc"), json!({"optional": "abc"}))]
+    #[test_case(MessageWithString::new().set_optional("abc").set_or_clear_optional(None::<String>), json!({}))]
+    #[test_case(MessageWithString::new().set_repeated(["";0]), json!({}))]
+    #[test_case(MessageWithString::new().set_repeated(["a", "b", "c"]), json!({"repeated": ["a", "b", "c"]}))]
     fn test_ser(input: MessageWithString, want: Value) -> Result {
         let got = serde_json::to_value(__MessageWithString(input))?;
         assert_eq!(got, want);
@@ -27,6 +34,13 @@ mod test {
     }
 
     #[test_case(MessageWithString::new(), json!({}))]
+    #[test_case(MessageWithString::new().set_singular(""), json!({}))]
+    #[test_case(MessageWithString::new().set_singular("abc"), json!({"singular": "abc"}))]
+    #[test_case(MessageWithString::new().set_optional(""), json!({"optional": ""}))]
+    #[test_case(MessageWithString::new().set_optional("abc"), json!({"optional": "abc"}))]
+    #[test_case(MessageWithString::new().set_optional("abc").set_or_clear_optional(None::<String>), json!({}))]
+    #[test_case(MessageWithString::new().set_repeated(["";0]), json!({}))]
+    #[test_case(MessageWithString::new().set_repeated(["a", "b", "c"]), json!({"repeated": ["a", "b", "c"]}))]
     fn test_de(want: MessageWithString, input: Value) -> Result {
         let got = serde_json::from_value::<__MessageWithString>(input)?;
         assert_eq!(got.0, want);
