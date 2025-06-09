@@ -201,11 +201,13 @@ mod test {
     use crate::constants::JWT_TOKEN_TYPE;
     use scoped_env::ScopedEnv;
     use serde_json::json;
+    use serial_test::{parallel, serial};
     use tokio::time::{Duration, Instant};
 
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
 
     #[tokio::test]
+    #[serial]
     async fn read_token_from_command() -> TestResult {
         let _e = ScopedEnv::set(ALLOW_EXECUTABLE_ENV, "1");
         let expiration = (Instant::now() + Duration::from_secs(3600))
@@ -237,8 +239,8 @@ mod test {
     }
 
     #[tokio::test]
+    #[serial]
     async fn read_token_from_output_file() -> TestResult {
-        let _e = ScopedEnv::set(ALLOW_EXECUTABLE_ENV, "1");
         let expiration = (Instant::now() + Duration::from_secs(3600))
             .elapsed()
             .as_millis();
@@ -269,6 +271,7 @@ mod test {
 
     #[cfg(not(target_os = "windows"))]
     #[tokio::test]
+    #[serial]
     async fn read_token_command_timeout() -> TestResult {
         use std::error::Error;
         use std::os::unix::fs::PermissionsExt;
