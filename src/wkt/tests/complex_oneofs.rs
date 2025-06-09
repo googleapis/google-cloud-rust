@@ -15,13 +15,40 @@
 #[cfg(test)]
 mod test {
     use common::{
-        MessageWithComplexOneOf,
+        __MessageWithComplexOneOf, MessageWithComplexOneOf,
         message_with_complex_one_of::{Inner, TestEnum},
     };
     use google_cloud_wkt as wkt;
     use serde_json::{Value, json};
     use test_case::test_case;
+    use wkt::Duration;
     type Result = anyhow::Result<()>;
+
+    #[test_case(MessageWithComplexOneOf::new(), json!({}))]
+    #[test_case(MessageWithComplexOneOf::new().set_null(wkt::NullValue), json!({"null": null}))]
+    #[test_case(MessageWithComplexOneOf::new().set_bool_value(false), json!({"boolValue": false}))]
+    #[test_case(MessageWithComplexOneOf::new().set_string_value(""), json!({"stringValue": ""}))]
+    #[test_case(MessageWithComplexOneOf::new().set_enum(TestEnum::default()), json!({"enum": 0}))]
+    #[test_case(MessageWithComplexOneOf::new().set_inner(Inner::default().set_strings(["a", "b"])), json!({"inner": {"strings": ["a", "b"]}}))]
+    #[test_case(MessageWithComplexOneOf::new().set_duration(Duration::clamp(-1, -750_000_000)), json!({"duration": "-1.75s"}))]
+    fn test_ser(input: MessageWithComplexOneOf, want: Value) -> Result {
+        let got = serde_json::to_value(__MessageWithComplexOneOf(input))?;
+        assert_eq!(got, want);
+        Ok(())
+    }
+
+    #[test_case(MessageWithComplexOneOf::new(), json!({}))]
+    #[test_case(MessageWithComplexOneOf::new().set_null(wkt::NullValue), json!({"null": null}))]
+    #[test_case(MessageWithComplexOneOf::new().set_bool_value(false), json!({"boolValue": false}))]
+    #[test_case(MessageWithComplexOneOf::new().set_string_value(""), json!({"stringValue": ""}))]
+    #[test_case(MessageWithComplexOneOf::new().set_enum(TestEnum::default()), json!({"enum": 0}))]
+    #[test_case(MessageWithComplexOneOf::new().set_inner(Inner::default().set_strings(["a", "b"])), json!({"inner": {"strings": ["a", "b"]}}))]
+    #[test_case(MessageWithComplexOneOf::new().set_duration(Duration::clamp(-1, -750_000_000)), json!({"duration": "-1.75s"}))]
+    fn test_de(want: MessageWithComplexOneOf, input: Value) -> Result {
+        let got = serde_json::from_value::<__MessageWithComplexOneOf>(input)?;
+        assert_eq!(got.0, want);
+        Ok(())
+    }
 
     #[test_case(json!({}))]
     fn test_default(input: Value) -> Result {

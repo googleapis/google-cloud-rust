@@ -27,6 +27,15 @@ mod test {
     type Result = anyhow::Result<()>;
 
     #[test_case(MessageWithOneOf::new(), json!({}))]
+    #[test_case(MessageWithOneOf::new().set_string_contents(""), json!({"stringContents": ""}))]
+    #[test_case(MessageWithOneOf::new().set_string_contents("abc"), json!({"stringContents": "abc"}))]
+    #[test_case(MessageWithOneOf::new().set_string_contents_one("abc"), json!({"stringContentsOne": "abc"}))]
+    #[test_case(MessageWithOneOf::new().set_string_contents_two("abc"), json!({"stringContentsTwo": "abc"}))]
+    #[test_case(MessageWithOneOf::new().set_message_value(Message::new()), json!({"messageValue": {}}))]
+    #[test_case(MessageWithOneOf::new().set_another_message(Message::new()), json!({"anotherMessage": {}}))]
+    #[test_case(MessageWithOneOf::new().set_string(""), json!({"string": ""}))]
+    #[test_case(MessageWithOneOf::new().set_string("abc"), json!({"string": "abc"}))]
+    #[test_case(MessageWithOneOf::new().set_duration(Duration::clamp(1, 500_000_000)), json!({"duration": "1.5s"}))]
     fn test_ser(input: MessageWithOneOf, want: Value) -> Result {
         let got = serde_json::to_value(__MessageWithOneOf(input))?;
         assert_eq!(got, want);
@@ -34,9 +43,29 @@ mod test {
     }
 
     #[test_case(MessageWithOneOf::new(), json!({}))]
+    #[test_case(MessageWithOneOf::new().set_string_contents(""), json!({"stringContents": ""}))]
+    #[test_case(MessageWithOneOf::new().set_string_contents("abc"), json!({"stringContents": "abc"}))]
+    #[test_case(MessageWithOneOf::new().set_string_contents_one("abc"), json!({"stringContentsOne": "abc"}))]
+    #[test_case(MessageWithOneOf::new().set_string_contents_two("abc"), json!({"stringContentsTwo": "abc"}))]
+    #[test_case(MessageWithOneOf::new().set_message_value(Message::new()), json!({"messageValue": {}}))]
+    #[test_case(MessageWithOneOf::new().set_another_message(Message::new()), json!({"anotherMessage": {}}))]
+    #[test_case(MessageWithOneOf::new().set_string(""), json!({"string": ""}))]
+    #[test_case(MessageWithOneOf::new().set_string("abc"), json!({"string": "abc"}))]
+    #[test_case(MessageWithOneOf::new().set_duration(Duration::clamp(1, 500_000_000)), json!({"duration": "1.5s"}))]
     fn test_de(want: MessageWithOneOf, input: Value) -> Result {
         let got = serde_json::from_value::<__MessageWithOneOf>(input)?;
         assert_eq!(got.0, want);
+        Ok(())
+    }
+
+    #[test_case(json!({"stringContentsOne": "abc", "stringContentsTwo": "cde"}))]
+    #[test_case(json!({"stringContentsTwo": "abc", "stringContentsOne": "cde"}))]
+    #[test_case(json!({"anotherMessage": {}, "string": "cde"}))]
+    #[test_case(json!({"anotherMessage": {}, "duration": "1.5s"}))]
+    #[test_case(json!({"string": "", "duration": "1.5s"}))]
+    fn test_dup_field_errors(input: Value) -> Result {
+        let got = serde_json::from_value::<__MessageWithOneOf>(input).unwrap_err();
+        assert!(got.is_data(), "{got:?}");
         Ok(())
     }
 

@@ -279,6 +279,8 @@ impl<'de> serde::de::Deserialize<'de> for __{{Codec.Name}} {
             where
                 A: serde::de::MapAccess<'de>,
             {
+                #[allow(unused_imports)]
+                use serde::de::Error;
                 let mut result = Self::Value::new();
                 while let Some(key) = map.next_key::<String>()? {
                     #[allow(clippy::match_single_binding)]

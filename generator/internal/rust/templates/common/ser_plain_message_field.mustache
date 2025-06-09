@@ -35,6 +35,11 @@ if !wkt::internal::is_default(&self.0.{{Codec.FieldName}}) {
 {{/Codec.SkipIfIsDefault}}
 {{/Optional}}
 {{/IsOneOf}}
+{{#IsOneOf}}
+if let Some(value) = self.0.{{Codec.FieldName}}() {
+    state.serialize_entry("{{JSONName}}", value)?;
+}
+{{/IsOneOf}}
 {{/Singular}}
 {{! repeated and map fields are never part of a oneof }}
 {{#Repeated}}
