@@ -513,7 +513,6 @@ impl ReadObject {
     /// println!("response details={response:?}");
     /// # Ok::<(), anyhow::Error>(()) });
     /// ```
-
     pub fn with_read_offset<T>(mut self, v: T) -> Self
     where
         T: Into<i64>,
@@ -669,6 +668,7 @@ impl ReadObject {
             self.request.common_object_request_params,
         );
 
+        // Apply "range" header for read limits and offsets.
         let builder = {
             match (self.request.read_offset, self.request.read_limit) {
                 (_, limit) if limit < 0 => {
@@ -686,7 +686,6 @@ impl ReadObject {
                 (offset, 0) => {
                     // read_limit is zero, means no limit. Read from offset to end of file.
                     // This handles cases like (5, 0) -> "bytes=5-"
-
                     Ok(builder.header("range", format!("bytes={}-", offset)))
                 }
                 (offset, limit) => {
@@ -1136,7 +1135,7 @@ mod tests {
     #[test_case(0, -100, RangeError::NegativeLimit; "negative limit")]
     #[test_case(-100, 100, RangeError::NegativeOffsetWithLimit; "negative offset with positive limit")]
     #[tokio::test]
-    async fn test_range_headers_error(offset: i64, limit: i64, want_err: RangeError) -> Result {
+    async fn test_range_header_error(offset: i64, limit: i64, want_err: RangeError) -> Result {
         let client = Storage::builder()
             .with_credentials(auth::credentials::testing::test_credentials())
             .build()
