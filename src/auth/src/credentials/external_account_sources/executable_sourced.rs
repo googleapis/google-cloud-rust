@@ -74,7 +74,7 @@ impl ExecutableResponse {
 
 const MSG: &str = "failed to read subject token";
 // default timeout is defined by AIP-4117
-const DEFAULT_TIMEOUT_SECS: u32 = 30;
+const DEFAULT_TIMEOUT_SECS: Duration = Duration::from_secs(30);
 const ALLOW_EXECUTABLE_ENV: &str = "GOOGLE_EXTERNAL_ACCOUNT_ALLOW_EXECUTABLES";
 
 #[async_trait::async_trait]
@@ -92,7 +92,7 @@ impl SubjectTokenProvider for ExecutableSourcedCredentials {
             } => {
                 let timeout = match timeout_millis {
                     Some(timeout) => Duration::from_millis(timeout.into()),
-                    None => Duration::from_secs(DEFAULT_TIMEOUT_SECS.into()),
+                    None => DEFAULT_TIMEOUT_SECS,
                 };
                 Self::from_command(command, timeout).await
             }
