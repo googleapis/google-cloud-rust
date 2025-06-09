@@ -162,13 +162,12 @@ impl ExecutableSourcedCredentials {
 
     fn split_command(command: String) -> (String, Vec<String>) {
         let mut parts = command.split_whitespace();
+        let Some(cmd) = parts.next() else {
+            return (command, vec![]);
+        };
+        let args: Vec<String> = parts.map(String::from).collect();
 
-        if let Some(command) = parts.next() {
-            let args: Vec<String> = parts.map(String::from).collect();
-            return (command.to_string(), args);
-        }
-
-        (command, vec![])
+        (cmd.to_string(), args)
     }
 
     fn parse_token(output: String) -> Result<String> {
@@ -211,7 +210,7 @@ mod test {
     use serial_test::serial;
     use tokio::time::{Duration, Instant};
 
-    type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
+    type TestResult = anyhow::Result<(), Box<dyn std::error::Error>>;
 
     #[tokio::test]
     #[serial]
