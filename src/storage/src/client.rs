@@ -12,8 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use std::collections::btree_map::Range;
-
 pub use crate::Error;
 pub use crate::Result;
 use auth::credentials::CacheableResource;
