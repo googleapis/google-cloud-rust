@@ -19,7 +19,7 @@ use crate::{
 };
 use gax::error::CredentialsError;
 use serde::{Deserialize, Serialize};
-use std::time::Duration;
+use std::time::{Duration, SystemTime, UNIX_EPOCH};
 use tokio::{process::Command, time::timeout as tokio_timeout};
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
@@ -29,7 +29,7 @@ pub(crate) struct ExecutableSourcedCredentials {
 
 #[derive(Serialize, Deserialize, Debug, Clone, Default)]
 pub(crate) struct ExecutableConfig {
-    pub command: Option<String>,
+    pub command: String,
     pub timeout_millis: Option<u32>,
     pub output_file: Option<String>,
 }
@@ -58,8 +58,9 @@ impl ExecutableResponse {
                 code: Some(code),
                 ..
             } => {
-                let msg =
-                    format!("{MSG}, response contains unsuccessful response: ({code}) {message}");
+                let msg = format!(
+                    "{MSG}, response contains unsuccessful response, code=<{code}>, message=<{message}>"
+                );
                 CredentialsError::from_msg(false, msg)
             }
             _ => {
@@ -80,37 +81,23 @@ const ALLOW_EXECUTABLE_ENV: &str = "GOOGLE_EXTERNAL_ACCOUNT_ALLOW_EXECUTABLES";
 #[async_trait::async_trait]
 impl SubjectTokenProvider for ExecutableSourcedCredentials {
     async fn subject_token(&self) -> Result<String> {
-        let output = match self.executable.clone() {
-            ExecutableConfig {
-                output_file: Some(output_file),
-                ..
-            } => Self::from_output_file(output_file).await,
-            ExecutableConfig {
-                command: Some(command),
-                timeout_millis,
-                ..
-            } => {
-                let timeout = match timeout_millis {
-                    Some(timeout) => Duration::from_millis(timeout.into()),
-                    None => DEFAULT_TIMEOUT_SECS,
-                };
-                Self::from_command(command, timeout).await
+        if let Some(output_file) = self.executable.output_file.clone() {
+            let token = Self::from_output_file(output_file).await;
+            if token.is_ok() {
+                return token;
             }
-            _ => Err(CredentialsError::from_msg(
-                false,
-                format!("{MSG}, either `output_file` or `command` needs to be informed"),
-            )),
-        }?;
-
-        let output = output.trim().to_string();
-        let subject_token = Self::parse_token(output)?;
-
-        if subject_token.is_empty() {
+        }
+        let timeout = match self.executable.timeout_millis {
+            Some(timeout) => Duration::from_millis(timeout.into()),
+            None => DEFAULT_TIMEOUT_SECS,
+        };
+        let token = Self::from_command(self.executable.command.clone(), timeout).await?;
+        if token.is_empty() {
             let msg = format!("{MSG}, subject token is empty");
             return Err(CredentialsError::from_msg(false, msg));
         }
 
-        Ok(subject_token)
+        Ok(token)
     }
 }
 
@@ -118,7 +105,8 @@ impl ExecutableSourcedCredentials {
     async fn from_output_file(output_file: String) -> Result<String> {
         let content = std::fs::read_to_string(output_file)
             .map_err(|e| CredentialsError::from_source(false, e))?;
-        Ok(content)
+
+        Self::parse_token(content)
     }
 
     /// See details on security reason on [executable sourced credentials].
@@ -153,11 +141,11 @@ impl ExecutableSourcedCredentials {
             return Err(CredentialsError::from_msg(true, msg));
         }
 
-        let subject_token = String::from_utf8(output.stdout)
+        let output = String::from_utf8(output.stdout)
             .map_err(|e| CredentialsError::from_source(true, e))?
             .to_string();
 
-        Ok(subject_token)
+        Self::parse_token(output)
     }
 
     fn split_command(command: String) -> (String, Vec<String>) {
@@ -176,6 +164,17 @@ impl ExecutableSourcedCredentials {
 
         if !res.success {
             return Err(res.to_cred_error());
+        }
+
+        let now = SystemTime::now()
+            .duration_since(UNIX_EPOCH)
+            .map_err(|e| CredentialsError::from_source(false, e))?
+            .as_millis() as i64;
+        if res.expiration_time < now {
+            return Err(CredentialsError::from_msg(
+                true,
+                "the token returned by the executable is expired",
+            ));
         }
 
         match res.token_type.as_str() {
@@ -209,6 +208,7 @@ mod test {
     use serde_json::json;
     use serial_test::serial;
     use std::time::{Duration, SystemTime, UNIX_EPOCH};
+    use test_case::test_case;
 
     type TestResult = anyhow::Result<(), Box<dyn std::error::Error>>;
 
@@ -233,7 +233,7 @@ mod test {
 
         let token_provider = ExecutableSourcedCredentials {
             executable: ExecutableConfig {
-                command: Some(format!("cat {}", path.to_str().unwrap())),
+                command: format!("cat {}", path.to_str().unwrap()),
                 ..ExecutableConfig::default()
             },
         };
@@ -246,7 +246,7 @@ mod test {
 
     #[tokio::test]
     #[serial]
-    async fn read_token_from_output_file() -> TestResult {
+    async fn read_valid_token_from_output_file() -> TestResult {
         let expiration = SystemTime::now().duration_since(UNIX_EPOCH)?;
         let expiration = expiration + Duration::from_secs(3600);
         let expiration = expiration.as_millis();
@@ -265,12 +265,119 @@ mod test {
         let token_provider = ExecutableSourcedCredentials {
             executable: ExecutableConfig {
                 output_file: Some(path.to_str().unwrap().into()),
+                command: "do nothing".to_string(),
                 ..ExecutableConfig::default()
             },
         };
         let resp = token_provider.subject_token().await?;
 
         assert_eq!(resp, "an_example_token".to_string());
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    #[serial]
+    async fn fallback_to_command_invalid_token_from_output_file() -> TestResult {
+        let _e = ScopedEnv::set(ALLOW_EXECUTABLE_ENV, "1");
+        let invalid_input = json!({
+            "success": false,
+            "version": 1,
+            "expiration_time": 0,
+            "token_type": JWT_TOKEN_TYPE,
+            "id_token":"failed exec",
+        })
+        .to_string();
+        let invalid_file = tempfile::NamedTempFile::new().unwrap();
+        let invalid_path = invalid_file.into_temp_path();
+        std::fs::write(&invalid_path, invalid_input)
+            .expect("Unable to write to temp file with command");
+
+        let now = SystemTime::now().duration_since(UNIX_EPOCH)?;
+        let valid_expiration = now + Duration::from_secs(3600);
+        let valid_expiration = valid_expiration.as_millis();
+        let valid_json_response = json!({
+            "success": true,
+            "version": 1,
+            "expiration_time": valid_expiration,
+            "token_type": JWT_TOKEN_TYPE,
+            "id_token":"a_valid_token",
+        })
+        .to_string();
+        let valid_file = tempfile::NamedTempFile::new().unwrap();
+        let valid_path = valid_file.into_temp_path();
+        std::fs::write(&valid_path, valid_json_response)
+            .expect("Unable to write to temp file with command");
+
+        let token_provider = ExecutableSourcedCredentials {
+            executable: ExecutableConfig {
+                output_file: Some(invalid_path.to_str().unwrap().into()),
+                command: format!("cat {}", valid_path.to_str().unwrap()),
+                ..ExecutableConfig::default()
+            },
+        };
+        let resp = token_provider.subject_token().await?;
+
+        assert_eq!(resp, "a_valid_token".to_string());
+
+        Ok(())
+    }
+
+    const EXPIRED_TIME_SENTINEL: i64 = 1;
+    const VALID_TIME_SENTINEL: i64 = 2;
+
+    #[test_case(json!({
+            "success": true,
+            "version": 1,
+            "expiration_time": EXPIRED_TIME_SENTINEL,
+            "token_type": JWT_TOKEN_TYPE,
+            "id_token":"expired_token",
+        }), "expired"; "expired token")]
+    #[test_case(json!({
+            "success": false,
+            "code": "1",
+            "message": "failed",
+            "version": 1,
+            "expiration_time": VALID_TIME_SENTINEL,
+            "token_type": JWT_TOKEN_TYPE,
+            "id_token":"failed_to_gen_token",
+        }), "code=<1>, message=<failed>" ; "failed to generate token")]
+    #[test_case(json!({
+            "success": true,
+            "version": 1,
+            "expiration_time": VALID_TIME_SENTINEL,
+            "token_type": JWT_TOKEN_TYPE,
+            "saml_response":"missing_id_token",
+        }), "missing `id_token`"; "missing_id_token")]
+    #[test_case(json!({
+            "success": true,
+            "version": 1,
+            "expiration_time": VALID_TIME_SENTINEL,
+            "token_type": SAML2_TOKEN_TYPE,
+            "id_token":"missing_saml2_token",
+        }), "missing `saml_response`"; "missing_saml2_token")]
+    #[serial]
+    #[tokio::test]
+    async fn parse_invalid_token(mut input: serde_json::Value, err_msg: &str) -> TestResult {
+        let _e = ScopedEnv::set(ALLOW_EXECUTABLE_ENV, "1");
+
+        let now = SystemTime::now().duration_since(UNIX_EPOCH)?;
+        let expiration_value = input
+            .get_mut("expiration_time")
+            .expect("missing expiration time");
+        let expiration = match expiration_value.as_i64().unwrap() {
+            VALID_TIME_SENTINEL => (now + Duration::from_secs(3600)).as_millis() as i64,
+            EXPIRED_TIME_SENTINEL => (now - Duration::from_secs(3600)).as_millis() as i64,
+            t => t,
+        };
+        *expiration_value = expiration.into();
+
+        let invalid_json_response = input.to_string();
+        let err = ExecutableSourcedCredentials::parse_token(invalid_json_response)
+            .expect_err("parsing should fail");
+        println!("{err:?}");
+
+        assert!(err.to_string().contains(err_msg), "{err:?}");
 
         Ok(())
     }
@@ -300,7 +407,7 @@ done";
 
         let token_provider = ExecutableSourcedCredentials {
             executable: ExecutableConfig {
-                command: Some(path.to_str().unwrap().into()),
+                command: path.to_str().unwrap().into(),
                 timeout_millis: Some(1000),
                 ..ExecutableConfig::default()
             },
