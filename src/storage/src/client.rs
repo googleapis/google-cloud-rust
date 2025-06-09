@@ -1116,7 +1116,7 @@ mod tests {
             "https://storage.googleapis.com/storage/v1/b/bucket/o/object?alt=media"
         );
 
-        assert_eq!(read_object_builder.headers().get("range"), want.into());
+        assert_eq!(read_object_builder.headers().get("range"), want);
         Ok(())
     }
 
