@@ -19,7 +19,10 @@ use crate::{
 };
 use gax::error::CredentialsError;
 use serde::{Deserialize, Serialize};
-use std::time::{Duration, SystemTime, UNIX_EPOCH};
+use std::{
+    fmt::{Display, Formatter},
+    time::{Duration, SystemTime, UNIX_EPOCH},
+};
 use tokio::{process::Command, time::timeout as tokio_timeout};
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
@@ -49,26 +52,41 @@ struct ExecutableResponse {
     code: Option<String>,
     message: Option<String>,
 }
+/// Represents an error when executing a command line tool to fetch subject tokens.
+#[derive(Debug)]
+pub struct ExecutionError {
+    code: Option<String>,
+    message: Option<String>,
+}
 
-impl ExecutableResponse {
-    fn to_cred_error(&self) -> CredentialsError {
-        match &self {
-            ExecutableResponse {
-                message: Some(message),
+impl ExecutionError {
+    fn new(code: Option<String>, message: Option<String>) -> Self {
+        Self { code, message }
+    }
+
+    fn from_executable_response(res: ExecutableResponse) -> CredentialsError {
+        CredentialsError::from_source(true, Self::new(res.code, res.message))
+    }
+}
+
+impl std::error::Error for ExecutionError {}
+
+impl Display for ExecutionError {
+    /// Formats the error message to include retryability and source.
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self {
                 code: Some(code),
-                ..
-            } => {
-                let msg = format!(
-                    "{MSG}, response contains unsuccessful response, code=<{code}>, message=<{message}>"
-                );
-                CredentialsError::from_msg(false, msg)
-            }
-            _ => {
-                let msg = format!(
-                    "{MSG}, response must include `code` and `message` fields when unsuccessful"
-                );
-                CredentialsError::from_msg(false, msg)
-            }
+                message: Some(message),
+            } => write!(
+                f,
+                "{MSG}, response contains unsuccessful response, code=<{}>, message=<{}>",
+                code, message
+            ),
+            _ => write!(
+                f,
+                "{MSG}, response must include `code` and `message` fields when unsuccessful"
+            ),
         }
     }
 }
@@ -163,7 +181,7 @@ impl ExecutableSourcedCredentials {
             .map_err(|e| CredentialsError::from_source(false, e))?;
 
         if !res.success {
-            return Err(res.to_cred_error());
+            return Err(ExecutionError::from_executable_response(res));
         }
 
         let now = SystemTime::now()
@@ -207,6 +225,7 @@ mod test {
     use scoped_env::ScopedEnv;
     use serde_json::json;
     use serial_test::serial;
+    use std::error::Error;
     use std::time::{Duration, SystemTime, UNIX_EPOCH};
     use test_case::test_case;
 
@@ -375,9 +394,12 @@ mod test {
         let invalid_json_response = input.to_string();
         let err = ExecutableSourcedCredentials::parse_token(invalid_json_response)
             .expect_err("parsing should fail");
-        println!("{err:?}");
 
-        assert!(err.to_string().contains(err_msg), "{err:?}");
+        let err = match err.source() {
+            Some(source_err) => source_err.to_string(),
+            None => err.to_string(),
+        };
+        assert!(err.contains(err_msg), "{err}");
 
         Ok(())
     }
@@ -386,7 +408,6 @@ mod test {
     #[tokio::test]
     #[serial]
     async fn read_token_command_timeout() -> TestResult {
-        use std::error::Error;
         use std::os::unix::fs::PermissionsExt;
 
         let _e = ScopedEnv::set(ALLOW_EXECUTABLE_ENV, "1");
@@ -417,12 +438,10 @@ done";
             .await
             .expect_err("should fail with timeout");
 
-        println!("{err:?}");
         assert!(err.is_transient());
         assert!(err.source().is_some());
 
         let source_err = err.source().unwrap();
-        println!("{source_err:?}");
         assert!(source_err.to_string().contains("deadline"));
 
         Ok(())
