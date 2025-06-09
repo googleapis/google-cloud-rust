@@ -14,16 +14,10 @@
 
 #[cfg(test)]
 mod test {
+    use common::MessageWithBool;
     use serde_json::{Value, json};
     use test_case::test_case;
     type Result = anyhow::Result<()>;
-
-    #[allow(dead_code)]
-    mod protos {
-        use google_cloud_wkt as wkt;
-        include!("generated/mod.rs");
-    }
-    use protos::MessageWithBool;
 
     #[test]
     fn test_singular() -> Result {

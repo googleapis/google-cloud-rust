@@ -55,3 +55,4 @@ anyhow.workspace    = true
 test-case.workspace = true
 time                = { workspace = true, features = ["formatting", "macros", "parsing"] }
 wkt                 = { path = ".", package = "google-cloud-wkt", features = ["chrono", "time"] }
+common              = { path = "tests/common" }

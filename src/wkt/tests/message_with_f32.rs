@@ -14,16 +14,10 @@
 
 #[cfg(test)]
 mod test {
+    use common::MessageWithF32;
     use serde_json::{Value, json};
     use test_case::test_case;
     type Result = anyhow::Result<()>;
-
-    #[allow(dead_code)]
-    mod protos {
-        use google_cloud_wkt as wkt;
-        include!("generated/mod.rs");
-    }
-    use protos::MessageWithF32;
 
     #[test_case(9876.5, 9876.5)]
     #[test_case(f32::INFINITY, "Infinity")]

@@ -14,15 +14,9 @@
 
 #[cfg(test)]
 mod test {
+    use common::MessageWithBytes;
     use serde_json::json;
-    type Result = std::result::Result<(), Box<dyn std::error::Error>>;
-
-    #[allow(dead_code)]
-    mod protos {
-        use google_cloud_wkt as wkt;
-        include!("generated/mod.rs");
-    }
-    use protos::MessageWithBytes;
+    type Result = anyhow::Result<()>;
 
     #[test]
     fn test_serialize_singular() -> Result {

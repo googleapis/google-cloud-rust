@@ -14,17 +14,10 @@
 
 #[cfg(test)]
 mod test {
+    use common::MessageWithI32;
     use serde_json::{Value, json};
     use test_case::test_case;
-
     type Result = anyhow::Result<()>;
-
-    #[allow(dead_code)]
-    mod protos {
-        use google_cloud_wkt as wkt;
-        include!("generated/mod.rs");
-    }
-    use protos::MessageWithI32;
 
     #[test_case(123, 123)]
     #[test_case(-234, -234)]
