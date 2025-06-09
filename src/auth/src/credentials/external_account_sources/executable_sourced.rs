@@ -201,7 +201,7 @@ mod test {
     use crate::constants::JWT_TOKEN_TYPE;
     use scoped_env::ScopedEnv;
     use serde_json::json;
-    use serial_test::{parallel, serial};
+    use serial_test::serial;
     use tokio::time::{Duration, Instant};
 
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
