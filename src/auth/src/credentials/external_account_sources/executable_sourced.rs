@@ -208,7 +208,7 @@ mod test {
     use scoped_env::ScopedEnv;
     use serde_json::json;
     use serial_test::serial;
-    use tokio::time::{Duration, Instant};
+    use std::time::{Duration, SystemTime, UNIX_EPOCH};
 
     type TestResult = anyhow::Result<(), Box<dyn std::error::Error>>;
 
@@ -216,9 +216,9 @@ mod test {
     #[serial]
     async fn read_token_from_command() -> TestResult {
         let _e = ScopedEnv::set(ALLOW_EXECUTABLE_ENV, "1");
-        let expiration = (Instant::now() + Duration::from_secs(3600))
-            .elapsed()
-            .as_millis();
+        let expiration = SystemTime::now().duration_since(UNIX_EPOCH)?;
+        let expiration = expiration + Duration::from_secs(3600);
+        let expiration = expiration.as_millis();
         let json_response = json!({
             "success": true,
             "version": 1,
@@ -247,9 +247,9 @@ mod test {
     #[tokio::test]
     #[serial]
     async fn read_token_from_output_file() -> TestResult {
-        let expiration = (Instant::now() + Duration::from_secs(3600))
-            .elapsed()
-            .as_millis();
+        let expiration = SystemTime::now().duration_since(UNIX_EPOCH)?;
+        let expiration = expiration + Duration::from_secs(3600);
+        let expiration = expiration.as_millis();
         let json_response = json!({
             "success": true,
             "version": 1,
