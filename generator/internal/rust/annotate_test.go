@@ -517,7 +517,6 @@ func TestOneOfAnnotations(t *testing.T) {
 		KeyType:            "",
 		ValueType:          "",
 		IsBoxed:            true,
-		RequiresSerdeAs:    true,
 	}, boxed_field.Codec, ignore); diff != "" {
 		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
 	}
@@ -1086,7 +1085,6 @@ func TestFieldAnnotations(t *testing.T) {
 		PrimitiveFieldType: "crate::model::TestMessage",
 		AddQueryParameter:  `let builder = req.boxed_field.as_ref().map(|p| serde_json::to_value(p).map_err(Error::ser) ).transpose()?.into_iter().fold(builder, |builder, v| { use gaxi::query_parameter::QueryParameter; v.add(builder, "boxedField") });`,
 		IsBoxed:            true,
-		RequiresSerdeAs:    true,
 	}
 	if diff := cmp.Diff(wantField, boxed_field.Codec); diff != "" {
 		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
@@ -1274,7 +1272,6 @@ func TestEnumFieldAnnotations(t *testing.T) {
 		KeyField:           key_field,
 		ValueType:          "crate::model::TestEnum",
 		ValueField:         value_field,
-		RequiresSerdeAs:    true,
 	}
 	if diff := cmp.Diff(wantField, map_field.Codec); diff != "" {
 		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)

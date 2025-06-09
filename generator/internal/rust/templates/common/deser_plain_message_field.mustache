@@ -25,4 +25,5 @@ result.{{Codec.FieldName}} = map.next_value::<{{{Codec.FieldType}}}>()?;
 result.{{Codec.FieldName}} = map.next_value::<{{{Codec.FieldType}}}>()?;
 {{/Repeated}}
 {{#Map}}
+result.{{Codec.FieldName}} = map.next_value::<{{{Codec.FieldType}}}>()?;
 {{/Map}}

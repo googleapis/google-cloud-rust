@@ -143,6 +143,12 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithEnum {
                         "repeated" => {
                             result.repeated = map.next_value::<std::vec::Vec<crate::generated::message_with_enum::TestEnum>>()?;
                         }
+                        "map" => {
+                            result.map = map.next_value::<std::collections::HashMap<
+                                std::string::String,
+                                crate::generated::message_with_enum::TestEnum,
+                            >>()?;
+                        }
                         _ => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -171,6 +177,9 @@ impl serde::ser::Serialize for __MessageWithEnum {
         }
         if !self.0.repeated.is_empty() {
             state.serialize_entry("repeated", &self.0.repeated)?;
+        }
+        if !self.0.map.is_empty() {
+            state.serialize_entry("map", &self.0.map)?;
         }
         if !self.0._unknown_fields.is_empty() {
             for (key, value) in self.0._unknown_fields.iter() {
@@ -640,7 +649,10 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithOneOf {
                         "stringContents" => {}
                         "stringContentsOne" => {}
                         "stringContentsTwo" => {}
+                        "messageValue" => {}
+                        "anotherMessage" => {}
                         "string" => {}
+                        "duration" => {}
                         _ => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -1163,6 +1175,8 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithComplexOneOf {
                         "boolValue" => {}
                         "stringValue" => {}
                         "enum" => {}
+                        "inner" => {}
+                        "duration" => {}
                         _ => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -2740,6 +2754,20 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithBool {
                         "repeated" => {
                             result.repeated = map.next_value::<std::vec::Vec<bool>>()?;
                         }
+                        "mapValue" => {
+                            result.map_value = map
+                                .next_value::<std::collections::HashMap<std::string::String, bool>>(
+                                )?;
+                        }
+                        "mapKey" => {
+                            result.map_key = map
+                                .next_value::<std::collections::HashMap<bool, std::string::String>>(
+                                )?;
+                        }
+                        "mapKeyValue" => {
+                            result.map_key_value =
+                                map.next_value::<std::collections::HashMap<bool, bool>>()?;
+                        }
                         _ => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -2768,6 +2796,15 @@ impl serde::ser::Serialize for __MessageWithBool {
         }
         if !self.0.repeated.is_empty() {
             state.serialize_entry("repeated", &self.0.repeated)?;
+        }
+        if !self.0.map_value.is_empty() {
+            state.serialize_entry("mapValue", &self.0.map_value)?;
+        }
+        if !self.0.map_key.is_empty() {
+            state.serialize_entry("mapKey", &self.0.map_key)?;
+        }
+        if !self.0.map_key_value.is_empty() {
+            state.serialize_entry("mapKeyValue", &self.0.map_key_value)?;
         }
         if !self.0._unknown_fields.is_empty() {
             for (key, value) in self.0._unknown_fields.iter() {
@@ -2934,6 +2971,12 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithString {
                             result.repeated =
                                 map.next_value::<std::vec::Vec<std::string::String>>()?;
                         }
+                        "mapKeyValue" => {
+                            result.map_key_value = map.next_value::<std::collections::HashMap<
+                                std::string::String,
+                                std::string::String,
+                            >>()?;
+                        }
                         _ => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -2964,6 +3007,9 @@ impl serde::ser::Serialize for __MessageWithString {
         }
         if !self.0.repeated.is_empty() {
             state.serialize_entry("repeated", &self.0.repeated)?;
+        }
+        if !self.0.map_key_value.is_empty() {
+            state.serialize_entry("mapKeyValue", &self.0.map_key_value)?;
         }
         if !self.0._unknown_fields.is_empty() {
             for (key, value) in self.0._unknown_fields.iter() {
@@ -3101,6 +3147,25 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithRecursion {
                 while let Some(key) = map.next_key::<String>()? {
                     #[allow(clippy::match_single_binding)]
                     match key.as_str() {
+                        "singular" => {
+                            result.singular = map.next_value::<std::option::Option<
+                                std::boxed::Box<crate::generated::message_with_recursion::Level0>,
+                            >>()?;
+                        }
+                        "optional" => {
+                            result.optional = map.next_value::<std::option::Option<
+                                std::boxed::Box<crate::generated::message_with_recursion::Level0>,
+                            >>()?;
+                        }
+                        "repeated" => {
+                            result.repeated = map.next_value::<std::vec::Vec<crate::generated::message_with_recursion::Level0>>()?;
+                        }
+                        "map" => {
+                            result.map = map.next_value::<std::collections::HashMap<
+                                std::string::String,
+                                crate::generated::message_with_recursion::Level0,
+                            >>()?;
+                        }
                         _ => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -3123,6 +3188,18 @@ impl serde::ser::Serialize for __MessageWithRecursion {
     {
         use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(None)?;
+        if self.0.singular.is_some() {
+            state.serialize_entry("singular", &self.0.singular)?;
+        }
+        if self.0.optional.is_some() {
+            state.serialize_entry("optional", &self.0.optional)?;
+        }
+        if !self.0.repeated.is_empty() {
+            state.serialize_entry("repeated", &self.0.repeated)?;
+        }
+        if !self.0.map.is_empty() {
+            state.serialize_entry("map", &self.0.map)?;
+        }
         if !self.0._unknown_fields.is_empty() {
             for (key, value) in self.0._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -3224,6 +3301,18 @@ pub mod message_with_recursion {
                     while let Some(key) = map.next_key::<String>()? {
                         #[allow(clippy::match_single_binding)]
                         match key.as_str() {
+                            "level1" => {
+                                result.level_1 = map.next_value::<std::option::Option<
+                                    std::boxed::Box<
+                                        crate::generated::message_with_recursion::Level1,
+                                    >,
+                                >>()?;
+                            }
+                            "side" => {
+                                result.side = map.next_value::<std::option::Option<
+                                    crate::generated::message_with_recursion::NonRecursive,
+                                >>()?;
+                            }
                             _ => {
                                 let value = map.next_value::<serde_json::Value>()?;
                                 result._unknown_fields.insert(key, value);
@@ -3244,6 +3333,12 @@ pub mod message_with_recursion {
         {
             use serde::ser::SerializeMap;
             let mut state = serializer.serialize_map(None)?;
+            if self.0.level_1.is_some() {
+                state.serialize_entry("level1", &self.0.level_1)?;
+            }
+            if self.0.side.is_some() {
+                state.serialize_entry("side", &self.0.side)?;
+            }
             if !self.0._unknown_fields.is_empty() {
                 for (key, value) in self.0._unknown_fields.iter() {
                     state.serialize_entry(key, &value)?;
@@ -3318,6 +3413,11 @@ pub mod message_with_recursion {
                     while let Some(key) = map.next_key::<String>()? {
                         #[allow(clippy::match_single_binding)]
                         match key.as_str() {
+                            "recurse" => {
+                                result.recurse = map.next_value::<std::option::Option<
+                                    std::boxed::Box<crate::generated::MessageWithRecursion>,
+                                >>()?;
+                            }
                             _ => {
                                 let value = map.next_value::<serde_json::Value>()?;
                                 result._unknown_fields.insert(key, value);
@@ -3338,6 +3438,9 @@ pub mod message_with_recursion {
         {
             use serde::ser::SerializeMap;
             let mut state = serializer.serialize_map(None)?;
+            if self.0.recurse.is_some() {
+                state.serialize_entry("recurse", &self.0.recurse)?;
+            }
             if !self.0._unknown_fields.is_empty() {
                 for (key, value) in self.0._unknown_fields.iter() {
                     state.serialize_entry(key, &value)?;
@@ -3714,6 +3817,20 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithStruct {
                 while let Some(key) = map.next_key::<String>()? {
                     #[allow(clippy::match_single_binding)]
                     match key.as_str() {
+                        "singular" => {
+                            result.singular =
+                                map.next_value::<std::option::Option<wkt::Struct>>()?;
+                        }
+                        "optional" => {
+                            result.optional =
+                                map.next_value::<std::option::Option<wkt::Struct>>()?;
+                        }
+                        "repeated" => {
+                            result.repeated = map.next_value::<std::vec::Vec<wkt::Struct>>()?;
+                        }
+                        "map" => {
+                            result.map = map.next_value::<std::collections::HashMap<std::string::String,wkt::Struct>>()?;
+                        }
                         _ => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -3736,6 +3853,18 @@ impl serde::ser::Serialize for __MessageWithStruct {
     {
         use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(None)?;
+        if self.0.singular.is_some() {
+            state.serialize_entry("singular", &self.0.singular)?;
+        }
+        if self.0.optional.is_some() {
+            state.serialize_entry("optional", &self.0.optional)?;
+        }
+        if !self.0.repeated.is_empty() {
+            state.serialize_entry("repeated", &self.0.repeated)?;
+        }
+        if !self.0.map.is_empty() {
+            state.serialize_entry("map", &self.0.map)?;
+        }
         if !self.0._unknown_fields.is_empty() {
             for (key, value) in self.0._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -3867,6 +3996,20 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithListValue {
                 while let Some(key) = map.next_key::<String>()? {
                     #[allow(clippy::match_single_binding)]
                     match key.as_str() {
+                        "singular" => {
+                            result.singular =
+                                map.next_value::<std::option::Option<wkt::ListValue>>()?;
+                        }
+                        "optional" => {
+                            result.optional =
+                                map.next_value::<std::option::Option<wkt::ListValue>>()?;
+                        }
+                        "repeated" => {
+                            result.repeated = map.next_value::<std::vec::Vec<wkt::ListValue>>()?;
+                        }
+                        "map" => {
+                            result.map = map.next_value::<std::collections::HashMap<std::string::String,wkt::ListValue>>()?;
+                        }
                         _ => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -3889,6 +4032,18 @@ impl serde::ser::Serialize for __MessageWithListValue {
     {
         use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(None)?;
+        if self.0.singular.is_some() {
+            state.serialize_entry("singular", &self.0.singular)?;
+        }
+        if self.0.optional.is_some() {
+            state.serialize_entry("optional", &self.0.optional)?;
+        }
+        if !self.0.repeated.is_empty() {
+            state.serialize_entry("repeated", &self.0.repeated)?;
+        }
+        if !self.0.map.is_empty() {
+            state.serialize_entry("map", &self.0.map)?;
+        }
         if !self.0._unknown_fields.is_empty() {
             for (key, value) in self.0._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -4019,6 +4174,9 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithNullValue {
                         "repeated" => {
                             result.repeated = map.next_value::<std::vec::Vec<wkt::NullValue>>()?;
                         }
+                        "map" => {
+                            result.map = map.next_value::<std::collections::HashMap<std::string::String,wkt::NullValue>>()?;
+                        }
                         _ => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -4049,6 +4207,9 @@ impl serde::ser::Serialize for __MessageWithNullValue {
         }
         if !self.0.repeated.is_empty() {
             state.serialize_entry("repeated", &self.0.repeated)?;
+        }
+        if !self.0.map.is_empty() {
+            state.serialize_entry("map", &self.0.map)?;
         }
         if !self.0._unknown_fields.is_empty() {
             for (key, value) in self.0._unknown_fields.iter() {
@@ -4181,6 +4342,20 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithFieldMask {
                 while let Some(key) = map.next_key::<String>()? {
                     #[allow(clippy::match_single_binding)]
                     match key.as_str() {
+                        "singular" => {
+                            result.singular =
+                                map.next_value::<std::option::Option<wkt::FieldMask>>()?;
+                        }
+                        "optional" => {
+                            result.optional =
+                                map.next_value::<std::option::Option<wkt::FieldMask>>()?;
+                        }
+                        "repeated" => {
+                            result.repeated = map.next_value::<std::vec::Vec<wkt::FieldMask>>()?;
+                        }
+                        "map" => {
+                            result.map = map.next_value::<std::collections::HashMap<std::string::String,wkt::FieldMask>>()?;
+                        }
                         _ => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -4203,6 +4378,18 @@ impl serde::ser::Serialize for __MessageWithFieldMask {
     {
         use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(None)?;
+        if self.0.singular.is_some() {
+            state.serialize_entry("singular", &self.0.singular)?;
+        }
+        if self.0.optional.is_some() {
+            state.serialize_entry("optional", &self.0.optional)?;
+        }
+        if !self.0.repeated.is_empty() {
+            state.serialize_entry("repeated", &self.0.repeated)?;
+        }
+        if !self.0.map.is_empty() {
+            state.serialize_entry("map", &self.0.map)?;
+        }
         if !self.0._unknown_fields.is_empty() {
             for (key, value) in self.0._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
