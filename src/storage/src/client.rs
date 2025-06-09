@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use std::collections::btree_map::Range;
+
 pub use crate::Error;
 pub use crate::Result;
 use auth::credentials::CacheableResource;
@@ -669,36 +671,43 @@ impl ReadObject {
         );
 
         // Apply "range" header for read limits and offsets.
-        let builder = {
-            match (self.request.read_offset, self.request.read_limit) {
-                (_, limit) if limit < 0 => {
-                    // read_limit can't be negative.
-                    Err(RangeError::NegativeLimit)
-                }
-                (offset, limit) if offset < 0 && limit > 0 => {
-                    // negative offset can't also have a read_limit.
-                    Err(RangeError::NegativeOffsetWithLimit)
-                }
-                (0, 0) => {
-                    // If both are zero, we use default implementation (no range header).
-                    Ok(builder)
-                }
-                (offset, 0) => {
-                    // read_limit is zero, means no limit. Read from offset to end of file.
-                    // This handles cases like (5, 0) -> "bytes=5-"
-                    Ok(builder.header("range", format!("bytes={}-", offset)))
-                }
-                (offset, limit) => {
-                    // General case: positive offset and positive limit.
-                    // This covers cases like (0, 100) -> "bytes=0-99", (5, 100) -> "bytes=5-104"
-                    Ok(builder.header("range", format!("bytes={}-{}", offset, offset + limit - 1)))
-                }
-            }
-        }
-        .map_err(Error::other)?;
+        let builder =
+            Self::apply_range_header(builder, self.request.read_offset, self.request.read_limit)
+                .map_err(Error::other)?;
 
         let builder = self.inner.apply_auth_headers(builder).await?;
         Ok(builder)
+    }
+
+    fn apply_range_header(
+        builder: reqwest::RequestBuilder,
+        offset: i64,
+        limit: i64,
+    ) -> std::result::Result<reqwest::RequestBuilder, RangeError> {
+        if limit < 0 {
+            return Err(RangeError::NegativeLimit);
+        }
+        if offset < 0 && limit > 0 {
+            return Err(RangeError::NegativeOffsetWithLimit);
+        }
+
+        let range_header_value = match (offset, limit) {
+            // If both are zero, we use default implementation (no range header).
+            (0, 0) => None,
+            // read_limit is zero means no limit. Read from offset to end of file.
+            // This handles cases like (100, 0) -> "bytes=100-", (-100, 0) -> "bytes=-100-"
+            (offset, 0) => Some(format!("bytes={}-", offset)),
+            // non-negative offset and positive limit.
+            // This covers cases like (0, 100) -> "bytes=0-99", (5, 100) -> "bytes=5-104"
+            (offset, limit) => Some(format!("bytes={}-{}", offset, offset + limit - 1)),
+        };
+
+        // Apply the header if a value was generated.
+        if let Some(header_val) = range_header_value {
+            Ok(builder.header("range", header_val))
+        } else {
+            Ok(builder) // No header to add, return original builder
+        }
     }
 }
 
