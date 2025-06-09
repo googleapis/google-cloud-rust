@@ -1305,6 +1305,7 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithComplexOneOf {
                                 ),
                             );
                         }
+                        "bytesValue" => {}
                         "stringValue" => {
                             if result.complex.is_some() {
                                 return Err(A::Error::duplicate_field(
@@ -1317,6 +1318,10 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithComplexOneOf {
                                 ),
                             );
                         }
+                        "floatValue" => {}
+                        "doubleValue" => {}
+                        "int" => {}
+                        "long" => {}
                         "enum" => {
                             if result.complex.is_some() {
                                 return Err(A::Error::duplicate_field(
@@ -1771,6 +1776,36 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithF32 {
                 while let Some(key) = map.next_key::<String>()? {
                     #[allow(clippy::match_single_binding)]
                     match key.as_str() {
+                        "singular" => {
+                            struct __With(std::option::Option<f32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::F32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.singular = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        "optional" => {
+                            struct __With(std::option::Option<f32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::F32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.optional = map.next_value::<__With>()?.0;
+                        }
+                        "repeated" => {}
+                        "map" => {}
                         _ => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -1791,6 +1826,32 @@ impl serde::ser::Serialize for __MessageWithF32 {
     {
         use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(None)?;
+        if !wkt::internal::is_default(&self.0.singular) {
+            struct __With<'a>(&'a f32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::F32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("singular", &__With(&self.0.singular))?;
+        }
+        if self.0.optional.is_some() {
+            struct __With<'a>(&'a std::option::Option<f32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::F32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("optional", &__With(&self.0.optional))?;
+        }
         if !self.0._unknown_fields.is_empty() {
             for (key, value) in self.0._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -1915,6 +1976,36 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithF64 {
                 while let Some(key) = map.next_key::<String>()? {
                     #[allow(clippy::match_single_binding)]
                     match key.as_str() {
+                        "singular" => {
+                            struct __With(std::option::Option<f64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::F64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.singular = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        "optional" => {
+                            struct __With(std::option::Option<f64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::F64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.optional = map.next_value::<__With>()?.0;
+                        }
+                        "repeated" => {}
+                        "map" => {}
                         _ => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -1935,6 +2026,32 @@ impl serde::ser::Serialize for __MessageWithF64 {
     {
         use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(None)?;
+        if !wkt::internal::is_default(&self.0.singular) {
+            struct __With<'a>(&'a f64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::F64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("singular", &__With(&self.0.singular))?;
+        }
+        if self.0.optional.is_some() {
+            struct __With<'a>(&'a std::option::Option<f64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::F64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("optional", &__With(&self.0.optional))?;
+        }
         if !self.0._unknown_fields.is_empty() {
             for (key, value) in self.0._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -2094,6 +2211,38 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithI32 {
                 while let Some(key) = map.next_key::<String>()? {
                     #[allow(clippy::match_single_binding)]
                     match key.as_str() {
+                        "singular" => {
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.singular = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        "optional" => {
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.optional = map.next_value::<__With>()?.0;
+                        }
+                        "repeated" => {}
+                        "mapValue" => {}
+                        "mapKey" => {}
+                        "mapKeyValue" => {}
                         _ => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -2114,6 +2263,32 @@ impl serde::ser::Serialize for __MessageWithI32 {
     {
         use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(None)?;
+        if !wkt::internal::is_default(&self.0.singular) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("singular", &__With(&self.0.singular))?;
+        }
+        if self.0.optional.is_some() {
+            struct __With<'a>(&'a std::option::Option<i32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("optional", &__With(&self.0.optional))?;
+        }
         if !self.0._unknown_fields.is_empty() {
             for (key, value) in self.0._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -2273,6 +2448,38 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithU32 {
                 while let Some(key) = map.next_key::<String>()? {
                     #[allow(clippy::match_single_binding)]
                     match key.as_str() {
+                        "singular" => {
+                            struct __With(std::option::Option<u32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::U32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.singular = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        "optional" => {
+                            struct __With(std::option::Option<u32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::U32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.optional = map.next_value::<__With>()?.0;
+                        }
+                        "repeated" => {}
+                        "mapValue" => {}
+                        "mapKey" => {}
+                        "mapKeyValue" => {}
                         _ => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -2293,6 +2500,32 @@ impl serde::ser::Serialize for __MessageWithU32 {
     {
         use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(None)?;
+        if !wkt::internal::is_default(&self.0.singular) {
+            struct __With<'a>(&'a u32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::U32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("singular", &__With(&self.0.singular))?;
+        }
+        if self.0.optional.is_some() {
+            struct __With<'a>(&'a std::option::Option<u32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::U32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("optional", &__With(&self.0.optional))?;
+        }
         if !self.0._unknown_fields.is_empty() {
             for (key, value) in self.0._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -2452,6 +2685,38 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithI64 {
                 while let Some(key) = map.next_key::<String>()? {
                     #[allow(clippy::match_single_binding)]
                     match key.as_str() {
+                        "singular" => {
+                            struct __With(std::option::Option<i64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.singular = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        "optional" => {
+                            struct __With(std::option::Option<i64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.optional = map.next_value::<__With>()?.0;
+                        }
+                        "repeated" => {}
+                        "mapValue" => {}
+                        "mapKey" => {}
+                        "mapKeyValue" => {}
                         _ => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -2472,6 +2737,32 @@ impl serde::ser::Serialize for __MessageWithI64 {
     {
         use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(None)?;
+        if !wkt::internal::is_default(&self.0.singular) {
+            struct __With<'a>(&'a i64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("singular", &__With(&self.0.singular))?;
+        }
+        if self.0.optional.is_some() {
+            struct __With<'a>(&'a std::option::Option<i64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("optional", &__With(&self.0.optional))?;
+        }
         if !self.0._unknown_fields.is_empty() {
             for (key, value) in self.0._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -2631,6 +2922,38 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithU64 {
                 while let Some(key) = map.next_key::<String>()? {
                     #[allow(clippy::match_single_binding)]
                     match key.as_str() {
+                        "singular" => {
+                            struct __With(std::option::Option<u64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::U64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.singular = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        "optional" => {
+                            struct __With(std::option::Option<u64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::U64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.optional = map.next_value::<__With>()?.0;
+                        }
+                        "repeated" => {}
+                        "mapValue" => {}
+                        "mapKey" => {}
+                        "mapKeyValue" => {}
                         _ => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -2651,6 +2974,32 @@ impl serde::ser::Serialize for __MessageWithU64 {
     {
         use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(None)?;
+        if !wkt::internal::is_default(&self.0.singular) {
+            struct __With<'a>(&'a u64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::U64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("singular", &__With(&self.0.singular))?;
+        }
+        if self.0.optional.is_some() {
+            struct __With<'a>(&'a std::option::Option<u64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::U64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("optional", &__With(&self.0.optional))?;
+        }
         if !self.0._unknown_fields.is_empty() {
             for (key, value) in self.0._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -2777,6 +3126,36 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithBytes {
                 while let Some(key) = map.next_key::<String>()? {
                     #[allow(clippy::match_single_binding)]
                     match key.as_str() {
+                        "singular" => {
+                            struct __With(std::option::Option<::bytes::Bytes>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<serde_with::base64::Base64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.singular = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        "optional" => {
+                            struct __With(std::option::Option<::bytes::Bytes>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<serde_with::base64::Base64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.optional = map.next_value::<__With>()?.0;
+                        }
+                        "repeated" => {}
+                        "map" => {}
                         _ => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -2799,6 +3178,32 @@ impl serde::ser::Serialize for __MessageWithBytes {
     {
         use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(None)?;
+        if !self.0.singular.is_empty() {
+            struct __With<'a>(&'a ::bytes::Bytes);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<serde_with::base64::Base64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("singular", &__With(&self.0.singular))?;
+        }
+        if self.0.optional.is_some() {
+            struct __With<'a>(&'a std::option::Option<::bytes::Bytes>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<serde_with::base64::Base64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("optional", &__With(&self.0.optional))?;
+        }
         if !self.0._unknown_fields.is_empty() {
             for (key, value) in self.0._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -3187,6 +3592,8 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithString {
                             result.repeated =
                                 map.next_value::<std::vec::Vec<std::string::String>>()?;
                         }
+                        "mapValue" => {}
+                        "mapKey" => {}
                         "mapKeyValue" => {
                             result.map_key_value = map.next_value::<std::collections::HashMap<
                                 std::string::String,
@@ -3890,6 +4297,36 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithValue {
                 while let Some(key) = map.next_key::<String>()? {
                     #[allow(clippy::match_single_binding)]
                     match key.as_str() {
+                        "singular" => {
+                            struct __With(std::option::Option<wkt::Value>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<serde_with::Same> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.singular = map.next_value::<__With>()?.0;
+                        }
+                        "optional" => {
+                            struct __With(std::option::Option<wkt::Value>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<serde_with::Same> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.optional = map.next_value::<__With>()?.0;
+                        }
+                        "repeated" => {}
+                        "map" => {}
                         _ => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -3912,6 +4349,34 @@ impl serde::ser::Serialize for __MessageWithValue {
     {
         use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(None)?;
+        if self.0.singular.is_some() {
+            struct __With<'a>(&'a std::option::Option<wkt::Value>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<serde_with::Same>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("singular", &__With(&self.0.singular))?;
+        }
+        if self.0.optional.is_some() {
+            struct __With<'a>(&'a std::option::Option<wkt::Value>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<serde_with::Same>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("optional", &__With(&self.0.optional))?;
+        }
         if !self.0._unknown_fields.is_empty() {
             for (key, value) in self.0._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;

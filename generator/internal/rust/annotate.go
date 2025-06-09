@@ -265,14 +265,15 @@ type fieldAnnotations struct {
 	IsBoxed bool
 	// If true, it requires a serde_with::serde_as() transformation.
 	RequiresSerdeAs bool
+	SerdeAs         string
 }
 
 func (a *fieldAnnotations) SkipIfIsEmpty() bool {
-	return a.PrimitiveFieldType == "std::string::String"
+	return a.PrimitiveFieldType == "std::string::String" || a.PrimitiveFieldType == "::bytes::Bytes"
 }
 
 func (a *fieldAnnotations) SkipIfIsDefault() bool {
-	return a.PrimitiveFieldType != "std::string::String"
+	return !a.SkipIfIsEmpty()
 }
 
 type enumAnnotation struct {
@@ -710,7 +711,49 @@ func (c *codec) requiresSerdeAs(field *api.Field, state *api.APIState) bool {
 	}
 }
 
+func (c *codec) serdeAs(field *api.Field, state *api.APIState) string {
+	var formatter string
+	switch field.Typez {
+	case api.INT32_TYPE, api.SFIXED32_TYPE, api.SINT32_TYPE:
+		formatter = "wkt::internal::I32"
+	case api.INT64_TYPE, api.SFIXED64_TYPE, api.SINT64_TYPE:
+		formatter = "wkt::internal::I64"
+	case api.UINT32_TYPE, api.FIXED32_TYPE:
+		formatter = "wkt::internal::U32"
+	case api.UINT64_TYPE, api.FIXED64_TYPE:
+		formatter = "wkt::internal::U64"
+	case api.FLOAT_TYPE:
+		formatter = "wkt::internal::F32"
+	case api.DOUBLE_TYPE:
+		formatter = "wkt::internal::F64"
+	case api.BYTES_TYPE:
+		formatter = "serde_with::base64::Base64"
+	case api.MESSAGE_TYPE:
+		if msg, ok := state.MessageByID[field.TypezID]; ok && msg.IsMap {
+			if len(msg.Fields) != 2 {
+				slog.Error("expected exactly two fields for map message", "field ID", field.ID, "map ID", field.TypezID)
+				return ""
+			}
+			key := c.serdeAs(msg.Fields[0], state)
+			value := c.serdeAs(msg.Fields[1], state)
+			return fmt.Sprintf("std::collections::HashMap<%s, %s>", key, value)
+		}
+		//		if field.TypezID == ".google.protobuf.Value" {
+		//			return "wkt::internal::OptionalValue"
+		//		}
+		formatter = "serde_with::Same"
+	default:
+		formatter = "serde_with::Same"
+	}
+	return formatter
+}
+
 func (c *codec) annotateField(field *api.Field, message *api.Message, state *api.APIState, sourceSpecificationPackageName string) {
+	requiresSerdeAs := c.requiresSerdeAs(field, state)
+	serdeAs := ""
+	if requiresSerdeAs {
+		serdeAs = c.serdeAs(field, state)
+	}
 	ann := &fieldAnnotations{
 		FieldName:          toSnake(field.Name),
 		SetterName:         toSnakeNoMangling(field.Name),
@@ -721,7 +764,8 @@ func (c *codec) annotateField(field *api.Field, message *api.Message, state *api
 		FieldType:          fieldType(field, state, false, c.modulePath, sourceSpecificationPackageName, c.packageMapping),
 		PrimitiveFieldType: fieldType(field, state, true, c.modulePath, sourceSpecificationPackageName, c.packageMapping),
 		AddQueryParameter:  addQueryParameter(field),
-		RequiresSerdeAs:    c.requiresSerdeAs(field, state),
+		RequiresSerdeAs:    requiresSerdeAs,
+		SerdeAs:            serdeAs,
 	}
 	if field.Recursive || (field.Typez == api.MESSAGE_TYPE && field.IsOneOf) {
 		ann.IsBoxed = true
