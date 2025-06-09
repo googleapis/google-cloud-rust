@@ -34,6 +34,10 @@ pub(crate) struct ExecutableConfig {
     pub output_file: Option<String>,
 }
 
+/// Executable command should adere to this format.
+/// Format is documented on [executable source credentials].
+///
+/// [executable sourced credentials]: https://google.aip.dev/auth/4117#determining-the-subject-token-in-executable-sourced-credentials
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
 struct ExecutableResponse {
     version: i32,
@@ -69,6 +73,7 @@ impl ExecutableResponse {
 }
 
 const MSG: &str = "failed to read subject token";
+// default timeout is defined by AIP-4117
 const DEFAULT_TIMEOUT_SECS: u32 = 30;
 const ALLOW_EXECUTABLE_ENV: &str = "GOOGLE_EXTERNAL_ACCOUNT_ALLOW_EXECUTABLES";
 
@@ -116,6 +121,8 @@ impl ExecutableSourcedCredentials {
         Ok(content)
     }
 
+    /// See details on security reason on [executable sourced credentials].
+    /// [executable sourced credentials]: https://google.aip.dev/auth/4117#determining-the-subject-token-in-executable-sourced-credentials
     async fn from_command(command: String, timeout: Duration) -> Result<String> {
         // For security reasons, we need our consumers to set this environment variable to allow executables to be run.
         let allow_executable = std::env::var(ALLOW_EXECUTABLE_ENV)
