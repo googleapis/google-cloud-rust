@@ -499,7 +499,7 @@ impl ReadObject {
     /// # Ok::<(), anyhow::Error>(()) });
     /// ```
     ///
-    /// Read bytes 1000 to 1100.
+    /// Read bytes 1000 to 1099.
     /// ```
     /// # tokio_test::block_on(async {
     /// # use google_cloud_storage::client::Storage;
@@ -547,7 +547,7 @@ impl ReadObject {
     /// # Ok::<(), anyhow::Error>(()) });
     /// ```
     ///
-    /// Read bytes 1000 to 1100.
+    /// Read bytes 1000 to 1099.
     /// ```
     /// # tokio_test::block_on(async {
     /// # use google_cloud_storage::client::Storage;
