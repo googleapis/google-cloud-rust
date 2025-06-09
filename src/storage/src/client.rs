@@ -117,15 +117,15 @@ impl Storage {
     ///
     /// # Example
     /// ```
+    /// # tokio_test::block_on(async {
     /// # use google_cloud_storage::client::Storage;
-    /// async fn example(client: &Storage) -> gax::Result<()> {
-    ///     let response = client
-    ///         .insert_object("projects/_/buckets/my-bucket", "my-object", "the quick brown fox jumped over the lazy dog")
-    ///         .send()
-    ///         .await?;
-    ///     println!("response details={response:?}");
-    ///     Ok(())
-    /// }
+    /// # let client = Storage::builder().build().await?;
+    /// let response = client
+    ///     .insert_object("projects/_/buckets/my-bucket", "my-object", "the quick brown fox jumped over the lazy dog")
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok::<(), anyhow::Error>(()) });
     /// ```
     pub fn insert_object<B, O, P>(&self, bucket: B, object: O, payload: P) -> InsertObject
     where
@@ -145,15 +145,15 @@ impl Storage {
     ///
     /// # Example
     /// ```
+    /// # tokio_test::block_on(async {
     /// # use google_cloud_storage::client::Storage;
-    /// async fn example(client: &Storage) -> gax::Result<()> {
-    ///     let contents = client
-    ///         .read_object("projects/_/buckets/my-bucket", "my-object")
-    ///         .send()
-    ///         .await?;
-    ///     println!("object contents={contents:?}");
-    ///     Ok(())
-    /// }
+    /// # let client = Storage::builder().build().await?;
+    /// let contents = client
+    ///     .read_object("projects/_/buckets/my-bucket", "my-object")
+    ///     .send()
+    ///     .await?;
+    /// println!("object contents={contents:?}");
+    /// # Ok::<(), anyhow::Error>(()) });
     /// ```
     pub fn read_object<B, O>(&self, bucket: B, object: O) -> ReadObject
     where
@@ -295,15 +295,15 @@ impl InsertObject {
     ///
     /// # Example
     /// ```
+    /// # tokio_test::block_on(async {
     /// # use google_cloud_storage::client::Storage;
-    /// async fn example(client: &Storage) -> gax::Result<()> {
-    ///     let response = client
-    ///         .insert_object("projects/_/buckets/my-bucket", "my-object", "the quick brown fox jumped over the lazy dog")
-    ///         .send()
-    ///         .await?;
-    ///     println!("response details={response:?}");
-    ///     Ok(())
-    /// }
+    /// # let client = Storage::builder().build().await?;
+    /// let response = client
+    ///     .insert_object("projects/_/buckets/my-bucket", "my-object", "the quick brown fox jumped over the lazy dog")
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok::<(), anyhow::Error>(()) });
     /// ```
     pub async fn send(self) -> crate::Result<Object> {
         let builder = self.http_request_builder().await?;
@@ -369,12 +369,24 @@ impl InsertObject {
 
     /// The encryption key used with the Customer-Supplied Encryption Keys
     /// feature. In raw bytes format (not base64-encoded).
-    pub fn with_key<T>(mut self, v: T) -> Self
-    where
-        T: Into<bytes::Bytes>,
-    {
-        self.request.common_object_request_params =
-            Some(key_to_common_object_request_params(v.into()));
+    ///
+    /// Example:
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_storage::client::Storage;
+    /// # use google_cloud_storage::client::KeyAes256;
+    /// # let client = Storage::builder().build().await?;
+    /// let key: &[u8] = &[97; 32];
+    /// let response = client
+    ///     .insert_object("projects/_/buckets/my-bucket", "my-object", "the quick brown fox jumped over the lazy dog")
+    ///     .with_key(KeyAes256::new(key)?)
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok::<(), anyhow::Error>(()) });
+    /// ```
+    pub fn with_key(mut self, v: KeyAes256) -> Self {
+        self.request.common_object_request_params = Some(v.into());
         self
     }
 }
@@ -465,12 +477,24 @@ impl ReadObject {
 
     /// The encryption key used with the Customer-Supplied Encryption Keys
     /// feature. In raw bytes format (not base64-encoded).
-    pub fn with_key<T>(mut self, v: T) -> Self
-    where
-        T: Into<bytes::Bytes>,
-    {
-        self.request.common_object_request_params =
-            Some(key_to_common_object_request_params(v.into()));
+    ///
+    /// Example:
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_storage::client::Storage;
+    /// # use google_cloud_storage::client::KeyAes256;
+    /// # let client = Storage::builder().build().await?;
+    /// let key: &[u8] = &[97; 32];
+    /// let response = client
+    ///     .read_object("projects/_/buckets/my-bucket", "my-object")
+    ///     .with_key(KeyAes256::new(key)?)
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok::<(), anyhow::Error>(()) });
+    /// ```
+    pub fn with_key(mut self, v: KeyAes256) -> Self {
+        self.request.common_object_request_params = Some(v.into());
         self
     }
 
@@ -556,6 +580,84 @@ impl ReadObject {
     }
 }
 
+#[derive(Debug)]
+/// KeyAes256 represents an AES-256 encryption key used with the
+/// Customer-Supplied Encryption Keys (CSEK) feature.
+///
+/// This key must be exactly 32 bytes in length and should be provided in its
+/// raw (unencoded) byte format.
+///
+/// # Examples
+///
+/// Creating a `KeyAes256` instance from a valid byte slice:
+/// ```
+/// # use google_cloud_storage::client::{KeyAes256, KeyAes256Error};
+/// let raw_key_bytes: [u8; 32] = [0x42; 32]; // Example 32-byte key
+/// let key_aes_256 = KeyAes256::new(&raw_key_bytes)?;
+/// # Ok::<(), KeyAes256Error>(())
+/// ```
+///
+/// Handling an error for an invalid key length:
+/// ```
+/// # use google_cloud_storage::client::{KeyAes256, KeyAes256Error};
+/// let invalid_key_bytes: &[u8] = b"too_short_key"; // Less than 32 bytes
+/// let result = KeyAes256::new(invalid_key_bytes);
+///
+/// assert!(matches!(result, Err(KeyAes256Error::InvalidLength)));
+/// ```
+pub struct KeyAes256 {
+    key: [u8; 32],
+}
+
+/// Represents errors that can occur when converting to [`KeyAes256`] instances.
+///
+/// # Example:
+/// ```
+/// # use google_cloud_storage::client::{KeyAes256, KeyAes256Error};
+/// let invalid_key_bytes: &[u8] = b"too_short_key"; // Less than 32 bytes
+/// let result = KeyAes256::new(invalid_key_bytes);
+///
+/// assert!(matches!(result, Err(KeyAes256Error::InvalidLength)));
+/// ```
+#[derive(thiserror::Error, Debug)]
+#[non_exhaustive]
+pub enum KeyAes256Error {
+    /// The provided key's length was not exactly 32 bytes.
+    #[error("Key has an invalid length: expected 32 bytes.")]
+    InvalidLength,
+}
+
+impl KeyAes256 {
+    /// Attempts to create a new [KeyAes256].
+    ///
+    /// This conversion will succeed only if the input slice is exactly 32 bytes long.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::{KeyAes256, KeyAes256Error};
+    /// let raw_key_bytes: [u8; 32] = [0x42; 32]; // Example 32-byte key
+    /// let key_aes_256 = KeyAes256::new(&raw_key_bytes)?;
+    /// # Ok::<(), KeyAes256Error>(())
+    /// ```
+    pub fn new(key: &[u8]) -> std::result::Result<Self, KeyAes256Error> {
+        match key.len() {
+            32 => Ok(Self {
+                key: key[..32].try_into().unwrap(),
+            }),
+            _ => Err(KeyAes256Error::InvalidLength),
+        }
+    }
+}
+
+impl std::convert::From<KeyAes256> for control::model::CommonObjectRequestParams {
+    fn from(value: KeyAes256) -> Self {
+        control::model::CommonObjectRequestParams::new()
+            .set_encryption_algorithm("AES256")
+            .set_encryption_key_bytes(value.key.to_vec())
+            .set_encryption_key_sha256_bytes(Sha256::digest(value.key).as_slice().to_owned())
+    }
+}
+
 fn apply_customer_supplied_encryption_headers(
     builder: reqwest::RequestBuilder,
     common_object_request_params: Option<control::model::CommonObjectRequestParams>,
@@ -576,20 +678,12 @@ fn apply_customer_supplied_encryption_headers(
     })
 }
 
-fn key_to_common_object_request_params(
-    v: bytes::Bytes,
-) -> control::model::CommonObjectRequestParams {
-    control::model::CommonObjectRequestParams::new()
-        .set_encryption_algorithm("AES256")
-        .set_encryption_key_bytes(v.clone())
-        .set_encryption_key_sha256_bytes(Sha256::digest(v.clone()).as_slice().to_owned())
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;
     use std::collections::HashMap;
     type Result = std::result::Result<(), Box<dyn std::error::Error>>;
+    use test_case::test_case;
 
     #[tokio::test]
     async fn test_insert_object() -> Result {
@@ -656,16 +750,12 @@ mod tests {
             .build()
             .await?;
         // Make a 32-byte key.
-        let key = vec![b'a'; 32];
-        let key_base64 = BASE64_STANDARD.encode(key.clone());
-
-        let key_sha256 = Sha256::digest(key.clone());
-        let key_sha256_base64 = BASE64_STANDARD.encode(key_sha256);
+        let (key, key_base64, _, key_sha256_base64) = create_key_helper();
 
         // The API takes the unencoded byte array.
         let insert_object_builder = client
             .insert_object("projects/_/buckets/bucket", "object", "hello")
-            .with_key(key)
+            .with_key(KeyAes256::new(&key)?)
             .http_request_builder()
             .await?
             .build()?;
@@ -796,17 +886,12 @@ mod tests {
             .build()
             .await?;
         // Make a 32-byte key.
-        let key = vec![b'a'; 32];
-        assert_eq!(key.len(), 32);
-        let key_base64 = BASE64_STANDARD.encode(key.clone());
-
-        let key_sha256 = Sha256::digest(key.clone());
-        let key_sha256_base64 = BASE64_STANDARD.encode(key_sha256);
+        let (key, key_base64, _, key_sha256_base64) = create_key_helper();
 
         // The API takes the unencoded byte array.
         let read_object_builder = client
             .read_object("projects/_/buckets/bucket", "object")
-            .with_key(key)
+            .with_key(KeyAes256::new(&key)?)
             .http_request_builder()
             .await?
             .build()?;
@@ -830,6 +915,53 @@ mod tests {
             );
         }
         Ok(())
+    }
+
+    #[test]
+    // This tests converting to KeyAes256 from some different types
+    // that can get converted to &[u8].
+    fn test_key_aes_256() -> Result {
+        let v_slice: &[u8] = &[b'c'; 32];
+        KeyAes256::new(v_slice)?;
+
+        let v_vec: Vec<u8> = vec![b'a'; 32];
+        KeyAes256::new(&v_vec)?;
+
+        let v_array: [u8; 32] = [b'a'; 32];
+        KeyAes256::new(&v_array)?;
+
+        let v_bytes: bytes::Bytes = bytes::Bytes::copy_from_slice(&v_array);
+        KeyAes256::new(&v_bytes)?;
+
+        Ok(())
+    }
+
+    #[test_case(&[b'a'; 0]; "no bytes")]
+    #[test_case(&[b'a'; 1]; "not enough bytes")]
+    #[test_case(&[b'a'; 33]; "too many bytes")]
+    fn test_key_aes_256_err(input: &[u8]) {
+        KeyAes256::new(input).unwrap_err();
+    }
+
+    #[test]
+    fn test_key_aes_256_to_control_model_object() -> Result {
+        let (key, _, key_sha256, _) = create_key_helper();
+        let key_aes_256 = KeyAes256::new(&key)?;
+        let params = control::model::CommonObjectRequestParams::from(key_aes_256);
+        assert_eq!(params.encryption_algorithm, "AES256");
+        assert_eq!(params.encryption_key_bytes, key);
+        assert_eq!(params.encryption_key_sha256_bytes, key_sha256);
+        Ok(())
+    }
+
+    fn create_key_helper() -> (Vec<u8>, String, Vec<u8>, String) {
+        // Make a 32-byte key.
+        let key = vec![b'a'; 32];
+        let key_base64 = BASE64_STANDARD.encode(key.clone());
+
+        let key_sha256 = Sha256::digest(key.clone());
+        let key_sha256_base64 = BASE64_STANDARD.encode(key_sha256);
+        (key, key_base64, key_sha256.to_vec(), key_sha256_base64)
     }
 }
 
