@@ -102,6 +102,10 @@ impl wkt::message::Message for MessageWithEnum {
     }
 }
 
+#[doc(hidden)]
+#[derive(Clone, Debug, PartialEq)]
+pub struct __MessageWithEnum(pub MessageWithEnum);
+
 /// Defines additional types related to [MessageWithEnum].
 pub mod message_with_enum {
     #[allow(unused_imports)]
@@ -493,6 +497,10 @@ impl wkt::message::Message for MessageWithOneOf {
     }
 }
 
+#[doc(hidden)]
+#[derive(Clone, Debug, PartialEq)]
+pub struct __MessageWithOneOf(pub MessageWithOneOf);
+
 /// Defines additional types related to [MessageWithOneOf].
 pub mod message_with_one_of {
     #[allow(unused_imports)]
@@ -530,6 +538,10 @@ pub mod message_with_one_of {
             "type.googleapis.com/google.rust.sdk.test.MessageWithOneOf.Message"
         }
     }
+
+    #[doc(hidden)]
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct __Message(pub Message);
 
     #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -878,6 +890,10 @@ impl wkt::message::Message for MessageWithComplexOneOf {
     }
 }
 
+#[doc(hidden)]
+#[derive(Clone, Debug, PartialEq)]
+pub struct __MessageWithComplexOneOf(pub MessageWithComplexOneOf);
+
 /// Defines additional types related to [MessageWithComplexOneOf].
 pub mod message_with_complex_one_of {
     #[allow(unused_imports)]
@@ -920,6 +936,10 @@ pub mod message_with_complex_one_of {
             "type.googleapis.com/google.rust.sdk.test.MessageWithComplexOneOf.Inner"
         }
     }
+
+    #[doc(hidden)]
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct __Inner(pub Inner);
 
     ///
     /// # Working with unknown values
@@ -1148,6 +1168,10 @@ impl wkt::message::Message for MessageWithF32 {
     }
 }
 
+#[doc(hidden)]
+#[derive(Clone, Debug, PartialEq)]
+pub struct __MessageWithF32(pub MessageWithF32);
+
 /// A test message for f64.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -1236,6 +1260,10 @@ impl wkt::message::Message for MessageWithF64 {
         "type.googleapis.com/google.rust.sdk.test.MessageWithF64"
     }
 }
+
+#[doc(hidden)]
+#[derive(Clone, Debug, PartialEq)]
+pub struct __MessageWithF64(pub MessageWithF64);
 
 /// A test message for i32.
 #[serde_with::serde_as]
@@ -1359,6 +1387,10 @@ impl wkt::message::Message for MessageWithI32 {
     }
 }
 
+#[doc(hidden)]
+#[derive(Clone, Debug, PartialEq)]
+pub struct __MessageWithI32(pub MessageWithI32);
+
 /// A test message for u32.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -1480,6 +1512,10 @@ impl wkt::message::Message for MessageWithU32 {
         "type.googleapis.com/google.rust.sdk.test.MessageWithU32"
     }
 }
+
+#[doc(hidden)]
+#[derive(Clone, Debug, PartialEq)]
+pub struct __MessageWithU32(pub MessageWithU32);
 
 /// A test message for i64.
 #[serde_with::serde_as]
@@ -1603,6 +1639,10 @@ impl wkt::message::Message for MessageWithI64 {
     }
 }
 
+#[doc(hidden)]
+#[derive(Clone, Debug, PartialEq)]
+pub struct __MessageWithI64(pub MessageWithI64);
+
 /// A test message for u64.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -1725,6 +1765,10 @@ impl wkt::message::Message for MessageWithU64 {
     }
 }
 
+#[doc(hidden)]
+#[derive(Clone, Debug, PartialEq)]
+pub struct __MessageWithU64(pub MessageWithU64);
+
 /// A test message for bytes.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -1813,6 +1857,10 @@ impl wkt::message::Message for MessageWithBytes {
         "type.googleapis.com/google.rust.sdk.test.MessageWithBytes"
     }
 }
+
+#[doc(hidden)]
+#[derive(Clone, Debug, PartialEq)]
+pub struct __MessageWithBytes(pub MessageWithBytes);
 
 /// A test message for bool.
 #[serde_with::serde_as]
@@ -1935,6 +1983,10 @@ impl wkt::message::Message for MessageWithBool {
     }
 }
 
+#[doc(hidden)]
+#[derive(Clone, Debug, PartialEq)]
+pub struct __MessageWithBool(pub MessageWithBool);
+
 /// A test message for string.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -2056,6 +2108,262 @@ impl wkt::message::Message for MessageWithString {
     }
 }
 
+#[doc(hidden)]
+#[derive(Clone, Debug, PartialEq)]
+pub struct __MessageWithString(pub MessageWithString);
+
+/// A test message for FieldMask.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct MessageWithRecursion {
+
+    /// A singular field.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub singular: std::option::Option<std::boxed::Box<crate::test::protos::message_with_recursion::Level0>>,
+
+    /// An optional field.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub optional: std::option::Option<std::boxed::Box<crate::test::protos::message_with_recursion::Level0>>,
+
+    /// A repeated field.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
+    pub repeated: std::vec::Vec<crate::test::protos::message_with_recursion::Level0>,
+
+    /// A map field, messages cannot be keys.
+    #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
+    pub map: std::collections::HashMap<std::string::String,crate::test::protos::message_with_recursion::Level0>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl MessageWithRecursion {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [singular][crate::test::protos::MessageWithRecursion::singular].
+    pub fn set_singular<T>(mut self, v: T) -> Self
+    where T: std::convert::Into<crate::test::protos::message_with_recursion::Level0>
+    {
+        self.singular = std::option::Option::Some(std::boxed::Box::new(v.into()));
+        self
+    }
+
+    /// Sets or clears the value of [singular][crate::test::protos::MessageWithRecursion::singular].
+    pub fn set_or_clear_singular<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<crate::test::protos::message_with_recursion::Level0>
+    {
+        self.singular = v.map(|x| std::boxed::Box::new(x.into()));
+        self
+    }
+
+    /// Sets the value of [optional][crate::test::protos::MessageWithRecursion::optional].
+    pub fn set_optional<T>(mut self, v: T) -> Self
+    where T: std::convert::Into<crate::test::protos::message_with_recursion::Level0>
+    {
+        self.optional = std::option::Option::Some(std::boxed::Box::new(v.into()));
+        self
+    }
+
+    /// Sets or clears the value of [optional][crate::test::protos::MessageWithRecursion::optional].
+    pub fn set_or_clear_optional<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<crate::test::protos::message_with_recursion::Level0>
+    {
+        self.optional = v.map(|x| std::boxed::Box::new(x.into()));
+        self
+    }
+
+    /// Sets the value of [repeated][crate::test::protos::MessageWithRecursion::repeated].
+    pub fn set_repeated<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::test::protos::message_with_recursion::Level0>
+    {
+        use std::iter::Iterator;
+        self.repeated = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [map][crate::test::protos::MessageWithRecursion::map].
+    pub fn set_map<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<crate::test::protos::message_with_recursion::Level0>,
+    {
+        use std::iter::Iterator;
+        self.map = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for MessageWithRecursion {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.rust.sdk.test.MessageWithRecursion"
+    }
+}
+
+#[doc(hidden)]
+#[derive(Clone, Debug, PartialEq)]
+pub struct __MessageWithRecursion(pub MessageWithRecursion);
+
+/// Defines additional types related to [MessageWithRecursion].
+pub mod message_with_recursion {
+    #[allow(unused_imports)]
+    use super::*;
+
+
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct Level0 {
+
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub level_1: std::option::Option<std::boxed::Box<crate::test::protos::message_with_recursion::Level1>>,
+
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub side: std::option::Option<crate::test::protos::message_with_recursion::NonRecursive>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl Level0 {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [level_1][crate::test::protos::message_with_recursion::Level0::level_1].
+        pub fn set_level_1<T>(mut self, v: T) -> Self
+        where T: std::convert::Into<crate::test::protos::message_with_recursion::Level1>
+        {
+            self.level_1 = std::option::Option::Some(std::boxed::Box::new(v.into()));
+            self
+        }
+
+        /// Sets or clears the value of [level_1][crate::test::protos::message_with_recursion::Level0::level_1].
+        pub fn set_or_clear_level_1<T>(mut self, v: std::option::Option<T>) -> Self
+        where T: std::convert::Into<crate::test::protos::message_with_recursion::Level1>
+        {
+            self.level_1 = v.map(|x| std::boxed::Box::new(x.into()));
+            self
+        }
+
+        /// Sets the value of [side][crate::test::protos::message_with_recursion::Level0::side].
+        pub fn set_side<T>(mut self, v: T) -> Self
+        where T: std::convert::Into<crate::test::protos::message_with_recursion::NonRecursive>
+        {
+            self.side = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [side][crate::test::protos::message_with_recursion::Level0::side].
+        pub fn set_or_clear_side<T>(mut self, v: std::option::Option<T>) -> Self
+        where T: std::convert::Into<crate::test::protos::message_with_recursion::NonRecursive>
+        {
+            self.side = v.map(|x| x.into());
+            self
+        }
+    }
+
+    impl wkt::message::Message for Level0 {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.rust.sdk.test.MessageWithRecursion.Level0"
+        }
+    }
+
+    #[doc(hidden)]
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct __Level0(pub Level0);
+
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct Level1 {
+
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub recurse: std::option::Option<std::boxed::Box<crate::test::protos::MessageWithRecursion>>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl Level1 {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [recurse][crate::test::protos::message_with_recursion::Level1::recurse].
+        pub fn set_recurse<T>(mut self, v: T) -> Self
+        where T: std::convert::Into<crate::test::protos::MessageWithRecursion>
+        {
+            self.recurse = std::option::Option::Some(std::boxed::Box::new(v.into()));
+            self
+        }
+
+        /// Sets or clears the value of [recurse][crate::test::protos::message_with_recursion::Level1::recurse].
+        pub fn set_or_clear_recurse<T>(mut self, v: std::option::Option<T>) -> Self
+        where T: std::convert::Into<crate::test::protos::MessageWithRecursion>
+        {
+            self.recurse = v.map(|x| std::boxed::Box::new(x.into()));
+            self
+        }
+    }
+
+    impl wkt::message::Message for Level1 {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.rust.sdk.test.MessageWithRecursion.Level1"
+        }
+    }
+
+    #[doc(hidden)]
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct __Level1(pub Level1);
+
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct NonRecursive {
+
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+        pub value: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl NonRecursive {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [value][crate::test::protos::message_with_recursion::NonRecursive::value].
+        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.value = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for NonRecursive {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.rust.sdk.test.MessageWithRecursion.NonRecursive"
+        }
+    }
+
+    #[doc(hidden)]
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct __NonRecursive(pub NonRecursive);
+}
+
 /// A test message for Value.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -2154,6 +2462,10 @@ impl wkt::message::Message for MessageWithValue {
     }
 }
 
+#[doc(hidden)]
+#[derive(Clone, Debug, PartialEq)]
+pub struct __MessageWithValue(pub MessageWithValue);
+
 /// A test message for Struct.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -2249,6 +2561,10 @@ impl wkt::message::Message for MessageWithStruct {
         "type.googleapis.com/google.rust.sdk.test.MessageWithStruct"
     }
 }
+
+#[doc(hidden)]
+#[derive(Clone, Debug, PartialEq)]
+pub struct __MessageWithStruct(pub MessageWithStruct);
 
 /// A test message for ListValue.
 #[serde_with::serde_as]
@@ -2346,6 +2662,10 @@ impl wkt::message::Message for MessageWithListValue {
     }
 }
 
+#[doc(hidden)]
+#[derive(Clone, Debug, PartialEq)]
+pub struct __MessageWithListValue(pub MessageWithListValue);
+
 /// A test message for NullValue.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -2432,6 +2752,10 @@ impl wkt::message::Message for MessageWithNullValue {
         "type.googleapis.com/google.rust.sdk.test.MessageWithNullValue"
     }
 }
+
+#[doc(hidden)]
+#[derive(Clone, Debug, PartialEq)]
+pub struct __MessageWithNullValue(pub MessageWithNullValue);
 
 /// A test message for FieldMask.
 #[serde_with::serde_as]
@@ -2528,3 +2852,7 @@ impl wkt::message::Message for MessageWithFieldMask {
         "type.googleapis.com/google.rust.sdk.test.MessageWithFieldMask"
     }
 }
+
+#[doc(hidden)]
+#[derive(Clone, Debug, PartialEq)]
+pub struct __MessageWithFieldMask(pub MessageWithFieldMask);
