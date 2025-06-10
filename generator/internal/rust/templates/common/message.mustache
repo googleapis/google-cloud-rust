@@ -31,9 +31,11 @@ pub struct {{Codec.Name}} {
     {{#Codec.DocLines}}
     {{{.}}}
     {{/Codec.DocLines}}
+    {{^Codec.WithGeneratedSerde}}
     {{#Codec.Attributes}}
     {{{.}}}
     {{/Codec.Attributes}}
+    {{/Codec.WithGeneratedSerde}}
     {{#Deprecated}}
     #[deprecated]
     {{/Deprecated}}
@@ -44,11 +46,15 @@ pub struct {{Codec.Name}} {
     {{#Codec.DocLines}}
     {{{.}}}
     {{/Codec.DocLines}}
+    {{^Codec.WithGeneratedSerde}}
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
+    {{/Codec.WithGeneratedSerde}}
     pub {{Codec.FieldName}}: std::option::Option<{{{Codec.FieldType}}}>,
     {{/OneOfs}}
 
+    {{^Codec.WithGeneratedSerde}}
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    {{/Codec.WithGeneratedSerde}}
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -255,15 +261,10 @@ impl gax::paginator::internal::PageableResponse for {{Codec.Name}} {
 {{!
     We will grow this code over multiple PRs to complete the serialization and
     deserialization of message types via code generation.
-
-    TODO(#2376) - remove the helper type and all the serde annotations once
-    this is functional.
 }}
+{{> /templates/common/feature_gate}}
 #[doc(hidden)]
-#[derive(Clone, Debug, PartialEq)]
-pub struct __{{Codec.Name}}(pub {{Codec.Name}});
-
-impl<'de> serde::de::Deserialize<'de> for __{{Codec.Name}} {
+impl<'de> serde::de::Deserialize<'de> for {{Codec.Name}} {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -305,11 +306,13 @@ impl<'de> serde::de::Deserialize<'de> for __{{Codec.Name}} {
                 Ok(result)
             }
         }
-        deserializer.deserialize_any(Visitor).map(__{{Codec.Name}})
+        deserializer.deserialize_any(Visitor)
     }
 }
 
-impl serde::ser::Serialize for __{{Codec.Name}} {
+{{> /templates/common/feature_gate}}
+#[doc(hidden)]
+impl serde::ser::Serialize for {{Codec.Name}} {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -324,8 +327,8 @@ impl serde::ser::Serialize for __{{Codec.Name}} {
         {{> /templates/common/ser_with_message_field}}
         {{/Codec.RequiresSerdeAs}}
         {{/Fields}}
-        if !self.0._unknown_fields.is_empty() {
-            for (key, value) in self.0._unknown_fields.iter() {
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
             }
         }

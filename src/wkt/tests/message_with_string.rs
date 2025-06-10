@@ -14,7 +14,7 @@
 
 #[cfg(test)]
 mod test {
-    use common::{__MessageWithString, MessageWithString};
+    use common::MessageWithString;
     use serde_json::{Value, json};
     use test_case::test_case;
     type Result = anyhow::Result<()>;
@@ -28,7 +28,7 @@ mod test {
     #[test_case(MessageWithString::new().set_repeated(["a", "b", "c"]), json!({"repeated": ["a", "b", "c"]}))]
     #[test_case(MessageWithString::new().set_map_key_value([("a", "1"), ("b", "2")]), json!({"mapKeyValue": {"a": "1", "b": "2"}}))]
     fn test_ser(input: MessageWithString, want: Value) -> Result {
-        let got = serde_json::to_value(__MessageWithString(input))?;
+        let got = serde_json::to_value(input)?;
         assert_eq!(got, want);
         Ok(())
     }
@@ -47,15 +47,15 @@ mod test {
     #[test_case(MessageWithString::new(), json!({"mapValue": null}))]
     #[test_case(MessageWithString::new(), json!({"mapKeyValue": null}))]
     fn test_de(want: MessageWithString, input: Value) -> Result {
-        let got = serde_json::from_value::<__MessageWithString>(input)?;
-        assert_eq!(got.0, want);
+        let got = serde_json::from_value::<MessageWithString>(input)?;
+        assert_eq!(got, want);
         Ok(())
     }
 
     #[test_case(json!({"unknown": "test-value"}))]
     #[test_case(json!({"unknown": "test-value", "moreUnknown": {"a": 1, "b": 2}}))]
     fn test_unknown(input: Value) -> Result {
-        let deser = serde_json::from_value::<__MessageWithString>(input.clone())?;
+        let deser = serde_json::from_value::<MessageWithString>(input.clone())?;
         let got = serde_json::to_value(deser)?;
         assert_eq!(got, input);
         Ok(())

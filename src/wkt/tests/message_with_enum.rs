@@ -14,7 +14,7 @@
 
 #[cfg(test)]
 mod test {
-    use common::{__MessageWithEnum, MessageWithEnum, message_with_enum::TestEnum};
+    use common::{MessageWithEnum, message_with_enum::TestEnum};
     use serde_json::{Value, json};
     use test_case::test_case;
     type Result = anyhow::Result<()>;
@@ -28,7 +28,7 @@ mod test {
     #[test_case(MessageWithEnum::new().set_repeated([TestEnum::Red, TestEnum::Green]), json!({"repeated": [1, 2]}))]
     #[test_case(MessageWithEnum::new().set_map([("red", TestEnum::Red), ("green", TestEnum::Green)]), json!({"map": {"red": 1, "green": 2}}))]
     fn test_ser(input: MessageWithEnum, want: Value) -> Result {
-        let got = serde_json::to_value(__MessageWithEnum(input))?;
+        let got = serde_json::to_value(input)?;
         assert_eq!(got, want);
         Ok(())
     }
@@ -45,15 +45,15 @@ mod test {
     #[test_case(MessageWithEnum::new(), json!({"repeated": null}))]
     #[test_case(MessageWithEnum::new(), json!({"map": null}))]
     fn test_de(want: MessageWithEnum, input: Value) -> Result {
-        let got = serde_json::from_value::<__MessageWithEnum>(input)?;
-        assert_eq!(got.0, want);
+        let got = serde_json::from_value::<MessageWithEnum>(input)?;
+        assert_eq!(got, want);
         Ok(())
     }
 
     #[test_case(json!({"unknown": "test-value"}))]
     #[test_case(json!({"unknown": "test-value", "moreUnknown": {"a": 1, "b": 2}}))]
     fn test_unknown(input: Value) -> Result {
-        let deser = serde_json::from_value::<__MessageWithEnum>(input.clone())?;
+        let deser = serde_json::from_value::<MessageWithEnum>(input.clone())?;
         let got = serde_json::to_value(deser)?;
         assert_eq!(got, input);
         Ok(())

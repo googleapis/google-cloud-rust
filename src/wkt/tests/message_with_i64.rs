@@ -14,7 +14,7 @@
 
 #[cfg(test)]
 mod test {
-    use common::{__MessageWithI64, MessageWithI64};
+    use common::MessageWithI64;
     use serde_json::{Value, json};
     use test_case::test_case;
     type Result = anyhow::Result<()>;
@@ -34,7 +34,7 @@ mod test {
     #[test_case(MessageWithI64::new().set_map_key_value([(0_i64, 0_i64);0]), json!({}))]
     #[test_case(MessageWithI64::new().set_map_key_value([(0_i64, 0_i64)]), json!({"mapKeyValue": {"0": "0"}}))]
     fn test_ser(input: MessageWithI64, want: Value) -> Result {
-        let got = serde_json::to_value(__MessageWithI64(input))?;
+        let got = serde_json::to_value(input)?;
         assert_eq!(got, want);
         Ok(())
     }
@@ -61,15 +61,15 @@ mod test {
     #[test_case(MessageWithI64::new(), json!({"mapValue": null}))]
     #[test_case(MessageWithI64::new(), json!({"mapKeyValue": null}))]
     fn test_de(want: MessageWithI64, input: Value) -> Result {
-        let got = serde_json::from_value::<__MessageWithI64>(input)?;
-        assert_eq!(got.0, want);
+        let got = serde_json::from_value::<MessageWithI64>(input)?;
+        assert_eq!(got, want);
         Ok(())
     }
 
     #[test_case(json!({"unknown": "test-value"}))]
     #[test_case(json!({"unknown": "test-value", "moreUnknown": {"a": 1, "b": 2}}))]
     fn test_unknown(input: Value) -> Result {
-        let deser = serde_json::from_value::<__MessageWithI64>(input.clone())?;
+        let deser = serde_json::from_value::<MessageWithI64>(input.clone())?;
         let got = serde_json::to_value(deser)?;
         assert_eq!(got, input);
         Ok(())

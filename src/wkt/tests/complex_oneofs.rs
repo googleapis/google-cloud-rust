@@ -15,7 +15,7 @@
 #[cfg(test)]
 mod test {
     use common::{
-        __MessageWithComplexOneOf, MessageWithComplexOneOf,
+        MessageWithComplexOneOf,
         message_with_complex_one_of::{Inner, TestEnum},
     };
     use google_cloud_wkt as wkt;
@@ -53,7 +53,7 @@ mod test {
     #[test_case(MessageWithComplexOneOf::new().set_inner(Inner::default().set_strings(["a", "b"])), json!({"inner": {"strings": ["a", "b"]}}))]
     #[test_case(MessageWithComplexOneOf::new().set_duration(Duration::clamp(-1, -750_000_000)), json!({"duration": "-1.75s"}))]
     fn test_ser(input: MessageWithComplexOneOf, want: Value) -> Result {
-        let got = serde_json::to_value(__MessageWithComplexOneOf(input))?;
+        let got = serde_json::to_value(input)?;
         assert_eq!(got, want);
         Ok(())
     }
@@ -96,8 +96,8 @@ mod test {
     #[test_case(MessageWithComplexOneOf::new().set_value(json!(null)), json!({"value": null}))]
     #[test_case(MessageWithComplexOneOf::new().set_value(json!({"a": 1})), json!({"value": {"a": 1}}))]
     fn test_de(want: MessageWithComplexOneOf, input: Value) -> Result {
-        let got = serde_json::from_value::<__MessageWithComplexOneOf>(input)?;
-        assert_eq!(got.0, want);
+        let got = serde_json::from_value::<MessageWithComplexOneOf>(input)?;
+        assert_eq!(got, want);
         Ok(())
     }
     #[test_case(json!({"long": 1, "enum": 0}))]
@@ -105,7 +105,7 @@ mod test {
     #[test_case(json!({"value": null, "long": 1}))]
     #[test_case(json!({"long": 1, "value": null}))]
     fn test_dup_field_errors(input: Value) -> Result {
-        let got = serde_json::from_value::<__MessageWithComplexOneOf>(input).unwrap_err();
+        let got = serde_json::from_value::<MessageWithComplexOneOf>(input).unwrap_err();
         assert!(got.is_data(), "{got:?}");
         Ok(())
     }
@@ -115,7 +115,7 @@ mod test {
     #[test_case(json!({"value": null, "long": null}))]
     #[test_case(json!({"long": null, "value": null}))]
     fn test_dup_field_null_is_not_error(input: Value) -> Result {
-        let _ = serde_json::from_value::<__MessageWithComplexOneOf>(input)?;
+        let _ = serde_json::from_value::<MessageWithComplexOneOf>(input)?;
         Ok(())
     }
 

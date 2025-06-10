@@ -18,37 +18,37 @@ limitations under the License.
 {{! First deal with all the fields that are not part of a oneof }}
 {{^IsOneOf}}
 {{#Optional}}
-if self.0.{{Codec.FieldName}}.is_some() {
-    state.serialize_entry("{{JSONName}}", &self.0.{{Codec.FieldName}})?;
+if self.{{Codec.FieldName}}.is_some() {
+    state.serialize_entry("{{JSONName}}", &self.{{Codec.FieldName}})?;
 }
 {{/Optional}}
 {{^Optional}}
 {{#Codec.SkipIfIsEmpty}}
-if !self.0.{{Codec.FieldName}}.is_empty() {
-    state.serialize_entry("{{JSONName}}", &self.0.{{Codec.FieldName}})?;
+if !self.{{Codec.FieldName}}.is_empty() {
+    state.serialize_entry("{{JSONName}}", &self.{{Codec.FieldName}})?;
 }
 {{/Codec.SkipIfIsEmpty}}
 {{#Codec.SkipIfIsDefault}}
-if !wkt::internal::is_default(&self.0.{{Codec.FieldName}}) {
-    state.serialize_entry("{{JSONName}}", &self.0.{{Codec.FieldName}})?;
+if !wkt::internal::is_default(&self.{{Codec.FieldName}}) {
+    state.serialize_entry("{{JSONName}}", &self.{{Codec.FieldName}})?;
 }
 {{/Codec.SkipIfIsDefault}}
 {{/Optional}}
 {{/IsOneOf}}
 {{#IsOneOf}}
-if let Some(value) = self.0.{{Codec.FieldName}}() {
+if let Some(value) = self.{{Codec.FieldName}}() {
     state.serialize_entry("{{JSONName}}", value)?;
 }
 {{/IsOneOf}}
 {{/Singular}}
 {{! repeated and map fields are never part of a oneof }}
 {{#Repeated}}
-if !self.0.{{Codec.FieldName}}.is_empty() {
-    state.serialize_entry("{{JSONName}}", &self.0.{{Codec.FieldName}})?;
+if !self.{{Codec.FieldName}}.is_empty() {
+    state.serialize_entry("{{JSONName}}", &self.{{Codec.FieldName}})?;
 }
 {{/Repeated}}
 {{#Map}}
-if !self.0.{{Codec.FieldName}}.is_empty() {
-    state.serialize_entry("{{JSONName}}", &self.0.{{Codec.FieldName}})?;
+if !self.{{Codec.FieldName}}.is_empty() {
+    state.serialize_entry("{{JSONName}}", &self.{{Codec.FieldName}})?;
 }
 {{/Map}}

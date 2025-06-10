@@ -15,7 +15,7 @@
 #[cfg(test)]
 mod test {
     use common::{
-        __MessageWithRecursion, MessageWithRecursion,
+        MessageWithRecursion,
         message_with_recursion::{Level0, NonRecursive},
     };
     use serde_json::{Value, json};
@@ -34,7 +34,7 @@ mod test {
     #[test_case(MessageWithRecursion::new().set_repeated([Level0::new()]), json!({"repeated": [{}]}))]
     #[test_case(MessageWithRecursion::new().set_map([("test", test_level_0())]), json!({"map": {"test": {"side": {"value": "abc"}}}} ))]
     fn test_ser(input: MessageWithRecursion, want: Value) -> Result {
-        let got = serde_json::to_value(__MessageWithRecursion(input))?;
+        let got = serde_json::to_value(input)?;
         assert_eq!(got, want);
         Ok(())
     }
@@ -49,15 +49,15 @@ mod test {
     #[test_case(MessageWithRecursion::new(), json!({"repeated": null}))]
     #[test_case(MessageWithRecursion::new(), json!({"map": null}))]
     fn test_de(want: MessageWithRecursion, input: Value) -> Result {
-        let got = serde_json::from_value::<__MessageWithRecursion>(input)?;
-        assert_eq!(got.0, want);
+        let got = serde_json::from_value::<MessageWithRecursion>(input)?;
+        assert_eq!(got, want);
         Ok(())
     }
 
     #[test_case(json!({"unknown": "test-value"}))]
     #[test_case(json!({"unknown": "test-value", "moreUnknown": {"a": 1, "b": 2}}))]
     fn test_unknown(input: Value) -> Result {
-        let deser = serde_json::from_value::<__MessageWithRecursion>(input.clone())?;
+        let deser = serde_json::from_value::<MessageWithRecursion>(input.clone())?;
         let got = serde_json::to_value(deser)?;
         assert_eq!(got, input);
         Ok(())
