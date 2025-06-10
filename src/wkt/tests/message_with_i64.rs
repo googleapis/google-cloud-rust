@@ -25,6 +25,8 @@ mod test {
     #[test_case(MessageWithI64::new().set_optional(0), json!({"optional": "0"}))]
     #[test_case(MessageWithI64::new().set_or_clear_optional(None::<i64>), json!({}))]
     #[test_case(MessageWithI64::new().set_optional(42), json!({"optional": "42"}))]
+    #[test_case(MessageWithI64::new().set_repeated([0_i64;0]), json!({}))]
+    #[test_case(MessageWithI64::new().set_repeated([0, -1, 1]), json!({"repeated": ["0", "-1", "1"]}))]
     fn test_ser(input: MessageWithI64, want: Value) -> Result {
         let got = serde_json::to_value(__MessageWithI64(input))?;
         assert_eq!(got, want);
@@ -38,6 +40,9 @@ mod test {
     #[test_case(MessageWithI64::new().set_optional(0), json!({"optional": "0"}))]
     #[test_case(MessageWithI64::new().set_or_clear_optional(None::<i64>), json!({}))]
     #[test_case(MessageWithI64::new().set_optional(42), json!({"optional": "42"}))]
+    #[test_case(MessageWithI64::new().set_repeated([0_i64;0]), json!({}))]
+    #[test_case(MessageWithI64::new().set_repeated([0, -1, 1]), json!({"repeated": ["0", "-1", "1"]}))]
+    #[test_case(MessageWithI64::new().set_repeated([0, -1, 20]), json!({"repeated": [0.0, "-1.0", 2e1]}))]
     fn test_de(want: MessageWithI64, input: Value) -> Result {
         let got = serde_json::from_value::<__MessageWithI64>(input)?;
         assert_eq!(got.0, want);

@@ -64,6 +64,16 @@ result.{{Group.Codec.FieldName}} = std::option::Option::Some(
 {{/Singular}}
 {{! repeated and map fields are never part of a oneof }}
 {{#Repeated}}
+struct __With( std::option::Option<{{{Codec.FieldType}}}> );
+impl<'de> serde::de::Deserialize<'de> for __With {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::de::Deserializer<'de>,
+    {
+        serde_with::As::< std::option::Option<std::vec::Vec<{{Codec.SerdeAs}}>> >::deserialize(deserializer).map(__With)
+    }
+}
+result.{{Codec.FieldName}} = map.next_value::< __With >()?.0.unwrap_or_default();
 {{/Repeated}}
 {{#Map}}
 {{/Map}}
