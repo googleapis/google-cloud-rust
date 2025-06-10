@@ -14,11 +14,25 @@
 
 #[cfg(test)]
 mod test {
-    use common::MessageWithFieldMask;
+    use common::{__MessageWithFieldMask, MessageWithFieldMask};
     use google_cloud_wkt::FieldMask;
     use serde_json::{Value, json};
     use test_case::test_case;
     type Result = anyhow::Result<()>;
+
+    #[test_case(MessageWithFieldMask::new(), json!({}))]
+    fn test_ser(input: MessageWithFieldMask, want: Value) -> Result {
+        let got = serde_json::to_value(__MessageWithFieldMask(input))?;
+        assert_eq!(got, want);
+        Ok(())
+    }
+
+    #[test_case(MessageWithFieldMask::new(), json!({}))]
+    fn test_de(want: MessageWithFieldMask, input: Value) -> Result {
+        let got = serde_json::from_value::<__MessageWithFieldMask>(input)?;
+        assert_eq!(got.0, want);
+        Ok(())
+    }
 
     #[test_case(json!({"singular": ""}), FieldMask::default())]
     #[test_case(json!({"singular": "a,b,c"}), FieldMask::default().set_paths(["a", "b", "c"]))]

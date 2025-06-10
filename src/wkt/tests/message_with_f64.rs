@@ -14,10 +14,24 @@
 
 #[cfg(test)]
 mod test {
-    use common::MessageWithF64;
+    use common::{__MessageWithF64, MessageWithF64};
     use serde_json::{Value, json};
     use test_case::test_case;
     type Result = anyhow::Result<()>;
+
+    #[test_case(MessageWithF64::new(), json!({}))]
+    fn test_ser(input: MessageWithF64, want: Value) -> Result {
+        let got = serde_json::to_value(__MessageWithF64(input))?;
+        assert_eq!(got, want);
+        Ok(())
+    }
+
+    #[test_case(MessageWithF64::new(), json!({}))]
+    fn test_de(want: MessageWithF64, input: Value) -> Result {
+        let got = serde_json::from_value::<__MessageWithF64>(input)?;
+        assert_eq!(got.0, want);
+        Ok(())
+    }
 
     #[test_case(9876.5, 9876.5)]
     #[test_case(f64::INFINITY, "Infinity")]

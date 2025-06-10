@@ -112,6 +112,42 @@ impl wkt::message::Message for MessageWithEnum {
 #[derive(Clone, Debug, PartialEq)]
 pub struct __MessageWithEnum(pub MessageWithEnum);
 
+impl<'de> serde::de::Deserialize<'de> for __MessageWithEnum {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = MessageWithEnum;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct MessageWithEnum")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                while let Some(_key) = map.next_key::<String>()? {
+                    let _value = map.next_value::<serde_json::Value>()?;
+                }
+                Ok(Self::Value::new())
+            }
+        }
+        deserializer.deserialize_any(Visitor).map(__MessageWithEnum)
+    }
+}
+
+impl serde::ser::Serialize for __MessageWithEnum {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        let state = serializer.serialize_map(None)?;
+        state.end()
+    }
+}
+
 /// Defines additional types related to [MessageWithEnum].
 pub mod message_with_enum {
     #[allow(unused_imports)]
@@ -549,6 +585,44 @@ impl wkt::message::Message for MessageWithOneOf {
 #[derive(Clone, Debug, PartialEq)]
 pub struct __MessageWithOneOf(pub MessageWithOneOf);
 
+impl<'de> serde::de::Deserialize<'de> for __MessageWithOneOf {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = MessageWithOneOf;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct MessageWithOneOf")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                while let Some(_key) = map.next_key::<String>()? {
+                    let _value = map.next_value::<serde_json::Value>()?;
+                }
+                Ok(Self::Value::new())
+            }
+        }
+        deserializer
+            .deserialize_any(Visitor)
+            .map(__MessageWithOneOf)
+    }
+}
+
+impl serde::ser::Serialize for __MessageWithOneOf {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        let state = serializer.serialize_map(None)?;
+        state.end()
+    }
+}
+
 /// Defines additional types related to [MessageWithOneOf].
 pub mod message_with_one_of {
     #[allow(unused_imports)]
@@ -588,6 +662,42 @@ pub mod message_with_one_of {
     #[doc(hidden)]
     #[derive(Clone, Debug, PartialEq)]
     pub struct __Message(pub Message);
+
+    impl<'de> serde::de::Deserialize<'de> for __Message {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = Message;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct Message")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    while let Some(_key) = map.next_key::<String>()? {
+                        let _value = map.next_value::<serde_json::Value>()?;
+                    }
+                    Ok(Self::Value::new())
+                }
+            }
+            deserializer.deserialize_any(Visitor).map(__Message)
+        }
+    }
+
+    impl serde::ser::Serialize for __Message {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            let state = serializer.serialize_map(None)?;
+            state.end()
+        }
+    }
 
     #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -963,6 +1073,44 @@ impl wkt::message::Message for MessageWithComplexOneOf {
 #[derive(Clone, Debug, PartialEq)]
 pub struct __MessageWithComplexOneOf(pub MessageWithComplexOneOf);
 
+impl<'de> serde::de::Deserialize<'de> for __MessageWithComplexOneOf {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = MessageWithComplexOneOf;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct MessageWithComplexOneOf")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                while let Some(_key) = map.next_key::<String>()? {
+                    let _value = map.next_value::<serde_json::Value>()?;
+                }
+                Ok(Self::Value::new())
+            }
+        }
+        deserializer
+            .deserialize_any(Visitor)
+            .map(__MessageWithComplexOneOf)
+    }
+}
+
+impl serde::ser::Serialize for __MessageWithComplexOneOf {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        let state = serializer.serialize_map(None)?;
+        state.end()
+    }
+}
+
 /// Defines additional types related to [MessageWithComplexOneOf].
 pub mod message_with_complex_one_of {
     #[allow(unused_imports)]
@@ -1007,6 +1155,42 @@ pub mod message_with_complex_one_of {
     #[doc(hidden)]
     #[derive(Clone, Debug, PartialEq)]
     pub struct __Inner(pub Inner);
+
+    impl<'de> serde::de::Deserialize<'de> for __Inner {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = Inner;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct Inner")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    while let Some(_key) = map.next_key::<String>()? {
+                        let _value = map.next_value::<serde_json::Value>()?;
+                    }
+                    Ok(Self::Value::new())
+                }
+            }
+            deserializer.deserialize_any(Visitor).map(__Inner)
+        }
+    }
+
+    impl serde::ser::Serialize for __Inner {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            let state = serializer.serialize_map(None)?;
+            state.end()
+        }
+    }
 
     ///
     /// # Working with unknown values
@@ -1252,6 +1436,42 @@ impl wkt::message::Message for MessageWithF32 {
 #[derive(Clone, Debug, PartialEq)]
 pub struct __MessageWithF32(pub MessageWithF32);
 
+impl<'de> serde::de::Deserialize<'de> for __MessageWithF32 {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = MessageWithF32;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct MessageWithF32")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                while let Some(_key) = map.next_key::<String>()? {
+                    let _value = map.next_value::<serde_json::Value>()?;
+                }
+                Ok(Self::Value::new())
+            }
+        }
+        deserializer.deserialize_any(Visitor).map(__MessageWithF32)
+    }
+}
+
+impl serde::ser::Serialize for __MessageWithF32 {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        let state = serializer.serialize_map(None)?;
+        state.end()
+    }
+}
+
 /// A test message for f64.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -1345,6 +1565,42 @@ impl wkt::message::Message for MessageWithF64 {
 #[doc(hidden)]
 #[derive(Clone, Debug, PartialEq)]
 pub struct __MessageWithF64(pub MessageWithF64);
+
+impl<'de> serde::de::Deserialize<'de> for __MessageWithF64 {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = MessageWithF64;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct MessageWithF64")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                while let Some(_key) = map.next_key::<String>()? {
+                    let _value = map.next_value::<serde_json::Value>()?;
+                }
+                Ok(Self::Value::new())
+            }
+        }
+        deserializer.deserialize_any(Visitor).map(__MessageWithF64)
+    }
+}
+
+impl serde::ser::Serialize for __MessageWithF64 {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        let state = serializer.serialize_map(None)?;
+        state.end()
+    }
+}
 
 /// A test message for i32.
 #[serde_with::serde_as]
@@ -1475,6 +1731,42 @@ impl wkt::message::Message for MessageWithI32 {
 #[derive(Clone, Debug, PartialEq)]
 pub struct __MessageWithI32(pub MessageWithI32);
 
+impl<'de> serde::de::Deserialize<'de> for __MessageWithI32 {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = MessageWithI32;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct MessageWithI32")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                while let Some(_key) = map.next_key::<String>()? {
+                    let _value = map.next_value::<serde_json::Value>()?;
+                }
+                Ok(Self::Value::new())
+            }
+        }
+        deserializer.deserialize_any(Visitor).map(__MessageWithI32)
+    }
+}
+
+impl serde::ser::Serialize for __MessageWithI32 {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        let state = serializer.serialize_map(None)?;
+        state.end()
+    }
+}
+
 /// A test message for u32.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -1603,6 +1895,42 @@ impl wkt::message::Message for MessageWithU32 {
 #[doc(hidden)]
 #[derive(Clone, Debug, PartialEq)]
 pub struct __MessageWithU32(pub MessageWithU32);
+
+impl<'de> serde::de::Deserialize<'de> for __MessageWithU32 {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = MessageWithU32;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct MessageWithU32")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                while let Some(_key) = map.next_key::<String>()? {
+                    let _value = map.next_value::<serde_json::Value>()?;
+                }
+                Ok(Self::Value::new())
+            }
+        }
+        deserializer.deserialize_any(Visitor).map(__MessageWithU32)
+    }
+}
+
+impl serde::ser::Serialize for __MessageWithU32 {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        let state = serializer.serialize_map(None)?;
+        state.end()
+    }
+}
 
 /// A test message for i64.
 #[serde_with::serde_as]
@@ -1733,6 +2061,42 @@ impl wkt::message::Message for MessageWithI64 {
 #[derive(Clone, Debug, PartialEq)]
 pub struct __MessageWithI64(pub MessageWithI64);
 
+impl<'de> serde::de::Deserialize<'de> for __MessageWithI64 {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = MessageWithI64;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct MessageWithI64")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                while let Some(_key) = map.next_key::<String>()? {
+                    let _value = map.next_value::<serde_json::Value>()?;
+                }
+                Ok(Self::Value::new())
+            }
+        }
+        deserializer.deserialize_any(Visitor).map(__MessageWithI64)
+    }
+}
+
+impl serde::ser::Serialize for __MessageWithI64 {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        let state = serializer.serialize_map(None)?;
+        state.end()
+    }
+}
+
 /// A test message for u64.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -1862,6 +2226,42 @@ impl wkt::message::Message for MessageWithU64 {
 #[derive(Clone, Debug, PartialEq)]
 pub struct __MessageWithU64(pub MessageWithU64);
 
+impl<'de> serde::de::Deserialize<'de> for __MessageWithU64 {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = MessageWithU64;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct MessageWithU64")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                while let Some(_key) = map.next_key::<String>()? {
+                    let _value = map.next_value::<serde_json::Value>()?;
+                }
+                Ok(Self::Value::new())
+            }
+        }
+        deserializer.deserialize_any(Visitor).map(__MessageWithU64)
+    }
+}
+
+impl serde::ser::Serialize for __MessageWithU64 {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        let state = serializer.serialize_map(None)?;
+        state.end()
+    }
+}
+
 /// A test message for bytes.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -1957,6 +2357,44 @@ impl wkt::message::Message for MessageWithBytes {
 #[doc(hidden)]
 #[derive(Clone, Debug, PartialEq)]
 pub struct __MessageWithBytes(pub MessageWithBytes);
+
+impl<'de> serde::de::Deserialize<'de> for __MessageWithBytes {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = MessageWithBytes;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct MessageWithBytes")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                while let Some(_key) = map.next_key::<String>()? {
+                    let _value = map.next_value::<serde_json::Value>()?;
+                }
+                Ok(Self::Value::new())
+            }
+        }
+        deserializer
+            .deserialize_any(Visitor)
+            .map(__MessageWithBytes)
+    }
+}
+
+impl serde::ser::Serialize for __MessageWithBytes {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        let state = serializer.serialize_map(None)?;
+        state.end()
+    }
+}
 
 /// A test message for bool.
 #[serde_with::serde_as]
@@ -2088,6 +2526,42 @@ impl wkt::message::Message for MessageWithBool {
 #[derive(Clone, Debug, PartialEq)]
 pub struct __MessageWithBool(pub MessageWithBool);
 
+impl<'de> serde::de::Deserialize<'de> for __MessageWithBool {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = MessageWithBool;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct MessageWithBool")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                while let Some(_key) = map.next_key::<String>()? {
+                    let _value = map.next_value::<serde_json::Value>()?;
+                }
+                Ok(Self::Value::new())
+            }
+        }
+        deserializer.deserialize_any(Visitor).map(__MessageWithBool)
+    }
+}
+
+impl serde::ser::Serialize for __MessageWithBool {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        let state = serializer.serialize_map(None)?;
+        state.end()
+    }
+}
+
 /// A test message for string.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -2214,6 +2688,44 @@ impl wkt::message::Message for MessageWithString {
 #[derive(Clone, Debug, PartialEq)]
 pub struct __MessageWithString(pub MessageWithString);
 
+impl<'de> serde::de::Deserialize<'de> for __MessageWithString {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = MessageWithString;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct MessageWithString")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                while let Some(_key) = map.next_key::<String>()? {
+                    let _value = map.next_value::<serde_json::Value>()?;
+                }
+                Ok(Self::Value::new())
+            }
+        }
+        deserializer
+            .deserialize_any(Visitor)
+            .map(__MessageWithString)
+    }
+}
+
+impl serde::ser::Serialize for __MessageWithString {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        let state = serializer.serialize_map(None)?;
+        state.end()
+    }
+}
+
 /// A test message for FieldMask.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -2322,6 +2834,44 @@ impl wkt::message::Message for MessageWithRecursion {
 #[derive(Clone, Debug, PartialEq)]
 pub struct __MessageWithRecursion(pub MessageWithRecursion);
 
+impl<'de> serde::de::Deserialize<'de> for __MessageWithRecursion {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = MessageWithRecursion;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct MessageWithRecursion")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                while let Some(_key) = map.next_key::<String>()? {
+                    let _value = map.next_value::<serde_json::Value>()?;
+                }
+                Ok(Self::Value::new())
+            }
+        }
+        deserializer
+            .deserialize_any(Visitor)
+            .map(__MessageWithRecursion)
+    }
+}
+
+impl serde::ser::Serialize for __MessageWithRecursion {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        let state = serializer.serialize_map(None)?;
+        state.end()
+    }
+}
+
 /// Defines additional types related to [MessageWithRecursion].
 pub mod message_with_recursion {
     #[allow(unused_imports)]
@@ -2395,6 +2945,42 @@ pub mod message_with_recursion {
     #[derive(Clone, Debug, PartialEq)]
     pub struct __Level0(pub Level0);
 
+    impl<'de> serde::de::Deserialize<'de> for __Level0 {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = Level0;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct Level0")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    while let Some(_key) = map.next_key::<String>()? {
+                        let _value = map.next_value::<serde_json::Value>()?;
+                    }
+                    Ok(Self::Value::new())
+                }
+            }
+            deserializer.deserialize_any(Visitor).map(__Level0)
+        }
+    }
+
+    impl serde::ser::Serialize for __Level0 {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            let state = serializer.serialize_map(None)?;
+            state.end()
+        }
+    }
+
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -2441,6 +3027,42 @@ pub mod message_with_recursion {
     #[derive(Clone, Debug, PartialEq)]
     pub struct __Level1(pub Level1);
 
+    impl<'de> serde::de::Deserialize<'de> for __Level1 {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = Level1;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct Level1")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    while let Some(_key) = map.next_key::<String>()? {
+                        let _value = map.next_value::<serde_json::Value>()?;
+                    }
+                    Ok(Self::Value::new())
+                }
+            }
+            deserializer.deserialize_any(Visitor).map(__Level1)
+        }
+    }
+
+    impl serde::ser::Serialize for __Level1 {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            let state = serializer.serialize_map(None)?;
+            state.end()
+        }
+    }
+
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -2475,6 +3097,42 @@ pub mod message_with_recursion {
     #[doc(hidden)]
     #[derive(Clone, Debug, PartialEq)]
     pub struct __NonRecursive(pub NonRecursive);
+
+    impl<'de> serde::de::Deserialize<'de> for __NonRecursive {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = NonRecursive;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct NonRecursive")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    while let Some(_key) = map.next_key::<String>()? {
+                        let _value = map.next_value::<serde_json::Value>()?;
+                    }
+                    Ok(Self::Value::new())
+                }
+            }
+            deserializer.deserialize_any(Visitor).map(__NonRecursive)
+        }
+    }
+
+    impl serde::ser::Serialize for __NonRecursive {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            let state = serializer.serialize_map(None)?;
+            state.end()
+        }
+    }
 }
 
 /// A test message for Value.
@@ -2582,6 +3240,44 @@ impl wkt::message::Message for MessageWithValue {
 #[derive(Clone, Debug, PartialEq)]
 pub struct __MessageWithValue(pub MessageWithValue);
 
+impl<'de> serde::de::Deserialize<'de> for __MessageWithValue {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = MessageWithValue;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct MessageWithValue")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                while let Some(_key) = map.next_key::<String>()? {
+                    let _value = map.next_value::<serde_json::Value>()?;
+                }
+                Ok(Self::Value::new())
+            }
+        }
+        deserializer
+            .deserialize_any(Visitor)
+            .map(__MessageWithValue)
+    }
+}
+
+impl serde::ser::Serialize for __MessageWithValue {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        let state = serializer.serialize_map(None)?;
+        state.end()
+    }
+}
+
 /// A test message for Struct.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -2684,6 +3380,44 @@ impl wkt::message::Message for MessageWithStruct {
 #[doc(hidden)]
 #[derive(Clone, Debug, PartialEq)]
 pub struct __MessageWithStruct(pub MessageWithStruct);
+
+impl<'de> serde::de::Deserialize<'de> for __MessageWithStruct {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = MessageWithStruct;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct MessageWithStruct")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                while let Some(_key) = map.next_key::<String>()? {
+                    let _value = map.next_value::<serde_json::Value>()?;
+                }
+                Ok(Self::Value::new())
+            }
+        }
+        deserializer
+            .deserialize_any(Visitor)
+            .map(__MessageWithStruct)
+    }
+}
+
+impl serde::ser::Serialize for __MessageWithStruct {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        let state = serializer.serialize_map(None)?;
+        state.end()
+    }
+}
 
 /// A test message for ListValue.
 #[serde_with::serde_as]
@@ -2788,6 +3522,44 @@ impl wkt::message::Message for MessageWithListValue {
 #[derive(Clone, Debug, PartialEq)]
 pub struct __MessageWithListValue(pub MessageWithListValue);
 
+impl<'de> serde::de::Deserialize<'de> for __MessageWithListValue {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = MessageWithListValue;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct MessageWithListValue")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                while let Some(_key) = map.next_key::<String>()? {
+                    let _value = map.next_value::<serde_json::Value>()?;
+                }
+                Ok(Self::Value::new())
+            }
+        }
+        deserializer
+            .deserialize_any(Visitor)
+            .map(__MessageWithListValue)
+    }
+}
+
+impl serde::ser::Serialize for __MessageWithListValue {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        let state = serializer.serialize_map(None)?;
+        state.end()
+    }
+}
+
 /// A test message for NullValue.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -2879,6 +3651,44 @@ impl wkt::message::Message for MessageWithNullValue {
 #[doc(hidden)]
 #[derive(Clone, Debug, PartialEq)]
 pub struct __MessageWithNullValue(pub MessageWithNullValue);
+
+impl<'de> serde::de::Deserialize<'de> for __MessageWithNullValue {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = MessageWithNullValue;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct MessageWithNullValue")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                while let Some(_key) = map.next_key::<String>()? {
+                    let _value = map.next_value::<serde_json::Value>()?;
+                }
+                Ok(Self::Value::new())
+            }
+        }
+        deserializer
+            .deserialize_any(Visitor)
+            .map(__MessageWithNullValue)
+    }
+}
+
+impl serde::ser::Serialize for __MessageWithNullValue {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        let state = serializer.serialize_map(None)?;
+        state.end()
+    }
+}
 
 /// A test message for FieldMask.
 #[serde_with::serde_as]
@@ -2982,3 +3792,41 @@ impl wkt::message::Message for MessageWithFieldMask {
 #[doc(hidden)]
 #[derive(Clone, Debug, PartialEq)]
 pub struct __MessageWithFieldMask(pub MessageWithFieldMask);
+
+impl<'de> serde::de::Deserialize<'de> for __MessageWithFieldMask {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = MessageWithFieldMask;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct MessageWithFieldMask")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                while let Some(_key) = map.next_key::<String>()? {
+                    let _value = map.next_value::<serde_json::Value>()?;
+                }
+                Ok(Self::Value::new())
+            }
+        }
+        deserializer
+            .deserialize_any(Visitor)
+            .map(__MessageWithFieldMask)
+    }
+}
+
+impl serde::ser::Serialize for __MessageWithFieldMask {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        let state = serializer.serialize_map(None)?;
+        state.end()
+    }
+}

@@ -14,10 +14,24 @@
 
 #[cfg(test)]
 mod test {
-    use common::MessageWithBool;
+    use common::{__MessageWithBool, MessageWithBool};
     use serde_json::{Value, json};
     use test_case::test_case;
     type Result = anyhow::Result<()>;
+
+    #[test_case(MessageWithBool::new(), json!({}))]
+    fn test_ser(input: MessageWithBool, want: Value) -> Result {
+        let got = serde_json::to_value(__MessageWithBool(input))?;
+        assert_eq!(got, want);
+        Ok(())
+    }
+
+    #[test_case(MessageWithBool::new(), json!({}))]
+    fn test_de(want: MessageWithBool, input: Value) -> Result {
+        let got = serde_json::from_value::<__MessageWithBool>(input)?;
+        assert_eq!(got.0, want);
+        Ok(())
+    }
 
     #[test]
     fn test_singular() -> Result {

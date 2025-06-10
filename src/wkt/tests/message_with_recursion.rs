@@ -15,7 +15,7 @@
 #[cfg(test)]
 mod test {
     use common::{
-        MessageWithRecursion,
+        __MessageWithRecursion, MessageWithRecursion,
         message_with_recursion::{Level0, NonRecursive},
     };
     use serde_json::{Value, json};
@@ -24,6 +24,20 @@ mod test {
 
     fn test_level_0() -> Level0 {
         Level0::new().set_side(NonRecursive::new().set_value("abc"))
+    }
+
+    #[test_case(MessageWithRecursion::new(), json!({}))]
+    fn test_ser(input: MessageWithRecursion, want: Value) -> Result {
+        let got = serde_json::to_value(__MessageWithRecursion(input))?;
+        assert_eq!(got, want);
+        Ok(())
+    }
+
+    #[test_case(MessageWithRecursion::new(), json!({}))]
+    fn test_de(want: MessageWithRecursion, input: Value) -> Result {
+        let got = serde_json::from_value::<__MessageWithRecursion>(input)?;
+        assert_eq!(got.0, want);
+        Ok(())
     }
 
     #[test_case(json!({"singular": {}}), Level0::default())]
