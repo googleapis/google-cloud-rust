@@ -1305,7 +1305,32 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithComplexOneOf {
                                 ),
                             );
                         }
-                        "bytesValue" => {}
+                        "bytesValue" => {
+                            struct __With(::bytes::Bytes);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::<serde_with::base64::Base64>::deserialize(
+                                        deserializer,
+                                    )
+                                    .map(__With)
+                                }
+                            }
+                            if result.complex.is_some() {
+                                return Err(A::Error::duplicate_field(
+                                    "multiple values for `complex`, a oneof with full ID .google.rust.sdk.test.MessageWithComplexOneOf.bytes_value, latest field was bytesValue",
+                                ));
+                            }
+                            result.complex = std::option::Option::Some(
+                                crate::generated::message_with_complex_one_of::Complex::BytesValue(
+                                    map.next_value::<__With>()?.0,
+                                ),
+                            );
+                        }
                         "stringValue" => {
                             if result.complex.is_some() {
                                 return Err(A::Error::duplicate_field(
@@ -1318,10 +1343,102 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithComplexOneOf {
                                 ),
                             );
                         }
-                        "floatValue" => {}
-                        "doubleValue" => {}
-                        "int" => {}
-                        "long" => {}
+                        "floatValue" => {
+                            struct __With(f32);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::<wkt::internal::F32>::deserialize(deserializer)
+                                        .map(__With)
+                                }
+                            }
+                            if result.complex.is_some() {
+                                return Err(A::Error::duplicate_field(
+                                    "multiple values for `complex`, a oneof with full ID .google.rust.sdk.test.MessageWithComplexOneOf.float_value, latest field was floatValue",
+                                ));
+                            }
+                            result.complex = std::option::Option::Some(
+                                crate::generated::message_with_complex_one_of::Complex::FloatValue(
+                                    map.next_value::<__With>()?.0,
+                                ),
+                            );
+                        }
+                        "doubleValue" => {
+                            struct __With(f64);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::<wkt::internal::F64>::deserialize(deserializer)
+                                        .map(__With)
+                                }
+                            }
+                            if result.complex.is_some() {
+                                return Err(A::Error::duplicate_field(
+                                    "multiple values for `complex`, a oneof with full ID .google.rust.sdk.test.MessageWithComplexOneOf.double_value, latest field was doubleValue",
+                                ));
+                            }
+                            result.complex = std::option::Option::Some(
+                                crate::generated::message_with_complex_one_of::Complex::DoubleValue(
+                                    map.next_value::<__With>()?.0,
+                                ),
+                            );
+                        }
+                        "int" => {
+                            struct __With(i32);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::<wkt::internal::I32>::deserialize(deserializer)
+                                        .map(__With)
+                                }
+                            }
+                            if result.complex.is_some() {
+                                return Err(A::Error::duplicate_field(
+                                    "multiple values for `complex`, a oneof with full ID .google.rust.sdk.test.MessageWithComplexOneOf.int, latest field was int",
+                                ));
+                            }
+                            result.complex = std::option::Option::Some(
+                                crate::generated::message_with_complex_one_of::Complex::Int(
+                                    map.next_value::<__With>()?.0,
+                                ),
+                            );
+                        }
+                        "long" => {
+                            struct __With(i64);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::<wkt::internal::I64>::deserialize(deserializer)
+                                        .map(__With)
+                                }
+                            }
+                            if result.complex.is_some() {
+                                return Err(A::Error::duplicate_field(
+                                    "multiple values for `complex`, a oneof with full ID .google.rust.sdk.test.MessageWithComplexOneOf.long, latest field was long",
+                                ));
+                            }
+                            result.complex = std::option::Option::Some(
+                                crate::generated::message_with_complex_one_of::Complex::Long(
+                                    map.next_value::<__With>()?.0,
+                                ),
+                            );
+                        }
                         "enum" => {
                             if result.complex.is_some() {
                                 return Err(A::Error::duplicate_field(
@@ -1388,8 +1505,68 @@ impl serde::ser::Serialize for __MessageWithComplexOneOf {
         if let Some(value) = self.0.bool_value() {
             state.serialize_entry("boolValue", value)?;
         }
+        if let Some(value) = self.0.bytes_value() {
+            struct __With<'a>(&'a ::bytes::Bytes);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<serde_with::base64::Base64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("bytesValue", &__With(value))?;
+        }
         if let Some(value) = self.0.string_value() {
             state.serialize_entry("stringValue", value)?;
+        }
+        if let Some(value) = self.0.float_value() {
+            struct __With<'a>(&'a f32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::F32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("floatValue", &__With(value))?;
+        }
+        if let Some(value) = self.0.double_value() {
+            struct __With<'a>(&'a f64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::F64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("doubleValue", &__With(value))?;
+        }
+        if let Some(value) = self.0.int() {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("int", &__With(value))?;
+        }
+        if let Some(value) = self.0.long() {
+            struct __With<'a>(&'a i64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("long", &__With(value))?;
         }
         if let Some(value) = self.0.r#enum() {
             state.serialize_entry("enum", value)?;
