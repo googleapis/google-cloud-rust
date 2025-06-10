@@ -38,12 +38,9 @@ impl UrlSourcedCredentials {
         headers: Option<HashMap<String, String>>,
         format_source: Option<CredentialSourceFormat>,
     ) -> Self {
-        let mut format = "text".to_string();
-        let mut subject_token_field_name = "".to_string();
-        if let Some(f) = format_source {
-            format = f.format_type;
-            subject_token_field_name = f.subject_token_field_name;
-        }
+        let (format, subject_token_field_name) = format_source
+            .map(|f| (f.format_type, f.subject_token_field_name))
+            .unwrap_or(("text".to_string(), String::new()));
         Self {
             url,
             headers: headers.unwrap_or_default(),
