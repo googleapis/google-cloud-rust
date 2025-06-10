@@ -27,6 +27,12 @@ mod test {
     #[test_case(MessageWithU32::new().set_optional(42_u32), json!({"optional": 42}))]
     #[test_case(MessageWithU32::new().set_repeated([0_u32;0]), json!({}))]
     #[test_case(MessageWithU32::new().set_repeated([0_u32, 1, 2]), json!({"repeated": [0, 1, 2]}))]
+    #[test_case(MessageWithU32::new().set_map_value([("", 0_u32);0]), json!({}))]
+    #[test_case(MessageWithU32::new().set_map_value([("", 0_u32)]), json!({"mapValue": {"": 0}}))]
+    #[test_case(MessageWithU32::new().set_map_key([(0_u32, "");0]), json!({}))]
+    #[test_case(MessageWithU32::new().set_map_key([(0_u32, "")]), json!({"mapKey": {"0": ""}}))]
+    #[test_case(MessageWithU32::new().set_map_key_value([(0_u32, 0_u32);0]), json!({}))]
+    #[test_case(MessageWithU32::new().set_map_key_value([(0_u32, 0_u32)]), json!({"mapKeyValue": {"0": 0}}))]
     fn test_ser(input: MessageWithU32, want: Value) -> Result {
         let got = serde_json::to_value(__MessageWithU32(input))?;
         assert_eq!(got, want);
@@ -42,6 +48,12 @@ mod test {
     #[test_case(MessageWithU32::new().set_repeated([0_u32;0]), json!({}))]
     #[test_case(MessageWithU32::new().set_repeated([0_u32, 1, 2]), json!({"repeated": [0, 1, 2]}))]
     #[test_case(MessageWithU32::new().set_repeated([0_u32, 1, 20]), json!({"repeated": [0.0, "1.0", 2e1]}))]
+    #[test_case(MessageWithU32::new().set_map_value([("", 0_u32);0]), json!({}))]
+    #[test_case(MessageWithU32::new().set_map_value([("", 0_u32)]), json!({"mapValue": {"": 0}}))]
+    #[test_case(MessageWithU32::new().set_map_key([(0_u32, "");0]), json!({}))]
+    #[test_case(MessageWithU32::new().set_map_key([(0_u32, "")]), json!({"mapKey": {"0": ""}}))]
+    #[test_case(MessageWithU32::new().set_map_key_value([(0_u32, 0_u32);0]), json!({}))]
+    #[test_case(MessageWithU32::new().set_map_key_value([(0_u32, 0_u32)]), json!({"mapKeyValue": {"0": 0}}))]
     fn test_de(want: MessageWithU32, input: Value) -> Result {
         let got = serde_json::from_value::<__MessageWithU32>(input)?;
         assert_eq!(got.0, want);

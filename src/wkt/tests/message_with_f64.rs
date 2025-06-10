@@ -34,6 +34,9 @@ mod test {
     #[test_case(MessageWithF64::new().set_repeated([0_f64;0]), json!({}))]
     #[test_case(MessageWithF64::new().set_repeated([0.0, 1.5, 2.5]), json!({"repeated": [0.0, 1.5, 2.5]}))]
     #[test_case(MessageWithF64::new().set_repeated([0.0, f64::NAN, f64::INFINITY]), json!({"repeated": [0.0, "NaN", "Infinity"]}))]
+    #[test_case(MessageWithF64::new().set_map([("", 0_f64);0]), json!({}))]
+    #[test_case(MessageWithF64::new().set_map([("a", 0_f64), ("b", 1_f64)]), json!({"map": {"a": 0.0, "b": 1.0}}))]
+    #[test_case(MessageWithF64::new().set_map([("a", f64::NAN), ("b", f64::INFINITY)]), json!({"map": {"a": "NaN", "b": "Infinity"}}))]
     fn test_ser(input: MessageWithF64, want: Value) -> Result {
         let got = serde_json::to_value(__MessageWithF64(input))?;
         assert_eq!(got, want);
@@ -50,6 +53,8 @@ mod test {
     #[test_case(MessageWithF64::new().set_repeated([0_f64;0]), json!({}))]
     #[test_case(MessageWithF64::new().set_repeated([0.0, 1.5, 2.5]), json!({"repeated": [0.0, 1.5, 2.5]}))]
     #[test_case(MessageWithF64::new().set_repeated([0.0, 1.5, 2.5]), json!({"repeated": [0, 1.5, "2.5"]}))]
+    #[test_case(MessageWithF64::new().set_map([("", 0_f64);0]), json!({}))]
+    #[test_case(MessageWithF64::new().set_map([("a", 0_f64), ("b", 1_f64)]), json!({"map": {"a": 0.0, "b": 1.0}}))]
     fn test_de(want: MessageWithF64, input: Value) -> Result {
         let got = serde_json::from_value::<__MessageWithF64>(input)?;
         assert_eq!(got.0, want);

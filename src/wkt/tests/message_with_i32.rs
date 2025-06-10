@@ -27,6 +27,12 @@ mod test {
     #[test_case(MessageWithI32::new().set_optional(42), json!({"optional": 42}))]
     #[test_case(MessageWithI32::new().set_repeated([0_i32;0]), json!({}))]
     #[test_case(MessageWithI32::new().set_repeated([0, -1, 1]), json!({"repeated": [0, -1, 1]}))]
+    #[test_case(MessageWithI32::new().set_map_value([("", 0_i32);0]), json!({}))]
+    #[test_case(MessageWithI32::new().set_map_value([("", 0_i32)]), json!({"mapValue": {"": 0}}))]
+    #[test_case(MessageWithI32::new().set_map_key([(0_i32, "");0]), json!({}))]
+    #[test_case(MessageWithI32::new().set_map_key([(0_i32, "")]), json!({"mapKey": {"0": ""}}))]
+    #[test_case(MessageWithI32::new().set_map_key_value([(0_i32, 0_i32);0]), json!({}))]
+    #[test_case(MessageWithI32::new().set_map_key_value([(0_i32, 0_i32)]), json!({"mapKeyValue": {"0": 0}}))]
     fn test_ser(input: MessageWithI32, want: Value) -> Result {
         let got = serde_json::to_value(__MessageWithI32(input))?;
         assert_eq!(got, want);
@@ -43,6 +49,12 @@ mod test {
     #[test_case(MessageWithI32::new().set_repeated([0_i32;0]), json!({}))]
     #[test_case(MessageWithI32::new().set_repeated([0, -1, 1]), json!({"repeated": [0, -1, 1]}))]
     #[test_case(MessageWithI32::new().set_repeated([0, -1, 20]), json!({"repeated": [0.0, "-1.0", 2e1]}))]
+    #[test_case(MessageWithI32::new().set_map_value([("", 0_i32);0]), json!({}))]
+    #[test_case(MessageWithI32::new().set_map_value([("", 0_i32)]), json!({"mapValue": {"": 0}}))]
+    #[test_case(MessageWithI32::new().set_map_key([(0_i32, "");0]), json!({}))]
+    #[test_case(MessageWithI32::new().set_map_key([(0_i32, "")]), json!({"mapKey": {"0": ""}}))]
+    #[test_case(MessageWithI32::new().set_map_key_value([(0_i32, 0_i32);0]), json!({}))]
+    #[test_case(MessageWithI32::new().set_map_key_value([(0_i32, 0_i32)]), json!({"mapKeyValue": {"0": 0}}))]
     fn test_de(want: MessageWithI32, input: Value) -> Result {
         let got = serde_json::from_value::<__MessageWithI32>(input)?;
         assert_eq!(got.0, want);

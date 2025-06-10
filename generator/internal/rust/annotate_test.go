@@ -482,7 +482,6 @@ func TestOneOfAnnotations(t *testing.T) {
 		ValueType:          "f32",
 		ValueField:         value_field,
 		IsBoxed:            true,
-		RequiresSerdeAs:    true,
 		SerdeAs:            "std::collections::HashMap<wkt::internal::I32, wkt::internal::F32>",
 	}, map_field.Codec, ignore); diff != "" {
 		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
@@ -500,7 +499,6 @@ func TestOneOfAnnotations(t *testing.T) {
 		AddQueryParameter:  `let builder = req.oneof_field_integer().iter().fold(builder, |builder, p| builder.query(&[("oneofFieldInteger", p)]));`,
 		KeyType:            "",
 		ValueType:          "",
-		RequiresSerdeAs:    true,
 		SerdeAs:            "wkt::internal::I64",
 	}, integer_field.Codec, ignore); diff != "" {
 		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
@@ -831,7 +829,6 @@ func TestJsonNameAnnotations(t *testing.T) {
 		AddQueryParameter:  `let builder = builder.query(&[("readTime", &req.read_time)]);`,
 		KeyType:            "",
 		ValueType:          "",
-		RequiresSerdeAs:    true,
 		SerdeAs:            "wkt::internal::I32",
 	}, readTime.Codec); diff != "" {
 		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
@@ -852,7 +849,6 @@ func TestJsonNameAnnotations(t *testing.T) {
 		AddQueryParameter:  `let builder = req.optional.iter().fold(builder, |builder, p| builder.query(&[("optional", p)]));`,
 		KeyType:            "",
 		ValueType:          "",
-		RequiresSerdeAs:    true,
 		SerdeAs:            "wkt::internal::I32",
 	}, optional.Codec); diff != "" {
 		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
@@ -873,7 +869,6 @@ func TestJsonNameAnnotations(t *testing.T) {
 		AddQueryParameter:  `let builder = req.repeated.iter().fold(builder, |builder, p| builder.query(&[("repeated", p)]));`,
 		KeyType:            "",
 		ValueType:          "",
-		RequiresSerdeAs:    true,
 		SerdeAs:            "wkt::internal::I32",
 	}, repeated.Codec); diff != "" {
 		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
@@ -1072,7 +1067,6 @@ func TestFieldAnnotations(t *testing.T) {
 		KeyField:           key_field,
 		ValueType:          "i64",
 		ValueField:         value_field,
-		RequiresSerdeAs:    true,
 		SerdeAs:            "std::collections::HashMap<wkt::internal::I32, wkt::internal::I64>",
 	}
 	if diff := cmp.Diff(wantField, map_field.Codec); diff != "" {

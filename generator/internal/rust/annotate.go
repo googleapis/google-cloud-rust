@@ -264,16 +264,17 @@ type fieldAnnotations struct {
 	// The templates need to generate different code for boxed fields.
 	IsBoxed bool
 	// If true, it requires a serde_with::serde_as() transformation.
-	RequiresSerdeAs bool
-	SerdeAs         string
+	SerdeAs string
+	// If true, use `wkt::internal::is_default()` to skip the field
+	SkipIfIsDefault bool
 }
 
 func (a *fieldAnnotations) SkipIfIsEmpty() bool {
-	return a.PrimitiveFieldType == "std::string::String" || a.PrimitiveFieldType == "::bytes::Bytes"
+	return !a.SkipIfIsDefault
 }
 
-func (a *fieldAnnotations) SkipIfIsDefault() bool {
-	return !a.SkipIfIsEmpty()
+func (a *fieldAnnotations) RequiresSerdeAs() bool {
+	return a.SerdeAs != ""
 }
 
 type enumAnnotation struct {
@@ -691,69 +692,28 @@ func (c *codec) annotateOneOf(oneof *api.OneOf, message *api.Message, state *api
 	}
 }
 
-func (c *codec) requiresSerdeAs(field *api.Field, state *api.APIState) bool {
-	switch field.Typez {
-	case api.STRING_TYPE, api.BOOL_TYPE, api.ENUM_TYPE:
-		return false
-	case api.MESSAGE_TYPE:
-		if msg, ok := state.MessageByID[field.TypezID]; ok && msg.IsMap {
-			if len(msg.Fields) != 2 {
-				slog.Error("expected exactly two fields for map message", "field ID", field.ID, "map ID", field.TypezID)
-				return false
-			}
-			key := c.requiresSerdeAs(msg.Fields[0], state)
-			value := c.requiresSerdeAs(msg.Fields[1], state)
-			return key || value
-		}
-		return field.TypezID == ".google.protobuf.Value"
-	default:
-		return true
-	}
-}
-
-func (c *codec) serdeAs(field *api.Field, state *api.APIState) string {
-	var formatter string
+func (c *codec) primitiveSerdeAs(field *api.Field) string {
 	switch field.Typez {
 	case api.INT32_TYPE, api.SFIXED32_TYPE, api.SINT32_TYPE:
-		formatter = "wkt::internal::I32"
+		return "wkt::internal::I32"
 	case api.INT64_TYPE, api.SFIXED64_TYPE, api.SINT64_TYPE:
-		formatter = "wkt::internal::I64"
+		return "wkt::internal::I64"
 	case api.UINT32_TYPE, api.FIXED32_TYPE:
-		formatter = "wkt::internal::U32"
+		return "wkt::internal::U32"
 	case api.UINT64_TYPE, api.FIXED64_TYPE:
-		formatter = "wkt::internal::U64"
+		return "wkt::internal::U64"
 	case api.FLOAT_TYPE:
-		formatter = "wkt::internal::F32"
+		return "wkt::internal::F32"
 	case api.DOUBLE_TYPE:
-		formatter = "wkt::internal::F64"
+		return "wkt::internal::F64"
 	case api.BYTES_TYPE:
-		formatter = "serde_with::base64::Base64"
-	case api.MESSAGE_TYPE:
-		if msg, ok := state.MessageByID[field.TypezID]; ok && msg.IsMap {
-			if len(msg.Fields) != 2 {
-				slog.Error("expected exactly two fields for map message", "field ID", field.ID, "map ID", field.TypezID)
-				return ""
-			}
-			key := c.serdeAs(msg.Fields[0], state)
-			value := c.serdeAs(msg.Fields[1], state)
-			return fmt.Sprintf("std::collections::HashMap<%s, %s>", key, value)
-		}
-		//		if field.TypezID == ".google.protobuf.Value" {
-		//			return "wkt::internal::OptionalValue"
-		//		}
-		formatter = "serde_with::Same"
+		return "serde_with::base64::Base64"
 	default:
-		formatter = "serde_with::Same"
+		return ""
 	}
-	return formatter
 }
 
 func (c *codec) annotateField(field *api.Field, message *api.Message, state *api.APIState, sourceSpecificationPackageName string) {
-	requiresSerdeAs := c.requiresSerdeAs(field, state)
-	serdeAs := ""
-	if requiresSerdeAs {
-		serdeAs = c.serdeAs(field, state)
-	}
 	ann := &fieldAnnotations{
 		FieldName:          toSnake(field.Name),
 		SetterName:         toSnakeNoMangling(field.Name),
@@ -764,24 +724,35 @@ func (c *codec) annotateField(field *api.Field, message *api.Message, state *api
 		FieldType:          fieldType(field, state, false, c.modulePath, sourceSpecificationPackageName, c.packageMapping),
 		PrimitiveFieldType: fieldType(field, state, true, c.modulePath, sourceSpecificationPackageName, c.packageMapping),
 		AddQueryParameter:  addQueryParameter(field),
-		RequiresSerdeAs:    requiresSerdeAs,
-		SerdeAs:            serdeAs,
+		SerdeAs:            c.primitiveSerdeAs(field),
+		SkipIfIsDefault:    field.Typez != api.STRING_TYPE && field.Typez != api.BYTES_TYPE,
 	}
 	if field.Recursive || (field.Typez == api.MESSAGE_TYPE && field.IsOneOf) {
 		ann.IsBoxed = true
 	}
 	field.Codec = ann
-	if field.Typez != api.MESSAGE_TYPE {
-		return
+	if field.Typez == api.MESSAGE_TYPE {
+		if msg, ok := state.MessageByID[field.TypezID]; ok && msg.IsMap {
+			if len(msg.Fields) != 2 {
+				slog.Error("expected exactly two fields for map message", "field ID", field.ID, "map ID", field.TypezID)
+			}
+			ann.KeyField = msg.Fields[0]
+			ann.KeyType = mapType(msg.Fields[0], state, c.modulePath, sourceSpecificationPackageName, c.packageMapping)
+			ann.ValueField = msg.Fields[1]
+			ann.ValueType = mapType(msg.Fields[1], state, c.modulePath, sourceSpecificationPackageName, c.packageMapping)
+			key := c.primitiveSerdeAs(msg.Fields[0])
+			value := c.primitiveSerdeAs(msg.Fields[1])
+			if key != "" || value != "" {
+				if key == "" {
+					key = "serde_with::Same"
+				}
+				if value == "" {
+					value = "serde_with::Same"
+				}
+				ann.SerdeAs = fmt.Sprintf("std::collections::HashMap<%s, %s>", key, value)
+			}
+		}
 	}
-	mapMessage, ok := state.MessageByID[field.TypezID]
-	if !ok || !mapMessage.IsMap {
-		return
-	}
-	ann.KeyField = mapMessage.Fields[0]
-	ann.KeyType = mapType(mapMessage.Fields[0], state, c.modulePath, sourceSpecificationPackageName, c.packageMapping)
-	ann.ValueField = mapMessage.Fields[1]
-	ann.ValueType = mapType(mapMessage.Fields[1], state, c.modulePath, sourceSpecificationPackageName, c.packageMapping)
 }
 
 func (c *codec) annotateEnum(e *api.Enum, state *api.APIState, sourceSpecificationPackageName string) {
