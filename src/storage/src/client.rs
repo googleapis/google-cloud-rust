@@ -463,11 +463,7 @@ impl ReadObject {
     /// the start of the object.
     ///
     /// A negative `read_offset` value will be interpreted as the number of bytes
-    /// back from the end of the object to be returned. For example, if an object's
-    /// length is 15 bytes, a ReadObjectRequest with `read_offset` = -5 and
-    /// `read_limit` = 3 would return bytes 10 through 12 of the object. Requesting
-    /// a negative offset with magnitude larger than the size of the object will
-    /// return the entire object.
+    /// back from the end of the object to be returned.
     ///
     /// # Examples
     ///
@@ -522,13 +518,10 @@ impl ReadObject {
     }
 
     /// The maximum number of `data` bytes the server is allowed to
-    /// return in the sum of all `Object` messages. A `read_limit` of zero
-    /// indicates that there is no limit, and a negative `read_limit` will cause an
-    /// error.
+    /// return.
     ///
-    /// If the stream returns fewer bytes than allowed by the `read_limit` and no
-    /// error occurred, the stream includes all data from the `read_offset` to the
-    /// end of the resource.
+    /// A `read_limit` of zero indicates that there is no limit,
+    /// and a negative `read_limit` will cause an error.
     ///
     /// # Examples:
     ///
@@ -679,7 +672,7 @@ impl ReadObject {
             // read_limit is zero, means no limit. Read from offset to end of file.
             // This handles cases like (5, 0) -> "bytes=5-"
             (o, 0) => Ok(builder.header("range", format!("bytes={}-", o))),
-            // General case: positive offset and positive limit.
+            // General case: non-negative offset and positive limit.
             // This covers cases like (0, 100) -> "bytes=0-99", (5, 100) -> "bytes=5-104"
             (o, l) => Ok(builder.header("range", format!("bytes={}-{}", o, o + l - 1))),
         }
@@ -695,10 +688,10 @@ impl ReadObject {
 #[non_exhaustive]
 enum RangeError {
     /// The provided read limit was negative.
-    #[error("Read limit was negative, expected non-negative value.")]
+    #[error("read limit was negative, expected non-negative value.")]
     NegativeLimit,
     /// A negative offset was provided with a read limit.
-    #[error("Negative read offsets cannot be used with read limits.")]
+    #[error("negative read offsets cannot be used with read limits.")]
     NegativeOffsetWithLimit,
 }
 
