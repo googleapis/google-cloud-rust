@@ -102,6 +102,10 @@ impl wkt::message::Message for MessageWithEnum {
     }
 }
 
+#[doc(hidden)]
+#[derive(Clone, Debug, PartialEq)]
+pub struct __MessageWithEnum(pub MessageWithEnum);
+
 /// Defines additional types related to [MessageWithEnum].
 pub mod message_with_enum {
     #[allow(unused_imports)]
@@ -493,6 +497,10 @@ impl wkt::message::Message for MessageWithOneOf {
     }
 }
 
+#[doc(hidden)]
+#[derive(Clone, Debug, PartialEq)]
+pub struct __MessageWithOneOf(pub MessageWithOneOf);
+
 /// Defines additional types related to [MessageWithOneOf].
 pub mod message_with_one_of {
     #[allow(unused_imports)]
@@ -530,6 +538,10 @@ pub mod message_with_one_of {
             "type.googleapis.com/google.rust.sdk.test.MessageWithOneOf.Message"
         }
     }
+
+    #[doc(hidden)]
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct __Message(pub Message);
 
     #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -878,6 +890,10 @@ impl wkt::message::Message for MessageWithComplexOneOf {
     }
 }
 
+#[doc(hidden)]
+#[derive(Clone, Debug, PartialEq)]
+pub struct __MessageWithComplexOneOf(pub MessageWithComplexOneOf);
+
 /// Defines additional types related to [MessageWithComplexOneOf].
 pub mod message_with_complex_one_of {
     #[allow(unused_imports)]
@@ -920,6 +936,10 @@ pub mod message_with_complex_one_of {
             "type.googleapis.com/google.rust.sdk.test.MessageWithComplexOneOf.Inner"
         }
     }
+
+    #[doc(hidden)]
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct __Inner(pub Inner);
 
     ///
     /// # Working with unknown values
@@ -1148,6 +1168,10 @@ impl wkt::message::Message for MessageWithF32 {
     }
 }
 
+#[doc(hidden)]
+#[derive(Clone, Debug, PartialEq)]
+pub struct __MessageWithF32(pub MessageWithF32);
+
 /// A test message for f64.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -1236,6 +1260,10 @@ impl wkt::message::Message for MessageWithF64 {
         "type.googleapis.com/google.rust.sdk.test.MessageWithF64"
     }
 }
+
+#[doc(hidden)]
+#[derive(Clone, Debug, PartialEq)]
+pub struct __MessageWithF64(pub MessageWithF64);
 
 /// A test message for i32.
 #[serde_with::serde_as]
@@ -1359,6 +1387,10 @@ impl wkt::message::Message for MessageWithI32 {
     }
 }
 
+#[doc(hidden)]
+#[derive(Clone, Debug, PartialEq)]
+pub struct __MessageWithI32(pub MessageWithI32);
+
 /// A test message for u32.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -1480,6 +1512,10 @@ impl wkt::message::Message for MessageWithU32 {
         "type.googleapis.com/google.rust.sdk.test.MessageWithU32"
     }
 }
+
+#[doc(hidden)]
+#[derive(Clone, Debug, PartialEq)]
+pub struct __MessageWithU32(pub MessageWithU32);
 
 /// A test message for i64.
 #[serde_with::serde_as]
@@ -1603,6 +1639,10 @@ impl wkt::message::Message for MessageWithI64 {
     }
 }
 
+#[doc(hidden)]
+#[derive(Clone, Debug, PartialEq)]
+pub struct __MessageWithI64(pub MessageWithI64);
+
 /// A test message for u64.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -1725,6 +1765,10 @@ impl wkt::message::Message for MessageWithU64 {
     }
 }
 
+#[doc(hidden)]
+#[derive(Clone, Debug, PartialEq)]
+pub struct __MessageWithU64(pub MessageWithU64);
+
 /// A test message for bytes.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -1813,6 +1857,10 @@ impl wkt::message::Message for MessageWithBytes {
         "type.googleapis.com/google.rust.sdk.test.MessageWithBytes"
     }
 }
+
+#[doc(hidden)]
+#[derive(Clone, Debug, PartialEq)]
+pub struct __MessageWithBytes(pub MessageWithBytes);
 
 /// A test message for bool.
 #[serde_with::serde_as]
@@ -1935,6 +1983,10 @@ impl wkt::message::Message for MessageWithBool {
     }
 }
 
+#[doc(hidden)]
+#[derive(Clone, Debug, PartialEq)]
+pub struct __MessageWithBool(pub MessageWithBool);
+
 /// A test message for string.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -2056,6 +2108,10 @@ impl wkt::message::Message for MessageWithString {
     }
 }
 
+#[doc(hidden)]
+#[derive(Clone, Debug, PartialEq)]
+pub struct __MessageWithString(pub MessageWithString);
+
 /// A test message for FieldMask.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -2152,6 +2208,10 @@ impl wkt::message::Message for MessageWithRecursion {
     }
 }
 
+#[doc(hidden)]
+#[derive(Clone, Debug, PartialEq)]
+pub struct __MessageWithRecursion(pub MessageWithRecursion);
+
 /// Defines additional types related to [MessageWithRecursion].
 pub mod message_with_recursion {
     #[allow(unused_imports)]
@@ -2218,6 +2278,10 @@ pub mod message_with_recursion {
         }
     }
 
+    #[doc(hidden)]
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct __Level0(pub Level0);
+
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -2259,6 +2323,10 @@ pub mod message_with_recursion {
         }
     }
 
+    #[doc(hidden)]
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct __Level1(pub Level1);
+
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -2290,6 +2358,10 @@ pub mod message_with_recursion {
             "type.googleapis.com/google.rust.sdk.test.MessageWithRecursion.NonRecursive"
         }
     }
+
+    #[doc(hidden)]
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct __NonRecursive(pub NonRecursive);
 }
 
 /// A test message for Value.
@@ -2390,6 +2462,10 @@ impl wkt::message::Message for MessageWithValue {
     }
 }
 
+#[doc(hidden)]
+#[derive(Clone, Debug, PartialEq)]
+pub struct __MessageWithValue(pub MessageWithValue);
+
 /// A test message for Struct.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -2485,6 +2561,10 @@ impl wkt::message::Message for MessageWithStruct {
         "type.googleapis.com/google.rust.sdk.test.MessageWithStruct"
     }
 }
+
+#[doc(hidden)]
+#[derive(Clone, Debug, PartialEq)]
+pub struct __MessageWithStruct(pub MessageWithStruct);
 
 /// A test message for ListValue.
 #[serde_with::serde_as]
@@ -2582,6 +2662,10 @@ impl wkt::message::Message for MessageWithListValue {
     }
 }
 
+#[doc(hidden)]
+#[derive(Clone, Debug, PartialEq)]
+pub struct __MessageWithListValue(pub MessageWithListValue);
+
 /// A test message for NullValue.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -2668,6 +2752,10 @@ impl wkt::message::Message for MessageWithNullValue {
         "type.googleapis.com/google.rust.sdk.test.MessageWithNullValue"
     }
 }
+
+#[doc(hidden)]
+#[derive(Clone, Debug, PartialEq)]
+pub struct __MessageWithNullValue(pub MessageWithNullValue);
 
 /// A test message for FieldMask.
 #[serde_with::serde_as]
@@ -2764,3 +2852,7 @@ impl wkt::message::Message for MessageWithFieldMask {
         "type.googleapis.com/google.rust.sdk.test.MessageWithFieldMask"
     }
 }
+
+#[doc(hidden)]
+#[derive(Clone, Debug, PartialEq)]
+pub struct __MessageWithFieldMask(pub MessageWithFieldMask);
