@@ -25,6 +25,7 @@ use crate::{BuildResult, Result};
 use http::{Extensions, HeaderMap};
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
+use std::collections::HashMap;
 use std::sync::Arc;
 use tokio::time::{Duration, Instant};
 
@@ -43,6 +44,86 @@ pub(crate) struct CredentialSourceFormat {
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 #[serde(untagged)]
+enum CredentialSourceFile {
+    Url {
+        url: String,
+        headers: Option<HashMap<String, String>>,
+        format: Option<CredentialSourceFormat>,
+    },
+    File {},
+    Aws {},
+    Executable {},
+}
+
+/// A representation of a [external account config file].
+///
+/// [external account config file]: https://google.aip.dev/auth/4117#configuration-file-generation-and-usage
+#[derive(Serialize, Deserialize, Debug, Clone)]
+struct ExternalAccountFile {
+    audience: String,
+    subject_token_type: String,
+    token_url: String,
+    client_id: Option<String>,
+    client_secret: Option<String>,
+    scopes: Option<Vec<String>>,
+    credential_source: CredentialSourceFile,
+}
+
+impl From<ExternalAccountFile> for ExternalAccountConfig {
+    fn from(config: ExternalAccountFile) -> Self {
+        let mut scope = vec![];
+        if let Some(scopes) = config.scopes.clone() {
+            scopes.into_iter().for_each(|v| scope.push(v));
+        }
+        if scope.is_empty() {
+            scope.push(DEFAULT_SCOPE.to_string());
+        }
+        Self {
+            audience: config.audience,
+            client_id: config.client_id,
+            client_secret: config.client_secret,
+            subject_token_type: config.subject_token_type,
+            token_url: config.token_url,
+            credential_source: config.credential_source.into(),
+            scopes: scope,
+        }
+    }
+}
+
+impl From<CredentialSourceFile> for CredentialSource {
+    fn from(source: CredentialSourceFile) -> Self {
+        match source {
+            CredentialSourceFile::Url {
+                url,
+                headers,
+                format,
+            } => Self::Url(UrlSourcedCredentials::new(url, headers, format)),
+            CredentialSourceFile::Executable { .. } => {
+                unimplemented!("executable sourced credential not supported yet")
+            }
+            CredentialSourceFile::File { .. } => {
+                unimplemented!("file sourced credential not supported yet")
+            }
+            CredentialSourceFile::Aws { .. } => {
+                unimplemented!("AWS sourced credential not supported yet")
+            }
+        }
+    }
+}
+
+#[derive(Debug, Clone)]
+struct ExternalAccountConfig {
+    audience: String,
+    subject_token_type: String,
+    token_url: String,
+    client_id: Option<String>,
+    client_secret: Option<String>,
+    scopes: Vec<String>,
+    credential_source: CredentialSource,
+}
+
+#[derive(Debug, Clone)]
+#[allow(dead_code)]
 enum CredentialSource {
     Url(UrlSourcedCredentials),
     File {},
@@ -50,14 +131,11 @@ enum CredentialSource {
     Executable {},
 }
 
-impl CredentialSource {
-    fn make_credentials(
-        self,
-        config: ExternalAccountConfig,
-        quota_project_id: Option<String>,
-    ) -> Credentials {
-        match self {
-            Self::Url(source) => {
+impl ExternalAccountConfig {
+    fn make_credentials(self, quota_project_id: Option<String>) -> Credentials {
+        let config = self.clone();
+        match self.credential_source {
+            CredentialSource::Url(source) => {
                 let token_provider = ExternalAccountTokenProvider {
                     subject_token_provider: source,
                     config,
@@ -70,28 +148,17 @@ impl CredentialSource {
                     }),
                 }
             }
-            Self::Executable { .. } => {
+            CredentialSource::Executable { .. } => {
                 unimplemented!("executable sourced credential not supported yet")
             }
-            Self::File { .. } => {
+            CredentialSource::File { .. } => {
                 unimplemented!("file sourced credential not supported yet")
             }
-            Self::Aws { .. } => {
+            CredentialSource::Aws { .. } => {
                 unimplemented!("AWS sourced credential not supported yet")
             }
         }
     }
-}
-
-#[derive(Serialize, Deserialize, Debug, Clone)]
-struct ExternalAccountConfig {
-    audience: String,
-    subject_token_type: String,
-    token_url: String,
-    client_id: Option<String>,
-    client_secret: Option<String>,
-    scopes: Option<Vec<String>>,
-    credential_source: CredentialSource,
 }
 
 #[derive(Debug)]
@@ -113,14 +180,8 @@ where
 
         let audience = self.config.audience.clone();
         let subject_token_type = self.config.subject_token_type.clone();
+        let scope = self.config.scopes.clone();
         let url = self.config.token_url.clone();
-        let mut scope = vec![];
-        if let Some(scopes) = self.config.scopes.clone() {
-            scopes.into_iter().for_each(|v| scope.push(v));
-        }
-        if scope.is_empty() {
-            scope.push(DEFAULT_SCOPE.to_string());
-        }
         let req = ExchangeTokenRequest {
             url,
             audience: Some(audience),
@@ -254,17 +315,16 @@ impl Builder {
     ///
     /// [external_account_credentials]: https://google.aip.dev/auth/4117#configuration-file-generation-and-usage
     pub fn build(self) -> BuildResult<Credentials> {
-        let external_account_config: ExternalAccountConfig =
+        let mut file: ExternalAccountFile =
             serde_json::from_value(self.external_account_config).map_err(BuilderError::parsing)?;
 
-        let mut config = external_account_config.clone();
         if let Some(scopes) = self.scopes {
-            config.scopes = Some(scopes);
+            file.scopes = Some(scopes);
         }
 
-        Ok(external_account_config
-            .credential_source
-            .make_credentials(config, self.quota_project_id))
+        let config: ExternalAccountConfig = file.into();
+
+        Ok(config.make_credentials(self.quota_project_id))
     }
 }
 
@@ -332,8 +392,9 @@ mod test {
             }
         });
 
-        let config: ExternalAccountConfig =
+        let file: ExternalAccountFile =
             serde_json::from_value(contents).expect("failed to parse external account config");
+        let config: ExternalAccountConfig = file.into();
         let source = config.credential_source;
 
         match source {
@@ -341,18 +402,10 @@ mod test {
                 assert_eq!(source.url, "https://example.com/token");
                 assert_eq!(
                     source.headers,
-                    Some(HashMap::from([(
-                        "Metadata".to_string(),
-                        "True".to_string()
-                    ),])),
+                    HashMap::from([("Metadata".to_string(), "True".to_string()),]),
                 );
-                assert_eq!(
-                    source.format,
-                    Some(CredentialSourceFormat {
-                        format_type: "json".into(),
-                        subject_token_field_name: "access_token".into(),
-                    })
-                )
+                assert_eq!(source.format, "json");
+                assert_eq!(source.subject_token_field_name, "access_token");
             }
             _ => {
                 unreachable!("expected Url Sourced credential")
