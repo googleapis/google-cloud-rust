@@ -19,8 +19,8 @@
 
 #[cfg(test)]
 mod test {
+    use common::MessageWithOneOf;
     use common::message_with_one_of::{Message, Mixed, SingleString, TwoStrings};
-    use common::{__MessageWithOneOf, MessageWithOneOf};
     use google_cloud_wkt::Duration;
     use serde_json::{Value, json};
     use test_case::test_case;
@@ -37,7 +37,7 @@ mod test {
     #[test_case(MessageWithOneOf::new().set_string("abc"), json!({"string": "abc"}))]
     #[test_case(MessageWithOneOf::new().set_duration(Duration::clamp(1, 500_000_000)), json!({"duration": "1.5s"}))]
     fn test_ser(input: MessageWithOneOf, want: Value) -> Result {
-        let got = serde_json::to_value(__MessageWithOneOf(input))?;
+        let got = serde_json::to_value(input)?;
         assert_eq!(got, want);
         Ok(())
     }
@@ -53,8 +53,8 @@ mod test {
     #[test_case(MessageWithOneOf::new().set_string("abc"), json!({"string": "abc"}))]
     #[test_case(MessageWithOneOf::new().set_duration(Duration::clamp(1, 500_000_000)), json!({"duration": "1.5s"}))]
     fn test_de(want: MessageWithOneOf, input: Value) -> Result {
-        let got = serde_json::from_value::<__MessageWithOneOf>(input)?;
-        assert_eq!(got.0, want);
+        let got = serde_json::from_value::<MessageWithOneOf>(input)?;
+        assert_eq!(got, want);
         Ok(())
     }
 
@@ -66,8 +66,8 @@ mod test {
     #[test_case(r#"{"string":               null}"#, MessageWithOneOf::new().set_string(""))]
     #[test_case(r#"{"duration":             null}"#, MessageWithOneOf::new().set_duration(Duration::default()))]
     fn test_null_is_default(input: &str, want: MessageWithOneOf) -> Result {
-        let got = serde_json::from_str::<__MessageWithOneOf>(input)?;
-        assert_eq!(got.0, want);
+        let got = serde_json::from_str::<MessageWithOneOf>(input)?;
+        assert_eq!(got, want);
         Ok(())
     }
 
@@ -77,7 +77,7 @@ mod test {
     #[test_case(json!({"anotherMessage": {}, "duration": "1.5s"}))]
     #[test_case(json!({"string": "", "duration": "1.5s"}))]
     fn test_dup_field_errors(input: Value) -> Result {
-        let got = serde_json::from_value::<__MessageWithOneOf>(input).unwrap_err();
+        let got = serde_json::from_value::<MessageWithOneOf>(input).unwrap_err();
         assert!(got.is_data(), "{got:?}");
         Ok(())
     }
@@ -85,7 +85,7 @@ mod test {
     #[test_case(json!({"unknown": "test-value"}))]
     #[test_case(json!({"unknown": "test-value", "moreUnknown": {"a": 1, "b": 2}}))]
     fn test_unknown(input: Value) -> Result {
-        let deser = serde_json::from_value::<__MessageWithOneOf>(input.clone())?;
+        let deser = serde_json::from_value::<MessageWithOneOf>(input.clone())?;
         let got = serde_json::to_value(deser)?;
         assert_eq!(got, input);
         Ok(())

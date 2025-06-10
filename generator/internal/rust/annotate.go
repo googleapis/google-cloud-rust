@@ -235,6 +235,8 @@ type oneOfAnnotation struct {
 	// If set, this enum is only enabled when some features are enabled.
 	FeatureGates   []string
 	FeatureGatesOp string
+	// If true, enable test types for generated serde serialization
+	WithGeneratedSerde bool
 }
 
 type fieldAnnotations struct {
@@ -273,6 +275,8 @@ type fieldAnnotations struct {
 	// If true, this is a `wkt::NullValue` field, and also requires super-extra
 	// custom deserialization.
 	IsWktNullValue bool
+	// If true, enable test types for generated serde serialization
+	WithGeneratedSerde bool
 }
 
 func (a *fieldAnnotations) SkipIfIsEmpty() bool {
@@ -555,7 +559,7 @@ func (c *codec) annotateMessage(m *api.Message, state *api.APIState, sourceSpeci
 		PackageModuleName:  packageToModuleName(m.Package),
 		SourceFQN:          strings.TrimPrefix(m.ID, "."),
 		DocLines:           c.formatDocComments(m.Documentation, m.ID, state, m.Scopes()),
-		MessageAttributes:  messageAttributes(),
+		MessageAttributes:  c.messageAttributes(),
 		HasNestedTypes:     language.HasNestedTypes(m),
 		BasicFields:        basicFields,
 		HasSyntheticFields: hasSyntheticFields,
@@ -700,6 +704,7 @@ func (c *codec) annotateOneOf(oneof *api.OneOf, message *api.Message, state *api
 		StructQualifiedName: structQualifiedName,
 		FieldType:           fmt.Sprintf("%s::%s", scope, enumName),
 		DocLines:            c.formatDocComments(oneof.Documentation, oneof.ID, state, message.Scopes()),
+		WithGeneratedSerde:  c.withGeneratedSerde,
 	}
 }
 
@@ -776,6 +781,7 @@ func (c *codec) annotateField(field *api.Field, message *api.Message, state *api
 		SkipIfIsDefault:    field.Typez != api.STRING_TYPE && field.Typez != api.BYTES_TYPE,
 		IsWktValue:         field.Typez == api.MESSAGE_TYPE && field.TypezID == ".google.protobuf.Value",
 		IsWktNullValue:     field.Typez == api.ENUM_TYPE && field.TypezID == ".google.protobuf.NullValue",
+		WithGeneratedSerde: c.withGeneratedSerde,
 	}
 	if field.Recursive || (field.Typez == api.MESSAGE_TYPE && field.IsOneOf) {
 		ann.IsBoxed = true

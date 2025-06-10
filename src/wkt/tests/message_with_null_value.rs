@@ -14,7 +14,7 @@
 
 #[cfg(test)]
 mod test {
-    use common::{__MessageWithNullValue, MessageWithNullValue};
+    use common::MessageWithNullValue;
     use google_cloud_wkt::NullValue;
     use serde_json::{Value, json};
     use test_case::test_case;
@@ -26,7 +26,7 @@ mod test {
     #[test_case(MessageWithNullValue::new().set_repeated([NullValue]), json!({"repeated": [null]}))]
     #[test_case(MessageWithNullValue::new().set_map([("a", NullValue), ("b", NullValue)]), json!({"map": {"a": null, "b": null}}))]
     fn test_ser(input: MessageWithNullValue, want: Value) -> Result {
-        let got = serde_json::to_value(__MessageWithNullValue(input))?;
+        let got = serde_json::to_value(input)?;
         assert_eq!(got, want);
         Ok(())
     }
@@ -37,8 +37,8 @@ mod test {
     #[test_case(MessageWithNullValue::new().set_repeated([NullValue]), json!({"repeated": [null]}))]
     #[test_case(MessageWithNullValue::new().set_map([("a", NullValue), ("b", NullValue)]), json!({"map": {"a": null, "b": null}}))]
     fn test_de(want: MessageWithNullValue, input: Value) -> Result {
-        let got = serde_json::from_value::<__MessageWithNullValue>(input)?;
-        assert_eq!(got.0, want);
+        let got = serde_json::from_value::<MessageWithNullValue>(input)?;
+        assert_eq!(got, want);
         Ok(())
     }
 
@@ -47,8 +47,8 @@ mod test {
     #[test_case(r#"{"repeated": null}"#)]
     #[test_case(r#"{"map":      null}"#)]
     fn test_null_is_default(input: &str) -> Result {
-        let got = serde_json::from_str::<__MessageWithNullValue>(input)?;
-        assert_eq!(got.0, MessageWithNullValue::default());
+        let got = serde_json::from_str::<MessageWithNullValue>(input)?;
+        assert_eq!(got, MessageWithNullValue::default());
         Ok(())
     }
 
@@ -57,7 +57,7 @@ mod test {
     #[test_case(r#"{"repeated": [],   "repeated": []}"#)]
     #[test_case(r#"{"map":      {},   "map":      {}}"#)]
     fn reject_duplicate_fields(input: &str) -> Result {
-        let err = serde_json::from_str::<__MessageWithNullValue>(input).unwrap_err();
+        let err = serde_json::from_str::<MessageWithNullValue>(input).unwrap_err();
         assert!(err.is_data(), "{err:?}");
         Ok(())
     }

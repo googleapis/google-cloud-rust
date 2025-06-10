@@ -14,7 +14,7 @@
 
 #[cfg(test)]
 mod test {
-    use common::{__MessageWithU32, MessageWithU32};
+    use common::MessageWithU32;
     use serde_json::{Value, json};
     use test_case::test_case;
     type Result = anyhow::Result<()>;
@@ -34,7 +34,7 @@ mod test {
     #[test_case(MessageWithU32::new().set_map_key_value([(0_u32, 0_u32);0]), json!({}))]
     #[test_case(MessageWithU32::new().set_map_key_value([(0_u32, 0_u32)]), json!({"mapKeyValue": {"0": 0}}))]
     fn test_ser(input: MessageWithU32, want: Value) -> Result {
-        let got = serde_json::to_value(__MessageWithU32(input))?;
+        let got = serde_json::to_value(input)?;
         assert_eq!(got, want);
         Ok(())
     }
@@ -56,8 +56,8 @@ mod test {
     #[test_case(MessageWithU32::new().set_map_key_value([(0_u32, 0_u32)]), json!({"mapKeyValue": {"0": 0}}))]
     #[test_case(MessageWithU32::new().set_map_key_value([(0_u32, 0_u32)]), json!({"map_key_value": {"0": 0}}))]
     fn test_de(want: MessageWithU32, input: Value) -> Result {
-        let got = serde_json::from_value::<__MessageWithU32>(input)?;
-        assert_eq!(got.0, want);
+        let got = serde_json::from_value::<MessageWithU32>(input)?;
+        assert_eq!(got, want);
         Ok(())
     }
 
@@ -68,8 +68,8 @@ mod test {
     #[test_case(r#"{"map_value":     null}"#)]
     #[test_case(r#"{"map_key_value": null}"#)]
     fn test_null_is_default(input: &str) -> Result {
-        let got = serde_json::from_str::<__MessageWithU32>(input)?;
-        assert_eq!(got.0, MessageWithU32::default());
+        let got = serde_json::from_str::<MessageWithU32>(input)?;
+        assert_eq!(got, MessageWithU32::default());
         Ok(())
     }
 
@@ -83,7 +83,7 @@ mod test {
     #[test_case(r#"{"mapKeyValue": {}, "mapKeyValue":   {}}"#)]
     #[test_case(r#"{"mapKeyValue": {}, "map_key_value": {}}"#)]
     fn reject_duplicate_fields(input: &str) -> Result {
-        let err = serde_json::from_str::<__MessageWithU32>(input).unwrap_err();
+        let err = serde_json::from_str::<MessageWithU32>(input).unwrap_err();
         assert!(err.is_data(), "{err:?}");
         Ok(())
     }
@@ -91,7 +91,7 @@ mod test {
     #[test_case(json!({"unknown": "test-value"}))]
     #[test_case(json!({"unknown": "test-value", "moreUnknown": {"a": 1, "b": 2}}))]
     fn test_unknown(input: Value) -> Result {
-        let deser = serde_json::from_value::<__MessageWithU32>(input.clone())?;
+        let deser = serde_json::from_value::<MessageWithU32>(input.clone())?;
         let got = serde_json::to_value(deser)?;
         assert_eq!(got, input);
         Ok(())
