@@ -14,18 +14,11 @@
 
 #[cfg(test)]
 mod test {
+    use common::MessageWithFieldMask;
     use google_cloud_wkt::FieldMask;
     use serde_json::{Value, json};
     use test_case::test_case;
-
     type Result = anyhow::Result<()>;
-
-    #[allow(dead_code)]
-    mod protos {
-        use google_cloud_wkt as wkt;
-        include!("generated/mod.rs");
-    }
-    use protos::MessageWithFieldMask;
 
     #[test_case(json!({"singular": ""}), FieldMask::default())]
     #[test_case(json!({"singular": "a,b,c"}), FieldMask::default().set_paths(["a", "b", "c"]))]

@@ -14,18 +14,11 @@
 
 #[cfg(test)]
 mod test {
+    use common::MessageWithValue;
     use google_cloud_wkt::Value;
     use serde_json::json;
     use test_case::test_case;
-
     type Result = anyhow::Result<()>;
-
-    #[allow(dead_code)]
-    mod protos {
-        use google_cloud_wkt as wkt;
-        include!("generated/mod.rs");
-    }
-    use protos::MessageWithValue;
 
     #[test_case(json!({"singular": null}), Value::Null)]
     #[test_case(json!({"singular": "abc"}), json!("abc"))]

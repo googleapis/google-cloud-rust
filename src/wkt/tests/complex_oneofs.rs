@@ -14,20 +14,14 @@
 
 #[cfg(test)]
 mod test {
+    use common::{
+        MessageWithComplexOneOf,
+        message_with_complex_one_of::{Inner, TestEnum},
+    };
     use google_cloud_wkt as wkt;
     use serde_json::{Value, json};
     use test_case::test_case;
     type Result = anyhow::Result<()>;
-
-    #[allow(dead_code)]
-    mod protos {
-        use google_cloud_wkt as wkt;
-        include!("generated/mod.rs");
-    }
-    use protos::{
-        MessageWithComplexOneOf,
-        message_with_complex_one_of::{Inner, TestEnum},
-    };
 
     #[test_case(json!({}))]
     fn test_default(input: Value) -> Result {

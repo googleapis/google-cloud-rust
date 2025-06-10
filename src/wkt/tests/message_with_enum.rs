@@ -14,16 +14,10 @@
 
 #[cfg(test)]
 mod test {
+    use common::{MessageWithEnum, message_with_enum::TestEnum};
     use serde_json::{Value, json};
     use test_case::test_case;
     type Result = anyhow::Result<()>;
-
-    #[allow(dead_code)]
-    mod protos {
-        use google_cloud_wkt as wkt;
-        include!("generated/mod.rs");
-    }
-    use protos::{MessageWithEnum, message_with_enum::TestEnum};
 
     #[test_case(json!({"singular": "RED"}), TestEnum::Red)]
     #[test_case(json!({"singular": 1}), TestEnum::Red)]

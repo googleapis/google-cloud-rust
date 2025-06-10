@@ -14,20 +14,13 @@
 
 #[cfg(test)]
 mod test {
-    use serde_json::{Value, json};
-    use test_case::test_case;
-
-    type Result = anyhow::Result<()>;
-
-    #[allow(dead_code)]
-    mod protos {
-        use google_cloud_wkt as wkt;
-        include!("generated/mod.rs");
-    }
-    use protos::{
+    use common::{
         MessageWithRecursion,
         message_with_recursion::{Level0, NonRecursive},
     };
+    use serde_json::{Value, json};
+    use test_case::test_case;
+    type Result = anyhow::Result<()>;
 
     fn test_level_0() -> Level0 {
         Level0::new().set_side(NonRecursive::new().set_value("abc"))

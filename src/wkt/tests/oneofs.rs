@@ -19,17 +19,11 @@
 
 #[cfg(test)]
 mod test {
+    use common::MessageWithOneOf;
+    use common::message_with_one_of::{Message, Mixed, SingleString, TwoStrings};
     use google_cloud_wkt::Duration;
     use serde_json::json;
     type TestResult = anyhow::Result<()>;
-
-    #[allow(dead_code)]
-    mod protos {
-        use google_cloud_wkt as wkt;
-        include!("generated/mod.rs");
-    }
-    use protos::MessageWithOneOf;
-    use protos::message_with_one_of::{Message, Mixed, SingleString, TwoStrings};
 
     #[test]
     fn test_oneof_single_string() -> TestResult {
