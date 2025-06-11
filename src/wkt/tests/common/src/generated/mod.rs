@@ -129,8 +129,25 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithEnum {
             {
                 let mut result = Self::Value::new();
                 while let Some(key) = map.next_key::<String>()? {
-                    let value = map.next_value::<serde_json::Value>()?;
-                    result._unknown_fields.insert(key, value);
+                    #[allow(clippy::match_single_binding)]
+                    match key.as_str() {
+                        "singular" => {
+                            result.singular =
+                                map.next_value::<crate::generated::message_with_enum::TestEnum>()?;
+                        }
+                        "optional" => {
+                            result.optional = map.next_value::<std::option::Option<
+                                crate::generated::message_with_enum::TestEnum,
+                            >>()?;
+                        }
+                        "repeated" => {
+                            result.repeated = map.next_value::<std::vec::Vec<crate::generated::message_with_enum::TestEnum>>()?;
+                        }
+                        _ => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
                 }
                 Ok(result)
             }
@@ -146,6 +163,15 @@ impl serde::ser::Serialize for __MessageWithEnum {
     {
         use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(None)?;
+        if !wkt::internal::is_default(&self.0.singular) {
+            state.serialize_entry("singular", &self.0.singular)?;
+        }
+        if self.0.optional.is_some() {
+            state.serialize_entry("optional", &self.0.optional)?;
+        }
+        if !self.0.repeated.is_empty() {
+            state.serialize_entry("repeated", &self.0.repeated)?;
+        }
         if !self.0._unknown_fields.is_empty() {
             for (key, value) in self.0._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -609,8 +635,17 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithOneOf {
             {
                 let mut result = Self::Value::new();
                 while let Some(key) = map.next_key::<String>()? {
-                    let value = map.next_value::<serde_json::Value>()?;
-                    result._unknown_fields.insert(key, value);
+                    #[allow(clippy::match_single_binding)]
+                    match key.as_str() {
+                        "stringContents" => {}
+                        "stringContentsOne" => {}
+                        "stringContentsTwo" => {}
+                        "string" => {}
+                        _ => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
                 }
                 Ok(result)
             }
@@ -694,8 +729,16 @@ pub mod message_with_one_of {
                 {
                     let mut result = Self::Value::new();
                     while let Some(key) = map.next_key::<String>()? {
-                        let value = map.next_value::<serde_json::Value>()?;
-                        result._unknown_fields.insert(key, value);
+                        #[allow(clippy::match_single_binding)]
+                        match key.as_str() {
+                            "parent" => {
+                                result.parent = map.next_value::<std::string::String>()?;
+                            }
+                            _ => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
                     }
                     Ok(result)
                 }
@@ -711,6 +754,9 @@ pub mod message_with_one_of {
         {
             use serde::ser::SerializeMap;
             let mut state = serializer.serialize_map(None)?;
+            if !self.0.parent.is_empty() {
+                state.serialize_entry("parent", &self.0.parent)?;
+            }
             if !self.0._unknown_fields.is_empty() {
                 for (key, value) in self.0._unknown_fields.iter() {
                     state.serialize_entry(key, &value)?;
@@ -1111,8 +1157,17 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithComplexOneOf {
             {
                 let mut result = Self::Value::new();
                 while let Some(key) = map.next_key::<String>()? {
-                    let value = map.next_value::<serde_json::Value>()?;
-                    result._unknown_fields.insert(key, value);
+                    #[allow(clippy::match_single_binding)]
+                    match key.as_str() {
+                        "null" => {}
+                        "boolValue" => {}
+                        "stringValue" => {}
+                        "enum" => {}
+                        _ => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
                 }
                 Ok(result)
             }
@@ -1201,8 +1256,17 @@ pub mod message_with_complex_one_of {
                 {
                     let mut result = Self::Value::new();
                     while let Some(key) = map.next_key::<String>()? {
-                        let value = map.next_value::<serde_json::Value>()?;
-                        result._unknown_fields.insert(key, value);
+                        #[allow(clippy::match_single_binding)]
+                        match key.as_str() {
+                            "strings" => {
+                                result.strings =
+                                    map.next_value::<std::vec::Vec<std::string::String>>()?;
+                            }
+                            _ => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
                     }
                     Ok(result)
                 }
@@ -1218,6 +1282,9 @@ pub mod message_with_complex_one_of {
         {
             use serde::ser::SerializeMap;
             let mut state = serializer.serialize_map(None)?;
+            if !self.0.strings.is_empty() {
+                state.serialize_entry("strings", &self.0.strings)?;
+            }
             if !self.0._unknown_fields.is_empty() {
                 for (key, value) in self.0._unknown_fields.iter() {
                     state.serialize_entry(key, &value)?;
@@ -1488,8 +1555,13 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithF32 {
             {
                 let mut result = Self::Value::new();
                 while let Some(key) = map.next_key::<String>()? {
-                    let value = map.next_value::<serde_json::Value>()?;
-                    result._unknown_fields.insert(key, value);
+                    #[allow(clippy::match_single_binding)]
+                    match key.as_str() {
+                        _ => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
                 }
                 Ok(result)
             }
@@ -1625,8 +1697,13 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithF64 {
             {
                 let mut result = Self::Value::new();
                 while let Some(key) = map.next_key::<String>()? {
-                    let value = map.next_value::<serde_json::Value>()?;
-                    result._unknown_fields.insert(key, value);
+                    #[allow(clippy::match_single_binding)]
+                    match key.as_str() {
+                        _ => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
                 }
                 Ok(result)
             }
@@ -1797,8 +1874,13 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithI32 {
             {
                 let mut result = Self::Value::new();
                 while let Some(key) = map.next_key::<String>()? {
-                    let value = map.next_value::<serde_json::Value>()?;
-                    result._unknown_fields.insert(key, value);
+                    #[allow(clippy::match_single_binding)]
+                    match key.as_str() {
+                        _ => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
                 }
                 Ok(result)
             }
@@ -1969,8 +2051,13 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithU32 {
             {
                 let mut result = Self::Value::new();
                 while let Some(key) = map.next_key::<String>()? {
-                    let value = map.next_value::<serde_json::Value>()?;
-                    result._unknown_fields.insert(key, value);
+                    #[allow(clippy::match_single_binding)]
+                    match key.as_str() {
+                        _ => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
                 }
                 Ok(result)
             }
@@ -2141,8 +2228,13 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithI64 {
             {
                 let mut result = Self::Value::new();
                 while let Some(key) = map.next_key::<String>()? {
-                    let value = map.next_value::<serde_json::Value>()?;
-                    result._unknown_fields.insert(key, value);
+                    #[allow(clippy::match_single_binding)]
+                    match key.as_str() {
+                        _ => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
                 }
                 Ok(result)
             }
@@ -2313,8 +2405,13 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithU64 {
             {
                 let mut result = Self::Value::new();
                 while let Some(key) = map.next_key::<String>()? {
-                    let value = map.next_value::<serde_json::Value>()?;
-                    result._unknown_fields.insert(key, value);
+                    #[allow(clippy::match_single_binding)]
+                    match key.as_str() {
+                        _ => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
                 }
                 Ok(result)
             }
@@ -2452,8 +2549,13 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithBytes {
             {
                 let mut result = Self::Value::new();
                 while let Some(key) = map.next_key::<String>()? {
-                    let value = map.next_value::<serde_json::Value>()?;
-                    result._unknown_fields.insert(key, value);
+                    #[allow(clippy::match_single_binding)]
+                    match key.as_str() {
+                        _ => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
                 }
                 Ok(result)
             }
@@ -2627,8 +2729,22 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithBool {
             {
                 let mut result = Self::Value::new();
                 while let Some(key) = map.next_key::<String>()? {
-                    let value = map.next_value::<serde_json::Value>()?;
-                    result._unknown_fields.insert(key, value);
+                    #[allow(clippy::match_single_binding)]
+                    match key.as_str() {
+                        "singular" => {
+                            result.singular = map.next_value::<bool>()?;
+                        }
+                        "optional" => {
+                            result.optional = map.next_value::<std::option::Option<bool>>()?;
+                        }
+                        "repeated" => {
+                            result.repeated = map.next_value::<std::vec::Vec<bool>>()?;
+                        }
+                        _ => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
                 }
                 Ok(result)
             }
@@ -2644,6 +2760,15 @@ impl serde::ser::Serialize for __MessageWithBool {
     {
         use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(None)?;
+        if !wkt::internal::is_default(&self.0.singular) {
+            state.serialize_entry("singular", &self.0.singular)?;
+        }
+        if self.0.optional.is_some() {
+            state.serialize_entry("optional", &self.0.optional)?;
+        }
+        if !self.0.repeated.is_empty() {
+            state.serialize_entry("repeated", &self.0.repeated)?;
+        }
         if !self.0._unknown_fields.is_empty() {
             for (key, value) in self.0._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -2796,8 +2921,24 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithString {
             {
                 let mut result = Self::Value::new();
                 while let Some(key) = map.next_key::<String>()? {
-                    let value = map.next_value::<serde_json::Value>()?;
-                    result._unknown_fields.insert(key, value);
+                    #[allow(clippy::match_single_binding)]
+                    match key.as_str() {
+                        "singular" => {
+                            result.singular = map.next_value::<std::string::String>()?;
+                        }
+                        "optional" => {
+                            result.optional =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
+                        }
+                        "repeated" => {
+                            result.repeated =
+                                map.next_value::<std::vec::Vec<std::string::String>>()?;
+                        }
+                        _ => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
                 }
                 Ok(result)
             }
@@ -2815,6 +2956,15 @@ impl serde::ser::Serialize for __MessageWithString {
     {
         use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(None)?;
+        if !self.0.singular.is_empty() {
+            state.serialize_entry("singular", &self.0.singular)?;
+        }
+        if self.0.optional.is_some() {
+            state.serialize_entry("optional", &self.0.optional)?;
+        }
+        if !self.0.repeated.is_empty() {
+            state.serialize_entry("repeated", &self.0.repeated)?;
+        }
         if !self.0._unknown_fields.is_empty() {
             for (key, value) in self.0._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -2949,8 +3099,13 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithRecursion {
             {
                 let mut result = Self::Value::new();
                 while let Some(key) = map.next_key::<String>()? {
-                    let value = map.next_value::<serde_json::Value>()?;
-                    result._unknown_fields.insert(key, value);
+                    #[allow(clippy::match_single_binding)]
+                    match key.as_str() {
+                        _ => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
                 }
                 Ok(result)
             }
@@ -3067,8 +3222,13 @@ pub mod message_with_recursion {
                 {
                     let mut result = Self::Value::new();
                     while let Some(key) = map.next_key::<String>()? {
-                        let value = map.next_value::<serde_json::Value>()?;
-                        result._unknown_fields.insert(key, value);
+                        #[allow(clippy::match_single_binding)]
+                        match key.as_str() {
+                            _ => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
                     }
                     Ok(result)
                 }
@@ -3156,8 +3316,13 @@ pub mod message_with_recursion {
                 {
                     let mut result = Self::Value::new();
                     while let Some(key) = map.next_key::<String>()? {
-                        let value = map.next_value::<serde_json::Value>()?;
-                        result._unknown_fields.insert(key, value);
+                        #[allow(clippy::match_single_binding)]
+                        match key.as_str() {
+                            _ => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
                     }
                     Ok(result)
                 }
@@ -3234,8 +3399,16 @@ pub mod message_with_recursion {
                 {
                     let mut result = Self::Value::new();
                     while let Some(key) = map.next_key::<String>()? {
-                        let value = map.next_value::<serde_json::Value>()?;
-                        result._unknown_fields.insert(key, value);
+                        #[allow(clippy::match_single_binding)]
+                        match key.as_str() {
+                            "value" => {
+                                result.value = map.next_value::<std::string::String>()?;
+                            }
+                            _ => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
                     }
                     Ok(result)
                 }
@@ -3251,6 +3424,9 @@ pub mod message_with_recursion {
         {
             use serde::ser::SerializeMap;
             let mut state = serializer.serialize_map(None)?;
+            if !self.0.value.is_empty() {
+                state.serialize_entry("value", &self.0.value)?;
+            }
             if !self.0._unknown_fields.is_empty() {
                 for (key, value) in self.0._unknown_fields.iter() {
                     state.serialize_entry(key, &value)?;
@@ -3383,8 +3559,13 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithValue {
             {
                 let mut result = Self::Value::new();
                 while let Some(key) = map.next_key::<String>()? {
-                    let value = map.next_value::<serde_json::Value>()?;
-                    result._unknown_fields.insert(key, value);
+                    #[allow(clippy::match_single_binding)]
+                    match key.as_str() {
+                        _ => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
                 }
                 Ok(result)
             }
@@ -3531,8 +3712,13 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithStruct {
             {
                 let mut result = Self::Value::new();
                 while let Some(key) = map.next_key::<String>()? {
-                    let value = map.next_value::<serde_json::Value>()?;
-                    result._unknown_fields.insert(key, value);
+                    #[allow(clippy::match_single_binding)]
+                    match key.as_str() {
+                        _ => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
                 }
                 Ok(result)
             }
@@ -3679,8 +3865,13 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithListValue {
             {
                 let mut result = Self::Value::new();
                 while let Some(key) = map.next_key::<String>()? {
-                    let value = map.next_value::<serde_json::Value>()?;
-                    result._unknown_fields.insert(key, value);
+                    #[allow(clippy::match_single_binding)]
+                    match key.as_str() {
+                        _ => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
                 }
                 Ok(result)
             }
@@ -3816,8 +4007,23 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithNullValue {
             {
                 let mut result = Self::Value::new();
                 while let Some(key) = map.next_key::<String>()? {
-                    let value = map.next_value::<serde_json::Value>()?;
-                    result._unknown_fields.insert(key, value);
+                    #[allow(clippy::match_single_binding)]
+                    match key.as_str() {
+                        "singular" => {
+                            result.singular = map.next_value::<wkt::NullValue>()?;
+                        }
+                        "optional" => {
+                            result.optional =
+                                map.next_value::<std::option::Option<wkt::NullValue>>()?;
+                        }
+                        "repeated" => {
+                            result.repeated = map.next_value::<std::vec::Vec<wkt::NullValue>>()?;
+                        }
+                        _ => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
                 }
                 Ok(result)
             }
@@ -3835,6 +4041,15 @@ impl serde::ser::Serialize for __MessageWithNullValue {
     {
         use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(None)?;
+        if !wkt::internal::is_default(&self.0.singular) {
+            state.serialize_entry("singular", &self.0.singular)?;
+        }
+        if self.0.optional.is_some() {
+            state.serialize_entry("optional", &self.0.optional)?;
+        }
+        if !self.0.repeated.is_empty() {
+            state.serialize_entry("repeated", &self.0.repeated)?;
+        }
         if !self.0._unknown_fields.is_empty() {
             for (key, value) in self.0._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -3964,8 +4179,13 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithFieldMask {
             {
                 let mut result = Self::Value::new();
                 while let Some(key) = map.next_key::<String>()? {
-                    let value = map.next_value::<serde_json::Value>()?;
-                    result._unknown_fields.insert(key, value);
+                    #[allow(clippy::match_single_binding)]
+                    match key.as_str() {
+                        _ => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
                 }
                 Ok(result)
             }

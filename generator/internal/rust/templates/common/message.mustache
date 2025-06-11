@@ -281,8 +281,20 @@ impl<'de> serde::de::Deserialize<'de> for __{{Codec.Name}} {
             {
                 let mut result = Self::Value::new();
                 while let Some(key) = map.next_key::<String>()? {
-                    let value = map.next_value::<serde_json::Value>()?;
-                    result._unknown_fields.insert(key, value);
+                    #[allow(clippy::match_single_binding)]
+                    match key.as_str() {
+                        {{#Fields}}
+                        {{^Codec.RequiresSerdeAs}}
+                        "{{JSONName}}" => {
+                            {{> /templates/common/deser_plain_message_field}}
+                        },
+                        {{/Codec.RequiresSerdeAs}}
+                        {{/Fields}}
+                        _ => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        },
+                    }
                 }
                 Ok(result)
             }
@@ -298,6 +310,11 @@ impl serde::ser::Serialize for __{{Codec.Name}} {
     {
         use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(None)?;
+        {{#Fields}}
+        {{^Codec.RequiresSerdeAs}}
+        {{> /templates/common/ser_plain_message_field}}
+        {{/Codec.RequiresSerdeAs}}
+        {{/Fields}}
         if !self.0._unknown_fields.is_empty() {
             for (key, value) in self.0._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
