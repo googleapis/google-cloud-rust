@@ -322,23 +322,17 @@ impl InsertObject {
     async fn http_request_builder(self) -> Result<reqwest::RequestBuilder> {
         let resource = match self.request.first_message {
             Some(control::model::write_object_request::FirstMessage::WriteObjectSpec(spec)) => {
-                match spec.resource {
-                    Some(resource) => resource,
-                    _ => unreachable!("write object spec set in constructor"),
-                }
+                spec.resource.unwrap()
             }
             _ => unreachable!("write object spec set in constructor"),
         };
-        let bucket: String = resource.bucket;
-        let bucket_id = bucket
-            .as_str()
-            .strip_prefix("projects/_/buckets/")
-            .ok_or_else(|| {
-                Error::binding(format!(
-                    "malformed bucket name, it must start with `projects/_/buckets/`: {bucket}"
-                ))
-            })?;
-        let object: String = resource.name;
+        let bucket = &resource.bucket;
+        let bucket_id = bucket.strip_prefix("projects/_/buckets/").ok_or_else(|| {
+            Error::binding(format!(
+                "malformed bucket name, it must start with `projects/_/buckets/`: {bucket}"
+            ))
+        })?;
+        let object = &resource.name;
         let builder = self
             .inner
             .client
@@ -347,7 +341,7 @@ impl InsertObject {
                 format!("{}/upload/storage/v1/b/{bucket_id}/o", &self.inner.endpoint),
             )
             .query(&[("uploadType", "media")])
-            .query(&[("name", &object)])
+            .query(&[("name", object)])
             .header("content-type", "application/octet-stream")
             .header(
                 "x-goog-api-client",
@@ -360,10 +354,11 @@ impl InsertObject {
         );
 
         let builder = self.inner.apply_auth_headers(builder).await?;
-        let builder = builder.body(match self.request.data {
+        let content = match self.request.data {
             Some(control::model::write_object_request::Data::ChecksummedData(data)) => data.content,
             _ => unreachable!("content for the checksummed data is set in the constructor"),
-        });
+        };
+        let builder = builder.body(content);
         Ok(builder)
     }
 
