@@ -41,7 +41,8 @@ struct ExecutableResponse {
     version: i32,
     success: bool,
     token_type: String,
-    expiration_time: i64,
+    /// 3rd party subject token expiration time in seconds (unix epoch time).
+    expiration_time: Option<i64>,
     id_token: Option<String>,
     saml_response: Option<String>,
     code: Option<String>,
@@ -190,15 +191,17 @@ impl ExecutableSourcedCredentials {
             return Err(ExecutionError::from_executable_response(res));
         }
 
-        let now = SystemTime::now()
-            .duration_since(UNIX_EPOCH)
-            .map_err(|e| CredentialsError::from_source(false, e))?
-            .as_millis() as i64;
-        if res.expiration_time < now {
-            return Err(CredentialsError::from_msg(
-                true,
-                "the token returned by the executable is expired",
-            ));
+        if let Some(expiration_time) = res.expiration_time {
+            let now = SystemTime::now()
+                .duration_since(UNIX_EPOCH)
+                .map_err(|e| CredentialsError::from_source(false, e))?
+                .as_millis() as i64;
+            if expiration_time < now {
+                return Err(CredentialsError::from_msg(
+                    true,
+                    "the token returned by the executable is expired",
+                ));
+            }
         }
 
         match res.token_type.as_str() {
