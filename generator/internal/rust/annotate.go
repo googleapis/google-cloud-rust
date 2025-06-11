@@ -690,6 +690,26 @@ func (c *codec) annotateOneOf(oneof *api.OneOf, message *api.Message, state *api
 	}
 }
 
+func (c *codec) requiresSerdeAs(field *api.Field, state *api.APIState) bool {
+	switch field.Typez {
+	case api.STRING_TYPE, api.BOOL_TYPE, api.ENUM_TYPE:
+		return false
+	case api.MESSAGE_TYPE:
+		if msg, ok := state.MessageByID[field.TypezID]; ok && msg.IsMap {
+			if len(msg.Fields) != 2 {
+				slog.Error("expected exactly two fields for map message", "field ID", field.ID, "map ID", field.TypezID)
+				return false
+			}
+			key := c.requiresSerdeAs(msg.Fields[0], state)
+			value := c.requiresSerdeAs(msg.Fields[1], state)
+			return key || value
+		}
+		return field.TypezID == ".google.protobuf.Value"
+	default:
+		return true
+	}
+}
+
 func (c *codec) annotateField(field *api.Field, message *api.Message, state *api.APIState, sourceSpecificationPackageName string) {
 	ann := &fieldAnnotations{
 		FieldName:          toSnake(field.Name),
@@ -701,15 +721,10 @@ func (c *codec) annotateField(field *api.Field, message *api.Message, state *api
 		FieldType:          fieldType(field, state, false, c.modulePath, sourceSpecificationPackageName, c.packageMapping),
 		PrimitiveFieldType: fieldType(field, state, true, c.modulePath, sourceSpecificationPackageName, c.packageMapping),
 		AddQueryParameter:  addQueryParameter(field),
+		RequiresSerdeAs:    c.requiresSerdeAs(field, state),
 	}
 	if field.Recursive || (field.Typez == api.MESSAGE_TYPE && field.IsOneOf) {
 		ann.IsBoxed = true
-	}
-	switch field.Typez {
-	case api.STRING_TYPE, api.BOOL_TYPE, api.ENUM_TYPE:
-		ann.RequiresSerdeAs = false
-	default:
-		ann.RequiresSerdeAs = true
 	}
 	field.Codec = ann
 	if field.Typez != api.MESSAGE_TYPE {

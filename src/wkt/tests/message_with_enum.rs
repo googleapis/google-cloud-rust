@@ -25,8 +25,8 @@ mod test {
     #[test_case(MessageWithEnum::new().set_optional(TestEnum::Unspecified), json!({"optional": 0}))]
     #[test_case(MessageWithEnum::new().set_or_clear_optional(None::<TestEnum>), json!({}))]
     #[test_case(MessageWithEnum::new().set_optional(TestEnum::Red), json!({"optional": 1}))]
-    #[test_case(MessageWithEnum::new().set_repeated([TestEnum::Unspecified;0]), json!({}))]
     #[test_case(MessageWithEnum::new().set_repeated([TestEnum::Red, TestEnum::Green]), json!({"repeated": [1, 2]}))]
+    #[test_case(MessageWithEnum::new().set_map([("red", TestEnum::Red), ("green", TestEnum::Green)]), json!({"map": {"red": 1, "green": 2}}))]
     fn test_ser(input: MessageWithEnum, want: Value) -> Result {
         let got = serde_json::to_value(__MessageWithEnum(input))?;
         assert_eq!(got, want);
@@ -39,8 +39,8 @@ mod test {
     #[test_case(MessageWithEnum::new().set_optional(TestEnum::Unspecified), json!({"optional": 0}))]
     #[test_case(MessageWithEnum::new().set_or_clear_optional(None::<TestEnum>), json!({}))]
     #[test_case(MessageWithEnum::new().set_optional(TestEnum::Red), json!({"optional": 1}))]
-    #[test_case(MessageWithEnum::new().set_repeated([TestEnum::Unspecified;0]), json!({}))]
     #[test_case(MessageWithEnum::new().set_repeated([TestEnum::Red, TestEnum::Green]), json!({"repeated": [1, 2]}))]
+    #[test_case(MessageWithEnum::new().set_map([("red", TestEnum::Red), ("green", TestEnum::Green)]), json!({"map": {"red": 1, "green": 2}}))]
     fn test_de(want: MessageWithEnum, input: Value) -> Result {
         let got = serde_json::from_value::<__MessageWithEnum>(input)?;
         assert_eq!(got.0, want);

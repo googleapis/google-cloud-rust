@@ -27,6 +27,12 @@ mod test {
     }
 
     #[test_case(MessageWithRecursion::new(), json!({}))]
+    #[test_case(MessageWithRecursion::new().set_singular(test_level_0()), json!({"singular": {"side": {"value": "abc"}}}))]
+    #[test_case(MessageWithRecursion::new().set_optional(Level0::new()), json!({"optional": {}}))]
+    #[test_case(MessageWithRecursion::new().set_optional(Level0::new()).set_or_clear_optional(None::<Level0>), json!({}))]
+    #[test_case(MessageWithRecursion::new().set_optional(test_level_0()), json!({"optional": {"side": {"value": "abc"}}}))]
+    #[test_case(MessageWithRecursion::new().set_repeated([Level0::new()]), json!({"repeated": [{}]}))]
+    #[test_case(MessageWithRecursion::new().set_map([("test", test_level_0())]), json!({"map": {"test": {"side": {"value": "abc"}}}} ))]
     fn test_ser(input: MessageWithRecursion, want: Value) -> Result {
         let got = serde_json::to_value(__MessageWithRecursion(input))?;
         assert_eq!(got, want);
@@ -34,6 +40,12 @@ mod test {
     }
 
     #[test_case(MessageWithRecursion::new(), json!({}))]
+    #[test_case(MessageWithRecursion::new().set_singular(test_level_0()), json!({"singular": {"side": {"value": "abc"}}}))]
+    #[test_case(MessageWithRecursion::new().set_optional(Level0::new()), json!({"optional": {}}))]
+    #[test_case(MessageWithRecursion::new().set_optional(Level0::new()).set_or_clear_optional(None::<Level0>), json!({}))]
+    #[test_case(MessageWithRecursion::new().set_optional(test_level_0()), json!({"optional": {"side": {"value": "abc"}}}))]
+    #[test_case(MessageWithRecursion::new().set_repeated([Level0::new()]), json!({"repeated": [{}]}))]
+    #[test_case(MessageWithRecursion::new().set_map([("test", test_level_0())]), json!({"map": {"test": {"side": {"value": "abc"}}}} ))]
     fn test_de(want: MessageWithRecursion, input: Value) -> Result {
         let got = serde_json::from_value::<__MessageWithRecursion>(input)?;
         assert_eq!(got.0, want);
