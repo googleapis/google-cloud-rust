@@ -17,7 +17,7 @@ limitations under the License.
 {{#Singular}}
 {{! First deal with all the fields that are not part of a oneof }}
 {{^IsOneOf}}
-result.{{Codec.FieldName}} = map.next_value::<{{{Codec.FieldType}}}>()?;
+result.{{Codec.FieldName}} = map.next_value::<{{{Codec.FieldType}}}>()? {{#Codec.IsWktValue}}.or(Some(wkt::Value::Null)){{/Codec.IsWktValue}} ;
 {{/IsOneOf}}
 {{#IsOneOf}}
 if result.{{Group.Codec.FieldName}}.is_some() {

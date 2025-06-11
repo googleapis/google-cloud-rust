@@ -267,6 +267,9 @@ type fieldAnnotations struct {
 	SerdeAs string
 	// If true, use `wkt::internal::is_default()` to skip the field
 	SkipIfIsDefault bool
+	// If true, this is a `wkt::Value` field, and requires super-extra custom
+	// deserialization.ß
+	IsWktValue bool
 }
 
 func (a *fieldAnnotations) SkipIfIsEmpty() bool {
@@ -726,6 +729,7 @@ func (c *codec) annotateField(field *api.Field, message *api.Message, state *api
 		AddQueryParameter:  addQueryParameter(field),
 		SerdeAs:            c.primitiveSerdeAs(field),
 		SkipIfIsDefault:    field.Typez != api.STRING_TYPE && field.Typez != api.BYTES_TYPE,
+		IsWktValue:         field.Typez == api.MESSAGE_TYPE && field.TypezID == ".google.protobuf.Value",
 	}
 	if field.Recursive || (field.Typez == api.MESSAGE_TYPE && field.IsOneOf) {
 		ann.IsBoxed = true
