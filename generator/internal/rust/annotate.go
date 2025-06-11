@@ -716,6 +716,13 @@ func (c *codec) primitiveSerdeAs(field *api.Field) string {
 	}
 }
 
+func (c *codec) mapKeySerdeAs(field *api.Field) string {
+	if field.Typez == api.BOOL_TYPE {
+		return "serde_with::DisplayFromStr"
+	}
+	return c.primitiveSerdeAs(field)
+}
+
 func (c *codec) annotateField(field *api.Field, message *api.Message, state *api.APIState, sourceSpecificationPackageName string) {
 	ann := &fieldAnnotations{
 		FieldName:          toSnake(field.Name),
@@ -744,7 +751,7 @@ func (c *codec) annotateField(field *api.Field, message *api.Message, state *api
 			ann.KeyType = mapType(msg.Fields[0], state, c.modulePath, sourceSpecificationPackageName, c.packageMapping)
 			ann.ValueField = msg.Fields[1]
 			ann.ValueType = mapType(msg.Fields[1], state, c.modulePath, sourceSpecificationPackageName, c.packageMapping)
-			key := c.primitiveSerdeAs(msg.Fields[0])
+			key := c.mapKeySerdeAs(msg.Fields[0])
 			value := c.primitiveSerdeAs(msg.Fields[1])
 			if key != "" || value != "" {
 				if key == "" {
