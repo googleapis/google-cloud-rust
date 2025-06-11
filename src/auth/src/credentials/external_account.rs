@@ -43,6 +43,13 @@ pub(crate) struct CredentialSourceFormat {
     pub subject_token_field_name: String,
 }
 
+#[derive(Serialize, Deserialize, Debug, Clone, Default)]
+pub(crate) struct ExecutableConfig {
+    pub command: String,
+    pub timeout_millis: Option<u32>,
+    pub output_file: Option<String>,
+}
+
 #[derive(Serialize, Deserialize, Debug, Clone)]
 #[serde(untagged)]
 enum CredentialSourceFile {
@@ -53,7 +60,9 @@ enum CredentialSourceFile {
     },
     File {},
     Aws {},
-    Executable {},
+    Executable {
+        executable: ExecutableConfig,
+    },
 }
 
 /// A representation of a [external account config file].
@@ -99,8 +108,8 @@ impl From<CredentialSourceFile> for CredentialSource {
                 headers,
                 format,
             } => Self::Url(UrlSourcedCredentials::new(url, headers, format)),
-            CredentialSourceFile::Executable { .. } => {
-                unimplemented!("executable sourced credential not supported yet")
+            CredentialSourceFile::Executable { executable } => {
+                Self::Executable(ExecutableSourcedCredentials::new(executable))
             }
             CredentialSourceFile::File { .. } => {
                 unimplemented!("file sourced credential not supported yet")

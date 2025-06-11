@@ -15,7 +15,7 @@
 use crate::{
     Result,
     constants::{ACCESS_TOKEN_TYPE, JWT_TOKEN_TYPE, SAML2_TOKEN_TYPE},
-    credentials::external_account::SubjectTokenProvider,
+    credentials::external_account::{ExecutableConfig, SubjectTokenProvider},
 };
 use gax::error::CredentialsError;
 use serde::{Deserialize, Serialize};
@@ -27,16 +27,11 @@ use tokio::{process::Command, time::timeout as tokio_timeout};
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub(crate) struct ExecutableSourcedCredentials {
-    pub executable: ExecutableConfig,
+    command: String,
+    args: Vec<String>,
+    timeout: Duration,
+    output_file: Option<String>,
 }
-
-#[derive(Serialize, Deserialize, Debug, Clone, Default)]
-pub(crate) struct ExecutableConfig {
-    pub command: String,
-    pub timeout_millis: Option<u32>,
-    pub output_file: Option<String>,
-}
-
 /// Executable command should adere to this format.
 /// Format is documented on [executable source credentials].
 ///
@@ -99,17 +94,14 @@ const ALLOW_EXECUTABLE_ENV: &str = "GOOGLE_EXTERNAL_ACCOUNT_ALLOW_EXECUTABLES";
 #[async_trait::async_trait]
 impl SubjectTokenProvider for ExecutableSourcedCredentials {
     async fn subject_token(&self) -> Result<String> {
-        if let Some(output_file) = self.executable.output_file.clone() {
+        if let Some(output_file) = self.output_file.clone() {
             let token = Self::from_output_file(output_file).await;
             if token.is_ok() {
                 return token;
             }
         }
-        let timeout = match self.executable.timeout_millis {
-            Some(timeout) => Duration::from_millis(timeout.into()),
-            None => DEFAULT_TIMEOUT_SECS,
-        };
-        let token = Self::from_command(self.executable.command.clone(), timeout).await?;
+        let token =
+            Self::from_command(self.command.clone(), self.args.clone(), self.timeout).await?;
         if token.is_empty() {
             let msg = format!("{MSG}, subject token is empty");
             return Err(CredentialsError::from_msg(false, msg));
@@ -120,6 +112,21 @@ impl SubjectTokenProvider for ExecutableSourcedCredentials {
 }
 
 impl ExecutableSourcedCredentials {
+    pub(crate) fn new(executable: ExecutableConfig) -> Self {
+        let (command, args) = Self::split_command(executable.command);
+        let timeout = match executable.timeout_millis {
+            Some(timeout) => Duration::from_millis(timeout.into()),
+            None => DEFAULT_TIMEOUT_SECS,
+        };
+        let output_file = executable.output_file;
+        Self {
+            command,
+            args,
+            timeout,
+            output_file,
+        }
+    }
+
     async fn from_output_file(output_file: String) -> Result<String> {
         let content = std::fs::read_to_string(output_file)
             .map_err(|e| CredentialsError::from_source(false, e))?;
@@ -129,7 +136,7 @@ impl ExecutableSourcedCredentials {
 
     /// See details on security reason on [executable sourced credentials].
     /// [executable sourced credentials]: https://google.aip.dev/auth/4117#determining-the-subject-token-in-executable-sourced-credentials
-    async fn from_command(command: String, timeout: Duration) -> Result<String> {
+    async fn from_command(command: String, args: Vec<String>, timeout: Duration) -> Result<String> {
         // For security reasons, we need our consumers to set this environment variable to allow executables to be run.
         let allow_executable = std::env::var(ALLOW_EXECUTABLE_ENV)
             .ok()
@@ -141,7 +148,6 @@ impl ExecutableSourcedCredentials {
             ));
         }
 
-        let (command, args) = Self::split_command(command);
         let output = Command::new(command.clone()).args(&args).output();
         let output = tokio_timeout(timeout, output.into_future())
             .await
@@ -250,12 +256,11 @@ mod test {
         let path = file.into_temp_path();
         std::fs::write(&path, json_response).expect("Unable to write to temp file with command");
 
-        let token_provider = ExecutableSourcedCredentials {
-            executable: ExecutableConfig {
-                command: format!("cat {}", path.to_str().unwrap()),
-                ..ExecutableConfig::default()
-            },
+        let config = ExecutableConfig {
+            command: format!("cat {}", path.to_str().unwrap()),
+            ..ExecutableConfig::default()
         };
+        let token_provider = ExecutableSourcedCredentials::new(config);
         let resp = token_provider.subject_token().await?;
 
         assert_eq!(resp, "an_example_token".to_string());
@@ -281,13 +286,12 @@ mod test {
         let path = file.into_temp_path();
         std::fs::write(&path, json_response).expect("Unable to write to temp file with command");
 
-        let token_provider = ExecutableSourcedCredentials {
-            executable: ExecutableConfig {
-                output_file: Some(path.to_str().unwrap().into()),
-                command: "do nothing".to_string(),
-                ..ExecutableConfig::default()
-            },
+        let config = ExecutableConfig {
+            output_file: Some(path.to_str().unwrap().into()),
+            command: "do nothing".to_string(),
+            ..ExecutableConfig::default()
         };
+        let token_provider = ExecutableSourcedCredentials::new(config);
         let resp = token_provider.subject_token().await?;
 
         assert_eq!(resp, "an_example_token".to_string());
@@ -328,13 +332,12 @@ mod test {
         std::fs::write(&valid_path, valid_json_response)
             .expect("Unable to write to temp file with command");
 
-        let token_provider = ExecutableSourcedCredentials {
-            executable: ExecutableConfig {
-                output_file: Some(invalid_path.to_str().unwrap().into()),
-                command: format!("cat {}", valid_path.to_str().unwrap()),
-                ..ExecutableConfig::default()
-            },
+        let config = ExecutableConfig {
+            output_file: Some(invalid_path.to_str().unwrap().into()),
+            command: format!("cat {}", valid_path.to_str().unwrap()),
+            ..ExecutableConfig::default()
         };
+        let token_provider = ExecutableSourcedCredentials::new(config);
         let resp = token_provider.subject_token().await?;
 
         assert_eq!(resp, "a_valid_token".to_string());
@@ -426,13 +429,12 @@ done";
         perms.set_mode(0o700);
         std::fs::set_permissions(&path, perms).expect("Unable to set exec permission");
 
-        let token_provider = ExecutableSourcedCredentials {
-            executable: ExecutableConfig {
-                command: path.to_str().unwrap().into(),
-                timeout_millis: Some(1000),
-                ..ExecutableConfig::default()
-            },
+        let config = ExecutableConfig {
+            command: path.to_str().unwrap().into(),
+            timeout_millis: Some(1000),
+            ..ExecutableConfig::default()
         };
+        let token_provider = ExecutableSourcedCredentials::new(config);
         let err = token_provider
             .subject_token()
             .await
