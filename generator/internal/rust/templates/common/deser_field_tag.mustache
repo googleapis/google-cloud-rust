@@ -49,6 +49,10 @@ impl<'de> serde::de::Deserialize<'de> for __FieldTag {
                 E: serde::de::Error,
             {
                 use std::result::Result::Ok;
+                {{^HasFields}}
+                Ok(__FieldTag::Unknown(value.to_string()))
+                {{/HasFields}}
+                {{#HasFields}}
                 match value {
                     {{#Fields}}
                     "{{JSONName}}" => Ok(__FieldTag::__{{Codec.SetterName}}),
@@ -66,6 +70,7 @@ impl<'de> serde::de::Deserialize<'de> for __FieldTag {
                     {{/Fields}}
                     _ => Ok(__FieldTag::Unknown(value.to_string())),
                 }
+                {{/HasFields}}
             }
         }
         {{! Deserialize the field tag. }}

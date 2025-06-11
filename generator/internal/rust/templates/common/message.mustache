@@ -283,7 +283,9 @@ impl<'de> serde::de::Deserialize<'de> for {{Codec.Name}} {
             {
                 #[allow(unused_imports)]
                 use serde::de::Error;
+                {{#HasFields}}
                 let mut fields = std::collections::HashSet::new();
+                {{/HasFields}}
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
                     #[allow(clippy::match_single_binding)]
