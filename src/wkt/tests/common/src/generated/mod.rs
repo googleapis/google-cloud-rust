@@ -750,7 +750,8 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithOneOf {
                             }
                             result.single_string = std::option::Option::Some(
                                 crate::generated::message_with_one_of::SingleString::StringContents(
-                                    map.next_value::<std::string::String>()?,
+                                    map.next_value::<std::option::Option<std::string::String>>()?
+                                        .unwrap_or_default(),
                                 ),
                             );
                         }
@@ -762,7 +763,8 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithOneOf {
                             }
                             result.two_strings = std::option::Option::Some(
                                 crate::generated::message_with_one_of::TwoStrings::StringContentsOne(
-                                    map.next_value::<std::string::String>()?
+                                    map.next_value::<std::option::Option<std::string::String>>()?
+                                        .unwrap_or_default(),
                                 ),
                             );
                         }
@@ -774,7 +776,8 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithOneOf {
                             }
                             result.two_strings = std::option::Option::Some(
                                 crate::generated::message_with_one_of::TwoStrings::StringContentsTwo(
-                                    map.next_value::<std::string::String>()?
+                                    map.next_value::<std::option::Option<std::string::String>>()?
+                                        .unwrap_or_default(),
                                 ),
                             );
                         }
@@ -786,9 +789,12 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithOneOf {
                             }
                             result.one_message = std::option::Option::Some(
                                 crate::generated::message_with_one_of::OneMessage::MessageValue(
-                                    map.next_value::<std::boxed::Box<
-                                        crate::generated::message_with_one_of::Message,
-                                    >>()?,
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<
+                                            crate::generated::message_with_one_of::Message,
+                                        >,
+                                    >>()?
+                                    .unwrap_or_default(),
                                 ),
                             );
                         }
@@ -800,9 +806,12 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithOneOf {
                             }
                             result.mixed = std::option::Option::Some(
                                 crate::generated::message_with_one_of::Mixed::AnotherMessage(
-                                    map.next_value::<std::boxed::Box<
-                                        crate::generated::message_with_one_of::Message,
-                                    >>()?,
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<
+                                            crate::generated::message_with_one_of::Message,
+                                        >,
+                                    >>()?
+                                    .unwrap_or_default(),
                                 ),
                             );
                         }
@@ -814,7 +823,8 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithOneOf {
                             }
                             result.mixed = std::option::Option::Some(
                                 crate::generated::message_with_one_of::Mixed::String(
-                                    map.next_value::<std::string::String>()?,
+                                    map.next_value::<std::option::Option<std::string::String>>()?
+                                        .unwrap_or_default(),
                                 ),
                             );
                         }
@@ -826,7 +836,8 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithOneOf {
                             }
                             result.mixed = std::option::Option::Some(
                                 crate::generated::message_with_one_of::Mixed::Duration(
-                                    map.next_value::<std::boxed::Box<wkt::Duration>>()?,
+                                    map.next_value::<std::option::Option<std::boxed::Box<wkt::Duration>>>()?
+                                        .unwrap_or_default(),
                                 ),
                             );
                         }
@@ -1468,7 +1479,8 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithComplexOneOf {
                             }
                             result.complex = std::option::Option::Some(
                                 crate::generated::message_with_complex_one_of::Complex::Null(
-                                    map.next_value::<wkt::NullValue>()?,
+                                    map.next_value::<std::option::Option<wkt::NullValue>>()?
+                                        .unwrap_or_default(),
                                 ),
                             );
                         }
@@ -1480,12 +1492,13 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithComplexOneOf {
                             }
                             result.complex = std::option::Option::Some(
                                 crate::generated::message_with_complex_one_of::Complex::BoolValue(
-                                    map.next_value::<bool>()?,
+                                    map.next_value::<std::option::Option<bool>>()?
+                                        .unwrap_or_default(),
                                 ),
                             );
                         }
                         __FieldTag::__bytes_value => {
-                            struct __With(::bytes::Bytes);
+                            struct __With(std::option::Option<::bytes::Bytes>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(
                                     deserializer: D,
@@ -1493,10 +1506,7 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithComplexOneOf {
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
-                                    serde_with::As::<serde_with::base64::Base64>::deserialize(
-                                        deserializer,
-                                    )
-                                    .map(__With)
+                                    serde_with::As::< std::option::Option<serde_with::base64::Base64> >::deserialize(deserializer).map(__With)
                                 }
                             }
                             if result.complex.is_some() {
@@ -1506,7 +1516,7 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithComplexOneOf {
                             }
                             result.complex = std::option::Option::Some(
                                 crate::generated::message_with_complex_one_of::Complex::BytesValue(
-                                    map.next_value::<__With>()?.0,
+                                    map.next_value::<__With>()?.0.unwrap_or_default(),
                                 ),
                             );
                         }
@@ -1518,12 +1528,13 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithComplexOneOf {
                             }
                             result.complex = std::option::Option::Some(
                                 crate::generated::message_with_complex_one_of::Complex::StringValue(
-                                    map.next_value::<std::string::String>()?,
+                                    map.next_value::<std::option::Option<std::string::String>>()?
+                                        .unwrap_or_default(),
                                 ),
                             );
                         }
                         __FieldTag::__float_value => {
-                            struct __With(f32);
+                            struct __With(std::option::Option<f32>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(
                                     deserializer: D,
@@ -1531,8 +1542,7 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithComplexOneOf {
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
-                                    serde_with::As::<wkt::internal::F32>::deserialize(deserializer)
-                                        .map(__With)
+                                    serde_with::As::< std::option::Option<wkt::internal::F32> >::deserialize(deserializer).map(__With)
                                 }
                             }
                             if result.complex.is_some() {
@@ -1542,12 +1552,12 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithComplexOneOf {
                             }
                             result.complex = std::option::Option::Some(
                                 crate::generated::message_with_complex_one_of::Complex::FloatValue(
-                                    map.next_value::<__With>()?.0,
+                                    map.next_value::<__With>()?.0.unwrap_or_default(),
                                 ),
                             );
                         }
                         __FieldTag::__double_value => {
-                            struct __With(f64);
+                            struct __With(std::option::Option<f64>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(
                                     deserializer: D,
@@ -1555,8 +1565,7 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithComplexOneOf {
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
-                                    serde_with::As::<wkt::internal::F64>::deserialize(deserializer)
-                                        .map(__With)
+                                    serde_with::As::< std::option::Option<wkt::internal::F64> >::deserialize(deserializer).map(__With)
                                 }
                             }
                             if result.complex.is_some() {
@@ -1566,12 +1575,12 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithComplexOneOf {
                             }
                             result.complex = std::option::Option::Some(
                                 crate::generated::message_with_complex_one_of::Complex::DoubleValue(
-                                    map.next_value::<__With>()?.0,
+                                    map.next_value::<__With>()?.0.unwrap_or_default(),
                                 ),
                             );
                         }
                         __FieldTag::__int => {
-                            struct __With(i32);
+                            struct __With(std::option::Option<i32>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(
                                     deserializer: D,
@@ -1579,8 +1588,7 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithComplexOneOf {
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
-                                    serde_with::As::<wkt::internal::I32>::deserialize(deserializer)
-                                        .map(__With)
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
                                 }
                             }
                             if result.complex.is_some() {
@@ -1590,12 +1598,12 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithComplexOneOf {
                             }
                             result.complex = std::option::Option::Some(
                                 crate::generated::message_with_complex_one_of::Complex::Int(
-                                    map.next_value::<__With>()?.0,
+                                    map.next_value::<__With>()?.0.unwrap_or_default(),
                                 ),
                             );
                         }
                         __FieldTag::__long => {
-                            struct __With(i64);
+                            struct __With(std::option::Option<i64>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(
                                     deserializer: D,
@@ -1603,8 +1611,7 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithComplexOneOf {
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
-                                    serde_with::As::<wkt::internal::I64>::deserialize(deserializer)
-                                        .map(__With)
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
                                 }
                             }
                             if result.complex.is_some() {
@@ -1614,7 +1621,7 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithComplexOneOf {
                             }
                             result.complex = std::option::Option::Some(
                                 crate::generated::message_with_complex_one_of::Complex::Long(
-                                    map.next_value::<__With>()?.0,
+                                    map.next_value::<__With>()?.0.unwrap_or_default(),
                                 ),
                             );
                         }
@@ -1626,7 +1633,10 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithComplexOneOf {
                             }
                             result.complex = std::option::Option::Some(
                                 crate::generated::message_with_complex_one_of::Complex::Enum(
-                                    map.next_value::<crate::generated::message_with_complex_one_of::TestEnum>()?
+                                    map.next_value::<std::option::Option<
+                                        crate::generated::message_with_complex_one_of::TestEnum,
+                                    >>()?
+                                    .unwrap_or_default(),
                                 ),
                             );
                         }
@@ -1638,9 +1648,12 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithComplexOneOf {
                             }
                             result.complex = std::option::Option::Some(
                                 crate::generated::message_with_complex_one_of::Complex::Inner(
-                                    map.next_value::<std::boxed::Box<
-                                        crate::generated::message_with_complex_one_of::Inner,
-                                    >>()?,
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<
+                                            crate::generated::message_with_complex_one_of::Inner,
+                                        >,
+                                    >>()?
+                                    .unwrap_or_default(),
                                 ),
                             );
                         }
@@ -1652,7 +1665,8 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithComplexOneOf {
                             }
                             result.complex = std::option::Option::Some(
                                 crate::generated::message_with_complex_one_of::Complex::Duration(
-                                    map.next_value::<std::boxed::Box<wkt::Duration>>()?,
+                                    map.next_value::<std::option::Option<std::boxed::Box<wkt::Duration>>>()?
+                                        .unwrap_or_default(),
                                 ),
                             );
                         }

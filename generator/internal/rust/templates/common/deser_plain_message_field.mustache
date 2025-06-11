@@ -34,7 +34,13 @@ if result.{{Group.Codec.FieldName}}.is_some() {
 }
 result.{{Group.Codec.FieldName}} = std::option::Option::Some(
     {{Group.Codec.QualifiedName}}::{{Codec.BranchName}}(
-        map.next_value::<{{{Codec.FieldType}}}>()?
+        map.next_value::<std::option::Option<{{{Codec.FieldType}}}>>()?
+            {{#Codec.IsWktValue}}
+            .unwrap_or(wkt::Value::Null),
+            {{/Codec.IsWktValue}}
+            {{^Codec.IsWktValue}}
+            .unwrap_or_default(),
+            {{/Codec.IsWktValue}}
     ),
 );
 {{/IsOneOf}}
