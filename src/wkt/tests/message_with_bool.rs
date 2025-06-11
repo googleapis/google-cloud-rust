@@ -23,7 +23,7 @@ mod test {
     #[test_case(MessageWithBool::new().set_singular(false), json!({}))]
     #[test_case(MessageWithBool::new().set_singular(true), json!({"singular": true}))]
     #[test_case(MessageWithBool::new().set_optional(false), json!({"optional": false}))]
-    #[test_case(MessageWithBool::new().set_optional(true).set_or_clear_optional(None::<bool>), json!({}))]
+    #[test_case(MessageWithBool::new().set_or_clear_optional(None::<bool>), json!({}))]
     #[test_case(MessageWithBool::new().set_repeated([false; 0]), json!({}))]
     #[test_case(MessageWithBool::new().set_repeated([true, true, false]), json!({"repeated": [true, true, false]}))]
     fn test_ser(input: MessageWithBool, want: Value) -> Result {
@@ -36,7 +36,7 @@ mod test {
     #[test_case(MessageWithBool::new().set_singular(false), json!({}))]
     #[test_case(MessageWithBool::new().set_singular(true), json!({"singular": true}))]
     #[test_case(MessageWithBool::new().set_optional(false), json!({"optional": false}))]
-    #[test_case(MessageWithBool::new().set_optional(true).set_or_clear_optional(None::<bool>), json!({}))]
+    #[test_case(MessageWithBool::new().set_or_clear_optional(None::<bool>), json!({}))]
     #[test_case(MessageWithBool::new().set_repeated([false; 0]), json!({}))]
     #[test_case(MessageWithBool::new().set_repeated([true, true, false]), json!({"repeated": [true, true, false]}))]
     fn test_de(want: MessageWithBool, input: Value) -> Result {
