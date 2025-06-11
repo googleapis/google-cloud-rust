@@ -127,10 +127,12 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithEnum {
             where
                 A: serde::de::MapAccess<'de>,
             {
-                while let Some(_key) = map.next_key::<String>()? {
-                    let _value = map.next_value::<serde_json::Value>()?;
+                let mut result = Self::Value::new();
+                while let Some(key) = map.next_key::<String>()? {
+                    let value = map.next_value::<serde_json::Value>()?;
+                    result._unknown_fields.insert(key, value);
                 }
-                Ok(Self::Value::new())
+                Ok(result)
             }
         }
         deserializer.deserialize_any(Visitor).map(__MessageWithEnum)
@@ -143,7 +145,12 @@ impl serde::ser::Serialize for __MessageWithEnum {
         S: serde::ser::Serializer,
     {
         use serde::ser::SerializeMap;
-        let state = serializer.serialize_map(None)?;
+        let mut state = serializer.serialize_map(None)?;
+        if !self.0._unknown_fields.is_empty() {
+            for (key, value) in self.0._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
         state.end()
     }
 }
@@ -600,10 +607,12 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithOneOf {
             where
                 A: serde::de::MapAccess<'de>,
             {
-                while let Some(_key) = map.next_key::<String>()? {
-                    let _value = map.next_value::<serde_json::Value>()?;
+                let mut result = Self::Value::new();
+                while let Some(key) = map.next_key::<String>()? {
+                    let value = map.next_value::<serde_json::Value>()?;
+                    result._unknown_fields.insert(key, value);
                 }
-                Ok(Self::Value::new())
+                Ok(result)
             }
         }
         deserializer
@@ -618,7 +627,12 @@ impl serde::ser::Serialize for __MessageWithOneOf {
         S: serde::ser::Serializer,
     {
         use serde::ser::SerializeMap;
-        let state = serializer.serialize_map(None)?;
+        let mut state = serializer.serialize_map(None)?;
+        if !self.0._unknown_fields.is_empty() {
+            for (key, value) in self.0._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
         state.end()
     }
 }
@@ -678,10 +692,12 @@ pub mod message_with_one_of {
                 where
                     A: serde::de::MapAccess<'de>,
                 {
-                    while let Some(_key) = map.next_key::<String>()? {
-                        let _value = map.next_value::<serde_json::Value>()?;
+                    let mut result = Self::Value::new();
+                    while let Some(key) = map.next_key::<String>()? {
+                        let value = map.next_value::<serde_json::Value>()?;
+                        result._unknown_fields.insert(key, value);
                     }
-                    Ok(Self::Value::new())
+                    Ok(result)
                 }
             }
             deserializer.deserialize_any(Visitor).map(__Message)
@@ -694,7 +710,12 @@ pub mod message_with_one_of {
             S: serde::ser::Serializer,
         {
             use serde::ser::SerializeMap;
-            let state = serializer.serialize_map(None)?;
+            let mut state = serializer.serialize_map(None)?;
+            if !self.0._unknown_fields.is_empty() {
+                for (key, value) in self.0._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
             state.end()
         }
     }
@@ -1088,10 +1109,12 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithComplexOneOf {
             where
                 A: serde::de::MapAccess<'de>,
             {
-                while let Some(_key) = map.next_key::<String>()? {
-                    let _value = map.next_value::<serde_json::Value>()?;
+                let mut result = Self::Value::new();
+                while let Some(key) = map.next_key::<String>()? {
+                    let value = map.next_value::<serde_json::Value>()?;
+                    result._unknown_fields.insert(key, value);
                 }
-                Ok(Self::Value::new())
+                Ok(result)
             }
         }
         deserializer
@@ -1106,7 +1129,12 @@ impl serde::ser::Serialize for __MessageWithComplexOneOf {
         S: serde::ser::Serializer,
     {
         use serde::ser::SerializeMap;
-        let state = serializer.serialize_map(None)?;
+        let mut state = serializer.serialize_map(None)?;
+        if !self.0._unknown_fields.is_empty() {
+            for (key, value) in self.0._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
         state.end()
     }
 }
@@ -1171,10 +1199,12 @@ pub mod message_with_complex_one_of {
                 where
                     A: serde::de::MapAccess<'de>,
                 {
-                    while let Some(_key) = map.next_key::<String>()? {
-                        let _value = map.next_value::<serde_json::Value>()?;
+                    let mut result = Self::Value::new();
+                    while let Some(key) = map.next_key::<String>()? {
+                        let value = map.next_value::<serde_json::Value>()?;
+                        result._unknown_fields.insert(key, value);
                     }
-                    Ok(Self::Value::new())
+                    Ok(result)
                 }
             }
             deserializer.deserialize_any(Visitor).map(__Inner)
@@ -1187,7 +1217,12 @@ pub mod message_with_complex_one_of {
             S: serde::ser::Serializer,
         {
             use serde::ser::SerializeMap;
-            let state = serializer.serialize_map(None)?;
+            let mut state = serializer.serialize_map(None)?;
+            if !self.0._unknown_fields.is_empty() {
+                for (key, value) in self.0._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
             state.end()
         }
     }
@@ -1451,10 +1486,12 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithF32 {
             where
                 A: serde::de::MapAccess<'de>,
             {
-                while let Some(_key) = map.next_key::<String>()? {
-                    let _value = map.next_value::<serde_json::Value>()?;
+                let mut result = Self::Value::new();
+                while let Some(key) = map.next_key::<String>()? {
+                    let value = map.next_value::<serde_json::Value>()?;
+                    result._unknown_fields.insert(key, value);
                 }
-                Ok(Self::Value::new())
+                Ok(result)
             }
         }
         deserializer.deserialize_any(Visitor).map(__MessageWithF32)
@@ -1467,7 +1504,12 @@ impl serde::ser::Serialize for __MessageWithF32 {
         S: serde::ser::Serializer,
     {
         use serde::ser::SerializeMap;
-        let state = serializer.serialize_map(None)?;
+        let mut state = serializer.serialize_map(None)?;
+        if !self.0._unknown_fields.is_empty() {
+            for (key, value) in self.0._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
         state.end()
     }
 }
@@ -1581,10 +1623,12 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithF64 {
             where
                 A: serde::de::MapAccess<'de>,
             {
-                while let Some(_key) = map.next_key::<String>()? {
-                    let _value = map.next_value::<serde_json::Value>()?;
+                let mut result = Self::Value::new();
+                while let Some(key) = map.next_key::<String>()? {
+                    let value = map.next_value::<serde_json::Value>()?;
+                    result._unknown_fields.insert(key, value);
                 }
-                Ok(Self::Value::new())
+                Ok(result)
             }
         }
         deserializer.deserialize_any(Visitor).map(__MessageWithF64)
@@ -1597,7 +1641,12 @@ impl serde::ser::Serialize for __MessageWithF64 {
         S: serde::ser::Serializer,
     {
         use serde::ser::SerializeMap;
-        let state = serializer.serialize_map(None)?;
+        let mut state = serializer.serialize_map(None)?;
+        if !self.0._unknown_fields.is_empty() {
+            for (key, value) in self.0._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
         state.end()
     }
 }
@@ -1746,10 +1795,12 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithI32 {
             where
                 A: serde::de::MapAccess<'de>,
             {
-                while let Some(_key) = map.next_key::<String>()? {
-                    let _value = map.next_value::<serde_json::Value>()?;
+                let mut result = Self::Value::new();
+                while let Some(key) = map.next_key::<String>()? {
+                    let value = map.next_value::<serde_json::Value>()?;
+                    result._unknown_fields.insert(key, value);
                 }
-                Ok(Self::Value::new())
+                Ok(result)
             }
         }
         deserializer.deserialize_any(Visitor).map(__MessageWithI32)
@@ -1762,7 +1813,12 @@ impl serde::ser::Serialize for __MessageWithI32 {
         S: serde::ser::Serializer,
     {
         use serde::ser::SerializeMap;
-        let state = serializer.serialize_map(None)?;
+        let mut state = serializer.serialize_map(None)?;
+        if !self.0._unknown_fields.is_empty() {
+            for (key, value) in self.0._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
         state.end()
     }
 }
@@ -1911,10 +1967,12 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithU32 {
             where
                 A: serde::de::MapAccess<'de>,
             {
-                while let Some(_key) = map.next_key::<String>()? {
-                    let _value = map.next_value::<serde_json::Value>()?;
+                let mut result = Self::Value::new();
+                while let Some(key) = map.next_key::<String>()? {
+                    let value = map.next_value::<serde_json::Value>()?;
+                    result._unknown_fields.insert(key, value);
                 }
-                Ok(Self::Value::new())
+                Ok(result)
             }
         }
         deserializer.deserialize_any(Visitor).map(__MessageWithU32)
@@ -1927,7 +1985,12 @@ impl serde::ser::Serialize for __MessageWithU32 {
         S: serde::ser::Serializer,
     {
         use serde::ser::SerializeMap;
-        let state = serializer.serialize_map(None)?;
+        let mut state = serializer.serialize_map(None)?;
+        if !self.0._unknown_fields.is_empty() {
+            for (key, value) in self.0._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
         state.end()
     }
 }
@@ -2076,10 +2139,12 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithI64 {
             where
                 A: serde::de::MapAccess<'de>,
             {
-                while let Some(_key) = map.next_key::<String>()? {
-                    let _value = map.next_value::<serde_json::Value>()?;
+                let mut result = Self::Value::new();
+                while let Some(key) = map.next_key::<String>()? {
+                    let value = map.next_value::<serde_json::Value>()?;
+                    result._unknown_fields.insert(key, value);
                 }
-                Ok(Self::Value::new())
+                Ok(result)
             }
         }
         deserializer.deserialize_any(Visitor).map(__MessageWithI64)
@@ -2092,7 +2157,12 @@ impl serde::ser::Serialize for __MessageWithI64 {
         S: serde::ser::Serializer,
     {
         use serde::ser::SerializeMap;
-        let state = serializer.serialize_map(None)?;
+        let mut state = serializer.serialize_map(None)?;
+        if !self.0._unknown_fields.is_empty() {
+            for (key, value) in self.0._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
         state.end()
     }
 }
@@ -2241,10 +2311,12 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithU64 {
             where
                 A: serde::de::MapAccess<'de>,
             {
-                while let Some(_key) = map.next_key::<String>()? {
-                    let _value = map.next_value::<serde_json::Value>()?;
+                let mut result = Self::Value::new();
+                while let Some(key) = map.next_key::<String>()? {
+                    let value = map.next_value::<serde_json::Value>()?;
+                    result._unknown_fields.insert(key, value);
                 }
-                Ok(Self::Value::new())
+                Ok(result)
             }
         }
         deserializer.deserialize_any(Visitor).map(__MessageWithU64)
@@ -2257,7 +2329,12 @@ impl serde::ser::Serialize for __MessageWithU64 {
         S: serde::ser::Serializer,
     {
         use serde::ser::SerializeMap;
-        let state = serializer.serialize_map(None)?;
+        let mut state = serializer.serialize_map(None)?;
+        if !self.0._unknown_fields.is_empty() {
+            for (key, value) in self.0._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
         state.end()
     }
 }
@@ -2373,10 +2450,12 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithBytes {
             where
                 A: serde::de::MapAccess<'de>,
             {
-                while let Some(_key) = map.next_key::<String>()? {
-                    let _value = map.next_value::<serde_json::Value>()?;
+                let mut result = Self::Value::new();
+                while let Some(key) = map.next_key::<String>()? {
+                    let value = map.next_value::<serde_json::Value>()?;
+                    result._unknown_fields.insert(key, value);
                 }
-                Ok(Self::Value::new())
+                Ok(result)
             }
         }
         deserializer
@@ -2391,7 +2470,12 @@ impl serde::ser::Serialize for __MessageWithBytes {
         S: serde::ser::Serializer,
     {
         use serde::ser::SerializeMap;
-        let state = serializer.serialize_map(None)?;
+        let mut state = serializer.serialize_map(None)?;
+        if !self.0._unknown_fields.is_empty() {
+            for (key, value) in self.0._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
         state.end()
     }
 }
@@ -2541,10 +2625,12 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithBool {
             where
                 A: serde::de::MapAccess<'de>,
             {
-                while let Some(_key) = map.next_key::<String>()? {
-                    let _value = map.next_value::<serde_json::Value>()?;
+                let mut result = Self::Value::new();
+                while let Some(key) = map.next_key::<String>()? {
+                    let value = map.next_value::<serde_json::Value>()?;
+                    result._unknown_fields.insert(key, value);
                 }
-                Ok(Self::Value::new())
+                Ok(result)
             }
         }
         deserializer.deserialize_any(Visitor).map(__MessageWithBool)
@@ -2557,7 +2643,12 @@ impl serde::ser::Serialize for __MessageWithBool {
         S: serde::ser::Serializer,
     {
         use serde::ser::SerializeMap;
-        let state = serializer.serialize_map(None)?;
+        let mut state = serializer.serialize_map(None)?;
+        if !self.0._unknown_fields.is_empty() {
+            for (key, value) in self.0._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
         state.end()
     }
 }
@@ -2703,10 +2794,12 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithString {
             where
                 A: serde::de::MapAccess<'de>,
             {
-                while let Some(_key) = map.next_key::<String>()? {
-                    let _value = map.next_value::<serde_json::Value>()?;
+                let mut result = Self::Value::new();
+                while let Some(key) = map.next_key::<String>()? {
+                    let value = map.next_value::<serde_json::Value>()?;
+                    result._unknown_fields.insert(key, value);
                 }
-                Ok(Self::Value::new())
+                Ok(result)
             }
         }
         deserializer
@@ -2721,7 +2814,12 @@ impl serde::ser::Serialize for __MessageWithString {
         S: serde::ser::Serializer,
     {
         use serde::ser::SerializeMap;
-        let state = serializer.serialize_map(None)?;
+        let mut state = serializer.serialize_map(None)?;
+        if !self.0._unknown_fields.is_empty() {
+            for (key, value) in self.0._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
         state.end()
     }
 }
@@ -2849,10 +2947,12 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithRecursion {
             where
                 A: serde::de::MapAccess<'de>,
             {
-                while let Some(_key) = map.next_key::<String>()? {
-                    let _value = map.next_value::<serde_json::Value>()?;
+                let mut result = Self::Value::new();
+                while let Some(key) = map.next_key::<String>()? {
+                    let value = map.next_value::<serde_json::Value>()?;
+                    result._unknown_fields.insert(key, value);
                 }
-                Ok(Self::Value::new())
+                Ok(result)
             }
         }
         deserializer
@@ -2867,7 +2967,12 @@ impl serde::ser::Serialize for __MessageWithRecursion {
         S: serde::ser::Serializer,
     {
         use serde::ser::SerializeMap;
-        let state = serializer.serialize_map(None)?;
+        let mut state = serializer.serialize_map(None)?;
+        if !self.0._unknown_fields.is_empty() {
+            for (key, value) in self.0._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
         state.end()
     }
 }
@@ -2960,10 +3065,12 @@ pub mod message_with_recursion {
                 where
                     A: serde::de::MapAccess<'de>,
                 {
-                    while let Some(_key) = map.next_key::<String>()? {
-                        let _value = map.next_value::<serde_json::Value>()?;
+                    let mut result = Self::Value::new();
+                    while let Some(key) = map.next_key::<String>()? {
+                        let value = map.next_value::<serde_json::Value>()?;
+                        result._unknown_fields.insert(key, value);
                     }
-                    Ok(Self::Value::new())
+                    Ok(result)
                 }
             }
             deserializer.deserialize_any(Visitor).map(__Level0)
@@ -2976,7 +3083,12 @@ pub mod message_with_recursion {
             S: serde::ser::Serializer,
         {
             use serde::ser::SerializeMap;
-            let state = serializer.serialize_map(None)?;
+            let mut state = serializer.serialize_map(None)?;
+            if !self.0._unknown_fields.is_empty() {
+                for (key, value) in self.0._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
             state.end()
         }
     }
@@ -3042,10 +3154,12 @@ pub mod message_with_recursion {
                 where
                     A: serde::de::MapAccess<'de>,
                 {
-                    while let Some(_key) = map.next_key::<String>()? {
-                        let _value = map.next_value::<serde_json::Value>()?;
+                    let mut result = Self::Value::new();
+                    while let Some(key) = map.next_key::<String>()? {
+                        let value = map.next_value::<serde_json::Value>()?;
+                        result._unknown_fields.insert(key, value);
                     }
-                    Ok(Self::Value::new())
+                    Ok(result)
                 }
             }
             deserializer.deserialize_any(Visitor).map(__Level1)
@@ -3058,7 +3172,12 @@ pub mod message_with_recursion {
             S: serde::ser::Serializer,
         {
             use serde::ser::SerializeMap;
-            let state = serializer.serialize_map(None)?;
+            let mut state = serializer.serialize_map(None)?;
+            if !self.0._unknown_fields.is_empty() {
+                for (key, value) in self.0._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
             state.end()
         }
     }
@@ -3113,10 +3232,12 @@ pub mod message_with_recursion {
                 where
                     A: serde::de::MapAccess<'de>,
                 {
-                    while let Some(_key) = map.next_key::<String>()? {
-                        let _value = map.next_value::<serde_json::Value>()?;
+                    let mut result = Self::Value::new();
+                    while let Some(key) = map.next_key::<String>()? {
+                        let value = map.next_value::<serde_json::Value>()?;
+                        result._unknown_fields.insert(key, value);
                     }
-                    Ok(Self::Value::new())
+                    Ok(result)
                 }
             }
             deserializer.deserialize_any(Visitor).map(__NonRecursive)
@@ -3129,7 +3250,12 @@ pub mod message_with_recursion {
             S: serde::ser::Serializer,
         {
             use serde::ser::SerializeMap;
-            let state = serializer.serialize_map(None)?;
+            let mut state = serializer.serialize_map(None)?;
+            if !self.0._unknown_fields.is_empty() {
+                for (key, value) in self.0._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
             state.end()
         }
     }
@@ -3255,10 +3381,12 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithValue {
             where
                 A: serde::de::MapAccess<'de>,
             {
-                while let Some(_key) = map.next_key::<String>()? {
-                    let _value = map.next_value::<serde_json::Value>()?;
+                let mut result = Self::Value::new();
+                while let Some(key) = map.next_key::<String>()? {
+                    let value = map.next_value::<serde_json::Value>()?;
+                    result._unknown_fields.insert(key, value);
                 }
-                Ok(Self::Value::new())
+                Ok(result)
             }
         }
         deserializer
@@ -3273,7 +3401,12 @@ impl serde::ser::Serialize for __MessageWithValue {
         S: serde::ser::Serializer,
     {
         use serde::ser::SerializeMap;
-        let state = serializer.serialize_map(None)?;
+        let mut state = serializer.serialize_map(None)?;
+        if !self.0._unknown_fields.is_empty() {
+            for (key, value) in self.0._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
         state.end()
     }
 }
@@ -3396,10 +3529,12 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithStruct {
             where
                 A: serde::de::MapAccess<'de>,
             {
-                while let Some(_key) = map.next_key::<String>()? {
-                    let _value = map.next_value::<serde_json::Value>()?;
+                let mut result = Self::Value::new();
+                while let Some(key) = map.next_key::<String>()? {
+                    let value = map.next_value::<serde_json::Value>()?;
+                    result._unknown_fields.insert(key, value);
                 }
-                Ok(Self::Value::new())
+                Ok(result)
             }
         }
         deserializer
@@ -3414,7 +3549,12 @@ impl serde::ser::Serialize for __MessageWithStruct {
         S: serde::ser::Serializer,
     {
         use serde::ser::SerializeMap;
-        let state = serializer.serialize_map(None)?;
+        let mut state = serializer.serialize_map(None)?;
+        if !self.0._unknown_fields.is_empty() {
+            for (key, value) in self.0._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
         state.end()
     }
 }
@@ -3537,10 +3677,12 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithListValue {
             where
                 A: serde::de::MapAccess<'de>,
             {
-                while let Some(_key) = map.next_key::<String>()? {
-                    let _value = map.next_value::<serde_json::Value>()?;
+                let mut result = Self::Value::new();
+                while let Some(key) = map.next_key::<String>()? {
+                    let value = map.next_value::<serde_json::Value>()?;
+                    result._unknown_fields.insert(key, value);
                 }
-                Ok(Self::Value::new())
+                Ok(result)
             }
         }
         deserializer
@@ -3555,7 +3697,12 @@ impl serde::ser::Serialize for __MessageWithListValue {
         S: serde::ser::Serializer,
     {
         use serde::ser::SerializeMap;
-        let state = serializer.serialize_map(None)?;
+        let mut state = serializer.serialize_map(None)?;
+        if !self.0._unknown_fields.is_empty() {
+            for (key, value) in self.0._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
         state.end()
     }
 }
@@ -3667,10 +3814,12 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithNullValue {
             where
                 A: serde::de::MapAccess<'de>,
             {
-                while let Some(_key) = map.next_key::<String>()? {
-                    let _value = map.next_value::<serde_json::Value>()?;
+                let mut result = Self::Value::new();
+                while let Some(key) = map.next_key::<String>()? {
+                    let value = map.next_value::<serde_json::Value>()?;
+                    result._unknown_fields.insert(key, value);
                 }
-                Ok(Self::Value::new())
+                Ok(result)
             }
         }
         deserializer
@@ -3685,7 +3834,12 @@ impl serde::ser::Serialize for __MessageWithNullValue {
         S: serde::ser::Serializer,
     {
         use serde::ser::SerializeMap;
-        let state = serializer.serialize_map(None)?;
+        let mut state = serializer.serialize_map(None)?;
+        if !self.0._unknown_fields.is_empty() {
+            for (key, value) in self.0._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
         state.end()
     }
 }
@@ -3808,10 +3962,12 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithFieldMask {
             where
                 A: serde::de::MapAccess<'de>,
             {
-                while let Some(_key) = map.next_key::<String>()? {
-                    let _value = map.next_value::<serde_json::Value>()?;
+                let mut result = Self::Value::new();
+                while let Some(key) = map.next_key::<String>()? {
+                    let value = map.next_value::<serde_json::Value>()?;
+                    result._unknown_fields.insert(key, value);
                 }
-                Ok(Self::Value::new())
+                Ok(result)
             }
         }
         deserializer
@@ -3826,7 +3982,12 @@ impl serde::ser::Serialize for __MessageWithFieldMask {
         S: serde::ser::Serializer,
     {
         use serde::ser::SerializeMap;
-        let state = serializer.serialize_map(None)?;
+        let mut state = serializer.serialize_map(None)?;
+        if !self.0._unknown_fields.is_empty() {
+            for (key, value) in self.0._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
         state.end()
     }
 }

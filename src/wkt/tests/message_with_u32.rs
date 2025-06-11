@@ -33,6 +33,15 @@ mod test {
         Ok(())
     }
 
+    #[test_case(json!({"unknown": "test-value"}))]
+    #[test_case(json!({"unknown": "test-value", "moreUnknown": {"a": 1, "b": 2}}))]
+    fn test_unknown(input: Value) -> Result {
+        let deser = serde_json::from_value::<__MessageWithU32>(input.clone())?;
+        let got = serde_json::to_value(deser)?;
+        assert_eq!(got, input);
+        Ok(())
+    }
+
     #[test_case(123, 123)]
     #[test_case("345", 345)]
     #[test_case("567.0", 567)]

@@ -34,6 +34,15 @@ mod test {
         Ok(())
     }
 
+    #[test_case(json!({"unknown": "test-value"}))]
+    #[test_case(json!({"unknown": "test-value", "moreUnknown": {"a": 1, "b": 2}}))]
+    fn test_unknown(input: Value) -> Result {
+        let deser = serde_json::from_value::<__MessageWithValue>(input.clone())?;
+        let got = serde_json::to_value(deser)?;
+        assert_eq!(got, input);
+        Ok(())
+    }
+
     #[test_case(json!({"singular": null}), Value::Null)]
     #[test_case(json!({"singular": "abc"}), json!("abc"))]
     #[test_case(json!({"singular": 1}), json!(1))]

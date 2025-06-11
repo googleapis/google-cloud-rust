@@ -279,10 +279,12 @@ impl<'de> serde::de::Deserialize<'de> for __{{Codec.Name}} {
             where
                 A: serde::de::MapAccess<'de>,
             {
-                while let Some(_key) = map.next_key::<String>()? {
-                    let _value = map.next_value::<serde_json::Value>()?;
+                let mut result = Self::Value::new();
+                while let Some(key) = map.next_key::<String>()? {
+                    let value = map.next_value::<serde_json::Value>()?;
+                    result._unknown_fields.insert(key, value);
                 }
-                Ok(Self::Value::new())
+                Ok(result)
             }
         }
         deserializer.deserialize_any(Visitor).map(__{{Codec.Name}})
@@ -295,7 +297,12 @@ impl serde::ser::Serialize for __{{Codec.Name}} {
         S: serde::ser::Serializer,
     {
         use serde::ser::SerializeMap;
-        let state = serializer.serialize_map(None)?;
+        let mut state = serializer.serialize_map(None)?;
+        if !self.0._unknown_fields.is_empty() {
+            for (key, value) in self.0._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
         state.end()
     }
 }
