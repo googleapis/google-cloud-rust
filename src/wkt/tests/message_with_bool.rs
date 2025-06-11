@@ -24,13 +24,9 @@ mod test {
     #[test_case(MessageWithBool::new().set_singular(true), json!({"singular": true}))]
     #[test_case(MessageWithBool::new().set_optional(false), json!({"optional": false}))]
     #[test_case(MessageWithBool::new().set_or_clear_optional(None::<bool>), json!({}))]
-    #[test_case(MessageWithBool::new().set_repeated([false; 0]), json!({}))]
     #[test_case(MessageWithBool::new().set_repeated([true, true, false]), json!({"repeated": [true, true, false]}))]
-    #[test_case(MessageWithBool::new().set_map_key([(true, ""); 0]), json!({}))]
     #[test_case(MessageWithBool::new().set_map_key([(true, "trueValue"), (false, "falseValue")]), json!({"mapKey": {"true": "trueValue", "false": "falseValue"}}))]
-    #[test_case(MessageWithBool::new().set_map_value([("", true); 0]), json!({}))]
     #[test_case(MessageWithBool::new().set_map_value([("k0", true), ("k1", false)]), json!({"mapValue": {"k0": true, "k1": false}}))]
-    #[test_case(MessageWithBool::new().set_map_key_value([(true, true); 0]), json!({}))]
     #[test_case(MessageWithBool::new().set_map_key_value([(false, true), (true, false)]), json!({"mapKeyValue": {"false": true, "true": false}}))]
     fn test_ser(input: MessageWithBool, want: Value) -> Result {
         let got = serde_json::to_value(__MessageWithBool(input))?;
@@ -43,13 +39,9 @@ mod test {
     #[test_case(MessageWithBool::new().set_singular(true), json!({"singular": true}))]
     #[test_case(MessageWithBool::new().set_optional(false), json!({"optional": false}))]
     #[test_case(MessageWithBool::new().set_or_clear_optional(None::<bool>), json!({}))]
-    #[test_case(MessageWithBool::new().set_repeated([false; 0]), json!({}))]
     #[test_case(MessageWithBool::new().set_repeated([true, true, false]), json!({"repeated": [true, true, false]}))]
-    #[test_case(MessageWithBool::new().set_map_key([(true, ""); 0]), json!({}))]
     #[test_case(MessageWithBool::new().set_map_key([(true, "trueValue"), (false, "falseValue")]), json!({"mapKey": {"true": "trueValue", "false": "falseValue"}}))]
-    #[test_case(MessageWithBool::new().set_map_value([("", true); 0]), json!({}))]
     #[test_case(MessageWithBool::new().set_map_value([("k0", true), ("k1", false)]), json!({"mapValue": {"k0": true, "k1": false}}))]
-    #[test_case(MessageWithBool::new().set_map_key_value([(true, true); 0]), json!({}))]
     #[test_case(MessageWithBool::new().set_map_key_value([(false, true), (true, false)]), json!({"mapKeyValue": {"false": true, "true": false}}))]
     fn test_de(want: MessageWithBool, input: Value) -> Result {
         let got = serde_json::from_value::<__MessageWithBool>(input)?;

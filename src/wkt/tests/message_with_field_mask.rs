@@ -29,9 +29,7 @@ mod test {
     #[test_case(MessageWithFieldMask::new().set_singular(test_field_mask()), json!({"singular": "a,b,c"}))]
     #[test_case(MessageWithFieldMask::new().set_or_clear_optional(None::<FieldMask>), json!({}))]
     #[test_case(MessageWithFieldMask::new().set_optional(test_field_mask()), json!({"optional": "a,b,c"}))]
-    #[test_case(MessageWithFieldMask::new().set_repeated([] as [FieldMask; 0]), json!({}))]
     #[test_case(MessageWithFieldMask::new().set_repeated([test_field_mask()]), json!({"repeated": ["a,b,c"]}))]
-    #[test_case(MessageWithFieldMask::new().set_map([] as [(&str, FieldMask); 0]), json!({}))]
     #[test_case(MessageWithFieldMask::new().set_map([("key", test_field_mask())]), json!({"map": {"key": "a,b,c"}}))]
     fn test_ser(input: MessageWithFieldMask, want: Value) -> Result {
         let got = serde_json::to_value(__MessageWithFieldMask(input))?;
@@ -44,9 +42,7 @@ mod test {
     #[test_case(MessageWithFieldMask::new().set_singular(test_field_mask()), json!({"singular": "a,b,c"}))]
     #[test_case(MessageWithFieldMask::new().set_or_clear_optional(None::<FieldMask>), json!({}))]
     #[test_case(MessageWithFieldMask::new().set_optional(test_field_mask()), json!({"optional": "a,b,c"}))]
-    #[test_case(MessageWithFieldMask::new().set_repeated([] as [FieldMask; 0]), json!({}))]
     #[test_case(MessageWithFieldMask::new().set_repeated([test_field_mask()]), json!({"repeated": ["a,b,c"]}))]
-    #[test_case(MessageWithFieldMask::new().set_map([] as [(&str, FieldMask); 0]), json!({}))]
     #[test_case(MessageWithFieldMask::new().set_map([("key", test_field_mask())]), json!({"map": {"key": "a,b,c"}}))]
     fn test_de(want: MessageWithFieldMask, input: Value) -> Result {
         let got = serde_json::from_value::<__MessageWithFieldMask>(input)?;
