@@ -288,6 +288,37 @@ mod test {
 
     #[tokio::test]
     #[serial]
+    async fn fail_with_tmp_dir_spaces() -> TestResult {
+        let _e = ScopedEnv::set(ALLOW_EXECUTABLE_ENV, "1");
+        let json_response = json!({
+            "success": true,
+            "version": 1,
+            "token_type": JWT_TOKEN_TYPE,
+            "id_token":"an_example_token",
+        })
+        .to_string();
+        let file = tempfile::NamedTempFile::with_suffix("with space").unwrap();
+        let path = file.into_temp_path();
+        std::fs::write(&path, json_response).expect("Unable to write to temp file with command");
+
+        let path = path.to_str().unwrap();
+        let config = ExecutableConfig {
+            command: format!("cat {path}"),
+            ..ExecutableConfig::default()
+        };
+        let token_provider = ExecutableSourcedCredentials::new(config);
+        let err = token_provider
+            .subject_token()
+            .await
+            .expect_err("should fail to handle file with spaces");
+
+        assert!(err.to_string().contains("No such file or directory"));
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    #[serial]
     async fn read_valid_token_from_output_file() -> TestResult {
         let expiration = SystemTime::now().duration_since(UNIX_EPOCH)?;
         let expiration = expiration + Duration::from_secs(3600);
@@ -312,7 +343,7 @@ mod test {
         let token_provider = ExecutableSourcedCredentials::new(config);
         let resp = token_provider.subject_token().await?;
 
-        assert_eq!(resp, "an_example_token".to_string());
+        assert_eq!(resp, "an_example_token");
 
         Ok(())
     }
@@ -358,7 +389,7 @@ mod test {
         let token_provider = ExecutableSourcedCredentials::new(config);
         let resp = token_provider.subject_token().await?;
 
-        assert_eq!(resp, "a_valid_token".to_string());
+        assert_eq!(resp, "a_valid_token");
 
         Ok(())
     }
