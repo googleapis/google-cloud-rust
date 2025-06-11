@@ -14,18 +14,49 @@
 
 #[cfg(test)]
 mod test {
+    use common::{__MessageWithFieldMask, MessageWithFieldMask};
     use google_cloud_wkt::FieldMask;
     use serde_json::{Value, json};
     use test_case::test_case;
-
     type Result = anyhow::Result<()>;
 
-    #[allow(dead_code)]
-    mod protos {
-        use google_cloud_wkt as wkt;
-        include!("generated/mod.rs");
+    fn test_field_mask() -> FieldMask {
+        FieldMask::default().set_paths(["a", "b", "c"])
     }
-    use protos::MessageWithFieldMask;
+
+    #[test_case(MessageWithFieldMask::new(), json!({}))]
+    #[test_case(MessageWithFieldMask::new().set_or_clear_singular(None::<FieldMask>), json!({}))]
+    #[test_case(MessageWithFieldMask::new().set_singular(test_field_mask()), json!({"singular": "a,b,c"}))]
+    #[test_case(MessageWithFieldMask::new().set_or_clear_optional(None::<FieldMask>), json!({}))]
+    #[test_case(MessageWithFieldMask::new().set_optional(test_field_mask()), json!({"optional": "a,b,c"}))]
+    #[test_case(MessageWithFieldMask::new().set_repeated([test_field_mask()]), json!({"repeated": ["a,b,c"]}))]
+    #[test_case(MessageWithFieldMask::new().set_map([("key", test_field_mask())]), json!({"map": {"key": "a,b,c"}}))]
+    fn test_ser(input: MessageWithFieldMask, want: Value) -> Result {
+        let got = serde_json::to_value(__MessageWithFieldMask(input))?;
+        assert_eq!(got, want);
+        Ok(())
+    }
+
+    #[test_case(MessageWithFieldMask::new(), json!({}))]
+    #[test_case(MessageWithFieldMask::new().set_or_clear_singular(None::<FieldMask>), json!({}))]
+    #[test_case(MessageWithFieldMask::new().set_singular(test_field_mask()), json!({"singular": "a,b,c"}))]
+    #[test_case(MessageWithFieldMask::new().set_or_clear_optional(None::<FieldMask>), json!({}))]
+    #[test_case(MessageWithFieldMask::new().set_optional(test_field_mask()), json!({"optional": "a,b,c"}))]
+    #[test_case(MessageWithFieldMask::new().set_repeated([test_field_mask()]), json!({"repeated": ["a,b,c"]}))]
+    #[test_case(MessageWithFieldMask::new().set_map([("key", test_field_mask())]), json!({"map": {"key": "a,b,c"}}))]
+    fn test_de(want: MessageWithFieldMask, input: Value) -> Result {
+        let got = serde_json::from_value::<__MessageWithFieldMask>(input)?;
+        assert_eq!(got.0, want);
+        Ok(())
+    }
+    #[test_case(json!({"unknown": "test-value"}))]
+    #[test_case(json!({"unknown": "test-value", "moreUnknown": {"a": 1, "b": 2}}))]
+    fn test_unknown(input: Value) -> Result {
+        let deser = serde_json::from_value::<__MessageWithFieldMask>(input.clone())?;
+        let got = serde_json::to_value(deser)?;
+        assert_eq!(got, input);
+        Ok(())
+    }
 
     #[test_case(json!({"singular": ""}), FieldMask::default())]
     #[test_case(json!({"singular": "a,b,c"}), FieldMask::default().set_paths(["a", "b", "c"]))]

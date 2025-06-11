@@ -14,17 +14,33 @@
 
 #[cfg(test)]
 mod test {
+    use common::{__MessageWithU32, MessageWithU32};
     use serde_json::{Value, json};
     use test_case::test_case;
-
     type Result = anyhow::Result<()>;
 
-    #[allow(dead_code)]
-    mod protos {
-        use google_cloud_wkt as wkt;
-        include!("generated/mod.rs");
+    #[test_case(MessageWithU32::new(), json!({}))]
+    fn test_ser(input: MessageWithU32, want: Value) -> Result {
+        let got = serde_json::to_value(__MessageWithU32(input))?;
+        assert_eq!(got, want);
+        Ok(())
     }
-    use protos::MessageWithU32;
+
+    #[test_case(MessageWithU32::new(), json!({}))]
+    fn test_de(want: MessageWithU32, input: Value) -> Result {
+        let got = serde_json::from_value::<__MessageWithU32>(input)?;
+        assert_eq!(got.0, want);
+        Ok(())
+    }
+
+    #[test_case(json!({"unknown": "test-value"}))]
+    #[test_case(json!({"unknown": "test-value", "moreUnknown": {"a": 1, "b": 2}}))]
+    fn test_unknown(input: Value) -> Result {
+        let deser = serde_json::from_value::<__MessageWithU32>(input.clone())?;
+        let got = serde_json::to_value(deser)?;
+        assert_eq!(got, input);
+        Ok(())
+    }
 
     #[test_case(123, 123)]
     #[test_case("345", 345)]

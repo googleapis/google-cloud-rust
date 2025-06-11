@@ -475,6 +475,108 @@ impl ReadObject {
         self
     }
 
+    /// The offset for the first byte to return in the read, relative to
+    /// the start of the object.
+    ///
+    /// A negative `read_offset` value will be interpreted as the number of bytes
+    /// back from the end of the object to be returned.
+    ///
+    /// # Examples
+    ///
+    /// Read starting at 100 bytes to end of file.
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_storage::client::Storage;
+    /// # let client = Storage::builder().build().await?;
+    /// let response = client
+    ///     .read_object("projects/_/buckets/my-bucket", "my-object")
+    ///     .with_read_offset(100)
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok::<(), anyhow::Error>(()) });
+    /// ```
+    ///
+    /// Read last 100 bytes of file:
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_storage::client::Storage;
+    /// # let client = Storage::builder().build().await?;
+    /// let response = client
+    ///     .read_object("projects/_/buckets/my-bucket", "my-object")
+    ///     .with_read_offset(-100)
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok::<(), anyhow::Error>(()) });
+    /// ```
+    ///
+    /// Read bytes 1000 to 1099.
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_storage::client::Storage;
+    /// # let client = Storage::builder().build().await?;
+    /// let response = client
+    ///     .read_object("projects/_/buckets/my-bucket", "my-object")
+    ///     .with_read_offset(1000)
+    ///     .with_read_limit(100)
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok::<(), anyhow::Error>(()) });
+    /// ```
+    pub fn with_read_offset<T>(mut self, v: T) -> Self
+    where
+        T: Into<i64>,
+    {
+        self.request.read_offset = v.into();
+        self
+    }
+
+    /// The maximum number of `data` bytes the server is allowed to
+    /// return.
+    ///
+    /// A `read_limit` of zero indicates that there is no limit,
+    /// and a negative `read_limit` will cause an error.
+    ///
+    /// # Examples:
+    ///
+    /// Read first 100 bytes.
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_storage::client::Storage;
+    /// # let client = Storage::builder().build().await?;
+    /// let response = client
+    ///     .read_object("projects/_/buckets/my-bucket", "my-object")
+    ///     .with_read_limit(100)
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok::<(), anyhow::Error>(()) });
+    /// ```
+    ///
+    /// Read bytes 1000 to 1099.
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_storage::client::Storage;
+    /// # let client = Storage::builder().build().await?;
+    /// let response = client
+    ///     .read_object("projects/_/buckets/my-bucket", "my-object")
+    ///     .with_read_offset(1000)
+    ///     .with_read_limit(100)
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok::<(), anyhow::Error>(()) });
+    /// ```
+    pub fn with_read_limit<T>(mut self, v: T) -> Self
+    where
+        T: Into<i64>,
+    {
+        self.request.read_limit = v.into();
+        self
+    }
+
     /// The encryption key used with the Customer-Supplied Encryption Keys
     /// feature. In raw bytes format (not base64-encoded).
     ///
@@ -575,9 +677,38 @@ impl ReadObject {
             self.request.common_object_request_params,
         );
 
+        // Apply "range" header for read limits and offsets.
+        let builder = match (self.request.read_offset, self.request.read_limit) {
+            // read_limit can't be negative.
+            (_, l) if l < 0 => Err(RangeError::NegativeLimit),
+            // negative offset can't also have a read_limit.
+            (o, l) if o < 0 && l > 0 => Err(RangeError::NegativeOffsetWithLimit),
+            // If both are zero, we use default implementation (no range header).
+            (0, 0) => Ok(builder),
+            // read_limit is zero, means no limit. Read from offset to end of file.
+            // This handles cases like (5, 0) -> "bytes=5-"
+            (o, 0) => Ok(builder.header("range", format!("bytes={}-", o))),
+            // General case: non-negative offset and positive limit.
+            // This covers cases like (0, 100) -> "bytes=0-99", (5, 100) -> "bytes=5-104"
+            (o, l) => Ok(builder.header("range", format!("bytes={}-{}", o, o + l - 1))),
+        }
+        .map_err(Error::other)?;
+
         let builder = self.inner.apply_auth_headers(builder).await?;
         Ok(builder)
     }
+}
+
+/// Represents an error that can occur with invalid range is specified.
+#[derive(thiserror::Error, Debug, PartialEq)]
+#[non_exhaustive]
+enum RangeError {
+    /// The provided read limit was negative.
+    #[error("read limit was negative, expected non-negative value.")]
+    NegativeLimit,
+    /// A negative offset was provided with a read limit.
+    #[error("negative read offsets cannot be used with read limits.")]
+    NegativeOffsetWithLimit,
 }
 
 #[derive(Debug)]
@@ -681,7 +812,7 @@ fn apply_customer_supplied_encryption_headers(
 #[cfg(test)]
 mod tests {
     use super::*;
-    use std::collections::HashMap;
+    use std::{collections::HashMap, error::Error};
     type Result = std::result::Result<(), Box<dyn std::error::Error>>;
     use test_case::test_case;
 
@@ -962,6 +1093,63 @@ mod tests {
         let key_sha256 = Sha256::digest(key.clone());
         let key_sha256_base64 = BASE64_STANDARD.encode(key_sha256);
         (key, key_base64, key_sha256.to_vec(), key_sha256_base64)
+    }
+
+    #[test_case(0, 0, None; "no headers needed")]
+    #[test_case(10, 0, Some(&http::HeaderValue::from_static("bytes=10-")); "offset only")]
+    #[test_case(-2000, 0, Some(&http::HeaderValue::from_static("bytes=-2000-")); "negative offset")]
+    #[test_case(0, 100, Some(&http::HeaderValue::from_static("bytes=0-99")); "limit only")]
+    #[test_case(1000, 100, Some(&http::HeaderValue::from_static("bytes=1000-1099")); "offset and limit")]
+    #[tokio::test]
+    async fn test_range_header(
+        offset: i64,
+        limit: i64,
+        want: Option<&http::HeaderValue>,
+    ) -> Result {
+        let client = Storage::builder()
+            .with_credentials(auth::credentials::testing::test_credentials())
+            .build()
+            .await?;
+
+        let read_object_builder = client
+            .read_object("projects/_/buckets/bucket", "object")
+            .with_read_offset(offset)
+            .with_read_limit(limit)
+            .http_request_builder()
+            .await?
+            .build()?;
+
+        assert_eq!(read_object_builder.method(), reqwest::Method::GET);
+        assert_eq!(
+            read_object_builder.url().as_str(),
+            "https://storage.googleapis.com/storage/v1/b/bucket/o/object?alt=media"
+        );
+
+        assert_eq!(read_object_builder.headers().get("range"), want);
+        Ok(())
+    }
+
+    #[test_case(0, -100, RangeError::NegativeLimit; "negative limit")]
+    #[test_case(-100, 100, RangeError::NegativeOffsetWithLimit; "negative offset with positive limit")]
+    #[tokio::test]
+    async fn test_range_header_error(offset: i64, limit: i64, want_err: RangeError) -> Result {
+        let client = Storage::builder()
+            .with_credentials(auth::credentials::testing::test_credentials())
+            .build()
+            .await?;
+        let err = client
+            .read_object("projects/_/buckets/bucket", "object")
+            .with_read_offset(offset)
+            .with_read_limit(limit)
+            .http_request_builder()
+            .await
+            .unwrap_err();
+
+        assert_eq!(
+            err.source().unwrap().downcast_ref::<RangeError>().unwrap(),
+            &want_err
+        );
+        Ok(())
     }
 }
 

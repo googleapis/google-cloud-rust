@@ -146,6 +146,8 @@ type messageAnnotation struct {
 	// If set, this message is only enabled when some features are enabled.
 	FeatureGates   []string
 	FeatureGatesOp string
+	// If true, enable test types for generated serde serialization
+	WithGeneratedSerde bool
 }
 
 type methodAnnotation struct {
@@ -261,6 +263,16 @@ type fieldAnnotations struct {
 	ValueField *api.Field
 	// The templates need to generate different code for boxed fields.
 	IsBoxed bool
+	// If true, it requires a serde_with::serde_as() transformation.
+	RequiresSerdeAs bool
+}
+
+func (a *fieldAnnotations) SkipIfIsEmpty() bool {
+	return a.PrimitiveFieldType == "std::string::String"
+}
+
+func (a *fieldAnnotations) SkipIfIsDefault() bool {
+	return a.PrimitiveFieldType != "std::string::String"
 }
 
 type enumAnnotation struct {
@@ -534,6 +546,7 @@ func (c *codec) annotateMessage(m *api.Message, state *api.APIState, sourceSpeci
 		HasNestedTypes:     language.HasNestedTypes(m),
 		BasicFields:        basicFields,
 		HasSyntheticFields: hasSyntheticFields,
+		WithGeneratedSerde: c.withGeneratedSerde,
 	}
 }
 
@@ -677,6 +690,26 @@ func (c *codec) annotateOneOf(oneof *api.OneOf, message *api.Message, state *api
 	}
 }
 
+func (c *codec) requiresSerdeAs(field *api.Field, state *api.APIState) bool {
+	switch field.Typez {
+	case api.STRING_TYPE, api.BOOL_TYPE, api.ENUM_TYPE:
+		return false
+	case api.MESSAGE_TYPE:
+		if msg, ok := state.MessageByID[field.TypezID]; ok && msg.IsMap {
+			if len(msg.Fields) != 2 {
+				slog.Error("expected exactly two fields for map message", "field ID", field.ID, "map ID", field.TypezID)
+				return false
+			}
+			key := c.requiresSerdeAs(msg.Fields[0], state)
+			value := c.requiresSerdeAs(msg.Fields[1], state)
+			return key || value
+		}
+		return field.TypezID == ".google.protobuf.Value"
+	default:
+		return true
+	}
+}
+
 func (c *codec) annotateField(field *api.Field, message *api.Message, state *api.APIState, sourceSpecificationPackageName string) {
 	ann := &fieldAnnotations{
 		FieldName:          toSnake(field.Name),
@@ -688,6 +721,7 @@ func (c *codec) annotateField(field *api.Field, message *api.Message, state *api
 		FieldType:          fieldType(field, state, false, c.modulePath, sourceSpecificationPackageName, c.packageMapping),
 		PrimitiveFieldType: fieldType(field, state, true, c.modulePath, sourceSpecificationPackageName, c.packageMapping),
 		AddQueryParameter:  addQueryParameter(field),
+		RequiresSerdeAs:    c.requiresSerdeAs(field, state),
 	}
 	if field.Recursive || (field.Typez == api.MESSAGE_TYPE && field.IsOneOf) {
 		ann.IsBoxed = true

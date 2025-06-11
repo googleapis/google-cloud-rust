@@ -14,16 +14,47 @@
 
 #[cfg(test)]
 mod test {
+    use common::{__MessageWithEnum, MessageWithEnum, message_with_enum::TestEnum};
     use serde_json::{Value, json};
     use test_case::test_case;
     type Result = anyhow::Result<()>;
 
-    #[allow(dead_code)]
-    mod protos {
-        use google_cloud_wkt as wkt;
-        include!("generated/mod.rs");
+    #[test_case(MessageWithEnum::new(), json!({}))]
+    #[test_case(MessageWithEnum::new().set_singular(TestEnum::Unspecified), json!({}))]
+    #[test_case(MessageWithEnum::new().set_singular(TestEnum::Red), json!({"singular": 1}))]
+    #[test_case(MessageWithEnum::new().set_optional(TestEnum::Unspecified), json!({"optional": 0}))]
+    #[test_case(MessageWithEnum::new().set_or_clear_optional(None::<TestEnum>), json!({}))]
+    #[test_case(MessageWithEnum::new().set_optional(TestEnum::Red), json!({"optional": 1}))]
+    #[test_case(MessageWithEnum::new().set_repeated([TestEnum::Red, TestEnum::Green]), json!({"repeated": [1, 2]}))]
+    #[test_case(MessageWithEnum::new().set_map([("red", TestEnum::Red), ("green", TestEnum::Green)]), json!({"map": {"red": 1, "green": 2}}))]
+    fn test_ser(input: MessageWithEnum, want: Value) -> Result {
+        let got = serde_json::to_value(__MessageWithEnum(input))?;
+        assert_eq!(got, want);
+        Ok(())
     }
-    use protos::{MessageWithEnum, message_with_enum::TestEnum};
+
+    #[test_case(MessageWithEnum::new(), json!({}))]
+    #[test_case(MessageWithEnum::new().set_singular(TestEnum::Unspecified), json!({}))]
+    #[test_case(MessageWithEnum::new().set_singular(TestEnum::Red), json!({"singular": 1}))]
+    #[test_case(MessageWithEnum::new().set_optional(TestEnum::Unspecified), json!({"optional": 0}))]
+    #[test_case(MessageWithEnum::new().set_or_clear_optional(None::<TestEnum>), json!({}))]
+    #[test_case(MessageWithEnum::new().set_optional(TestEnum::Red), json!({"optional": 1}))]
+    #[test_case(MessageWithEnum::new().set_repeated([TestEnum::Red, TestEnum::Green]), json!({"repeated": [1, 2]}))]
+    #[test_case(MessageWithEnum::new().set_map([("red", TestEnum::Red), ("green", TestEnum::Green)]), json!({"map": {"red": 1, "green": 2}}))]
+    fn test_de(want: MessageWithEnum, input: Value) -> Result {
+        let got = serde_json::from_value::<__MessageWithEnum>(input)?;
+        assert_eq!(got.0, want);
+        Ok(())
+    }
+
+    #[test_case(json!({"unknown": "test-value"}))]
+    #[test_case(json!({"unknown": "test-value", "moreUnknown": {"a": 1, "b": 2}}))]
+    fn test_unknown(input: Value) -> Result {
+        let deser = serde_json::from_value::<__MessageWithEnum>(input.clone())?;
+        let got = serde_json::to_value(deser)?;
+        assert_eq!(got, input);
+        Ok(())
+    }
 
     #[test_case(json!({"singular": "RED"}), TestEnum::Red)]
     #[test_case(json!({"singular": 1}), TestEnum::Red)]
