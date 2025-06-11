@@ -44,6 +44,8 @@ mod test {
     #[test_case(MessageWithFieldMask::new().set_optional(test_field_mask()), json!({"optional": "a,b,c"}))]
     #[test_case(MessageWithFieldMask::new().set_repeated([test_field_mask()]), json!({"repeated": ["a,b,c"]}))]
     #[test_case(MessageWithFieldMask::new().set_map([("key", test_field_mask())]), json!({"map": {"key": "a,b,c"}}))]
+    #[test_case(MessageWithFieldMask::new(), json!({"repeated": null}))]
+    #[test_case(MessageWithFieldMask::new(), json!({"map": null}))]
     fn test_de(want: MessageWithFieldMask, input: Value) -> Result {
         let got = serde_json::from_value::<__MessageWithFieldMask>(input)?;
         assert_eq!(got.0, want);

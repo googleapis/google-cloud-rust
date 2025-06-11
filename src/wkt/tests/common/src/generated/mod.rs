@@ -172,21 +172,33 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithEnum {
                     match tag {
                         __FieldTag::__singular => {
                             result.singular =
-                                map.next_value::<crate::generated::message_with_enum::TestEnum>()?;
+                                map.next_value::<std::option::Option<
+                                    crate::generated::message_with_enum::TestEnum,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__optional => {
-                            result.optional = map.next_value::<std::option::Option<
-                                crate::generated::message_with_enum::TestEnum,
-                            >>()?;
+                            result.optional =
+                                map.next_value::<std::option::Option<
+                                    crate::generated::message_with_enum::TestEnum,
+                                >>()?
                         }
                         __FieldTag::__repeated => {
-                            result.repeated = map.next_value::<std::vec::Vec<crate::generated::message_with_enum::TestEnum>>()?;
+                            result.repeated = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::generated::message_with_enum::TestEnum>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__map => {
-                            result.map = map.next_value::<std::collections::HashMap<
-                                std::string::String,
-                                crate::generated::message_with_enum::TestEnum,
-                            >>()?;
+                            result.map = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<
+                                        std::string::String,
+                                        crate::generated::message_with_enum::TestEnum,
+                                    >,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -966,7 +978,9 @@ pub mod message_with_one_of {
                         #[allow(clippy::match_single_binding)]
                         match tag {
                             __FieldTag::__parent => {
-                                result.parent = map.next_value::<std::string::String>()?;
+                                result.parent = map
+                                    .next_value::<std::option::Option<std::string::String>>()?
+                                    .unwrap_or_default();
                             }
                             __FieldTag::Unknown(key) => {
                                 let value = map.next_value::<serde_json::Value>()?;
@@ -1852,8 +1866,7 @@ pub mod message_with_complex_one_of {
                         #[allow(clippy::match_single_binding)]
                         match tag {
                             __FieldTag::__strings => {
-                                result.strings =
-                                    map.next_value::<std::vec::Vec<std::string::String>>()?;
+                                result.strings = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
                             }
                             __FieldTag::Unknown(key) => {
                                 let value = map.next_value::<serde_json::Value>()?;
@@ -4822,27 +4835,34 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithBool {
                     #[allow(clippy::match_single_binding)]
                     match tag {
                         __FieldTag::__singular => {
-                            result.singular = map.next_value::<bool>()?;
+                            result.singular = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__optional => {
-                            result.optional = map.next_value::<std::option::Option<bool>>()?;
+                            result.optional = map.next_value::<std::option::Option<bool>>()?
                         }
                         __FieldTag::__repeated => {
-                            result.repeated = map.next_value::<std::vec::Vec<bool>>()?;
+                            result.repeated = map
+                                .next_value::<std::option::Option<std::vec::Vec<bool>>>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__map_value => {
                             result.map_value = map
-                                .next_value::<std::collections::HashMap<std::string::String, bool>>(
-                                )?;
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<std::string::String, bool>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__map_key => {
                             result.map_key = map
-                                .next_value::<std::collections::HashMap<bool, std::string::String>>(
-                                )?;
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<bool, std::string::String>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__map_key_value => {
-                            result.map_key_value =
-                                map.next_value::<std::collections::HashMap<bool, bool>>()?;
+                            result.map_key_value = map.next_value::<std::option::Option<std::collections::HashMap<bool,bool>>>()?.unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -5080,15 +5100,16 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithString {
                     #[allow(clippy::match_single_binding)]
                     match tag {
                         __FieldTag::__singular => {
-                            result.singular = map.next_value::<std::string::String>()?;
+                            result.singular = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__optional => {
                             result.optional =
-                                map.next_value::<std::option::Option<std::string::String>>()?;
+                                map.next_value::<std::option::Option<std::string::String>>()?
                         }
                         __FieldTag::__repeated => {
-                            result.repeated =
-                                map.next_value::<std::vec::Vec<std::string::String>>()?;
+                            result.repeated = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
                         }
                         __FieldTag::__map_value => {
                             struct __With(
@@ -5143,10 +5164,14 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithString {
                             result.map_key = map.next_value::<__With>()?.0.unwrap_or_default();
                         }
                         __FieldTag::__map_key_value => {
-                            result.map_key_value = map.next_value::<std::collections::HashMap<
-                                std::string::String,
-                                std::string::String,
-                            >>()?;
+                            result.map_key_value = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<
+                                        std::string::String,
+                                        std::string::String,
+                                    >,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -5384,21 +5409,29 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithRecursion {
                         __FieldTag::__singular => {
                             result.singular = map.next_value::<std::option::Option<
                                 std::boxed::Box<crate::generated::message_with_recursion::Level0>,
-                            >>()?;
+                            >>()?
                         }
                         __FieldTag::__optional => {
                             result.optional = map.next_value::<std::option::Option<
                                 std::boxed::Box<crate::generated::message_with_recursion::Level0>,
-                            >>()?;
+                            >>()?
                         }
                         __FieldTag::__repeated => {
-                            result.repeated = map.next_value::<std::vec::Vec<crate::generated::message_with_recursion::Level0>>()?;
+                            result.repeated = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::generated::message_with_recursion::Level0>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__map => {
-                            result.map = map.next_value::<std::collections::HashMap<
-                                std::string::String,
-                                crate::generated::message_with_recursion::Level0,
-                            >>()?;
+                            result.map = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<
+                                        std::string::String,
+                                        crate::generated::message_with_recursion::Level0,
+                                    >,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -5578,12 +5611,12 @@ pub mod message_with_recursion {
                                     std::boxed::Box<
                                         crate::generated::message_with_recursion::Level1,
                                     >,
-                                >>()?;
+                                >>()?
                             }
                             __FieldTag::__side => {
                                 result.side = map.next_value::<std::option::Option<
                                     crate::generated::message_with_recursion::NonRecursive,
-                                >>()?;
+                                >>()?
                             }
                             __FieldTag::Unknown(key) => {
                                 let value = map.next_value::<serde_json::Value>()?;
@@ -5724,7 +5757,7 @@ pub mod message_with_recursion {
                             __FieldTag::__recurse => {
                                 result.recurse = map.next_value::<std::option::Option<
                                     std::boxed::Box<crate::generated::MessageWithRecursion>,
-                                >>()?;
+                                >>()?
                             }
                             __FieldTag::Unknown(key) => {
                                 let value = map.next_value::<serde_json::Value>()?;
@@ -5849,7 +5882,9 @@ pub mod message_with_recursion {
                         #[allow(clippy::match_single_binding)]
                         match tag {
                             __FieldTag::__value => {
-                                result.value = map.next_value::<std::string::String>()?;
+                                result.value = map
+                                    .next_value::<std::option::Option<std::string::String>>()?
+                                    .unwrap_or_default();
                             }
                             __FieldTag::Unknown(key) => {
                                 let value = map.next_value::<serde_json::Value>()?;
@@ -6058,10 +6093,16 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithValue {
                                 .or(Some(wkt::Value::Null));
                         }
                         __FieldTag::__repeated => {
-                            result.repeated = map.next_value::<std::vec::Vec<wkt::Value>>()?;
+                            result.repeated = map
+                                .next_value::<std::option::Option<std::vec::Vec<wkt::Value>>>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__map => {
-                            result.map = map.next_value::<std::collections::HashMap<std::string::String,wkt::Value>>()?;
+                            result.map = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<std::string::String, wkt::Value>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -6269,17 +6310,23 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithStruct {
                     match tag {
                         __FieldTag::__singular => {
                             result.singular =
-                                map.next_value::<std::option::Option<wkt::Struct>>()?;
+                                map.next_value::<std::option::Option<wkt::Struct>>()?
                         }
                         __FieldTag::__optional => {
                             result.optional =
-                                map.next_value::<std::option::Option<wkt::Struct>>()?;
+                                map.next_value::<std::option::Option<wkt::Struct>>()?
                         }
                         __FieldTag::__repeated => {
-                            result.repeated = map.next_value::<std::vec::Vec<wkt::Struct>>()?;
+                            result.repeated = map
+                                .next_value::<std::option::Option<std::vec::Vec<wkt::Struct>>>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__map => {
-                            result.map = map.next_value::<std::collections::HashMap<std::string::String,wkt::Struct>>()?;
+                            result.map = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<std::string::String, wkt::Struct>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -6487,17 +6534,23 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithListValue {
                     match tag {
                         __FieldTag::__singular => {
                             result.singular =
-                                map.next_value::<std::option::Option<wkt::ListValue>>()?;
+                                map.next_value::<std::option::Option<wkt::ListValue>>()?
                         }
                         __FieldTag::__optional => {
                             result.optional =
-                                map.next_value::<std::option::Option<wkt::ListValue>>()?;
+                                map.next_value::<std::option::Option<wkt::ListValue>>()?
                         }
                         __FieldTag::__repeated => {
-                            result.repeated = map.next_value::<std::vec::Vec<wkt::ListValue>>()?;
+                            result.repeated = map
+                                .next_value::<std::option::Option<std::vec::Vec<wkt::ListValue>>>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__map => {
-                            result.map = map.next_value::<std::collections::HashMap<std::string::String,wkt::ListValue>>()?;
+                            result.map = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<std::string::String, wkt::ListValue>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -6693,17 +6746,25 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithNullValue {
                     #[allow(clippy::match_single_binding)]
                     match tag {
                         __FieldTag::__singular => {
-                            result.singular = map.next_value::<wkt::NullValue>()?;
+                            result.singular = map
+                                .next_value::<std::option::Option<wkt::NullValue>>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__optional => {
                             result.optional =
-                                map.next_value::<std::option::Option<wkt::NullValue>>()?;
+                                map.next_value::<std::option::Option<wkt::NullValue>>()?
                         }
                         __FieldTag::__repeated => {
-                            result.repeated = map.next_value::<std::vec::Vec<wkt::NullValue>>()?;
+                            result.repeated = map
+                                .next_value::<std::option::Option<std::vec::Vec<wkt::NullValue>>>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__map => {
-                            result.map = map.next_value::<std::collections::HashMap<std::string::String,wkt::NullValue>>()?;
+                            result.map = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<std::string::String, wkt::NullValue>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -6911,17 +6972,23 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithFieldMask {
                     match tag {
                         __FieldTag::__singular => {
                             result.singular =
-                                map.next_value::<std::option::Option<wkt::FieldMask>>()?;
+                                map.next_value::<std::option::Option<wkt::FieldMask>>()?
                         }
                         __FieldTag::__optional => {
                             result.optional =
-                                map.next_value::<std::option::Option<wkt::FieldMask>>()?;
+                                map.next_value::<std::option::Option<wkt::FieldMask>>()?
                         }
                         __FieldTag::__repeated => {
-                            result.repeated = map.next_value::<std::vec::Vec<wkt::FieldMask>>()?;
+                            result.repeated = map
+                                .next_value::<std::option::Option<std::vec::Vec<wkt::FieldMask>>>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__map => {
-                            result.map = map.next_value::<std::collections::HashMap<std::string::String,wkt::FieldMask>>()?;
+                            result.map = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<std::string::String, wkt::FieldMask>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -7106,13 +7173,20 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithFloatValue {
                     match tag {
                         __FieldTag::__singular => {
                             result.singular =
-                                map.next_value::<std::option::Option<wkt::FloatValue>>()?;
+                                map.next_value::<std::option::Option<wkt::FloatValue>>()?
                         }
                         __FieldTag::__repeated => {
-                            result.repeated = map.next_value::<std::vec::Vec<wkt::FloatValue>>()?;
+                            result.repeated = map
+                                .next_value::<std::option::Option<std::vec::Vec<wkt::FloatValue>>>(
+                                )?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__map => {
-                            result.map = map.next_value::<std::collections::HashMap<std::string::String,wkt::FloatValue>>()?;
+                            result.map = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<std::string::String, wkt::FloatValue>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -7294,18 +7368,23 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithDoubleValue {
                     match tag {
                         __FieldTag::__singular => {
                             result.singular =
-                                map.next_value::<std::option::Option<wkt::DoubleValue>>()?;
+                                map.next_value::<std::option::Option<wkt::DoubleValue>>()?
                         }
                         __FieldTag::__repeated => {
-                            result.repeated =
-                                map.next_value::<std::vec::Vec<wkt::DoubleValue>>()?;
+                            result.repeated = map
+                                .next_value::<std::option::Option<std::vec::Vec<wkt::DoubleValue>>>(
+                                )?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__map => {
-                            result.map =
-                                map.next_value::<std::collections::HashMap<
-                                    std::string::String,
-                                    wkt::DoubleValue,
-                                >>()?;
+                            result.map = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<
+                                        std::string::String,
+                                        wkt::DoubleValue,
+                                    >,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -7487,13 +7566,20 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithInt32Value {
                     match tag {
                         __FieldTag::__singular => {
                             result.singular =
-                                map.next_value::<std::option::Option<wkt::Int32Value>>()?;
+                                map.next_value::<std::option::Option<wkt::Int32Value>>()?
                         }
                         __FieldTag::__repeated => {
-                            result.repeated = map.next_value::<std::vec::Vec<wkt::Int32Value>>()?;
+                            result.repeated = map
+                                .next_value::<std::option::Option<std::vec::Vec<wkt::Int32Value>>>(
+                                )?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__map => {
-                            result.map = map.next_value::<std::collections::HashMap<std::string::String,wkt::Int32Value>>()?;
+                            result.map = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<std::string::String, wkt::Int32Value>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -7675,18 +7761,23 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithUInt32Value {
                     match tag {
                         __FieldTag::__singular => {
                             result.singular =
-                                map.next_value::<std::option::Option<wkt::UInt32Value>>()?;
+                                map.next_value::<std::option::Option<wkt::UInt32Value>>()?
                         }
                         __FieldTag::__repeated => {
-                            result.repeated =
-                                map.next_value::<std::vec::Vec<wkt::UInt32Value>>()?;
+                            result.repeated = map
+                                .next_value::<std::option::Option<std::vec::Vec<wkt::UInt32Value>>>(
+                                )?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__map => {
-                            result.map =
-                                map.next_value::<std::collections::HashMap<
-                                    std::string::String,
-                                    wkt::UInt32Value,
-                                >>()?;
+                            result.map = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<
+                                        std::string::String,
+                                        wkt::UInt32Value,
+                                    >,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -7868,13 +7959,20 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithInt64Value {
                     match tag {
                         __FieldTag::__singular => {
                             result.singular =
-                                map.next_value::<std::option::Option<wkt::Int64Value>>()?;
+                                map.next_value::<std::option::Option<wkt::Int64Value>>()?
                         }
                         __FieldTag::__repeated => {
-                            result.repeated = map.next_value::<std::vec::Vec<wkt::Int64Value>>()?;
+                            result.repeated = map
+                                .next_value::<std::option::Option<std::vec::Vec<wkt::Int64Value>>>(
+                                )?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__map => {
-                            result.map = map.next_value::<std::collections::HashMap<std::string::String,wkt::Int64Value>>()?;
+                            result.map = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<std::string::String, wkt::Int64Value>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -8056,13 +8154,20 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithUInt64Value {
                     match tag {
                         __FieldTag::__singular => {
                             result.singular =
-                                map.next_value::<std::option::Option<wkt::Int64Value>>()?;
+                                map.next_value::<std::option::Option<wkt::Int64Value>>()?
                         }
                         __FieldTag::__repeated => {
-                            result.repeated = map.next_value::<std::vec::Vec<wkt::Int64Value>>()?;
+                            result.repeated = map
+                                .next_value::<std::option::Option<std::vec::Vec<wkt::Int64Value>>>(
+                                )?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__map => {
-                            result.map = map.next_value::<std::collections::HashMap<std::string::String,wkt::Int64Value>>()?;
+                            result.map = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<std::string::String, wkt::Int64Value>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -8245,13 +8350,20 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithBytesValue {
                     match tag {
                         __FieldTag::__singular => {
                             result.singular =
-                                map.next_value::<std::option::Option<wkt::BytesValue>>()?;
+                                map.next_value::<std::option::Option<wkt::BytesValue>>()?
                         }
                         __FieldTag::__repeated => {
-                            result.repeated = map.next_value::<std::vec::Vec<wkt::BytesValue>>()?;
+                            result.repeated = map
+                                .next_value::<std::option::Option<std::vec::Vec<wkt::BytesValue>>>(
+                                )?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__map => {
-                            result.map = map.next_value::<std::collections::HashMap<std::string::String,wkt::BytesValue>>()?;
+                            result.map = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<std::string::String, wkt::BytesValue>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -8432,13 +8544,19 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithBoolValue {
                     match tag {
                         __FieldTag::__singular => {
                             result.singular =
-                                map.next_value::<std::option::Option<wkt::BoolValue>>()?;
+                                map.next_value::<std::option::Option<wkt::BoolValue>>()?
                         }
                         __FieldTag::__repeated => {
-                            result.repeated = map.next_value::<std::vec::Vec<wkt::BoolValue>>()?;
+                            result.repeated = map
+                                .next_value::<std::option::Option<std::vec::Vec<wkt::BoolValue>>>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__map => {
-                            result.map = map.next_value::<std::collections::HashMap<std::string::String,wkt::BoolValue>>()?;
+                            result.map = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<std::string::String, wkt::BoolValue>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -8619,18 +8737,23 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithStringValue {
                     match tag {
                         __FieldTag::__singular => {
                             result.singular =
-                                map.next_value::<std::option::Option<wkt::StringValue>>()?;
+                                map.next_value::<std::option::Option<wkt::StringValue>>()?
                         }
                         __FieldTag::__repeated => {
-                            result.repeated =
-                                map.next_value::<std::vec::Vec<wkt::StringValue>>()?;
+                            result.repeated = map
+                                .next_value::<std::option::Option<std::vec::Vec<wkt::StringValue>>>(
+                                )?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__map => {
-                            result.map =
-                                map.next_value::<std::collections::HashMap<
-                                    std::string::String,
-                                    wkt::StringValue,
-                                >>()?;
+                            result.map = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<
+                                        std::string::String,
+                                        wkt::StringValue,
+                                    >,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

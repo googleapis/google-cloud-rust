@@ -41,6 +41,9 @@ mod test {
     #[test_case(MessageWithEnum::new().set_optional(TestEnum::Red), json!({"optional": 1}))]
     #[test_case(MessageWithEnum::new().set_repeated([TestEnum::Red, TestEnum::Green]), json!({"repeated": [1, 2]}))]
     #[test_case(MessageWithEnum::new().set_map([("red", TestEnum::Red), ("green", TestEnum::Green)]), json!({"map": {"red": 1, "green": 2}}))]
+    #[test_case(MessageWithEnum::new(), json!({"singular": null}))]
+    #[test_case(MessageWithEnum::new(), json!({"repeated": null}))]
+    #[test_case(MessageWithEnum::new(), json!({"map": null}))]
     fn test_de(want: MessageWithEnum, input: Value) -> Result {
         let got = serde_json::from_value::<__MessageWithEnum>(input)?;
         assert_eq!(got.0, want);

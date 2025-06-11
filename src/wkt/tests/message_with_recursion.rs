@@ -46,6 +46,8 @@ mod test {
     #[test_case(MessageWithRecursion::new().set_optional(test_level_0()), json!({"optional": {"side": {"value": "abc"}}}))]
     #[test_case(MessageWithRecursion::new().set_repeated([Level0::new()]), json!({"repeated": [{}]}))]
     #[test_case(MessageWithRecursion::new().set_map([("test", test_level_0())]), json!({"map": {"test": {"side": {"value": "abc"}}}} ))]
+    #[test_case(MessageWithRecursion::new(), json!({"repeated": null}))]
+    #[test_case(MessageWithRecursion::new(), json!({"map": null}))]
     fn test_de(want: MessageWithRecursion, input: Value) -> Result {
         let got = serde_json::from_value::<__MessageWithRecursion>(input)?;
         assert_eq!(got.0, want);

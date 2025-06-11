@@ -49,6 +49,9 @@ mod test {
     #[test_case(MessageWithBytes::new().set_repeated([LAZY]), json!({"repeated": [LAZY_BASE64]}))]
     #[test_case(MessageWithBytes::new().set_map([("", ""); 0]), json!({}))]
     #[test_case(MessageWithBytes::new().set_map([("a", LAZY)]), json!({"map": {"a": LAZY_BASE64}}))]
+    #[test_case(MessageWithBytes::new(), json!({"singular": null}))]
+    #[test_case(MessageWithBytes::new(), json!({"repeated": null}))]
+    #[test_case(MessageWithBytes::new(), json!({"map": null}))]
     fn test_de(want: MessageWithBytes, input: Value) -> Result {
         let got = serde_json::from_value::<__MessageWithBytes>(input)?;
         assert_eq!(got.0, want);

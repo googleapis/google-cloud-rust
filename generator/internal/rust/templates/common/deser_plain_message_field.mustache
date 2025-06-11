@@ -17,7 +17,16 @@ limitations under the License.
 {{#Singular}}
 {{! First deal with all the fields that are not part of a oneof }}
 {{^IsOneOf}}
-result.{{Codec.FieldName}} = map.next_value::<{{{Codec.FieldType}}}>()? {{#Codec.IsWktValue}}.or(Some(wkt::Value::Null)){{/Codec.IsWktValue}} ;
+{{^Optional}}
+result.{{Codec.FieldName}} = map.next_value::<std::option::Option<{{{Codec.FieldType}}}>>()?
+    .unwrap_or_default();
+{{/Optional}}
+{{#Optional}}
+result.{{Codec.FieldName}} = map.next_value::<{{{Codec.FieldType}}}>()?
+    {{#Codec.IsWktValue}}
+    .or(Some(wkt::Value::Null));
+    {{/Codec.IsWktValue}}
+{{/Optional}}
 {{/IsOneOf}}
 {{#IsOneOf}}
 if result.{{Group.Codec.FieldName}}.is_some() {
@@ -32,8 +41,8 @@ result.{{Group.Codec.FieldName}} = std::option::Option::Some(
 {{/Singular}}
 {{! repeated and map fields are never part of a oneof }}
 {{#Repeated}}
-result.{{Codec.FieldName}} = map.next_value::<{{{Codec.FieldType}}}>()?;
+result.{{Codec.FieldName}} = map.next_value::<std::option::Option<{{{Codec.FieldType}}}>>()?.unwrap_or_default();
 {{/Repeated}}
 {{#Map}}
-result.{{Codec.FieldName}} = map.next_value::<{{{Codec.FieldType}}}>()?;
+result.{{Codec.FieldName}} = map.next_value::<std::option::Option<{{{Codec.FieldType}}}>>()?.unwrap_or_default();
 {{/Map}}
