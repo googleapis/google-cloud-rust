@@ -127,6 +127,8 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithEnum {
             where
                 A: serde::de::MapAccess<'de>,
             {
+                #[allow(unused_imports)]
+                use serde::de::Error;
                 let mut result = Self::Value::new();
                 while let Some(key) = map.next_key::<String>()? {
                     #[allow(clippy::match_single_binding)]
@@ -642,17 +644,100 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithOneOf {
             where
                 A: serde::de::MapAccess<'de>,
             {
+                #[allow(unused_imports)]
+                use serde::de::Error;
                 let mut result = Self::Value::new();
                 while let Some(key) = map.next_key::<String>()? {
                     #[allow(clippy::match_single_binding)]
                     match key.as_str() {
-                        "stringContents" => {}
-                        "stringContentsOne" => {}
-                        "stringContentsTwo" => {}
-                        "messageValue" => {}
-                        "anotherMessage" => {}
-                        "string" => {}
-                        "duration" => {}
+                        "stringContents" => {
+                            if result.single_string.is_some() {
+                                return Err(A::Error::duplicate_field(
+                                    "multiple values for `single_string`, a oneof with full ID .google.rust.sdk.test.MessageWithOneOf.string_contents, latest field was stringContents",
+                                ));
+                            }
+                            result.single_string = std::option::Option::Some(
+                                crate::generated::message_with_one_of::SingleString::StringContents(
+                                    map.next_value::<std::string::String>()?,
+                                ),
+                            );
+                        }
+                        "stringContentsOne" => {
+                            if result.two_strings.is_some() {
+                                return Err(A::Error::duplicate_field(
+                                    "multiple values for `two_strings`, a oneof with full ID .google.rust.sdk.test.MessageWithOneOf.string_contents_one, latest field was stringContentsOne",
+                                ));
+                            }
+                            result.two_strings = std::option::Option::Some(
+                                crate::generated::message_with_one_of::TwoStrings::StringContentsOne(
+                                    map.next_value::<std::string::String>()?
+                                ),
+                            );
+                        }
+                        "stringContentsTwo" => {
+                            if result.two_strings.is_some() {
+                                return Err(A::Error::duplicate_field(
+                                    "multiple values for `two_strings`, a oneof with full ID .google.rust.sdk.test.MessageWithOneOf.string_contents_two, latest field was stringContentsTwo",
+                                ));
+                            }
+                            result.two_strings = std::option::Option::Some(
+                                crate::generated::message_with_one_of::TwoStrings::StringContentsTwo(
+                                    map.next_value::<std::string::String>()?
+                                ),
+                            );
+                        }
+                        "messageValue" => {
+                            if result.one_message.is_some() {
+                                return Err(A::Error::duplicate_field(
+                                    "multiple values for `one_message`, a oneof with full ID .google.rust.sdk.test.MessageWithOneOf.message_value, latest field was messageValue",
+                                ));
+                            }
+                            result.one_message = std::option::Option::Some(
+                                crate::generated::message_with_one_of::OneMessage::MessageValue(
+                                    map.next_value::<std::boxed::Box<
+                                        crate::generated::message_with_one_of::Message,
+                                    >>()?,
+                                ),
+                            );
+                        }
+                        "anotherMessage" => {
+                            if result.mixed.is_some() {
+                                return Err(A::Error::duplicate_field(
+                                    "multiple values for `mixed`, a oneof with full ID .google.rust.sdk.test.MessageWithOneOf.another_message, latest field was anotherMessage",
+                                ));
+                            }
+                            result.mixed = std::option::Option::Some(
+                                crate::generated::message_with_one_of::Mixed::AnotherMessage(
+                                    map.next_value::<std::boxed::Box<
+                                        crate::generated::message_with_one_of::Message,
+                                    >>()?,
+                                ),
+                            );
+                        }
+                        "string" => {
+                            if result.mixed.is_some() {
+                                return Err(A::Error::duplicate_field(
+                                    "multiple values for `mixed`, a oneof with full ID .google.rust.sdk.test.MessageWithOneOf.string, latest field was string",
+                                ));
+                            }
+                            result.mixed = std::option::Option::Some(
+                                crate::generated::message_with_one_of::Mixed::String(
+                                    map.next_value::<std::string::String>()?,
+                                ),
+                            );
+                        }
+                        "duration" => {
+                            if result.mixed.is_some() {
+                                return Err(A::Error::duplicate_field(
+                                    "multiple values for `mixed`, a oneof with full ID .google.rust.sdk.test.MessageWithOneOf.duration, latest field was duration",
+                                ));
+                            }
+                            result.mixed = std::option::Option::Some(
+                                crate::generated::message_with_one_of::Mixed::Duration(
+                                    map.next_value::<std::boxed::Box<wkt::Duration>>()?,
+                                ),
+                            );
+                        }
                         _ => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -675,6 +760,27 @@ impl serde::ser::Serialize for __MessageWithOneOf {
     {
         use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(None)?;
+        if let Some(value) = self.0.string_contents() {
+            state.serialize_entry("stringContents", value)?;
+        }
+        if let Some(value) = self.0.string_contents_one() {
+            state.serialize_entry("stringContentsOne", value)?;
+        }
+        if let Some(value) = self.0.string_contents_two() {
+            state.serialize_entry("stringContentsTwo", value)?;
+        }
+        if let Some(value) = self.0.message_value() {
+            state.serialize_entry("messageValue", value)?;
+        }
+        if let Some(value) = self.0.another_message() {
+            state.serialize_entry("anotherMessage", value)?;
+        }
+        if let Some(value) = self.0.string() {
+            state.serialize_entry("string", value)?;
+        }
+        if let Some(value) = self.0.duration() {
+            state.serialize_entry("duration", value)?;
+        }
         if !self.0._unknown_fields.is_empty() {
             for (key, value) in self.0._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -739,6 +845,8 @@ pub mod message_with_one_of {
                 where
                     A: serde::de::MapAccess<'de>,
                 {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
                     let mut result = Self::Value::new();
                     while let Some(key) = map.next_key::<String>()? {
                         #[allow(clippy::match_single_binding)]
@@ -1167,16 +1275,86 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithComplexOneOf {
             where
                 A: serde::de::MapAccess<'de>,
             {
+                #[allow(unused_imports)]
+                use serde::de::Error;
                 let mut result = Self::Value::new();
                 while let Some(key) = map.next_key::<String>()? {
                     #[allow(clippy::match_single_binding)]
                     match key.as_str() {
-                        "null" => {}
-                        "boolValue" => {}
-                        "stringValue" => {}
-                        "enum" => {}
-                        "inner" => {}
-                        "duration" => {}
+                        "null" => {
+                            if result.complex.is_some() {
+                                return Err(A::Error::duplicate_field(
+                                    "multiple values for `complex`, a oneof with full ID .google.rust.sdk.test.MessageWithComplexOneOf.null, latest field was null",
+                                ));
+                            }
+                            result.complex = std::option::Option::Some(
+                                crate::generated::message_with_complex_one_of::Complex::Null(
+                                    map.next_value::<wkt::NullValue>()?,
+                                ),
+                            );
+                        }
+                        "boolValue" => {
+                            if result.complex.is_some() {
+                                return Err(A::Error::duplicate_field(
+                                    "multiple values for `complex`, a oneof with full ID .google.rust.sdk.test.MessageWithComplexOneOf.bool_value, latest field was boolValue",
+                                ));
+                            }
+                            result.complex = std::option::Option::Some(
+                                crate::generated::message_with_complex_one_of::Complex::BoolValue(
+                                    map.next_value::<bool>()?,
+                                ),
+                            );
+                        }
+                        "stringValue" => {
+                            if result.complex.is_some() {
+                                return Err(A::Error::duplicate_field(
+                                    "multiple values for `complex`, a oneof with full ID .google.rust.sdk.test.MessageWithComplexOneOf.string_value, latest field was stringValue",
+                                ));
+                            }
+                            result.complex = std::option::Option::Some(
+                                crate::generated::message_with_complex_one_of::Complex::StringValue(
+                                    map.next_value::<std::string::String>()?,
+                                ),
+                            );
+                        }
+                        "enum" => {
+                            if result.complex.is_some() {
+                                return Err(A::Error::duplicate_field(
+                                    "multiple values for `complex`, a oneof with full ID .google.rust.sdk.test.MessageWithComplexOneOf.enum, latest field was enum",
+                                ));
+                            }
+                            result.complex = std::option::Option::Some(
+                                crate::generated::message_with_complex_one_of::Complex::Enum(
+                                    map.next_value::<crate::generated::message_with_complex_one_of::TestEnum>()?
+                                ),
+                            );
+                        }
+                        "inner" => {
+                            if result.complex.is_some() {
+                                return Err(A::Error::duplicate_field(
+                                    "multiple values for `complex`, a oneof with full ID .google.rust.sdk.test.MessageWithComplexOneOf.inner, latest field was inner",
+                                ));
+                            }
+                            result.complex = std::option::Option::Some(
+                                crate::generated::message_with_complex_one_of::Complex::Inner(
+                                    map.next_value::<std::boxed::Box<
+                                        crate::generated::message_with_complex_one_of::Inner,
+                                    >>()?,
+                                ),
+                            );
+                        }
+                        "duration" => {
+                            if result.complex.is_some() {
+                                return Err(A::Error::duplicate_field(
+                                    "multiple values for `complex`, a oneof with full ID .google.rust.sdk.test.MessageWithComplexOneOf.duration, latest field was duration",
+                                ));
+                            }
+                            result.complex = std::option::Option::Some(
+                                crate::generated::message_with_complex_one_of::Complex::Duration(
+                                    map.next_value::<std::boxed::Box<wkt::Duration>>()?,
+                                ),
+                            );
+                        }
                         _ => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -1199,6 +1377,24 @@ impl serde::ser::Serialize for __MessageWithComplexOneOf {
     {
         use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(None)?;
+        if let Some(value) = self.0.null() {
+            state.serialize_entry("null", value)?;
+        }
+        if let Some(value) = self.0.bool_value() {
+            state.serialize_entry("boolValue", value)?;
+        }
+        if let Some(value) = self.0.string_value() {
+            state.serialize_entry("stringValue", value)?;
+        }
+        if let Some(value) = self.0.r#enum() {
+            state.serialize_entry("enum", value)?;
+        }
+        if let Some(value) = self.0.inner() {
+            state.serialize_entry("inner", value)?;
+        }
+        if let Some(value) = self.0.duration() {
+            state.serialize_entry("duration", value)?;
+        }
         if !self.0._unknown_fields.is_empty() {
             for (key, value) in self.0._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -1268,6 +1464,8 @@ pub mod message_with_complex_one_of {
                 where
                     A: serde::de::MapAccess<'de>,
                 {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
                     let mut result = Self::Value::new();
                     while let Some(key) = map.next_key::<String>()? {
                         #[allow(clippy::match_single_binding)]
@@ -1567,6 +1765,8 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithF32 {
             where
                 A: serde::de::MapAccess<'de>,
             {
+                #[allow(unused_imports)]
+                use serde::de::Error;
                 let mut result = Self::Value::new();
                 while let Some(key) = map.next_key::<String>()? {
                     #[allow(clippy::match_single_binding)]
@@ -1709,6 +1909,8 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithF64 {
             where
                 A: serde::de::MapAccess<'de>,
             {
+                #[allow(unused_imports)]
+                use serde::de::Error;
                 let mut result = Self::Value::new();
                 while let Some(key) = map.next_key::<String>()? {
                     #[allow(clippy::match_single_binding)]
@@ -1886,6 +2088,8 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithI32 {
             where
                 A: serde::de::MapAccess<'de>,
             {
+                #[allow(unused_imports)]
+                use serde::de::Error;
                 let mut result = Self::Value::new();
                 while let Some(key) = map.next_key::<String>()? {
                     #[allow(clippy::match_single_binding)]
@@ -2063,6 +2267,8 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithU32 {
             where
                 A: serde::de::MapAccess<'de>,
             {
+                #[allow(unused_imports)]
+                use serde::de::Error;
                 let mut result = Self::Value::new();
                 while let Some(key) = map.next_key::<String>()? {
                     #[allow(clippy::match_single_binding)]
@@ -2240,6 +2446,8 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithI64 {
             where
                 A: serde::de::MapAccess<'de>,
             {
+                #[allow(unused_imports)]
+                use serde::de::Error;
                 let mut result = Self::Value::new();
                 while let Some(key) = map.next_key::<String>()? {
                     #[allow(clippy::match_single_binding)]
@@ -2417,6 +2625,8 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithU64 {
             where
                 A: serde::de::MapAccess<'de>,
             {
+                #[allow(unused_imports)]
+                use serde::de::Error;
                 let mut result = Self::Value::new();
                 while let Some(key) = map.next_key::<String>()? {
                     #[allow(clippy::match_single_binding)]
@@ -2561,6 +2771,8 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithBytes {
             where
                 A: serde::de::MapAccess<'de>,
             {
+                #[allow(unused_imports)]
+                use serde::de::Error;
                 let mut result = Self::Value::new();
                 while let Some(key) = map.next_key::<String>()? {
                     #[allow(clippy::match_single_binding)]
@@ -2741,6 +2953,8 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithBool {
             where
                 A: serde::de::MapAccess<'de>,
             {
+                #[allow(unused_imports)]
+                use serde::de::Error;
                 let mut result = Self::Value::new();
                 while let Some(key) = map.next_key::<String>()? {
                     #[allow(clippy::match_single_binding)]
@@ -2956,6 +3170,8 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithString {
             where
                 A: serde::de::MapAccess<'de>,
             {
+                #[allow(unused_imports)]
+                use serde::de::Error;
                 let mut result = Self::Value::new();
                 while let Some(key) = map.next_key::<String>()? {
                     #[allow(clippy::match_single_binding)]
@@ -3143,6 +3359,8 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithRecursion {
             where
                 A: serde::de::MapAccess<'de>,
             {
+                #[allow(unused_imports)]
+                use serde::de::Error;
                 let mut result = Self::Value::new();
                 while let Some(key) = map.next_key::<String>()? {
                     #[allow(clippy::match_single_binding)]
@@ -3297,6 +3515,8 @@ pub mod message_with_recursion {
                 where
                     A: serde::de::MapAccess<'de>,
                 {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
                     let mut result = Self::Value::new();
                     while let Some(key) = map.next_key::<String>()? {
                         #[allow(clippy::match_single_binding)]
@@ -3409,6 +3629,8 @@ pub mod message_with_recursion {
                 where
                     A: serde::de::MapAccess<'de>,
                 {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
                     let mut result = Self::Value::new();
                     while let Some(key) = map.next_key::<String>()? {
                         #[allow(clippy::match_single_binding)]
@@ -3500,6 +3722,8 @@ pub mod message_with_recursion {
                 where
                     A: serde::de::MapAccess<'de>,
                 {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
                     let mut result = Self::Value::new();
                     while let Some(key) = map.next_key::<String>()? {
                         #[allow(clippy::match_single_binding)]
@@ -3660,6 +3884,8 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithValue {
             where
                 A: serde::de::MapAccess<'de>,
             {
+                #[allow(unused_imports)]
+                use serde::de::Error;
                 let mut result = Self::Value::new();
                 while let Some(key) = map.next_key::<String>()? {
                     #[allow(clippy::match_single_binding)]
@@ -3813,6 +4039,8 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithStruct {
             where
                 A: serde::de::MapAccess<'de>,
             {
+                #[allow(unused_imports)]
+                use serde::de::Error;
                 let mut result = Self::Value::new();
                 while let Some(key) = map.next_key::<String>()? {
                     #[allow(clippy::match_single_binding)]
@@ -3992,6 +4220,8 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithListValue {
             where
                 A: serde::de::MapAccess<'de>,
             {
+                #[allow(unused_imports)]
+                use serde::de::Error;
                 let mut result = Self::Value::new();
                 while let Some(key) = map.next_key::<String>()? {
                     #[allow(clippy::match_single_binding)]
@@ -4160,6 +4390,8 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithNullValue {
             where
                 A: serde::de::MapAccess<'de>,
             {
+                #[allow(unused_imports)]
+                use serde::de::Error;
                 let mut result = Self::Value::new();
                 while let Some(key) = map.next_key::<String>()? {
                     #[allow(clippy::match_single_binding)]
@@ -4338,6 +4570,8 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithFieldMask {
             where
                 A: serde::de::MapAccess<'de>,
             {
+                #[allow(unused_imports)]
+                use serde::de::Error;
                 let mut result = Self::Value::new();
                 while let Some(key) = map.next_key::<String>()? {
                     #[allow(clippy::match_single_binding)]

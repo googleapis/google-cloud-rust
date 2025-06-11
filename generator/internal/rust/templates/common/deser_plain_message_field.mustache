@@ -19,6 +19,16 @@ limitations under the License.
 {{^IsOneOf}}
 result.{{Codec.FieldName}} = map.next_value::<{{{Codec.FieldType}}}>()?;
 {{/IsOneOf}}
+{{#IsOneOf}}
+if result.{{Group.Codec.FieldName}}.is_some() {
+    return Err(A::Error::duplicate_field("multiple values for `{{Group.Codec.FieldName}}`, a oneof with full ID {{ID}}, latest field was {{JSONName}}"))
+}
+result.{{Group.Codec.FieldName}} = std::option::Option::Some(
+    {{Group.Codec.QualifiedName}}::{{Codec.BranchName}}(
+        map.next_value::<{{{Codec.FieldType}}}>()?
+    ),
+);
+{{/IsOneOf}}
 {{/Singular}}
 {{! repeated and map fields are never part of a oneof }}
 {{#Repeated}}
